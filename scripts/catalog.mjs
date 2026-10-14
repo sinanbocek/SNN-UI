@@ -1,0 +1,54 @@
+// Kataloğun tek kaynağı: her parçanın adı, Türkçe açıklaması ve kullanım örneği.
+// scripts/make-registry.mjs bu listeden registry.json ve AI/katalog.md üretir; ikisi elle düzenlenmez.
+
+/** Arc kaynağı: kuratlielia/arc-library. Her parça bu commit'ten alındı (KAYNAK.md). */
+export const ARC_COMMIT = "bfdf7e8";
+
+/** Kurulum adresi. components.json içindeki "@snn" kaydı bu adresi gösterir. */
+export const REGISTRY_URL = "https://raw.githubusercontent.com/sinanbocek/SNN-UI/main/public/r/{name}.json";
+
+/** Her bileşenin kurulduğu klasör: projenin components takma adı altında snn/. */
+export const INSTALL_ROOT = "@components/snn";
+
+export const foundation = [
+  {
+    name: "snn-foundation",
+    title: "SNN temel değişkenleri",
+    description: "Renk, yüzey, boşluk, köşe, gölge, hareket ve odak değişkenleri; açık ve koyu tema. Projede bir kez kurulur ve bir kez içe aktarılır. Uyarı rengi amber değil, mavi-gridir.",
+    files: [{ path: "registry/foundation/snn-foundation.css", target: "snn-foundation.css" }],
+    arcSource: "registry/foundation.css",
+  },
+  {
+    name: "snn-motion-tokens",
+    title: "SNN hareket değerleri",
+    description: "Bileşenlerin ortak hareket süreleri, eğrileri ve yayları. Bileşen kurulurken kendiliğinden gelir.",
+    files: [{ path: "registry/components/lib/motion-tokens.ts", target: "lib/motion-tokens.ts", type: "registry:lib" }],
+    arcSource: "registry/motion-tokens.ts",
+  },
+];
+
+/**
+ * İlk raf (plan §6.4). metric-card bilerek yok: Arc'ta animated-counter'ı getirir, o da Intl.NumberFormat ile
+ * varsayılan "en-US" biçimi kullanır (B sınıfı). 2. rafta ABACUS ile gelir.
+ */
+export const components = [
+  { name: "button", title: "Düğme", description: "Açık, tepki veren eylem düğmesi; ikincil durumları sakin.", deps: ["motion"], use: '<Button onClick={save}>Kaydet</Button>', exportName: "Button" },
+  { name: "button-group", title: "Düğme grubu", description: "İlgili eylemler ince ayraçlı tek yüzeyde; isteğe bağlı açılır menüyle biter.", deps: ["@radix-ui/react-dropdown-menu", "lucide-react", "motion"], use: '<ButtonGroup label="Belge işlemleri" items={[{ id: "kopyala", label: "Kopyala", onSelect: copy }]} />', exportName: "ButtonGroup" },
+  { name: "input", title: "Metin kutusu", description: "Tek satırlı alan; açık etiket ve anlamlı durumlar (hata, açıklama).", deps: ["motion"], use: '<Input label="Ad" placeholder="Adınızı yazın" />', exportName: "Input", note: "Sayı, para, tarih için kullanılmaz: o alanlar ABACUS ile 2. rafta (giris-alanlari-standardi.md)." },
+  { name: "textarea", title: "Çok satırlı metin", description: "Not, açıklama ve uzun metin alanı.", deps: ["motion"], use: '<Textarea label="Not" />', exportName: "Textarea" },
+  { name: "select", title: "Seçim kutusu", description: "Klavyeyle rahat kullanılan açılır listeden tek seçim.", deps: ["@radix-ui/react-select", "lucide-react", "motion"], use: '<Select label="Şehir" options={[{ value: "ist", label: "İstanbul" }]} />', exportName: "Select" },
+  { name: "checkbox", title: "Onay kutusu", description: "İki durumlu seçim; durumu net okunur.", deps: ["@radix-ui/react-checkbox", "motion"], use: '<Checkbox label="Koşulları okudum" />', exportName: "Checkbox" },
+  { name: "switch", title: "Anahtar", description: "Hemen etkili olan ayarlar için aç/kapa.", deps: ["@radix-ui/react-switch", "motion"], use: '<Switch label="Bildirimler" />', exportName: "Switch" },
+  { name: "radio-group", title: "Radyo grubu", description: "Görünür seçeneklerden birini seçtirir.", deps: ["motion"], use: '<RadioGroup label="Teslimat" value={delivery} onValueChange={setDelivery} options={[{ value: "kargo", label: "Kargo" }]} />', exportName: "RadioGroup" },
+  { name: "dialog", title: "Pencere", description: "Dikkat isteyen karar için odaklı pencere.", deps: ["@radix-ui/react-dialog", "lucide-react", "motion"], use: '<Dialog><DialogTrigger asChild><Button>Aç</Button></DialogTrigger><DialogContent title="Silinsin mi?">…</DialogContent></Dialog>', exportName: "Dialog, DialogTrigger, DialogContent, DialogClose" },
+  { name: "dropdown-menu", title: "Açılır menü", description: "Bir düğmeye bağlı kısa eylem listesi.", deps: ["@radix-ui/react-dropdown-menu", "lucide-react", "motion"], use: '<DropdownMenu label="İşlemler" items={[{ label: "Düzenle", onSelect: edit }, { label: "Sil", destructive: true, separatorBefore: true }]} />', exportName: "DropdownMenu" },
+  { name: "popover", title: "Açılır kutu", description: "Bir öğeye bağlı küçük bağlamsal bilgi yüzeyi.", deps: ["@radix-ui/react-popover"], use: '<Popover><PopoverTrigger asChild><Button>Bilgi</Button></PopoverTrigger><PopoverContent>…</PopoverContent></Popover>', exportName: "Popover, PopoverTrigger, PopoverContent, PopoverClose" },
+  { name: "tooltip", title: "İpucu", description: "Tanıdık olmayan denetim için kısa yardımcı metin.", deps: ["@radix-ui/react-tooltip", "motion"], use: '<Tooltip content="Dışa aktar"><Button>⇩</Button></Tooltip>', exportName: "Tooltip" },
+  { name: "tabs", title: "Sekmeler", description: "Aynı bağlamdaki ilgili içerikler arasında geçiş.", deps: ["@radix-ui/react-tabs", "lucide-react", "motion"], use: '<Tabs defaultValue="ozet"><TabsList><TabsTrigger value="ozet">Özet</TabsTrigger></TabsList><TabsContent value="ozet">…</TabsContent></Tabs>', exportName: "Tabs, TabsList, TabsTrigger, TabsContent" },
+  { name: "card", title: "Kart", description: "İlgili içerik ve eylemleri bir arada tutan kutu; isteğe bağlı hızlı bakış.", deps: ["@radix-ui/react-dialog", "lucide-react", "motion"], use: '<Card title="Teklif 12" description="Taslak" />', exportName: "Card" },
+  { name: "toast", title: "Bildirim balonu", description: "Arka planda biten işin kısa onayı.", deps: ["lucide-react", "motion"], use: '<Toast title="Kaydedildi" />', exportName: "Toast (varsayılan dışa aktarım)" },
+  { name: "empty-state", title: "Boş durum", description: "Gösterilecek bir şey yokken bir sonraki adımı söyler.", deps: ["lucide-react", "motion"], use: '<EmptyState title="Henüz teklif yok" description="İlk teklifi oluşturun." />', exportName: "EmptyState" },
+  { name: "skeleton", title: "Yükleniyor iskeleti", description: "İçerik yüklenirken yer ayırır.", deps: ["motion"], use: '<Skeleton lines={3} />', exportName: "Skeleton" },
+  { name: "pagination", title: "Sayfalama", description: "Uzun listede sınırları belli sayfa geçişi.", deps: ["lucide-react", "motion"], use: '<Pagination page={page} pageCount={12} onPageChange={setPage} />', exportName: "Pagination" },
+  { name: "search-field", title: "Arama kutusu", description: "Tanınır arama girişi; temizleme düğmesiyle.", deps: ["lucide-react", "motion"], use: '<SearchField label="Ara" value={query} onValueChange={setQuery} />', exportName: "SearchField" },
+];

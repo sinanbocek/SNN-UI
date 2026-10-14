@@ -1,0 +1,602 @@
+{
+  "$schema": "https://ui.shadcn.com/schema/registry.json",
+  "name": "snn",
+  "homepage": "https://github.com/sinanbocek/SNN-UI",
+  "items": [
+    {
+      "name": "snn-foundation",
+      "type": "registry:item",
+      "title": "SNN temel değişkenleri",
+      "description": "Renk, yüzey, boşluk, köşe, gölge, hareket ve odak değişkenleri; açık ve koyu tema. Projede bir kez kurulur ve bir kez içe aktarılır. Uyarı rengi amber değil, mavi-gridir.",
+      "files": [
+        {
+          "path": "registry/foundation/snn-foundation.css",
+          "type": "registry:component",
+          "target": "@components/snn/snn-foundation.css"
+        }
+      ]
+    },
+    {
+      "name": "snn-motion-tokens",
+      "type": "registry:item",
+      "title": "SNN hareket değerleri",
+      "description": "Bileşenlerin ortak hareket süreleri, eğrileri ve yayları. Bileşen kurulurken kendiliğinden gelir.",
+      "files": [
+        {
+          "path": "registry/components/lib/motion-tokens.ts",
+          "type": "registry:lib",
+          "target": "@components/snn/lib/motion-tokens.ts"
+        }
+      ]
+    },
+    {
+      "name": "button",
+      "type": "registry:ui",
+      "title": "Düğme",
+      "description": "Açık, tepki veren eylem düğmesi; ikincil durumları sakin.",
+      "dependencies": [
+        "motion"
+      ],
+      "registryDependencies": [
+        "@snn/snn-foundation",
+        "@snn/snn-motion-tokens"
+      ],
+      "files": [
+        {
+          "path": "registry/components/button/button.module.css",
+          "type": "registry:component",
+          "target": "@components/snn/button/button.module.css"
+        },
+        {
+          "path": "registry/components/button/button.tsx",
+          "type": "registry:component",
+          "target": "@components/snn/button/button.tsx"
+        }
+      ],
+      "meta": {
+        "arcCommit": "bfdf7e8",
+        "arcSource": "registry/components/button"
+      }
+    },
+    {
+      "name": "button-group",
+      "type": "registry:ui",
+      "title": "Düğme grubu",
+      "description": "İlgili eylemler ince ayraçlı tek yüzeyde; isteğe bağlı açılır menüyle biter.",
+      "dependencies": [
+        "@radix-ui/react-dropdown-menu",
+        "lucide-react",
+        "motion"
+      ],
+      "registryDependencies": [
+        "@snn/snn-foundation",
+        "@snn/snn-motion-tokens"
+      ],
+      "files": [
+        {
+          "path": "registry/components/button-group/button-group.module.css",
+          "type": "registry:component",
+          "target": "@components/snn/button-group/button-group.module.css"
+        },
+        {
+          "path": "registry/components/button-group/button-group.tsx",
+          "type": "registry:component",
+          "target": "@components/snn/button-group/button-group.tsx"
+        }
+      ],
+      "meta": {
+        "arcCommit": "bfdf7e8",
+        "arcSource": "registry/components/button-group"
+      }
+    },
+    {
+      "name": "input",
+      "type": "registry:ui",
+      "title": "Metin kutusu",
+      "description": "Tek satırlı alan; açık etiket ve anlamlı durumlar (hata, açıklama).",
+      "dependencies": [
+        "motion"
+      ],
+      "registryDependencies": [
+        "@snn/snn-foundation",
+        "@snn/snn-motion-tokens"
+      ],
+      "files": [
+        {
+          "path": "registry/components/input/input.module.css",
+          "type": "registry:component",
+          "target": "@components/snn/input/input.module.css"
+        },
+        {
+          "path": "registry/components/input/input.tsx",
+          "type": "registry:component",
+          "target": "@components/snn/input/input.tsx"
+        }
+      ],
+      "meta": {
+        "arcCommit": "bfdf7e8",
+        "arcSource": "registry/components/input"
+      }
+    },
+    {
+      "name": "textarea",
+      "type": "registry:ui",
+      "title": "Çok satırlı metin",
+      "description": "Not, açıklama ve uzun metin alanı.",
+      "dependencies": [
+        "motion"
+      ],
+      "registryDependencies": [
+        "@snn/snn-foundation",
+        "@snn/snn-motion-tokens"
+      ],
+      "files": [
+        {
+          "path": "registry/components/textarea/textarea.module.css",
+          "type": "registry:component",
+          "target": "@components/snn/textarea/textarea.module.css"
+        },
+        {
+          "path": "registry/components/textarea/textarea.tsx",
+          "type": "registry:component",
+          "target": "@components/snn/textarea/textarea.tsx"
+        }
+      ],
+      "meta": {
+        "arcCommit": "bfdf7e8",
+        "arcSource": "registry/components/textarea"
+      }
+    },
+    {
+      "name": "select",
+      "type": "registry:ui",
+      "title": "Seçim kutusu",
+      "description": "Klavyeyle rahat kullanılan açılır listeden tek seçim.",
+      "dependencies": [
+        "@radix-ui/react-select",
+        "lucide-react",
+        "motion"
+      ],
+      "registryDependencies": [
+        "@snn/snn-foundation",
+        "@snn/snn-motion-tokens"
+      ],
+      "files": [
+        {
+          "path": "registry/components/select/select.module.css",
+          "type": "registry:component",
+          "target": "@components/snn/select/select.module.css"
+        },
+        {
+          "path": "registry/components/select/select.tsx",
+          "type": "registry:component",
+          "target": "@components/snn/select/select.tsx"
+        }
+      ],
+      "meta": {
+        "arcCommit": "bfdf7e8",
+        "arcSource": "registry/components/select"
+      }
+    },
+    {
+      "name": "checkbox",
+      "type": "registry:ui",
+      "title": "Onay kutusu",
+      "description": "İki durumlu seçim; durumu net okunur.",
+      "dependencies": [
+        "@radix-ui/react-checkbox",
+        "motion"
+      ],
+      "registryDependencies": [
+        "@snn/snn-foundation",
+        "@snn/snn-motion-tokens"
+      ],
+      "files": [
+        {
+          "path": "registry/components/checkbox/checkbox.module.css",
+          "type": "registry:component",
+          "target": "@components/snn/checkbox/checkbox.module.css"
+        },
+        {
+          "path": "registry/components/checkbox/checkbox.tsx",
+          "type": "registry:component",
+          "target": "@components/snn/checkbox/checkbox.tsx"
+        }
+      ],
+      "meta": {
+        "arcCommit": "bfdf7e8",
+        "arcSource": "registry/components/checkbox"
+      }
+    },
+    {
+      "name": "switch",
+      "type": "registry:ui",
+      "title": "Anahtar",
+      "description": "Hemen etkili olan ayarlar için aç/kapa.",
+      "dependencies": [
+        "@radix-ui/react-switch",
+        "motion"
+      ],
+      "registryDependencies": [
+        "@snn/snn-foundation",
+        "@snn/snn-motion-tokens"
+      ],
+      "files": [
+        {
+          "path": "registry/components/switch/switch.module.css",
+          "type": "registry:component",
+          "target": "@components/snn/switch/switch.module.css"
+        },
+        {
+          "path": "registry/components/switch/switch.tsx",
+          "type": "registry:component",
+          "target": "@components/snn/switch/switch.tsx"
+        }
+      ],
+      "meta": {
+        "arcCommit": "bfdf7e8",
+        "arcSource": "registry/components/switch"
+      }
+    },
+    {
+      "name": "radio-group",
+      "type": "registry:ui",
+      "title": "Radyo grubu",
+      "description": "Görünür seçeneklerden birini seçtirir.",
+      "dependencies": [
+        "motion"
+      ],
+      "registryDependencies": [
+        "@snn/snn-foundation",
+        "@snn/snn-motion-tokens"
+      ],
+      "files": [
+        {
+          "path": "registry/components/radio-group/radio-group.module.css",
+          "type": "registry:component",
+          "target": "@components/snn/radio-group/radio-group.module.css"
+        },
+        {
+          "path": "registry/components/radio-group/radio-group.tsx",
+          "type": "registry:component",
+          "target": "@components/snn/radio-group/radio-group.tsx"
+        }
+      ],
+      "meta": {
+        "arcCommit": "bfdf7e8",
+        "arcSource": "registry/components/radio-group"
+      }
+    },
+    {
+      "name": "dialog",
+      "type": "registry:ui",
+      "title": "Pencere",
+      "description": "Dikkat isteyen karar için odaklı pencere.",
+      "dependencies": [
+        "@radix-ui/react-dialog",
+        "lucide-react",
+        "motion"
+      ],
+      "registryDependencies": [
+        "@snn/snn-foundation",
+        "@snn/snn-motion-tokens"
+      ],
+      "files": [
+        {
+          "path": "registry/components/dialog/dialog.module.css",
+          "type": "registry:component",
+          "target": "@components/snn/dialog/dialog.module.css"
+        },
+        {
+          "path": "registry/components/dialog/dialog.tsx",
+          "type": "registry:component",
+          "target": "@components/snn/dialog/dialog.tsx"
+        }
+      ],
+      "meta": {
+        "arcCommit": "bfdf7e8",
+        "arcSource": "registry/components/dialog"
+      }
+    },
+    {
+      "name": "dropdown-menu",
+      "type": "registry:ui",
+      "title": "Açılır menü",
+      "description": "Bir düğmeye bağlı kısa eylem listesi.",
+      "dependencies": [
+        "@radix-ui/react-dropdown-menu",
+        "lucide-react",
+        "motion"
+      ],
+      "registryDependencies": [
+        "@snn/snn-foundation",
+        "@snn/snn-motion-tokens"
+      ],
+      "files": [
+        {
+          "path": "registry/components/dropdown-menu/dropdown-menu.module.css",
+          "type": "registry:component",
+          "target": "@components/snn/dropdown-menu/dropdown-menu.module.css"
+        },
+        {
+          "path": "registry/components/dropdown-menu/dropdown-menu.tsx",
+          "type": "registry:component",
+          "target": "@components/snn/dropdown-menu/dropdown-menu.tsx"
+        }
+      ],
+      "meta": {
+        "arcCommit": "bfdf7e8",
+        "arcSource": "registry/components/dropdown-menu"
+      }
+    },
+    {
+      "name": "popover",
+      "type": "registry:ui",
+      "title": "Açılır kutu",
+      "description": "Bir öğeye bağlı küçük bağlamsal bilgi yüzeyi.",
+      "dependencies": [
+        "@radix-ui/react-popover"
+      ],
+      "registryDependencies": [
+        "@snn/snn-foundation"
+      ],
+      "files": [
+        {
+          "path": "registry/components/popover/popover.module.css",
+          "type": "registry:component",
+          "target": "@components/snn/popover/popover.module.css"
+        },
+        {
+          "path": "registry/components/popover/popover.tsx",
+          "type": "registry:component",
+          "target": "@components/snn/popover/popover.tsx"
+        }
+      ],
+      "meta": {
+        "arcCommit": "bfdf7e8",
+        "arcSource": "registry/components/popover"
+      }
+    },
+    {
+      "name": "tooltip",
+      "type": "registry:ui",
+      "title": "İpucu",
+      "description": "Tanıdık olmayan denetim için kısa yardımcı metin.",
+      "dependencies": [
+        "@radix-ui/react-tooltip",
+        "motion"
+      ],
+      "registryDependencies": [
+        "@snn/snn-foundation",
+        "@snn/snn-motion-tokens"
+      ],
+      "files": [
+        {
+          "path": "registry/components/tooltip/tooltip.module.css",
+          "type": "registry:component",
+          "target": "@components/snn/tooltip/tooltip.module.css"
+        },
+        {
+          "path": "registry/components/tooltip/tooltip.tsx",
+          "type": "registry:component",
+          "target": "@components/snn/tooltip/tooltip.tsx"
+        }
+      ],
+      "meta": {
+        "arcCommit": "bfdf7e8",
+        "arcSource": "registry/components/tooltip"
+      }
+    },
+    {
+      "name": "tabs",
+      "type": "registry:ui",
+      "title": "Sekmeler",
+      "description": "Aynı bağlamdaki ilgili içerikler arasında geçiş.",
+      "dependencies": [
+        "@radix-ui/react-tabs",
+        "lucide-react",
+        "motion"
+      ],
+      "registryDependencies": [
+        "@snn/snn-foundation",
+        "@snn/snn-motion-tokens"
+      ],
+      "files": [
+        {
+          "path": "registry/components/tabs/tabs.module.css",
+          "type": "registry:component",
+          "target": "@components/snn/tabs/tabs.module.css"
+        },
+        {
+          "path": "registry/components/tabs/tabs.tsx",
+          "type": "registry:component",
+          "target": "@components/snn/tabs/tabs.tsx"
+        }
+      ],
+      "meta": {
+        "arcCommit": "bfdf7e8",
+        "arcSource": "registry/components/tabs"
+      }
+    },
+    {
+      "name": "card",
+      "type": "registry:ui",
+      "title": "Kart",
+      "description": "İlgili içerik ve eylemleri bir arada tutan kutu; isteğe bağlı hızlı bakış.",
+      "dependencies": [
+        "@radix-ui/react-dialog",
+        "lucide-react",
+        "motion"
+      ],
+      "registryDependencies": [
+        "@snn/snn-foundation",
+        "@snn/snn-motion-tokens"
+      ],
+      "files": [
+        {
+          "path": "registry/components/card/card.module.css",
+          "type": "registry:component",
+          "target": "@components/snn/card/card.module.css"
+        },
+        {
+          "path": "registry/components/card/card.tsx",
+          "type": "registry:component",
+          "target": "@components/snn/card/card.tsx"
+        }
+      ],
+      "meta": {
+        "arcCommit": "bfdf7e8",
+        "arcSource": "registry/components/card"
+      }
+    },
+    {
+      "name": "toast",
+      "type": "registry:ui",
+      "title": "Bildirim balonu",
+      "description": "Arka planda biten işin kısa onayı.",
+      "dependencies": [
+        "lucide-react",
+        "motion"
+      ],
+      "registryDependencies": [
+        "@snn/snn-foundation",
+        "@snn/snn-motion-tokens"
+      ],
+      "files": [
+        {
+          "path": "registry/components/toast/toast.module.css",
+          "type": "registry:component",
+          "target": "@components/snn/toast/toast.module.css"
+        },
+        {
+          "path": "registry/components/toast/toast.tsx",
+          "type": "registry:component",
+          "target": "@components/snn/toast/toast.tsx"
+        }
+      ],
+      "meta": {
+        "arcCommit": "bfdf7e8",
+        "arcSource": "registry/components/toast"
+      }
+    },
+    {
+      "name": "empty-state",
+      "type": "registry:ui",
+      "title": "Boş durum",
+      "description": "Gösterilecek bir şey yokken bir sonraki adımı söyler.",
+      "dependencies": [
+        "lucide-react",
+        "motion"
+      ],
+      "registryDependencies": [
+        "@snn/snn-foundation",
+        "@snn/snn-motion-tokens"
+      ],
+      "files": [
+        {
+          "path": "registry/components/empty-state/empty-state.module.css",
+          "type": "registry:component",
+          "target": "@components/snn/empty-state/empty-state.module.css"
+        },
+        {
+          "path": "registry/components/empty-state/empty-state.tsx",
+          "type": "registry:component",
+          "target": "@components/snn/empty-state/empty-state.tsx"
+        }
+      ],
+      "meta": {
+        "arcCommit": "bfdf7e8",
+        "arcSource": "registry/components/empty-state"
+      }
+    },
+    {
+      "name": "skeleton",
+      "type": "registry:ui",
+      "title": "Yükleniyor iskeleti",
+      "description": "İçerik yüklenirken yer ayırır.",
+      "dependencies": [
+        "motion"
+      ],
+      "registryDependencies": [
+        "@snn/snn-foundation",
+        "@snn/snn-motion-tokens"
+      ],
+      "files": [
+        {
+          "path": "registry/components/skeleton/skeleton.module.css",
+          "type": "registry:component",
+          "target": "@components/snn/skeleton/skeleton.module.css"
+        },
+        {
+          "path": "registry/components/skeleton/skeleton.tsx",
+          "type": "registry:component",
+          "target": "@components/snn/skeleton/skeleton.tsx"
+        }
+      ],
+      "meta": {
+        "arcCommit": "bfdf7e8",
+        "arcSource": "registry/components/skeleton"
+      }
+    },
+    {
+      "name": "pagination",
+      "type": "registry:ui",
+      "title": "Sayfalama",
+      "description": "Uzun listede sınırları belli sayfa geçişi.",
+      "dependencies": [
+        "lucide-react",
+        "motion"
+      ],
+      "registryDependencies": [
+        "@snn/snn-foundation",
+        "@snn/snn-motion-tokens"
+      ],
+      "files": [
+        {
+          "path": "registry/components/pagination/pagination.module.css",
+          "type": "registry:component",
+          "target": "@components/snn/pagination/pagination.module.css"
+        },
+        {
+          "path": "registry/components/pagination/pagination.tsx",
+          "type": "registry:component",
+          "target": "@components/snn/pagination/pagination.tsx"
+        }
+      ],
+      "meta": {
+        "arcCommit": "bfdf7e8",
+        "arcSource": "registry/components/pagination"
+      }
+    },
+    {
+      "name": "search-field",
+      "type": "registry:ui",
+      "title": "Arama kutusu",
+      "description": "Tanınır arama girişi; temizleme düğmesiyle.",
+      "dependencies": [
+        "lucide-react",
+        "motion"
+      ],
+      "registryDependencies": [
+        "@snn/snn-foundation",
+        "@snn/snn-motion-tokens"
+      ],
+      "files": [
+        {
+          "path": "registry/components/search-field/search-field.module.css",
+          "type": "registry:component",
+          "target": "@components/snn/search-field/search-field.module.css"
+        },
+        {
+          "path": "registry/components/search-field/search-field.tsx",
+          "type": "registry:component",
+          "target": "@components/snn/search-field/search-field.tsx"
+        }
+      ],
+      "meta": {
+        "arcCommit": "bfdf7e8",
+        "arcSource": "registry/components/search-field"
+      }
+    }
+  ]
+}

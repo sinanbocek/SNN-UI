@@ -1,0 +1,10 @@
+SNN-UI
+
+Bu depodaki bileşenler ve snn-foundation.css, Arc'tan uyarlanmıştır.
+Arc: https://github.com/kuratlielia/arc-library (https://uiarc.dev)
+Telif: Copyright (c) 2026 Elia Kuratli. Lisans: MIT (LICENSE dosyası).
+Alınan sürüm: commit bfdf7e8 (2026-10-14).
+
+Yapılan uyarlamalar (ekran metni Türkçe, yorumlar Türkçe, amber renkler kaldırıldı)
+her parça için KAYNAK.md dosyasında yazılıdır.
+Arc'ın ücretli ("Pro") parçalarından hiçbiri bu depoda yoktur.
