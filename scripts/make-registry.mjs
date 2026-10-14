@@ -6,7 +6,7 @@ import { fileURLToPath } from "node:url";
 import { ARC_COMMIT, INSTALL_ROOT, REGISTRY_URL, components, foundation } from "./catalog.mjs";
 
 const root = path.join(path.dirname(fileURLToPath(import.meta.url)), "..");
-const NAMESPACE = "@snn";
+const NAMESPACE = "@snn-ui";
 
 function componentFiles(name) {
   const dir = path.join(root, "registry", "components", name);

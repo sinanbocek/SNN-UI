@@ -7,7 +7,7 @@
     "@radix-ui/react-popover"
   ],
   "registryDependencies": [
-    "@snn/snn-foundation"
+    "@snn-ui/snn-foundation"
   ],
   "files": [
     {
