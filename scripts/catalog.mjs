@@ -4,7 +4,7 @@
 /** Arc kaynağı: kuratlielia/arc-library. Her parça bu commit'ten alındı (KAYNAK.md). */
 export const ARC_COMMIT = "bfdf7e8";
 
-/** Kurulum adresi. components.json içindeki "@snn" kaydı bu adresi gösterir. */
+/** Kurulum adresi. components.json içindeki "@snn-ui" kaydı bu adresi gösterir. */
 export const REGISTRY_URL = "https://raw.githubusercontent.com/sinanbocek/SNN-UI/main/public/r/{name}.json";
 
 /** Her bileşenin kurulduğu klasör: projenin components takma adı altında snn/. */

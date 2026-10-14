@@ -18,13 +18,13 @@ Yoksa Arc'a (uiarc.dev) bak; ikisinde de yoksa yaz ve kataloğa aday olarak bild
 1. `components.json` dosyasına kayıt ekle:
 
 ```json
-{ "registries": { "@snn": "https://raw.githubusercontent.com/sinanbocek/SNN-UI/main/public/r/{name}.json" } }
+{ "registries": { "@snn-ui": "https://raw.githubusercontent.com/sinanbocek/SNN-UI/main/public/r/{name}.json" } }
 ```
 
 2. Bileşeni kur (temel değişkenler ve hareket değerleri kendiliğinden gelir):
 
 ```bash
-npx shadcn@latest add @snn/button
+npx shadcn@latest add @snn-ui/button
 ```
 
 3. Temel değişkenleri uygulamanın girişinde **bir kez** içe aktar (`src/main.tsx`):
@@ -41,25 +41,25 @@ Gereken paketler: React 19, `motion`; bazı bileşenlerde Radix ve `lucide-react
 
 | Ad | Türkçe adı | Ne işe yarar | Kurulum |
 |---|---|---|---|
-| `button` | Düğme | Açık, tepki veren eylem düğmesi; ikincil durumları sakin. | `npx shadcn@latest add @snn/button` |
-| `button-group` | Düğme grubu | İlgili eylemler ince ayraçlı tek yüzeyde; isteğe bağlı açılır menüyle biter. | `npx shadcn@latest add @snn/button-group` |
-| `input` | Metin kutusu | Tek satırlı alan; açık etiket ve anlamlı durumlar (hata, açıklama). Sayı, para, tarih için kullanılmaz: o alanlar ABACUS ile 2. rafta (giris-alanlari-standardi.md). | `npx shadcn@latest add @snn/input` |
-| `textarea` | Çok satırlı metin | Not, açıklama ve uzun metin alanı. | `npx shadcn@latest add @snn/textarea` |
-| `select` | Seçim kutusu | Klavyeyle rahat kullanılan açılır listeden tek seçim. | `npx shadcn@latest add @snn/select` |
-| `checkbox` | Onay kutusu | İki durumlu seçim; durumu net okunur. | `npx shadcn@latest add @snn/checkbox` |
-| `switch` | Anahtar | Hemen etkili olan ayarlar için aç/kapa. | `npx shadcn@latest add @snn/switch` |
-| `radio-group` | Radyo grubu | Görünür seçeneklerden birini seçtirir. | `npx shadcn@latest add @snn/radio-group` |
-| `dialog` | Pencere | Dikkat isteyen karar için odaklı pencere. | `npx shadcn@latest add @snn/dialog` |
-| `dropdown-menu` | Açılır menü | Bir düğmeye bağlı kısa eylem listesi. | `npx shadcn@latest add @snn/dropdown-menu` |
-| `popover` | Açılır kutu | Bir öğeye bağlı küçük bağlamsal bilgi yüzeyi. | `npx shadcn@latest add @snn/popover` |
-| `tooltip` | İpucu | Tanıdık olmayan denetim için kısa yardımcı metin. | `npx shadcn@latest add @snn/tooltip` |
-| `tabs` | Sekmeler | Aynı bağlamdaki ilgili içerikler arasında geçiş. | `npx shadcn@latest add @snn/tabs` |
-| `card` | Kart | İlgili içerik ve eylemleri bir arada tutan kutu; isteğe bağlı hızlı bakış. | `npx shadcn@latest add @snn/card` |
-| `toast` | Bildirim balonu | Arka planda biten işin kısa onayı. | `npx shadcn@latest add @snn/toast` |
-| `empty-state` | Boş durum | Gösterilecek bir şey yokken bir sonraki adımı söyler. | `npx shadcn@latest add @snn/empty-state` |
-| `skeleton` | Yükleniyor iskeleti | İçerik yüklenirken yer ayırır. | `npx shadcn@latest add @snn/skeleton` |
-| `pagination` | Sayfalama | Uzun listede sınırları belli sayfa geçişi. | `npx shadcn@latest add @snn/pagination` |
-| `search-field` | Arama kutusu | Tanınır arama girişi; temizleme düğmesiyle. | `npx shadcn@latest add @snn/search-field` |
+| `button` | Düğme | Açık, tepki veren eylem düğmesi; ikincil durumları sakin. | `npx shadcn@latest add @snn-ui/button` |
+| `button-group` | Düğme grubu | İlgili eylemler ince ayraçlı tek yüzeyde; isteğe bağlı açılır menüyle biter. | `npx shadcn@latest add @snn-ui/button-group` |
+| `input` | Metin kutusu | Tek satırlı alan; açık etiket ve anlamlı durumlar (hata, açıklama). Sayı, para, tarih için kullanılmaz: o alanlar ABACUS ile 2. rafta (giris-alanlari-standardi.md). | `npx shadcn@latest add @snn-ui/input` |
+| `textarea` | Çok satırlı metin | Not, açıklama ve uzun metin alanı. | `npx shadcn@latest add @snn-ui/textarea` |
+| `select` | Seçim kutusu | Klavyeyle rahat kullanılan açılır listeden tek seçim. | `npx shadcn@latest add @snn-ui/select` |
+| `checkbox` | Onay kutusu | İki durumlu seçim; durumu net okunur. | `npx shadcn@latest add @snn-ui/checkbox` |
+| `switch` | Anahtar | Hemen etkili olan ayarlar için aç/kapa. | `npx shadcn@latest add @snn-ui/switch` |
+| `radio-group` | Radyo grubu | Görünür seçeneklerden birini seçtirir. | `npx shadcn@latest add @snn-ui/radio-group` |
+| `dialog` | Pencere | Dikkat isteyen karar için odaklı pencere. | `npx shadcn@latest add @snn-ui/dialog` |
+| `dropdown-menu` | Açılır menü | Bir düğmeye bağlı kısa eylem listesi. | `npx shadcn@latest add @snn-ui/dropdown-menu` |
+| `popover` | Açılır kutu | Bir öğeye bağlı küçük bağlamsal bilgi yüzeyi. | `npx shadcn@latest add @snn-ui/popover` |
+| `tooltip` | İpucu | Tanıdık olmayan denetim için kısa yardımcı metin. | `npx shadcn@latest add @snn-ui/tooltip` |
+| `tabs` | Sekmeler | Aynı bağlamdaki ilgili içerikler arasında geçiş. | `npx shadcn@latest add @snn-ui/tabs` |
+| `card` | Kart | İlgili içerik ve eylemleri bir arada tutan kutu; isteğe bağlı hızlı bakış. | `npx shadcn@latest add @snn-ui/card` |
+| `toast` | Bildirim balonu | Arka planda biten işin kısa onayı. | `npx shadcn@latest add @snn-ui/toast` |
+| `empty-state` | Boş durum | Gösterilecek bir şey yokken bir sonraki adımı söyler. | `npx shadcn@latest add @snn-ui/empty-state` |
+| `skeleton` | Yükleniyor iskeleti | İçerik yüklenirken yer ayırır. | `npx shadcn@latest add @snn-ui/skeleton` |
+| `pagination` | Sayfalama | Uzun listede sınırları belli sayfa geçişi. | `npx shadcn@latest add @snn-ui/pagination` |
+| `search-field` | Arama kutusu | Tanınır arama girişi; temizleme düğmesiyle. | `npx shadcn@latest add @snn-ui/search-field` |
 
 ## Kullanım örnekleri
 

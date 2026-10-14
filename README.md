@@ -5,6 +5,7 @@ Bileşenler shadcn ile projeye **kopyalanır**: kurulan kod projenindir, katalog
 
 - **AI için liste:** [`AI/katalog.md`](AI/katalog.md) — hangi bileşen var, ne işe yarar, nasıl kurulur.
 - **Kaynak ve uyarlamalar:** [`KAYNAK.md`](KAYNAK.md)
+- **Ajan rehberi:** [`CLAUDE.md`](CLAUDE.md)
 - **Kural:** `SNN-Standartlar/standartlar/arayuz-standardi.md`; plan: `SNN-Standartlar/docs/arayuz-standardi-plani.md`
 
 ## Projeye kurulum
@@ -12,13 +13,13 @@ Bileşenler shadcn ile projeye **kopyalanır**: kurulan kod projenindir, katalog
 `components.json` içine:
 
 ```json
-{ "registries": { "@snn": "https://raw.githubusercontent.com/sinanbocek/SNN-UI/main/public/r/{name}.json" } }
+{ "registries": { "@snn-ui": "https://raw.githubusercontent.com/sinanbocek/SNN-UI/main/public/r/{name}.json" } }
 ```
 
 Sonra:
 
 ```bash
-npx shadcn@latest add @snn/button
+npx shadcn@latest add @snn-ui/button
 ```
 
 Uygulama girişinde bir kez: `import "@/components/snn/snn-foundation.css";`
