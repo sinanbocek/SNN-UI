@@ -10,7 +10,7 @@
   },
   "scripts": {
     "build": "node scripts/make-registry.mjs && shadcn build",
-    "test": "node --test test/",
+    "test": "node --test test/amber.test.mjs",
     "sabotage": "node scripts/sabotage-amber.mjs"
   },
   "devDependencies": {
