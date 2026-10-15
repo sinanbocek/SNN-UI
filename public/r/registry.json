@@ -2654,6 +2654,49 @@
         "arcCommit": "bfdf7e8",
         "arcSource": "registry/components/market-terminal"
       }
+    },
+    {
+      "name": "journey-flow",
+      "type": "registry:ui",
+      "title": "Yolculuk akışı",
+      "description": "Blok: kullanıcıların bir sürecin aşamaları boyunca (ziyaret, hesap, kurulum, ilk hafta, plan) nereye gittiğini akış şemasıyla gösterir; her aşamada devam edenler kaynağın renginde, düşenler gri ayrı kollar olarak görünür. Başlıkta dönen rakamlı toplam (\"16.965\") ve alt cümle, kanal seçici (\"Tüm kullanıcılar\", kanallar) vardır; kanal değişince şeritler yeni değere akar ve \"16.965 ziyaret, 1.018 ücretli plan\" duyurulur. Adıma ya da şeride gelince o grup baştan sona vurgulanır; adıma basınca (Enter) yan panel adımın sayısını, ilk aşamadaki payını, nereden geldiğini ve nereye gittiğini yazar, Esc seçimi kaldırır; panelde \"En büyük düşüşler\" listesi durur. \"Akış tablosu\" anahtarı aynı sayıları tablo olarak açar. Yükleniyor, hata ve kanal verisi yok durumları ile dar kap düzeni vardır.",
+      "dependencies": [
+        "@snn/abacus-core@github:sinanbocek/SNN-Abacus-Core#semver:^4.3.0",
+        "motion"
+      ],
+      "registryDependencies": [
+        "@snn-ui/snn-foundation",
+        "@snn-ui/snn-motion-tokens",
+        "@snn-ui/animated-counter",
+        "@snn-ui/button",
+        "@snn-ui/sankey-flow",
+        "@snn-ui/segmented-control",
+        "@snn-ui/skeleton",
+        "@snn-ui/snn-chart-format",
+        "@snn-ui/snn-viz-utils",
+        "@snn-ui/switch"
+      ],
+      "files": [
+        {
+          "path": "registry/components/journey-flow/journey-flow-format.ts",
+          "type": "registry:component",
+          "target": "@components/snn/journey-flow/journey-flow-format.ts"
+        },
+        {
+          "path": "registry/components/journey-flow/journey-flow.module.css",
+          "type": "registry:component",
+          "target": "@components/snn/journey-flow/journey-flow.module.css"
+        },
+        {
+          "path": "registry/components/journey-flow/journey-flow.tsx",
+          "type": "registry:component",
+          "target": "@components/snn/journey-flow/journey-flow.tsx"
+        }
+      ],
+      "meta": {
+        "arcCommit": "bfdf7e8",
+        "arcSource": "registry/components/journey-flow"
+      }
     }
   ]
 }

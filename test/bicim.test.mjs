@@ -31,6 +31,7 @@ const FILES = {
   multiples: "registry/components/small-multiples/small-multiples-format.ts",
   replay: "registry/components/line-replay/line-replay-format.ts",
   market: "registry/components/market-terminal/market-terminal-format.ts",
+  journey: "registry/components/journey-flow/journey-flow-format.ts",
 };
 const mods = {};
 let temp;
@@ -321,4 +322,22 @@ test("işlem ekranı: fiyat, değişim, hacim ve adet ABACUS çıktısıdır; or
   assert.deepEqual(mods.market.clampView({ from: 99, count: 3 }, 4), { from: 0, count: 4 });
   assert.deepEqual(mods.market.priceTicks({ low: 0, high: 10 }, 5), [0, 2, 4, 6, 8, 10]);
   assert.equal(mods.market.orderTime(Date.UTC(2026, 9, 18, 11, 3, 27)), "14:03:27");
+});
+
+test("yolculuk akışı: toplam, pay ve düşüş yazımı ABACUS çıktısıdır; panel hesabı doğru", () => {
+  const data = { stages: ["A", "B"], nodes: [{ id: "a", label: "A" }, { id: "b", label: "B" }, { id: "d", label: "Ayrıldı", muted: true }], links: [{ source: "a", target: "b", value: 250 }, { source: "a", target: "d", value: 750 }] };
+  const facts = mods.journey.journeyFacts(data);
+  assert.equal(facts.total, 1000);
+  assert.equal(facts.finalTotal, 250);
+  assert.equal(mods.journey.countText(16965), money.fmtDecimalGrouped(16965, 0));
+  assert.equal(mods.journey.countText(16965), "16.965");
+  assert.equal(mods.journey.shareText(250, 1000), money.percent(25, 1));
+  const summary = mods.journey.nodeSummary(data, facts, "b");
+  assert.equal(summary.value, 250);
+  assert.equal(summary.shareOfTotal, "%25");
+  assert.deepEqual(summary.incoming.map(row => row.id), ["a"]);
+  const from = mods.journey.nodeSummary(data, facts, "a");
+  assert.deepEqual(from.outgoing.map(row => [row.id, row.drop]), [["d", true], ["b", false]]);
+  assert.deepEqual(mods.journey.topDrops(data, facts).map(row => [row.from, row.value, row.share]), [["A", 750, "%75"]]);
+  assert.equal(mods.journey.channelAnnouncement(facts, "ziyaret", "ücretli plan"), "1.000 ziyaret, 250 ücretli plan");
 });

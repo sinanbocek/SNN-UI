@@ -2,7 +2,8 @@
 // Sayılar ABACUS'tandır (chart-format): adet "1.234", tutar "₺1.250.000", kısa tutar "₺1,25Mn", pay "%41,6".
 import { formatMoney, formatMoneyCompact, formatNumber, formatRatio } from "../lib/chart-format";
 
-export interface SankeyNodeInput { id: string; label: string }
+/** `muted`: düşen kol gibi ikincil düğüm; nötr gri çizilir ve ona giren şeritler de gri olur. */
+export interface SankeyNodeInput { id: string; label: string; muted?: boolean }
 export interface SankeyLinkInput { source: string; target: string; value: number }
 export type SankeyKind = "count" | "money";
 
@@ -14,6 +15,7 @@ export interface LaidNode {
   start: number; size: number;
   /** Renk sırası: ilk sütunda kendi sırası, sonrakilerde en büyük gelen akışın kaynağınınki. */
   tone: number;
+  muted: boolean;
 }
 export interface LaidLink {
   id: string; source: string; target: string; value: number;
@@ -88,7 +90,7 @@ export function layoutSankey(nodes: SankeyNodeInput[], rawLinks: SankeyLinkInput
     const used2 = sizes.reduce((sum, size) => sum + size, 0) + gap * (list.length - 1);
     let cursor = Math.max(0, (breadth - used2) / 2);
     list.forEach((node, order) => {
-      laid.set(node.id, { id: node.id, label: node.label, column: at, order, value: valueOf(node.id), start: cursor, size: sizes[order]!, tone: 0 });
+      laid.set(node.id, { id: node.id, label: node.label, column: at, order, value: valueOf(node.id), start: cursor, size: sizes[order]!, tone: 0, muted: !!node.muted });
       cursor += sizes[order]! + gap;
     });
   });
