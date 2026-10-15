@@ -8,6 +8,7 @@ import { RealtimeStreamDemo } from "./realtime-stream";
 import { MetricsDashboardDemo } from "./metrics-dashboard";
 import { KpiDrilldownDemo } from "./kpi-drilldown";
 import { MetricExplorerDemo } from "./metric-explorer";
+import { RevenueExplorerDemo } from "./revenue-explorer";
 
 export const dalga2Demos: Record<string, () => ReactNode> = {
   "split-bar": () => <SplitBarDemo />,
@@ -18,4 +19,5 @@ export const dalga2Demos: Record<string, () => ReactNode> = {
   "metrics-dashboard": () => <MetricsDashboardDemo />,
   "kpi-drilldown": () => <KpiDrilldownDemo />,
   "metric-explorer": () => <MetricExplorerDemo />,
+  "revenue-explorer": () => <RevenueExplorerDemo />,
 };

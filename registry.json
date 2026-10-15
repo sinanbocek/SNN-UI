@@ -2324,6 +2324,48 @@
         "arcCommit": "bfdf7e8",
         "arcSource": "registry/components/metric-explorer"
       }
+    },
+    {
+      "name": "revenue-explorer",
+      "type": "registry:ui",
+      "title": "Gelir gezgini",
+      "description": "Blok: aylık yinelenen gelirin üç hareketini (yeni, genişleme, kayıp) aylara göre çizgilerle gösterir; kayıp sıfırın altında durur. Altındaki fırça şeridinde pencere sürüklenir, kenar tutamaçlarından büyütülüp küçültülür (aylık adımlarla; klavyeyle de) ya da \"3A / 6A / 12A / Tümü\" düğmeleriyle seçilir; çizgiler ve özet rakamları yeni döneme akar. Özet üçlüsü: ana gelir ve büyüme, aylık net yeni gelir, aylık kayıp oranı (puan farkı). Seri düğmeleri seriyi çıkarıp getirir; \"Önceki dönemle karşılaştır\" bir önceki aynı uzunlukta dönemi ekler. Yükleniyor, hata ve dar kap durumları ile ekran okuyucu tablosu vardır.",
+      "dependencies": [
+        "@snn/abacus-core@github:sinanbocek/SNN-Abacus-Core#semver:^4.3.0",
+        "motion"
+      ],
+      "registryDependencies": [
+        "@snn-ui/snn-foundation",
+        "@snn-ui/snn-motion-tokens",
+        "@snn-ui/animated-counter",
+        "@snn-ui/button",
+        "@snn-ui/line-chart",
+        "@snn-ui/skeleton",
+        "@snn-ui/snn-chart-format",
+        "@snn-ui/snn-viz-utils",
+        "@snn-ui/switch"
+      ],
+      "files": [
+        {
+          "path": "registry/components/revenue-explorer/revenue-explorer-format.ts",
+          "type": "registry:component",
+          "target": "@components/snn/revenue-explorer/revenue-explorer-format.ts"
+        },
+        {
+          "path": "registry/components/revenue-explorer/revenue-explorer.module.css",
+          "type": "registry:component",
+          "target": "@components/snn/revenue-explorer/revenue-explorer.module.css"
+        },
+        {
+          "path": "registry/components/revenue-explorer/revenue-explorer.tsx",
+          "type": "registry:component",
+          "target": "@components/snn/revenue-explorer/revenue-explorer.tsx"
+        }
+      ],
+      "meta": {
+        "arcCommit": "bfdf7e8",
+        "arcSource": "registry/components/revenue-explorer"
+      }
     }
   ]
 }

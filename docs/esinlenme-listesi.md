@@ -39,7 +39,7 @@ Kural: `SNN-Standartlar/standartlar/arayuz-standardi.md` §2.1. Fikir serbest, k
 | metrics-dashboard | https://uiarc.dev/components/blocks/metrics-dashboard | 2 | yazıldı |
 | kpi-drilldown | https://uiarc.dev/components/blocks/kpi-drilldown | 2 | yazıldı |
 | metric-explorer | https://uiarc.dev/components/blocks/metric-explorer | 2 | yazıldı |
-| revenue-explorer | https://uiarc.dev/components/blocks/revenue-explorer | 2 | tarif yazıldı |
+| revenue-explorer | https://uiarc.dev/components/blocks/revenue-explorer | 2 | yazıldı |
 | mrr-waterfall | https://uiarc.dev/components/blocks/mrr-waterfall | 2 | tarif yazıldı |
 | cohort-retention | https://uiarc.dev/components/blocks/cohort-retention | 2 | tarif yazıldı |
 | usage-forecast | https://uiarc.dev/components/blocks/usage-forecast | 2 | tarif yazıldı |

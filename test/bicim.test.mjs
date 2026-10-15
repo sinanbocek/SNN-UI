@@ -23,6 +23,7 @@ const FILES = {
   metrics: "registry/components/metrics-dashboard/../lib/metric-format.ts",
   kpi: "registry/components/kpi-drilldown/../lib/chart-format.ts",
   explorer: "registry/components/metric-explorer/../lib/metric-format.ts",
+  revenue: "registry/components/revenue-explorer/revenue-explorer-format.ts",
 };
 const mods = {};
 let temp;
@@ -166,4 +167,21 @@ test("gösterge gezgini: okuma satırı değeri ve kart değişimi ABACUS çıkt
   assert.equal(drop.text, money.percent(math.percentChange(90, 100), 1, { sign: "always" }));
   assert.equal(drop.direction, -1);
   assert.equal(mods.explorer.metricChange("money", 5, 0).text, "—");
+});
+
+test("gelir gezgini: tutar, büyüme, kayıp oranı ve ay adı ABACUS çıktısıdır", () => {
+  assert.equal(mods.revenue.moneyText(1250000), money.formatMajor(1250000, { currency: "TRY", digits: 0 }));
+  assert.equal(mods.revenue.moneyShort(1250000), money.compactMajor(1250000, { style: "B/Mn/Mr" }));
+  assert.equal(mods.revenue.rateText(1.84), money.percent(1.84, 2, { fixed: true }));
+  assert.equal(mods.revenue.pointsText(1.96, 1.84), "+0,12 puan");
+  assert.equal(mods.revenue.monthLabel("2026-03"), "Mart 2026");
+  assert.equal(mods.revenue.axisMonth("2026-01"), "Oca 2026");
+  assert.equal(mods.revenue.axisMonth("2026-03"), "Mar");
+  const months = [100, 120, 150].map((total, at) => ({ key: "2026-0" + (at + 1), newMrr: 30, expansion: 10, churn: 5, total }));
+  const summary = mods.revenue.summarize(months, { start: 1, end: 2 });
+  assert.equal(summary.total, 150);
+  assert.equal(summary.opening, 100);
+  assert.equal(mods.revenue.growthText(summary), money.percent(math.percentChange(150, 100), 1, { sign: "always" }));
+  assert.deepEqual(mods.revenue.moveRange({ start: 1, end: 2 }, "window", 5, 6), { start: 4, end: 5 });
+  assert.deepEqual(mods.revenue.moveRange({ start: 1, end: 2 }, "end", -9, 6), { start: 1, end: 2 });
 });
