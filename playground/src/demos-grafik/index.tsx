@@ -12,6 +12,7 @@ import { SlopeChartDemo } from "./slope-chart";
 import { TreemapDemo } from "./treemap";
 import { WaffleChartDemo } from "./waffle-chart";
 import { BrushChartDemo } from "./brush-chart";
+import { ActivityHeatmapDemo } from "./activity-heatmap";
 
 export const grafikDemos: Record<string, () => ReactNode> = {
   "animated-counter": () => <AnimatedCounterDemo />,
@@ -26,4 +27,5 @@ export const grafikDemos: Record<string, () => ReactNode> = {
   "treemap": () => <TreemapDemo />,
   "waffle-chart": () => <WaffleChartDemo />,
   "brush-chart": () => <BrushChartDemo />,
+  "activity-heatmap": () => <ActivityHeatmapDemo />,
 };

@@ -95,6 +95,7 @@ Gereken paketler: React 19, `motion`; bazı bileşenlerde Radix ve `lucide-react
 | `treemap` | Ağaç haritası | Bölge, ülke ve plana göre ciro gibi bir parça hiyerarşisini boyutla orantılı kutularla gösterir; boyutlar kesin karşılaştırmadan önemli olduğunda kullanılır. Üst düzey dallar dört seri tonunu alır, isteğe bağlı ikinci ölçü (büyüme gibi) koyuluğu belirler. Kutuya tıklayınca ya da Enter ile içine yakınlaşılır, Escape ya da yol izi ile geri dönülür; ipucu değeri ve üst öğedeki payı ("%12,3 Avrupa içinde") söyler. Değerler ve paylar ABACUS biçimindedir ("1.234,5", "%12,3"); `formatValue` ile tutar yazımı verilebilir (`snn-chart-format`: `formatMoney`). Renkler `snn-chart-palette`tir (en çok dört ton, sonrası nötr); amber yok. Hiyerarşiyi proje verir; yüzlerce yapraktan sonra sunucu tarafında toplama projenin işidir. | `npx shadcn@latest add @snn-ui/treemap` |
 | `waffle-chart` | Kare ızgara grafiği | Bir bütünün parçalarını sayılabilir karelerle gösterir: her hücre bütünün bir payıdır (10 × 10 ızgarada yüzde başına bir hücre). Hücreler sol alttan sütun sütun, bardak dolar gibi dolar; veri değişince hücreler bir kategoriden ötekine uçarak taşınır. Renk yalnız tek kanal değildir: nötr kategoriler kare, yuvarlak ve çerçeveli hücrelerle de ayrışır. Gösterge payları ("%36") yeni değerine döner; ok tuşlarıyla hücre hücre gezilir. Paylar ABACUS `money.percent` ile yazılır ("%36", `decimals` ile sabit ondalık "%36,0"); ham değerler "1.234,5" biçimindedir. `formatValue` ile birimli yazım verilebilir. Renkler `snn-chart-palette` ve nötr basamaklardır; amber yok. Hücre sayıları en büyük kalan yöntemiyle dağıtılır, toplam hep ızgarayı verir. | `npx shadcn@latest add @snn-ui/waffle-chart` |
 | `brush-chart` | Fırça grafiği | Uzun ve yoğun bir zaman serisinde hem tüm geçmişi hem de herhangi bir kesitine yakından bakmayı sağlar: altta tüm serinin genel bakış şeridi, üstte seçili pencerenin büyük grafiği. Pencere kenarlarından boyutlandırılır, tutulup kaydırılır, boş izden yenisi çizilir (dokunma yeniden ortalar, çift dokunma sıfırlar); klavyeyle de gezilir. Uzaklaşınca yedi günlük ortalama ve bandı ham çizginin yerini alır; olaylar işaretlenir. Tarihler Türkçedir ("15 Ekim 2026 Per"). Veri `{ date, value }` dizisidir (artan sırada; `date` Date ya da epoch milisaniyesi, günlük aralıklar UTC gününe göre okunur). Tarih etiketleri ABACUS `date` ile (gün adı, ay adı, "15.10.2026"), değerler ABACUS sayı biçimiyle yazılır; `formatValue`, `formatTick`, `formatDate` ile değiştirilir. Renkler `snn-chart-palette`tir (mavi ve menekşe); amber yok. Pencereyi `range` / `onRangeChange` ile dışarıdan yönetebilirsiniz. | `npx shadcn@latest add @snn-ui/brush-chart` |
+| `activity-heatmap` | Etkinlik takvimi | Gün başına bir kare, haftalar sütun: günün ne kadar yoğun olduğunu dört vurgu tonu söyler. Ritim, seri ve sakin haftalar kesin karşılaştırmadan önemli olduğunda kullanılır. Üstte dönen rakamlı özet ("1.284 katkı 2025 yılında"); kareler görününce dalga olur, ipucu hücreler arasında süzülür, yeni aralık ızgarayı süpürerek yeniden renklendirir. Oklarla gün ve hafta gezilir, Enter seçer; gösterge düzeyleri ızgarada önizler ve sabitler. Dar ekranda yana kayar. Gün verisi `{ date: "2025-03-14", count }` biçimindedir (ISO). Tarih ve gün adları ABACUS `date` ile ("15 Ekim 2026 Perşembe", "Eki", "Per"), sayılar `money.fmtDecimalGrouped` ile ("1.284") yazılır; Arc'ın `locale` prop'u kaldırıldı. `period` özet cümlesini tamamlar ("2025 yılında"). `unit` Türkçede çoğul almadığı için `{ one, other }` aynıdır. Renkler vurgunun tonlarıdır (`--series-*` gerekmez). | `npx shadcn@latest add @snn-ui/activity-heatmap` |
 
 ## Kullanım örnekleri
 
@@ -528,6 +529,14 @@ import { WaffleChart, WaffleCategory } from "@/components/snn/waffle-chart/waffl
 import { BrushChart, BrushChartDatum, BrushChartAnnotation } from "@/components/snn/brush-chart/brush-chart";
 
 <BrushChart label="Günlük etkin kullanıcı" data={data} annotations={[{ date: Date.UTC(2026, 8, 1), label: "v2 yayını" }]} />
+```
+
+### Etkinlik takvimi (`activity-heatmap`)
+
+```tsx
+import { ActivityHeatmap, ActivityDay } from "@/components/snn/activity-heatmap/activity-heatmap";
+
+<ActivityHeatmap label="2025 katkıları" period="2025 yılında" days={days} unit={{ one: "teklif", other: "teklif" }} onSelectDate={openDay} />
 ```
 
 ## Bu rafta olmayanlar

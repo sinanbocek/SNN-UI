@@ -1842,6 +1842,37 @@
         "arcCommit": "bfdf7e8",
         "arcSource": "registry/components/brush-chart"
       }
+    },
+    {
+      "name": "activity-heatmap",
+      "type": "registry:ui",
+      "title": "Etkinlik takvimi",
+      "description": "Gün başına bir kare, haftalar sütun: günün ne kadar yoğun olduğunu dört vurgu tonu söyler. Ritim, seri ve sakin haftalar kesin karşılaştırmadan önemli olduğunda kullanılır. Üstte dönen rakamlı özet (\"1.284 katkı 2025 yılında\"); kareler görününce dalga olur, ipucu hücreler arasında süzülür, yeni aralık ızgarayı süpürerek yeniden renklendirir. Oklarla gün ve hafta gezilir, Enter seçer; gösterge düzeyleri ızgarada önizler ve sabitler. Dar ekranda yana kayar.",
+      "dependencies": [
+        "@snn/abacus-core@github:sinanbocek/SNN-Abacus-Core#semver:^4.3.0",
+        "motion"
+      ],
+      "registryDependencies": [
+        "@snn-ui/snn-foundation",
+        "@snn-ui/snn-motion-tokens",
+        "@snn-ui/snn-chart-format"
+      ],
+      "files": [
+        {
+          "path": "registry/components/activity-heatmap/activity-heatmap.module.css",
+          "type": "registry:component",
+          "target": "@components/snn/activity-heatmap/activity-heatmap.module.css"
+        },
+        {
+          "path": "registry/components/activity-heatmap/activity-heatmap.tsx",
+          "type": "registry:component",
+          "target": "@components/snn/activity-heatmap/activity-heatmap.tsx"
+        }
+      ],
+      "meta": {
+        "arcCommit": "bfdf7e8",
+        "arcSource": "registry/components/activity-heatmap"
+      }
     }
   ]
 }
