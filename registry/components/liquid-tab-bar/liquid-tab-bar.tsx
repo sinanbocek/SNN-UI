@@ -83,10 +83,12 @@ export function LiquidTabBar({ tabs, value, onValueChange, labelMode = "active",
   useEffect(() => {
     if (labelMode !== "active") { setShownId(null); return; }
     if (reduced) { setShownId(value); return; }
+    // Etiket zaten doğru sekmedeyse (ilk çizim) gizleyip yeniden göstermeye gerek yok.
+    if (shownId === value) return;
     setShownId(null);
     const timer = setTimeout(() => setShownId(value), 170);
     return () => clearTimeout(timer);
-  }, [value, labelMode, reduced]);
+  }, [value, labelMode, reduced, shownId]);
 
   const select = (id: string, focus = false) => {
     if (id !== value) onValueChange(id);

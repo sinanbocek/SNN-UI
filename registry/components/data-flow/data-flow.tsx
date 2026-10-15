@@ -40,7 +40,7 @@ export interface DataFlowProps {
 }
 
 type Point = { x: number; y: number };
-interface Layout { width: number; height: number; vertical: boolean; nodeWidth: number; sources: Point[]; targets: Point[]; process: Point; inAt: Point[]; outAt: Point[]; processIn: Point[]; processOut: Point[] }
+interface Layout { processWidth: number; width: number; height: number; vertical: boolean; nodeWidth: number; sources: Point[]; targets: Point[]; process: Point; inAt: Point[]; outAt: Point[]; processIn: Point[]; processOut: Point[] }
 
 const CYCLE = 6; // saniye; kaynaklar bu süre içinde sırayla birer kayıt çıkarır.
 const THRESHOLD = { arrive: 0.4, leave: 0.5, end: 0.95 };
@@ -73,7 +73,7 @@ function computeLayout(width: number, sourceCount: number, targetCount: number):
     const sources = row(sourceCount, 36);
     const targets = row(targetCount, height - 36);
     const process = { x: width / 2, y: height / 2 };
-    return { width, height, vertical, nodeWidth, sources, targets, process, inAt: sources.map(p => ({ x: p.x, y: p.y + 28 })), processIn: sources.map(() => ({ x: process.x, y: process.y - 30 })), processOut: targets.map(() => ({ x: process.x, y: process.y + 30 })), outAt: targets.map(p => ({ x: p.x, y: p.y - 28 })) };
+    return { processWidth: 132, width, height, vertical, nodeWidth, sources, targets, process, inAt: sources.map(p => ({ x: p.x, y: p.y + 28 })), processIn: sources.map(() => ({ x: process.x, y: process.y - 30 })), processOut: targets.map(() => ({ x: process.x, y: process.y + 30 })), outAt: targets.map(p => ({ x: p.x, y: p.y - 28 })) };
   }
   const rows = Math.max(sourceCount, targetCount);
   const height = Math.max(240, rows * 84 + 24);
@@ -83,7 +83,7 @@ function computeLayout(width: number, sourceCount: number, targetCount: number):
   const targets = column(targetCount, width - nodeWidth / 2 - 8);
   const process = { x: width / 2, y: height / 2 };
   const pw = Math.min(150, width * 0.2) / 2;
-  return { width, height, vertical, nodeWidth, sources, targets, process, inAt: sources.map(p => ({ x: p.x + nodeWidth / 2, y: p.y })), processIn: sources.map(() => ({ x: process.x - pw, y: process.y })), processOut: targets.map(() => ({ x: process.x + pw, y: process.y })), outAt: targets.map(p => ({ x: p.x - nodeWidth / 2, y: p.y })) };
+  return { processWidth: pw * 2, width, height, vertical, nodeWidth, sources, targets, process, inAt: sources.map(p => ({ x: p.x + nodeWidth / 2, y: p.y })), processIn: sources.map(() => ({ x: process.x - pw, y: process.y })), processOut: targets.map(() => ({ x: process.x + pw, y: process.y })), outAt: targets.map(p => ({ x: p.x - nodeWidth / 2, y: p.y })) };
 }
 
 /** Bir kaynak kaydı bu turda hedefe gidiyor mu? Pay verilen hedef kayıtların yalnız o kesrini alır; karar zamanın saf bir fonksiyonudur. */
@@ -239,7 +239,7 @@ export function DataFlow({ sources, process, targets, speed = 1, paused = false,
             ref={element => { nodeRefs.current.__process = element; }}
             className={styles.process}
             data-hover={hover === "__process" || undefined}
-            style={{ left: layout.process.x, top: layout.process.y }}
+            style={{ left: layout.process.x, top: layout.process.y, width: layout.processWidth }}
             onPointerEnter={hovered("__process")}
             onPointerLeave={() => setHover(null)}
           >

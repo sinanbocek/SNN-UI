@@ -10,7 +10,7 @@
 /* Kayıt çıktığında ya da vardığında kenar kısa süre vurgulanır (--glow döngüden gelir). */
 .node, .process { border-color: color-mix(in oklab, var(--node-color, var(--accent)) calc(var(--glow, 0) * 100%), var(--border)); }
 .node[data-hover], .process[data-hover] { border-color: var(--accent); }
-.process { justify-content: center; flex-direction: column; gap: var(--space-1); min-width: 112px; text-align: center; background: var(--surface-muted); }
+.process { justify-content: center; flex-direction: column; gap: var(--space-1); min-height: 72px; text-align: center; background: var(--surface-muted); }
 .icon { display: inline-flex; width: 20px; height: 20px; flex: none; align-items: center; justify-content: center; color: var(--text-secondary); }
 .icon > svg { width: 100%; height: 100%; }
 .text { display: grid; min-width: 0; }
