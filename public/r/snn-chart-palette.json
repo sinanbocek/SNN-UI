@@ -1,0 +1,15 @@
+{
+  "$schema": "https://ui.shadcn.com/schema/registry-item.json",
+  "name": "snn-chart-palette",
+  "title": "SNN grafik renkleri",
+  "description": "Grafik serilerinin dört rengi (mavi, menekşe, yeşil, gül; --series-1 … --series-4), açık ve koyu tema. Amber yok. Grafikler bunu kullanır; projede bir kez içe aktarılır.",
+  "files": [
+    {
+      "path": "registry/foundation/snn-chart-palette.css",
+      "content": "/* SNN grafik serisi paleti. Arc'ın --series-* paleti yerine geçer (Arc: foundation.css, commit bfdf7e8, MIT).\n   Arc'ın paletinde 3. renk amberdi ve göreli renk formülü vurguya göre amber üretebiliyordu (aile kuralı: amber yok, arayuz-standardi.md §1).\n   Burada dört renk sabittir: mavi, menekşe, yeşil, gül. Hiçbiri OKLCH ton açısı 50–95 aralığına girmez (test/amber.test.mjs).\n   Dördünden fazla seri gerekirse grafikler nötr gri basamaklara geçer. Bir grafiği yeniden renklendirmek için\n   --series-1 … --series-4 değişkenlerini o grafiğin üst öğesinde değiştir. */\n:root {\n  --series-1: oklch(58% .15 255);\n  --series-2: oklch(50% .19 305);\n  --series-3: oklch(60% .13 165);\n  --series-4: oklch(58% .19 10);\n}\n:root[data-theme=\"dark\"] {\n  --series-1: oklch(73% .13 255);\n  --series-2: oklch(68% .16 305);\n  --series-3: oklch(75% .13 165);\n  --series-4: oklch(72% .15 10);\n}\n",
+      "type": "registry:component",
+      "target": "@components/snn/snn-chart-palette.css"
+    }
+  ],
+  "type": "registry:item"
+}

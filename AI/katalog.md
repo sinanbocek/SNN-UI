@@ -83,6 +83,22 @@ Gereken paketler: React 19, `motion`; bazı bileşenlerde Radix ve `lucide-react
 | `availability-picker` | Ortak uygun saat seçici | Blok: birkaç kişinin ortak toplantı saatini seçtirir. Başlıkta toplantı adı, süre ve saat dilimi, katılımcı avatarları; beş günlük şerit (kartta "N boş"), seçili günün saatleri iki sütunda ve her saatte kişi başına müsait/meşgul çubukları (yazıyla da bildirilir), altta özet çubuğu ve "Saati onayla". Gün değişince saat listesi yönüne göre kayar, seçili saat vurgusu saatler arasında kayar. Boş gün (en yakın uygun gün önerisi), hiç ortak saat yok, yükleniyor, onay hatası ve dar kolon durumları vardır. Gün ve saat verisini ("2026-10-19T10:30", uygulamanın saat diliminde) proje takvim servisinden hazırlar; blok yalnız seçimi (`onConfirm`) iletir, davet göndermez. Gün adı ve saat etiketi ABACUS `date` ile yazılır. Meşgul kişili saat seçilebilir, özet uyarır. Beşten fazla gün ve haftalık gezinme kapsam dışıdır. Arc Pro availability-picker'dan esinlenildi (tarif: docs/tarifler/availability-picker.md). | `npx shadcn@latest add @snn-ui/availability-picker` |
 | `project-board` | Küçük proje panosu | Blok: az sayıda işin sabit aşamalar (Planlandı, Sürüyor, Kontrolde, Bitti) arasında ilerlediği pano. Sürükleme yok: her kartta önceki ve sonraki aşamaya taşıma okları var (dokunmatikte de rahat). Üstte "Bu dönem 6 işten 1'i bitti" cümlesi ve ilerleme çubuğu, "Tümü / Benim işlerim" süzgeci, "Görev ekle" ile başlığı hemen yazılan yeni kart. Kartlar sütunlar arasında uçar. Boş sütun, hiç iş yok, süzgeç sonucu yok, yükleniyor, taşıma hatası ("Yeniden dene") ve dar kolon (yana kayan, yakınlığa oturan sütunlar) durumları vardır. Görevleri, kişileri ve gün etiketlerini ("Per", "24 Eki") proje verir (ABACUS `date`); blok taşıma ve ekleme olaylarını iletir, reddedilirse kart eski sütuna döner. İlerleme cümlesindeki sayı eki ABACUS `text.suffix` ile yazılır. Sürükle-bırak, iş sınırı ve ayrıntı çekmecesi isteyen büyük pano için `kanban-board` kullanılır. Arc Pro project-board'dan esinlenildi (tarif: docs/tarifler/project-board.md). | `npx shadcn@latest add @snn-ui/project-board` |
 | `kanban-board` | Sürükle-bırak iş panosu | Blok: kartlar sütunlar arasında sürükle-bırakla taşınır. Kaldırılan kart imleci izler ve hızına göre hafifçe yatar, bırakılacağı yerde boşluk açılır; pano kenarında otomatik kayar, dokunmatikte kısa basıştan sonra başlar. Klavyeyle de taşınır (Boşluk kaldırır, ok tuşları taşır, Boşluk bırakır, Esc vazgeçer) ve her adım ekran okuyucuya duyurulur. Sütunlara iş sınırı konabilir ("3/3", aşılınca "İş sınırı aşıldı."). "Durum / Şerit" görünümü (şeritte kişiye göre), sütunda "Kart ekle", Enter ile açılan ayrıntı çekmecesi (başlık, atanan, bitiş, etiket, puan, kontrol listesi). Boş sütun, hiç kart yok, yükleniyor, kayıt hatası ("Yeniden dene") ve dar kolon durumları vardır. Kartların sıralı listesini (sütun içi sıra dizideki sıradır) ve gerçek kaydı proje verir; blok her taşıma, sıralama ve ayrıntı değişikliğinde tüm kartları yeni sırayla `onChange`'e iletir, reddedilirse kartlar eski hâline döner. Sürükleme `snn-pointer-drag` kancasıyla yapılır (yeni paket gerekmez). İş sınırı taşımayı engellemez, yalnız uyarır. Bitiş tarihi ABACUS `date.parse` / `date.format`, puan `text.digits` ile işlenir. Yüzlerce karttan sonra sanallaştırma projenin işidir; yorum, ek ve otomasyon kapsam dışıdır. Küçük, sürüklemesiz pano için `project-board` kullanılır. Arc Pro kanban-board'dan esinlenildi (tarif: docs/tarifler/kanban-board.md). | `npx shadcn@latest add @snn-ui/kanban-board` |
+| `animated-counter` | Dönen rakamlı sayaç | Sayı değişince her rakam kilometre sayacı gibi döner (9 → 0 sarar, yön sayının gittiği yöndür); binlik ayracı nokta, ondalık ayracı virgül ("1.234,5"). İstenirse ilk görünüşte sıfırdan yukarı sayar. Ekran okuyucu düz metni okur. Biçim ABACUS `money.fmtDecimalGrouped` ile yazılır; Arc'ın `locale` prop'u (varsayılan en-US) kaldırıldı. Para birimi ve kısaltma için `metric-card` ya da `snn-chart-format` kullanılır. | `npx shadcn@latest add @snn-ui/animated-counter` |
+| `metric-card` | Gösterge kartı | Bir göstergeyi tek kartta söyler: başlık, dönen rakamlı değer, işaretli değişim etiketi (yeşil/kırmızı) ve bağlam cümlesi. Değer düz sayı, tam tutar (₺1.250.000) ya da kısaltılmış tutar (₺1,25Mn) olabilir. Metinler değişince yön duyarlı kayar. `format`: "number" (varsayılan), "money", "compact-money"; `currency` varsayılanı TRY. Yazım ABACUS `money.formatMajor` / `money.compactMajor` çıktısıdır. Değişim etiketini ("+%12,3") proje `math.percentChange` ve `money.percent` ile üretir. Arc'ın `prefix` ve `locale` yazımı yerine `format` ve `currency` geldi. | `npx shadcn@latest add @snn-ui/metric-card` |
+| `sparkline` | Mini çizgi grafik | Başlığın yanında küçük bir eğilim çizgisi: değer, değişim ve yumuşak çizgi. Görününce soldan sağa çizilir; fare, dokunma ve ok tuşlarıyla noktalar gezilir, başlık gezilen noktayı gösterir. Veri değişince çizgi yeni biçime akar. Gezilen noktanın yazımı `formatValue` ile özelleştirilir; varsayılan ABACUS biçimidir ("1.234,5"). Başlıktaki değer ve değişim hazır metin olarak gelir (`money.fmtDecimalGrouped`, `money.percent`). Renk tonları (`accent`, `success`, `warning`, `danger`) temel değişkenlerdendir; `warning` mavi-gridir. | `npx shadcn@latest add @snn-ui/sparkline` |
+| `line-chart` | Çizgi grafik | Zaman içindeki bir ya da birkaç ölçüyü yumuşak çizgilerle gösterir. Fare, dokunma ve ok tuşlarıyla gezilen artı imleç ipucuyla noktaları okur; seriler göstergeden açılıp kapanır, değer ekseni kendini ölçekler, aralık değişince çizgiler yeni biçime akar. Ekran okuyucu için veri tablosu, boş ve yükleniyor durumları vardır. Değer ve eksen etiketleri ABACUS'tandır: ipucunda "1.234,5", eksende kısaltma ("1,2B", "1,25Mn"). `formatValue` ve `formatTick` ile para birimli yazım verilebilir (`snn-chart-format`: `formatMoney`, `formatMoneyCompact`). Tarih etiketlerini (`label`, `axisLabel`) proje ABACUS `date.format` ile hazırlar. Verinin aralığını ve yüklemeyi proje yönetir. | `npx shadcn@latest add @snn-ui/line-chart` |
+| `bar-chart` | Çubuk grafik | Bir ölçüyü art arda gün, hafta ya da ay boyunca çubuklarla gösterir; dönemler birbirleriyle ve ortalama çizgisiyle karşılaştırılır. Başlık dururken ortalamayı, gezerken gezilen çubuğu okur (fare, dokunma, ok tuşları). Çubuklar sırayla büyür, aralık değişince yeni değerlere akar, eksen kendini ölçekler. Ekran okuyucu için veri tablosu vardır. Değerler ve eksen etiketleri ABACUS biçimindedir ("1.234"); `formatValue` ile para birimli yazım verilebilir (`snn-chart-format`: `formatMoney`). Gün etiketlerini (`label`, `axisLabel`) ve dönem metnini proje ABACUS `date.format` ile hazırlar. Çubuk renkleri vurgu rengindendir (`--series-*` gerekmez). | `npx shadcn@latest add @snn-ui/bar-chart` |
+| `donut-chart` | Halka grafik | Bir bütünün birkaç parçasını halka dilimleriyle gösterir; her parçanın payı kesin karşılaştırmadan önemli olduğunda kullanılır. Üzerine gelinen ya da seçilen dilim dışarı kayar, merkez o dilimin değerini ve payını ("%36") okur; küçük parçalar "Diğer"e katılır. Eşgüdümlü gösterge dilimleri gösterip gizler, halka yeniden dağılır. Ekran okuyucu için tablo, boş durum ve ok tuşuyla gezinme vardır. Değerler ABACUS biçimindedir ("1.234,5"), paylar `money.percent` ile yazılır ("%36", yüzde birin altı "<%1"). `formatValue` ile para birimli yazım verilebilir (`snn-chart-format`: `formatMoney`). Renkler `snn-chart-palette` (mavi, menekşe, yeşil, gül) ve nötr basamaklardır; amber yok. Varsayılan metinler Türkçe ("Toplam", "Diğer", "Henüz veri yok"). | `npx shadcn@latest add @snn-ui/donut-chart` |
+| `gauge` | Gösterge halkası | Bir değerin aralığındaki yerini 270 derecelik halkayla gösterir: ortada "%72" ve isteğe bağlı durum adı. Eşik bantları (örneğin Düşük / Normal / Yüksek) rengi ve durum adını belirler; anlam yalnız renge dayanmaz. Görününce dolar, değer değişince yaylanır; sayım halkayı aşmadan izler. Yüzde `%72` biçiminde, işaret sayıdan önce yazılır (Türkçe yazım). `detail` hazır metin olarak gelir (`money.percent`, `money.formatMajor`). Eşik tonlarından `warning` mavi-gridir; kırmızı (`danger`) yalnız gerçek hata içindir. | `npx shadcn@latest add @snn-ui/gauge` |
+| `usage-meter` | Kullanım göstergesi | Depolama ya da koltuk gibi sabit bir hakkın ne kadarının neye gittiğini tek çubukta gösterir: kategoriler vurgunun basamaklarıdır, boş alan izin kendisidir. Başlıkta dönen rakamlı toplam, durum işareti ("3,2 GB boş", "Neredeyse dolu", "… aşıldı") ve klavyeyle gezilen gösterge vardır. Limit aşılınca taşan kısım taramalı çizilir; durum değişimleri ekran okuyucuya duyurulur. Sayılar ABACUS biçimindedir (sabit ondalıklı "42,5", binlik ayracı nokta); `decimals` ondalık basamak sayısıdır. Rakam sütunları `animated-counter` ile ortaktır (`counterParts`). Durum metinleri Türkçedir ("Boş", "Limit aşımı", "Neredeyse dolu"); `warnAt` varsayılanı 0,9. Gerçek kullanım verisini proje verir. | `npx shadcn@latest add @snn-ui/usage-meter` |
+| `slope-chart` | Eğim grafiği | Birkaç öğenin tam iki an arasında nasıl değiştiğini (ve sıralarının nasıl değiştiğini) gösterir: her öğe iki sütun arasında bir çizgidir. Etiketler üst üste binmez, hikâye öğesi vurgu renginde çizilir, odaktaki öğe öne çıkar ve ipucu değer, fark ve sıra değişimini söyler (yukarı/aşağı oklarla gezilir). Kapanma sırası sıra okuyla gösterilir. Değerler ABACUS biçimindedir ("1.234,5"); `formatValue` ile yüzde ya da tutar yazımı verilebilir (`snn-chart-format`: `formatPercent`, `formatMoney`). Farkı `formatChange` ile özelleştirin (varsayılan işaretli fark). Renkler `snn-chart-palette` ve nötr mürekkeptir; amber yok. Verinin iki dönemini proje verir. | `npx shadcn@latest add @snn-ui/slope-chart` |
+| `treemap` | Ağaç haritası | Bölge, ülke ve plana göre ciro gibi bir parça hiyerarşisini boyutla orantılı kutularla gösterir; boyutlar kesin karşılaştırmadan önemli olduğunda kullanılır. Üst düzey dallar dört seri tonunu alır, isteğe bağlı ikinci ölçü (büyüme gibi) koyuluğu belirler. Kutuya tıklayınca ya da Enter ile içine yakınlaşılır, Escape ya da yol izi ile geri dönülür; ipucu değeri ve üst öğedeki payı ("%12,3 Avrupa içinde") söyler. Değerler ve paylar ABACUS biçimindedir ("1.234,5", "%12,3"); `formatValue` ile tutar yazımı verilebilir (`snn-chart-format`: `formatMoney`). Renkler `snn-chart-palette`tir (en çok dört ton, sonrası nötr); amber yok. Hiyerarşiyi proje verir; yüzlerce yapraktan sonra sunucu tarafında toplama projenin işidir. | `npx shadcn@latest add @snn-ui/treemap` |
+| `waffle-chart` | Kare ızgara grafiği | Bir bütünün parçalarını sayılabilir karelerle gösterir: her hücre bütünün bir payıdır (10 × 10 ızgarada yüzde başına bir hücre). Hücreler sol alttan sütun sütun, bardak dolar gibi dolar; veri değişince hücreler bir kategoriden ötekine uçarak taşınır. Renk yalnız tek kanal değildir: nötr kategoriler kare, yuvarlak ve çerçeveli hücrelerle de ayrışır. Gösterge payları ("%36") yeni değerine döner; ok tuşlarıyla hücre hücre gezilir. Paylar ABACUS `money.percent` ile yazılır ("%36", `decimals` ile sabit ondalık "%36,0"); ham değerler "1.234,5" biçimindedir. `formatValue` ile birimli yazım verilebilir. Renkler `snn-chart-palette` ve nötr basamaklardır; amber yok. Hücre sayıları en büyük kalan yöntemiyle dağıtılır, toplam hep ızgarayı verir. | `npx shadcn@latest add @snn-ui/waffle-chart` |
+| `brush-chart` | Fırça grafiği | Uzun ve yoğun bir zaman serisinde hem tüm geçmişi hem de herhangi bir kesitine yakından bakmayı sağlar: altta tüm serinin genel bakış şeridi, üstte seçili pencerenin büyük grafiği. Pencere kenarlarından boyutlandırılır, tutulup kaydırılır, boş izden yenisi çizilir (dokunma yeniden ortalar, çift dokunma sıfırlar); klavyeyle de gezilir. Uzaklaşınca yedi günlük ortalama ve bandı ham çizginin yerini alır; olaylar işaretlenir. Tarihler Türkçedir ("15 Ekim 2026 Per"). Veri `{ date, value }` dizisidir (artan sırada; `date` Date ya da epoch milisaniyesi, günlük aralıklar UTC gününe göre okunur). Tarih etiketleri ABACUS `date` ile (gün adı, ay adı, "15.10.2026"), değerler ABACUS sayı biçimiyle yazılır; `formatValue`, `formatTick`, `formatDate` ile değiştirilir. Renkler `snn-chart-palette`tir (mavi ve menekşe); amber yok. Pencereyi `range` / `onRangeChange` ile dışarıdan yönetebilirsiniz. | `npx shadcn@latest add @snn-ui/brush-chart` |
+| `activity-heatmap` | Etkinlik takvimi | Gün başına bir kare, haftalar sütun: günün ne kadar yoğun olduğunu dört vurgu tonu söyler. Ritim, seri ve sakin haftalar kesin karşılaştırmadan önemli olduğunda kullanılır. Üstte dönen rakamlı özet ("1.284 katkı 2025 yılında"); kareler görününce dalga olur, ipucu hücreler arasında süzülür, yeni aralık ızgarayı süpürerek yeniden renklendirir. Oklarla gün ve hafta gezilir, Enter seçer; gösterge düzeyleri ızgarada önizler ve sabitler. Dar ekranda yana kayar. Gün verisi `{ date: "2025-03-14", count }` biçimindedir (ISO). Tarih ve gün adları ABACUS `date` ile ("15 Ekim 2026 Perşembe", "Eki", "Per"), sayılar `money.fmtDecimalGrouped` ile ("1.284") yazılır; Arc'ın `locale` prop'u kaldırıldı. `period` özet cümlesini tamamlar ("2025 yılında"). `unit` Türkçede çoğul almadığı için `{ one, other }` aynıdır. Renkler vurgunun tonlarıdır (`--series-*` gerekmez). | `npx shadcn@latest add @snn-ui/activity-heatmap` |
+| `streamgraph` | Akış grafiği | Birkaç parçanın karışımının zamanla nasıl değiştiğini, genel biçim kesin değerlerden önemli olduğunda gösterir: katmanlar merkezden dışa, akıcı bir şerit olarak dizilir. Katmanlar yeni veriye ve gizlemeye akarak uyar, ilk görünüşte merkezden kabarır. Katman adları yeterince kalın kesitte doğrudan yazılır; üzerine gelinen katman öne çıkar, ipucu o zamandaki tüm değerleri söyler. Ok tuşlarıyla zamanda ve katmanlar arasında gezilir. Değerler ABACUS biçimindedir ("1.234,5"); `formatValue` ile birimli yazım verilebilir. Hafta ve tarih etiketlerini (`label`, `axisLabel`) proje ABACUS `date.format` ile hazırlar. Renkler `snn-chart-palette`tir (dört ton, sonrası nötr); amber yok. Verinin zaman aralığını proje yönetir. | `npx shadcn@latest add @snn-ui/streamgraph` |
+| `ridgeline` | Sırt çizgisi grafiği | Birçok dağılımın biçimini aynı anda karşılaştırır, örneğin aylara göre günlük sıcaklık ya da bölgelere göre yanıt süresi: her satır, ham gözlemlerin yumuşatılmış yoğunluğudur ve üstteki satırlara taşar. Sırtlar medyanlarına göre açık tondan koyuya gölgelenir; üzerine gelinen sırt öne çıkar, ipucu medyanı, orta yarıyı, aralığı ve imleç değerinin altında kalan payı ("%36") söyler. Ok tuşlarıyla sırtlar ve değerler gezilir; veri değişince sırtlar yeni biçime akar. Değerler ABACUS biçimindedir ("1.234,5", eksi için gerçek eksi işareti); `formatValue` ile özel yazım verilebilir. Paylar `money.percent` ile yazılır ("%36"). Renk tek tondur: `snn-chart-palette` birinci serisi, medyana göre açıktan koyuya; amber yok. Ham gözlemleri proje verir (yüzlerce değer rahat; çok uzun listelerde önceden toplamak projenin işidir). | `npx shadcn@latest add @snn-ui/ridgeline` |
+| `slot-text` | Makaralı metin | Metin ve sayıların yeni değerine kumar makinesi makaraları gibi dönmesi: her karakter bir makaradır, rakamlar sayının gittiği yönde çarkta sayar, harfler Türk alfabesinde (ç, ğ, ı, ö, ş, ü dahil) karışır, makaralar soldan sağa birer birer yumuşakça durur. Sayılar ABACUS biçimindedir ("12.480", "1.234,5"), baştaki ₺ gibi simgeler rakama dönmez. Fiyat, istatistik ve lansman anları için; ekran okuyucu düz metni okur. Sayı değeri `format` verilmezse ABACUS `money.fmtDecimalGrouped` biçimiyle yazılır (en çok 3 ondalık, "1.234,5"); para için `snn-chart-format` (`formatMoney`) ile `format` verilir. Metin değerler olduğu gibi çizilir; harf makaraları Türk alfabesini döner (`text.upper` ile i → İ). `announce` ekran okuyucuya nazikçe duyurur. Hareketi azalt tercihine uyar. | `npx shadcn@latest add @snn-ui/slot-text` |
 
 ## Kullanım örnekleri
 
@@ -420,6 +436,134 @@ import { ProjectBoard } from "@/components/snn/project-board/project-board";
 import { KanbanBoard } from "@/components/snn/kanban-board/kanban-board";
 
 <KanbanBoard name="Teklif hattı" cards={cards} columns={columns} people={people} tags={tags} onChange={saveOrder} onAdd={addCard} />
+```
+
+### Dönen rakamlı sayaç (`animated-counter`)
+
+```tsx
+import { AnimatedCounter } from "@/components/snn/animated-counter/animated-counter";
+
+<AnimatedCounter value={1234.5} decimals={1} prefix="₺" label="Aylık ciro" animateOnView />
+```
+
+### Gösterge kartı (`metric-card`)
+
+```tsx
+import { MetricCard } from "@/components/snn/metric-card/metric-card";
+
+<MetricCard label="Aylık ciro" value={1250000} format="compact-money" change="+%12,3" context="Geçen aya göre" />
+```
+
+### Mini çizgi grafik (`sparkline`)
+
+```tsx
+import { Sparkline } from "@/components/snn/sparkline/sparkline";
+
+<Sparkline label="Haftalık sipariş" value="1.284" change="+%8,2" data={[820, 910, 880, 1010, 1100, 1284]} labels={days} />
+```
+
+### Çizgi grafik (`line-chart`)
+
+```tsx
+import { LineChart, LineChartDatum, LineChartSeries } from "@/components/snn/line-chart/line-chart";
+
+<LineChart label="Haftalık sipariş" data={data} series={[{ key: "bu", label: "Bu hafta" }, { key: "gecen", label: "Geçen hafta", dashed: true }]} unit="adet" />
+```
+
+### Çubuk grafik (`bar-chart`)
+
+```tsx
+import { BarChart, BarChartDatum } from "@/components/snn/bar-chart/bar-chart";
+
+<BarChart label="Günlük sipariş" period="12–18 Ekim 2026" data={days} unit="adet" />
+```
+
+### Halka grafik (`donut-chart`)
+
+```tsx
+import { DonutChart, DonutChartDatum } from "@/components/snn/donut-chart/donut-chart";
+
+<DonutChart label="Kaynağa göre ziyaret" data={[{ key: "arama", label: "Arama", value: 4200 }, { key: "dogrudan", label: "Doğrudan", value: 2100 }]} unit="ziyaret" />
+```
+
+### Gösterge halkası (`gauge`)
+
+```tsx
+import { Gauge } from "@/components/snn/gauge/gauge";
+
+<Gauge label="Kasa doluluğu" value={72} detail="Hedef %80" thresholds={[{ from: 0, tone: "accent", label: "Normal" }, { from: 85, tone: "danger", label: "Kritik" }]} />
+```
+
+### Kullanım göstergesi (`usage-meter`)
+
+```tsx
+import { UsageMeter, UsageMeterSegment } from "@/components/snn/usage-meter/usage-meter";
+
+<UsageMeter label="Çalışma alanı depolaması" unit="GB" limit={100} segments={[{ id: "belge", label: "Belgeler", value: 42.5 }, { id: "foto", label: "Fotoğraflar", value: 31 }]} />
+```
+
+### Eğim grafiği (`slope-chart`)
+
+```tsx
+import { SlopeChart, SlopeItem } from "@/components/snn/slope-chart/slope-chart";
+
+<SlopeChart label="Kanala göre dönüşüm oranı" startLabel="1. çeyrek" endLabel="2. çeyrek" data={[{ key: "arama", label: "Arama", start: 3.2, end: 4.8 }]} highlightKey="arama" />
+```
+
+### Ağaç haritası (`treemap`)
+
+```tsx
+import { Treemap, TreemapNode } from "@/components/snn/treemap/treemap";
+
+<Treemap label="Bölgeye göre ciro" data={{ id: "kok", label: "Toplam", children: [{ id: "marmara", label: "Marmara", children: [{ id: "ist", label: "İstanbul", value: 4200 }] }] }} />
+```
+
+### Kare ızgara grafiği (`waffle-chart`)
+
+```tsx
+import { WaffleChart, WaffleCategory } from "@/components/snn/waffle-chart/waffle-chart";
+
+<WaffleChart label="Enerji üretimi, 2025" data={[{ key: "gunes", label: "Güneş", value: 18 }, { key: "ruzgar", label: "Rüzgâr", value: 12 }]} unit="TWh" />
+```
+
+### Fırça grafiği (`brush-chart`)
+
+```tsx
+import { BrushChart, BrushChartDatum, BrushChartAnnotation } from "@/components/snn/brush-chart/brush-chart";
+
+<BrushChart label="Günlük etkin kullanıcı" data={data} annotations={[{ date: Date.UTC(2026, 8, 1), label: "v2 yayını" }]} />
+```
+
+### Etkinlik takvimi (`activity-heatmap`)
+
+```tsx
+import { ActivityHeatmap, ActivityDay } from "@/components/snn/activity-heatmap/activity-heatmap";
+
+<ActivityHeatmap label="2025 katkıları" period="2025 yılında" days={days} unit={{ one: "teklif", other: "teklif" }} onSelectDate={openDay} />
+```
+
+### Akış grafiği (`streamgraph`)
+
+```tsx
+import { Streamgraph, StreamgraphDatum, StreamgraphSeries } from "@/components/snn/streamgraph/streamgraph";
+
+<Streamgraph label="Konuya göre destek talebi" data={weeks} series={[{ key: "fatura", label: "Fatura" }, { key: "giris", label: "Giriş" }]} unit="talep" />
+```
+
+### Sırt çizgisi grafiği (`ridgeline`)
+
+```tsx
+import { Ridgeline, RidgelineSeries } from "@/components/snn/ridgeline/ridgeline";
+
+<Ridgeline label="Ankara günlük en yüksek sıcaklık" unit="°C" series={[{ id: "ocak", label: "Ocak", values: temps }]} />
+```
+
+### Makaralı metin (`slot-text`)
+
+```tsx
+import { SlotText } from "@/components/snn/slot-text/slot-text";
+
+<SlotText value={12480} className="fiyat" />
 ```
 
 ## Bu rafta olmayanlar

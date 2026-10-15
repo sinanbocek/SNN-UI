@@ -43,6 +43,35 @@
       ]
     },
     {
+      "name": "snn-chart-palette",
+      "type": "registry:item",
+      "title": "SNN grafik renkleri",
+      "description": "Grafik serilerinin dört rengi (mavi, menekşe, yeşil, gül; --series-1 … --series-4), açık ve koyu tema. Amber yok. Grafikler bunu kullanır; projede bir kez içe aktarılır.",
+      "files": [
+        {
+          "path": "registry/foundation/snn-chart-palette.css",
+          "type": "registry:component",
+          "target": "@components/snn/snn-chart-palette.css"
+        }
+      ]
+    },
+    {
+      "name": "snn-chart-format",
+      "type": "registry:item",
+      "title": "SNN grafik biçimleyicileri",
+      "description": "Grafik ve sayı bileşenlerinin ortak biçimleyicileri (formatNumber, formatCompact, formatMoney, formatMoneyCompact, formatRatio, formatChange). Hepsi ABACUS'tandır: \"1.234,5\", \"₺1,25Mn\", \"%12,3\". Grafiklerle kendiliğinden gelir.",
+      "dependencies": [
+        "@snn/abacus-core@github:sinanbocek/SNN-Abacus-Core#semver:^4.3.0"
+      ],
+      "files": [
+        {
+          "path": "registry/components/lib/chart-format.ts",
+          "type": "registry:lib",
+          "target": "@components/snn/lib/chart-format.ts"
+        }
+      ]
+    },
+    {
       "name": "button",
       "type": "registry:ui",
       "title": "Düğme",
@@ -1417,6 +1446,527 @@
       "meta": {
         "arcCommit": "bfdf7e8",
         "arcSource": "registry/components/kanban-board"
+      }
+    },
+    {
+      "name": "animated-counter",
+      "type": "registry:ui",
+      "title": "Dönen rakamlı sayaç",
+      "description": "Sayı değişince her rakam kilometre sayacı gibi döner (9 → 0 sarar, yön sayının gittiği yöndür); binlik ayracı nokta, ondalık ayracı virgül (\"1.234,5\"). İstenirse ilk görünüşte sıfırdan yukarı sayar. Ekran okuyucu düz metni okur.",
+      "dependencies": [
+        "@snn/abacus-core@github:sinanbocek/SNN-Abacus-Core#semver:^4.3.0",
+        "motion"
+      ],
+      "registryDependencies": [
+        "@snn-ui/snn-foundation",
+        "@snn-ui/snn-motion-tokens",
+        "@snn-ui/snn-chart-format"
+      ],
+      "files": [
+        {
+          "path": "registry/components/animated-counter/animated-counter.module.css",
+          "type": "registry:component",
+          "target": "@components/snn/animated-counter/animated-counter.module.css"
+        },
+        {
+          "path": "registry/components/animated-counter/animated-counter.tsx",
+          "type": "registry:component",
+          "target": "@components/snn/animated-counter/animated-counter.tsx"
+        },
+        {
+          "path": "registry/components/animated-counter/counter-parts.ts",
+          "type": "registry:component",
+          "target": "@components/snn/animated-counter/counter-parts.ts"
+        }
+      ],
+      "meta": {
+        "arcCommit": "bfdf7e8",
+        "arcSource": "registry/components/animated-counter"
+      }
+    },
+    {
+      "name": "metric-card",
+      "type": "registry:ui",
+      "title": "Gösterge kartı",
+      "description": "Bir göstergeyi tek kartta söyler: başlık, dönen rakamlı değer, işaretli değişim etiketi (yeşil/kırmızı) ve bağlam cümlesi. Değer düz sayı, tam tutar (₺1.250.000) ya da kısaltılmış tutar (₺1,25Mn) olabilir. Metinler değişince yön duyarlı kayar.",
+      "dependencies": [
+        "@snn/abacus-core@github:sinanbocek/SNN-Abacus-Core#semver:^4.3.0",
+        "motion"
+      ],
+      "registryDependencies": [
+        "@snn-ui/snn-foundation",
+        "@snn-ui/snn-motion-tokens",
+        "@snn-ui/animated-counter",
+        "@snn-ui/snn-chart-format"
+      ],
+      "files": [
+        {
+          "path": "registry/components/metric-card/metric-card-format.ts",
+          "type": "registry:component",
+          "target": "@components/snn/metric-card/metric-card-format.ts"
+        },
+        {
+          "path": "registry/components/metric-card/metric-card.module.css",
+          "type": "registry:component",
+          "target": "@components/snn/metric-card/metric-card.module.css"
+        },
+        {
+          "path": "registry/components/metric-card/metric-card.tsx",
+          "type": "registry:component",
+          "target": "@components/snn/metric-card/metric-card.tsx"
+        }
+      ],
+      "meta": {
+        "arcCommit": "bfdf7e8",
+        "arcSource": "registry/components/metric-card"
+      }
+    },
+    {
+      "name": "sparkline",
+      "type": "registry:ui",
+      "title": "Mini çizgi grafik",
+      "description": "Başlığın yanında küçük bir eğilim çizgisi: değer, değişim ve yumuşak çizgi. Görününce soldan sağa çizilir; fare, dokunma ve ok tuşlarıyla noktalar gezilir, başlık gezilen noktayı gösterir. Veri değişince çizgi yeni biçime akar.",
+      "dependencies": [
+        "@snn/abacus-core@github:sinanbocek/SNN-Abacus-Core#semver:^4.3.0",
+        "motion"
+      ],
+      "registryDependencies": [
+        "@snn-ui/snn-foundation",
+        "@snn-ui/snn-motion-tokens",
+        "@snn-ui/snn-chart-format"
+      ],
+      "files": [
+        {
+          "path": "registry/components/sparkline/sparkline.module.css",
+          "type": "registry:component",
+          "target": "@components/snn/sparkline/sparkline.module.css"
+        },
+        {
+          "path": "registry/components/sparkline/sparkline.tsx",
+          "type": "registry:component",
+          "target": "@components/snn/sparkline/sparkline.tsx"
+        }
+      ],
+      "meta": {
+        "arcCommit": "bfdf7e8",
+        "arcSource": "registry/components/sparkline"
+      }
+    },
+    {
+      "name": "line-chart",
+      "type": "registry:ui",
+      "title": "Çizgi grafik",
+      "description": "Zaman içindeki bir ya da birkaç ölçüyü yumuşak çizgilerle gösterir. Fare, dokunma ve ok tuşlarıyla gezilen artı imleç ipucuyla noktaları okur; seriler göstergeden açılıp kapanır, değer ekseni kendini ölçekler, aralık değişince çizgiler yeni biçime akar. Ekran okuyucu için veri tablosu, boş ve yükleniyor durumları vardır.",
+      "dependencies": [
+        "@snn/abacus-core@github:sinanbocek/SNN-Abacus-Core#semver:^4.3.0",
+        "motion"
+      ],
+      "registryDependencies": [
+        "@snn-ui/snn-foundation",
+        "@snn-ui/snn-motion-tokens",
+        "@snn-ui/snn-chart-format"
+      ],
+      "files": [
+        {
+          "path": "registry/components/line-chart/line-chart-format.ts",
+          "type": "registry:component",
+          "target": "@components/snn/line-chart/line-chart-format.ts"
+        },
+        {
+          "path": "registry/components/line-chart/line-chart.module.css",
+          "type": "registry:component",
+          "target": "@components/snn/line-chart/line-chart.module.css"
+        },
+        {
+          "path": "registry/components/line-chart/line-chart.tsx",
+          "type": "registry:component",
+          "target": "@components/snn/line-chart/line-chart.tsx"
+        }
+      ],
+      "meta": {
+        "arcCommit": "bfdf7e8",
+        "arcSource": "registry/components/line-chart"
+      }
+    },
+    {
+      "name": "bar-chart",
+      "type": "registry:ui",
+      "title": "Çubuk grafik",
+      "description": "Bir ölçüyü art arda gün, hafta ya da ay boyunca çubuklarla gösterir; dönemler birbirleriyle ve ortalama çizgisiyle karşılaştırılır. Başlık dururken ortalamayı, gezerken gezilen çubuğu okur (fare, dokunma, ok tuşları). Çubuklar sırayla büyür, aralık değişince yeni değerlere akar, eksen kendini ölçekler. Ekran okuyucu için veri tablosu vardır.",
+      "dependencies": [
+        "@snn/abacus-core@github:sinanbocek/SNN-Abacus-Core#semver:^4.3.0",
+        "motion"
+      ],
+      "registryDependencies": [
+        "@snn-ui/snn-foundation",
+        "@snn-ui/snn-motion-tokens",
+        "@snn-ui/snn-chart-format"
+      ],
+      "files": [
+        {
+          "path": "registry/components/bar-chart/bar-chart.module.css",
+          "type": "registry:component",
+          "target": "@components/snn/bar-chart/bar-chart.module.css"
+        },
+        {
+          "path": "registry/components/bar-chart/bar-chart.tsx",
+          "type": "registry:component",
+          "target": "@components/snn/bar-chart/bar-chart.tsx"
+        }
+      ],
+      "meta": {
+        "arcCommit": "bfdf7e8",
+        "arcSource": "registry/components/bar-chart"
+      }
+    },
+    {
+      "name": "donut-chart",
+      "type": "registry:ui",
+      "title": "Halka grafik",
+      "description": "Bir bütünün birkaç parçasını halka dilimleriyle gösterir; her parçanın payı kesin karşılaştırmadan önemli olduğunda kullanılır. Üzerine gelinen ya da seçilen dilim dışarı kayar, merkez o dilimin değerini ve payını (\"%36\") okur; küçük parçalar \"Diğer\"e katılır. Eşgüdümlü gösterge dilimleri gösterip gizler, halka yeniden dağılır. Ekran okuyucu için tablo, boş durum ve ok tuşuyla gezinme vardır.",
+      "dependencies": [
+        "@snn/abacus-core@github:sinanbocek/SNN-Abacus-Core#semver:^4.3.0",
+        "motion"
+      ],
+      "registryDependencies": [
+        "@snn-ui/snn-foundation",
+        "@snn-ui/snn-motion-tokens",
+        "@snn-ui/snn-chart-format",
+        "@snn-ui/snn-chart-palette"
+      ],
+      "files": [
+        {
+          "path": "registry/components/donut-chart/donut-chart.module.css",
+          "type": "registry:component",
+          "target": "@components/snn/donut-chart/donut-chart.module.css"
+        },
+        {
+          "path": "registry/components/donut-chart/donut-chart.tsx",
+          "type": "registry:component",
+          "target": "@components/snn/donut-chart/donut-chart.tsx"
+        }
+      ],
+      "meta": {
+        "arcCommit": "bfdf7e8",
+        "arcSource": "registry/components/donut-chart"
+      }
+    },
+    {
+      "name": "gauge",
+      "type": "registry:ui",
+      "title": "Gösterge halkası",
+      "description": "Bir değerin aralığındaki yerini 270 derecelik halkayla gösterir: ortada \"%72\" ve isteğe bağlı durum adı. Eşik bantları (örneğin Düşük / Normal / Yüksek) rengi ve durum adını belirler; anlam yalnız renge dayanmaz. Görününce dolar, değer değişince yaylanır; sayım halkayı aşmadan izler.",
+      "dependencies": [
+        "@snn/abacus-core@github:sinanbocek/SNN-Abacus-Core#semver:^4.3.0",
+        "motion"
+      ],
+      "registryDependencies": [
+        "@snn-ui/snn-foundation",
+        "@snn-ui/snn-motion-tokens",
+        "@snn-ui/snn-chart-format"
+      ],
+      "files": [
+        {
+          "path": "registry/components/gauge/gauge.module.css",
+          "type": "registry:component",
+          "target": "@components/snn/gauge/gauge.module.css"
+        },
+        {
+          "path": "registry/components/gauge/gauge.tsx",
+          "type": "registry:component",
+          "target": "@components/snn/gauge/gauge.tsx"
+        }
+      ],
+      "meta": {
+        "arcCommit": "bfdf7e8",
+        "arcSource": "registry/components/gauge"
+      }
+    },
+    {
+      "name": "usage-meter",
+      "type": "registry:ui",
+      "title": "Kullanım göstergesi",
+      "description": "Depolama ya da koltuk gibi sabit bir hakkın ne kadarının neye gittiğini tek çubukta gösterir: kategoriler vurgunun basamaklarıdır, boş alan izin kendisidir. Başlıkta dönen rakamlı toplam, durum işareti (\"3,2 GB boş\", \"Neredeyse dolu\", \"… aşıldı\") ve klavyeyle gezilen gösterge vardır. Limit aşılınca taşan kısım taramalı çizilir; durum değişimleri ekran okuyucuya duyurulur.",
+      "dependencies": [
+        "@snn/abacus-core@github:sinanbocek/SNN-Abacus-Core#semver:^4.3.0",
+        "lucide-react",
+        "motion"
+      ],
+      "registryDependencies": [
+        "@snn-ui/snn-foundation",
+        "@snn-ui/snn-motion-tokens",
+        "@snn-ui/animated-counter",
+        "@snn-ui/snn-chart-format"
+      ],
+      "files": [
+        {
+          "path": "registry/components/usage-meter/usage-meter.module.css",
+          "type": "registry:component",
+          "target": "@components/snn/usage-meter/usage-meter.module.css"
+        },
+        {
+          "path": "registry/components/usage-meter/usage-meter.tsx",
+          "type": "registry:component",
+          "target": "@components/snn/usage-meter/usage-meter.tsx"
+        }
+      ],
+      "meta": {
+        "arcCommit": "bfdf7e8",
+        "arcSource": "registry/components/usage-meter"
+      }
+    },
+    {
+      "name": "slope-chart",
+      "type": "registry:ui",
+      "title": "Eğim grafiği",
+      "description": "Birkaç öğenin tam iki an arasında nasıl değiştiğini (ve sıralarının nasıl değiştiğini) gösterir: her öğe iki sütun arasında bir çizgidir. Etiketler üst üste binmez, hikâye öğesi vurgu renginde çizilir, odaktaki öğe öne çıkar ve ipucu değer, fark ve sıra değişimini söyler (yukarı/aşağı oklarla gezilir). Kapanma sırası sıra okuyla gösterilir.",
+      "dependencies": [
+        "@snn/abacus-core@github:sinanbocek/SNN-Abacus-Core#semver:^4.3.0",
+        "motion"
+      ],
+      "registryDependencies": [
+        "@snn-ui/snn-foundation",
+        "@snn-ui/snn-motion-tokens",
+        "@snn-ui/snn-chart-format",
+        "@snn-ui/snn-chart-palette"
+      ],
+      "files": [
+        {
+          "path": "registry/components/slope-chart/slope-chart.module.css",
+          "type": "registry:component",
+          "target": "@components/snn/slope-chart/slope-chart.module.css"
+        },
+        {
+          "path": "registry/components/slope-chart/slope-chart.tsx",
+          "type": "registry:component",
+          "target": "@components/snn/slope-chart/slope-chart.tsx"
+        }
+      ],
+      "meta": {
+        "arcCommit": "bfdf7e8",
+        "arcSource": "registry/components/slope-chart"
+      }
+    },
+    {
+      "name": "treemap",
+      "type": "registry:ui",
+      "title": "Ağaç haritası",
+      "description": "Bölge, ülke ve plana göre ciro gibi bir parça hiyerarşisini boyutla orantılı kutularla gösterir; boyutlar kesin karşılaştırmadan önemli olduğunda kullanılır. Üst düzey dallar dört seri tonunu alır, isteğe bağlı ikinci ölçü (büyüme gibi) koyuluğu belirler. Kutuya tıklayınca ya da Enter ile içine yakınlaşılır, Escape ya da yol izi ile geri dönülür; ipucu değeri ve üst öğedeki payı (\"%12,3 Avrupa içinde\") söyler.",
+      "dependencies": [
+        "@snn/abacus-core@github:sinanbocek/SNN-Abacus-Core#semver:^4.3.0",
+        "motion"
+      ],
+      "registryDependencies": [
+        "@snn-ui/snn-foundation",
+        "@snn-ui/snn-motion-tokens",
+        "@snn-ui/snn-chart-format",
+        "@snn-ui/snn-chart-palette"
+      ],
+      "files": [
+        {
+          "path": "registry/components/treemap/treemap.module.css",
+          "type": "registry:component",
+          "target": "@components/snn/treemap/treemap.module.css"
+        },
+        {
+          "path": "registry/components/treemap/treemap.tsx",
+          "type": "registry:component",
+          "target": "@components/snn/treemap/treemap.tsx"
+        }
+      ],
+      "meta": {
+        "arcCommit": "bfdf7e8",
+        "arcSource": "registry/components/treemap"
+      }
+    },
+    {
+      "name": "waffle-chart",
+      "type": "registry:ui",
+      "title": "Kare ızgara grafiği",
+      "description": "Bir bütünün parçalarını sayılabilir karelerle gösterir: her hücre bütünün bir payıdır (10 × 10 ızgarada yüzde başına bir hücre). Hücreler sol alttan sütun sütun, bardak dolar gibi dolar; veri değişince hücreler bir kategoriden ötekine uçarak taşınır. Renk yalnız tek kanal değildir: nötr kategoriler kare, yuvarlak ve çerçeveli hücrelerle de ayrışır. Gösterge payları (\"%36\") yeni değerine döner; ok tuşlarıyla hücre hücre gezilir.",
+      "dependencies": [
+        "@snn/abacus-core@github:sinanbocek/SNN-Abacus-Core#semver:^4.3.0",
+        "motion"
+      ],
+      "registryDependencies": [
+        "@snn-ui/snn-foundation",
+        "@snn-ui/snn-motion-tokens",
+        "@snn-ui/snn-chart-format",
+        "@snn-ui/snn-chart-palette"
+      ],
+      "files": [
+        {
+          "path": "registry/components/waffle-chart/waffle-chart.module.css",
+          "type": "registry:component",
+          "target": "@components/snn/waffle-chart/waffle-chart.module.css"
+        },
+        {
+          "path": "registry/components/waffle-chart/waffle-chart.tsx",
+          "type": "registry:component",
+          "target": "@components/snn/waffle-chart/waffle-chart.tsx"
+        }
+      ],
+      "meta": {
+        "arcCommit": "bfdf7e8",
+        "arcSource": "registry/components/waffle-chart"
+      }
+    },
+    {
+      "name": "brush-chart",
+      "type": "registry:ui",
+      "title": "Fırça grafiği",
+      "description": "Uzun ve yoğun bir zaman serisinde hem tüm geçmişi hem de herhangi bir kesitine yakından bakmayı sağlar: altta tüm serinin genel bakış şeridi, üstte seçili pencerenin büyük grafiği. Pencere kenarlarından boyutlandırılır, tutulup kaydırılır, boş izden yenisi çizilir (dokunma yeniden ortalar, çift dokunma sıfırlar); klavyeyle de gezilir. Uzaklaşınca yedi günlük ortalama ve bandı ham çizginin yerini alır; olaylar işaretlenir. Tarihler Türkçedir (\"15 Ekim 2026 Per\").",
+      "dependencies": [
+        "@snn/abacus-core@github:sinanbocek/SNN-Abacus-Core#semver:^4.3.0",
+        "motion"
+      ],
+      "registryDependencies": [
+        "@snn-ui/snn-foundation",
+        "@snn-ui/snn-motion-tokens",
+        "@snn-ui/snn-chart-format",
+        "@snn-ui/snn-chart-palette"
+      ],
+      "files": [
+        {
+          "path": "registry/components/brush-chart/brush-chart.module.css",
+          "type": "registry:component",
+          "target": "@components/snn/brush-chart/brush-chart.module.css"
+        },
+        {
+          "path": "registry/components/brush-chart/brush-chart.tsx",
+          "type": "registry:component",
+          "target": "@components/snn/brush-chart/brush-chart.tsx"
+        }
+      ],
+      "meta": {
+        "arcCommit": "bfdf7e8",
+        "arcSource": "registry/components/brush-chart"
+      }
+    },
+    {
+      "name": "activity-heatmap",
+      "type": "registry:ui",
+      "title": "Etkinlik takvimi",
+      "description": "Gün başına bir kare, haftalar sütun: günün ne kadar yoğun olduğunu dört vurgu tonu söyler. Ritim, seri ve sakin haftalar kesin karşılaştırmadan önemli olduğunda kullanılır. Üstte dönen rakamlı özet (\"1.284 katkı 2025 yılında\"); kareler görününce dalga olur, ipucu hücreler arasında süzülür, yeni aralık ızgarayı süpürerek yeniden renklendirir. Oklarla gün ve hafta gezilir, Enter seçer; gösterge düzeyleri ızgarada önizler ve sabitler. Dar ekranda yana kayar.",
+      "dependencies": [
+        "@snn/abacus-core@github:sinanbocek/SNN-Abacus-Core#semver:^4.3.0",
+        "motion"
+      ],
+      "registryDependencies": [
+        "@snn-ui/snn-foundation",
+        "@snn-ui/snn-motion-tokens",
+        "@snn-ui/snn-chart-format"
+      ],
+      "files": [
+        {
+          "path": "registry/components/activity-heatmap/activity-heatmap.module.css",
+          "type": "registry:component",
+          "target": "@components/snn/activity-heatmap/activity-heatmap.module.css"
+        },
+        {
+          "path": "registry/components/activity-heatmap/activity-heatmap.tsx",
+          "type": "registry:component",
+          "target": "@components/snn/activity-heatmap/activity-heatmap.tsx"
+        }
+      ],
+      "meta": {
+        "arcCommit": "bfdf7e8",
+        "arcSource": "registry/components/activity-heatmap"
+      }
+    },
+    {
+      "name": "streamgraph",
+      "type": "registry:ui",
+      "title": "Akış grafiği",
+      "description": "Birkaç parçanın karışımının zamanla nasıl değiştiğini, genel biçim kesin değerlerden önemli olduğunda gösterir: katmanlar merkezden dışa, akıcı bir şerit olarak dizilir. Katmanlar yeni veriye ve gizlemeye akarak uyar, ilk görünüşte merkezden kabarır. Katman adları yeterince kalın kesitte doğrudan yazılır; üzerine gelinen katman öne çıkar, ipucu o zamandaki tüm değerleri söyler. Ok tuşlarıyla zamanda ve katmanlar arasında gezilir.",
+      "dependencies": [
+        "@snn/abacus-core@github:sinanbocek/SNN-Abacus-Core#semver:^4.3.0",
+        "motion"
+      ],
+      "registryDependencies": [
+        "@snn-ui/snn-foundation",
+        "@snn-ui/snn-motion-tokens",
+        "@snn-ui/snn-chart-format",
+        "@snn-ui/snn-chart-palette"
+      ],
+      "files": [
+        {
+          "path": "registry/components/streamgraph/streamgraph.module.css",
+          "type": "registry:component",
+          "target": "@components/snn/streamgraph/streamgraph.module.css"
+        },
+        {
+          "path": "registry/components/streamgraph/streamgraph.tsx",
+          "type": "registry:component",
+          "target": "@components/snn/streamgraph/streamgraph.tsx"
+        }
+      ],
+      "meta": {
+        "arcCommit": "bfdf7e8",
+        "arcSource": "registry/components/streamgraph"
+      }
+    },
+    {
+      "name": "ridgeline",
+      "type": "registry:ui",
+      "title": "Sırt çizgisi grafiği",
+      "description": "Birçok dağılımın biçimini aynı anda karşılaştırır, örneğin aylara göre günlük sıcaklık ya da bölgelere göre yanıt süresi: her satır, ham gözlemlerin yumuşatılmış yoğunluğudur ve üstteki satırlara taşar. Sırtlar medyanlarına göre açık tondan koyuya gölgelenir; üzerine gelinen sırt öne çıkar, ipucu medyanı, orta yarıyı, aralığı ve imleç değerinin altında kalan payı (\"%36\") söyler. Ok tuşlarıyla sırtlar ve değerler gezilir; veri değişince sırtlar yeni biçime akar.",
+      "dependencies": [
+        "@snn/abacus-core@github:sinanbocek/SNN-Abacus-Core#semver:^4.3.0",
+        "motion"
+      ],
+      "registryDependencies": [
+        "@snn-ui/snn-foundation",
+        "@snn-ui/snn-motion-tokens",
+        "@snn-ui/snn-chart-format",
+        "@snn-ui/snn-chart-palette"
+      ],
+      "files": [
+        {
+          "path": "registry/components/ridgeline/ridgeline.module.css",
+          "type": "registry:component",
+          "target": "@components/snn/ridgeline/ridgeline.module.css"
+        },
+        {
+          "path": "registry/components/ridgeline/ridgeline.tsx",
+          "type": "registry:component",
+          "target": "@components/snn/ridgeline/ridgeline.tsx"
+        }
+      ],
+      "meta": {
+        "arcCommit": "bfdf7e8",
+        "arcSource": "registry/components/ridgeline"
+      }
+    },
+    {
+      "name": "slot-text",
+      "type": "registry:ui",
+      "title": "Makaralı metin",
+      "description": "Metin ve sayıların yeni değerine kumar makinesi makaraları gibi dönmesi: her karakter bir makaradır, rakamlar sayının gittiği yönde çarkta sayar, harfler Türk alfabesinde (ç, ğ, ı, ö, ş, ü dahil) karışır, makaralar soldan sağa birer birer yumuşakça durur. Sayılar ABACUS biçimindedir (\"12.480\", \"1.234,5\"), baştaki ₺ gibi simgeler rakama dönmez. Fiyat, istatistik ve lansman anları için; ekran okuyucu düz metni okur.",
+      "dependencies": [
+        "@snn/abacus-core@github:sinanbocek/SNN-Abacus-Core#semver:^4.3.0",
+        "motion"
+      ],
+      "registryDependencies": [
+        "@snn-ui/snn-foundation",
+        "@snn-ui/snn-motion-tokens",
+        "@snn-ui/snn-chart-format"
+      ],
+      "files": [
+        {
+          "path": "registry/components/slot-text/slot-text.module.css",
+          "type": "registry:component",
+          "target": "@components/snn/slot-text/slot-text.module.css"
+        },
+        {
+          "path": "registry/components/slot-text/slot-text.tsx",
+          "type": "registry:component",
+          "target": "@components/snn/slot-text/slot-text.tsx"
+        }
+      ],
+      "meta": {
+        "arcCommit": "bfdf7e8",
+        "arcSource": "registry/components/slot-text"
       }
     }
   ]
