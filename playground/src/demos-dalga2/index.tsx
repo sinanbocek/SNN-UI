@@ -14,6 +14,7 @@ import { CohortRetentionDemo } from "./cohort-retention";
 import { UsageForecastDemo } from "./usage-forecast";
 import { BudgetVarianceDemo } from "./budget-variance";
 import { SmallMultiplesDemo } from "./small-multiples";
+import { LineReplayDemo } from "./line-replay";
 
 export const dalga2Demos: Record<string, () => ReactNode> = {
   "split-bar": () => <SplitBarDemo />,
@@ -30,4 +31,5 @@ export const dalga2Demos: Record<string, () => ReactNode> = {
   "usage-forecast": () => <UsageForecastDemo />,
   "budget-variance": () => <BudgetVarianceDemo />,
   "small-multiples": () => <SmallMultiplesDemo />,
+  "line-replay": () => <LineReplayDemo />,
 };

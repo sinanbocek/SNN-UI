@@ -29,6 +29,7 @@ const FILES = {
   usage: "registry/components/usage-forecast/usage-forecast-format.ts",
   variance: "registry/components/budget-variance/budget-variance-format.ts",
   multiples: "registry/components/small-multiples/small-multiples-format.ts",
+  replay: "registry/components/line-replay/line-replay-format.ts",
 };
 const mods = {};
 let temp;
@@ -274,4 +275,23 @@ test("küçük çoklu grafikler: büyüme, trend, ad sıralaması ve ay etiketi 
   assert.deepEqual(mods.multiples.sortSeries(series, "last", 0).map(item => item.key), ["b", "c", "a"]);
   assert.deepEqual(mods.multiples.totals(series, 1), [6]);
   assert.deepEqual(mods.multiples.domainFor(series[0], series, "shared"), [0, 3]);
+});
+
+test("çizgi tekrarı: değer, saat, çarpan ve etki yazımı ABACUS çıktısıdır; ara değer doğru", () => {
+  assert.equal(mods.replay.valueText("count", 1234.4), money.fmtDecimalGrouped(1234, 0));
+  assert.equal(mods.replay.valueText("money", 1250000), money.formatMajor(1250000, { currency: "TRY", digits: 0 }));
+  assert.equal(mods.replay.tickText("money", 1250000), money.compactMajor(1250000, { style: "B/Mn/Mr" }));
+  assert.equal(mods.replay.ratioText(480, 100), "4,8×");
+  assert.equal(mods.replay.ratioText(5, 0), null);
+  // 2026-10-18 06:40 UTC = Türkiye saatiyle 09:40
+  assert.equal(mods.replay.timeText(Date.UTC(2026, 9, 18, 6, 40)), "09:40");
+  assert.equal(mods.replay.clockText(Date.UTC(2026, 9, 18, 6, 40, 7)), "09:40:07");
+  const points = [{ t: 0, value: 100 }, { t: 600000, value: 200 }, { t: 1200000, value: 150 }];
+  assert.equal(mods.replay.valueAtTime(points, 300000), 150);
+  assert.equal(mods.replay.valueAtTime(points, 9e9), 150);
+  assert.deepEqual(mods.replay.pointsUntil(points, 300000).map(point => point.value), [100, 150]);
+  assert.deepEqual(mods.replay.peakUntil(points, 1200000), { t: 600000, value: 200 });
+  assert.equal(mods.replay.effectText("count", { t: 0, title: "x" }, [{ t: 0, value: 100 }, { t: 3600000, value: 1340 }]), "sonraki saatte +1.240");
+  assert.equal(mods.replay.effectText("count", { t: 0, kind: "issue", title: "x" }, [{ t: 0, value: 200 }, { t: 1200000, value: 150 }]), "20 dakikada " + money.percent(-25, 1, { sign: "always" }));
+  assert.equal(mods.replay.niceTop(2316), 2500);
 });

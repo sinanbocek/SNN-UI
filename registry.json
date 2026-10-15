@@ -2572,6 +2572,46 @@
         "arcCommit": "bfdf7e8",
         "arcSource": "registry/components/small-multiples"
       }
+    },
+    {
+      "name": "line-replay",
+      "type": "registry:ui",
+      "title": "Çizgi tekrarı",
+      "description": "Blok: bir günün (ya da bir olayın) tek serisini, oynat düğmesine basınca soldan sağa kendini çizerek anlatır. Çizginin ucunda oynatma imleci ve değer etiketi gider; kilit anlar (duyuru, yayın, sorun) imleç oradan geçince çizgi üzerinde işaretlenir, üstte açıklama çıkar, yandaki \"Kilit anlar\" listesinde satır yanar ve etki satırı açılır (\"sonraki saatte +1.240\", sorunda \"20 dakikada -%12,3\"). Okuma satırı saat, değer, kıyasa göre çarpan (\"4,8×\") ve şu ana kadarki tepeyi yazar. Oynat/duraklat, kilit an işaretli kaydırıcı ve hız seçici (0,5× 1× 2× 4×) vardır; listeden bir ana basınca imleç oraya atlar. Varsayılan olarak çizgi tamam ve tüm anlar işlidir. Sorun anı farklı simge ve başlıkla gösterilir; yükleniyor, veri yok ve dar kap durumları ile klavye ve canlı duyurular vardır.",
+      "dependencies": [
+        "@snn/abacus-core@github:sinanbocek/SNN-Abacus-Core#semver:^4.3.0",
+        "motion"
+      ],
+      "registryDependencies": [
+        "@snn-ui/snn-foundation",
+        "@snn-ui/snn-motion-tokens",
+        "@snn-ui/button",
+        "@snn-ui/segmented-control",
+        "@snn-ui/skeleton",
+        "@snn-ui/snn-chart-format",
+        "@snn-ui/snn-viz-utils"
+      ],
+      "files": [
+        {
+          "path": "registry/components/line-replay/line-replay-format.ts",
+          "type": "registry:component",
+          "target": "@components/snn/line-replay/line-replay-format.ts"
+        },
+        {
+          "path": "registry/components/line-replay/line-replay.module.css",
+          "type": "registry:component",
+          "target": "@components/snn/line-replay/line-replay.module.css"
+        },
+        {
+          "path": "registry/components/line-replay/line-replay.tsx",
+          "type": "registry:component",
+          "target": "@components/snn/line-replay/line-replay.tsx"
+        }
+      ],
+      "meta": {
+        "arcCommit": "bfdf7e8",
+        "arcSource": "registry/components/line-replay"
+      }
     }
   ]
 }
