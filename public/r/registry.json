@@ -1209,6 +1209,36 @@
         "arcCommit": "bfdf7e8",
         "arcSource": "registry/components/release-readiness"
       }
+    },
+    {
+      "name": "multi-step-form",
+      "type": "registry:ui",
+      "title": "Adım adım form",
+      "description": "Blok: uzun formu kısa adımlara böler. Numaralı adım listesi (tamamlananlarda çizilen tik, etkin adım vurgulu; tamamlanan adıma geri dönülür), yönlü kayan geçiş, adımın yüksekliğine yaylanan kutu, \"Adım 1 / 2\" sayacı, Geri / Devam / Bitir düğmeleri ve başarı ekranı. Yerel kısıtlar (`required`, `pattern`) ve isteğe bağlı özel denetim geçişi engeller, ilk geçersiz alana odak gider. Gönderiliyor, sunucu hatası (\"Yeniden dene\") ve dar kolon durumları vardır.",
+      "dependencies": [
+        "motion"
+      ],
+      "registryDependencies": [
+        "@snn-ui/snn-foundation",
+        "@snn-ui/snn-motion-tokens",
+        "@snn-ui/button"
+      ],
+      "files": [
+        {
+          "path": "registry/components/multi-step-form/multi-step-form.module.css",
+          "type": "registry:component",
+          "target": "@components/snn/multi-step-form/multi-step-form.module.css"
+        },
+        {
+          "path": "registry/components/multi-step-form/multi-step-form.tsx",
+          "type": "registry:component",
+          "target": "@components/snn/multi-step-form/multi-step-form.tsx"
+        }
+      ],
+      "meta": {
+        "arcCommit": "bfdf7e8",
+        "arcSource": "registry/components/multi-step-form"
+      }
     }
   ]
 }

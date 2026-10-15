@@ -78,6 +78,7 @@ Gereken paketler: React 19, `motion`; bazı bileşenlerde Radix ve `lucide-react
 | `roles-permissions` | Roller ve izinler | Blok: satırlar izin, sütunlar rol olan matris. İzinler katlanabilir gruplarda; grup kutusu hepsini dalga gibi açar ve karışık durumu (çizgili) gösterir. Sahip sütunu kilitlidir. Ok tuşlu tek durak gezinme, üzerinde durulan sütun vurgusu, rol menüsü, değişiklik özetli inceleme çubuğu. Boş, yükleniyor, kaydetme hatası ve dar ekran (sabit izin sütunu, yana kayan tablo) durumları vardır. İzin gruplarını, rolleri ve gerçek kaydı proje verir; blok değişen (rol, izin, verildi mi) çiftlerini `onSave`'e iletir, reddedilirse çubukta "Yeniden dene" çıkar. İzinlerin uygulanması projenin yetkilendirme sistemindedir. Kişiye rol atama için `team-members` kullanılır. Arc Pro roles-permissions'tan esinlenildi (tarif: docs/tarifler/roles-permissions.md). | `npx shadcn@latest add @snn-ui/roles-permissions` |
 | `inbox-triage` | Gelen kutusu ayıklama | Blok: karar bekleyen mesaj kuyruğu. Gelen, Ertelenen ve Arşiv sekmeleri (sayılı), yerinde açılan satırlar, "yalnız okunmamışlar" süzgeci, tek tuş kısayolları (E arşivle, S ertele, U geri al) ve geri alınabilir son hamle durum satırı. Hamleden sonra odak sonraki satıra geçer. Her klasör için ayrı boş durum, yükleniyor, taşıma hatası ("Yeniden dene") ve dar kolon (iki satırlı satır) durumları vardır. Mesajları ve zaman metnini ("09.42", "Dün") proje verir (ABACUS `date`); blok yalnız hamle olaylarını (`onMove`) ve okunma olayını iletir, gerçek veri servisini proje bağlar. Hamle reddedilirse mesaj eski klasörüne döner. Mesaj yazma, etiket ve sistem bildirimleri kapsam dışıdır. Arc Pro inbox-triage'dan esinlenildi (tarif: docs/tarifler/inbox-triage.md). | `npx shadcn@latest add @snn-ui/inbox-triage` |
 | `release-readiness` | Yayına hazırlık listesi | Blok: bir iş yapılmadan önce tamamlanması gereken kontroller. Sayaç ("3 kontrol kaldı" / "Hazır") ve ilerleme çubuğu, iki sütunlu kontrol satırları, isteğe bağlı "ilgilileri bilgilendir" anahtarı ve hepsi işaretlenince açılan ana eylem düğmesi. Pasif düğmenin nedeni yazıyla söylenir. Yükleniyor, çalışıyor, başarı, hata ("Yeniden dene") ve dar kolon durumları vardır. Kontrol listesini ve son eylemi proje verir; kontrollerin otomatik doğrulanması (CI sonucu okumak gibi) projenin işidir. Eylem reddedilirse satır içi uyarı çıkar ve düğme "Yeniden dene" olur. Çok adımlı akış için `multi-step-form` kullanılır. Arc Pro release-readiness'tan esinlenildi (tarif: docs/tarifler/release-readiness.md). | `npx shadcn@latest add @snn-ui/release-readiness` |
+| `multi-step-form` | Adım adım form | Blok: uzun formu kısa adımlara böler. Numaralı adım listesi (tamamlananlarda çizilen tik, etkin adım vurgulu; tamamlanan adıma geri dönülür), yönlü kayan geçiş, adımın yüksekliğine yaylanan kutu, "Adım 1 / 2" sayacı, Geri / Devam / Bitir düğmeleri ve başarı ekranı. Yerel kısıtlar (`required`, `pattern`) ve isteğe bağlı özel denetim geçişi engeller, ilk geçersiz alana odak gider. Gönderiliyor, sunucu hatası ("Yeniden dene") ve dar kolon durumları vardır. Adım içeriğindeki alanları (`input`, `select`, `textarea`, `switch` …) ve değerlerini proje verir; değerler üst bileşende tutulur, geri dönünce kaybolmaz. Sayı, para, tarih, telefon alanları ABACUS ile 2. rafta gelir. Dallanan adım, taslak kaydetme ve gelişmiş doğrulama kapsam dışıdır. Arc Pro multi-step-form'dan esinlenildi (tarif: docs/tarifler/multi-step-form.md). | `npx shadcn@latest add @snn-ui/multi-step-form` |
 
 ## Kullanım örnekleri
 
@@ -375,6 +376,14 @@ import { InboxTriage } from "@/components/snn/inbox-triage/inbox-triage";
 import { ReleaseReadiness } from "@/components/snn/release-readiness/release-readiness";
 
 <ReleaseReadiness title="Sürüm 2.4" checks={checks} channel="Teklif ekibi" actionLabel="Yayını başlat" onAction={start} />
+```
+
+### Adım adım form (`multi-step-form`)
+
+```tsx
+import { MultiStepForm } from "@/components/snn/multi-step-form/multi-step-form";
+
+<MultiStepForm steps={[{ id: "contact", title: "İletişim", content: <Input label="Ad" required /> }]} onComplete={submit} successAction={{ label: "Panoya git", onClick: goHome }} />
 ```
 
 ## Bu rafta olmayanlar
