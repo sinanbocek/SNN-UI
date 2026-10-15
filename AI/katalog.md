@@ -90,6 +90,7 @@ Gereken paketler: React 19, `motion`; bazı bileşenlerde Radix ve `lucide-react
 | `bar-chart` | Çubuk grafik | Bir ölçüyü art arda gün, hafta ya da ay boyunca çubuklarla gösterir; dönemler birbirleriyle ve ortalama çizgisiyle karşılaştırılır. Başlık dururken ortalamayı, gezerken gezilen çubuğu okur (fare, dokunma, ok tuşları). Çubuklar sırayla büyür, aralık değişince yeni değerlere akar, eksen kendini ölçekler. Ekran okuyucu için veri tablosu vardır. Değerler ve eksen etiketleri ABACUS biçimindedir ("1.234"); `formatValue` ile para birimli yazım verilebilir (`snn-chart-format`: `formatMoney`). Gün etiketlerini (`label`, `axisLabel`) ve dönem metnini proje ABACUS `date.format` ile hazırlar. Çubuk renkleri vurgu rengindendir (`--series-*` gerekmez). | `npx shadcn@latest add @snn-ui/bar-chart` |
 | `donut-chart` | Halka grafik | Bir bütünün birkaç parçasını halka dilimleriyle gösterir; her parçanın payı kesin karşılaştırmadan önemli olduğunda kullanılır. Üzerine gelinen ya da seçilen dilim dışarı kayar, merkez o dilimin değerini ve payını ("%36") okur; küçük parçalar "Diğer"e katılır. Eşgüdümlü gösterge dilimleri gösterip gizler, halka yeniden dağılır. Ekran okuyucu için tablo, boş durum ve ok tuşuyla gezinme vardır. Değerler ABACUS biçimindedir ("1.234,5"), paylar `money.percent` ile yazılır ("%36", yüzde birin altı "<%1"). `formatValue` ile para birimli yazım verilebilir (`snn-chart-format`: `formatMoney`). Renkler `snn-chart-palette` (mavi, menekşe, yeşil, gül) ve nötr basamaklardır; amber yok. Varsayılan metinler Türkçe ("Toplam", "Diğer", "Henüz veri yok"). | `npx shadcn@latest add @snn-ui/donut-chart` |
 | `gauge` | Gösterge halkası | Bir değerin aralığındaki yerini 270 derecelik halkayla gösterir: ortada "%72" ve isteğe bağlı durum adı. Eşik bantları (örneğin Düşük / Normal / Yüksek) rengi ve durum adını belirler; anlam yalnız renge dayanmaz. Görününce dolar, değer değişince yaylanır; sayım halkayı aşmadan izler. Yüzde `%72` biçiminde, işaret sayıdan önce yazılır (Türkçe yazım). `detail` hazır metin olarak gelir (`money.percent`, `money.formatMajor`). Eşik tonlarından `warning` mavi-gridir; kırmızı (`danger`) yalnız gerçek hata içindir. | `npx shadcn@latest add @snn-ui/gauge` |
+| `usage-meter` | Kullanım göstergesi | Depolama ya da koltuk gibi sabit bir hakkın ne kadarının neye gittiğini tek çubukta gösterir: kategoriler vurgunun basamaklarıdır, boş alan izin kendisidir. Başlıkta dönen rakamlı toplam, durum işareti ("3,2 GB boş", "Neredeyse dolu", "… aşıldı") ve klavyeyle gezilen gösterge vardır. Limit aşılınca taşan kısım taramalı çizilir; durum değişimleri ekran okuyucuya duyurulur. Sayılar ABACUS biçimindedir (sabit ondalıklı "42,5", binlik ayracı nokta); `decimals` ondalık basamak sayısıdır. Rakam sütunları `animated-counter` ile ortaktır (`counterParts`). Durum metinleri Türkçedir ("Boş", "Limit aşımı", "Neredeyse dolu"); `warnAt` varsayılanı 0,9. Gerçek kullanım verisini proje verir. | `npx shadcn@latest add @snn-ui/usage-meter` |
 
 ## Kullanım örnekleri
 
@@ -483,6 +484,14 @@ import { DonutChart, DonutChartDatum } from "@/components/snn/donut-chart/donut-
 import { Gauge } from "@/components/snn/gauge/gauge";
 
 <Gauge label="Kasa doluluğu" value={72} detail="Hedef %80" thresholds={[{ from: 0, tone: "accent", label: "Normal" }, { from: 85, tone: "danger", label: "Kritik" }]} />
+```
+
+### Kullanım göstergesi (`usage-meter`)
+
+```tsx
+import { UsageMeter, UsageMeterSegment } from "@/components/snn/usage-meter/usage-meter";
+
+<UsageMeter label="Çalışma alanı depolaması" unit="GB" limit={100} segments={[{ id: "belge", label: "Belgeler", value: 42.5 }, { id: "foto", label: "Fotoğraflar", value: 31 }]} />
 ```
 
 ## Bu rafta olmayanlar

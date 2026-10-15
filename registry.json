@@ -1681,6 +1681,39 @@
         "arcCommit": "bfdf7e8",
         "arcSource": "registry/components/gauge"
       }
+    },
+    {
+      "name": "usage-meter",
+      "type": "registry:ui",
+      "title": "Kullanım göstergesi",
+      "description": "Depolama ya da koltuk gibi sabit bir hakkın ne kadarının neye gittiğini tek çubukta gösterir: kategoriler vurgunun basamaklarıdır, boş alan izin kendisidir. Başlıkta dönen rakamlı toplam, durum işareti (\"3,2 GB boş\", \"Neredeyse dolu\", \"… aşıldı\") ve klavyeyle gezilen gösterge vardır. Limit aşılınca taşan kısım taramalı çizilir; durum değişimleri ekran okuyucuya duyurulur.",
+      "dependencies": [
+        "@snn/abacus-core@github:sinanbocek/SNN-Abacus-Core#semver:^4.3.0",
+        "lucide-react",
+        "motion"
+      ],
+      "registryDependencies": [
+        "@snn-ui/snn-foundation",
+        "@snn-ui/snn-motion-tokens",
+        "@snn-ui/animated-counter",
+        "@snn-ui/snn-chart-format"
+      ],
+      "files": [
+        {
+          "path": "registry/components/usage-meter/usage-meter.module.css",
+          "type": "registry:component",
+          "target": "@components/snn/usage-meter/usage-meter.module.css"
+        },
+        {
+          "path": "registry/components/usage-meter/usage-meter.tsx",
+          "type": "registry:component",
+          "target": "@components/snn/usage-meter/usage-meter.tsx"
+        }
+      ],
+      "meta": {
+        "arcCommit": "bfdf7e8",
+        "arcSource": "registry/components/usage-meter"
+      }
     }
   ]
 }
