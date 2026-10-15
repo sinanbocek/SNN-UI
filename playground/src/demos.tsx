@@ -20,6 +20,8 @@ import { EmptyState } from "../../registry/components/empty-state/empty-state";
 import { Skeleton } from "../../registry/components/skeleton/skeleton";
 import { Pagination } from "../../registry/components/pagination/pagination";
 import { SearchField } from "../../registry/components/search-field/search-field";
+import { SaveBar } from "../../registry/components/save-bar/save-bar";
+import type { SaveBarStatus } from "../../registry/components/save-bar/save-bar";
 
 const Col = ({ title, children }: { title: string; children: ReactNode }) => (
   <div className="col"><span className="etiket">{title}</span>{children}</div>
@@ -264,6 +266,30 @@ function SearchDemo() {
   </>;
 }
 
+function SaveBarDemo() {
+  const [count, setCount] = useState(3);
+  const [status, setStatus] = useState<SaveBarStatus>("idle");
+  const [fail, setFail] = useState(false);
+  const save = () => {
+    setStatus("saving");
+    setTimeout(() => {
+      if (fail) { setStatus("error"); return; }
+      setCount(0); setStatus("saved");
+    }, 900);
+  };
+  return <>
+    <Col title="Çubuk (Ctrl/Cmd+S de kaydeder)">
+      <div className="row">
+        <Button variant="secondary" onClick={() => { setCount(count + 1); setStatus("idle"); }}>Değişiklik ekle</Button>
+        <Checkbox label="Kaydetme başarısız olsun" checked={fail} onCheckedChange={v => setFail(v === true)} />
+      </div>
+      <div style={{ minHeight: 72, position: "relative" }}>
+        <SaveBar changeCount={count} status={status} onSave={save} onDiscard={() => { setCount(0); setStatus("idle"); }} />
+      </div>
+    </Col>
+  </>;
+}
+
 /** Ad → canlı örnek. Katalogda olup burada olmayan bileşen sayfada "örnek yok" uyarısı verir; yeni parça eklenince buraya da eklenir. */
 export const demos: Record<string, () => ReactNode> = {
   button: () => <ButtonDemo />,
@@ -285,4 +311,5 @@ export const demos: Record<string, () => ReactNode> = {
   skeleton: () => <SkeletonDemo />,
   pagination: () => <PaginationDemo />,
   "search-field": () => <SearchDemo />,
+  "save-bar": () => <SaveBarDemo />,
 };

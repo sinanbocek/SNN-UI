@@ -597,6 +597,35 @@
         "arcCommit": "bfdf7e8",
         "arcSource": "registry/components/search-field"
       }
+    },
+    {
+      "name": "save-bar",
+      "type": "registry:ui",
+      "title": "Kaydetme çubuğu",
+      "description": "Formun altında yüzer; \"{n} kaydedilmemiş değişiklik\", Vazgeç ve Kaydet. Kaydediliyor, kaydedildi, hata durumları ve Ctrl/Cmd+S vardır.",
+      "dependencies": [
+        "motion"
+      ],
+      "registryDependencies": [
+        "@snn-ui/snn-foundation",
+        "@snn-ui/snn-motion-tokens"
+      ],
+      "files": [
+        {
+          "path": "registry/components/save-bar/save-bar.module.css",
+          "type": "registry:component",
+          "target": "@components/snn/save-bar/save-bar.module.css"
+        },
+        {
+          "path": "registry/components/save-bar/save-bar.tsx",
+          "type": "registry:component",
+          "target": "@components/snn/save-bar/save-bar.tsx"
+        }
+      ],
+      "meta": {
+        "arcCommit": "bfdf7e8",
+        "arcSource": "registry/components/save-bar"
+      }
     }
   ]
 }

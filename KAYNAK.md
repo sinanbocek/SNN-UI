@@ -59,3 +59,9 @@ Plan §6.4 ilk rafa 20 bileşen yazar; `metric-card` A sınıfı sayılmıştı 
 `animated-counter` sayıyı `Intl.NumberFormat` ile ve varsayılan `locale = "en-US"` ile biçimler (`1,234`); `metric-card` de değeri virgülü atarak okur.
 İkisi de B sınıfıdır (`giris-alanlari-standardi.md`). Sınıflandırma taraması yalnız bileşenin kendi klasörüne bakmıştı, bağımlılığı görmemişti.
 `metric-card` 2. rafta ABACUS ile gelir.
+
+## Ortak parçalar (Pro-esinlenme bileşenleri için)
+
+| Parça | Kaynak | Not |
+|---|---|---|
+| `save-bar` | Arc'tan alınmadı; sıfırdan yazıldı | Arc Pro settings-page'den esinlenildi; kod okunmadı; tarif: docs/tarifler/settings-page.md. Sayı düz metin olarak değişir; Arc'ın `slot-text` / `animated-counter` bileşenleri kullanılmadı (B sınıfı). Kısayol `event.code` ile okunur (`toLowerCase` yok). |

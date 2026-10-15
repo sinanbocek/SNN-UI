@@ -51,4 +51,5 @@ export const components = [
   { name: "skeleton", title: "Yükleniyor iskeleti", description: "İçerik yüklenirken yer ayırır.", deps: ["motion"], use: '<Skeleton lines={3} />', exportName: "Skeleton" },
   { name: "pagination", title: "Sayfalama", description: "Uzun listede sınırları belli sayfa geçişi.", deps: ["lucide-react", "motion"], use: '<Pagination page={page} pageCount={12} onPageChange={setPage} />', exportName: "Pagination" },
   { name: "search-field", title: "Arama kutusu", description: "Tanınır arama girişi; temizleme düğmesiyle.", deps: ["lucide-react", "motion"], use: '<SearchField label="Ara" value={query} onValueChange={setQuery} />', exportName: "SearchField" },
+  { name: "save-bar", title: "Kaydetme çubuğu", description: "Formun altında yüzer; \"{n} kaydedilmemiş değişiklik\", Vazgeç ve Kaydet. Kaydediliyor, kaydedildi, hata durumları ve Ctrl/Cmd+S vardır.", deps: ["motion"], use: '<SaveBar changeCount={3} status={status} onSave={save} onDiscard={reset} />', exportName: "SaveBar", note: "Gerçek kaydetmeyi proje yapar; çubuk yalnız durumu gösterir. Arc Pro settings-page'den esinlenildi (tarif: docs/tarifler/settings-page.md)." },
 ];

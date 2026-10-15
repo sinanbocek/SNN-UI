@@ -60,6 +60,7 @@ Gereken paketler: React 19, `motion`; bazı bileşenlerde Radix ve `lucide-react
 | `skeleton` | Yükleniyor iskeleti | İçerik yüklenirken yer ayırır. | `npx shadcn@latest add @snn-ui/skeleton` |
 | `pagination` | Sayfalama | Uzun listede sınırları belli sayfa geçişi. | `npx shadcn@latest add @snn-ui/pagination` |
 | `search-field` | Arama kutusu | Tanınır arama girişi; temizleme düğmesiyle. | `npx shadcn@latest add @snn-ui/search-field` |
+| `save-bar` | Kaydetme çubuğu | Formun altında yüzer; "{n} kaydedilmemiş değişiklik", Vazgeç ve Kaydet. Kaydediliyor, kaydedildi, hata durumları ve Ctrl/Cmd+S vardır. Gerçek kaydetmeyi proje yapar; çubuk yalnız durumu gösterir. Arc Pro settings-page'den esinlenildi (tarif: docs/tarifler/settings-page.md). | `npx shadcn@latest add @snn-ui/save-bar` |
 
 ## Kullanım örnekleri
 
@@ -213,6 +214,14 @@ import { Pagination } from "@/components/snn/pagination/pagination";
 import { SearchField } from "@/components/snn/search-field/search-field";
 
 <SearchField label="Ara" value={query} onValueChange={setQuery} />
+```
+
+### Kaydetme çubuğu (`save-bar`)
+
+```tsx
+import { SaveBar } from "@/components/snn/save-bar/save-bar";
+
+<SaveBar changeCount={3} status={status} onSave={save} onDiscard={reset} />
 ```
 
 ## Bu rafta olmayanlar
