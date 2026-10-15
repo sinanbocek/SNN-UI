@@ -2138,6 +2138,44 @@
         "arcCommit": "bfdf7e8",
         "arcSource": "registry/components/race-bar-chart"
       }
+    },
+    {
+      "name": "realtime-stream",
+      "type": "registry:ui",
+      "title": "Canlı akış grafiği",
+      "description": "Saniyeler içinde değişen bir ölçümü canlı izler: büyük anlık değer (rakamlar döner), \"Canlı\" / \"Duraklatıldı\" durum düğmesi ve son 30 saniyeyi gösteren yumuşak çizgi. Grafiğin üstüne gelince ya da odaklanınca görüntü durur, okumalar arka planda birikir; ipucu zamanı (\"14:03:27\"), değeri ve varsa notu yazar. Anomali notları çizgi üstünde işaretlenir ve bir kez duyurulur. Veri bekleniyor ve bağlantı kesildi (\"Yeniden dene\") durumları vardır; görünüm dışında çizim durur.",
+      "dependencies": [
+        "@snn/abacus-core@github:sinanbocek/SNN-Abacus-Core#semver:^4.3.0",
+        "motion"
+      ],
+      "registryDependencies": [
+        "@snn-ui/snn-foundation",
+        "@snn-ui/snn-motion-tokens",
+        "@snn-ui/animated-counter",
+        "@snn-ui/snn-chart-format",
+        "@snn-ui/snn-viz-utils"
+      ],
+      "files": [
+        {
+          "path": "registry/components/realtime-stream/realtime-stream-format.ts",
+          "type": "registry:component",
+          "target": "@components/snn/realtime-stream/realtime-stream-format.ts"
+        },
+        {
+          "path": "registry/components/realtime-stream/realtime-stream.module.css",
+          "type": "registry:component",
+          "target": "@components/snn/realtime-stream/realtime-stream.module.css"
+        },
+        {
+          "path": "registry/components/realtime-stream/realtime-stream.tsx",
+          "type": "registry:component",
+          "target": "@components/snn/realtime-stream/realtime-stream.tsx"
+        }
+      ],
+      "meta": {
+        "arcCommit": "bfdf7e8",
+        "arcSource": "registry/components/realtime-stream"
+      }
     }
   ]
 }

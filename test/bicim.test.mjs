@@ -19,6 +19,7 @@ const FILES = {
   sankey: "registry/components/sankey-flow/sankey-flow-format.ts",
   funnel: "registry/components/funnel-chart/funnel-chart-format.ts",
   race: "registry/components/race-bar-chart/race-bar-chart-format.ts",
+  stream: "registry/components/realtime-stream/realtime-stream-format.ts",
 };
 const mods = {};
 let temp;
@@ -119,4 +120,17 @@ test("sıralama yarışı: tutar etiketi 1250000 TRY ABACUS çıktısıdır, ara
   const rows = mods.race.rowsAt([{ key: "a", label: "A", values: [10, 40] }, { key: "b", label: "B", values: [30, 20] }], .5);
   assert.deepEqual(rows.map(row => row.key + row.rank), ["a0", "b1"]);
   assert.equal(mods.race.niceMax(1234), 2000);
+});
+
+test("canlı akış: değer, eksen ve saat yazımı ABACUS çıktısıdır", () => {
+  assert.equal(mods.stream.valueText("money", 1250000), money.formatMajor(1250000, { currency: "TRY", digits: 2, kurus: true }));
+  assert.equal(mods.stream.valueText("money", 41.25), "₺41,25");
+  assert.equal(mods.stream.valueText("number", 1234.5, 1), money.fmtDecimalGrouped(1234.5, 1));
+  assert.equal(mods.stream.valueText("number", 1234.5, 1), "1.234,5");
+  assert.equal(mods.stream.tickText("money", 1250000), money.compactMajor(1250000, { style: "B/Mn/Mr" }));
+  // 2026-10-15 11:03:27 UTC = Türkiye saatiyle 14:03:27
+  assert.equal(mods.stream.clockText(Date.UTC(2026, 9, 15, 11, 3, 27)), "14:03:27");
+  const readings = [{ t: 0, value: 1 }, { t: 10, value: 3 }, { t: 20, value: 2 }];
+  assert.equal(mods.stream.nearestIndex(readings, 12), 1);
+  assert.deepEqual(mods.stream.domainFor(readings, 0, 10), [0, 10]);
 });

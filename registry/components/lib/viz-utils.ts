@@ -39,20 +39,25 @@ export function useReducedMotionSafe(): boolean {
   return !!useReducedMotion() && hydrated;
 }
 
-/** Bir öğenin genişliğini (piksel) izler. */
+/** Bir öğenin genişliğini (piksel) izler. Öğe sonradan çizilirse (boş durumdan veriye geçişte) de yakalanır. */
 export function useElementWidth<T extends HTMLElement>() {
   const ref = useRef<T>(null);
+  const observed = useRef<T | null>(null);
+  const observer = useRef<ResizeObserver | null>(null);
   const [width, setWidth] = useState(0);
+  // Her çizimde öğenin değişip değişmediğine bakılır; değiştiyse izleme yeni öğeye taşınır.
   useEffect(() => {
     const node = ref.current;
+    if (node === observed.current) return;
+    observer.current?.disconnect();
+    observed.current = node;
     if (!node) return;
-    const read = () => setWidth(node.clientWidth);
-    read();
+    setWidth(node.clientWidth);
     if (typeof ResizeObserver === "undefined") return;
-    const observer = new ResizeObserver(read);
-    observer.observe(node);
-    return () => observer.disconnect();
-  }, []);
+    observer.current = new ResizeObserver(() => setWidth(node.clientWidth));
+    observer.current.observe(node);
+  });
+  useEffect(() => () => observer.current?.disconnect(), []);
   return [ref, width] as const;
 }
 
