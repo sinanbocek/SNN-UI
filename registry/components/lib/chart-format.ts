@@ -44,9 +44,9 @@ export function formatRatio(ratio: number, digits = 0): string {
   return money.percent(math.mul(ratio, 100), digits);
 }
 
-/** Zaten yüzde olan sayıyı yazar: 12.3 → "%12,3". */
-export function formatPercent(percent: number, digits = 0): string {
-  return money.percent(percent, digits);
+/** Zaten yüzde olan sayıyı yazar: 12.3 → "%12,3". `fixed` ile ondalık basamak hep tamamlanır ("%12,0"); sütunda hizalamak için. */
+export function formatPercent(percent: number, digits = 0, fixed = false): string {
+  return money.percent(percent, digits, { fixed });
 }
 
 /** Değişim yüzdesi, işaretli: önceki 100, şimdi 120 → "+%20". Önceki sıfırsa "—". */

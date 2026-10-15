@@ -10,6 +10,7 @@ import { GaugeDemo } from "./gauge";
 import { UsageMeterDemo } from "./usage-meter";
 import { SlopeChartDemo } from "./slope-chart";
 import { TreemapDemo } from "./treemap";
+import { WaffleChartDemo } from "./waffle-chart";
 
 export const grafikDemos: Record<string, () => ReactNode> = {
   "animated-counter": () => <AnimatedCounterDemo />,
@@ -22,4 +23,5 @@ export const grafikDemos: Record<string, () => ReactNode> = {
   "usage-meter": () => <UsageMeterDemo />,
   "slope-chart": () => <SlopeChartDemo />,
   "treemap": () => <TreemapDemo />,
+  "waffle-chart": () => <WaffleChartDemo />,
 };
