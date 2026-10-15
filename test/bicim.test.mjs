@@ -25,6 +25,7 @@ const FILES = {
   explorer: "registry/components/metric-explorer/../lib/metric-format.ts",
   revenue: "registry/components/revenue-explorer/revenue-explorer-format.ts",
   waterfall: "registry/components/mrr-waterfall/mrr-waterfall-format.ts",
+  cohort: "registry/components/cohort-retention/cohort-retention-format.ts",
 };
 const mods = {};
 let temp;
@@ -201,4 +202,18 @@ test("gelir şelalesi: tutar etiketi 1250000 TRY, yüzde ve işaretli hareket AB
   const marks = mods.waterfall.indicators(100, movements);
   assert.equal(marks.quickRatio, 3);
   assert.equal(marks.churn, 10);
+});
+
+test("kohort elde tutma: yüzde, puan farkı, büyüklük ve kohort adı ABACUS çıktısıdır", () => {
+  assert.equal(mods.cohort.cellText(68.4), money.percent(68.4, 0));
+  assert.equal(mods.cohort.tipPercent(68.4), money.percent(68.4, 1));
+  assert.equal(mods.cohort.tipPercent(68.4), "%68,4");
+  assert.equal(mods.cohort.sizeText(1234), money.fmtDecimalGrouped(1234, 0));
+  assert.equal(mods.cohort.pointsText(5.2), "+5,2 puan");
+  assert.equal(mods.cohort.cohortLabel("2025-11"), "Kasım 2025");
+  const cohorts = [10, 10, 10, 10].map((size, at) => ({ key: "2026-0" + (at + 1), size, retention: [at < 2 ? 50 : 60, null] }));
+  assert.equal(mods.cohort.weightedAverage(cohorts, 0), 55);
+  assert.equal(mods.cohort.weightedAverage(cohorts, 1), null);
+  assert.equal(mods.cohort.trendPoints(cohorts, 0), 3.3);
+  assert.equal(mods.cohort.totalSignups(cohorts), 40);
 });

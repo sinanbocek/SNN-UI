@@ -2407,6 +2407,47 @@
         "arcCommit": "bfdf7e8",
         "arcSource": "registry/components/mrr-waterfall"
       }
+    },
+    {
+      "name": "cohort-retention",
+      "type": "registry:ui",
+      "title": "Kohort elde tutma",
+      "description": "Blok: aynı ayda katılan grupların (kohortların) aylar geçtikçe ne kadarının aktif kaldığını gösterir. Her satır bir katılım ayı (ad ve büyüklük), her sütun katılımdan sonraki ay; hücrede kalan yüzde (\"%68\") yazar, rengi yüzdeye göre koyulaşır; ölçülmemiş aylar boştur (alt üçgen), en altta büyüklüğe göre ağırlıklı \"Ortalama\" satırı durur. Üstte \"1. ay\" ve \"6. ay\" elde tutma ile yeni kayıt toplamı (son üç kohort ile ilk üç kohort farkı \"+5,2 puan\"); segment seçilince renkler hücre hücre yeniden boyanır. \"Isı haritası\" / \"Eğriler\" anahtarıyla her kohort bir çizgi olur. Hücre ve eğri okuması fare ve ok tuşlarıyla yapılır, canlı bölgede duyurulur; gizli tablo, yükleniyor, hata ve boş durum vardır.",
+      "dependencies": [
+        "@snn/abacus-core@github:sinanbocek/SNN-Abacus-Core#semver:^4.3.0",
+        "motion"
+      ],
+      "registryDependencies": [
+        "@snn-ui/snn-foundation",
+        "@snn-ui/snn-motion-tokens",
+        "@snn-ui/animated-counter",
+        "@snn-ui/button",
+        "@snn-ui/segmented-control",
+        "@snn-ui/skeleton",
+        "@snn-ui/snn-chart-format",
+        "@snn-ui/snn-viz-utils"
+      ],
+      "files": [
+        {
+          "path": "registry/components/cohort-retention/cohort-retention-format.ts",
+          "type": "registry:component",
+          "target": "@components/snn/cohort-retention/cohort-retention-format.ts"
+        },
+        {
+          "path": "registry/components/cohort-retention/cohort-retention.module.css",
+          "type": "registry:component",
+          "target": "@components/snn/cohort-retention/cohort-retention.module.css"
+        },
+        {
+          "path": "registry/components/cohort-retention/cohort-retention.tsx",
+          "type": "registry:component",
+          "target": "@components/snn/cohort-retention/cohort-retention.tsx"
+        }
+      ],
+      "meta": {
+        "arcCommit": "bfdf7e8",
+        "arcSource": "registry/components/cohort-retention"
+      }
     }
   ]
 }

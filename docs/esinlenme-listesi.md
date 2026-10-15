@@ -41,7 +41,7 @@ Kural: `SNN-Standartlar/standartlar/arayuz-standardi.md` §2.1. Fikir serbest, k
 | metric-explorer | https://uiarc.dev/components/blocks/metric-explorer | 2 | yazıldı |
 | revenue-explorer | https://uiarc.dev/components/blocks/revenue-explorer | 2 | yazıldı |
 | mrr-waterfall | https://uiarc.dev/components/blocks/mrr-waterfall | 2 | yazıldı |
-| cohort-retention | https://uiarc.dev/components/blocks/cohort-retention | 2 | tarif yazıldı |
+| cohort-retention | https://uiarc.dev/components/blocks/cohort-retention | 2 | yazıldı |
 | usage-forecast | https://uiarc.dev/components/blocks/usage-forecast | 2 | tarif yazıldı |
 | budget-variance | https://uiarc.dev/components/blocks/budget-variance | 2 | tarif yazıldı |
 | small-multiples | https://uiarc.dev/components/blocks/small-multiples | 2 | tarif yazıldı |
