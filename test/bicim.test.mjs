@@ -35,18 +35,29 @@ const FILES = {
   invoice: "registry/components/invoice-studio/invoice-studio-format.ts",
   pricing: "registry/components/pricing-calculator/pricing-calculator-format.ts",
   usagePricing: "registry/components/usage-pricing/usage-pricing-format.ts",
+  shop: "registry/components/lib/shop-format.ts",
+  listing: "registry/components/product-listing/product-listing-format.ts",
+  detail: "registry/components/product-detail/product-detail-format.ts",
+  cart: "registry/components/cart-drawer/cart-drawer-format.ts",
+  checkout: "registry/components/checkout-summary/checkout-summary-format.ts",
+  wallet: "registry/components/wallet-card/wallet-card-format.ts",
+  flow: "registry/components/payment-flow/payment-flow-format.ts",
+  hero: "registry/components/hero-signup/hero-signup-format.ts",
+  story: "registry/components/scroll-story/scroll-story-format.ts",
+  spotlight: "registry/components/spotlight-grid/spotlight-grid-format.ts",
 };
 const mods = {};
 let temp;
 let math;
 let money;
+let validate;
 
 before(async () => {
   temp = mkdtempSync(path.join(tmpdir(), "snn-ui-bicim-"));
   // Beklenen değerler ABACUS'tan alınır; paket TypeScript kaynağı taşıdığı için o da paketlenir.
   const abacusOut = path.join(temp, "abacus.mjs");
   await build({ stdin: { contents: 'export * from "@snn/abacus-core";', resolveDir: root }, bundle: true, format: "esm", platform: "node", outfile: abacusOut, logLevel: "silent" });
-  ({ math, money } = await import(pathToFileURL(abacusOut).href));
+  ({ math, money, validate } = await import(pathToFileURL(abacusOut).href));
   for (const [key, file] of Object.entries(FILES)) {
     const outfile = path.join(temp, `${key}.mjs`);
     await build({ entryPoints: [path.join(root, file)], bundle: true, format: "esm", platform: "node", outfile, logLevel: "silent" });
@@ -414,4 +425,258 @@ test("kullanıma göre fiyat: döküm, öneri, tutar ve kısa kullanım yazımı
   assert.equal(mods.usagePricing.usageFull(15000000), money.fmtDecimalGrouped(15000000, 0));
   assert.equal(mods.usagePricing.overageText(2500000), "2,5 Mn");
   assert.equal(mods.usagePricing.percentText(20), money.percent(20, 0));
+});
+
+test("satış ortak yazımı: fiyat, tutar ve kuruş hesabı ABACUS çıktısıdır", () => {
+  assert.equal(mods.shop.priceText(1250), money.formatMajor(1250, { currency: "TRY", digits: 0 }));
+  assert.equal(mods.shop.priceText(1250), "₺1.250");
+  assert.equal(mods.shop.priceText(1250.5), money.formatMajor(1250.5, { currency: "TRY", digits: 2, kurus: true }));
+  assert.equal(mods.shop.priceText(1250.5), "₺1.250,50");
+  assert.equal(mods.shop.exactText(480180), "₺4.801,80");
+  assert.equal(mods.shop.signedMinorText(1500), "+₺15,00");
+  assert.equal(mods.shop.signedMinorText(-1500), money.formatMajor(-15, { currency: "TRY", digits: 2, kurus: true }));
+  assert.equal(mods.shop.toMinor(12.35), 1235);
+  assert.equal(mods.shop.lineMinor(1999, 3), 5997);
+  assert.equal(mods.shop.countText(1234), "1.234");
+  assert.equal(mods.shop.averageText(4.64), "4,6");
+  assert.equal(mods.shop.percentText(20), money.percent(20, 0));
+});
+
+test("ürün listesi: fiyat sınırları, süzgeç ve sıralama doğru; yazımlar ABACUS çıktısıdır", () => {
+  const base = { sizes: ["S"], inStock: true, photo: { alt: "x" } };
+  const list = [
+    { id: "a", name: "A", price: 395.5, colors: ["siyah"], addedAt: 1, ...base },
+    { id: "b", name: "B", price: 1210, colors: ["krem"], addedAt: 3, ...base, inStock: false },
+    { id: "c", name: "C", price: 640, colors: ["siyah", "haki"], addedAt: 2, ...base, sizes: ["M", "L"] },
+  ];
+  const bounds = mods.listing.priceBounds(list);
+  assert.deepEqual(bounds, [390, 1210]);
+  assert.deepEqual(mods.listing.priceBounds([]), [0, 0]);
+  const open = mods.listing.initialFilters(bounds);
+  assert.equal(mods.listing.activeFilterCount(open, bounds), 0);
+  assert.deepEqual(mods.listing.visibleProducts(list, { ...open, colors: ["haki", "krem"] }, "featured").map(item => item.id), ["b", "c"]);
+  assert.deepEqual(mods.listing.visibleProducts(list, { ...open, sizes: ["L"] }, "featured").map(item => item.id), ["c"]);
+  assert.deepEqual(mods.listing.visibleProducts(list, { ...open, inStockOnly: true }, "price-desc").map(item => item.id), ["c", "a"]);
+  assert.deepEqual(mods.listing.visibleProducts(list, open, "newest").map(item => item.id), ["b", "c", "a"]);
+  assert.deepEqual(mods.listing.visibleProducts(list, { ...open, range: [400, 700] }, "price-asc").map(item => item.id), ["c"]);
+  assert.equal(mods.listing.activeFilterCount({ ...open, range: [400, 1210], colors: ["siyah"], inStockOnly: true }, bounds), 3);
+  assert.deepEqual(mods.listing.moveRange([390, 700], "low", 1000, bounds), [700, 700]);
+  assert.deepEqual(mods.listing.moveRange([390, 700], "high", 12, bounds), [390, 390]);
+  assert.deepEqual(mods.listing.moveRange([390, 700], "low", 403, bounds), [400, 700]);
+  assert.equal(mods.listing.productCountText(1234), "1.234 ürün");
+  assert.equal(mods.listing.rangeText([390, 1210]), "₺390 – ₺1.210");
+  assert.equal(mods.listing.filtersButtonText(2), "Süzgeçler (2)");
+  assert.equal(mods.listing.addedText("Mont", "M"), "Mont, M sepete eklendi.");
+});
+
+test("ürün sayfası: tükenme, kuruş tutarı, yorum dağılımı ve yazımlar ABACUS çıktısıdır", () => {
+  const sizes = [{ value: "s", label: "Küçük", price: 2400 }, { value: "l", label: "Büyük", price: 4250.5, soldOutIn: ["ceviz"] }];
+  assert.equal(mods.detail.isSoldOut(sizes[1], "ceviz"), true);
+  assert.equal(mods.detail.isSoldOut(sizes[1], "mese"), false);
+  assert.equal(mods.detail.keepSize(sizes, "l", "ceviz"), "");
+  assert.equal(mods.detail.keepSize(sizes, "l", "mese"), "l");
+  assert.equal(mods.detail.totalMinor(4250.5, 3), 1275150);
+  assert.equal(mods.detail.addLabel(2400, 2), "Sepete ekle · " + money.formatMajor(4800, { currency: "TRY", digits: 2, kurus: true }));
+  assert.equal(mods.detail.addLabel(2400, 2), "Sepete ekle · ₺4.800,00");
+  const reviews = [128, 41, 12, 4, 3];
+  assert.equal(mods.detail.reviewTotal(reviews), 188);
+  assert.equal(Math.round(mods.detail.reviewAverage(reviews) * 100), 453);
+  assert.equal(mods.detail.reviewAverage([0, 0, 0, 0, 0]), null);
+  assert.deepEqual(mods.detail.barRatios([4, 2, 0, 0, 1]), [1, .5, 0, 0, .25]);
+  assert.equal(mods.detail.averageLabel(reviews), "4,5 / 5");
+  assert.equal(mods.detail.averageLabel([0, 0, 0, 0, 0]), "Henüz yorum yok");
+  assert.equal(mods.detail.reviewCountText(1234), "1.234 yorum");
+  assert.equal(mods.detail.barRowLabel(5, 128), "5 yıldız, 128 yorum");
+  assert.equal(mods.detail.sizeLabel(sizes[1], true), "Büyük · ₺4.250,50 · Tükendi");
+  assert.equal(mods.detail.counterText(0, 4), "1 / 4");
+});
+
+test("sepet: toplam, kargo eşiği, kupon indirimi ve yazımlar kuruş tamsayısıyla ve ABACUS çıktısıdır", () => {
+  const photo = { alt: "x" };
+  const lines = [{ id: "a", name: "Kupa", price: 185, quantity: 2, photo }, { id: "b", name: "Örtü", price: 649.9, quantity: 1, photo }];
+  const rule = { fee: 49.9, freeFrom: 1000 };
+  const totals = mods.cart.cartTotals(lines, rule, null);
+  assert.equal(totals.subtotalMinor, 101990);
+  assert.equal(totals.shippingMinor, 0);
+  assert.equal(totals.freeShipping, true);
+  assert.equal(totals.totalMinor, 101990);
+  const small = mods.cart.cartTotals([lines[0]], rule, null);
+  assert.equal(small.shippingMinor, 4990);
+  assert.equal(small.remainingMinor, 63000);
+  assert.equal(small.progress, .37);
+  assert.equal(small.totalMinor, 37000 + 4990);
+  assert.equal(mods.cart.shippingText(small), "Ücretsiz kargo için " + money.formatMajor(630, { currency: "TRY", digits: 2, kurus: true }) + " kaldı");
+  assert.equal(mods.cart.shippingText(totals), "Ücretsiz kargo kazandınız");
+  assert.equal(mods.cart.discountOf(101990, { code: "A", percent: 10 }), 10199);
+  assert.equal(mods.cart.discountOf(3000, { code: "B", amount: 50 }), 3000);
+  assert.equal(mods.cart.discountOf(101990, null), 0);
+  assert.equal(mods.cart.cartTotals(lines, rule, { code: "A", percent: 10 }).totalMinor, 101990 - 10199);
+  assert.equal(mods.cart.cartTotals([], rule, null).totalMinor, 0);
+  assert.equal(mods.cart.quantityOf(lines), 3);
+  assert.equal(mods.cart.addLine(lines, lines[0]).find(line => line.id === "a").quantity, 3);
+  assert.equal(mods.cart.addLine(lines, { id: "c", name: "C", price: 1, photo }).length, 3);
+  assert.deepEqual(mods.cart.setQuantity(lines, "a", 0).map(line => line.id), ["b"]);
+  assert.equal(mods.cart.lineTotalText(lines[0]), "₺370,00");
+  assert.equal(mods.cart.cartButtonLabel(1234), "Sepet, 1.234 ürün");
+  assert.equal(mods.cart.couponAppliedText("HOSGELDIN", 10199), "HOSGELDIN kuponu uygulandı, ₺101,99 indirim.");
+  assert.equal(mods.cart.orderText(101990), "Siparişiniz alındı. Toplam ₺1.019,90.");
+});
+
+test("sipariş özeti: indirim, kupon, vergi ve toplam kuruş tamsayısıyla ve ABACUS çıktısıdır", () => {
+  const auto = [{ id: "y", label: "Yıllık", amount: 478.08 }];
+  const base = mods.checkout.summarize(478080, auto, null, 20);
+  assert.equal(base.netMinor, 430272);
+  assert.equal(base.taxMinor, 86054);
+  assert.equal(base.totalMinor, 516326);
+  const withCode = mods.checkout.summarize(478080, auto, { code: "A", percent: 15 }, 20);
+  assert.equal(withCode.couponMinor, 64541);
+  assert.equal(withCode.totalMinor, Math.round((430272 - 64541) * 1.2));
+  assert.equal(mods.checkout.summarize(478080, auto, { code: "B", amount: 100 }, null).couponMinor, 10000);
+  assert.equal(mods.checkout.summarize(478080, auto, null, null).taxMinor, null);
+  assert.equal(mods.checkout.summarize(478080, auto, null, null).totalMinor, 430272);
+  assert.equal(mods.checkout.summarize(5000, [], { code: "C", amount: 100 }, 20).totalMinor, 0);
+  assert.equal(mods.checkout.summarize(5000, [{ id: "x", label: "X", amount: 80 }], null, 20).netMinor, 0);
+  assert.equal(mods.checkout.payLabel(516326), money.formatMajor(5163.26, { currency: "TRY", digits: 2, kurus: true }) + " öde");
+  assert.equal(mods.checkout.payLabel(516326), "₺5.163,26 öde");
+  assert.equal(mods.checkout.taxLabel(20), "Vergi · " + money.percent(20, 0));
+  assert.equal(mods.checkout.negativeText(64541), "-₺645,41");
+  assert.equal(mods.checkout.removeCodeLabel("A"), "Kodu kaldır: A");
+  assert.equal(mods.checkout.totalSentence(516326), "Ödenecek toplam ₺5.163,26");
+});
+
+test("hesap kartı: tutar doğrulama, hareket arama, grafik yolu ve yazımlar ABACUS çıktısıdır", () => {
+  assert.deepEqual(mods.wallet.checkAmount("", "send", 100000), { minor: null, error: "Tutarı girin." });
+  assert.equal(mods.wallet.checkAmount("0", "deposit", 0).error, "Tutar sıfırdan büyük olmalı.");
+  assert.equal(mods.wallet.checkAmount("1.250,5", "send", 200000).minor, 125050);
+  assert.equal(mods.wallet.checkAmount("1.250,5", "send", 100000).error, "Tutar bakiyenizi aşıyor.");
+  assert.equal(mods.wallet.checkAmount("1.250,5", "deposit", 100000).minor, 125050);
+  assert.equal(mods.wallet.checkAmount("12,345", "deposit", 0).error, "En çok iki ondalık yazılabilir.");
+  assert.equal(mods.wallet.checkAmount("abc", "deposit", 0).error, "Geçerli bir tutar girin.");
+  const list = [{ id: "1", title: "ÇİÇEK siparişi", date: "2026-10-14", source: "Işık Ltd.", amount: -120 }, { id: "2", title: "Kira", date: "2026-10-10", amount: -9500 }];
+  assert.deepEqual(mods.wallet.filterTransactions(list, "çiçek").map(item => item.id), ["1"]);
+  assert.deepEqual(mods.wallet.filterTransactions(list, "ışık").map(item => item.id), ["1"]);
+  assert.deepEqual(mods.wallet.filterTransactions(list, "10.10.2026").map(item => item.id), ["2"]);
+  assert.equal(mods.wallet.filterTransactions(list, " ").length, 2);
+  const shape = mods.wallet.chartGeometry([{ date: "2026-10-01", value: 100 }, { date: "2026-10-02", value: 200 }, { date: "2026-10-03", value: 150 }]);
+  assert.ok(shape.line.startsWith("M0 ") && shape.area.endsWith("Z"));
+  assert.equal(shape.dots.length, 3);
+  assert.equal(mods.wallet.chartGeometry([]).line, "");
+  assert.equal(mods.wallet.balanceText(128450.5), money.formatMajor(128450.5, { currency: "TRY", digits: 2, kurus: true }));
+  assert.equal(mods.wallet.balanceText(128450.5), "₺128.450,50");
+  assert.equal(mods.wallet.changeText(12300), "+₺12.300,00 bu ay");
+  assert.equal(mods.wallet.changeText(-1800), "-₺1.800,00 bu ay");
+  assert.equal(mods.wallet.transactionAmountText(-18450), "-₺18.450,00");
+  assert.equal(mods.wallet.pointText({ date: "2026-10-14", value: 1000 }), "14 Ekim 2026: ₺1.000,00");
+  assert.equal(mods.wallet.transactionMeta(list[0]), "14.10.2026 · Işık Ltd.");
+  assert.equal(mods.wallet.submitLabel("send", 125050), "₺1.250,50 gönder");
+  assert.equal(mods.wallet.submitLabel("deposit", 125050), "₺1.250,50 ekle");
+  assert.equal(mods.wallet.submitLabel("convert", null), "Çevir");
+});
+
+test("ödeme akışı: döngü karesi, yol üstünde konum, yerleşim ve yazımlar ABACUS çıktısıdır", () => {
+  const economics = { amount: 2400, commission: 69.6 };
+  assert.equal(mods.flow.netOf(economics), 2330.4);
+  assert.equal(mods.flow.chipText("amount", economics), "₺2.400,00");
+  assert.equal(mods.flow.chipText("net", economics), money.formatMajor(2330.4, { currency: "TRY", digits: 2, kurus: true }));
+  assert.equal(mods.flow.chipText("net", economics), "₺2.330,40");
+  assert.equal(mods.flow.chipText("approved", economics), "✓ Onaylandı");
+  assert.equal(mods.flow.statusText("commission", economics), "Komisyon ₺69,60");
+  assert.equal(mods.flow.statusText("risk", economics), "Risk denetleniyor");
+  assert.equal(mods.flow.secondsText(1.84), "1,84 sn");
+  assert.equal(mods.flow.secondsText(0), "0,00 sn");
+  assert.equal(mods.flow.balanceAfter(18250, 3, economics), 18250 + 3 * 2330.4);
+  assert.equal(mods.flow.balanceText(25241.2), "₺25.241,20");
+  // yol üstünde konum
+  assert.deepEqual(mods.flow.pointOnPath([{ x: 0, y: 0 }, { x: 10, y: 0 }, { x: 10, y: 10 }], .5), { x: 10, y: 0 });
+  assert.deepEqual(mods.flow.pointOnPath([{ x: 0, y: 0 }, { x: 10, y: 0 }], 2), { x: 10, y: 0 });
+  // döngü: tek zaman fonksiyonu, kesintisiz tekrar
+  const start = mods.flow.cycleFrame(0), wrapped = mods.flow.cycleFrame(1), negative = mods.flow.cycleFrame(-1);
+  assert.deepEqual(start, wrapped);
+  assert.deepEqual(start, negative);
+  assert.equal(start.statuses[0], "touch");
+  assert.equal(mods.flow.cycleFrame(.2).statuses[1], "risk");
+  assert.equal(mods.flow.cycleFrame(.38).statuses[2], "routed");
+  assert.equal(mods.flow.cycleFrame(.54).statuses[3], "approved");
+  assert.equal(mods.flow.cycleFrame(.7).chip, "approved");
+  assert.equal(mods.flow.cycleFrame(.7).leg, "back");
+  assert.equal(mods.flow.cycleFrame(.82).chip, "gross");
+  assert.equal(mods.flow.cycleFrame(.88).statuses[1], "commission");
+  assert.equal(mods.flow.cycleFrame(.88).chip, "net");
+  assert.equal(mods.flow.cycleFrame(.99).statuses[4], "paid");
+  assert.equal(mods.flow.cycleFrame(.99).chip, null);
+  assert.equal(mods.flow.STATIC_FRAME.chip, "net");
+  // yerleşim: geniş kapta yatay, 700 px altında dikey; komisyon noktası takas yolunun üçüncü noktasıdır
+  const wide = mods.flow.layoutFor(900), narrow = mods.flow.layoutFor(400);
+  assert.equal(wide.vertical, false);
+  assert.equal(narrow.vertical, true);
+  assert.deepEqual(wide.settle[2], wide.commission);
+  assert.deepEqual(narrow.settle[2], narrow.commission);
+  assert.deepEqual(mods.flow.positionOf(mods.flow.cycleFrame(0), wide), wide.stops[0]);
+  assert.deepEqual(mods.flow.positionOf(mods.flow.cycleFrame(.88), wide), wide.commission);
+  assert.deepEqual(mods.flow.positionOf(mods.flow.cycleFrame(.99), wide), wide.balance);
+  const split = mods.flow.settleSplit(wide);
+  assert.ok(split > 0 && split < 1);
+  assert.deepEqual(mods.flow.lineFills(mods.flow.cycleFrame(.99), .99, split), { main: 0, back: 0, settle: 0 });
+  assert.equal(mods.flow.lineFills(mods.flow.cycleFrame(.7), .7, split).main, 1);
+  assert.match(mods.flow.describeFlow(economics, mods.flow.DEFAULT_STOPS, "ertesi iş günü"), /₺2\.400,00 tutarındaki ödeme.*₺69,60 komisyon.*₺2\.330,40 net tutar ertesi iş günü/);
+});
+
+test("karşılama kaydı: e-posta süzme, sakin doğrulama ve yazım önerisi ABACUS kurallarıdır; sayılar ABACUS çıktısıdır", () => {
+  assert.equal(mods.hero.cleanEmail("  ALI@Site.COM "), "ali@site.com");
+  assert.equal(mods.hero.cleanEmail("IRMAK @ SITE.com"), "irmak@site.com");
+  assert.equal(mods.hero.emailProblem(""), "E-posta adresinizi yazın.");
+  assert.equal(mods.hero.emailProblem("ali"), "Adreste @ işareti eksik.");
+  assert.equal(mods.hero.emailProblem("@site.com"), "@ işaretinden önce bir ad yazın.");
+  assert.equal(mods.hero.emailProblem("ali@site"), "Alan adı tamamlanmamış (örneğin ad@site.com).");
+  assert.equal(mods.hero.emailProblem("ali@site."), "Alan adı tamamlanmamış (örneğin ad@site.com).");
+  assert.equal(mods.hero.emailProblem("ali@site.com"), null);
+  assert.equal(mods.hero.emailProblem("ali@site.com"), validate.email("ali@site.com") ? null : "x");
+  assert.equal(mods.hero.suggestEmail("ali@gmial.com"), "ali@gmail.com");
+  assert.equal(mods.hero.suggestEmail("ali@hotmail.con"), "ali@hotmail.com");
+  assert.equal(mods.hero.suggestEmail("ali@gmail.com"), null);
+  assert.equal(mods.hero.suggestEmail("ali"), null);
+  assert.equal(mods.hero.suggestionText("ali@gmail.com"), "Şunu mu demek istediniz: ali@gmail.com?");
+  assert.equal(mods.hero.peopleText(1284), "1.284 kişi listede");
+  assert.equal(mods.hero.peopleText(1284), money.fmtDecimalGrouped(1284, 0) + " kişi listede");
+  assert.equal(mods.hero.rankSentence(1285), "Listede 1.285. sıradasınız");
+});
+
+test("kaydırmalı anlatı: adım konumu, etkin adım, sekme dolgusu ve yazımlar doğru; sayılar ABACUS çıktısıdır", () => {
+  const tops = [0, 400, 800, 1200];
+  assert.equal(mods.story.stepPosition(tops, -200, 500), 0);
+  assert.equal(mods.story.stepPosition(tops, 0, 500), .5);
+  assert.equal(mods.story.stepPosition(tops, 200, 500), 1);
+  assert.equal(mods.story.stepPosition(tops, 400, 500), 1.5);
+  assert.equal(mods.story.stepPosition(tops, 1000, 500), 3);
+  assert.equal(mods.story.stepPosition([], 100, 500), 0);
+  assert.equal(mods.story.activeStep(1.4, 4), 1);
+  assert.equal(mods.story.activeStep(1.5, 4), 2);
+  assert.equal(mods.story.activeStep(9, 4), 3);
+  assert.equal(mods.story.activeStep(-1, 4), 0);
+  assert.equal(mods.story.tabFill(0, 0), 1);
+  assert.equal(mods.story.tabFill(0, 1), 0);
+  assert.equal(mods.story.tabFill(.5, 1), .5);
+  assert.equal(mods.story.tabFill(2.4, 1), 1);
+  assert.equal(mods.story.scrollTargetFor(tops, 2), 800);
+  assert.equal(mods.story.scrollTargetFor(tops, 9), 0);
+  assert.equal(mods.story.stepLabel(1, 4), "Adım 2/4");
+  assert.equal(mods.story.stepLabel(0, 1234), "Adım 1/1.234");
+  assert.equal(mods.story.FAILED_TEXT("Kopyalama"), "Kopyalama yapılamadı");
+});
+
+test("özellik ızgarası: sütun sayısı, kart kaplaması, ışık konumu ve yazımlar doğru; sayılar ABACUS çıktısıdır", () => {
+  assert.equal(mods.spotlight.columnsFor(0), 3);
+  assert.equal(mods.spotlight.columnsFor(519), 1);
+  assert.equal(mods.spotlight.columnsFor(520), 2);
+  assert.equal(mods.spotlight.columnsFor(819), 2);
+  assert.equal(mods.spotlight.columnsFor(820), 3);
+  assert.equal(mods.spotlight.spanFor(true, 3), 2);
+  assert.equal(mods.spotlight.spanFor(true, 1), 1);
+  assert.equal(mods.spotlight.spanFor(undefined, 3), 1);
+  const rect = { left: 100, top: 50, width: 200, height: 120 };
+  assert.deepEqual(mods.spotlight.glowAt(rect, 150, 80), { x: 50, y: 30 });
+  assert.deepEqual(mods.spotlight.glowAt(rect, 20, 500), { x: 0, y: 120 });
+  assert.deepEqual(mods.spotlight.glowAt(rect, 900, -5), { x: 200, y: 0 });
+  assert.equal(mods.spotlight.closeLabel("Gecikme"), "Gecikme: ayrıntıyı kapat");
+  assert.equal(mods.spotlight.cardCountText(1234), "1.234 özellik");
 });
