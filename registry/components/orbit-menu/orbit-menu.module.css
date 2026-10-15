@@ -1,0 +1,22 @@
+/* Kök tetikleyici ölçüsündedir; yay kökten dışarı taşar ve ekrana göre kısıtlanmaz. */
+.root { position: relative; display: inline-block; font-family: var(--font-body); }
+.trigger { position: relative; z-index: 2; display: grid; width: 100%; height: 100%; place-items: center; border: 1px solid var(--border); border-radius: var(--radius-pill); padding: 0; color: var(--foreground); background: var(--surface-raised); box-shadow: var(--shadow-raised); cursor: pointer; touch-action: none; user-select: none; -webkit-tap-highlight-color: transparent; }
+.trigger:disabled { cursor: not-allowed; opacity: .52; }
+.trigger svg { width: 22px; height: 22px; fill: currentColor; stroke: currentColor; stroke-width: 2; stroke-linecap: round; stroke-linejoin: round; }
+.trigger svg path { fill: none; }
+.root[data-open] .trigger { background: var(--surface-muted); }
+.items { position: absolute; inset: 0; z-index: 1; }
+.item { position: absolute; top: 50%; left: 50%; display: grid; margin: -22px 0 0 -22px; place-items: center; border: 1px solid var(--border); border-radius: var(--radius-pill); padding: 0; color: var(--foreground); background: var(--surface-raised); box-shadow: var(--shadow-raised); cursor: pointer; touch-action: none; }
+.item[data-hot] { color: var(--accent-foreground); background: var(--accent); border-color: var(--accent); }
+.item[data-tone="danger"] { color: var(--danger); }
+.item[data-tone="danger"][data-hot] { color: var(--background); background: var(--danger); border-color: var(--danger); }
+.itemIcon { display: inline-flex; width: 20px; height: 20px; align-items: center; justify-content: center; pointer-events: none; }
+.itemIcon > svg { width: 100%; height: 100%; }
+.pill { position: absolute; left: 50%; z-index: 3; translate: -50% 0; border: 1px solid var(--border); border-radius: var(--radius-pill); padding: var(--space-1) var(--space-3); color: var(--foreground); background: var(--surface-raised); box-shadow: var(--shadow-raised); font-size: var(--text-xs); font-weight: 500; white-space: nowrap; pointer-events: none; }
+.pill[data-side="bottom"] { top: calc(100% + var(--space-2)); }
+.pill[data-side="top"] { bottom: calc(100% + var(--space-2)); }
+.pill[data-tone="danger"] { color: var(--danger); }
+.pill[data-tone="cancel"] { color: var(--text-muted); }
+.trigger:focus-visible, .item:focus-visible { outline: var(--focus-outline-width) solid var(--focus-outline); outline-offset: var(--focus-outline-offset); }
+@media (hover: hover) and (pointer: fine) { .trigger:hover:not(:disabled) { background: var(--surface-muted); } .item:hover:not([data-hot]) { background: var(--surface-muted); } }
+.srOnly { position: absolute; width: 1px; height: 1px; overflow: hidden; clip-path: inset(50%); white-space: nowrap; }
