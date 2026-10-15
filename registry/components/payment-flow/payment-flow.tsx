@@ -44,7 +44,7 @@ const ICONS: string[] = [
 
 export function PaymentFlow({ amount, commission, balance = 0, stops = DEFAULT_STOPS, settlement = "ertesi iş günü", authSeconds = 1.84, speed = 1, paused = false, cycleSeconds = 14, caption, label }: PaymentFlowProps) {
   const reduced = useReducedMotionSafe();
-  const [box, width] = useElementWidth<HTMLDivElement>();
+  const [box, width] = useElementWidth<HTMLElement>();
   const [screen, onScreen] = useOnScreen<HTMLElement>();
   const layout = useMemo(() => layoutFor(width), [width]);
   const split = useMemo(() => settleSplit(layout), [layout]);
@@ -114,8 +114,8 @@ export function PaymentFlow({ amount, commission, balance = 0, stops = DEFAULT_S
   const shownBalance = reduced ? balance : toMajor(toMinor(balanceAfter(balance, paidCycles, economics)));
   const placed = [...layout.stops, layout.balance];
 
-  return <figure ref={screen} className={styles.root} data-reduced={reduced || undefined} data-vertical={layout.vertical || undefined}>
-    <div ref={box} role="img" aria-label={sentence} className={styles.stage} style={{ aspectRatio: `${layout.width} / ${layout.height}` }}>
+  return <figure ref={node => { screen.current = node; box.current = node; }} className={styles.root} data-reduced={reduced || undefined} data-vertical={layout.vertical || undefined}>
+    <div role="img" aria-label={sentence} className={styles.stage} style={{ aspectRatio: `${layout.width} / ${layout.height}` }}>
       <svg className={styles.svg} viewBox={`0 0 ${layout.width} ${layout.height}`} preserveAspectRatio="xMidYMid meet" aria-hidden="true" focusable="false">
         <path className={styles.track} d={dashed(mainPath(layout))} />
         <path className={styles.track} d={dashed(layout.settle)} data-settle="" />

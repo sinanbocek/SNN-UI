@@ -9,12 +9,14 @@
 .litDone { stroke: var(--success); }
 .commissionDot { fill: var(--surface); stroke: var(--border-strong); stroke-width: 2; }
 .stops { position: absolute; inset: 0; }
-.stop { position: absolute; display: grid; justify-items: center; gap: 2px; width: 8.5rem; transform: translate(-50%, -50%); text-align: center; z-index: 1; }
-.icon { display: grid; place-items: center; width: 2.75rem; height: 2.75rem; border: 1px solid var(--border-strong); border-radius: var(--radius-control); background: var(--surface); color: var(--text-secondary); transition: border-color var(--duration-fast, .16s), color var(--duration-fast, .16s); }
-.stop[data-active] .icon { border-color: var(--accent); color: var(--accent-strong); }
-.name { font-size: var(--text-sm); font-weight: 500; }
+.stop { position: absolute; display: grid; justify-items: center; gap: 2px; width: 8.5rem; transform: translate(-50%, -1.375rem); text-align: center; z-index: 1; }
+.icon { box-shadow: var(--shadow-resting); display: grid; place-items: center; width: 2.75rem; height: 2.75rem; border: 1px solid var(--border-strong); border-radius: var(--radius-control); background: var(--surface); color: var(--text-secondary); transition: border-color var(--duration-fast) var(--ease-standard), color var(--duration-fast) var(--ease-standard), box-shadow var(--duration-standard) var(--ease-standard), transform var(--duration-fast) var(--ease-standard); }
+.stop:hover .icon { transform: translateY(-1px); border-color: var(--neutral-6); }
+.stop[data-active] .icon { border-color: var(--accent); color: var(--accent-strong); box-shadow: 0 0 0 4px color-mix(in oklch, var(--accent) 16%, transparent); }
+.name { margin-top: var(--space-1); font-family: var(--font-display); font-size: var(--text-sm); font-weight: 500; letter-spacing: var(--tracking-display); }
 .status { min-height: 2.2em; color: var(--text-secondary); font-size: var(--text-xs); line-height: 1.25; }
 .stop[data-active] .status { color: var(--foreground); }
+.balance span[class*="counter"] { font-size: var(--text-xl); }
 .balance { font-family: var(--font-display); font-size: var(--text-lg); font-variant-numeric: tabular-nums; }
 .detail { position: absolute; top: calc(100% + 2px); left: 50%; width: 11rem; padding: var(--space-2) var(--space-3); transform: translateX(-50%); border: 1px solid var(--border); border-radius: var(--radius-control); background: var(--surface-raised); box-shadow: var(--shadow-floating); color: var(--text-secondary); font-size: var(--text-xs); line-height: 1.35; opacity: 0; pointer-events: none; transition: opacity var(--duration-fast, .16s); z-index: 3; }
 @media (hover: hover) { .stop:hover .detail { opacity: 1; } .stop:hover { z-index: 4; } }
@@ -28,6 +30,12 @@
 .bar > i { display: block; height: 100%; background: var(--accent); transform-origin: left; transform: scaleX(0); }
 .caption { max-width: 760px; margin-inline: auto; color: var(--text-secondary); font-size: var(--text-sm); text-align: center; }
 .root[data-reduced] .icon, .root[data-reduced] .detail { transition: none; }
-@media (prefers-reduced-motion: reduce) { .icon, .detail { transition: none; } }
-@container (max-width: 700px) { .stop { width: 7rem; } .root[data-vertical] .stop:nth-child(5) { width: 6rem; } }
+.root[data-vertical] .stop { grid-template-columns: auto minmax(0, 1fr); grid-template-rows: auto auto; justify-items: start; align-items: center; column-gap: var(--space-3); width: auto; max-width: 7.75rem; text-align: left; transform: translate(-1.375rem, -1.375rem); }
+.root[data-vertical] .stop .icon { grid-row: 1 / span 2; }
+.root[data-vertical] .stop .name, .root[data-vertical] .stop .status { margin: 0; min-height: 0; }
+.root[data-vertical] .stop:nth-child(5) { grid-template-columns: minmax(0, 1fr); grid-template-rows: none; justify-items: center; max-width: 7rem; text-align: center; transform: translate(-50%, -1.375rem); }
+.root[data-vertical] .stop:nth-child(5) .icon { grid-row: auto; }
+.root[data-vertical] .stop:nth-child(5) .name { margin-top: var(--space-1); }
+@media (prefers-reduced-motion: reduce) { .icon, .detail { transition: none; } .stop:hover .icon { transform: none; } }
+@container (max-width: 700px) { .stop { width: 7rem; } }
 @container (max-width: 420px) { .steps { grid-template-columns: minmax(0, 1fr); } }

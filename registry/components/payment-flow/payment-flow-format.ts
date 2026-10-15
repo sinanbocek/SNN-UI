@@ -95,13 +95,13 @@ export interface Layout {
 /** Geniş kapta yatay, dar kapta (700 px altı) dikey yerleşim. */
 export function layoutFor(width: number): Layout {
   if (width > 0 && width < 700) {
-    const stops = [{ x: 56, y: 44 }, { x: 56, y: 156 }, { x: 56, y: 268 }, { x: 56, y: 380 }];
-    const commission = { x: 168, y: 156 }, balance = { x: 256, y: 44 };
-    return { width: 320, height: 430, stops, balance, commission, vertical: true, settle: [stops[2]!, { x: 168, y: 268 }, commission, { x: 168, y: 44 }, balance] };
+    const stops = [{ x: 56, y: 44 }, { x: 56, y: 154 }, { x: 56, y: 264 }, { x: 56, y: 374 }];
+    const commission = { x: 150, y: 319 }, balance = { x: 254, y: 319 };
+    return { width: 320, height: 470, stops, balance, commission, vertical: true, settle: [stops[2]!, { x: 56, y: 319 }, commission, balance] };
   }
   const stops = [{ x: 70, y: 70 }, { x: 235, y: 70 }, { x: 400, y: 70 }, { x: 565, y: 70 }];
   const commission = { x: 235, y: 196 }, balance = { x: 70, y: 196 };
-  return { width: 640, height: 270, stops, balance, commission, vertical: false, settle: [stops[2]!, { x: 400, y: 196 }, commission, balance] };
+  return { width: 640, height: 296, stops, balance, commission, vertical: false, settle: [stops[2]!, { x: 400, y: 196 }, commission, balance] };
 }
 
 /** Ana hat: dört durak art arda; geri dönen onay aynı hattı tersine izler. */
