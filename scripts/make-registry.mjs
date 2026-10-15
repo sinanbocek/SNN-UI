@@ -90,6 +90,8 @@ import "@/components/snn/snn-foundation.css";
 
 4. Vurgu rengini proje seçer: \`<html data-accent="blue">\` (\`neutral\`, \`violet\`, \`blue\`, \`green\`, \`coral\`, \`rose\`). Koyu tema: \`data-theme="dark"\`.
 
+Yazı tipleri (Inter, Geist; \`@fontsource-variable/*\`, OFL) temel değişkenlerle birlikte kurulur ve aynı içe aktarmayla yüklenir; ayrıca bir şey eklenmez.
+
 Gereken paketler: React 19, \`motion\`; bazı bileşenlerde Radix ve \`lucide-react\` (kurulum kendisi ekler).
 
 ## Bileşenler (ilk raf)

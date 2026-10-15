@@ -14,8 +14,9 @@ export const foundation = [
   {
     name: "snn-foundation",
     title: "SNN temel değişkenleri",
-    description: "Renk, yüzey, boşluk, köşe, gölge, hareket ve odak değişkenleri; açık ve koyu tema. Projede bir kez kurulur ve bir kez içe aktarılır. Uyarı rengi amber değil, mavi-gridir.",
+    description: "Renk, yüzey, boşluk, köşe, gölge, hareket ve odak değişkenleri; açık ve koyu tema; Inter ve Geist yazı tipleri (npm paketi, OFL). Projede bir kez kurulur ve bir kez içe aktarılır. Uyarı rengi amber değil, mavi-gridir.",
     files: [{ path: "registry/foundation/snn-foundation.css", target: "snn-foundation.css" }],
+    deps: ["@fontsource-variable/inter", "@fontsource-variable/geist"],
     arcSource: "registry/foundation.css",
   },
   {
