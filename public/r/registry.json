@@ -869,6 +869,45 @@
         "arcCommit": "bfdf7e8",
         "arcSource": "registry/components/settings-page"
       }
+    },
+    {
+      "name": "team-members",
+      "type": "registry:ui",
+      "title": "Ekip üyeleri",
+      "description": "Blok: koltuk sayacı, e-posta etiketli davet kutusu, üye listesi (rol değiştirme, satır içi çıkarma sorusu, arama, sayfalama) ve bekleyen davetler. Boş, yükleniyor, hata, koltuk dolu ve dar ekran durumları vardır.",
+      "dependencies": [
+        "@snn/abacus-core@github:sinanbocek/SNN-Abacus-Core#semver:^4.3.0",
+        "motion"
+      ],
+      "registryDependencies": [
+        "@snn-ui/snn-foundation",
+        "@snn-ui/snn-motion-tokens",
+        "@snn-ui/avatar",
+        "@snn-ui/badge",
+        "@snn-ui/button",
+        "@snn-ui/empty-state",
+        "@snn-ui/pagination",
+        "@snn-ui/search-field",
+        "@snn-ui/select",
+        "@snn-ui/skeleton",
+        "@snn-ui/tooltip"
+      ],
+      "files": [
+        {
+          "path": "registry/components/team-members/team-members.module.css",
+          "type": "registry:component",
+          "target": "@components/snn/team-members/team-members.module.css"
+        },
+        {
+          "path": "registry/components/team-members/team-members.tsx",
+          "type": "registry:component",
+          "target": "@components/snn/team-members/team-members.tsx"
+        }
+      ],
+      "meta": {
+        "arcCommit": "bfdf7e8",
+        "arcSource": "registry/components/team-members"
+      }
     }
   ]
 }

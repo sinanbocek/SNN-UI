@@ -10,6 +10,8 @@ import { Select } from "../../registry/components/select/select";
 import { Switch } from "../../registry/components/switch/switch";
 import type { SaveBarStatus } from "../../registry/components/save-bar/save-bar";
 import { SettingsGroup, SettingsPage, SettingsRow } from "../../registry/components/settings-page/settings-page";
+import { TeamMembers } from "../../registry/components/team-members/team-members";
+import type { TeamInvite, TeamMember } from "../../registry/components/team-members/team-members";
 
 const Col = ({ title, children }: { title: string; children: ReactNode }) => (
   <div className="col"><span className="etiket">{title}</span>{children}</div>
@@ -87,6 +89,45 @@ function SettingsPageDemo() {
   </>;
 }
 
+/* ---------- team-members ---------- */
+
+const teamRoles = [{ value: "sahip", label: "Sahip", owner: true }, { value: "yonetici", label: "Yönetici" }, { value: "uye", label: "Üye" }, { value: "goruntuleyici", label: "Görüntüleyici" }];
+const firstMembers: TeamMember[] = [
+  { id: "m1", name: "Elif Aksoy", email: "elif@ornek-firma.test", role: "sahip", self: true, online: true },
+  { id: "m2", name: "İsmail Çelik", email: "ismail.celik@ornek-firma.test", role: "yonetici", online: true },
+  { id: "m3", name: "Şule Yıldırım", email: "sule.yildirim@ornek-firma.test", role: "uye", lastSeen: "2 saat önce" },
+  { id: "m4", name: "Ömer Faruk Kaçmaz Uzunsoyadlı Danışman Ortağımız", email: "omer.faruk.kacmaz.uzun.adres.ornegi@ornek-firma-uzun-alan-adi.test", role: "goruntuleyici", lastSeen: "3 gün önce" },
+];
+const waitFake = (ms: number, fail: boolean) => new Promise<void>((resolve, reject) => setTimeout(() => (fail ? reject(new Error("fail")) : resolve()), ms));
+
+function TeamMembersDemo() {
+  const [members, setMembers] = useState<TeamMember[]>(firstMembers);
+  const [invites, setInvites] = useState<TeamInvite[]>([{ id: "i1", email: "gizem@ornek-firma.test", role: "uye", sentAt: "12.10.2026" }]);
+  const [fail, setFail] = useState(false);
+  const [loading, setLoading] = useState(false);
+  const [error, setError] = useState(false);
+  const [seats, setSeats] = useState(8);
+  return <>
+    <Col title="E-posta yazıp Enter'a basın; birden çok adresi yapıştırın. Satırda Çıkar'a basın.">
+      <div className="row">
+        <label className="row"><input type="checkbox" checked={fail} onChange={event => setFail(event.target.checked)} /> İşlemler başarısız olsun</label>
+        <label className="row"><input type="checkbox" checked={loading} onChange={event => setLoading(event.target.checked)} /> Yükleniyor</label>
+        <label className="row"><input type="checkbox" checked={error} onChange={event => setError(event.target.checked)} /> Liste hatası</label>
+        <label className="row"><input type="checkbox" checked={seats === 6} onChange={event => setSeats(event.target.checked ? 6 : 8)} /> Koltuk dolsun (6)</label>
+      </div>
+      <TeamMembers
+        members={members} invites={invites} roles={teamRoles} seatLimit={seats} loading={loading} error={error} onRetry={() => setError(false)} pageSize={3}
+        onInvite={async (emails, role) => { await waitFake(500, fail); setInvites(current => [...current, ...emails.map((email, index) => ({ id: `n${Date.now()}${index}`, email, role, sentAt: "15.10.2026" }))]); }}
+        onRoleChange={async (id, role) => { await waitFake(400, fail); setMembers(current => current.map(member => member.id === id ? { ...member, role } : member)); }}
+        onRemove={async id => { await waitFake(400, fail); setMembers(current => current.filter(member => member.id !== id)); }}
+        onResend={async id => { await waitFake(300, fail); setInvites(current => current.map(invite => invite.id === id ? { ...invite, sentAt: "15.10.2026" } : invite)); }}
+        onCancelInvite={async id => { await waitFake(300, fail); setInvites(current => current.filter(invite => invite.id !== id)); }}
+      />
+    </Col>
+  </>;
+}
+
 export const blockDemos: Record<string, () => ReactNode> = {
   "settings-page": () => <SettingsPageDemo />,
+  "team-members": () => <TeamMembersDemo />,
 };
