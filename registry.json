@@ -2891,6 +2891,48 @@
         "arcCommit": "bfdf7e8",
         "arcSource": "registry/components/product-listing"
       }
+    },
+    {
+      "name": "product-detail",
+      "type": "registry:ui",
+      "title": "Ürün sayfası",
+      "description": "Blok: tek bir ürünün sayfası. Yol izi, sürüklenebilir fotoğraf galerisi (\"1 / 4\" sayacı, küçük resim şeridi, sol/sağ ok), ürün adı, dönen fiyat, yıldız ortalaması, kaplama örnekleri (radyo grubu) ve her boyun adı ile fiyatı. Kaplama değişince fotoğraflar yerinde soluk geçişle o kaplamanınkilerle değişir; seçili boy o kaplamada tükenmişse seçim kalkar. Adet düzenleyici ve \"Sepete ekle · ₺2.400,00\" düğmesi (tutar adetle çarpılır; Ekleniyor → Sepete eklendi, başarısızsa Tekrar dene). Tükenen kaplama ve boy seçilebilir kalır ama düğme \"Gelince haber ver\" olur. Teslimat vaatleri, yorum özeti (ortalama ve 5'ten 1'e dolan yıldız çubukları) ve açılır ayrıntı bölümleri (ilki açık), favori kalbi. Yükleniyor ve dar kap (alt alta, dört küçük resim) durumları vardır.",
+      "dependencies": [
+        "@snn/abacus-core@github:sinanbocek/SNN-Abacus-Core#semver:^4.3.0",
+        "motion"
+      ],
+      "registryDependencies": [
+        "@snn-ui/snn-foundation",
+        "@snn-ui/snn-motion-tokens",
+        "@snn-ui/animated-counter",
+        "@snn-ui/breadcrumb",
+        "@snn-ui/button",
+        "@snn-ui/snn-chart-format",
+        "@snn-ui/snn-motion-tokens",
+        "@snn-ui/snn-shop-parts",
+        "@snn-ui/snn-viz-utils"
+      ],
+      "files": [
+        {
+          "path": "registry/components/product-detail/product-detail-format.ts",
+          "type": "registry:component",
+          "target": "@components/snn/product-detail/product-detail-format.ts"
+        },
+        {
+          "path": "registry/components/product-detail/product-detail.module.css",
+          "type": "registry:component",
+          "target": "@components/snn/product-detail/product-detail.module.css"
+        },
+        {
+          "path": "registry/components/product-detail/product-detail.tsx",
+          "type": "registry:component",
+          "target": "@components/snn/product-detail/product-detail.tsx"
+        }
+      ],
+      "meta": {
+        "arcCommit": "bfdf7e8",
+        "arcSource": "registry/components/product-detail"
+      }
     }
   ]
 }

@@ -37,6 +37,7 @@ const FILES = {
   usagePricing: "registry/components/usage-pricing/usage-pricing-format.ts",
   shop: "registry/components/lib/shop-format.ts",
   listing: "registry/components/product-listing/product-listing-format.ts",
+  detail: "registry/components/product-detail/product-detail-format.ts",
 };
 const mods = {};
 let temp;
@@ -458,4 +459,26 @@ test("ürün listesi: fiyat sınırları, süzgeç ve sıralama doğru; yazımla
   assert.equal(mods.listing.rangeText([390, 1210]), "₺390 – ₺1.210");
   assert.equal(mods.listing.filtersButtonText(2), "Süzgeçler (2)");
   assert.equal(mods.listing.addedText("Mont", "M"), "Mont, M sepete eklendi.");
+});
+
+test("ürün sayfası: tükenme, kuruş tutarı, yorum dağılımı ve yazımlar ABACUS çıktısıdır", () => {
+  const sizes = [{ value: "s", label: "Küçük", price: 2400 }, { value: "l", label: "Büyük", price: 4250.5, soldOutIn: ["ceviz"] }];
+  assert.equal(mods.detail.isSoldOut(sizes[1], "ceviz"), true);
+  assert.equal(mods.detail.isSoldOut(sizes[1], "mese"), false);
+  assert.equal(mods.detail.keepSize(sizes, "l", "ceviz"), "");
+  assert.equal(mods.detail.keepSize(sizes, "l", "mese"), "l");
+  assert.equal(mods.detail.totalMinor(4250.5, 3), 1275150);
+  assert.equal(mods.detail.addLabel(2400, 2), "Sepete ekle · " + money.formatMajor(4800, { currency: "TRY", digits: 2, kurus: true }));
+  assert.equal(mods.detail.addLabel(2400, 2), "Sepete ekle · ₺4.800,00");
+  const reviews = [128, 41, 12, 4, 3];
+  assert.equal(mods.detail.reviewTotal(reviews), 188);
+  assert.equal(Math.round(mods.detail.reviewAverage(reviews) * 100), 453);
+  assert.equal(mods.detail.reviewAverage([0, 0, 0, 0, 0]), null);
+  assert.deepEqual(mods.detail.barRatios([4, 2, 0, 0, 1]), [1, .5, 0, 0, .25]);
+  assert.equal(mods.detail.averageLabel(reviews), "4,5 / 5");
+  assert.equal(mods.detail.averageLabel([0, 0, 0, 0, 0]), "Henüz yorum yok");
+  assert.equal(mods.detail.reviewCountText(1234), "1.234 yorum");
+  assert.equal(mods.detail.barRowLabel(5, 128), "5 yıldız, 128 yorum");
+  assert.equal(mods.detail.sizeLabel(sizes[1], true), "Büyük · ₺4.250,50 · Tükendi");
+  assert.equal(mods.detail.counterText(0, 4), "1 / 4");
 });

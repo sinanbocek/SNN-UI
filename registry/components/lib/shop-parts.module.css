@@ -23,3 +23,10 @@
 .stepper output { min-width: 2rem; text-align: center; font-size: var(--text-sm); font-variant-numeric: tabular-nums; }
 
 .srOnly { position: absolute; width: 1px; height: 1px; margin: -1px; padding: 0; overflow: hidden; clip: rect(0 0 0 0); white-space: nowrap; border: 0; }
+
+.viewport { position: relative; overflow: hidden; touch-action: pan-y; border-radius: var(--radius-surface); }
+.viewport:focus-visible { outline: var(--focus-outline-width, 2px) solid var(--focus-outline, var(--accent)); outline-offset: 2px; }
+.track { display: flex; cursor: grab; }
+.track:active { cursor: grabbing; }
+.slide { flex: 0 0 100%; min-width: 0; user-select: none; }
+.slide img { -webkit-user-drag: none; pointer-events: none; }
