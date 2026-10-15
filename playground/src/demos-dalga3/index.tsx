@@ -8,6 +8,7 @@ import { WalletCardDemo } from "./wallet-card";
 import { PaymentFlowDemo } from "./payment-flow";
 import { HeroSignupDemo } from "./hero-signup";
 import { ScrollStoryDemo } from "./scroll-story";
+import { SpotlightGridDemo } from "./spotlight-grid";
 
 export const dalga3Demos: Record<string, () => ReactNode> = {
   "product-listing": () => <ProductListingDemo />,
@@ -18,4 +19,5 @@ export const dalga3Demos: Record<string, () => ReactNode> = {
   "payment-flow": () => <PaymentFlowDemo />,
   "hero-signup": () => <HeroSignupDemo />,
   "scroll-story": () => <ScrollStoryDemo />,
+  "spotlight-grid": () => <SpotlightGridDemo />,
 };

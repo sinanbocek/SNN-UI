@@ -44,6 +44,7 @@ const FILES = {
   flow: "registry/components/payment-flow/payment-flow-format.ts",
   hero: "registry/components/hero-signup/hero-signup-format.ts",
   story: "registry/components/scroll-story/scroll-story-format.ts",
+  spotlight: "registry/components/spotlight-grid/spotlight-grid-format.ts",
 };
 const mods = {};
 let temp;
@@ -661,4 +662,21 @@ test("kaydırmalı anlatı: adım konumu, etkin adım, sekme dolgusu ve yazımla
   assert.equal(mods.story.stepLabel(1, 4), "Adım 2/4");
   assert.equal(mods.story.stepLabel(0, 1234), "Adım 1/1.234");
   assert.equal(mods.story.FAILED_TEXT("Kopyalama"), "Kopyalama yapılamadı");
+});
+
+test("özellik ızgarası: sütun sayısı, kart kaplaması, ışık konumu ve yazımlar doğru; sayılar ABACUS çıktısıdır", () => {
+  assert.equal(mods.spotlight.columnsFor(0), 3);
+  assert.equal(mods.spotlight.columnsFor(519), 1);
+  assert.equal(mods.spotlight.columnsFor(520), 2);
+  assert.equal(mods.spotlight.columnsFor(819), 2);
+  assert.equal(mods.spotlight.columnsFor(820), 3);
+  assert.equal(mods.spotlight.spanFor(true, 3), 2);
+  assert.equal(mods.spotlight.spanFor(true, 1), 1);
+  assert.equal(mods.spotlight.spanFor(undefined, 3), 1);
+  const rect = { left: 100, top: 50, width: 200, height: 120 };
+  assert.deepEqual(mods.spotlight.glowAt(rect, 150, 80), { x: 50, y: 30 });
+  assert.deepEqual(mods.spotlight.glowAt(rect, 20, 500), { x: 0, y: 120 });
+  assert.deepEqual(mods.spotlight.glowAt(rect, 900, -5), { x: 200, y: 0 });
+  assert.equal(mods.spotlight.closeLabel("Gecikme"), "Gecikme: ayrıntıyı kapat");
+  assert.equal(mods.spotlight.cardCountText(1234), "1.234 özellik");
 });

@@ -3184,6 +3184,46 @@
         "arcCommit": "bfdf7e8",
         "arcSource": "registry/components/scroll-story"
       }
+    },
+    {
+      "name": "spotlight-grid",
+      "type": "registry:ui",
+      "title": "Özellik ızgarası",
+      "description": "Blok: dört kadar özelliği kart ızgarasında gösteren tanıtım bölümü. Bölüm başlığı ve alt cümlesi altında kartlar durur; her kart canlı bir önizleme, başlık ve açıklama taşır, başlık tüm kartı kaplayan bir düğmedir. Fareyi kartlar üstünde gezdirince kenarlarda yumuşak bir ışık imleci yaylarla izler (yalnız fare) ve kartın önizlemesi oynar (ızgara ilk göründüğünde de bir kez oynar). Karta basınca (ya da Enter / Boşluk) kart yerinde büyüyerek çalışan bir ayrıntı görünümüne dönüşür: odak \"Kapat\" düğmesine gider, arkadaki ızgara etkileşime kapanır, Escape kapatır ve odağı açan karta geri verir. Kap boyutuna göre 1 / 2 / 3 sütun (geniş kart iki sütun kaplar). Ayrıntı içindeki seçici, anahtar ve onay düğmesini siz çizersiniz; sonuçlar kibar canlı bölgede duyurulur.",
+      "dependencies": [
+        "@snn/abacus-core@github:sinanbocek/SNN-Abacus-Core#semver:^4.3.0",
+        "motion"
+      ],
+      "registryDependencies": [
+        "@snn-ui/snn-foundation",
+        "@snn-ui/snn-motion-tokens",
+        "@snn-ui/button",
+        "@snn-ui/snn-chart-format",
+        "@snn-ui/snn-motion-tokens",
+        "@snn-ui/snn-shop-parts",
+        "@snn-ui/snn-viz-utils"
+      ],
+      "files": [
+        {
+          "path": "registry/components/spotlight-grid/spotlight-grid-format.ts",
+          "type": "registry:component",
+          "target": "@components/snn/spotlight-grid/spotlight-grid-format.ts"
+        },
+        {
+          "path": "registry/components/spotlight-grid/spotlight-grid.module.css",
+          "type": "registry:component",
+          "target": "@components/snn/spotlight-grid/spotlight-grid.module.css"
+        },
+        {
+          "path": "registry/components/spotlight-grid/spotlight-grid.tsx",
+          "type": "registry:component",
+          "target": "@components/snn/spotlight-grid/spotlight-grid.tsx"
+        }
+      ],
+      "meta": {
+        "arcCommit": "bfdf7e8",
+        "arcSource": "registry/components/spotlight-grid"
+      }
     }
   ]
 }
