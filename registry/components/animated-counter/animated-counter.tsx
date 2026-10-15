@@ -49,7 +49,7 @@ function Column({ digit, direction, armed, delay, reduceMotion }: { digit: numbe
   </motion.span>;
 }
 
-export function AnimatedCounter({ value, label, prefix = "", suffix = "", decimals = 0, animateOnView = false, locale = "en-US" }: AnimatedCounterProps) {
+export function AnimatedCounter({ value, label, prefix = "", suffix = "", decimals = 0, animateOnView = false }: AnimatedCounterProps) {
   const ref = useRef<HTMLSpanElement>(null);
   const inView = useInView(ref, { once: true, amount: .6 });
   const reduceMotion = !!useReducedMotion();
