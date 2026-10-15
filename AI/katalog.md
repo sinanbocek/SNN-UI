@@ -68,6 +68,11 @@ Gereken paketler: React 19, `motion`; bazı bileşenlerde Radix ve `lucide-react
 | `drawer` | Çekmece | Kenardan kayarak gelen yan panel; başlık çubuğundan sürüklenip kapatılır, Escape ve dışarı tıklama da kapatır. | `npx shadcn@latest add @snn-ui/drawer` |
 | `combobox` | Aramalı seçim | Yazarak süzülen açılır liste; ok tuşları, Enter ve Escape ile kullanılır. Türkçe aramada "İstanbul", "Istanbul" ve "istanbul" aynı sonucu bulur. Arama anahtarı ABACUS `text.searchKey` ile üretilir; proje `@snn/abacus-core` paketini kendiliğinden alır. | `npx shadcn@latest add @snn-ui/combobox` |
 | `avatar` | Kişi simgesi | Fotoğraf ya da ad baş harfleri; isteğe bağlı çevrimiçi/çevrimdışı noktası. Fotoğraf yüklenemezse baş harflere döner. Baş harf ABACUS `text.upper` ile büyütülür ("ismail" → "İ"). Fotoğraf düz `<img>` ile çizilir. | `npx shadcn@latest add @snn-ui/avatar` |
+| `settings-page` | Ayarlar sayfası | Blok: solda bölüm listesi, sağda seçili bölümün formu, altta yüzen kaydetme çubuğu. Bölümler arasında yarım kalan değişiklik korunur; kaydedilmemiş bölümde nokta çıkar. Yükleniyor, boş ve dar ekran durumları vardır. Alanları ve değişiklik sayısını proje verir (`changeCount`); gerçek kaydetmeyi de proje yapar. Arc Pro settings-page'den esinlenildi (tarif: docs/tarifler/settings-page.md). | `npx shadcn@latest add @snn-ui/settings-page` |
+| `team-members` | Ekip üyeleri | Blok: koltuk sayacı, e-posta etiketli davet kutusu, üye listesi (rol değiştirme, satır içi çıkarma sorusu, arama, sayfalama) ve bekleyen davetler. Boş, yükleniyor, hata, koltuk dolu ve dar ekran durumları vardır. E-posta denetimi ABACUS `text.email`, arama süzmesi `text.searchKey` ile yapılır. Gerçek davet, rol kaydı ve çıkarmayı proje bağlar; işlemler reddedilirse (Promise) satırda hata yazılır ve eski hâle dönülür. Tarihler ve "son görülme" hazır metin olarak gelir (ABACUS `date`). Arc Pro team-members'dan esinlenildi (tarif: docs/tarifler/team-members.md). | `npx shadcn@latest add @snn-ui/team-members` |
+| `sidebar` | Kenar menüsü | Blok: solda gruplu, katlanır gezinme menüsü; şeride daralır (Ctrl+B), dar kolonda çekmeceye dönüşür. Üstte yol izi, ortada kayan içerik, altta Ayarlar ve kullanıcı kartı. Yükleniyor ve hata durumları vardır. Menü verisini, etkin sayfayı ve katlama tercihinin saklanmasını proje yapar (`onCollapsedChange`). Çekmece kararı pencereye değil bloğun kendi genişliğine bakar. Kullanıcı kartı menüsü ve şerit grup menüsü `popover` ile açılır (`dropdown-menu` özel tetikleyici kabul etmediği için). Arc Pro sidebar'dan esinlenildi (tarif: docs/tarifler/sidebar.md). | `npx shadcn@latest add @snn-ui/sidebar` |
+| `search-results` | Arama sonuçları | Blok: birleşik arama kutusu (son ve önerilen aramalar), sayılı süzgeçler (tür, ekip, ay aralığı), etkin süzgeç çipleri, sıralama, kayan imleç dolgulu sonuç listesi ve önizleme paneli. Orta ve dar kolonda önizleme ve süzgeçler alttan açılan sayfalara taşınır. Boş, yükleniyor ve hata durumları vardır. Aranan her kelime Türkçe harf farkı gözetmeden (`text.searchKey`) bulunur; tarihler ABACUS `date`, sıralama `collate` ile yazılır. Bu blok verilen listeyi tarayıcıda süzer ve sıralar; birkaç yüz kayıttan sonra aramayı sunucuya taşımak projenin işidir. Arc Pro search-results'tan esinlenildi (tarif: docs/tarifler/search-results.md). | `npx shadcn@latest add @snn-ui/search-results` |
+| `help-center` | Yardım merkezi | Blok: büyük arama kutusu (sonuçlar kutunun altında, kelimeler vurgulu), hızlı aramalar, konu kartları, çok okunanlar, makale okuma görünümü ("Bu sayfada" ana hattı, Evet/Hayır geri bildirimi, ilgili makaleler) ve destek kartı. Görünümler yönüne göre kayar. Boş, yükleniyor, hata, makale bulunamadı ve dar ekran durumları vardır. Makale içeriği (`paragraphs`, `steps`, isteğe bağlı `content`), tarih ve okuma süresi metni projeden gelir; arama Türkçe harf farkı gözetmez (`text.searchKey`). İletişim ve geri bildirimi proje bağlar; reddedilirse hata yazılır. Arc Pro help-center'dan esinlenildi (tarif: docs/tarifler/help-center.md). | `npx shadcn@latest add @snn-ui/help-center` |
 
 ## Kullanım örnekleri
 
@@ -285,6 +290,46 @@ import { Combobox } from "@/components/snn/combobox/combobox";
 import { Avatar } from "@/components/snn/avatar/avatar";
 
 <Avatar name="İsmail Yılmaz" status="online" />
+```
+
+### Ayarlar sayfası (`settings-page`)
+
+```tsx
+import { SettingsPage, SettingsGroup, SettingsRow } from "@/components/snn/settings-page/settings-page";
+
+<SettingsPage sections={sections} status={status} onSave={save} onDiscard={reset} user={{ name: "Elif Aksoy", subtitle: "Yönetici" }} />
+```
+
+### Ekip üyeleri (`team-members`)
+
+```tsx
+import { TeamMembers } from "@/components/snn/team-members/team-members";
+
+<TeamMembers members={members} invites={invites} roles={roles} seatLimit={10} onInvite={invite} onRoleChange={changeRole} onRemove={remove} onResend={resend} onCancelInvite={cancel} />
+```
+
+### Kenar menüsü (`sidebar`)
+
+```tsx
+import { Sidebar } from "@/components/snn/sidebar/sidebar";
+
+<Sidebar header={{ name: "Acme Ofis" }} sections={sections} activeId={page} onNavigate={setPage}>{content}</Sidebar>
+```
+
+### Arama sonuçları (`search-results`)
+
+```tsx
+import { SearchResults } from "@/components/snn/search-results/search-results";
+
+<SearchResults results={results} today="2026-10-15" workspaceName="Acme Ofis" suggestions={["teklif", "şartname"]} onOpen={open} />
+```
+
+### Yardım merkezi (`help-center`)
+
+```tsx
+import { HelpCenter } from "@/components/snn/help-center/help-center";
+
+<HelpCenter topics={topics} articles={articles} quickSearches={["fatura", "parola"]} onContact={contact} onFeedback={sendFeedback} />
 ```
 
 ## Bu rafta olmayanlar

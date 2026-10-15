@@ -836,6 +836,194 @@
         "arcCommit": "bfdf7e8",
         "arcSource": "registry/components/avatar"
       }
+    },
+    {
+      "name": "settings-page",
+      "type": "registry:ui",
+      "title": "Ayarlar sayfası",
+      "description": "Blok: solda bölüm listesi, sağda seçili bölümün formu, altta yüzen kaydetme çubuğu. Bölümler arasında yarım kalan değişiklik korunur; kaydedilmemiş bölümde nokta çıkar. Yükleniyor, boş ve dar ekran durumları vardır.",
+      "dependencies": [
+        "motion"
+      ],
+      "registryDependencies": [
+        "@snn-ui/snn-foundation",
+        "@snn-ui/snn-motion-tokens",
+        "@snn-ui/avatar",
+        "@snn-ui/empty-state",
+        "@snn-ui/save-bar",
+        "@snn-ui/skeleton"
+      ],
+      "files": [
+        {
+          "path": "registry/components/settings-page/settings-page.module.css",
+          "type": "registry:component",
+          "target": "@components/snn/settings-page/settings-page.module.css"
+        },
+        {
+          "path": "registry/components/settings-page/settings-page.tsx",
+          "type": "registry:component",
+          "target": "@components/snn/settings-page/settings-page.tsx"
+        }
+      ],
+      "meta": {
+        "arcCommit": "bfdf7e8",
+        "arcSource": "registry/components/settings-page"
+      }
+    },
+    {
+      "name": "team-members",
+      "type": "registry:ui",
+      "title": "Ekip üyeleri",
+      "description": "Blok: koltuk sayacı, e-posta etiketli davet kutusu, üye listesi (rol değiştirme, satır içi çıkarma sorusu, arama, sayfalama) ve bekleyen davetler. Boş, yükleniyor, hata, koltuk dolu ve dar ekran durumları vardır.",
+      "dependencies": [
+        "@snn/abacus-core@github:sinanbocek/SNN-Abacus-Core#semver:^4.3.0",
+        "motion"
+      ],
+      "registryDependencies": [
+        "@snn-ui/snn-foundation",
+        "@snn-ui/snn-motion-tokens",
+        "@snn-ui/avatar",
+        "@snn-ui/badge",
+        "@snn-ui/button",
+        "@snn-ui/empty-state",
+        "@snn-ui/pagination",
+        "@snn-ui/search-field",
+        "@snn-ui/select",
+        "@snn-ui/skeleton",
+        "@snn-ui/tooltip"
+      ],
+      "files": [
+        {
+          "path": "registry/components/team-members/team-members.module.css",
+          "type": "registry:component",
+          "target": "@components/snn/team-members/team-members.module.css"
+        },
+        {
+          "path": "registry/components/team-members/team-members.tsx",
+          "type": "registry:component",
+          "target": "@components/snn/team-members/team-members.tsx"
+        }
+      ],
+      "meta": {
+        "arcCommit": "bfdf7e8",
+        "arcSource": "registry/components/team-members"
+      }
+    },
+    {
+      "name": "sidebar",
+      "type": "registry:ui",
+      "title": "Kenar menüsü",
+      "description": "Blok: solda gruplu, katlanır gezinme menüsü; şeride daralır (Ctrl+B), dar kolonda çekmeceye dönüşür. Üstte yol izi, ortada kayan içerik, altta Ayarlar ve kullanıcı kartı. Yükleniyor ve hata durumları vardır.",
+      "dependencies": [
+        "@snn/abacus-core@github:sinanbocek/SNN-Abacus-Core#semver:^4.3.0",
+        "lucide-react",
+        "motion"
+      ],
+      "registryDependencies": [
+        "@snn-ui/snn-foundation",
+        "@snn-ui/snn-motion-tokens",
+        "@snn-ui/avatar",
+        "@snn-ui/badge",
+        "@snn-ui/breadcrumb",
+        "@snn-ui/button",
+        "@snn-ui/drawer",
+        "@snn-ui/popover",
+        "@snn-ui/skeleton",
+        "@snn-ui/tooltip"
+      ],
+      "files": [
+        {
+          "path": "registry/components/sidebar/sidebar.module.css",
+          "type": "registry:component",
+          "target": "@components/snn/sidebar/sidebar.module.css"
+        },
+        {
+          "path": "registry/components/sidebar/sidebar.tsx",
+          "type": "registry:component",
+          "target": "@components/snn/sidebar/sidebar.tsx"
+        }
+      ],
+      "meta": {
+        "arcCommit": "bfdf7e8",
+        "arcSource": "registry/components/sidebar"
+      }
+    },
+    {
+      "name": "search-results",
+      "type": "registry:ui",
+      "title": "Arama sonuçları",
+      "description": "Blok: birleşik arama kutusu (son ve önerilen aramalar), sayılı süzgeçler (tür, ekip, ay aralığı), etkin süzgeç çipleri, sıralama, kayan imleç dolgulu sonuç listesi ve önizleme paneli. Orta ve dar kolonda önizleme ve süzgeçler alttan açılan sayfalara taşınır. Boş, yükleniyor ve hata durumları vardır.",
+      "dependencies": [
+        "@snn/abacus-core@github:sinanbocek/SNN-Abacus-Core#semver:^4.3.0",
+        "lucide-react",
+        "motion"
+      ],
+      "registryDependencies": [
+        "@snn-ui/snn-foundation",
+        "@snn-ui/snn-motion-tokens",
+        "@snn-ui/avatar",
+        "@snn-ui/badge",
+        "@snn-ui/button",
+        "@snn-ui/checkbox",
+        "@snn-ui/drawer",
+        "@snn-ui/empty-state",
+        "@snn-ui/pagination",
+        "@snn-ui/search-field",
+        "@snn-ui/select",
+        "@snn-ui/skeleton"
+      ],
+      "files": [
+        {
+          "path": "registry/components/search-results/search-results.module.css",
+          "type": "registry:component",
+          "target": "@components/snn/search-results/search-results.module.css"
+        },
+        {
+          "path": "registry/components/search-results/search-results.tsx",
+          "type": "registry:component",
+          "target": "@components/snn/search-results/search-results.tsx"
+        }
+      ],
+      "meta": {
+        "arcCommit": "bfdf7e8",
+        "arcSource": "registry/components/search-results"
+      }
+    },
+    {
+      "name": "help-center",
+      "type": "registry:ui",
+      "title": "Yardım merkezi",
+      "description": "Blok: büyük arama kutusu (sonuçlar kutunun altında, kelimeler vurgulu), hızlı aramalar, konu kartları, çok okunanlar, makale okuma görünümü (\"Bu sayfada\" ana hattı, Evet/Hayır geri bildirimi, ilgili makaleler) ve destek kartı. Görünümler yönüne göre kayar. Boş, yükleniyor, hata, makale bulunamadı ve dar ekran durumları vardır.",
+      "dependencies": [
+        "@snn/abacus-core@github:sinanbocek/SNN-Abacus-Core#semver:^4.3.0",
+        "motion"
+      ],
+      "registryDependencies": [
+        "@snn-ui/snn-foundation",
+        "@snn-ui/snn-motion-tokens",
+        "@snn-ui/breadcrumb",
+        "@snn-ui/button",
+        "@snn-ui/empty-state",
+        "@snn-ui/search-field",
+        "@snn-ui/skeleton",
+        "@snn-ui/textarea"
+      ],
+      "files": [
+        {
+          "path": "registry/components/help-center/help-center.module.css",
+          "type": "registry:component",
+          "target": "@components/snn/help-center/help-center.module.css"
+        },
+        {
+          "path": "registry/components/help-center/help-center.tsx",
+          "type": "registry:component",
+          "target": "@components/snn/help-center/help-center.tsx"
+        }
+      ],
+      "meta": {
+        "arcCommit": "bfdf7e8",
+        "arcSource": "registry/components/help-center"
+      }
     }
   ]
 }

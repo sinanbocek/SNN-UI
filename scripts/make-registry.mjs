@@ -31,7 +31,8 @@ const items = [
     title: item.title,
     description: item.description,
     dependencies: item.deps,
-    registryDependencies: [`${NAMESPACE}/snn-foundation`, ...(item.deps.includes("motion") ? [`${NAMESPACE}/snn-motion-tokens`] : [])],
+    // Bloklar (settings-page gibi) katalogdaki başka parçaları içe aktarır; `uses` bunları kurulum bağımlılığına çevirir.
+    registryDependencies: [`${NAMESPACE}/snn-foundation`, ...(item.deps.includes("motion") ? [`${NAMESPACE}/snn-motion-tokens`] : []), ...(item.uses ?? []).map(name => `${NAMESPACE}/${name}`)],
     files: componentFiles(item.name),
     meta: { arcCommit: ARC_COMMIT, arcSource: `registry/components/${item.name}` },
   })),
