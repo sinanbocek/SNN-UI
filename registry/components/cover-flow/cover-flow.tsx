@@ -3,7 +3,7 @@
 import { useCallback, useEffect, useRef, useState, type KeyboardEvent, type PointerEvent, type ReactNode } from "react";
 import { AnimatePresence, animate, motion, useMotionValue, useTransform, type MotionValue } from "motion/react";
 import { motionTokens } from "../lib/motion-tokens";
-import { Placeholder, useAnnouncer } from "../lib/shop-parts";
+import { Photo, useAnnouncer } from "../lib/shop-parts";
 import { useElementWidth, useReducedMotionSafe } from "../lib/viz-utils";
 import { coverTransform, dragToPosition, liveText, railKey, reducedStep, settleIndex, slideLabel, tickLabel } from "./cover-flow-format";
 import styles from "./cover-flow.module.css";
@@ -18,6 +18,8 @@ export interface CoverItem {
   alt: string;
   /** Verilmezse kendi yer tutucusu çizilir. */
   src?: string;
+  /** Fotoğrafın odak noktası (CSS object-position), örneğin "20% center". */
+  position?: string;
   tone?: number;
 }
 
@@ -45,7 +47,7 @@ function Slide({ item, index, count, position, active, reduced, onPick, reach }:
   return <motion.div className={styles.slide} style={{ x, scale, rotateY, zIndex, visibility }} role="group" aria-roledescription="slayt" aria-label={slideLabel(index, count, item.title)} aria-hidden={!active || undefined} data-active={active || undefined}>
     <button type="button" className={styles.frame} tabIndex={-1} aria-label={active ? undefined : tickLabel(item.title)} onClick={onPick} disabled={active}>
       <motion.span className={styles.media} style={{ x: inner }}>
-        {item.src ? <img src={item.src} alt={active ? item.alt : ""} draggable={false} loading={Math.abs(index) < 3 ? "eager" : "lazy"} /> : <Placeholder tone={item.tone} label={active ? item.alt : ""} ratio="4 / 5" className={styles.placeholder} />}
+        <Photo src={item.src} position={item.position} alt={active ? item.alt : ""} ratio="26 / 25" tone={item.tone} initial={Array.from(item.title.trim())[0]} eager={Math.abs(index) < 3} className={styles.photo} />
       </motion.span>
       <motion.span className={styles.shade} style={{ opacity: shade }} aria-hidden="true" />
     </button>

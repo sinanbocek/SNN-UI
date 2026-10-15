@@ -7,10 +7,26 @@ import { countText } from "./shop-format";
 import { useElementWidth, useReducedMotionSafe } from "./viz-utils";
 import styles from "./shop-parts.module.css";
 
-/** Görsel yer tutucu: düz renk yüzey ve küçük bir çizim. Gerçek fotoğraf yerine geçer; `label` ekran okuyucu için alt metindir. */
-export function Placeholder({ tone = 0, label, ratio = "4 / 5", className, children }: { tone?: number; label: string; ratio?: string; className?: string; children?: ReactNode }) {
+/** Görsel yer tutucu: yüzey rengi, ince çapraz doku ve (varsa) baş harf. Gerçek fotoğraf yerine geçer; `label` ekran okuyucu için alt metindir. `initial` verilmezse `label`ın ilk harfi kullanılır; `children` her şeyin yerine geçer. */
+export function Placeholder({ tone = 0, label, ratio = "4 / 5", className, children, initial }: { tone?: number; label: string; ratio?: string; className?: string; children?: ReactNode; initial?: string }) {
+  const letter = initial ?? Array.from(label.trim())[0] ?? "";
   return <div className={[styles.placeholder, className].filter(Boolean).join(" ")} data-tone={Math.abs(tone) % 6} role="img" aria-label={label} style={{ aspectRatio: ratio }}>
-    {children ?? <svg viewBox="0 0 48 48" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" aria-hidden="true"><rect x="6" y="9" width="36" height="30" rx="4" /><circle cx="17" cy="20" r="3.5" /><path d="M6 34l10-9 8 7 6-5 12 9" /></svg>}
+    {children ?? (letter && <span className={styles.initial} aria-hidden="true">{letter}</span>)}
+  </div>;
+}
+
+/**
+ * Oran kutulu fotoğraf: `ratio` kadar yer ayırır (sayfa zıplamaz), `object-fit: cover` ile doldurur, yüklenirken iskelet gösterir,
+ * adres yoksa ya da açılmazsa yer tutucuya döner. `position` odak noktasıdır (örneğin "left center").
+ */
+export function Photo({ src, alt, ratio = "4 / 5", position, tone, initial, eager, className, onClick }: { src?: string; alt: string; ratio?: string; position?: string; tone?: number; initial?: string; eager?: boolean; className?: string; onClick?: () => void }) {
+  const [state, setState] = useState<"loading" | "ready" | "failed">("loading");
+  const image = useRef<HTMLImageElement | null>(null);
+  useEffect(() => { setState("loading"); }, [src]);
+  useEffect(() => { if (image.current?.complete && image.current.naturalWidth > 0) setState("ready"); }, [src]);
+  if (!src || state === "failed") return <Placeholder tone={tone} label={alt} ratio={ratio} className={className} initial={initial} />;
+  return <div className={[styles.photo, className].filter(Boolean).join(" ")} data-state={state} style={{ aspectRatio: ratio }} onClick={onClick}>
+    <img ref={image} src={src} alt={alt} draggable={false} loading={eager ? "eager" : "lazy"} decoding="async" style={position ? { objectPosition: position } : undefined} onLoad={() => setState("ready")} onError={() => setState("failed")} />
   </div>;
 }
 
