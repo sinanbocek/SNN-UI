@@ -1,7 +1,7 @@
 // Blok örnekleri: Arc Pro'dan esinlenen iş ekranları. Örnek veri uydurmadır; gerçek kişi ya da firma değildir.
 import { useState } from "react";
 import type { ReactNode } from "react";
-import { Bell, CreditCard, Shield, User } from "lucide-react";
+import { Bell, CreditCard, FileText, Home, Inbox, Settings, Shield, User, Users } from "lucide-react";
 import { text } from "@snn/abacus-core";
 import { Avatar } from "../../registry/components/avatar/avatar";
 import { Button } from "../../registry/components/button/button";
@@ -10,6 +10,8 @@ import { Select } from "../../registry/components/select/select";
 import { Switch } from "../../registry/components/switch/switch";
 import type { SaveBarStatus } from "../../registry/components/save-bar/save-bar";
 import { SettingsGroup, SettingsPage, SettingsRow } from "../../registry/components/settings-page/settings-page";
+import { Sidebar } from "../../registry/components/sidebar/sidebar";
+import type { SidebarSection } from "../../registry/components/sidebar/sidebar";
 import { TeamMembers } from "../../registry/components/team-members/team-members";
 import type { TeamInvite, TeamMember } from "../../registry/components/team-members/team-members";
 
@@ -127,7 +129,54 @@ function TeamMembersDemo() {
   </>;
 }
 
+/* ---------- sidebar ---------- */
+
+const sidebarSections: SidebarSection[] = [
+  { id: "ws", title: "Çalışma alanı", items: [
+    { id: "pano", label: "Pano", icon: <Home size={18} /> },
+    { id: "gelen", label: "Gelen kutusu", icon: <Inbox size={18} />, badge: 4 },
+    { id: "belgeler", label: "Belgeler", icon: <FileText size={18} />, children: [
+      { id: "teklifler", label: "Teklifler" },
+      { id: "sartnameler", label: "Şartnameler" },
+      { id: "cok-uzun", label: "Çok uzun bir belge grubunun adı kesilerek gösterilir" },
+    ] },
+    { id: "ekip", label: "Ekip", icon: <Users size={18} /> },
+  ] },
+  { id: "pinned", title: "Sabitlenenler", items: [{ id: "haftalik", label: "Haftalık rapor", icon: <FileText size={18} /> }] },
+];
+
+function SidebarDemo() {
+  const [page, setPage] = useState("teklifler");
+  const [loading, setLoading] = useState(false);
+  const [error, setError] = useState(false);
+  const [width, setWidth] = useState(900);
+  const [saved, setSaved] = useState<string | null>(null);
+  return <>
+    <Col title="Ctrl/Cmd+B menüyü daraltır. Genişliği küçültünce menü çekmeceye döner.">
+      <div className="row">
+        <label className="row"><input type="checkbox" checked={loading} onChange={event => setLoading(event.target.checked)} /> Yükleniyor</label>
+        <label className="row"><input type="checkbox" checked={error} onChange={event => setError(event.target.checked)} /> Menü hatası</label>
+        <label className="row">Genişlik <input type="range" min={360} max={900} value={width} onChange={event => setWidth(Number(event.target.value))} /></label>
+        <span className="etiket">Katlama tercihi uygulamaya bildirildi: {saved ?? "henüz değişmedi"}</span>
+      </div>
+      <div style={{ height: 460, width, maxWidth: "100%" }}>
+        <Sidebar
+          header={{ name: "Acme Ofis", subtitle: "Örnek çalışma alanı" }} sections={sidebarSections} activeId={page} onNavigate={setPage}
+          settingsItem={{ id: "ayarlar", label: "Ayarlar", icon: <Settings size={18} /> }}
+          user={{ name: "Elif Aksoy", subtitle: "Yönetici", menu: [{ id: "profil", label: "Profil", onSelect: () => setPage("ayarlar") }, { id: "cikis", label: "Çıkış yap", onSelect: () => undefined }] }}
+          loading={loading} error={error} onRetry={() => setError(false)} onCollapsedChange={value => setSaved(value ? "daraltıldı" : "genişletildi")}
+        >
+          <h3 style={{ margin: 0 }}>{page}</h3>
+          <p>Sayfa içeriği burada kayar; çerçeve sabit kalır.</p>
+          {Array.from({ length: 30 }, (_, index) => <p key={index}>Örnek satır {index + 1}</p>)}
+        </Sidebar>
+      </div>
+    </Col>
+  </>;
+}
+
 export const blockDemos: Record<string, () => ReactNode> = {
   "settings-page": () => <SettingsPageDemo />,
   "team-members": () => <TeamMembersDemo />,
+  sidebar: () => <SidebarDemo />,
 };

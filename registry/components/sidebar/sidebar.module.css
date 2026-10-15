@@ -1,0 +1,43 @@
+/* Uygulama çerçevesi: çerçeve sabit boyda durur, kayma içerik alanının içinde olur. Çekmece bu kökün içinde çizilir (position: relative; overflow: hidden). */
+.root { --sidebar-icon: 1.25rem; position: relative; display: flex; height: 100%; min-height: 20rem; overflow: hidden; border: 1px solid var(--border); border-radius: var(--radius-panel); color: var(--foreground); background: var(--background); font-family: var(--font-body); }
+.status, .srOnly { position: absolute; width: 1px; height: 1px; overflow: hidden; clip-path: inset(50%); white-space: nowrap; }
+.aside { flex: none; overflow: hidden; border-right: 1px solid var(--border); background: var(--surface-muted); }
+.drawer { padding: 0; }
+.panel { display: flex; width: 100%; min-width: 3.5rem; height: 100%; flex-direction: column; overflow: hidden; }
+.aside .panel { width: 16rem; }
+.aside .panel[data-rail="true"] { width: 3.5rem; }
+.brand { display: flex; align-items: center; gap: var(--space-3); padding: var(--space-4) var(--space-3); }
+.logo { display: grid; width: 2rem; height: 2rem; flex: none; place-items: center; border-radius: var(--radius-control); color: var(--accent-foreground); background: var(--accent); font-size: var(--text-sm); font-weight: 600; }
+.brandCopy, .userCopy { display: grid; min-width: 0; transition: opacity var(--duration-fast) var(--ease-standard); }
+.brandName, .brandSub, .userName, .userSub { overflow: hidden; text-overflow: ellipsis; white-space: nowrap; }
+.brandName, .userName { font-size: var(--text-sm); font-weight: 600; }
+.brandSub, .userSub { color: var(--text-muted); font-size: var(--text-xs); }
+.nav { display: grid; min-height: 0; flex: 1; align-content: start; gap: var(--space-4); overflow: auto; padding: var(--space-2); }
+.section { display: grid; gap: var(--space-1); }
+.sectionTitle { margin: 0; padding: 0 var(--space-3); color: var(--text-muted); font-size: var(--text-xs); font-weight: 500; }
+.list, .children { display: grid; gap: var(--space-1); margin: 0; padding: 0; list-style: none; }
+.children { margin-left: var(--space-5); border-left: 1px solid var(--border); padding-left: var(--space-2); overflow: hidden; }
+.row { position: relative; display: flex; width: 100%; min-height: var(--control-height-md); align-items: center; gap: var(--space-3); border: 0; border-radius: var(--radius-control); padding: 0 var(--space-3); color: var(--text-secondary); background: transparent; font: inherit; font-size: var(--text-sm); text-align: left; text-decoration: none; cursor: pointer; transition: background var(--duration-fast) var(--ease-standard), color var(--duration-fast) var(--ease-standard); }
+.row[data-active="true"] { color: var(--foreground); background: var(--accent-subtle); font-weight: 500; }
+.row:focus-visible, .user:focus-visible, .flyoutRow:focus-visible { outline: var(--focus-outline-width) solid var(--focus-outline); outline-offset: var(--focus-outline-offset); }
+@media (hover: hover) and (pointer: fine) { .row:hover, .user:hover:not(:disabled), .flyoutRow:hover { color: var(--foreground); background: var(--surface-raised); } .row[data-active="true"]:hover { background: var(--accent-subtle); } }
+.icon { display: grid; width: var(--sidebar-icon); height: var(--sidebar-icon); flex: none; place-items: center; }
+.label { min-width: 0; flex: 1; overflow: hidden; text-overflow: ellipsis; white-space: nowrap; transition: opacity var(--duration-fast) var(--ease-standard); }
+.chevron { flex: none; transition: transform var(--duration-standard) var(--ease-standard); }
+.chevron[data-open="true"] { transform: rotate(180deg); }
+/* Şeritte yazılar önce solar, sonra genişlik daralır (genişliği çerçeve yayla izler). */
+.panel[data-rail="true"] .label, .panel[data-rail="true"] .brandCopy, .panel[data-rail="true"] .userCopy { opacity: 0; }
+.panel[data-rail="true"] .sectionTitle { display: none; }
+.foot { display: grid; gap: var(--space-1); border-top: 1px solid var(--border); padding: var(--space-2); }
+.user { display: flex; width: 100%; align-items: center; gap: var(--space-3); border: 0; border-radius: var(--radius-control); padding: var(--space-2) var(--space-3); color: inherit; background: transparent; font: inherit; text-align: left; cursor: pointer; }
+.user:disabled { cursor: default; }
+.flyout { display: grid; min-width: 11rem; gap: var(--space-1); padding: var(--space-2); }
+.flyoutTitle { padding: var(--space-1) var(--space-3); color: var(--text-muted); font-size: var(--text-xs); font-weight: 500; }
+.flyoutRow { display: flex; width: 100%; min-height: var(--control-height-sm); align-items: center; border: 0; border-radius: var(--radius-control); padding: 0 var(--space-3); color: var(--text-secondary); background: transparent; font: inherit; font-size: var(--text-sm); text-align: left; cursor: pointer; }
+.flyoutRow[aria-current="page"] { color: var(--foreground); background: var(--accent-subtle); }
+.error { display: grid; gap: var(--space-2); justify-items: start; border: 1px solid var(--border); border-radius: var(--radius-control); padding: var(--space-3); color: var(--text-secondary); font-size: var(--text-sm); }
+.loading { padding: var(--space-3); }
+.main { display: flex; min-width: 0; flex: 1; flex-direction: column; }
+.topbar { display: flex; min-height: 3rem; align-items: center; gap: var(--space-3); border-bottom: 1px solid var(--border); padding: 0 var(--space-3); }
+.content { min-height: 0; flex: 1; overflow: auto; padding: var(--space-5); }
+@media (prefers-reduced-motion: reduce) { .row, .label, .brandCopy, .userCopy, .chevron { transition: none; } }

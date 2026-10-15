@@ -908,6 +908,45 @@
         "arcCommit": "bfdf7e8",
         "arcSource": "registry/components/team-members"
       }
+    },
+    {
+      "name": "sidebar",
+      "type": "registry:ui",
+      "title": "Kenar menüsü",
+      "description": "Blok: solda gruplu, katlanır gezinme menüsü; şeride daralır (Ctrl+B), dar kolonda çekmeceye dönüşür. Üstte yol izi, ortada kayan içerik, altta Ayarlar ve kullanıcı kartı. Yükleniyor ve hata durumları vardır.",
+      "dependencies": [
+        "@snn/abacus-core@github:sinanbocek/SNN-Abacus-Core#semver:^4.3.0",
+        "lucide-react",
+        "motion"
+      ],
+      "registryDependencies": [
+        "@snn-ui/snn-foundation",
+        "@snn-ui/snn-motion-tokens",
+        "@snn-ui/avatar",
+        "@snn-ui/badge",
+        "@snn-ui/breadcrumb",
+        "@snn-ui/button",
+        "@snn-ui/drawer",
+        "@snn-ui/popover",
+        "@snn-ui/skeleton",
+        "@snn-ui/tooltip"
+      ],
+      "files": [
+        {
+          "path": "registry/components/sidebar/sidebar.module.css",
+          "type": "registry:component",
+          "target": "@components/snn/sidebar/sidebar.module.css"
+        },
+        {
+          "path": "registry/components/sidebar/sidebar.tsx",
+          "type": "registry:component",
+          "target": "@components/snn/sidebar/sidebar.tsx"
+        }
+      ],
+      "meta": {
+        "arcCommit": "bfdf7e8",
+        "arcSource": "registry/components/sidebar"
+      }
     }
   ]
 }
