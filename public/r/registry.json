@@ -1937,6 +1937,37 @@
         "arcCommit": "bfdf7e8",
         "arcSource": "registry/components/ridgeline"
       }
+    },
+    {
+      "name": "slot-text",
+      "type": "registry:ui",
+      "title": "Makaralı metin",
+      "description": "Metin ve sayıların yeni değerine kumar makinesi makaraları gibi dönmesi: her karakter bir makaradır, rakamlar sayının gittiği yönde çarkta sayar, harfler Türk alfabesinde (ç, ğ, ı, ö, ş, ü dahil) karışır, makaralar soldan sağa birer birer yumuşakça durur. Sayılar ABACUS biçimindedir (\"12.480\", \"1.234,5\"), baştaki ₺ gibi simgeler rakama dönmez. Fiyat, istatistik ve lansman anları için; ekran okuyucu düz metni okur.",
+      "dependencies": [
+        "@snn/abacus-core@github:sinanbocek/SNN-Abacus-Core#semver:^4.3.0",
+        "motion"
+      ],
+      "registryDependencies": [
+        "@snn-ui/snn-foundation",
+        "@snn-ui/snn-motion-tokens",
+        "@snn-ui/snn-chart-format"
+      ],
+      "files": [
+        {
+          "path": "registry/components/slot-text/slot-text.module.css",
+          "type": "registry:component",
+          "target": "@components/snn/slot-text/slot-text.module.css"
+        },
+        {
+          "path": "registry/components/slot-text/slot-text.tsx",
+          "type": "registry:component",
+          "target": "@components/snn/slot-text/slot-text.tsx"
+        }
+      ],
+      "meta": {
+        "arcCommit": "bfdf7e8",
+        "arcSource": "registry/components/slot-text"
+      }
     }
   ]
 }

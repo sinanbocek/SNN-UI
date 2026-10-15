@@ -15,6 +15,7 @@ import { BrushChartDemo } from "./brush-chart";
 import { ActivityHeatmapDemo } from "./activity-heatmap";
 import { StreamgraphDemo } from "./streamgraph";
 import { RidgelineDemo } from "./ridgeline";
+import { SlotTextDemo } from "./slot-text";
 
 export const grafikDemos: Record<string, () => ReactNode> = {
   "animated-counter": () => <AnimatedCounterDemo />,
@@ -32,4 +33,5 @@ export const grafikDemos: Record<string, () => ReactNode> = {
   "activity-heatmap": () => <ActivityHeatmapDemo />,
   "streamgraph": () => <StreamgraphDemo />,
   "ridgeline": () => <RidgelineDemo />,
+  "slot-text": () => <SlotTextDemo />,
 };
