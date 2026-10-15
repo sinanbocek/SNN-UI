@@ -1332,6 +1332,46 @@
         "arcCommit": "bfdf7e8",
         "arcSource": "registry/components/availability-picker"
       }
+    },
+    {
+      "name": "project-board",
+      "type": "registry:ui",
+      "title": "Küçük proje panosu",
+      "description": "Blok: az sayıda işin sabit aşamalar (Planlandı, Sürüyor, Kontrolde, Bitti) arasında ilerlediği pano. Sürükleme yok: her kartta önceki ve sonraki aşamaya taşıma okları var (dokunmatikte de rahat). Üstte \"Bu dönem 6 işten 1'i bitti\" cümlesi ve ilerleme çubuğu, \"Tümü / Benim işlerim\" süzgeci, \"Görev ekle\" ile başlığı hemen yazılan yeni kart. Kartlar sütunlar arasında uçar. Boş sütun, hiç iş yok, süzgeç sonucu yok, yükleniyor, taşıma hatası (\"Yeniden dene\") ve dar kolon (yana kayan, yakınlığa oturan sütunlar) durumları vardır.",
+      "dependencies": [
+        "@snn/abacus-core@github:sinanbocek/SNN-Abacus-Core#semver:^4.3.0",
+        "lucide-react",
+        "motion"
+      ],
+      "registryDependencies": [
+        "@snn-ui/snn-foundation",
+        "@snn-ui/snn-motion-tokens",
+        "@snn-ui/avatar",
+        "@snn-ui/badge",
+        "@snn-ui/button",
+        "@snn-ui/empty-state",
+        "@snn-ui/input",
+        "@snn-ui/progress",
+        "@snn-ui/segmented-control",
+        "@snn-ui/skeleton",
+        "@snn-ui/tooltip"
+      ],
+      "files": [
+        {
+          "path": "registry/components/project-board/project-board.module.css",
+          "type": "registry:component",
+          "target": "@components/snn/project-board/project-board.module.css"
+        },
+        {
+          "path": "registry/components/project-board/project-board.tsx",
+          "type": "registry:component",
+          "target": "@components/snn/project-board/project-board.tsx"
+        }
+      ],
+      "meta": {
+        "arcCommit": "bfdf7e8",
+        "arcSource": "registry/components/project-board"
+      }
     }
   ]
 }

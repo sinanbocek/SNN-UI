@@ -17,7 +17,7 @@ Kural: `SNN-Standartlar/standartlar/arayuz-standardi.md` §2.1. Fikir serbest, k
 | help-center | https://uiarc.dev/components/blocks/help-center | 1 | yazıldı |
 | week-calendar | https://uiarc.dev/components/blocks/week-calendar | 1 | yazıldı |
 | availability-picker | https://uiarc.dev/components/blocks/availability-picker | 1 | yazıldı |
-| project-board | https://uiarc.dev/components/blocks/project-board | 1 | tarif yazıldı |
+| project-board | https://uiarc.dev/components/blocks/project-board | 1 | yazıldı |
 | kanban-board | https://uiarc.dev/components/blocks/kanban-board | 1 | tarif yazıldı |
 | release-readiness | https://uiarc.dev/components/blocks/release-readiness | 1 | yazıldı |
 | multi-step-form | https://uiarc.dev/components/blocks/multi-step-form | 1 | yazıldı |

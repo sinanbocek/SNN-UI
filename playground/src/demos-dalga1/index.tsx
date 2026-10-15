@@ -15,6 +15,8 @@ import { WeekCalendarDemo } from "./week-calendar";
 
 import { AvailabilityPickerDemo } from "./availability-picker";
 
+import { ProjectBoardDemo } from "./project-board";
+
 export const dalga1Demos: Record<string, () => ReactNode> = {
   "settings-command": () => <SettingsCommandDemo />,
   "team-directory": () => <TeamDirectoryDemo />,
@@ -24,4 +26,5 @@ export const dalga1Demos: Record<string, () => ReactNode> = {
   "multi-step-form": () => <MultiStepFormDemo />,
   "week-calendar": () => <WeekCalendarDemo />,
   "availability-picker": () => <AvailabilityPickerDemo />,
+  "project-board": () => <ProjectBoardDemo />,
 };
