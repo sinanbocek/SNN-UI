@@ -43,6 +43,7 @@ const FILES = {
   wallet: "registry/components/wallet-card/wallet-card-format.ts",
   flow: "registry/components/payment-flow/payment-flow-format.ts",
   hero: "registry/components/hero-signup/hero-signup-format.ts",
+  story: "registry/components/scroll-story/scroll-story-format.ts",
 };
 const mods = {};
 let temp;
@@ -637,4 +638,27 @@ test("karşılama kaydı: e-posta süzme, sakin doğrulama ve yazım önerisi AB
   assert.equal(mods.hero.peopleText(1284), "1.284 kişi listede");
   assert.equal(mods.hero.peopleText(1284), money.fmtDecimalGrouped(1284, 0) + " kişi listede");
   assert.equal(mods.hero.rankSentence(1285), "Listede 1.285. sıradasınız");
+});
+
+test("kaydırmalı anlatı: adım konumu, etkin adım, sekme dolgusu ve yazımlar doğru; sayılar ABACUS çıktısıdır", () => {
+  const tops = [0, 400, 800, 1200];
+  assert.equal(mods.story.stepPosition(tops, -200, 500), 0);
+  assert.equal(mods.story.stepPosition(tops, 0, 500), .5);
+  assert.equal(mods.story.stepPosition(tops, 200, 500), 1);
+  assert.equal(mods.story.stepPosition(tops, 400, 500), 1.5);
+  assert.equal(mods.story.stepPosition(tops, 1000, 500), 3);
+  assert.equal(mods.story.stepPosition([], 100, 500), 0);
+  assert.equal(mods.story.activeStep(1.4, 4), 1);
+  assert.equal(mods.story.activeStep(1.5, 4), 2);
+  assert.equal(mods.story.activeStep(9, 4), 3);
+  assert.equal(mods.story.activeStep(-1, 4), 0);
+  assert.equal(mods.story.tabFill(0, 0), 1);
+  assert.equal(mods.story.tabFill(0, 1), 0);
+  assert.equal(mods.story.tabFill(.5, 1), .5);
+  assert.equal(mods.story.tabFill(2.4, 1), 1);
+  assert.equal(mods.story.scrollTargetFor(tops, 2), 800);
+  assert.equal(mods.story.scrollTargetFor(tops, 9), 0);
+  assert.equal(mods.story.stepLabel(1, 4), "Adım 2/4");
+  assert.equal(mods.story.stepLabel(0, 1234), "Adım 1/1.234");
+  assert.equal(mods.story.FAILED_TEXT("Kopyalama"), "Kopyalama yapılamadı");
 });

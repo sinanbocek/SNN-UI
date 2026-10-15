@@ -3144,6 +3144,46 @@
         "arcCommit": "bfdf7e8",
         "arcSource": "registry/components/hero-signup"
       }
+    },
+    {
+      "name": "scroll-story",
+      "type": "registry:ui",
+      "title": "Kaydırmalı ürün anlatısı",
+      "description": "Blok: bir ürünü dört adım gibi kısa bir akışta anlatan tanıtım bölümü. Kendi içinde kayan, odaklanabilir ve etiketli bir metin alanında adım metinleri akar; yanda (dar kapta üstte) sabit duran ürün sahnesi kaydırdıkça adımdan adıma değişir. Üstteki adım sekmeleri (\"Adım 2/4 · …\") ilerleme gösterir: sekme, kaydırma o adıma yaklaştıkça dolar. Sekmeye basınca ya da sol/sağ (Home/End) ok tuşuna basınca ilgili adımın metnine kayar. Etkin adım işaretlenir; sahne durumu (\"Gelen kutusunda yeni mesaj var\") kibar canlı bölgede duyurulur. Son adımın altında isteğe bağlı \"Bağlantıyı kopyala\" ve \"Kanala gönder\" düğmeleri bulunur; sonuç (\"Bağlantı kopyalandı\", \"Gönderildi\") duyurulur. Sahneyi `renderStage` ile siz çizersiniz (adım konumu yayla yumuşayan bir hareket değeridir), kaydırma konumu doğrudan ilerleme değerini sürer. Dar kapta (700 px altı) sahne metnin üstünde sabit kalır.",
+      "dependencies": [
+        "@snn/abacus-core@github:sinanbocek/SNN-Abacus-Core#semver:^4.3.0",
+        "motion"
+      ],
+      "registryDependencies": [
+        "@snn-ui/snn-foundation",
+        "@snn-ui/snn-motion-tokens",
+        "@snn-ui/button",
+        "@snn-ui/snn-chart-format",
+        "@snn-ui/snn-motion-tokens",
+        "@snn-ui/snn-shop-parts",
+        "@snn-ui/snn-viz-utils"
+      ],
+      "files": [
+        {
+          "path": "registry/components/scroll-story/scroll-story-format.ts",
+          "type": "registry:component",
+          "target": "@components/snn/scroll-story/scroll-story-format.ts"
+        },
+        {
+          "path": "registry/components/scroll-story/scroll-story.module.css",
+          "type": "registry:component",
+          "target": "@components/snn/scroll-story/scroll-story.module.css"
+        },
+        {
+          "path": "registry/components/scroll-story/scroll-story.tsx",
+          "type": "registry:component",
+          "target": "@components/snn/scroll-story/scroll-story.tsx"
+        }
+      ],
+      "meta": {
+        "arcCommit": "bfdf7e8",
+        "arcSource": "registry/components/scroll-story"
+      }
     }
   ]
 }

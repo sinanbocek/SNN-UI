@@ -7,6 +7,7 @@ import { CheckoutSummaryDemo } from "./checkout-summary";
 import { WalletCardDemo } from "./wallet-card";
 import { PaymentFlowDemo } from "./payment-flow";
 import { HeroSignupDemo } from "./hero-signup";
+import { ScrollStoryDemo } from "./scroll-story";
 
 export const dalga3Demos: Record<string, () => ReactNode> = {
   "product-listing": () => <ProductListingDemo />,
@@ -16,4 +17,5 @@ export const dalga3Demos: Record<string, () => ReactNode> = {
   "wallet-card": () => <WalletCardDemo />,
   "payment-flow": () => <PaymentFlowDemo />,
   "hero-signup": () => <HeroSignupDemo />,
+  "scroll-story": () => <ScrollStoryDemo />,
 };
