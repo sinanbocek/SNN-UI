@@ -1,7 +1,7 @@
 // Blok örnekleri: Arc Pro'dan esinlenen iş ekranları. Örnek veri uydurmadır; gerçek kişi ya da firma değildir.
 import { useState } from "react";
 import type { ReactNode } from "react";
-import { Bell, CreditCard, FileText, Home, Inbox, Settings, Shield, User, Users } from "lucide-react";
+import { Bell, CreditCard, FileText, HelpCircle, KeyRound, ReceiptText, Home, Inbox, Settings, Shield, User, Users } from "lucide-react";
 import { text } from "@snn/abacus-core";
 import { Avatar } from "../../registry/components/avatar/avatar";
 import { Button } from "../../registry/components/button/button";
@@ -10,6 +10,8 @@ import { Select } from "../../registry/components/select/select";
 import { Switch } from "../../registry/components/switch/switch";
 import type { SaveBarStatus } from "../../registry/components/save-bar/save-bar";
 import { SettingsGroup, SettingsPage, SettingsRow } from "../../registry/components/settings-page/settings-page";
+import { HelpCenter } from "../../registry/components/help-center/help-center";
+import type { HelpArticle, HelpTopic } from "../../registry/components/help-center/help-center";
 import { SearchResults } from "../../registry/components/search-results/search-results";
 import type { SearchResult } from "../../registry/components/search-results/search-results";
 import { Sidebar } from "../../registry/components/sidebar/sidebar";
@@ -213,9 +215,56 @@ function SearchResultsDemo() {
   </>;
 }
 
+/* ---------- help-center ---------- */
+
+const helpTopics: HelpTopic[] = [
+  { id: "hesap", title: "Hesap ve giriş", description: "Parola, giriş ve profil işlemleri.", icon: <KeyRound size={18} /> },
+  { id: "fatura", title: "Fatura ve ödeme", description: "Plan, fatura ve ödeme yöntemleri.", icon: <ReceiptText size={18} /> },
+  { id: "baslangic", title: "Başlangıç", description: "İlk adımlar ve temel kavramlar.", icon: <HelpCircle size={18} /> },
+];
+const helpArticles: HelpArticle[] = [
+  { id: "parola", topicId: "hesap", title: "Parolamı nasıl değiştiririm?", summary: "Parolanızı ayarlar sayfasından birkaç adımda değiştirebilirsiniz.", updatedAt: "10.10.2026", readMinutes: 2, popular: true, related: ["fatura-kes"], sections: [
+    { id: "once", heading: "Başlamadan önce", paragraphs: ["Parolanızı değiştirmek için oturum açmış olmanız gerekir.", "Yeni parola en az on iki karakter olmalıdır."] },
+    { id: "adimlar", heading: "Adımlar", steps: ["Sol menüden Ayarlar'ı açın.", "Güvenlik bölümüne geçin.", "Parolayı değiştir düğmesine basın ve yönergeleri izleyin."] },
+    { id: "sorun", heading: "Sorun yaşarsanız", paragraphs: ["Parolanızı unuttuysanız giriş ekranındaki Parolamı unuttum bağlantısını kullanın.", "Hâlâ giremiyorsanız destekle iletişime geçin."] },
+  ] },
+  { id: "fatura-kes", topicId: "fatura", title: "Fatura bilgilerimi nereden güncellerim?", summary: "Firma adı ve fatura e-postası Faturalama bölümünde durur.", updatedAt: "02.10.2026", readMinutes: 3, popular: true, related: ["parola"], sections: [
+    { id: "ozet", heading: "Özet", paragraphs: ["Fatura bilgileri her ay kesilen faturaya yansır."] },
+    { id: "adimlar", heading: "Adımlar", steps: ["Ayarlar'da Faturalama bölümünü açın.", "Firma adını ve fatura e-postasını yazın.", "Kaydet düğmesine basın."] },
+  ] },
+  { id: "ilk-adim", topicId: "baslangic", title: "İlk teklifimi nasıl hazırlarım?", summary: "Birkaç dakikada ilk teklif dosyanızı oluşturun.", updatedAt: "28.09.2026", readMinutes: 5, popular: true, sections: [
+    { id: "yeni", heading: "Yeni teklif", paragraphs: ["Teklifler sayfasında Yeni teklif düğmesine basın."] },
+  ] },
+];
+
+function HelpCenterDemo() {
+  const [loading, setLoading] = useState(false);
+  const [error, setError] = useState(false);
+  const [fail, setFail] = useState(false);
+  const [width, setWidth] = useState(900);
+  const wait = (ms: number) => new Promise<void>((resolve, reject) => setTimeout(() => (fail ? reject(new Error("fail")) : resolve()), ms));
+  return <>
+    <Col title="«parola» ya da «ISIK» yazın (Türkçe harf farkı gözetilmez); Enter makaleyi açar. Genişliği küçültün.">
+      <div className="row">
+        <label className="row"><input type="checkbox" checked={loading} onChange={event => setLoading(event.target.checked)} /> Yükleniyor</label>
+        <label className="row"><input type="checkbox" checked={error} onChange={event => setError(event.target.checked)} /> İçerik hatası</label>
+        <label className="row"><input type="checkbox" checked={fail} onChange={event => setFail(event.target.checked)} /> İletişim/geri bildirim başarısız olsun</label>
+        <label className="row">Genişlik <input type="range" min={360} max={900} value={width} onChange={event => setWidth(Number(event.target.value))} /></label>
+      </div>
+      <div style={{ height: 560, width, maxWidth: "100%" }}>
+        <HelpCenter
+          topics={helpTopics} articles={helpArticles} brandName="Acme Ofis" quickSearches={["fatura", "parola", "teklif"]} loading={loading} error={error} onRetry={() => setError(false)}
+          onContact={() => wait(700)} onFeedback={() => wait(500)}
+        />
+      </div>
+    </Col>
+  </>;
+}
+
 export const blockDemos: Record<string, () => ReactNode> = {
   "settings-page": () => <SettingsPageDemo />,
   "team-members": () => <TeamMembersDemo />,
   sidebar: () => <SidebarDemo />,
   "search-results": () => <SearchResultsDemo />,
+  "help-center": () => <HelpCenterDemo />,
 };

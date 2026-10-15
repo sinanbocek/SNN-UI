@@ -14,7 +14,7 @@ Kural: `SNN-Standartlar/standartlar/arayuz-standardi.md` §2.1. Fikir serbest, k
 | team-directory | https://uiarc.dev/components/blocks/team-directory | 1 | tarif yazıldı |
 | roles-permissions | https://uiarc.dev/components/blocks/roles-permissions | 1 | tarif yazıldı |
 | inbox-triage | https://uiarc.dev/components/blocks/inbox-triage | 1 | tarif yazıldı |
-| help-center | https://uiarc.dev/components/blocks/help-center | 1 | tarif yazıldı |
+| help-center | https://uiarc.dev/components/blocks/help-center | 1 | yazıldı |
 | week-calendar | https://uiarc.dev/components/blocks/week-calendar | 1 | tarif yazıldı |
 | availability-picker | https://uiarc.dev/components/blocks/availability-picker | 1 | tarif yazıldı |
 | project-board | https://uiarc.dev/components/blocks/project-board | 1 | tarif yazıldı |

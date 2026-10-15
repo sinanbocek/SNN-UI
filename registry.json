@@ -988,6 +988,42 @@
         "arcCommit": "bfdf7e8",
         "arcSource": "registry/components/search-results"
       }
+    },
+    {
+      "name": "help-center",
+      "type": "registry:ui",
+      "title": "Yardım merkezi",
+      "description": "Blok: büyük arama kutusu (sonuçlar kutunun altında, kelimeler vurgulu), hızlı aramalar, konu kartları, çok okunanlar, makale okuma görünümü (\"Bu sayfada\" ana hattı, Evet/Hayır geri bildirimi, ilgili makaleler) ve destek kartı. Görünümler yönüne göre kayar. Boş, yükleniyor, hata, makale bulunamadı ve dar ekran durumları vardır.",
+      "dependencies": [
+        "@snn/abacus-core@github:sinanbocek/SNN-Abacus-Core#semver:^4.3.0",
+        "motion"
+      ],
+      "registryDependencies": [
+        "@snn-ui/snn-foundation",
+        "@snn-ui/snn-motion-tokens",
+        "@snn-ui/breadcrumb",
+        "@snn-ui/button",
+        "@snn-ui/empty-state",
+        "@snn-ui/search-field",
+        "@snn-ui/skeleton",
+        "@snn-ui/textarea"
+      ],
+      "files": [
+        {
+          "path": "registry/components/help-center/help-center.module.css",
+          "type": "registry:component",
+          "target": "@components/snn/help-center/help-center.module.css"
+        },
+        {
+          "path": "registry/components/help-center/help-center.tsx",
+          "type": "registry:component",
+          "target": "@components/snn/help-center/help-center.tsx"
+        }
+      ],
+      "meta": {
+        "arcCommit": "bfdf7e8",
+        "arcSource": "registry/components/help-center"
+      }
     }
   ]
 }
