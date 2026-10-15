@@ -54,7 +54,10 @@ export function ScrollStory({ label, steps, renderStage, actions }: ScrollStoryP
   const read = useCallback(() => {
     const node = area.current;
     if (!node) return;
-    const next = stepPosition(tops(), node.scrollTop, node.clientHeight);
+    const offsets = tops();
+    // Okuma çizgisi yüzünden en üstte konum 0'dan büyük çıkar; sahne ilk adımda tam başlangıç hâlinde dursun diye baştan sona yeniden ölçeklenir.
+    const base = stepPosition(offsets, 0, node.clientHeight), end = steps.length - 1;
+    const next = end > base ? Math.max(0, Math.min(end, (stepPosition(offsets, node.scrollTop, node.clientHeight) - base) / (end - base) * end)) : 0;
     raw.set(next);
     setActive(activeStep(next, steps.length));
   }, [raw, steps.length, tops]);
