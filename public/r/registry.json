@@ -3496,6 +3496,47 @@
         "arcCommit": "bfdf7e8",
         "arcSource": "registry/components/media-player"
       }
+    },
+    {
+      "name": "wallet-stack",
+      "type": "registry:ui",
+      "title": "Kart destesi",
+      "description": "Blok: birkaç ödeme ya da üyelik kartını üst üste duran bir deste olarak gösterir. Başlıkta \"Kartlarım\" ve \"1 / 4\" sayacı vardır (kart açıkken sayaç yerine \"Tüm kartlar\" düğmesi). Fareyle destenin üstüne gelince kartlar yukarı doğru açılır, öndeki kart imleci hafifçe izler ve üstünde bir parlama gezer. Aşağı/yukarı sürüklemek ya da oklar (aşağı/sağ ileri, yukarı/sol geri, Home/End ilk-son) bir sonraki/önceki kartı öne getirir; uçlarda esner. Kart yüzü kurumu, ürün adını, numaranın yalnız son dört hanesini (\"•••• •••• •••• 0417\"), kart sahibini, son kullanmayı ve kurgusal bir ağ adını gösterir; malzeme görünümü kart başına seçilir (metal, siyah, cam, düz renk). Karta basınca (Enter / Boşluk) kart öne çıkar, diğerleri çekilir; altında dönen bakiye (\"₺48.250,75\") ve üç son hareket sırayla belirir (çıkan tutar eksi). Açık kartı aşağı çekmek, Escape ya da \"Tüm kartlar\" desteye geri döndürür ve odağı karta verir; kart açıkken oklar açık kartı değiştirir. Hareket yoksa \"Henüz hareket yok\" yazar. Yalnız öndeki kart sekme sırasındadır; her kart \"Örnek Banka, Metal Kart, son dört hane 0 4 1 7, 1/4, bakiye ₺48.250,75\" diye okunur. Deste genişliği kaplar, kartın yazıları karta göre ölçeklenir.",
+      "dependencies": [
+        "@snn/abacus-core@github:sinanbocek/SNN-Abacus-Core#semver:^4.3.0",
+        "motion"
+      ],
+      "registryDependencies": [
+        "@snn-ui/snn-foundation",
+        "@snn-ui/snn-motion-tokens",
+        "@snn-ui/animated-counter",
+        "@snn-ui/button",
+        "@snn-ui/snn-chart-format",
+        "@snn-ui/snn-motion-tokens",
+        "@snn-ui/snn-shop-parts",
+        "@snn-ui/snn-viz-utils"
+      ],
+      "files": [
+        {
+          "path": "registry/components/wallet-stack/wallet-stack-format.ts",
+          "type": "registry:component",
+          "target": "@components/snn/wallet-stack/wallet-stack-format.ts"
+        },
+        {
+          "path": "registry/components/wallet-stack/wallet-stack.module.css",
+          "type": "registry:component",
+          "target": "@components/snn/wallet-stack/wallet-stack.module.css"
+        },
+        {
+          "path": "registry/components/wallet-stack/wallet-stack.tsx",
+          "type": "registry:component",
+          "target": "@components/snn/wallet-stack/wallet-stack.tsx"
+        }
+      ],
+      "meta": {
+        "arcCommit": "bfdf7e8",
+        "arcSource": "registry/components/wallet-stack"
+      }
     }
   ]
 }

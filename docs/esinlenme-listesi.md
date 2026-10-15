@@ -72,7 +72,7 @@ Kural: `SNN-Standartlar/standartlar/arayuz-standardi.md` §2.1. Fikir serbest, k
 
 | Ad | Bağlantı | Dalga | Durum |
 |---|---|---|---|
-| wallet-stack | https://uiarc.dev/components/wallet-stack | 3 | tarif yazıldı |
+| wallet-stack | https://uiarc.dev/components/wallet-stack | 3 | yazıldı |
 | product-gallery | https://uiarc.dev/components/product-gallery | 3 | yazıldı |
 | lightbox-gallery | https://uiarc.dev/components/lightbox-gallery | 3 | yazıldı |
 | photo-grid | https://uiarc.dev/components/photo-grid | 3 | yazıldı |

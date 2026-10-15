@@ -15,6 +15,7 @@ import { PhotoGridDemo } from "./photo-grid";
 import { TestimonialStageDemo } from "./testimonial-stage";
 import { TeamShowcaseDemo } from "./team-showcase";
 import { MediaPlayerDemo } from "./media-player";
+import { WalletStackDemo } from "./wallet-stack";
 
 export const dalga3Demos: Record<string, () => ReactNode> = {
   "product-listing": () => <ProductListingDemo />,
@@ -32,4 +33,5 @@ export const dalga3Demos: Record<string, () => ReactNode> = {
   "testimonial-stage": () => <TestimonialStageDemo />,
   "team-showcase": () => <TeamShowcaseDemo />,
   "media-player": () => <MediaPlayerDemo />,
+  "wallet-stack": () => <WalletStackDemo />,
 };

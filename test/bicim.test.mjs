@@ -52,6 +52,7 @@ const FILES = {
   testimonial: "registry/components/testimonial-stage/testimonial-stage-format.ts",
   team: "registry/components/team-showcase/team-showcase-format.ts",
   player: "registry/components/media-player/media-player-format.ts",
+  stack: "registry/components/wallet-stack/wallet-stack-format.ts",
 };
 const mods = {};
 let temp;
@@ -847,4 +848,49 @@ test("ses oynatıcı: süre, ses düzeyi ve parça sırası doğru; sayılar ABA
   assert.equal(mods.player.playLabel("Sabah kahvesi"), "Sabah kahvesi çal");
   assert.equal(mods.player.muteLabel(true), "Sesi aç");
   assert.equal(mods.player.muteLabel(false), "Sessize al");
+});
+
+test("kart destesi: yalnız son dört hane gösterilir; deste konumu, ok ve sürükleme kararları, yazımlar ABACUS çıktısıdır", () => {
+  // güvenlik: tam numara verilse de yalnız son dört hane kalır
+  assert.equal(mods.stack.safeLast4("0417"), "0417");
+  assert.equal(mods.stack.safeLast4("1234 5678 9012 3456"), "3456");
+  assert.equal(mods.stack.safeLast4("12"), "••12");
+  assert.equal(mods.stack.safeLast4(""), "••••");
+  assert.equal(mods.stack.maskedNumber("1234567890123456"), "•••• •••• •••• 3456");
+  assert.equal(mods.stack.maskedNumber("1234567890123456").includes("1234"), false);
+  const card = { id: "k", issuer: "Örnek Banka", product: "Metal Kart", last4: "1234567890120417", holder: "A", expiry: "08/29", balance: 48250.75, transactions: [] };
+  const label = mods.stack.cardLabel(card, 0, 4);
+  assert.equal(label, "Örnek Banka, Metal Kart, son dört hane 0 4 1 7, 1/4, bakiye ₺48.250,75");
+  assert.equal(label.includes("12345678"), false);
+  assert.equal(mods.stack.expiryText("08/29"), "08/29");
+  assert.equal(mods.stack.expiryText("13/29"), "—");
+  assert.equal(mods.stack.expiryText("8/29"), "—");
+  assert.equal(mods.stack.expiryText(""), "—");
+  assert.equal(mods.stack.visibleCards([1, 2, 3, 4, 5, 6, 7, 8]).length, 6);
+  // deste konumu
+  assert.deepEqual(mods.stack.placeOf(0, 0), { y: -0, scale: 1, opacity: 1, hidden: false });
+  assert.equal(mods.stack.placeOf(1, 0).y, -.12);
+  assert.ok(mods.stack.placeOf(1, 1).y < mods.stack.placeOf(1, 0).y);
+  assert.equal(mods.stack.placeOf(-1, 0).hidden, true);
+  assert.equal(mods.stack.placeOf(-1, 0).opacity, 0);
+  assert.equal(mods.stack.placeOf(4, 0).hidden, true);
+  assert.equal(mods.stack.placeOf(3, 0).hidden, false);
+  assert.ok(mods.stack.placeOf(3, 0).opacity < 1 && mods.stack.placeOf(3, 0).opacity > 0);
+  // ok tuşları ve sürükleme
+  assert.equal(mods.stack.stepFront("ArrowDown", 0, 4), 1);
+  assert.equal(mods.stack.stepFront("ArrowRight", 3, 4), 3);
+  assert.equal(mods.stack.stepFront("ArrowUp", 0, 4), 0);
+  assert.equal(mods.stack.stepFront("ArrowLeft", 2, 4), 1);
+  assert.equal(mods.stack.stepFront("Home", 2, 4), 0);
+  assert.equal(mods.stack.stepFront("End", 2, 4), 3);
+  assert.equal(mods.stack.stepFront("x", 2, 4), 2);
+  assert.equal(mods.stack.dragStep(80, 0), 1);
+  assert.equal(mods.stack.dragStep(-80, 0), -1);
+  assert.equal(mods.stack.dragStep(10, 600), 1);
+  assert.equal(mods.stack.dragStep(10, 10), 0);
+  // yazımlar
+  assert.equal(mods.stack.counterText(0, 4), "1 / 4");
+  assert.equal(mods.stack.balanceText({ balance: 48250.75 }), money.formatMajor(48250.75, { currency: "TRY", digits: 2, kurus: true }));
+  assert.equal(mods.stack.transactionText(-1240.5), "-₺1.240,50");
+  assert.equal(mods.stack.transactionText(5000), "+₺5.000,00");
 });
