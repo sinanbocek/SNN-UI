@@ -1,0 +1,107 @@
+# Esinlenme listesi (Arc Pro, 68 aday)
+
+Kural: `SNN-Standartlar/standartlar/arayuz-standardi.md` §2.1. Fikir serbest, kod yasak; tarif ve yazım ayrı oturumlardır. Tarifler `docs/tarifler/<ad>.md` altında durur.
+
+## Dalga 1 — iş ekranları
+
+| Ad | Bağlantı | Dalga | Durum |
+|---|---|---|---|
+| sidebar | https://uiarc.dev/components/blocks/sidebar | 1 | tarif yazıldı |
+| settings-page | https://uiarc.dev/components/blocks/settings-page | 1 | tarif yazıldı |
+| settings-command | https://uiarc.dev/components/blocks/settings-command | 1 | bekliyor |
+| search-results | https://uiarc.dev/components/blocks/search-results | 1 | tarif yazıldı |
+| team-members | https://uiarc.dev/components/blocks/team-members | 1 | tarif yazıldı |
+| team-directory | https://uiarc.dev/components/blocks/team-directory | 1 | bekliyor |
+| roles-permissions | https://uiarc.dev/components/blocks/roles-permissions | 1 | bekliyor |
+| inbox-triage | https://uiarc.dev/components/blocks/inbox-triage | 1 | bekliyor |
+| help-center | https://uiarc.dev/components/blocks/help-center | 1 | tarif yazıldı |
+| week-calendar | https://uiarc.dev/components/blocks/week-calendar | 1 | bekliyor |
+| availability-picker | https://uiarc.dev/components/blocks/availability-picker | 1 | bekliyor |
+| project-board | https://uiarc.dev/components/blocks/project-board | 1 | bekliyor |
+| kanban-board | https://uiarc.dev/components/blocks/kanban-board | 1 | bekliyor |
+| release-readiness | https://uiarc.dev/components/blocks/release-readiness | 1 | bekliyor |
+| multi-step-form | https://uiarc.dev/components/blocks/multi-step-form | 1 | bekliyor |
+
+## Dalga 2 — grafik ve finans (ABACUS gerekir)
+
+| Ad | Bağlantı | Dalga | Durum |
+|---|---|---|---|
+| split-bar | https://uiarc.dev/components/split-bar | 2 | bekliyor |
+| sankey-flow | https://uiarc.dev/components/sankey-flow | 2 | bekliyor |
+| funnel-chart | https://uiarc.dev/components/funnel-chart | 2 | bekliyor |
+| race-bar-chart | https://uiarc.dev/components/race-bar-chart | 2 | bekliyor |
+| realtime-stream | https://uiarc.dev/components/realtime-stream | 2 | bekliyor |
+
+## Dalga 2 — grafik ve finans (ABACUS gerekir), devam
+
+| Ad | Bağlantı | Dalga | Durum |
+|---|---|---|---|
+| metrics-dashboard | https://uiarc.dev/components/blocks/metrics-dashboard | 2 | bekliyor |
+| kpi-drilldown | https://uiarc.dev/components/blocks/kpi-drilldown | 2 | bekliyor |
+| metric-explorer | https://uiarc.dev/components/blocks/metric-explorer | 2 | bekliyor |
+| revenue-explorer | https://uiarc.dev/components/blocks/revenue-explorer | 2 | bekliyor |
+| mrr-waterfall | https://uiarc.dev/components/blocks/mrr-waterfall | 2 | bekliyor |
+| cohort-retention | https://uiarc.dev/components/blocks/cohort-retention | 2 | bekliyor |
+| usage-forecast | https://uiarc.dev/components/blocks/usage-forecast | 2 | bekliyor |
+| budget-variance | https://uiarc.dev/components/blocks/budget-variance | 2 | bekliyor |
+| small-multiples | https://uiarc.dev/components/blocks/small-multiples | 2 | bekliyor |
+| line-replay | https://uiarc.dev/components/blocks/line-replay | 2 | bekliyor |
+| market-terminal | https://uiarc.dev/components/blocks/market-terminal | 2 | bekliyor |
+| journey-flow | https://uiarc.dev/components/blocks/journey-flow | 2 | bekliyor |
+| invoice-studio | https://uiarc.dev/components/blocks/invoice-studio | 2 | bekliyor |
+| pricing-calculator | https://uiarc.dev/components/blocks/pricing-calculator | 2 | bekliyor |
+| usage-pricing | https://uiarc.dev/components/blocks/usage-pricing | 2 | bekliyor |
+
+## Dalga 3 — vitrin ve satış
+
+| Ad | Bağlantı | Dalga | Durum |
+|---|---|---|---|
+| product-listing | https://uiarc.dev/components/blocks/product-listing | 3 | bekliyor |
+| product-detail | https://uiarc.dev/components/blocks/product-detail | 3 | bekliyor |
+| cart-drawer | https://uiarc.dev/components/blocks/cart-drawer | 3 | bekliyor |
+| checkout-summary | https://uiarc.dev/components/blocks/checkout-summary | 3 | bekliyor |
+| wallet-card | https://uiarc.dev/components/blocks/wallet-card | 3 | bekliyor |
+| hero-signup | https://uiarc.dev/components/blocks/hero-signup | 3 | bekliyor |
+| scroll-story | https://uiarc.dev/components/blocks/scroll-story | 3 | bekliyor |
+| spotlight-grid | https://uiarc.dev/components/blocks/spotlight-grid | 3 | bekliyor |
+| testimonial-stage | https://uiarc.dev/components/blocks/testimonial-stage | 3 | bekliyor |
+| team-showcase | https://uiarc.dev/components/blocks/team-showcase | 3 | bekliyor |
+| media-player | https://uiarc.dev/components/blocks/media-player | 3 | bekliyor |
+
+## Dalga 3 — vitrin ve satış, devam
+
+| Ad | Bağlantı | Dalga | Durum |
+|---|---|---|---|
+| wallet-stack | https://uiarc.dev/components/wallet-stack | 3 | bekliyor |
+| product-gallery | https://uiarc.dev/components/product-gallery | 3 | bekliyor |
+| lightbox-gallery | https://uiarc.dev/components/lightbox-gallery | 3 | bekliyor |
+| photo-grid | https://uiarc.dev/components/photo-grid | 3 | bekliyor |
+| cover-flow | https://uiarc.dev/components/cover-flow | 3 | bekliyor |
+| payment-flow | https://uiarc.dev/components/payment-flow | 3 | bekliyor |
+
+## Dalga 4 — hareket ve süs (sahip seçecek)
+
+| Ad | Bağlantı | Dalga | Durum |
+|---|---|---|---|
+| agent-run | https://uiarc.dev/components/blocks/agent-run | 4 | bekliyor |
+
+## Dalga 4 — hareket ve süs (sahip seçecek), devam
+
+| Ad | Bağlantı | Dalga | Durum |
+|---|---|---|---|
+| share-sheet | https://uiarc.dev/components/share-sheet | 4 | bekliyor |
+| action-morph | https://uiarc.dev/components/action-morph | 4 | bekliyor |
+| morph-nav | https://uiarc.dev/components/morph-nav | 4 | bekliyor |
+| dock | https://uiarc.dev/components/dock | 4 | bekliyor |
+| liquid-tab-bar | https://uiarc.dev/components/liquid-tab-bar | 4 | bekliyor |
+| orbit-menu | https://uiarc.dev/components/orbit-menu | 4 | bekliyor |
+| control-center | https://uiarc.dev/components/control-center | 4 | bekliyor |
+| booking-pill | https://uiarc.dev/components/booking-pill | 4 | bekliyor |
+| activity-rings | https://uiarc.dev/components/activity-rings | 4 | bekliyor |
+| date-reel | https://uiarc.dev/components/date-reel | 4 | bekliyor |
+| morph-loader | https://uiarc.dev/components/morph-loader | 4 | bekliyor |
+| skeleton-morph | https://uiarc.dev/components/skeleton-morph | 4 | bekliyor |
+| page-curl | https://uiarc.dev/components/page-curl | 4 | bekliyor |
+| data-flow | https://uiarc.dev/components/data-flow | 4 | bekliyor |
+| multi-region-failover | https://uiarc.dev/components/multi-region-failover | 4 | bekliyor |
+
