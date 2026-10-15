@@ -1,0 +1,64 @@
+/* Ekip rehberi: bileşenin kendi genişliğine göre; orta darlıkta Kopyala yalnız simge, daha darda profil listenin altına iner. */
+.root { container-type: inline-size; display: grid; gap: var(--space-4); color: var(--foreground); font-family: var(--font-body); }
+.srOnly { position: absolute; width: 1px; height: 1px; overflow: hidden; clip-path: inset(50%); white-space: nowrap; }
+.header { display: flex; align-items: center; justify-content: space-between; gap: var(--space-4); }
+.title { display: flex; align-items: baseline; gap: var(--space-2); margin: 0; font-family: var(--font-display); font-size: var(--text-xl); font-weight: 600; letter-spacing: var(--tracking-display); }
+.total { color: var(--text-muted); font-size: var(--text-sm); font-weight: 400; font-variant-numeric: tabular-nums; }
+.search { width: min(100%, 18rem); }
+.pills { display: flex; flex-wrap: wrap; gap: var(--space-1); }
+.pill { position: relative; border: 0; border-radius: var(--radius-pill); padding: 0; color: var(--text-secondary); background: transparent; font: inherit; font-size: var(--text-sm); cursor: pointer; }
+.pill[aria-pressed="true"] { color: var(--foreground); font-weight: 500; }
+.pill:disabled { cursor: not-allowed; opacity: .6; }
+.pill:focus-visible, .person:focus-visible { outline: var(--focus-outline-width) solid var(--focus-outline); outline-offset: var(--focus-outline-offset); }
+.pillMark { position: absolute; inset: 0; border-radius: var(--radius-pill); background: var(--accent-subtle); }
+.pillText { position: relative; display: flex; align-items: center; gap: var(--space-2); min-height: var(--control-height-sm); padding-inline: var(--space-3); }
+.pillCount { color: var(--text-muted); font-size: var(--text-xs); font-variant-numeric: tabular-nums; }
+@media (hover: hover) and (pointer: fine) { .pill[aria-pressed="false"]:hover:not(:disabled) { color: var(--foreground); background: var(--surface-muted); } }
+
+.body { display: grid; grid-template-columns: minmax(0, 1fr) minmax(0, 1.2fr); gap: var(--space-4); align-items: start; }
+.list { display: grid; max-height: 28rem; margin: 0; padding: var(--space-1); overflow-y: auto; list-style: none; border: 1px solid var(--border); border-radius: var(--radius-surface); }
+.item { overflow: hidden; }
+.person { position: relative; display: block; width: 100%; border: 0; border-radius: var(--radius-panel); padding: 0; color: inherit; background: transparent; font: inherit; text-align: left; cursor: pointer; }
+.activeMark { position: absolute; inset: 0; border-radius: var(--radius-panel); background: var(--accent-subtle); }
+.personContent { position: relative; display: flex; min-width: 0; align-items: center; gap: var(--space-3); padding: var(--space-2) var(--space-3); }
+@media (hover: hover) and (pointer: fine) { .person[aria-pressed="false"]:hover { background: var(--surface-muted); } }
+.avatarWrap { position: relative; display: inline-flex; flex: none; }
+.dot { position: absolute; right: 0; bottom: 0; width: var(--space-3); height: var(--space-3); border: 2px solid var(--surface); border-radius: var(--radius-pill); background: var(--text-muted); }
+.dot[data-status="available"] { background: var(--success); }
+.dot[data-status="meeting"] { background: var(--warning); }
+.dot[data-status="away"] { background: var(--text-muted); }
+.dot[data-big="true"] { width: var(--space-4); height: var(--space-4); }
+.dot[data-inline="true"] { position: static; flex: none; border: 0; }
+.who { display: grid; min-width: 0; }
+.name, .sub { overflow: hidden; text-overflow: ellipsis; white-space: nowrap; }
+.name { font-size: var(--text-sm); font-weight: 500; }
+.sub { color: var(--text-secondary); font-size: var(--text-xs); }
+.skeletons { display: grid; gap: var(--space-5); padding: var(--space-3); }
+.listEmpty { border: 1px solid var(--border); border-radius: var(--radius-surface); }
+
+.panel { min-height: 14rem; border: 1px solid var(--border); border-radius: var(--radius-surface); padding: var(--space-5); }
+.profile { display: grid; gap: var(--space-4); }
+.profileHead { display: flex; align-items: center; gap: var(--space-4); min-width: 0; }
+.profileName { margin: 0; font-size: var(--text-lg); font-weight: 600; overflow-wrap: anywhere; }
+.bio { margin: 0; color: var(--text-secondary); font-size: var(--text-sm); line-height: var(--leading-body); }
+.facts { display: grid; gap: var(--space-3); margin: 0; }
+.facts > div { display: grid; grid-template-columns: 8rem minmax(0, 1fr); align-items: center; gap: var(--space-3); font-size: var(--text-sm); }
+.facts dt { color: var(--text-muted); }
+.facts dd { display: flex; align-items: center; gap: var(--space-2); margin: 0; min-width: 0; overflow-wrap: anywhere; }
+.statusText { display: inline-flex; align-items: center; gap: var(--space-2); }
+.mail { min-width: 0; overflow: hidden; text-overflow: ellipsis; user-select: all; }
+.pick { margin: 0; padding: var(--space-8); color: var(--text-muted); font-size: var(--text-sm); text-align: center; }
+.copyText { white-space: nowrap; }
+
+@container (max-width: 40rem) {
+  .copyText { position: absolute; width: 1px; height: 1px; overflow: hidden; clip-path: inset(50%); }
+}
+@container (max-width: 34rem) {
+  .body { grid-template-columns: minmax(0, 1fr); }
+  .facts > div { grid-template-columns: minmax(0, 1fr); gap: var(--space-1); }
+}
+@container (max-width: 26rem) {
+  .header { flex-direction: column; align-items: stretch; }
+  .search { width: 100%; }
+  .pillCount { display: none; }
+}

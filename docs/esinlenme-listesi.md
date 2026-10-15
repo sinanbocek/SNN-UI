@@ -8,19 +8,19 @@ Kural: `SNN-Standartlar/standartlar/arayuz-standardi.md` §2.1. Fikir serbest, k
 |---|---|---|---|
 | sidebar | https://uiarc.dev/components/blocks/sidebar | 1 | yazıldı |
 | settings-page | https://uiarc.dev/components/blocks/settings-page | 1 | yazıldı |
-| settings-command | https://uiarc.dev/components/blocks/settings-command | 1 | tarif yazıldı |
+| settings-command | https://uiarc.dev/components/blocks/settings-command | 1 | yazıldı |
 | search-results | https://uiarc.dev/components/blocks/search-results | 1 | yazıldı |
 | team-members | https://uiarc.dev/components/blocks/team-members | 1 | yazıldı |
-| team-directory | https://uiarc.dev/components/blocks/team-directory | 1 | tarif yazıldı |
-| roles-permissions | https://uiarc.dev/components/blocks/roles-permissions | 1 | tarif yazıldı |
-| inbox-triage | https://uiarc.dev/components/blocks/inbox-triage | 1 | tarif yazıldı |
+| team-directory | https://uiarc.dev/components/blocks/team-directory | 1 | yazıldı |
+| roles-permissions | https://uiarc.dev/components/blocks/roles-permissions | 1 | yazıldı |
+| inbox-triage | https://uiarc.dev/components/blocks/inbox-triage | 1 | yazıldı |
 | help-center | https://uiarc.dev/components/blocks/help-center | 1 | yazıldı |
-| week-calendar | https://uiarc.dev/components/blocks/week-calendar | 1 | tarif yazıldı |
-| availability-picker | https://uiarc.dev/components/blocks/availability-picker | 1 | tarif yazıldı |
-| project-board | https://uiarc.dev/components/blocks/project-board | 1 | tarif yazıldı |
-| kanban-board | https://uiarc.dev/components/blocks/kanban-board | 1 | tarif yazıldı |
-| release-readiness | https://uiarc.dev/components/blocks/release-readiness | 1 | tarif yazıldı |
-| multi-step-form | https://uiarc.dev/components/blocks/multi-step-form | 1 | tarif yazıldı |
+| week-calendar | https://uiarc.dev/components/blocks/week-calendar | 1 | yazıldı |
+| availability-picker | https://uiarc.dev/components/blocks/availability-picker | 1 | yazıldı |
+| project-board | https://uiarc.dev/components/blocks/project-board | 1 | yazıldı |
+| kanban-board | https://uiarc.dev/components/blocks/kanban-board | 1 | yazıldı |
+| release-readiness | https://uiarc.dev/components/blocks/release-readiness | 1 | yazıldı |
+| multi-step-form | https://uiarc.dev/components/blocks/multi-step-form | 1 | yazıldı |
 
 ## Dalga 2 — grafik ve finans (ABACUS gerekir)
 

@@ -30,6 +30,19 @@
       ]
     },
     {
+      "name": "snn-pointer-drag",
+      "type": "registry:item",
+      "title": "SNN sürükleme kancası",
+      "description": "Fare, dokunma ve kalemle sürükle-bırak için küçük kanca (usePointerDrag, findDropTarget). Kütüphanesizdir; kenara yaklaşınca kaydırır, dokunmatikte kısa basıştan sonra başlar, Esc iptal eder. Klavyeyle taşıma bunu kullanan bloğun işidir. Sürükleyen bloklarla kendiliğinden gelir.",
+      "files": [
+        {
+          "path": "registry/components/lib/pointer-drag.ts",
+          "type": "registry:lib",
+          "target": "@components/snn/lib/pointer-drag.ts"
+        }
+      ]
+    },
+    {
       "name": "button",
       "type": "registry:ui",
       "title": "Düğme",
@@ -1023,6 +1036,387 @@
       "meta": {
         "arcCommit": "bfdf7e8",
         "arcSource": "registry/components/help-center"
+      }
+    },
+    {
+      "name": "settings-command",
+      "type": "registry:ui",
+      "title": "Aranabilir ayarlar",
+      "description": "Blok: onlarca ayarın tek uzun sayfada durduğu ekran. Arama kutusu Ctrl+K ya da / ile komut paletini açar (Türkçe harf farkı gözetmez, ek anahtar kelimelerle bulur); seçilen ayara sayfa kayar ve satır iki kez nefes alır. Solda bölüm gezgini, satırlarda anahtar, seçenek, açılır liste ve metin denetimleri, altta toplu kaydetme çubuğu. Yükleniyor, boş arama, doğrulama hatası, kaydetme hatası ve dar ekran durumları vardır.",
+      "dependencies": [
+        "@snn/abacus-core@github:sinanbocek/SNN-Abacus-Core#semver:^4.3.0",
+        "lucide-react",
+        "motion"
+      ],
+      "registryDependencies": [
+        "@snn-ui/snn-foundation",
+        "@snn-ui/snn-motion-tokens",
+        "@snn-ui/dialog",
+        "@snn-ui/empty-state",
+        "@snn-ui/input",
+        "@snn-ui/save-bar",
+        "@snn-ui/segmented-control",
+        "@snn-ui/select",
+        "@snn-ui/skeleton",
+        "@snn-ui/switch"
+      ],
+      "files": [
+        {
+          "path": "registry/components/settings-command/settings-command.module.css",
+          "type": "registry:component",
+          "target": "@components/snn/settings-command/settings-command.module.css"
+        },
+        {
+          "path": "registry/components/settings-command/settings-command.tsx",
+          "type": "registry:component",
+          "target": "@components/snn/settings-command/settings-command.tsx"
+        }
+      ],
+      "meta": {
+        "arcCommit": "bfdf7e8",
+        "arcSource": "registry/components/settings-command"
+      }
+    },
+    {
+      "name": "team-directory",
+      "type": "registry:ui",
+      "title": "Ekip rehberi",
+      "description": "Blok: solda aranabilir kişi listesi (ad ve göreve göre), üstte sayılı ekip süzgeç düğmeleri, sağda seçili kişinin profil paneli (durum, ekip, üzerinde çalıştığı iş, konum, e-posta ve Kopyala). Kayan vurgular, süzülen satırlar. Boş sonuç, yükleniyor, hata ve dar kolon durumları vardır.",
+      "dependencies": [
+        "@snn/abacus-core@github:sinanbocek/SNN-Abacus-Core#semver:^4.3.0",
+        "lucide-react",
+        "motion"
+      ],
+      "registryDependencies": [
+        "@snn-ui/snn-foundation",
+        "@snn-ui/snn-motion-tokens",
+        "@snn-ui/avatar",
+        "@snn-ui/button",
+        "@snn-ui/empty-state",
+        "@snn-ui/search-field",
+        "@snn-ui/skeleton",
+        "@snn-ui/tooltip"
+      ],
+      "files": [
+        {
+          "path": "registry/components/team-directory/team-directory.module.css",
+          "type": "registry:component",
+          "target": "@components/snn/team-directory/team-directory.module.css"
+        },
+        {
+          "path": "registry/components/team-directory/team-directory.tsx",
+          "type": "registry:component",
+          "target": "@components/snn/team-directory/team-directory.tsx"
+        }
+      ],
+      "meta": {
+        "arcCommit": "bfdf7e8",
+        "arcSource": "registry/components/team-directory"
+      }
+    },
+    {
+      "name": "roles-permissions",
+      "type": "registry:ui",
+      "title": "Roller ve izinler",
+      "description": "Blok: satırlar izin, sütunlar rol olan matris. İzinler katlanabilir gruplarda; grup kutusu hepsini dalga gibi açar ve karışık durumu (çizgili) gösterir. Sahip sütunu kilitlidir. Ok tuşlu tek durak gezinme, üzerinde durulan sütun vurgusu, rol menüsü, değişiklik özetli inceleme çubuğu. Boş, yükleniyor, kaydetme hatası ve dar ekran (sabit izin sütunu, yana kayan tablo) durumları vardır.",
+      "dependencies": [
+        "lucide-react",
+        "motion"
+      ],
+      "registryDependencies": [
+        "@snn-ui/snn-foundation",
+        "@snn-ui/snn-motion-tokens",
+        "@snn-ui/avatar",
+        "@snn-ui/button",
+        "@snn-ui/checkbox",
+        "@snn-ui/dropdown-menu",
+        "@snn-ui/empty-state",
+        "@snn-ui/skeleton",
+        "@snn-ui/tooltip"
+      ],
+      "files": [
+        {
+          "path": "registry/components/roles-permissions/roles-permissions.module.css",
+          "type": "registry:component",
+          "target": "@components/snn/roles-permissions/roles-permissions.module.css"
+        },
+        {
+          "path": "registry/components/roles-permissions/roles-permissions.tsx",
+          "type": "registry:component",
+          "target": "@components/snn/roles-permissions/roles-permissions.tsx"
+        }
+      ],
+      "meta": {
+        "arcCommit": "bfdf7e8",
+        "arcSource": "registry/components/roles-permissions"
+      }
+    },
+    {
+      "name": "inbox-triage",
+      "type": "registry:ui",
+      "title": "Gelen kutusu ayıklama",
+      "description": "Blok: karar bekleyen mesaj kuyruğu. Gelen, Ertelenen ve Arşiv sekmeleri (sayılı), yerinde açılan satırlar, \"yalnız okunmamışlar\" süzgeci, tek tuş kısayolları (E arşivle, S ertele, U geri al) ve geri alınabilir son hamle durum satırı. Hamleden sonra odak sonraki satıra geçer. Her klasör için ayrı boş durum, yükleniyor, taşıma hatası (\"Yeniden dene\") ve dar kolon (iki satırlı satır) durumları vardır.",
+      "dependencies": [
+        "motion"
+      ],
+      "registryDependencies": [
+        "@snn-ui/snn-foundation",
+        "@snn-ui/snn-motion-tokens",
+        "@snn-ui/avatar",
+        "@snn-ui/badge",
+        "@snn-ui/button",
+        "@snn-ui/empty-state",
+        "@snn-ui/pagination",
+        "@snn-ui/skeleton",
+        "@snn-ui/tabs"
+      ],
+      "files": [
+        {
+          "path": "registry/components/inbox-triage/inbox-triage.module.css",
+          "type": "registry:component",
+          "target": "@components/snn/inbox-triage/inbox-triage.module.css"
+        },
+        {
+          "path": "registry/components/inbox-triage/inbox-triage.tsx",
+          "type": "registry:component",
+          "target": "@components/snn/inbox-triage/inbox-triage.tsx"
+        }
+      ],
+      "meta": {
+        "arcCommit": "bfdf7e8",
+        "arcSource": "registry/components/inbox-triage"
+      }
+    },
+    {
+      "name": "release-readiness",
+      "type": "registry:ui",
+      "title": "Yayına hazırlık listesi",
+      "description": "Blok: bir iş yapılmadan önce tamamlanması gereken kontroller. Sayaç (\"3 kontrol kaldı\" / \"Hazır\") ve ilerleme çubuğu, iki sütunlu kontrol satırları, isteğe bağlı \"ilgilileri bilgilendir\" anahtarı ve hepsi işaretlenince açılan ana eylem düğmesi. Pasif düğmenin nedeni yazıyla söylenir. Yükleniyor, çalışıyor, başarı, hata (\"Yeniden dene\") ve dar kolon durumları vardır.",
+      "dependencies": [
+        "motion"
+      ],
+      "registryDependencies": [
+        "@snn-ui/snn-foundation",
+        "@snn-ui/snn-motion-tokens",
+        "@snn-ui/avatar",
+        "@snn-ui/button",
+        "@snn-ui/checkbox",
+        "@snn-ui/progress",
+        "@snn-ui/skeleton",
+        "@snn-ui/switch",
+        "@snn-ui/tooltip"
+      ],
+      "files": [
+        {
+          "path": "registry/components/release-readiness/release-readiness.module.css",
+          "type": "registry:component",
+          "target": "@components/snn/release-readiness/release-readiness.module.css"
+        },
+        {
+          "path": "registry/components/release-readiness/release-readiness.tsx",
+          "type": "registry:component",
+          "target": "@components/snn/release-readiness/release-readiness.tsx"
+        }
+      ],
+      "meta": {
+        "arcCommit": "bfdf7e8",
+        "arcSource": "registry/components/release-readiness"
+      }
+    },
+    {
+      "name": "multi-step-form",
+      "type": "registry:ui",
+      "title": "Adım adım form",
+      "description": "Blok: uzun formu kısa adımlara böler. Numaralı adım listesi (tamamlananlarda çizilen tik, etkin adım vurgulu; tamamlanan adıma geri dönülür), yönlü kayan geçiş, adımın yüksekliğine yaylanan kutu, \"Adım 1 / 2\" sayacı, Geri / Devam / Bitir düğmeleri ve başarı ekranı. Yerel kısıtlar (`required`, `pattern`) ve isteğe bağlı özel denetim geçişi engeller, ilk geçersiz alana odak gider. Gönderiliyor, sunucu hatası (\"Yeniden dene\") ve dar kolon durumları vardır.",
+      "dependencies": [
+        "motion"
+      ],
+      "registryDependencies": [
+        "@snn-ui/snn-foundation",
+        "@snn-ui/snn-motion-tokens",
+        "@snn-ui/button"
+      ],
+      "files": [
+        {
+          "path": "registry/components/multi-step-form/multi-step-form.module.css",
+          "type": "registry:component",
+          "target": "@components/snn/multi-step-form/multi-step-form.module.css"
+        },
+        {
+          "path": "registry/components/multi-step-form/multi-step-form.tsx",
+          "type": "registry:component",
+          "target": "@components/snn/multi-step-form/multi-step-form.tsx"
+        }
+      ],
+      "meta": {
+        "arcCommit": "bfdf7e8",
+        "arcSource": "registry/components/multi-step-form"
+      }
+    },
+    {
+      "name": "week-calendar",
+      "type": "registry:ui",
+      "title": "Haftalık takvim",
+      "description": "Blok: haftalık zaman ızgarası. Boş zamanı sürükleyerek etkinlik oluşturma (15 dakikalık adımlar), etkinliği sürükleyip taşıma, alt kenardan uzatma; üst çubukta Bugün, oklar, aralık başlığı, Hafta / İş haftası / Gün / 3 gün / Gündem görünümleri ve takvim açma kapama. Tüm gün satırı (\"+N daha\"), çakışan etkinlikler yan yana, \"şimdi\" çizgisi, ayrıntı kutusu, silince geri al (Ctrl+Z). Klavyeyle taşıma (Alt+ok), N / T / D / W kısayolları. Boş hafta, yükleniyor, kaydetme hatası ve dar kolon (3 gün + gündem) durumları vardır.",
+      "dependencies": [
+        "@snn/abacus-core@github:sinanbocek/SNN-Abacus-Core#semver:^4.3.0",
+        "lucide-react",
+        "motion"
+      ],
+      "registryDependencies": [
+        "@snn-ui/snn-foundation",
+        "@snn-ui/snn-motion-tokens",
+        "@snn-ui/button",
+        "@snn-ui/checkbox",
+        "@snn-ui/dialog",
+        "@snn-ui/empty-state",
+        "@snn-ui/input",
+        "@snn-ui/popover",
+        "@snn-ui/segmented-control",
+        "@snn-ui/select",
+        "@snn-ui/skeleton",
+        "@snn-ui/snn-pointer-drag"
+      ],
+      "files": [
+        {
+          "path": "registry/components/week-calendar/calendar-math.ts",
+          "type": "registry:component",
+          "target": "@components/snn/week-calendar/calendar-math.ts"
+        },
+        {
+          "path": "registry/components/week-calendar/week-calendar.module.css",
+          "type": "registry:component",
+          "target": "@components/snn/week-calendar/week-calendar.module.css"
+        },
+        {
+          "path": "registry/components/week-calendar/week-calendar.tsx",
+          "type": "registry:component",
+          "target": "@components/snn/week-calendar/week-calendar.tsx"
+        }
+      ],
+      "meta": {
+        "arcCommit": "bfdf7e8",
+        "arcSource": "registry/components/week-calendar"
+      }
+    },
+    {
+      "name": "availability-picker",
+      "type": "registry:ui",
+      "title": "Ortak uygun saat seçici",
+      "description": "Blok: birkaç kişinin ortak toplantı saatini seçtirir. Başlıkta toplantı adı, süre ve saat dilimi, katılımcı avatarları; beş günlük şerit (kartta \"N boş\"), seçili günün saatleri iki sütunda ve her saatte kişi başına müsait/meşgul çubukları (yazıyla da bildirilir), altta özet çubuğu ve \"Saati onayla\". Gün değişince saat listesi yönüne göre kayar, seçili saat vurgusu saatler arasında kayar. Boş gün (en yakın uygun gün önerisi), hiç ortak saat yok, yükleniyor, onay hatası ve dar kolon durumları vardır.",
+      "dependencies": [
+        "@snn/abacus-core@github:sinanbocek/SNN-Abacus-Core#semver:^4.3.0",
+        "motion"
+      ],
+      "registryDependencies": [
+        "@snn-ui/snn-foundation",
+        "@snn-ui/snn-motion-tokens",
+        "@snn-ui/avatar",
+        "@snn-ui/button",
+        "@snn-ui/empty-state",
+        "@snn-ui/skeleton"
+      ],
+      "files": [
+        {
+          "path": "registry/components/availability-picker/availability-picker.module.css",
+          "type": "registry:component",
+          "target": "@components/snn/availability-picker/availability-picker.module.css"
+        },
+        {
+          "path": "registry/components/availability-picker/availability-picker.tsx",
+          "type": "registry:component",
+          "target": "@components/snn/availability-picker/availability-picker.tsx"
+        }
+      ],
+      "meta": {
+        "arcCommit": "bfdf7e8",
+        "arcSource": "registry/components/availability-picker"
+      }
+    },
+    {
+      "name": "project-board",
+      "type": "registry:ui",
+      "title": "Küçük proje panosu",
+      "description": "Blok: az sayıda işin sabit aşamalar (Planlandı, Sürüyor, Kontrolde, Bitti) arasında ilerlediği pano. Sürükleme yok: her kartta önceki ve sonraki aşamaya taşıma okları var (dokunmatikte de rahat). Üstte \"Bu dönem 6 işten 1'i bitti\" cümlesi ve ilerleme çubuğu, \"Tümü / Benim işlerim\" süzgeci, \"Görev ekle\" ile başlığı hemen yazılan yeni kart. Kartlar sütunlar arasında uçar. Boş sütun, hiç iş yok, süzgeç sonucu yok, yükleniyor, taşıma hatası (\"Yeniden dene\") ve dar kolon (yana kayan, yakınlığa oturan sütunlar) durumları vardır.",
+      "dependencies": [
+        "@snn/abacus-core@github:sinanbocek/SNN-Abacus-Core#semver:^4.3.0",
+        "lucide-react",
+        "motion"
+      ],
+      "registryDependencies": [
+        "@snn-ui/snn-foundation",
+        "@snn-ui/snn-motion-tokens",
+        "@snn-ui/avatar",
+        "@snn-ui/badge",
+        "@snn-ui/button",
+        "@snn-ui/empty-state",
+        "@snn-ui/input",
+        "@snn-ui/progress",
+        "@snn-ui/segmented-control",
+        "@snn-ui/skeleton",
+        "@snn-ui/tooltip"
+      ],
+      "files": [
+        {
+          "path": "registry/components/project-board/project-board.module.css",
+          "type": "registry:component",
+          "target": "@components/snn/project-board/project-board.module.css"
+        },
+        {
+          "path": "registry/components/project-board/project-board.tsx",
+          "type": "registry:component",
+          "target": "@components/snn/project-board/project-board.tsx"
+        }
+      ],
+      "meta": {
+        "arcCommit": "bfdf7e8",
+        "arcSource": "registry/components/project-board"
+      }
+    },
+    {
+      "name": "kanban-board",
+      "type": "registry:ui",
+      "title": "Sürükle-bırak iş panosu",
+      "description": "Blok: kartlar sütunlar arasında sürükle-bırakla taşınır. Kaldırılan kart imleci izler ve hızına göre hafifçe yatar, bırakılacağı yerde boşluk açılır; pano kenarında otomatik kayar, dokunmatikte kısa basıştan sonra başlar. Klavyeyle de taşınır (Boşluk kaldırır, ok tuşları taşır, Boşluk bırakır, Esc vazgeçer) ve her adım ekran okuyucuya duyurulur. Sütunlara iş sınırı konabilir (\"3/3\", aşılınca \"İş sınırı aşıldı.\"). \"Durum / Şerit\" görünümü (şeritte kişiye göre), sütunda \"Kart ekle\", Enter ile açılan ayrıntı çekmecesi (başlık, atanan, bitiş, etiket, puan, kontrol listesi). Boş sütun, hiç kart yok, yükleniyor, kayıt hatası (\"Yeniden dene\") ve dar kolon durumları vardır.",
+      "dependencies": [
+        "@snn/abacus-core@github:sinanbocek/SNN-Abacus-Core#semver:^4.3.0",
+        "lucide-react",
+        "motion"
+      ],
+      "registryDependencies": [
+        "@snn-ui/snn-foundation",
+        "@snn-ui/snn-motion-tokens",
+        "@snn-ui/avatar",
+        "@snn-ui/button",
+        "@snn-ui/checkbox",
+        "@snn-ui/drawer",
+        "@snn-ui/empty-state",
+        "@snn-ui/input",
+        "@snn-ui/segmented-control",
+        "@snn-ui/select",
+        "@snn-ui/skeleton",
+        "@snn-ui/snn-pointer-drag"
+      ],
+      "files": [
+        {
+          "path": "registry/components/kanban-board/kanban-board.module.css",
+          "type": "registry:component",
+          "target": "@components/snn/kanban-board/kanban-board.module.css"
+        },
+        {
+          "path": "registry/components/kanban-board/kanban-board.tsx",
+          "type": "registry:component",
+          "target": "@components/snn/kanban-board/kanban-board.tsx"
+        },
+        {
+          "path": "registry/components/kanban-board/kanban-logic.ts",
+          "type": "registry:component",
+          "target": "@components/snn/kanban-board/kanban-logic.ts"
+        }
+      ],
+      "meta": {
+        "arcCommit": "bfdf7e8",
+        "arcSource": "registry/components/kanban-board"
       }
     }
   ]

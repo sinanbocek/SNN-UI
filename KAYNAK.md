@@ -93,3 +93,13 @@ Bu parçalar Arc'tan alınmadı; tariflerinden sıfırdan yazıldı (`arayuz-sta
 | `sidebar` | Arc Pro sidebar'dan esinlenildi; kod okunmadı; tarif: docs/tarifler/sidebar.md | `avatar`, `badge`, `breadcrumb`, `button`, `drawer`, `popover`, `skeleton`, `tooltip` |
 | `search-results` | Arc Pro search-results'dan esinlenildi; kod okunmadı; tarif: docs/tarifler/search-results.md | `avatar`, `badge`, `button`, `checkbox`, `drawer`, `empty-state`, `pagination`, `search-field`, `select`, `skeleton` |
 | `help-center` | Arc Pro help-center'dan esinlenildi; kod okunmadı; tarif: docs/tarifler/help-center.md | `breadcrumb`, `button`, `empty-state`, `search-field`, `skeleton`, `textarea` |
+| `settings-command` | Arc Pro settings-command'dan esinlenildi; kod okunmadı; tarif: docs/tarifler/settings-command.md | `dialog`, `empty-state`, `input`, `save-bar`, `segmented-control`, `select`, `skeleton`, `switch` |
+| `team-directory` | Arc Pro team-directory'dan esinlenildi; kod okunmadı; tarif: docs/tarifler/team-directory.md | `avatar`, `button`, `empty-state`, `search-field`, `skeleton`, `tooltip` |
+| `roles-permissions` | Arc Pro roles-permissions'dan esinlenildi; kod okunmadı; tarif: docs/tarifler/roles-permissions.md | `avatar`, `button`, `checkbox`, `dropdown-menu`, `empty-state`, `skeleton`, `tooltip` |
+| `inbox-triage` | Arc Pro inbox-triage'dan esinlenildi; kod okunmadı; tarif: docs/tarifler/inbox-triage.md | `avatar`, `badge`, `button`, `empty-state`, `pagination`, `skeleton`, `tabs` |
+| `release-readiness` | Arc Pro release-readiness'dan esinlenildi; kod okunmadı; tarif: docs/tarifler/release-readiness.md | `avatar`, `button`, `checkbox`, `progress`, `skeleton`, `switch`, `tooltip` |
+| `multi-step-form` | Arc Pro multi-step-form'dan esinlenildi; kod okunmadı; tarif: docs/tarifler/multi-step-form.md | `button` |
+| `week-calendar` | Arc Pro week-calendar'dan esinlenildi; kod okunmadı; tarif: docs/tarifler/week-calendar.md | `button`, `checkbox`, `dialog`, `empty-state`, `input`, `popover`, `segmented-control`, `select`, `skeleton`, `snn-pointer-drag` |
+| `availability-picker` | Arc Pro availability-picker'dan esinlenildi; kod okunmadı; tarif: docs/tarifler/availability-picker.md | `avatar`, `button`, `empty-state`, `skeleton` |
+| `project-board` | Arc Pro project-board'dan esinlenildi; kod okunmadı; tarif: docs/tarifler/project-board.md | `avatar`, `badge`, `button`, `empty-state`, `input`, `progress`, `segmented-control`, `skeleton`, `tooltip` |
+| `kanban-board` | Arc Pro kanban-board'dan esinlenildi; kod okunmadı; tarif: docs/tarifler/kanban-board.md | `avatar`, `button`, `checkbox`, `drawer`, `empty-state`, `input`, `segmented-control`, `select`, `skeleton`, `snn-pointer-drag` |
