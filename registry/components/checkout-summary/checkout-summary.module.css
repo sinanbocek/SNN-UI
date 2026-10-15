@@ -1,0 +1,31 @@
+.root { container-type: inline-size; display: grid; gap: var(--space-4); width: 100%; max-width: 440px; box-sizing: border-box; padding: clamp(var(--space-5), 5cqw, var(--space-6)); border: 1px solid var(--border); border-radius: var(--radius-panel); background: var(--surface); color: var(--foreground); }
+.title { margin: 0; font-size: var(--text-lg); font-weight: 500; }
+.item { display: grid; grid-template-columns: 3rem minmax(0, 1fr) auto; gap: var(--space-3); align-items: center; }
+.photo { width: 3rem; border-radius: var(--radius-control); }
+.itemText { min-width: 0; }
+.itemText p { margin: 0; }
+.itemName { font-size: var(--text-sm); font-weight: 500; white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
+.itemDesc { color: var(--text-muted); font-size: var(--text-xs); }
+.itemPrice { display: grid; justify-items: end; margin: 0; font-size: var(--text-sm); font-variant-numeric: tabular-nums; white-space: nowrap; }
+.itemPrice span { color: var(--text-muted); font-size: var(--text-xs); }
+.promo { min-height: 2.5rem; }
+.promoRow { display: flex; gap: var(--space-2); }
+.promoRow input { flex: 1; min-width: 0; min-height: 2.5rem; padding: 0 var(--space-3); border: 1px solid var(--border); border-radius: var(--radius-control); background: var(--surface); color: var(--foreground); font: inherit; font-size: var(--text-sm); }
+.promoRow input:focus-visible { outline: var(--focus-outline-width, 2px) solid var(--focus-outline, var(--accent)); outline-offset: 1px; }
+.promoRow input[aria-invalid="true"] { border-color: var(--danger); }
+.error { margin: var(--space-1) 0 0; color: var(--danger); font-size: var(--text-xs); }
+.chip { display: inline-flex; align-items: center; gap: var(--space-2); margin: 0; padding: var(--space-1) var(--space-3); border-radius: var(--radius-pill); background: var(--accent-subtle); color: var(--accent-strong); font-size: var(--text-sm); }
+.chip button { border: 0; background: none; color: inherit; font: inherit; cursor: pointer; }
+.chip button:focus-visible { outline: var(--focus-outline-width, 2px) solid var(--focus-outline, var(--accent)); outline-offset: 2px; border-radius: 50%; }
+.lines { display: grid; margin: 0; font-size: var(--text-sm); }
+.lines > div { display: flex; justify-content: space-between; gap: var(--space-3); padding: var(--space-1) 0; font-variant-numeric: tabular-nums; overflow: hidden; }
+.lines dt { color: var(--text-secondary); } .lines dd { margin: 0; text-align: right; }
+.discount dd { color: var(--accent-strong); }
+.muted { color: var(--text-muted); font-size: var(--text-xs); }
+.total { display: flex; justify-content: space-between; align-items: baseline; margin: 0; padding-top: var(--space-3); border-top: 1px solid var(--border-strong); }
+.total b { font-family: var(--font-display); font-size: var(--text-3xl); font-weight: 500; letter-spacing: var(--tracking-display); font-variant-numeric: tabular-nums; }
+.payWrap { display: grid; gap: var(--space-1); }
+.pay { width: 100%; }
+.payLabel { display: inline-block; }
+.secure { display: flex; align-items: center; justify-content: center; gap: var(--space-1); margin: 0; color: var(--text-muted); font-size: var(--text-xs); }
+.footnote { margin: 0; color: var(--text-muted); font-size: var(--text-xs); text-align: center; }

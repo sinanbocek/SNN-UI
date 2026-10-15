@@ -39,6 +39,7 @@ const FILES = {
   listing: "registry/components/product-listing/product-listing-format.ts",
   detail: "registry/components/product-detail/product-detail-format.ts",
   cart: "registry/components/cart-drawer/cart-drawer-format.ts",
+  checkout: "registry/components/checkout-summary/checkout-summary-format.ts",
 };
 const mods = {};
 let temp;
@@ -513,4 +514,26 @@ test("sepet: toplam, kargo eşiği, kupon indirimi ve yazımlar kuruş tamsayıs
   assert.equal(mods.cart.cartButtonLabel(1234), "Sepet, 1.234 ürün");
   assert.equal(mods.cart.couponAppliedText("HOSGELDIN", 10199), "HOSGELDIN kuponu uygulandı, ₺101,99 indirim.");
   assert.equal(mods.cart.orderText(101990), "Siparişiniz alındı. Toplam ₺1.019,90.");
+});
+
+test("sipariş özeti: indirim, kupon, vergi ve toplam kuruş tamsayısıyla ve ABACUS çıktısıdır", () => {
+  const auto = [{ id: "y", label: "Yıllık", amount: 478.08 }];
+  const base = mods.checkout.summarize(478080, auto, null, 20);
+  assert.equal(base.netMinor, 430272);
+  assert.equal(base.taxMinor, 86054);
+  assert.equal(base.totalMinor, 516326);
+  const withCode = mods.checkout.summarize(478080, auto, { code: "A", percent: 15 }, 20);
+  assert.equal(withCode.couponMinor, 64541);
+  assert.equal(withCode.totalMinor, Math.round((430272 - 64541) * 1.2));
+  assert.equal(mods.checkout.summarize(478080, auto, { code: "B", amount: 100 }, null).couponMinor, 10000);
+  assert.equal(mods.checkout.summarize(478080, auto, null, null).taxMinor, null);
+  assert.equal(mods.checkout.summarize(478080, auto, null, null).totalMinor, 430272);
+  assert.equal(mods.checkout.summarize(5000, [], { code: "C", amount: 100 }, 20).totalMinor, 0);
+  assert.equal(mods.checkout.summarize(5000, [{ id: "x", label: "X", amount: 80 }], null, 20).netMinor, 0);
+  assert.equal(mods.checkout.payLabel(516326), money.formatMajor(5163.26, { currency: "TRY", digits: 2, kurus: true }) + " öde");
+  assert.equal(mods.checkout.payLabel(516326), "₺5.163,26 öde");
+  assert.equal(mods.checkout.taxLabel(20), "Vergi · " + money.percent(20, 0));
+  assert.equal(mods.checkout.negativeText(64541), "-₺645,41");
+  assert.equal(mods.checkout.removeCodeLabel("A"), "Kodu kaldır: A");
+  assert.equal(mods.checkout.totalSentence(516326), "Ödenecek toplam ₺5.163,26");
 });

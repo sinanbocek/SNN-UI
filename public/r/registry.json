@@ -2976,6 +2976,47 @@
         "arcCommit": "bfdf7e8",
         "arcSource": "registry/components/cart-drawer"
       }
+    },
+    {
+      "name": "checkout-summary",
+      "type": "registry:ui",
+      "title": "Sipariş özeti",
+      "description": "Blok: tek ürünlü bir siparişin ödemeden önceki son özeti. Küçük görsel kutulu ürün satırı (ad tek satır, fiyat ve dönem notu), kupon alanı (kod yazılıp Enter ya da \"Uygula\"; geçerliyse alan çipe döner ve indirim satırı yükseklikle açılır, geçersizse alan yatay sallanır ve \"Bu kupon geçerli değil.\" çıkar; çipin kaldır düğmesi kodu geri alır ve odağı alana verir), otomatik indirim satırları (eksi tutar), vergi satırı (oran verilirse hesaplanır, verilmezse \"ödemede hesaplanır\"), dönen genel toplam ve \"₺… öde\" düğmesi. Düğme boşta → İşleniyor (dönen halka) → Ödendi arasında yükselerek ve bulanıkla değişir, hata olursa \"Tekrar dene\" ve satır içi hata yazar; ödeme kapalıysa düğme görünür ama basılamaz. Altında kilit simgeli \"Şifreli ödeme\" notu ve isteğe bağlı küçük yazı vardır. Kart en çok 440 px, daha dar kapta doldurur.",
+      "dependencies": [
+        "@snn/abacus-core@github:sinanbocek/SNN-Abacus-Core#semver:^4.3.0",
+        "motion"
+      ],
+      "registryDependencies": [
+        "@snn-ui/snn-foundation",
+        "@snn-ui/snn-motion-tokens",
+        "@snn-ui/animated-counter",
+        "@snn-ui/button",
+        "@snn-ui/snn-chart-format",
+        "@snn-ui/snn-motion-tokens",
+        "@snn-ui/snn-shop-parts",
+        "@snn-ui/snn-viz-utils"
+      ],
+      "files": [
+        {
+          "path": "registry/components/checkout-summary/checkout-summary-format.ts",
+          "type": "registry:component",
+          "target": "@components/snn/checkout-summary/checkout-summary-format.ts"
+        },
+        {
+          "path": "registry/components/checkout-summary/checkout-summary.module.css",
+          "type": "registry:component",
+          "target": "@components/snn/checkout-summary/checkout-summary.module.css"
+        },
+        {
+          "path": "registry/components/checkout-summary/checkout-summary.tsx",
+          "type": "registry:component",
+          "target": "@components/snn/checkout-summary/checkout-summary.tsx"
+        }
+      ],
+      "meta": {
+        "arcCommit": "bfdf7e8",
+        "arcSource": "registry/components/checkout-summary"
+      }
     }
   ]
 }

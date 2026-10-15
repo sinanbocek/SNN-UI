@@ -3,9 +3,11 @@ import type { ReactNode } from "react";
 import { ProductListingDemo } from "./product-listing";
 import { ProductDetailDemo } from "./product-detail";
 import { CartDrawerDemo } from "./cart-drawer";
+import { CheckoutSummaryDemo } from "./checkout-summary";
 
 export const dalga3Demos: Record<string, () => ReactNode> = {
   "product-listing": () => <ProductListingDemo />,
   "product-detail": () => <ProductDetailDemo />,
   "cart-drawer": () => <CartDrawerDemo />,
+  "checkout-summary": () => <CheckoutSummaryDemo />,
 };
