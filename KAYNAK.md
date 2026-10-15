@@ -103,3 +103,19 @@ Bu parçalar Arc'tan alınmadı; tariflerinden sıfırdan yazıldı (`arayuz-sta
 | `availability-picker` | Arc Pro availability-picker'dan esinlenildi; kod okunmadı; tarif: docs/tarifler/availability-picker.md | `avatar`, `button`, `empty-state`, `skeleton` |
 | `project-board` | Arc Pro project-board'dan esinlenildi; kod okunmadı; tarif: docs/tarifler/project-board.md | `avatar`, `badge`, `button`, `empty-state`, `input`, `progress`, `segmented-control`, `skeleton`, `tooltip` |
 | `kanban-board` | Arc Pro kanban-board'dan esinlenildi; kod okunmadı; tarif: docs/tarifler/kanban-board.md | `avatar`, `button`, `checkbox`, `drawer`, `empty-state`, `input`, `segmented-control`, `select`, `skeleton`, `snn-pointer-drag` |
+
+## Grafik ve sayı bileşenleri (ABACUS'a bağlı, B sınıfı)
+
+Arc'ın ücretsiz grafik ve sayı bileşenleri (commit `bfdf7e8`, MIT). Hepsi `Intl`, `toLocaleString`, `toFixed`, `toUpperCase` ya da `toLowerCase` kullanıyordu (`docs/arc-siniflandirma.md`, B sınıfı) ve varsayılanı `en-US` / USD idi. Burada ABACUS'a bağlandı: sayı `money.fmtDecimalGrouped`, para `money.formatMajor` / `money.compactMajor`, yüzde `money.percent`, değişim `math.percentChange`, yuvarlama `math.round`, tarih `date.*`, harf `text.upper` / `text.lower`. `locale` ve `currency` prop'ları kaldırıldı ya da ABACUS'a geçti; varsayılan para birimi TRY, ondalık ayracı virgüldür. Bağımlılık satırı avatar ile aynı: `@snn/abacus-core` `^4.3.0`.
+
+Ortak uyarlamalar (ilk raftakilere ek):
+
+1. **Ortak biçimleyici:** `snn-chart-format` (`registry/components/lib/chart-format.ts`). Arc'ta yok; Arc her dosyada kendi `Intl.NumberFormat` örneğini kuruyordu. `formatNumber`, `formatCompact`, `formatMoney`, `formatMoneyCompact`, `formatRatio`, `formatPercent`, `formatChange` ve çizim koordinatı için `roundTo`.
+2. **Grafik renkleri:** `snn-chart-palette` (`registry/foundation/snn-chart-palette.css`). Arc'ın `--series-1…4` paleti `foundation.css` içindeydi; üçüncü rengi amberdi (ilk rafta bu yüzden alınmadı). Yeni palet: mavi, menekşe, yeşil, gül; açık ve koyu tema. `test/amber.test.mjs` bu dosyayı da tarar.
+3. **Koruma:** `test/yasak-cagri.test.mjs` registry altındaki her `.ts/.tsx` dosyasında beş yasak çağrıyı arar; `test/bicim.test.mjs` biçimleyicileri ABACUS çıktısıyla karşılaştırır.
+4. **Satır sonu:** `shadcn build` kaynak dosyayı olduğu gibi gömer; Windows'ta yazılan dosyalar CRLF kalırsa CI'daki LF çıktısıyla `public/r` farklı çıkar. Dosyalar LF olarak commit edilir.
+
+| Parça | Arc'taki yer | Uyarlama |
+|---|---|---|
+| `animated-counter` | `registry/components/animated-counter` | `Intl.NumberFormat.formatToParts` yerine `money.fmtDecimalGrouped` ("1.234,5"); parçalama `counter-parts.ts` dosyasına ayrıldı (saf, test edilir). `locale` prop'u kaldırıldı. Bulanıklık `toFixed(2)` yerine `math.round`. İçe aktarma yolu `../lib/motion-tokens`. |
+| `metric-card` | `registry/components/metric-card` | Değer yazımı `metric-card-format.ts` ile ABACUS'tan: `format` ("number" / "money" / "compact-money") ve `currency` (TRY) prop'ları eklendi, Arc'ın `prefix` yazımı yerine geçti. Değişim yönü okuması Türkçe sayıyı ("1.234,5", "%12,3") doğru okur; Arc virgülü atıp en-US okuyordu. |

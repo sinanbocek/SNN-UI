@@ -23,6 +23,7 @@ const items = [
     type: "registry:item",
     title: item.title,
     description: item.description,
+    ...(item.deps ? { dependencies: item.deps } : {}),
     files: item.files.map(file => ({ path: file.path, type: file.type ?? "registry:component", target: `${INSTALL_ROOT}/${file.target}` })),
   })),
   ...components.map(item => ({

@@ -43,6 +43,35 @@
       ]
     },
     {
+      "name": "snn-chart-palette",
+      "type": "registry:item",
+      "title": "SNN grafik renkleri",
+      "description": "Grafik serilerinin dört rengi (mavi, menekşe, yeşil, gül; --series-1 … --series-4), açık ve koyu tema. Amber yok. Grafikler bunu kullanır; projede bir kez içe aktarılır.",
+      "files": [
+        {
+          "path": "registry/foundation/snn-chart-palette.css",
+          "type": "registry:component",
+          "target": "@components/snn/snn-chart-palette.css"
+        }
+      ]
+    },
+    {
+      "name": "snn-chart-format",
+      "type": "registry:item",
+      "title": "SNN grafik biçimleyicileri",
+      "description": "Grafik ve sayı bileşenlerinin ortak biçimleyicileri (formatNumber, formatCompact, formatMoney, formatMoneyCompact, formatRatio, formatChange). Hepsi ABACUS'tandır: \"1.234,5\", \"₺1,25Mn\", \"%12,3\". Grafiklerle kendiliğinden gelir.",
+      "dependencies": [
+        "@snn/abacus-core@github:sinanbocek/SNN-Abacus-Core#semver:^4.3.0"
+      ],
+      "files": [
+        {
+          "path": "registry/components/lib/chart-format.ts",
+          "type": "registry:lib",
+          "target": "@components/snn/lib/chart-format.ts"
+        }
+      ]
+    },
+    {
       "name": "button",
       "type": "registry:ui",
       "title": "Düğme",
@@ -1417,6 +1446,79 @@
       "meta": {
         "arcCommit": "bfdf7e8",
         "arcSource": "registry/components/kanban-board"
+      }
+    },
+    {
+      "name": "animated-counter",
+      "type": "registry:ui",
+      "title": "Dönen rakamlı sayaç",
+      "description": "Sayı değişince her rakam kilometre sayacı gibi döner (9 → 0 sarar, yön sayının gittiği yöndür); binlik ayracı nokta, ondalık ayracı virgül (\"1.234,5\"). İstenirse ilk görünüşte sıfırdan yukarı sayar. Ekran okuyucu düz metni okur.",
+      "dependencies": [
+        "@snn/abacus-core@github:sinanbocek/SNN-Abacus-Core#semver:^4.3.0",
+        "motion"
+      ],
+      "registryDependencies": [
+        "@snn-ui/snn-foundation",
+        "@snn-ui/snn-motion-tokens",
+        "@snn-ui/snn-chart-format"
+      ],
+      "files": [
+        {
+          "path": "registry/components/animated-counter/animated-counter.module.css",
+          "type": "registry:component",
+          "target": "@components/snn/animated-counter/animated-counter.module.css"
+        },
+        {
+          "path": "registry/components/animated-counter/animated-counter.tsx",
+          "type": "registry:component",
+          "target": "@components/snn/animated-counter/animated-counter.tsx"
+        },
+        {
+          "path": "registry/components/animated-counter/counter-parts.ts",
+          "type": "registry:component",
+          "target": "@components/snn/animated-counter/counter-parts.ts"
+        }
+      ],
+      "meta": {
+        "arcCommit": "bfdf7e8",
+        "arcSource": "registry/components/animated-counter"
+      }
+    },
+    {
+      "name": "metric-card",
+      "type": "registry:ui",
+      "title": "Gösterge kartı",
+      "description": "Bir göstergeyi tek kartta söyler: başlık, dönen rakamlı değer, işaretli değişim etiketi (yeşil/kırmızı) ve bağlam cümlesi. Değer düz sayı, tam tutar (₺1.250.000) ya da kısaltılmış tutar (₺1,25Mn) olabilir. Metinler değişince yön duyarlı kayar.",
+      "dependencies": [
+        "@snn/abacus-core@github:sinanbocek/SNN-Abacus-Core#semver:^4.3.0",
+        "motion"
+      ],
+      "registryDependencies": [
+        "@snn-ui/snn-foundation",
+        "@snn-ui/snn-motion-tokens",
+        "@snn-ui/animated-counter",
+        "@snn-ui/snn-chart-format"
+      ],
+      "files": [
+        {
+          "path": "registry/components/metric-card/metric-card-format.ts",
+          "type": "registry:component",
+          "target": "@components/snn/metric-card/metric-card-format.ts"
+        },
+        {
+          "path": "registry/components/metric-card/metric-card.module.css",
+          "type": "registry:component",
+          "target": "@components/snn/metric-card/metric-card.module.css"
+        },
+        {
+          "path": "registry/components/metric-card/metric-card.tsx",
+          "type": "registry:component",
+          "target": "@components/snn/metric-card/metric-card.tsx"
+        }
+      ],
+      "meta": {
+        "arcCommit": "bfdf7e8",
+        "arcSource": "registry/components/metric-card"
       }
     }
   ]

@@ -1,0 +1,9 @@
+// Dalga 2 ön şartı: Arc'ın ücretsiz grafik ve sayı bileşenleri (ABACUS'a bağlı) galeri örnekleri.
+import type { ReactNode } from "react";
+import { AnimatedCounterDemo } from "./animated-counter";
+import { MetricCardDemo } from "./metric-card";
+
+export const grafikDemos: Record<string, () => ReactNode> = {
+  "animated-counter": () => <AnimatedCounterDemo />,
+  "metric-card": () => <MetricCardDemo />,
+};
