@@ -65,3 +65,19 @@ Plan §6.4 ilk rafa 20 bileşen yazar; `metric-card` A sınıfı sayılmıştı 
 | Parça | Kaynak | Not |
 |---|---|---|
 | `save-bar` | Arc'tan alınmadı; sıfırdan yazıldı | Arc Pro settings-page'den esinlenildi; kod okunmadı; tarif: docs/tarifler/settings-page.md. Sayı düz metin olarak değişir; Arc'ın `slot-text` / `animated-counter` bileşenleri kullanılmadı (B sınıfı). Kısayol `event.code` ile okunur (`toLowerCase` yok). |
+
+## Ortak parçalar: Arc'tan uyarlananlar (Pro-esinlenme bileşenleri için)
+
+Arc commit'i `bfdf7e8`. Ortak uyarlamalar (içe aktarma yolu, Türkçe yorum, kurulum yeri) yukarıdaki üç madde gibidir; satır sayısı korunmuştur (aşağıda belirtilen yerler dışında).
+
+| Parça | Arc'taki yer | Uyarlama |
+|---|---|---|
+| `badge` | `registry/components/badge` | Yalnız yorumlar Türkçe. |
+| `breadcrumb` | `registry/components/breadcrumb` | `@/lib/arc-provider` içe aktarması kalktı: `ArcLink` yerine düz `<a>` (SNN-UI'de `arc-provider` yok; yönlendirici bağlantısı gerekirse proje `onClick` kullanır). Varsayılan `ariaLabel`: "Breadcrumb" → "Yol izi". |
+| `progress` | `registry/components/progress` | Varsayılan `aria-label`: "Progress" → "İlerleme". Sayaç `Math.round` ile düz yüzde yazar; `Intl` yok. |
+| `segmented-control` | `registry/components/segmented-control` | Yalnız yorumlar Türkçe. |
+| `drawer` | `registry/components/drawer` | Yorumlar Türkçe; "Close drawer" → "Çekmeceyi kapat". |
+| `combobox` | `registry/components/combobox` | **B sınıfı, ABACUS'a bağlandı.** Süzmedeki iki `toLocaleLowerCase` yerine `text.searchKey` (`import { text } from "@snn/abacus-core"`). "İstanbul", "Istanbul", "istanbul" aynı sonucu bulur. Varsayılan metinler: "Search or select…" → "Ara ya da seç…", "No matches found" → "Eşleşme bulunamadı", "Clear selection" → "Seçimi temizle", "{label} options" → "{label} seçenekleri". İki satır eklendi (içe aktarma, açıklama yorumu). |
+| `avatar` | `registry/components/avatar` | **B sınıfı, ABACUS'a bağlandı.** Baş harf `toUpperCase` yerine `text.upper` ("ismail" → "İ"). `@/lib/arc-provider` içe aktarması kalktı: `ArcImage` (fill) yerine düz `<img>`; doldurma davranışı CSS ile verildi (`position: absolute; inset: 0; width/height: 100%`). Durum etiketi Türkçe: "online/offline" → "çevrimiçi/çevrimdışı" (`statusLabel`). |
+
+**ABACUS bağımlılığı.** Kayıttaki npm bağımlılığı `@snn/abacus-core@github:sinanbocek/SNN-Abacus-Core#semver:^4.3.0` biçimindedir; `shadcn add` bunu `npm install` ile kurar ve proje `package.json`'ına `"@snn/abacus-core": "github:…#semver:^4.3.0"` yazar. Düz `@snn/abacus-core` adı npm'de olmadığı için 404 verir (2026-10-15 ölçüldü). Paket ham TypeScript sunar; boş Vite + React 19 + TS projesinde `tsc -b && vite build` geçti.

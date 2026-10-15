@@ -61,6 +61,13 @@ Gereken paketler: React 19, `motion`; bazı bileşenlerde Radix ve `lucide-react
 | `pagination` | Sayfalama | Uzun listede sınırları belli sayfa geçişi. | `npx shadcn@latest add @snn-ui/pagination` |
 | `search-field` | Arama kutusu | Tanınır arama girişi; temizleme düğmesiyle. | `npx shadcn@latest add @snn-ui/search-field` |
 | `save-bar` | Kaydetme çubuğu | Formun altında yüzer; "{n} kaydedilmemiş değişiklik", Vazgeç ve Kaydet. Kaydediliyor, kaydedildi, hata durumları ve Ctrl/Cmd+S vardır. Gerçek kaydetmeyi proje yapar; çubuk yalnız durumu gösterir. Arc Pro settings-page'den esinlenildi (tarif: docs/tarifler/settings-page.md). | `npx shadcn@latest add @snn-ui/save-bar` |
+| `badge` | Rozet | Durumu kısa bir etiketle gösterir; metin ve simge değişince hap yumuşakça yeni genişliğe yaylanır. Tonlar: neutral, success, info, warning (mavi-gri), danger. | `npx shadcn@latest add @snn-ui/badge` |
+| `breadcrumb` | Yol izi | Bulunulan yeri üst sayfalarıyla gösterir; son parça geçerli sayfadır. Bağlantı yoksa düğme olarak çizilir. Bağlantı düz `<a>` ile çizilir; yönlendirici (router) bağlantısı gerekiyorsa proje `onClick` ile kendi yönlendirmesini çağırır. | `npx shadcn@latest add @snn-ui/breadcrumb` |
+| `progress` | İlerleme çubuğu | Bilinen bir işin ne kadar bittiğini gösterir; yüzde etiketi çubukla birlikte sayılır, bitince onay işareti çıkar. | `npx shadcn@latest add @snn-ui/progress` |
+| `segmented-control` | Bölmeli seçici | Birkaç kardeş görünüm arasında tek seçim; seçili vurgu kayarak geçer, ok tuşlarıyla gezilir. | `npx shadcn@latest add @snn-ui/segmented-control` |
+| `drawer` | Çekmece | Kenardan kayarak gelen yan panel; başlık çubuğundan sürüklenip kapatılır, Escape ve dışarı tıklama da kapatır. | `npx shadcn@latest add @snn-ui/drawer` |
+| `combobox` | Aramalı seçim | Yazarak süzülen açılır liste; ok tuşları, Enter ve Escape ile kullanılır. Türkçe aramada "İstanbul", "Istanbul" ve "istanbul" aynı sonucu bulur. Arama anahtarı ABACUS `text.searchKey` ile üretilir; proje `@snn/abacus-core` paketini kendiliğinden alır. | `npx shadcn@latest add @snn-ui/combobox` |
+| `avatar` | Kişi simgesi | Fotoğraf ya da ad baş harfleri; isteğe bağlı çevrimiçi/çevrimdışı noktası. Fotoğraf yüklenemezse baş harflere döner. Baş harf ABACUS `text.upper` ile büyütülür ("ismail" → "İ"). Fotoğraf düz `<img>` ile çizilir. | `npx shadcn@latest add @snn-ui/avatar` |
 
 ## Kullanım örnekleri
 
@@ -222,6 +229,62 @@ import { SearchField } from "@/components/snn/search-field/search-field";
 import { SaveBar } from "@/components/snn/save-bar/save-bar";
 
 <SaveBar changeCount={3} status={status} onSave={save} onDiscard={reset} />
+```
+
+### Rozet (`badge`)
+
+```tsx
+import { Badge } from "@/components/snn/badge/badge";
+
+<Badge tone="success">Onaylandı</Badge>
+```
+
+### Yol izi (`breadcrumb`)
+
+```tsx
+import { Breadcrumb } from "@/components/snn/breadcrumb/breadcrumb";
+
+<Breadcrumb items={[{ label: "Projeler", href: "/projeler" }, { label: "Teklif 12" }]} />
+```
+
+### İlerleme çubuğu (`progress`)
+
+```tsx
+import { Progress } from "@/components/snn/progress/progress";
+
+<Progress label="Yükleniyor" value={64} showValue />
+```
+
+### Bölmeli seçici (`segmented-control`)
+
+```tsx
+import SegmentedControl from "@/components/snn/segmented-control/segmented-control";
+
+<SegmentedControl label="Görünüm" value={view} onValueChange={setView} options={[{ value: "liste", label: "Liste" }, { value: "pano", label: "Pano" }]} />
+```
+
+### Çekmece (`drawer`)
+
+```tsx
+import { Drawer, DrawerTrigger, DrawerClose, DrawerContent, useDrawerItem } from "@/components/snn/drawer/drawer";
+
+<Drawer><DrawerTrigger asChild><Button>Aç</Button></DrawerTrigger><DrawerContent title="Ayrıntılar">…</DrawerContent></Drawer>
+```
+
+### Aramalı seçim (`combobox`)
+
+```tsx
+import { Combobox } from "@/components/snn/combobox/combobox";
+
+<Combobox label="Şehir" options={[{ value: "ist", label: "İstanbul" }]} onValueChange={setCity} />
+```
+
+### Kişi simgesi (`avatar`)
+
+```tsx
+import { Avatar } from "@/components/snn/avatar/avatar";
+
+<Avatar name="İsmail Yılmaz" status="online" />
 ```
 
 ## Bu rafta olmayanlar
