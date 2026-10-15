@@ -18,6 +18,7 @@ const FILES = {
   splitBar: "registry/components/split-bar/split-bar-format.ts",
   sankey: "registry/components/sankey-flow/sankey-flow-format.ts",
   funnel: "registry/components/funnel-chart/funnel-chart-format.ts",
+  race: "registry/components/race-bar-chart/race-bar-chart-format.ts",
 };
 const mods = {};
 let temp;
@@ -107,4 +108,15 @@ test("huni grafiği: tutar 1250000 TRY, oran ve düşüş ABACUS çıktısıdır
   assert.equal(mods.funnel.dropText("count", 200, 50), "↓ 150 (" + money.percent(math.percentChange(50, 200), 1, { sign: "always" }) + ")");
   const band = mods.funnel.funnelBands(steps, "total")[0];
   assert.deepEqual([band.top[0], band.bottom[0]], [0, 1]);
+});
+
+test("sıralama yarışı: tutar etiketi 1250000 TRY ABACUS çıktısıdır, ara değer ve sıralama doğru", () => {
+  assert.equal(mods.race.fullText("money", 1250000), money.formatMajor(1250000, { currency: "TRY", digits: 0 }));
+  assert.equal(mods.race.shortText("money", 1250000), money.compactMajor(1250000, { style: "B/Mn/Mr" }));
+  assert.equal(mods.race.shortText("money", 1250000.4), money.compactMajor(1250000, { style: "B/Mn/Mr" }));
+  assert.equal(mods.race.fullText("count", 1234.4), money.fmtDecimalGrouped(1234, 0));
+  assert.equal(mods.race.valueAt([100, 200], .5), 150);
+  const rows = mods.race.rowsAt([{ key: "a", label: "A", values: [10, 40] }, { key: "b", label: "B", values: [30, 20] }], .5);
+  assert.deepEqual(rows.map(row => row.key + row.rank), ["a0", "b1"]);
+  assert.equal(mods.race.niceMax(1234), 2000);
 });

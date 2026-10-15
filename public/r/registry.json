@@ -2100,6 +2100,44 @@
         "arcCommit": "bfdf7e8",
         "arcSource": "registry/components/funnel-chart"
       }
+    },
+    {
+      "name": "race-bar-chart",
+      "type": "registry:ui",
+      "title": "Sıralama yarışı",
+      "description": "Bir sıralamanın zaman içinde nasıl değiştiğini yatay çubuklarla anlatır: çubuklar uzar, birbirini geçer, değerler dönemler arasında ara değerle akar; büyük dönem etiketi değişir. Altta oynat/duraklat düğmesi ve istenen döneme götüren kaydırıcı vardır. Görününce kendiliğinden oynar (\"hareketi azalt\" açıkken oynamaz), görünüm dışında durur. Boşluk, ok tuşları, Home/End ve yukarı/aşağı ok ile gezilir; dönem ve lider kibar canlı bölgede duyurulur. Ekran okuyucu için tüm dönemlerin tablosu vardır.",
+      "dependencies": [
+        "@snn/abacus-core@github:sinanbocek/SNN-Abacus-Core#semver:^4.3.0",
+        "motion"
+      ],
+      "registryDependencies": [
+        "@snn-ui/snn-foundation",
+        "@snn-ui/snn-motion-tokens",
+        "@snn-ui/snn-chart-format",
+        "@snn-ui/snn-chart-palette",
+        "@snn-ui/snn-viz-utils"
+      ],
+      "files": [
+        {
+          "path": "registry/components/race-bar-chart/race-bar-chart-format.ts",
+          "type": "registry:component",
+          "target": "@components/snn/race-bar-chart/race-bar-chart-format.ts"
+        },
+        {
+          "path": "registry/components/race-bar-chart/race-bar-chart.module.css",
+          "type": "registry:component",
+          "target": "@components/snn/race-bar-chart/race-bar-chart.module.css"
+        },
+        {
+          "path": "registry/components/race-bar-chart/race-bar-chart.tsx",
+          "type": "registry:component",
+          "target": "@components/snn/race-bar-chart/race-bar-chart.tsx"
+        }
+      ],
+      "meta": {
+        "arcCommit": "bfdf7e8",
+        "arcSource": "registry/components/race-bar-chart"
+      }
     }
   ]
 }
