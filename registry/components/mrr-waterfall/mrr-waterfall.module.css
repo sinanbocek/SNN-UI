@@ -1,0 +1,44 @@
+.root { container-type: inline-size; display: grid; min-width: 0; gap: var(--space-5); padding: var(--space-6); border: 1px solid var(--border); border-radius: var(--radius-panel); background: var(--surface); color: var(--foreground); }
+.header { display: flex; flex-wrap: wrap; align-items: flex-start; justify-content: space-between; gap: var(--space-3); }
+.titles { min-width: 0; }
+.title { margin: 0; font-family: var(--font-display); font-size: var(--text-xl); font-weight: 500; letter-spacing: var(--tracking-display); }
+.subtitle { margin: 2px 0 0; color: var(--text-secondary); font-size: var(--text-sm); }
+.tools { display: flex; flex-wrap: wrap; gap: var(--space-2); }
+.summary { display: flex; flex-wrap: wrap; align-items: flex-end; justify-content: space-between; gap: var(--space-5); }
+.endBlock { display: grid; gap: var(--space-1); }
+.statValue { font-family: var(--font-display); font-size: var(--text-4xl); letter-spacing: var(--tracking-display); line-height: var(--leading-display); font-variant-numeric: tabular-nums; }
+.asOf { color: var(--text-secondary); font-size: var(--text-sm); }
+.change { color: var(--success); font-size: var(--text-sm); font-variant-numeric: tabular-nums; }
+.marks { display: flex; flex-wrap: wrap; gap: var(--space-6); margin: 0; }
+.marks div { display: grid; gap: 2px; }
+.marks dt { color: var(--text-secondary); font-size: var(--text-xs); }
+.marks dd { margin: 0; font-family: var(--font-display); font-size: var(--text-xl); font-variant-numeric: tabular-nums; }
+.body { display: grid; grid-template-columns: minmax(0, 1fr) 17rem; gap: var(--space-5); align-items: start; }
+.chart { min-width: 0; }
+.svg { display: block; overflow: visible; }
+.grid { stroke: var(--border); stroke-width: 1; shape-rendering: crispEdges; }
+.axisText { fill: var(--text-muted); font-size: 11px; }
+.step { outline: none; cursor: pointer; transition: opacity var(--duration-fast) var(--ease-standard); }
+.step[data-dim] { opacity: .45; }
+.hit { fill: transparent; }
+.bar { transition: opacity var(--duration-fast) var(--ease-standard); }
+.step[data-selected] .bar { stroke: var(--foreground); stroke-width: 2; }
+.step:focus-visible .bar { stroke: var(--foreground); stroke-width: 2; }
+.valueText { fill: var(--foreground); font-size: 12px; font-weight: 500; font-variant-numeric: tabular-nums; }
+.labelText { fill: var(--text-secondary); font-size: 11px; }
+.panel { min-width: 0; padding: var(--space-4); border: 1px solid var(--border); border-radius: var(--radius-control); background: var(--surface-muted); }
+.panelTitle { margin: 0; font-size: var(--text-sm); font-weight: 500; }
+.panelSum { margin: 2px 0 var(--space-3); color: var(--text-secondary); font-size: var(--text-sm); font-variant-numeric: tabular-nums; }
+.hint { margin: 0; color: var(--text-muted); font-size: var(--text-sm); }
+.accounts { display: grid; gap: var(--space-1); margin: 0; padding: 0; list-style: none; }
+.account { position: relative; display: flex; align-items: center; justify-content: space-between; gap: var(--space-2); min-height: 2.5rem; padding: 0 var(--space-2); font-size: var(--text-sm); }
+.accountFill { position: absolute; inset: 0 auto 0 0; border-radius: var(--radius-control); background: var(--accent-subtle); }
+.accountName { position: relative; display: grid; min-width: 0; }
+.accountName small { color: var(--text-muted); font-size: var(--text-xs); }
+.accountAmount { position: relative; font-variant-numeric: tabular-nums; white-space: nowrap; }
+.error { display: flex; align-items: center; justify-content: center; gap: var(--space-3); padding: var(--space-8) 0; color: var(--danger); }
+.srOnly { position: absolute; width: 1px; height: 1px; margin: -1px; padding: 0; overflow: hidden; clip: rect(0 0 0 0); white-space: nowrap; border: 0; }
+@container (max-width: 800px) { .body { grid-template-columns: minmax(0, 1fr); } }
+@container (max-width: 560px) { .root { padding: var(--space-4); } .marks { gap: var(--space-3); flex-wrap: nowrap; } .marks dd { font-size: var(--text-base); } .statValue { font-size: var(--text-3xl); } }
+.root[data-reduced] .step, .root[data-reduced] .bar { transition: none; }
+@media (prefers-reduced-motion: reduce) { .step, .bar { transition: none; } }

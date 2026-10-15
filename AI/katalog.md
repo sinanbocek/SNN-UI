@@ -99,6 +99,16 @@ Gereken paketler: React 19, `motion`; bazı bileşenlerde Radix ve `lucide-react
 | `streamgraph` | Akış grafiği | Birkaç parçanın karışımının zamanla nasıl değiştiğini, genel biçim kesin değerlerden önemli olduğunda gösterir: katmanlar merkezden dışa, akıcı bir şerit olarak dizilir. Katmanlar yeni veriye ve gizlemeye akarak uyar, ilk görünüşte merkezden kabarır. Katman adları yeterince kalın kesitte doğrudan yazılır; üzerine gelinen katman öne çıkar, ipucu o zamandaki tüm değerleri söyler. Ok tuşlarıyla zamanda ve katmanlar arasında gezilir. Değerler ABACUS biçimindedir ("1.234,5"); `formatValue` ile birimli yazım verilebilir. Hafta ve tarih etiketlerini (`label`, `axisLabel`) proje ABACUS `date.format` ile hazırlar. Renkler `snn-chart-palette`tir (dört ton, sonrası nötr); amber yok. Verinin zaman aralığını proje yönetir. | `npx shadcn@latest add @snn-ui/streamgraph` |
 | `ridgeline` | Sırt çizgisi grafiği | Birçok dağılımın biçimini aynı anda karşılaştırır, örneğin aylara göre günlük sıcaklık ya da bölgelere göre yanıt süresi: her satır, ham gözlemlerin yumuşatılmış yoğunluğudur ve üstteki satırlara taşar. Sırtlar medyanlarına göre açık tondan koyuya gölgelenir; üzerine gelinen sırt öne çıkar, ipucu medyanı, orta yarıyı, aralığı ve imleç değerinin altında kalan payı ("%36") söyler. Ok tuşlarıyla sırtlar ve değerler gezilir; veri değişince sırtlar yeni biçime akar. Değerler ABACUS biçimindedir ("1.234,5", eksi için gerçek eksi işareti); `formatValue` ile özel yazım verilebilir. Paylar `money.percent` ile yazılır ("%36"). Renk tek tondur: `snn-chart-palette` birinci serisi, medyana göre açıktan koyuya; amber yok. Ham gözlemleri proje verir (yüzlerce değer rahat; çok uzun listelerde önceden toplamak projenin işidir). | `npx shadcn@latest add @snn-ui/ridgeline` |
 | `slot-text` | Makaralı metin | Metin ve sayıların yeni değerine kumar makinesi makaraları gibi dönmesi: her karakter bir makaradır, rakamlar sayının gittiği yönde çarkta sayar, harfler Türk alfabesinde (ç, ğ, ı, ö, ş, ü dahil) karışır, makaralar soldan sağa birer birer yumuşakça durur. Sayılar ABACUS biçimindedir ("12.480", "1.234,5"), baştaki ₺ gibi simgeler rakama dönmez. Fiyat, istatistik ve lansman anları için; ekran okuyucu düz metni okur. Sayı değeri `format` verilmezse ABACUS `money.fmtDecimalGrouped` biçimiyle yazılır (en çok 3 ondalık, "1.234,5"); para için `snn-chart-format` (`formatMoney`) ile `format` verilir. Metin değerler olduğu gibi çizilir; harf makaraları Türk alfabesini döner (`text.upper` ile i → İ). `announce` ekran okuyucuya nazikçe duyurur. Hareketi azalt tercihine uyar. | `npx shadcn@latest add @snn-ui/slot-text` |
+| `split-bar` | Bölünmüş yüzde çubuğu | Bir bütünü tek yatay çubukta paylara böler: üzerine gelinen dilim biraz genişler, okuma alanı dilimin adını, payını ("%41,6") ve tutarını yazar. Sığmayan etiketler çubuğun altındaki şeride ince çizgiyle taşar. Açıklama satırından dilimler kapatılıp açılır, kalanlar çubuğu doldurur; son açık dilim kapanmaz. Ok tuşlarıyla gezilir; ekran okuyucu için tablo ve canlı duyuru vardır. Tutarlar TRY ve ABACUS biçimindedir ("₺1.250.000"), paylar `money.percent` ile ("%41,6"); `formatValue` ile adet gibi başka biçim verilebilir. Pay hesabı yuvarlanmamış değerle yapılır, yalnız gösterim yuvarlanır. Sıfır ve negatif dilim çubukta yer almaz; çok kategori için "Diğer"i proje toplar. Dönem seçiciyi proje `actions` ile koyar. Arc Pro split-bar'dan esinlenildi (tarif: docs/tarifler/split-bar.md). | `npx shadcn@latest add @snn-ui/split-bar` |
+| `sankey-flow` | Akış şeması | Bir toplamın aşamalar boyunca nasıl bölündüğünü ve birleştiğini, düğümler arasında kalınlığı değere orantılı şeritlerle gösterir. Düğüme ya da şeride gelince o payın baştan sona tüm yolu vurgulanır, ipucu değeri ve kaynağa göre payı ("%41,6") yazar. Şeritlerde yavaşça ilerleyen noktalar yönü hissettirir; "Akış" anahtarıyla durur. Ok tuşlarıyla düğümler gezilir; dar ekranda şema dikeye döner. Ekran okuyucu için akış tablosu vardır. `kind="count"` adedi ("1.234"), `kind="money"` TRY tutarı ("₺1.250.000", düğüm yanında "₺1,25Mn") yazar; paylar `money.percent` ile. Sütunlar akış yönünden kendiliğinden bulunur (en uzun yol), döngülü akış desteklenmez. Bir sütunda yaklaşık 12'den fazla düğüm varsa küçükleri "Diğer"e proje toplar. Dönem seçiciyi proje `actions` ile koyar. Arc Pro sankey-flow'dan esinlenildi (tarif: docs/tarifler/sankey-flow.md). | `npx shadcn@latest add @snn-ui/sankey-flow` |
+| `funnel-chart` | Huni grafiği | Adım adım daralan bir süreci (ziyaretçi → sipariş) tek yatay bantla gösterir: adım başlıklarında kısa sayı ve bir önceki adımdan kalan oran ("%44,3"), adımlar arasında düşüş ("↓ 15.100 (-%70,6)"). Adıma gelince odak sütunu ve ipucu tam sayıyı, ilk adıma ve öncekine oranı yazar. Parçalı veride Toplam, Bölünmüş ya da tek parça görünümü seçilir; band yeni biçime akar. Ok tuşlarıyla gezilir; dar ekranda huni dikeye döner. Ekran okuyucu için tablo vardır. `kind="count"` adedi, `kind="money"` TRY tutarı yazar; başlıkta kısa ("12,5B", "₺1,25Mn"), ipucunda tam biçim ("48.200"). Oranlar `money.percent`, düşüş yüzdesi `math.percentChange` ile (negatif işaretli). Parçasız veride yalnız Toplam görünür. İlk adım sıfırsa "Veri yok" yazar. Arc Pro funnel-chart'tan esinlenildi (tarif: docs/tarifler/funnel-chart.md). | `npx shadcn@latest add @snn-ui/funnel-chart` |
+| `race-bar-chart` | Sıralama yarışı | Bir sıralamanın zaman içinde nasıl değiştiğini yatay çubuklarla anlatır: çubuklar uzar, birbirini geçer, değerler dönemler arasında ara değerle akar; büyük dönem etiketi değişir. Altta oynat/duraklat düğmesi ve istenen döneme götüren kaydırıcı vardır. Görününce kendiliğinden oynar ("hareketi azalt" açıkken oynamaz), görünüm dışında durur. Boşluk, ok tuşları, Home/End ve yukarı/aşağı ok ile gezilir; dönem ve lider kibar canlı bölgede duyurulur. Ekran okuyucu için tüm dönemlerin tablosu vardır. `kind="money"` TRY tutarı (çubukta kısa "₺1,25Mn", tabloda tam "₺1.250.000"), `kind="count"` adedi yazar; ara değerler yuvarlanır, ekranda kuruş görünmez. Dönem etiketlerini proje ABACUS `date` ile hazırlar. Eksik değer sıfır sayılır; `group` aynı renk grubunu belirler (en çok dört). `autoPlay`, `loop`, `msPerPeriod` ile oynatma ayarlanır. Anlatı bileşenidir, günlük panelde kullanılmaz. Arc Pro race-bar-chart'tan esinlenildi (tarif: docs/tarifler/race-bar-chart.md). | `npx shadcn@latest add @snn-ui/race-bar-chart` |
+| `realtime-stream` | Canlı akış grafiği | Saniyeler içinde değişen bir ölçümü canlı izler: büyük anlık değer (rakamlar döner), "Canlı" / "Duraklatıldı" durum düğmesi ve son 30 saniyeyi gösteren yumuşak çizgi. Grafiğin üstüne gelince ya da odaklanınca görüntü durur, okumalar arka planda birikir; ipucu zamanı ("14:03:27"), değeri ve varsa notu yazar. Anomali notları çizgi üstünde işaretlenir ve bir kez duyurulur. Veri bekleniyor ve bağlantı kesildi ("Yeniden dene") durumları vardır; görünüm dışında çizim durur. Okuma `{ t, value, note? }` biçimindedir (`t`: epoch ms, artan sırada); diziyi büyütmeyi (son birkaç pencereyi tutmayı) ve gerçek bağlantıyı proje yapar, anomali işaretini (`note`) proje verir. Değerler ABACUS biçimindedir ("1.234,5", para `kind="money"` ile "₺41,25"), eksen kısa biçimdedir; zaman etiketleri Türkiye saatiyle ABACUS `date.format` (saat:dakika) ve saniye ile yazılır. `min`/`max` verilirse eksen sabitlenir. Arc Pro realtime-stream'den esinlenildi (tarif: docs/tarifler/realtime-stream.md). | `npx shadcn@latest add @snn-ui/realtime-stream` |
+| `metrics-dashboard` | Özet gösterge paneli | Blok: dört ana gösterge sekme gibi sıralanır (ad, dönen rakamlı değer, ok ve işaretli değişim); seçilen gösterge altındaki çizgi grafikte görülür, "Karşılaştır" önceki dönemin kesikli çizgisini ekler. Üstte dönem anahtarı (7/30/90 gün) ve "Dışa aktar"; altta iki sıralı liste yatay oran çubuklarıyla durur. Yükleniyor, hata ("Yeniden dene"), boş ve dar ekran durumları vardır; düzen pencereye değil bileşenin kendi genişliğine bakar. Göstergeler `kind` ile yazılır: "count" ("1.234"), "money" (kutuda "₺1,25Mn", ipucunda "₺1.250.000"), "percent" ("%3,2"). Değişim adet ve tutarda `math.percentChange` + `money.percent` ("+%11,7"), yüzde türünde puan farkıdır ("+0,1 puan"); yön ok, işaret ve ekran okuyucu metniyle de söylenir, renk tek ipucu değildir. Azalışın iyi olduğu göstergede (`lowerIsBetter`) azalış olumlu renkte yazılır; olumsuz yön kırmızı değil mavi-gridir. Dönem, veri ve yükleme durumunu proje verir; "Dışa aktar" onay iletisini yerelde gösterir, aktarımı proje bağlar. Arc Pro metrics-dashboard'dan esinlenildi (tarif: docs/tarifler/metrics-dashboard.md). | `npx shadcn@latest add @snn-ui/metrics-dashboard` |
+| `kpi-drilldown` | Gösterge ayrıntı paneli | Blok: altı kadar gösterge, her biri küçük çizgi grafikli bir kart olarak ızgarada durur. Karta basınca kart, aynı yüzeyin büyümesiyle ayrıntıya açılır: büyük çizgi grafik, önceki dönem karşılaştırması ve kırılım tablosu (değer, işaretli değişim, pay çubuğu; boyut seçilir). Esc ya da "Kapat" aynı karta geri katlar, odak karta döner. Üstte dönem anahtarı ve "Karşılaştır"; yeterli önceki dönem verisi yoksa düğme pasiftir. Yükleniyor, hata ve dar kap (3 / 2 / 1 sütun) durumları vardır. Değerler `kind` ile yazılır: "count" ("3.180"), "money" (kartta "₺842B" gibi kısa, ayrıntıda "₺842.000"), "percent" ("%91,4"). Değişim adet ve tutarda `math.percentChange` + `money.percent` ("+%11,7"), yüzde türünde puan farkıdır ("+0,1 puan"); yön ok, işaret ve ekran okuyucu metniyle verilir. Düşmesi iyi gösterge (`lowerIsBetter`) azalışta olumlu renkte yazılır; olumsuz yön kırmızı değil mavi-gridir. Kırılım payı `money.percent` ile; yüzde türünde pay sütunu yoktur. Her gösterginin serisini ve kırılımlarını proje verir; açık göstergeyi `openKey` ile dışarıdan yönetebilirsiniz. Arc Pro kpi-drilldown'dan esinlenildi (tarif: docs/tarifler/kpi-drilldown.md). | `npx shadcn@latest add @snn-ui/kpi-drilldown` |
+| `metric-explorer` | Gösterge gezgini | Blok: sayfa başında dört gösterge kartı (ad, dönen rakamlı değer, işaretli değişim, dönem adı, mini çizgi). Karta basınca kart, aynı yüzeyin büyümesiyle sekmeli grafik paneline dönüşür: gösterge sekmeleri, dönem anahtarı, büyük çizgi grafik ve tarihli okuma satırı (tarih, değer, önceki noktaya göre değişim). Grafikte fare, dokunma ve ok tuşlarıyla gezilir; ilk Esc okunan noktayı, ikincisi paneli kapatır ve odak karta döner. Yükleniyor, hata, veri yok ve dar kap durumları vardır. Değerler `kind` ile yazılır: "count" ("2.410"), "money" (kartta kısa "₺1,25Mn", okuma satırında "₺41.000"), "percent" ("%91,4"). Değişim adet ve tutarda `math.percentChange` + `money.percent` ("+%11,7"), yüzde türünde puan farkıdır; yön ok, işaret ve ekran okuyucu metniyle verilir. Düşmesi iyi gösterge (`lowerIsBetter`) azalışta olumlu renkte yazılır; olumsuz yön kırmızı değil mavi-gridir. Seri iki noktadan kısaysa kart "Veri yok" der ve açılmaz. Tarih etiketlerini (`label`, `axisLabel`) ve güncelleme metnini proje ABACUS `date.format` ile hazırlar. Arc Pro metric-explorer'dan esinlenildi (tarif: docs/tarifler/metric-explorer.md). | `npx shadcn@latest add @snn-ui/metric-explorer` |
+| `revenue-explorer` | Gelir gezgini | Blok: aylık yinelenen gelirin üç hareketini (yeni, genişleme, kayıp) aylara göre çizgilerle gösterir; kayıp sıfırın altında durur. Altındaki fırça şeridinde pencere sürüklenir, kenar tutamaçlarından büyütülüp küçültülür (aylık adımlarla; klavyeyle de) ya da "3A / 6A / 12A / Tümü" düğmeleriyle seçilir; çizgiler ve özet rakamları yeni döneme akar. Özet üçlüsü: ana gelir ve büyüme, aylık net yeni gelir, aylık kayıp oranı (puan farkı). Seri düğmeleri seriyi çıkarıp getirir; "Önceki dönemle karşılaştır" bir önceki aynı uzunlukta dönemi ekler. Yükleniyor, hata ve dar kap durumları ile ekran okuyucu tablosu vardır. Tutarlar TRY ve ABACUS biçimindedir: özet ve ipucunda "₺905.000", eksen ve karşılaştırma satırında kısa "₺1,25Mn"; büyüme `math.percentChange` + `money.percent` ("+%12,3"), kayıp oranı iki ondalıkla ("%1,84") ve önceki döneme fark "puan" olarak ("+0,12 puan"). Ay adları ABACUS `date` ile ("Mart 2026"; eksende ocakta yıl da yazılır). Ayları aylara toplulaştırarak vermek projenin işidir; `churn` pozitif büyüklük olarak verilir, grafikte sıfırın altına çizilir. Karşılaştırma için bir önceki aynı uzunlukta dönem yoksa anahtar pasiftir ("Önceki dönem yok"). Arc Pro revenue-explorer'dan esinlenildi (tarif: docs/tarifler/revenue-explorer.md). | `npx shadcn@latest add @snn-ui/revenue-explorer` |
+| `mrr-waterfall` | Gelir şelalesi | Blok: düzenli (aylık yinelenen) gelirin bir dönemin başından sonuna nasıl değiştiğini köprü grafiğiyle anlatır: başlangıç çubuğu, yukarı doğru (yeni, genişleme, yeniden aktif) ve aşağı doğru (daralma, kayıp) yüzen basamaklar, bitiş çubuğu. Üstte dönen rakamlı bitiş değeri, dönem boyu değişim ("+₺180.000 (+%12,3)") ve net elde tutma, hızlı oran, müşteri kaybı göstergeleri vardır. Çubuğa basınca (ya da ok tuşlarıyla) altındaki panel o basamağın en büyük hesaplarını ve "Diğer hesaplar" satırını gösterir. "Tutar" / "Başlangıca göre %" birim seçicisi, yükleniyor, hata ve dar kap (panel altta) durumları vardır. Tutarlar TRY ve ABACUS biçimindedir: panel ve özet "₺2.210.000", çubuk üstü ve eksen kısa "+₺148B" / "-₺41,5B" (eksi işareti ABACUS'tan gelir, yalnız renkle değil); birim "% başlangıç" iken "+%6,7". Dönem boyu değişim `math.percentChange` + `money.percent`, hızlı oran iki ondalıkla `money.fmtDecimalGrouped` ("3,20"), net elde tutma ve kayıp `money.percent`. Dönemi, tarih metinlerini (ABACUS `date.format`) ve hesap listelerini proje verir; hareketlere `role` verilirse göstergeler hesaplanır, yoksa "—" yazılır. Çok hesap `maxAccounts` ile sınırlanır, kalanı "Diğer hesaplar (n hesap)" olur. Arc Pro mrr-waterfall'dan esinlenildi (tarif: docs/tarifler/mrr-waterfall.md). | `npx shadcn@latest add @snn-ui/mrr-waterfall` |
 
 ## Kullanım örnekleri
 
@@ -564,6 +574,86 @@ import { Ridgeline, RidgelineSeries } from "@/components/snn/ridgeline/ridgeline
 import { SlotText } from "@/components/snn/slot-text/slot-text";
 
 <SlotText value={12480} className="fiyat" />
+```
+
+### Bölünmüş yüzde çubuğu (`split-bar`)
+
+```tsx
+import { SplitBar, SplitSlice } from "@/components/snn/split-bar/split-bar";
+
+<SplitBar label="Gider dağılımı" data={[{ key: "personel", label: "Personel", value: 412000 }, { key: "kira", label: "Kira", value: 185000 }]} />
+```
+
+### Akış şeması (`sankey-flow`)
+
+```tsx
+import { SankeyFlow, SankeyNodeInput, SankeyLinkInput } from "@/components/snn/sankey-flow/sankey-flow";
+
+<SankeyFlow label="Nakit akışı" kind="money" nodes={[{ id: "satis", label: "Satış" }, { id: "kasa", label: "Ana kasa" }]} links={[{ source: "satis", target: "kasa", value: 2400000 }]} />
+```
+
+### Huni grafiği (`funnel-chart`)
+
+```tsx
+import { FunnelChart, FunnelStep, FunnelPart } from "@/components/snn/funnel-chart/funnel-chart";
+
+<FunnelChart label="Satış hunisi" steps={[{ key: "ziyaret", label: "Ziyaretçi", value: 48200 }, { key: "siparis", label: "Sipariş", value: 2480 }]} />
+```
+
+### Sıralama yarışı (`race-bar-chart`)
+
+```tsx
+import { RaceBarChart, RaceItem, RacePeriod } from "@/components/snn/race-bar-chart/race-bar-chart";
+
+<RaceBarChart label="Müşteriye göre aylık ciro" periods={[{ key: "1", label: "Ocak 2026" }, { key: "2", label: "Şubat 2026" }]} items={[{ key: "a", label: "Aksoy İnşaat", values: [420000, 455000] }]} />
+```
+
+### Canlı akış grafiği (`realtime-stream`)
+
+```tsx
+import { RealtimeStream, StreamReading } from "@/components/snn/realtime-stream/realtime-stream";
+
+<RealtimeStream label="Yanıt süresi" unit="ms" readings={readings} status={online ? "live" : "disconnected"} onRetry={reconnect} />
+```
+
+### Özet gösterge paneli (`metrics-dashboard`)
+
+```tsx
+import { MetricsDashboard, DashboardData, DashboardMetric, DashboardList } from "@/components/snn/metrics-dashboard/metrics-dashboard";
+
+<MetricsDashboard title="Satış özeti" periods={periods} period={period} onPeriodChange={setPeriod} data={data} status="ready" />
+```
+
+### Gösterge ayrıntı paneli (`kpi-drilldown`)
+
+```tsx
+import { KpiDrilldown, DrillMetric, DrillBreakdown } from "@/components/snn/kpi-drilldown/kpi-drilldown";
+
+<KpiDrilldown metrics={metrics} periods={periods} period={period} onPeriodChange={setPeriod} />
+```
+
+### Gösterge gezgini (`metric-explorer`)
+
+```tsx
+import { MetricExplorer, ExplorerMetric, ExplorerPoint } from "@/components/snn/metric-explorer/metric-explorer";
+
+<MetricExplorer metrics={metrics} periods={periods} period={period} onPeriodChange={setPeriod} updatedText="Güncelleme: 18.10.2026 09:40" sourceText="Nakit yönetimi" />
+```
+
+### Gelir gezgini (`revenue-explorer`)
+
+```tsx
+import { RevenueExplorer, RevenueMonth } from "@/components/snn/revenue-explorer/revenue-explorer";
+
+<RevenueExplorer months={[{ key: "2026-03", newMrr: 62000, expansion: 21000, churn: 14500, total: 905000 }]} initialLength={12} />
+```
+
+### Gelir şelalesi (`mrr-waterfall`)
+
+```tsx
+import { MrrWaterfall, WaterfallMovement, WaterfallAccount } from "@/components/snn/mrr-waterfall/mrr-waterfall";
+
+<MrrWaterfall start={2210000} movements={[{ key: "yeni", label: "Yeni", direction: "up", role: "new", amount: 148000, accounts }, { key: "kayip", label: "Kayıp", direction: "down", role: "churn", amount: 41500, accounts }]} subtitle="Tüm planlar · Eylül 2026" asOf="30 Eylül itibarıyla" />
 ```
 
 ## Bu rafta olmayanlar

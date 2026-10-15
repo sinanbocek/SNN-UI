@@ -32,6 +32,7 @@ import { Avatar } from "../../registry/components/avatar/avatar";
 import { blockDemos } from "./demos-bloklar";
 import { dalga1Demos } from "./demos-dalga1";
 import { grafikDemos } from "./demos-grafik";
+import { dalga2Demos } from "./demos-dalga2";
 
 const Col = ({ title, children }: { title: string; children: ReactNode }) => (
   <div className="col"><span className="etiket">{title}</span>{children}</div>
@@ -446,5 +447,6 @@ export const demos: Record<string, () => ReactNode> = {
   avatar: () => <AvatarDemo />,
   ...blockDemos,
   ...dalga1Demos,
+  ...dalga2Demos,
   ...grafikDemos,
 };

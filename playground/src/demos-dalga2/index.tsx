@@ -1,0 +1,25 @@
+// Dalga 2: grafik ve finans blokları galeri örnekleri. Veriler uydurmadır.
+import type { ReactNode } from "react";
+import { SplitBarDemo } from "./split-bar";
+import { SankeyFlowDemo } from "./sankey-flow";
+import { FunnelChartDemo } from "./funnel-chart";
+import { RaceBarChartDemo } from "./race-bar-chart";
+import { RealtimeStreamDemo } from "./realtime-stream";
+import { MetricsDashboardDemo } from "./metrics-dashboard";
+import { KpiDrilldownDemo } from "./kpi-drilldown";
+import { MetricExplorerDemo } from "./metric-explorer";
+import { RevenueExplorerDemo } from "./revenue-explorer";
+import { MrrWaterfallDemo } from "./mrr-waterfall";
+
+export const dalga2Demos: Record<string, () => ReactNode> = {
+  "split-bar": () => <SplitBarDemo />,
+  "sankey-flow": () => <SankeyFlowDemo />,
+  "funnel-chart": () => <FunnelChartDemo />,
+  "race-bar-chart": () => <RaceBarChartDemo />,
+  "realtime-stream": () => <RealtimeStreamDemo />,
+  "metrics-dashboard": () => <MetricsDashboardDemo />,
+  "kpi-drilldown": () => <KpiDrilldownDemo />,
+  "metric-explorer": () => <MetricExplorerDemo />,
+  "revenue-explorer": () => <RevenueExplorerDemo />,
+  "mrr-waterfall": () => <MrrWaterfallDemo />,
+};

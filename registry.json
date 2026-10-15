@@ -72,6 +72,54 @@
       ]
     },
     {
+      "name": "snn-viz-utils",
+      "type": "registry:item",
+      "title": "SNN grafik yardımcıları",
+      "description": "Dalga 2 grafik ve finans bloklarının ortak yardımcıları: seri rengi, etiket ayırma, \"hareketi azalt\" ve eleman genişliği kancaları. Bloklarla kendiliğinden gelir.",
+      "dependencies": [
+        "motion"
+      ],
+      "files": [
+        {
+          "path": "registry/components/lib/viz-utils.ts",
+          "type": "registry:lib",
+          "target": "@components/snn/lib/viz-utils.ts"
+        }
+      ]
+    },
+    {
+      "name": "snn-metric-format",
+      "type": "registry:item",
+      "title": "SNN gösterge yazımı",
+      "description": "Gösterge bloklarının ortak yazımı: adet, TRY tutar ve yüzde türleri için değer, kısa etiket ve işaretli değişim metni (\"+%11,7\", \"+0,1 puan\", ok ve sesli okuma). Hepsi ABACUS'tandır. Bloklarla kendiliğinden gelir.",
+      "dependencies": [
+        "@snn/abacus-core@github:sinanbocek/SNN-Abacus-Core#semver:^4.3.0"
+      ],
+      "files": [
+        {
+          "path": "registry/components/lib/metric-format.ts",
+          "type": "registry:lib",
+          "target": "@components/snn/lib/metric-format.ts"
+        }
+      ]
+    },
+    {
+      "name": "snn-morph-grid",
+      "type": "registry:item",
+      "title": "SNN kart-panel geçişi",
+      "description": "Kart ızgarası; bir karta basınca kart, aynı yüzeyin büyümesiyle panele dönüşür ve kapatınca aynı karta geri katlanır (paylaşılan düzen geçişi). Açıkken ızgara etkisizdir, odak kapat düğmesine, kapanışta karta gider; \"hareketi azalt\" açıkken yalnız kısa solma. Gösterge bloklarıyla kendiliğinden gelir.",
+      "dependencies": [
+        "motion"
+      ],
+      "files": [
+        {
+          "path": "registry/components/lib/morph-grid.tsx",
+          "type": "registry:lib",
+          "target": "@components/snn/lib/morph-grid.tsx"
+        }
+      ]
+    },
+    {
       "name": "button",
       "type": "registry:ui",
       "title": "Düğme",
@@ -1967,6 +2015,397 @@
       "meta": {
         "arcCommit": "bfdf7e8",
         "arcSource": "registry/components/slot-text"
+      }
+    },
+    {
+      "name": "split-bar",
+      "type": "registry:ui",
+      "title": "Bölünmüş yüzde çubuğu",
+      "description": "Bir bütünü tek yatay çubukta paylara böler: üzerine gelinen dilim biraz genişler, okuma alanı dilimin adını, payını (\"%41,6\") ve tutarını yazar. Sığmayan etiketler çubuğun altındaki şeride ince çizgiyle taşar. Açıklama satırından dilimler kapatılıp açılır, kalanlar çubuğu doldurur; son açık dilim kapanmaz. Ok tuşlarıyla gezilir; ekran okuyucu için tablo ve canlı duyuru vardır.",
+      "dependencies": [
+        "@snn/abacus-core@github:sinanbocek/SNN-Abacus-Core#semver:^4.3.0",
+        "motion"
+      ],
+      "registryDependencies": [
+        "@snn-ui/snn-foundation",
+        "@snn-ui/snn-motion-tokens",
+        "@snn-ui/snn-chart-format",
+        "@snn-ui/snn-chart-palette",
+        "@snn-ui/snn-viz-utils"
+      ],
+      "files": [
+        {
+          "path": "registry/components/split-bar/split-bar-format.ts",
+          "type": "registry:component",
+          "target": "@components/snn/split-bar/split-bar-format.ts"
+        },
+        {
+          "path": "registry/components/split-bar/split-bar.module.css",
+          "type": "registry:component",
+          "target": "@components/snn/split-bar/split-bar.module.css"
+        },
+        {
+          "path": "registry/components/split-bar/split-bar.tsx",
+          "type": "registry:component",
+          "target": "@components/snn/split-bar/split-bar.tsx"
+        }
+      ],
+      "meta": {
+        "arcCommit": "bfdf7e8",
+        "arcSource": "registry/components/split-bar"
+      }
+    },
+    {
+      "name": "sankey-flow",
+      "type": "registry:ui",
+      "title": "Akış şeması",
+      "description": "Bir toplamın aşamalar boyunca nasıl bölündüğünü ve birleştiğini, düğümler arasında kalınlığı değere orantılı şeritlerle gösterir. Düğüme ya da şeride gelince o payın baştan sona tüm yolu vurgulanır, ipucu değeri ve kaynağa göre payı (\"%41,6\") yazar. Şeritlerde yavaşça ilerleyen noktalar yönü hissettirir; \"Akış\" anahtarıyla durur. Ok tuşlarıyla düğümler gezilir; dar ekranda şema dikeye döner. Ekran okuyucu için akış tablosu vardır.",
+      "dependencies": [
+        "@snn/abacus-core@github:sinanbocek/SNN-Abacus-Core#semver:^4.3.0",
+        "motion"
+      ],
+      "registryDependencies": [
+        "@snn-ui/snn-foundation",
+        "@snn-ui/snn-motion-tokens",
+        "@snn-ui/snn-chart-format",
+        "@snn-ui/snn-chart-palette",
+        "@snn-ui/snn-viz-utils",
+        "@snn-ui/switch"
+      ],
+      "files": [
+        {
+          "path": "registry/components/sankey-flow/sankey-flow-format.ts",
+          "type": "registry:component",
+          "target": "@components/snn/sankey-flow/sankey-flow-format.ts"
+        },
+        {
+          "path": "registry/components/sankey-flow/sankey-flow.module.css",
+          "type": "registry:component",
+          "target": "@components/snn/sankey-flow/sankey-flow.module.css"
+        },
+        {
+          "path": "registry/components/sankey-flow/sankey-flow.tsx",
+          "type": "registry:component",
+          "target": "@components/snn/sankey-flow/sankey-flow.tsx"
+        }
+      ],
+      "meta": {
+        "arcCommit": "bfdf7e8",
+        "arcSource": "registry/components/sankey-flow"
+      }
+    },
+    {
+      "name": "funnel-chart",
+      "type": "registry:ui",
+      "title": "Huni grafiği",
+      "description": "Adım adım daralan bir süreci (ziyaretçi → sipariş) tek yatay bantla gösterir: adım başlıklarında kısa sayı ve bir önceki adımdan kalan oran (\"%44,3\"), adımlar arasında düşüş (\"↓ 15.100 (-%70,6)\"). Adıma gelince odak sütunu ve ipucu tam sayıyı, ilk adıma ve öncekine oranı yazar. Parçalı veride Toplam, Bölünmüş ya da tek parça görünümü seçilir; band yeni biçime akar. Ok tuşlarıyla gezilir; dar ekranda huni dikeye döner. Ekran okuyucu için tablo vardır.",
+      "dependencies": [
+        "@snn/abacus-core@github:sinanbocek/SNN-Abacus-Core#semver:^4.3.0",
+        "motion"
+      ],
+      "registryDependencies": [
+        "@snn-ui/snn-foundation",
+        "@snn-ui/snn-motion-tokens",
+        "@snn-ui/segmented-control",
+        "@snn-ui/snn-chart-format",
+        "@snn-ui/snn-chart-palette",
+        "@snn-ui/snn-viz-utils"
+      ],
+      "files": [
+        {
+          "path": "registry/components/funnel-chart/funnel-chart-format.ts",
+          "type": "registry:component",
+          "target": "@components/snn/funnel-chart/funnel-chart-format.ts"
+        },
+        {
+          "path": "registry/components/funnel-chart/funnel-chart.module.css",
+          "type": "registry:component",
+          "target": "@components/snn/funnel-chart/funnel-chart.module.css"
+        },
+        {
+          "path": "registry/components/funnel-chart/funnel-chart.tsx",
+          "type": "registry:component",
+          "target": "@components/snn/funnel-chart/funnel-chart.tsx"
+        }
+      ],
+      "meta": {
+        "arcCommit": "bfdf7e8",
+        "arcSource": "registry/components/funnel-chart"
+      }
+    },
+    {
+      "name": "race-bar-chart",
+      "type": "registry:ui",
+      "title": "Sıralama yarışı",
+      "description": "Bir sıralamanın zaman içinde nasıl değiştiğini yatay çubuklarla anlatır: çubuklar uzar, birbirini geçer, değerler dönemler arasında ara değerle akar; büyük dönem etiketi değişir. Altta oynat/duraklat düğmesi ve istenen döneme götüren kaydırıcı vardır. Görününce kendiliğinden oynar (\"hareketi azalt\" açıkken oynamaz), görünüm dışında durur. Boşluk, ok tuşları, Home/End ve yukarı/aşağı ok ile gezilir; dönem ve lider kibar canlı bölgede duyurulur. Ekran okuyucu için tüm dönemlerin tablosu vardır.",
+      "dependencies": [
+        "@snn/abacus-core@github:sinanbocek/SNN-Abacus-Core#semver:^4.3.0",
+        "motion"
+      ],
+      "registryDependencies": [
+        "@snn-ui/snn-foundation",
+        "@snn-ui/snn-motion-tokens",
+        "@snn-ui/snn-chart-format",
+        "@snn-ui/snn-chart-palette",
+        "@snn-ui/snn-viz-utils"
+      ],
+      "files": [
+        {
+          "path": "registry/components/race-bar-chart/race-bar-chart-format.ts",
+          "type": "registry:component",
+          "target": "@components/snn/race-bar-chart/race-bar-chart-format.ts"
+        },
+        {
+          "path": "registry/components/race-bar-chart/race-bar-chart.module.css",
+          "type": "registry:component",
+          "target": "@components/snn/race-bar-chart/race-bar-chart.module.css"
+        },
+        {
+          "path": "registry/components/race-bar-chart/race-bar-chart.tsx",
+          "type": "registry:component",
+          "target": "@components/snn/race-bar-chart/race-bar-chart.tsx"
+        }
+      ],
+      "meta": {
+        "arcCommit": "bfdf7e8",
+        "arcSource": "registry/components/race-bar-chart"
+      }
+    },
+    {
+      "name": "realtime-stream",
+      "type": "registry:ui",
+      "title": "Canlı akış grafiği",
+      "description": "Saniyeler içinde değişen bir ölçümü canlı izler: büyük anlık değer (rakamlar döner), \"Canlı\" / \"Duraklatıldı\" durum düğmesi ve son 30 saniyeyi gösteren yumuşak çizgi. Grafiğin üstüne gelince ya da odaklanınca görüntü durur, okumalar arka planda birikir; ipucu zamanı (\"14:03:27\"), değeri ve varsa notu yazar. Anomali notları çizgi üstünde işaretlenir ve bir kez duyurulur. Veri bekleniyor ve bağlantı kesildi (\"Yeniden dene\") durumları vardır; görünüm dışında çizim durur.",
+      "dependencies": [
+        "@snn/abacus-core@github:sinanbocek/SNN-Abacus-Core#semver:^4.3.0",
+        "motion"
+      ],
+      "registryDependencies": [
+        "@snn-ui/snn-foundation",
+        "@snn-ui/snn-motion-tokens",
+        "@snn-ui/animated-counter",
+        "@snn-ui/snn-chart-format",
+        "@snn-ui/snn-viz-utils"
+      ],
+      "files": [
+        {
+          "path": "registry/components/realtime-stream/realtime-stream-format.ts",
+          "type": "registry:component",
+          "target": "@components/snn/realtime-stream/realtime-stream-format.ts"
+        },
+        {
+          "path": "registry/components/realtime-stream/realtime-stream.module.css",
+          "type": "registry:component",
+          "target": "@components/snn/realtime-stream/realtime-stream.module.css"
+        },
+        {
+          "path": "registry/components/realtime-stream/realtime-stream.tsx",
+          "type": "registry:component",
+          "target": "@components/snn/realtime-stream/realtime-stream.tsx"
+        }
+      ],
+      "meta": {
+        "arcCommit": "bfdf7e8",
+        "arcSource": "registry/components/realtime-stream"
+      }
+    },
+    {
+      "name": "metrics-dashboard",
+      "type": "registry:ui",
+      "title": "Özet gösterge paneli",
+      "description": "Blok: dört ana gösterge sekme gibi sıralanır (ad, dönen rakamlı değer, ok ve işaretli değişim); seçilen gösterge altındaki çizgi grafikte görülür, \"Karşılaştır\" önceki dönemin kesikli çizgisini ekler. Üstte dönem anahtarı (7/30/90 gün) ve \"Dışa aktar\"; altta iki sıralı liste yatay oran çubuklarıyla durur. Yükleniyor, hata (\"Yeniden dene\"), boş ve dar ekran durumları vardır; düzen pencereye değil bileşenin kendi genişliğine bakar.",
+      "dependencies": [
+        "@snn/abacus-core@github:sinanbocek/SNN-Abacus-Core#semver:^4.3.0",
+        "motion"
+      ],
+      "registryDependencies": [
+        "@snn-ui/snn-foundation",
+        "@snn-ui/snn-motion-tokens",
+        "@snn-ui/animated-counter",
+        "@snn-ui/button",
+        "@snn-ui/line-chart",
+        "@snn-ui/segmented-control",
+        "@snn-ui/skeleton",
+        "@snn-ui/snn-chart-format",
+        "@snn-ui/snn-metric-format",
+        "@snn-ui/snn-viz-utils"
+      ],
+      "files": [
+        {
+          "path": "registry/components/metrics-dashboard/metrics-dashboard.module.css",
+          "type": "registry:component",
+          "target": "@components/snn/metrics-dashboard/metrics-dashboard.module.css"
+        },
+        {
+          "path": "registry/components/metrics-dashboard/metrics-dashboard.tsx",
+          "type": "registry:component",
+          "target": "@components/snn/metrics-dashboard/metrics-dashboard.tsx"
+        }
+      ],
+      "meta": {
+        "arcCommit": "bfdf7e8",
+        "arcSource": "registry/components/metrics-dashboard"
+      }
+    },
+    {
+      "name": "kpi-drilldown",
+      "type": "registry:ui",
+      "title": "Gösterge ayrıntı paneli",
+      "description": "Blok: altı kadar gösterge, her biri küçük çizgi grafikli bir kart olarak ızgarada durur. Karta basınca kart, aynı yüzeyin büyümesiyle ayrıntıya açılır: büyük çizgi grafik, önceki dönem karşılaştırması ve kırılım tablosu (değer, işaretli değişim, pay çubuğu; boyut seçilir). Esc ya da \"Kapat\" aynı karta geri katlar, odak karta döner. Üstte dönem anahtarı ve \"Karşılaştır\"; yeterli önceki dönem verisi yoksa düğme pasiftir. Yükleniyor, hata ve dar kap (3 / 2 / 1 sütun) durumları vardır.",
+      "dependencies": [
+        "@snn/abacus-core@github:sinanbocek/SNN-Abacus-Core#semver:^4.3.0",
+        "motion"
+      ],
+      "registryDependencies": [
+        "@snn-ui/snn-foundation",
+        "@snn-ui/snn-motion-tokens",
+        "@snn-ui/animated-counter",
+        "@snn-ui/button",
+        "@snn-ui/line-chart",
+        "@snn-ui/segmented-control",
+        "@snn-ui/skeleton",
+        "@snn-ui/snn-chart-format",
+        "@snn-ui/snn-metric-format",
+        "@snn-ui/snn-morph-grid",
+        "@snn-ui/snn-viz-utils"
+      ],
+      "files": [
+        {
+          "path": "registry/components/kpi-drilldown/kpi-drilldown.module.css",
+          "type": "registry:component",
+          "target": "@components/snn/kpi-drilldown/kpi-drilldown.module.css"
+        },
+        {
+          "path": "registry/components/kpi-drilldown/kpi-drilldown.tsx",
+          "type": "registry:component",
+          "target": "@components/snn/kpi-drilldown/kpi-drilldown.tsx"
+        }
+      ],
+      "meta": {
+        "arcCommit": "bfdf7e8",
+        "arcSource": "registry/components/kpi-drilldown"
+      }
+    },
+    {
+      "name": "metric-explorer",
+      "type": "registry:ui",
+      "title": "Gösterge gezgini",
+      "description": "Blok: sayfa başında dört gösterge kartı (ad, dönen rakamlı değer, işaretli değişim, dönem adı, mini çizgi). Karta basınca kart, aynı yüzeyin büyümesiyle sekmeli grafik paneline dönüşür: gösterge sekmeleri, dönem anahtarı, büyük çizgi grafik ve tarihli okuma satırı (tarih, değer, önceki noktaya göre değişim). Grafikte fare, dokunma ve ok tuşlarıyla gezilir; ilk Esc okunan noktayı, ikincisi paneli kapatır ve odak karta döner. Yükleniyor, hata, veri yok ve dar kap durumları vardır.",
+      "dependencies": [
+        "@snn/abacus-core@github:sinanbocek/SNN-Abacus-Core#semver:^4.3.0",
+        "motion"
+      ],
+      "registryDependencies": [
+        "@snn-ui/snn-foundation",
+        "@snn-ui/snn-motion-tokens",
+        "@snn-ui/animated-counter",
+        "@snn-ui/button",
+        "@snn-ui/line-chart",
+        "@snn-ui/segmented-control",
+        "@snn-ui/skeleton",
+        "@snn-ui/snn-chart-format",
+        "@snn-ui/snn-metric-format",
+        "@snn-ui/snn-morph-grid",
+        "@snn-ui/snn-viz-utils"
+      ],
+      "files": [
+        {
+          "path": "registry/components/metric-explorer/metric-explorer.module.css",
+          "type": "registry:component",
+          "target": "@components/snn/metric-explorer/metric-explorer.module.css"
+        },
+        {
+          "path": "registry/components/metric-explorer/metric-explorer.tsx",
+          "type": "registry:component",
+          "target": "@components/snn/metric-explorer/metric-explorer.tsx"
+        }
+      ],
+      "meta": {
+        "arcCommit": "bfdf7e8",
+        "arcSource": "registry/components/metric-explorer"
+      }
+    },
+    {
+      "name": "revenue-explorer",
+      "type": "registry:ui",
+      "title": "Gelir gezgini",
+      "description": "Blok: aylık yinelenen gelirin üç hareketini (yeni, genişleme, kayıp) aylara göre çizgilerle gösterir; kayıp sıfırın altında durur. Altındaki fırça şeridinde pencere sürüklenir, kenar tutamaçlarından büyütülüp küçültülür (aylık adımlarla; klavyeyle de) ya da \"3A / 6A / 12A / Tümü\" düğmeleriyle seçilir; çizgiler ve özet rakamları yeni döneme akar. Özet üçlüsü: ana gelir ve büyüme, aylık net yeni gelir, aylık kayıp oranı (puan farkı). Seri düğmeleri seriyi çıkarıp getirir; \"Önceki dönemle karşılaştır\" bir önceki aynı uzunlukta dönemi ekler. Yükleniyor, hata ve dar kap durumları ile ekran okuyucu tablosu vardır.",
+      "dependencies": [
+        "@snn/abacus-core@github:sinanbocek/SNN-Abacus-Core#semver:^4.3.0",
+        "motion"
+      ],
+      "registryDependencies": [
+        "@snn-ui/snn-foundation",
+        "@snn-ui/snn-motion-tokens",
+        "@snn-ui/animated-counter",
+        "@snn-ui/button",
+        "@snn-ui/line-chart",
+        "@snn-ui/skeleton",
+        "@snn-ui/snn-chart-format",
+        "@snn-ui/snn-viz-utils",
+        "@snn-ui/switch"
+      ],
+      "files": [
+        {
+          "path": "registry/components/revenue-explorer/revenue-explorer-format.ts",
+          "type": "registry:component",
+          "target": "@components/snn/revenue-explorer/revenue-explorer-format.ts"
+        },
+        {
+          "path": "registry/components/revenue-explorer/revenue-explorer.module.css",
+          "type": "registry:component",
+          "target": "@components/snn/revenue-explorer/revenue-explorer.module.css"
+        },
+        {
+          "path": "registry/components/revenue-explorer/revenue-explorer.tsx",
+          "type": "registry:component",
+          "target": "@components/snn/revenue-explorer/revenue-explorer.tsx"
+        }
+      ],
+      "meta": {
+        "arcCommit": "bfdf7e8",
+        "arcSource": "registry/components/revenue-explorer"
+      }
+    },
+    {
+      "name": "mrr-waterfall",
+      "type": "registry:ui",
+      "title": "Gelir şelalesi",
+      "description": "Blok: düzenli (aylık yinelenen) gelirin bir dönemin başından sonuna nasıl değiştiğini köprü grafiğiyle anlatır: başlangıç çubuğu, yukarı doğru (yeni, genişleme, yeniden aktif) ve aşağı doğru (daralma, kayıp) yüzen basamaklar, bitiş çubuğu. Üstte dönen rakamlı bitiş değeri, dönem boyu değişim (\"+₺180.000 (+%12,3)\") ve net elde tutma, hızlı oran, müşteri kaybı göstergeleri vardır. Çubuğa basınca (ya da ok tuşlarıyla) altındaki panel o basamağın en büyük hesaplarını ve \"Diğer hesaplar\" satırını gösterir. \"Tutar\" / \"Başlangıca göre %\" birim seçicisi, yükleniyor, hata ve dar kap (panel altta) durumları vardır.",
+      "dependencies": [
+        "@snn/abacus-core@github:sinanbocek/SNN-Abacus-Core#semver:^4.3.0",
+        "motion"
+      ],
+      "registryDependencies": [
+        "@snn-ui/snn-foundation",
+        "@snn-ui/snn-motion-tokens",
+        "@snn-ui/animated-counter",
+        "@snn-ui/button",
+        "@snn-ui/segmented-control",
+        "@snn-ui/skeleton",
+        "@snn-ui/snn-chart-format",
+        "@snn-ui/snn-viz-utils"
+      ],
+      "files": [
+        {
+          "path": "registry/components/mrr-waterfall/mrr-waterfall-format.ts",
+          "type": "registry:component",
+          "target": "@components/snn/mrr-waterfall/mrr-waterfall-format.ts"
+        },
+        {
+          "path": "registry/components/mrr-waterfall/mrr-waterfall.module.css",
+          "type": "registry:component",
+          "target": "@components/snn/mrr-waterfall/mrr-waterfall.module.css"
+        },
+        {
+          "path": "registry/components/mrr-waterfall/mrr-waterfall.tsx",
+          "type": "registry:component",
+          "target": "@components/snn/mrr-waterfall/mrr-waterfall.tsx"
+        }
+      ],
+      "meta": {
+        "arcCommit": "bfdf7e8",
+        "arcSource": "registry/components/mrr-waterfall"
       }
     }
   ]

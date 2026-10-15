@@ -26,21 +26,21 @@ Kural: `SNN-Standartlar/standartlar/arayuz-standardi.md` §2.1. Fikir serbest, k
 
 | Ad | Bağlantı | Dalga | Durum |
 |---|---|---|---|
-| split-bar | https://uiarc.dev/components/split-bar | 2 | tarif yazıldı |
-| sankey-flow | https://uiarc.dev/components/sankey-flow | 2 | tarif yazıldı |
-| funnel-chart | https://uiarc.dev/components/funnel-chart | 2 | tarif yazıldı |
-| race-bar-chart | https://uiarc.dev/components/race-bar-chart | 2 | tarif yazıldı |
-| realtime-stream | https://uiarc.dev/components/realtime-stream | 2 | tarif yazıldı |
+| split-bar | https://uiarc.dev/components/split-bar | 2 | yazıldı |
+| sankey-flow | https://uiarc.dev/components/sankey-flow | 2 | yazıldı |
+| funnel-chart | https://uiarc.dev/components/funnel-chart | 2 | yazıldı |
+| race-bar-chart | https://uiarc.dev/components/race-bar-chart | 2 | yazıldı |
+| realtime-stream | https://uiarc.dev/components/realtime-stream | 2 | yazıldı |
 
 ## Dalga 2 — grafik ve finans (ABACUS gerekir), devam
 
 | Ad | Bağlantı | Dalga | Durum |
 |---|---|---|---|
-| metrics-dashboard | https://uiarc.dev/components/blocks/metrics-dashboard | 2 | tarif yazıldı |
-| kpi-drilldown | https://uiarc.dev/components/blocks/kpi-drilldown | 2 | tarif yazıldı |
-| metric-explorer | https://uiarc.dev/components/blocks/metric-explorer | 2 | tarif yazıldı |
-| revenue-explorer | https://uiarc.dev/components/blocks/revenue-explorer | 2 | tarif yazıldı |
-| mrr-waterfall | https://uiarc.dev/components/blocks/mrr-waterfall | 2 | tarif yazıldı |
+| metrics-dashboard | https://uiarc.dev/components/blocks/metrics-dashboard | 2 | yazıldı |
+| kpi-drilldown | https://uiarc.dev/components/blocks/kpi-drilldown | 2 | yazıldı |
+| metric-explorer | https://uiarc.dev/components/blocks/metric-explorer | 2 | yazıldı |
+| revenue-explorer | https://uiarc.dev/components/blocks/revenue-explorer | 2 | yazıldı |
+| mrr-waterfall | https://uiarc.dev/components/blocks/mrr-waterfall | 2 | yazıldı |
 | cohort-retention | https://uiarc.dev/components/blocks/cohort-retention | 2 | tarif yazıldı |
 | usage-forecast | https://uiarc.dev/components/blocks/usage-forecast | 2 | tarif yazıldı |
 | budget-variance | https://uiarc.dev/components/blocks/budget-variance | 2 | tarif yazıldı |
