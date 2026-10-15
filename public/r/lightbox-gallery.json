@@ -1,0 +1,45 @@
+{
+  "$schema": "https://ui.shadcn.com/schema/registry-item.json",
+  "name": "lightbox-gallery",
+  "title": "Fotoğraf duvarı",
+  "description": "Blok: fotoğrafları oranlarını koruyarak sütunlu bir \"duvar\" (masonry) düzeninde gösterir. Sütun sayısı kabın genişliğinden hesaplanır (sütun en az 180 piksel, en az iki sütun); fotoğraflar o ana kadar en kısa sütuna dağıtılır. Bir fotoğrafa basınca (ya da Enter / Boşluk) fotoğraf kendi yerinden büyüyerek tam ekran görüntüleyiciye açılır: arka plan kararır, sol/sağ ok ve yana kaydırma önceki/sonraki fotoğrafa götürür, +/-/0, çift tıklama, iki parmak ya da Ctrl+tekerlek yakınlaştırır, yakın planda sürüklenir, aşağı çekmek (direnç hissiyle) ya da Escape kapatır. Görüntüleyicide başlık ve alt yazı, \"2 / 12\" sayacı, yakınlaştırma düğmesi ve küçük resim şeridi vardır; kapanınca fotoğraf o an gösterilen fotoğrafın yuvasına geri uçar ve odak duvardaki o fotoğrafa döner. Fotoğraf düğmeleri \"Kıyıda sabah aç, 1 / 12 fotoğraf\" diye okunur. Yükleniyor iskeleti ve dar kap durumları vardır.",
+  "dependencies": [
+    "@snn/abacus-core@github:sinanbocek/SNN-Abacus-Core#semver:^4.3.0",
+    "motion",
+    "@radix-ui/react-dialog"
+  ],
+  "registryDependencies": [
+    "@snn-ui/snn-foundation",
+    "@snn-ui/snn-motion-tokens",
+    "@snn-ui/snn-chart-format",
+    "@snn-ui/snn-image-viewer",
+    "@snn-ui/snn-motion-tokens",
+    "@snn-ui/snn-shop-parts",
+    "@snn-ui/snn-viz-utils"
+  ],
+  "files": [
+    {
+      "path": "registry/components/lightbox-gallery/lightbox-gallery-format.ts",
+      "content": "// Fotoğraf duvarının saf mantığı: sütun sayısı ve fotoğrafların sütunlara dağılımı. Sayılar ABACUS'tandır.\nimport { countText } from \"../lib/shop-format\";\n\n/** Sütun sayısı kabın genişliğinden hesaplanır: sütun `minWidth` altına düşmez ama en az iki sütun olur. */\nexport function masonryColumns(width: number, minWidth = 180, gap = 12): number {\n  if (!width) return 2;\n  return Math.max(2, Math.floor((width + gap) / (minWidth + gap)));\n}\n\n/**\n * Fotoğrafları sütunlara dağıtır: her fotoğraf o ana kadar en kısa olan sütuna gider (eşitlikte soldaki), böylece sütun boyları dengeli kalır.\n * Dönen listeler fotoğraf sıralarıdır; sütun içinde sıra korunur.\n */\nexport function assignColumns(images: { width: number; height: number }[], columns: number): number[][] {\n  const lanes: number[][] = Array.from({ length: Math.max(1, columns) }, () => []);\n  const heights = lanes.map(() => 0);\n  images.forEach((image, at) => {\n    const lane = heights.indexOf(Math.min(...heights));\n    lanes[lane]!.push(at);\n    heights[lane]! += image.width ? image.height / image.width : 1;\n  });\n  return lanes;\n}\n\nexport const galleryCountText = (count: number): string => `${countText(count)} fotoğraf`;\nexport const DEFAULT_LABEL = \"Fotoğraf galerisi\";\n",
+      "type": "registry:component",
+      "target": "@components/snn/lightbox-gallery/lightbox-gallery-format.ts"
+    },
+    {
+      "path": "registry/components/lightbox-gallery/lightbox-gallery.module.css",
+      "content": ".root { container-type: inline-size; min-width: 0; color: var(--foreground); }\n.wall { display: flex; align-items: flex-start; }\n.lane { display: flex; flex: 1 1 0; flex-direction: column; min-width: 0; }\n.cell { display: block; width: 100%; padding: 0; border: 0; border-radius: var(--radius-surface); overflow: hidden; background: var(--surface-muted); cursor: zoom-in; }\n.cell:focus-visible { outline: var(--focus-outline-width, 2px) solid var(--focus-outline, var(--accent)); outline-offset: 2px; }\n.photo { display: block; width: 100%; height: auto; transition: transform var(--duration-standard, .24s) var(--ease-standard); }\n.cell:hover .photo { transform: scale(1.02); }\n.skeleton { display: block; width: 100%; border-radius: var(--radius-surface); background: var(--neutral-3); animation: pulse 1.4s ease-in-out infinite; }\n@keyframes pulse { 50% { opacity: .5; } }\n.root[data-reduced] .photo, .root[data-reduced] .skeleton { transition: none; animation: none; }\n.root[data-reduced] .cell:hover .photo { transform: none; }\n@media (prefers-reduced-motion: reduce) { .photo { transition: none; } .skeleton { animation: none; } .cell:hover .photo { transform: none; } }\n",
+      "type": "registry:component",
+      "target": "@components/snn/lightbox-gallery/lightbox-gallery.module.css"
+    },
+    {
+      "path": "registry/components/lightbox-gallery/lightbox-gallery.tsx",
+      "content": "\"use client\";\n\nimport { useMemo, useRef, useState } from \"react\";\nimport { ImageViewer, type Rect } from \"../lib/image-viewer\";\nimport { openText, type ViewerImage } from \"../lib/image-viewer-format\";\nimport { Placeholder } from \"../lib/shop-parts\";\nimport { useElementWidth, useReducedMotionSafe } from \"../lib/viz-utils\";\nimport { DEFAULT_LABEL, assignColumns, galleryCountText, masonryColumns } from \"./lightbox-gallery-format\";\nimport styles from \"./lightbox-gallery.module.css\";\n\nexport type { ViewerImage };\n\n/** Geziler, portfolyolar ve ilan fotoğrafları gibi yakından bakılan koleksiyonlar için oranları korunan sütunlu fotoğraf duvarı. Bir fotoğrafa basınca fotoğraf kendi yerinden büyüyerek tam ekran görüntüleyiciye açılır (kaydırma, yakınlaştırma, aşağı çekip kapatma); kapanınca o an gösterilen fotoğrafın yuvasına döner. Aynı boyda kare ızgara için `photo-grid`, seçenekli ürün fotoğrafları için `product-gallery`. Çok büyük koleksiyonlar sayfalanır (duvar sanallaştırılmaz). */\nexport interface LightboxGalleryProps {\n  images: ViewerImage[];\n  label?: string;\n  /** Bir sütunun en az genişliği (piksel); varsayılan 180. */\n  minColumnWidth?: number;\n  gap?: number;\n  loading?: boolean;\n}\n\nexport function LightboxGallery({ images, label = DEFAULT_LABEL, minColumnWidth = 180, gap = 12, loading = false }: LightboxGalleryProps) {\n  const reduced = useReducedMotionSafe();\n  const [box, width] = useElementWidth<HTMLElement>();\n  const [open, setOpen] = useState<number | null>(null);\n  const cells = useRef<(HTMLButtonElement | null)[]>([]);\n  const columns = masonryColumns(width, minColumnWidth, gap);\n  const lanes = useMemo(() => assignColumns(images, columns), [images, columns]);\n  const origin = (index: number): Rect | null => {\n    const rect = cells.current[index]?.getBoundingClientRect();\n    return rect ? { left: rect.left, top: rect.top, width: rect.width, height: rect.height } : null;\n  };\n\n  return <section ref={box} className={styles.root} aria-label={`${label}, ${galleryCountText(images.length)}`} data-reduced={reduced || undefined}>\n    {loading ? <div className={styles.wall} style={{ gap }} aria-busy=\"true\" role=\"status\" aria-label=\"Fotoğraflar yükleniyor\">{Array.from({ length: columns }, (_, lane) => <div key={lane} className={styles.lane} style={{ gap }}>{[1.3, .8, 1.1].map((ratio, at) => <span key={at} className={styles.skeleton} style={{ aspectRatio: `1 / ${ratio + (lane % 2) * .2}` }} />)}</div>)}</div>\n      : <div className={styles.wall} style={{ gap }}>{lanes.map((lane, at) => <div key={at} className={styles.lane} style={{ gap }}>{lane.map(index => {\n        const image = images[index]!;\n        return <button key={image.id} ref={node => { cells.current[index] = node; }} type=\"button\" className={styles.cell} aria-label={openText(image, index, images.length)} onClick={() => setOpen(index)}>\n          {image.src ? <img className={styles.photo} src={image.src} alt={image.alt} width={image.width} height={image.height} loading=\"lazy\" draggable={false} /> : <Placeholder tone={image.tone} label={image.alt} ratio={`${image.width} / ${image.height}`} className={styles.photo} />}\n        </button>;\n      })}</div>)}</div>}\n    <ImageViewer images={images} index={open} onIndexChange={setOpen} getOrigin={origin} label={label}\n      onClose={last => { setOpen(null); requestAnimationFrame(() => cells.current[last]?.focus()); }} />\n  </section>;\n}\n\nexport default LightboxGallery;\n",
+      "type": "registry:component",
+      "target": "@components/snn/lightbox-gallery/lightbox-gallery.tsx"
+    }
+  ],
+  "meta": {
+    "arcCommit": "bfdf7e8",
+    "arcSource": "registry/components/lightbox-gallery"
+  },
+  "type": "registry:ui"
+}

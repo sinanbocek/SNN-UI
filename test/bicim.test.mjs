@@ -47,6 +47,7 @@ const FILES = {
   spotlight: "registry/components/spotlight-grid/spotlight-grid-format.ts",
   viewer: "registry/components/lib/image-viewer-format.ts",
   gallery: "registry/components/product-gallery/product-gallery-format.ts",
+  lightbox: "registry/components/lightbox-gallery/lightbox-gallery-format.ts",
 };
 const mods = {};
 let temp;
@@ -732,4 +733,18 @@ test("ürün galerisi: tükenen beden, ok tuşuyla gezme, büyüteç kayması ve
   assert.deepEqual(mods.gallery.lensShift({ x: 100, y: 50 }, 2.5, 72), { x: -178, y: -53 });
   assert.deepEqual(mods.gallery.clampPoint({ left: 10, top: 10, width: 100, height: 200 }, 500, -5), { x: 100, y: 0 });
   assert.equal(mods.gallery.mainLabel({ alt: "Ön görünüm" }, 1, 4), "Ön görünüm, 2 / 4");
+});
+
+test("fotoğraf duvarı: sütun sayısı ve en kısa sütuna dağılım doğru; sayılar ABACUS çıktısıdır", () => {
+  assert.equal(mods.lightbox.masonryColumns(0), 2);
+  assert.equal(mods.lightbox.masonryColumns(300), 2);
+  assert.equal(mods.lightbox.masonryColumns(580, 180, 12), 3);
+  assert.equal(mods.lightbox.masonryColumns(1000, 180, 12), 5);
+  assert.equal(mods.lightbox.masonryColumns(1000, 300, 0), 3);
+  const sized = [{ width: 100, height: 200 }, { width: 100, height: 100 }, { width: 100, height: 100 }, { width: 100, height: 50 }];
+  assert.deepEqual(mods.lightbox.assignColumns(sized, 2), [[0, 3], [1, 2]]);
+  assert.deepEqual(mods.lightbox.assignColumns(sized, 1), [[0, 1, 2, 3]]);
+  assert.deepEqual(mods.lightbox.assignColumns([], 3), [[], [], []]);
+  assert.deepEqual(mods.lightbox.assignColumns(sized, 0), [[0, 1, 2, 3]]);
+  assert.equal(mods.lightbox.galleryCountText(1234), "1.234 fotoğraf");
 });
