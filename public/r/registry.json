@@ -1618,6 +1618,38 @@
         "arcCommit": "bfdf7e8",
         "arcSource": "registry/components/bar-chart"
       }
+    },
+    {
+      "name": "donut-chart",
+      "type": "registry:ui",
+      "title": "Halka grafik",
+      "description": "Bir bütünün birkaç parçasını halka dilimleriyle gösterir; her parçanın payı kesin karşılaştırmadan önemli olduğunda kullanılır. Üzerine gelinen ya da seçilen dilim dışarı kayar, merkez o dilimin değerini ve payını (\"%36\") okur; küçük parçalar \"Diğer\"e katılır. Eşgüdümlü gösterge dilimleri gösterip gizler, halka yeniden dağılır. Ekran okuyucu için tablo, boş durum ve ok tuşuyla gezinme vardır.",
+      "dependencies": [
+        "@snn/abacus-core@github:sinanbocek/SNN-Abacus-Core#semver:^4.3.0",
+        "motion"
+      ],
+      "registryDependencies": [
+        "@snn-ui/snn-foundation",
+        "@snn-ui/snn-motion-tokens",
+        "@snn-ui/snn-chart-format",
+        "@snn-ui/snn-chart-palette"
+      ],
+      "files": [
+        {
+          "path": "registry/components/donut-chart/donut-chart.module.css",
+          "type": "registry:component",
+          "target": "@components/snn/donut-chart/donut-chart.module.css"
+        },
+        {
+          "path": "registry/components/donut-chart/donut-chart.tsx",
+          "type": "registry:component",
+          "target": "@components/snn/donut-chart/donut-chart.tsx"
+        }
+      ],
+      "meta": {
+        "arcCommit": "bfdf7e8",
+        "arcSource": "registry/components/donut-chart"
+      }
     }
   ]
 }

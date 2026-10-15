@@ -88,6 +88,7 @@ Gereken paketler: React 19, `motion`; bazı bileşenlerde Radix ve `lucide-react
 | `sparkline` | Mini çizgi grafik | Başlığın yanında küçük bir eğilim çizgisi: değer, değişim ve yumuşak çizgi. Görününce soldan sağa çizilir; fare, dokunma ve ok tuşlarıyla noktalar gezilir, başlık gezilen noktayı gösterir. Veri değişince çizgi yeni biçime akar. Gezilen noktanın yazımı `formatValue` ile özelleştirilir; varsayılan ABACUS biçimidir ("1.234,5"). Başlıktaki değer ve değişim hazır metin olarak gelir (`money.fmtDecimalGrouped`, `money.percent`). Renk tonları (`accent`, `success`, `warning`, `danger`) temel değişkenlerdendir; `warning` mavi-gridir. | `npx shadcn@latest add @snn-ui/sparkline` |
 | `line-chart` | Çizgi grafik | Zaman içindeki bir ya da birkaç ölçüyü yumuşak çizgilerle gösterir. Fare, dokunma ve ok tuşlarıyla gezilen artı imleç ipucuyla noktaları okur; seriler göstergeden açılıp kapanır, değer ekseni kendini ölçekler, aralık değişince çizgiler yeni biçime akar. Ekran okuyucu için veri tablosu, boş ve yükleniyor durumları vardır. Değer ve eksen etiketleri ABACUS'tandır: ipucunda "1.234,5", eksende kısaltma ("1,2B", "1,25Mn"). `formatValue` ve `formatTick` ile para birimli yazım verilebilir (`snn-chart-format`: `formatMoney`, `formatMoneyCompact`). Tarih etiketlerini (`label`, `axisLabel`) proje ABACUS `date.format` ile hazırlar. Verinin aralığını ve yüklemeyi proje yönetir. | `npx shadcn@latest add @snn-ui/line-chart` |
 | `bar-chart` | Çubuk grafik | Bir ölçüyü art arda gün, hafta ya da ay boyunca çubuklarla gösterir; dönemler birbirleriyle ve ortalama çizgisiyle karşılaştırılır. Başlık dururken ortalamayı, gezerken gezilen çubuğu okur (fare, dokunma, ok tuşları). Çubuklar sırayla büyür, aralık değişince yeni değerlere akar, eksen kendini ölçekler. Ekran okuyucu için veri tablosu vardır. Değerler ve eksen etiketleri ABACUS biçimindedir ("1.234"); `formatValue` ile para birimli yazım verilebilir (`snn-chart-format`: `formatMoney`). Gün etiketlerini (`label`, `axisLabel`) ve dönem metnini proje ABACUS `date.format` ile hazırlar. Çubuk renkleri vurgu rengindendir (`--series-*` gerekmez). | `npx shadcn@latest add @snn-ui/bar-chart` |
+| `donut-chart` | Halka grafik | Bir bütünün birkaç parçasını halka dilimleriyle gösterir; her parçanın payı kesin karşılaştırmadan önemli olduğunda kullanılır. Üzerine gelinen ya da seçilen dilim dışarı kayar, merkez o dilimin değerini ve payını ("%36") okur; küçük parçalar "Diğer"e katılır. Eşgüdümlü gösterge dilimleri gösterip gizler, halka yeniden dağılır. Ekran okuyucu için tablo, boş durum ve ok tuşuyla gezinme vardır. Değerler ABACUS biçimindedir ("1.234,5"), paylar `money.percent` ile yazılır ("%36", yüzde birin altı "<%1"). `formatValue` ile para birimli yazım verilebilir (`snn-chart-format`: `formatMoney`). Renkler `snn-chart-palette` (mavi, menekşe, yeşil, gül) ve nötr basamaklardır; amber yok. Varsayılan metinler Türkçe ("Toplam", "Diğer", "Henüz veri yok"). | `npx shadcn@latest add @snn-ui/donut-chart` |
 
 ## Kullanım örnekleri
 
@@ -465,6 +466,14 @@ import { LineChart, LineChartDatum, LineChartSeries } from "@/components/snn/lin
 import { BarChart, BarChartDatum } from "@/components/snn/bar-chart/bar-chart";
 
 <BarChart label="Günlük sipariş" period="12–18 Ekim 2026" data={days} unit="adet" />
+```
+
+### Halka grafik (`donut-chart`)
+
+```tsx
+import { DonutChart, DonutChartDatum } from "@/components/snn/donut-chart/donut-chart";
+
+<DonutChart label="Kaynağa göre ziyaret" data={[{ key: "arama", label: "Arama", value: 4200 }, { key: "dogrudan", label: "Doğrudan", value: 2100 }]} unit="ziyaret" />
 ```
 
 ## Bu rafta olmayanlar
