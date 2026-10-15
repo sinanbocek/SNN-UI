@@ -112,7 +112,7 @@ export function PricingCalculator({ plans, stops, defaultSeats, yearlyDiscount =
     {chosen && <div className={styles.summary} role="group" aria-label="Seçim özeti">
       <div>
         <p className={styles.summaryTitle}>{chosen.name}, {seatsText(seats)}</p>
-        <p className={styles.summaryNote}>{minorMoney(seatPrice)} koltuk başına {periodWord(period)} {period === "year" ? "(aylık karşılığı)" : ""}</p>
+        <p className={styles.summaryNote}>{minorMoney(seatPrice)}{" koltuk başına "}{periodWord(period)} {period === "year" ? "(aylık karşılığı)" : ""}</p>
         {saved > 0 && <p className={styles.savings}>Tasarruf ettiğiniz: <b>{minorMoney(saved)}</b> / yıl</p>}
       </div>
       <div className={styles.summaryTotal}><AnimatedCounter value={majorOf(total)} decimals={2} prefix="₺" /><small>/ {period === "year" ? "yıl" : "ay"}</small></div>

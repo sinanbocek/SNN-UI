@@ -120,8 +120,8 @@ export function UsagePricing({ plans, seatStops, usageStops, usageLabel = "Aylı
       <h4>Döküm</h4>
       <dl>
         <div><dt>Koltuk</dt><dd>{seatsText(seats)} × {minorMoney(Math.round(plan.seatPrice * 100))} = <b>{minorMoney(detail.seatLineMinor)}</b></dd></div>
-        <div><dt>Kullanım</dt><dd>{detail.overage > 0 ? <>{overageText(detail.overage)} aşım × {pricePerMillion(plan)} = <b>{minorMoney(detail.overageLineMinor)}</b></> : <>Dahil ({usageShort(plan.includedUsage)} {usageUnit}) = <b>{minorMoney(0)}</b></>}</dd></div>
-        <div className={styles.totalRow}><dt>Tahmini toplam, vergi öncesi{period === "year" ? " (yıllık)" : " (aylık)"}</dt><dd><b>{minorMoney(detail.periodMinor)}</b></dd></div>
+        <div><dt>Kullanım</dt><dd>{detail.overage > 0 ? <>{overageText(detail.overage)}{" aşım × "}{pricePerMillion(plan)}{" = "}<b>{minorMoney(detail.overageLineMinor)}</b></> : <>Dahil ({usageShort(plan.includedUsage)} {usageUnit}) = <b>{minorMoney(0)}</b></>}</dd></div>
+        <div className={styles.totalRow}><dt>{"Tahmini toplam, vergi öncesi"}{period === "year" ? " (yıllık)" : " (aylık)"}</dt><dd><b>{minorMoney(detail.periodMinor)}</b></dd></div>
       </dl>
       <div className={styles.scale} aria-hidden="true"><span style={{ width: `${(scalePosition(plans, plan) * 100) || 6}%` }} /></div>
     </section>}
