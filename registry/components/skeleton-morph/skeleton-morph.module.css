@@ -1,0 +1,16 @@
+.root { position: relative; border: 1px solid var(--border); border-radius: var(--radius-surface); padding: var(--space-4); background: var(--surface); }
+.content { display: flow-root; }
+.block { position: relative; }
+/* İskelet rengi skeleton ile aynı sakin gri-mavidir; nabız ancak yükleniyorken atar. */
+.shape, .line { display: block; background: color-mix(in oklab, var(--border-strong) 38%, var(--surface)); animation: morph-pulse 1.8s var(--ease-in-out) infinite; }
+.shape { max-width: 100%; border-radius: var(--radius-control); }
+.shape[data-shape="circle"] { aspect-ratio: 1; border-radius: var(--radius-pill); }
+.lines { display: grid; max-width: 100%; gap: var(--space-3); }
+.line { width: 100%; height: var(--space-3); border-radius: var(--radius-control); animation-delay: calc(var(--index, 0) * 90ms); }
+.line[data-last] { width: 68%; }
+.ghost { position: absolute; top: 0; left: 0; pointer-events: none; border-radius: var(--radius-control); background: color-mix(in oklab, var(--border-strong) 38%, var(--surface)); }
+.ghost[data-shape="circle"] { border-radius: var(--radius-pill); }
+@keyframes morph-pulse { 0%, 100% { opacity: 1; } 50% { opacity: .52; } }
+/* "Hareketi azalt": nabız yok; iskelet ile içerik arasında kısa çapraz geçiş kalır. */
+@media (prefers-reduced-motion: reduce) { .shape, .line { animation: none; } }
+.srOnly { position: absolute; width: 1px; height: 1px; overflow: hidden; clip-path: inset(50%); white-space: nowrap; }
