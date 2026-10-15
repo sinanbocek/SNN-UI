@@ -26,31 +26,31 @@ Kural: `SNN-Standartlar/standartlar/arayuz-standardi.md` §2.1. Fikir serbest, k
 
 | Ad | Bağlantı | Dalga | Durum |
 |---|---|---|---|
-| split-bar | https://uiarc.dev/components/split-bar | 2 | bekliyor |
-| sankey-flow | https://uiarc.dev/components/sankey-flow | 2 | bekliyor |
-| funnel-chart | https://uiarc.dev/components/funnel-chart | 2 | bekliyor |
-| race-bar-chart | https://uiarc.dev/components/race-bar-chart | 2 | bekliyor |
-| realtime-stream | https://uiarc.dev/components/realtime-stream | 2 | bekliyor |
+| split-bar | https://uiarc.dev/components/split-bar | 2 | tarif yazıldı |
+| sankey-flow | https://uiarc.dev/components/sankey-flow | 2 | tarif yazıldı |
+| funnel-chart | https://uiarc.dev/components/funnel-chart | 2 | tarif yazıldı |
+| race-bar-chart | https://uiarc.dev/components/race-bar-chart | 2 | tarif yazıldı |
+| realtime-stream | https://uiarc.dev/components/realtime-stream | 2 | tarif yazıldı |
 
 ## Dalga 2 — grafik ve finans (ABACUS gerekir), devam
 
 | Ad | Bağlantı | Dalga | Durum |
 |---|---|---|---|
-| metrics-dashboard | https://uiarc.dev/components/blocks/metrics-dashboard | 2 | bekliyor |
-| kpi-drilldown | https://uiarc.dev/components/blocks/kpi-drilldown | 2 | bekliyor |
-| metric-explorer | https://uiarc.dev/components/blocks/metric-explorer | 2 | bekliyor |
-| revenue-explorer | https://uiarc.dev/components/blocks/revenue-explorer | 2 | bekliyor |
-| mrr-waterfall | https://uiarc.dev/components/blocks/mrr-waterfall | 2 | bekliyor |
-| cohort-retention | https://uiarc.dev/components/blocks/cohort-retention | 2 | bekliyor |
-| usage-forecast | https://uiarc.dev/components/blocks/usage-forecast | 2 | bekliyor |
-| budget-variance | https://uiarc.dev/components/blocks/budget-variance | 2 | bekliyor |
-| small-multiples | https://uiarc.dev/components/blocks/small-multiples | 2 | bekliyor |
-| line-replay | https://uiarc.dev/components/blocks/line-replay | 2 | bekliyor |
-| market-terminal | https://uiarc.dev/components/blocks/market-terminal | 2 | bekliyor |
-| journey-flow | https://uiarc.dev/components/blocks/journey-flow | 2 | bekliyor |
-| invoice-studio | https://uiarc.dev/components/blocks/invoice-studio | 2 | bekliyor |
-| pricing-calculator | https://uiarc.dev/components/blocks/pricing-calculator | 2 | bekliyor |
-| usage-pricing | https://uiarc.dev/components/blocks/usage-pricing | 2 | bekliyor |
+| metrics-dashboard | https://uiarc.dev/components/blocks/metrics-dashboard | 2 | tarif yazıldı |
+| kpi-drilldown | https://uiarc.dev/components/blocks/kpi-drilldown | 2 | tarif yazıldı |
+| metric-explorer | https://uiarc.dev/components/blocks/metric-explorer | 2 | tarif yazıldı |
+| revenue-explorer | https://uiarc.dev/components/blocks/revenue-explorer | 2 | tarif yazıldı |
+| mrr-waterfall | https://uiarc.dev/components/blocks/mrr-waterfall | 2 | tarif yazıldı |
+| cohort-retention | https://uiarc.dev/components/blocks/cohort-retention | 2 | tarif yazıldı |
+| usage-forecast | https://uiarc.dev/components/blocks/usage-forecast | 2 | tarif yazıldı |
+| budget-variance | https://uiarc.dev/components/blocks/budget-variance | 2 | tarif yazıldı |
+| small-multiples | https://uiarc.dev/components/blocks/small-multiples | 2 | tarif yazıldı |
+| line-replay | https://uiarc.dev/components/blocks/line-replay | 2 | tarif yazıldı |
+| market-terminal | https://uiarc.dev/components/blocks/market-terminal | 2 | tarif yazıldı |
+| journey-flow | https://uiarc.dev/components/blocks/journey-flow | 2 | tarif yazıldı |
+| invoice-studio | https://uiarc.dev/components/blocks/invoice-studio | 2 | tarif yazıldı |
+| pricing-calculator | https://uiarc.dev/components/blocks/pricing-calculator | 2 | tarif yazıldı |
+| usage-pricing | https://uiarc.dev/components/blocks/usage-pricing | 2 | tarif yazıldı |
 
 ## Dalga 3 — vitrin ve satış
 
