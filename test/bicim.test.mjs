@@ -48,6 +48,7 @@ const FILES = {
   viewer: "registry/components/lib/image-viewer-format.ts",
   gallery: "registry/components/product-gallery/product-gallery-format.ts",
   lightbox: "registry/components/lightbox-gallery/lightbox-gallery-format.ts",
+  pgrid: "registry/components/photo-grid/photo-grid-format.ts",
 };
 const mods = {};
 let temp;
@@ -747,4 +748,36 @@ test("fotoğraf duvarı: sütun sayısı ve en kısa sütuna dağılım doğru; 
   assert.deepEqual(mods.lightbox.assignColumns([], 3), [[], [], []]);
   assert.deepEqual(mods.lightbox.assignColumns(sized, 0), [[0, 1, 2, 3]]);
   assert.equal(mods.lightbox.galleryCountText(1234), "1.234 fotoğraf");
+});
+
+test("fotoğraf ızgarası: seviye, sıkıştırma, ok tuşuyla odak ve yazımlar doğru; sayılar ABACUS çıktısıdır", () => {
+  assert.deepEqual([...mods.pgrid.LEVELS], [5, 3, 2]);
+  assert.equal(mods.pgrid.nearestLevel(5), 0);
+  assert.equal(mods.pgrid.nearestLevel(3.6), 1);
+  assert.equal(mods.pgrid.nearestLevel(2.4), 2);
+  assert.equal(mods.pgrid.nearestLevel(1), 2);
+  assert.equal(mods.pgrid.stepLevel(0, "in"), 1);
+  assert.equal(mods.pgrid.stepLevel(2, "in"), 2);
+  assert.equal(mods.pgrid.stepLevel(0, "out"), 0);
+  assert.equal(mods.pgrid.stepLevel(2, "out"), 1);
+  assert.equal(mods.pgrid.pinchColumns(5, 1), 5);
+  assert.equal(mods.pgrid.pinchColumns(5, 2), 2.5);
+  assert.equal(mods.pgrid.pinchColumns(5, 9), 2);
+  assert.equal(mods.pgrid.pinchColumns(3, .1), 5);
+  assert.equal(mods.pgrid.nearestLevel(mods.pgrid.pinchColumns(5, 1.6)), 1);
+  assert.equal(mods.pgrid.gridFocus("ArrowRight", 4, 5, 30), 5);
+  assert.equal(mods.pgrid.gridFocus("ArrowLeft", 0, 5, 30), 0);
+  assert.equal(mods.pgrid.gridFocus("ArrowDown", 27, 5, 30), 29);
+  assert.equal(mods.pgrid.gridFocus("ArrowUp", 2, 5, 30), 0);
+  assert.equal(mods.pgrid.gridFocus("PageDown", 2, 5, 30), 17);
+  assert.equal(mods.pgrid.gridFocus("PageUp", 20, 5, 30), 5);
+  assert.equal(mods.pgrid.gridFocus("Home", 9, 5, 30), 0);
+  assert.equal(mods.pgrid.gridFocus("End", 9, 5, 30), 29);
+  assert.equal(mods.pgrid.gridFocus("a", 9, 5, 30), 9);
+  assert.equal(mods.pgrid.photoCountText(1234), "1.234 fotoğraf");
+  assert.equal(mods.pgrid.columnsText(3), "3 sütun");
+  assert.equal(mods.pgrid.cellLabel("Kıyı", true), "Kıyı, favori");
+  assert.equal(mods.pgrid.cellLabel("Kıyı", false), "Kıyı");
+  assert.equal(mods.pgrid.favoriteLabel(true), "Favoriden çıkar");
+  assert.equal(mods.pgrid.favoriteLabel(false), "Favoriye ekle");
 });

@@ -11,6 +11,7 @@ import { ScrollStoryDemo } from "./scroll-story";
 import { SpotlightGridDemo } from "./spotlight-grid";
 import { ProductGalleryDemo } from "./product-gallery";
 import { LightboxGalleryDemo } from "./lightbox-gallery";
+import { PhotoGridDemo } from "./photo-grid";
 
 export const dalga3Demos: Record<string, () => ReactNode> = {
   "product-listing": () => <ProductListingDemo />,
@@ -24,4 +25,5 @@ export const dalga3Demos: Record<string, () => ReactNode> = {
   "spotlight-grid": () => <SpotlightGridDemo />,
   "product-gallery": () => <ProductGalleryDemo />,
   "lightbox-gallery": () => <LightboxGalleryDemo />,
+  "photo-grid": () => <PhotoGridDemo />,
 };

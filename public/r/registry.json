@@ -3334,6 +3334,49 @@
         "arcCommit": "bfdf7e8",
         "arcSource": "registry/components/lightbox-gallery"
       }
+    },
+    {
+      "name": "photo-grid",
+      "type": "registry:ui",
+      "title": "Fotoğraf ızgarası",
+      "description": "Blok: bir albümü eş boyutlu kare hücrelerle gösterir. Üst çubukta albüm adı, dönen fotoğraf sayısı, dönen sütun sayısı ve yakınlaştır / uzaklaştır düğmeleri bulunur. İki parmakla sıkıştırınca (ya da Ctrl+tekerlek, düğmeler, `+` / `-`) sütun sayısı yoğun, orta, geniş arasında (beş, üç, iki) değişir: sıkıştırma sırasında ızgara canlı ölçeklenir, bırakınca en yakın seviyeye oturur ve parmakların altındaki fotoğraf ekranda yerinde kalır. Izgarada oklar odağı gezdirir (PageUp / PageDown üç satır, Home / End ilk-son). Bir hücreye basınca (ya da Enter / Boşluk) tam ekran görüntüleyici o hücreden büyür; görüntüleyicide başlık ve ayrıntı satırı, \"2 / 30\" sayacı, favori kalbi, önceki/sonraki, kapat ve alttaki küçük resim şeridi vardır; sol/sağ ok, Home/End, yana kaydırma gezdirir, aşağı çekmek ya da Escape kapatır. Kalbe basınca favori açılır/kapanır (hücrede küçük kalp belirir, adı \", favori\" ile okunur) ve değişim dışarı bildirilir. Yükleniyor iskeleti ve dar kap durumları vardır.",
+      "dependencies": [
+        "@snn/abacus-core@github:sinanbocek/SNN-Abacus-Core#semver:^4.3.0",
+        "motion",
+        "@radix-ui/react-dialog"
+      ],
+      "registryDependencies": [
+        "@snn-ui/snn-foundation",
+        "@snn-ui/snn-motion-tokens",
+        "@snn-ui/animated-counter",
+        "@snn-ui/button",
+        "@snn-ui/snn-chart-format",
+        "@snn-ui/snn-image-viewer",
+        "@snn-ui/snn-motion-tokens",
+        "@snn-ui/snn-shop-parts",
+        "@snn-ui/snn-viz-utils"
+      ],
+      "files": [
+        {
+          "path": "registry/components/photo-grid/photo-grid-format.ts",
+          "type": "registry:component",
+          "target": "@components/snn/photo-grid/photo-grid-format.ts"
+        },
+        {
+          "path": "registry/components/photo-grid/photo-grid.module.css",
+          "type": "registry:component",
+          "target": "@components/snn/photo-grid/photo-grid.module.css"
+        },
+        {
+          "path": "registry/components/photo-grid/photo-grid.tsx",
+          "type": "registry:component",
+          "target": "@components/snn/photo-grid/photo-grid.tsx"
+        }
+      ],
+      "meta": {
+        "arcCommit": "bfdf7e8",
+        "arcSource": "registry/components/photo-grid"
+      }
     }
   ]
 }
