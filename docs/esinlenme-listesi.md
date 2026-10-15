@@ -36,7 +36,7 @@ Kural: `SNN-Standartlar/standartlar/arayuz-standardi.md` §2.1. Fikir serbest, k
 
 | Ad | Bağlantı | Dalga | Durum |
 |---|---|---|---|
-| metrics-dashboard | https://uiarc.dev/components/blocks/metrics-dashboard | 2 | tarif yazıldı |
+| metrics-dashboard | https://uiarc.dev/components/blocks/metrics-dashboard | 2 | yazıldı |
 | kpi-drilldown | https://uiarc.dev/components/blocks/kpi-drilldown | 2 | tarif yazıldı |
 | metric-explorer | https://uiarc.dev/components/blocks/metric-explorer | 2 | tarif yazıldı |
 | revenue-explorer | https://uiarc.dev/components/blocks/revenue-explorer | 2 | tarif yazıldı |

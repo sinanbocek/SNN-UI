@@ -88,6 +88,22 @@
       ]
     },
     {
+      "name": "snn-metric-format",
+      "type": "registry:item",
+      "title": "SNN gösterge yazımı",
+      "description": "Gösterge bloklarının ortak yazımı: adet, TRY tutar ve yüzde türleri için değer, kısa etiket ve işaretli değişim metni (\"+%11,7\", \"+0,1 puan\", ok ve sesli okuma). Hepsi ABACUS'tandır. Bloklarla kendiliğinden gelir.",
+      "dependencies": [
+        "@snn/abacus-core@github:sinanbocek/SNN-Abacus-Core#semver:^4.3.0"
+      ],
+      "files": [
+        {
+          "path": "registry/components/lib/metric-format.ts",
+          "type": "registry:lib",
+          "target": "@components/snn/lib/metric-format.ts"
+        }
+      ]
+    },
+    {
       "name": "button",
       "type": "registry:ui",
       "title": "Düğme",
@@ -2175,6 +2191,44 @@
       "meta": {
         "arcCommit": "bfdf7e8",
         "arcSource": "registry/components/realtime-stream"
+      }
+    },
+    {
+      "name": "metrics-dashboard",
+      "type": "registry:ui",
+      "title": "Özet gösterge paneli",
+      "description": "Blok: dört ana gösterge sekme gibi sıralanır (ad, dönen rakamlı değer, ok ve işaretli değişim); seçilen gösterge altındaki çizgi grafikte görülür, \"Karşılaştır\" önceki dönemin kesikli çizgisini ekler. Üstte dönem anahtarı (7/30/90 gün) ve \"Dışa aktar\"; altta iki sıralı liste yatay oran çubuklarıyla durur. Yükleniyor, hata (\"Yeniden dene\"), boş ve dar ekran durumları vardır; düzen pencereye değil bileşenin kendi genişliğine bakar.",
+      "dependencies": [
+        "@snn/abacus-core@github:sinanbocek/SNN-Abacus-Core#semver:^4.3.0",
+        "motion"
+      ],
+      "registryDependencies": [
+        "@snn-ui/snn-foundation",
+        "@snn-ui/snn-motion-tokens",
+        "@snn-ui/animated-counter",
+        "@snn-ui/button",
+        "@snn-ui/line-chart",
+        "@snn-ui/segmented-control",
+        "@snn-ui/skeleton",
+        "@snn-ui/snn-chart-format",
+        "@snn-ui/snn-metric-format",
+        "@snn-ui/snn-viz-utils"
+      ],
+      "files": [
+        {
+          "path": "registry/components/metrics-dashboard/metrics-dashboard.module.css",
+          "type": "registry:component",
+          "target": "@components/snn/metrics-dashboard/metrics-dashboard.module.css"
+        },
+        {
+          "path": "registry/components/metrics-dashboard/metrics-dashboard.tsx",
+          "type": "registry:component",
+          "target": "@components/snn/metrics-dashboard/metrics-dashboard.tsx"
+        }
+      ],
+      "meta": {
+        "arcCommit": "bfdf7e8",
+        "arcSource": "registry/components/metrics-dashboard"
       }
     }
   ]

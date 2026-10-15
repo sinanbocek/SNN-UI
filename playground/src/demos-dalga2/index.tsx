@@ -5,6 +5,7 @@ import { SankeyFlowDemo } from "./sankey-flow";
 import { FunnelChartDemo } from "./funnel-chart";
 import { RaceBarChartDemo } from "./race-bar-chart";
 import { RealtimeStreamDemo } from "./realtime-stream";
+import { MetricsDashboardDemo } from "./metrics-dashboard";
 
 export const dalga2Demos: Record<string, () => ReactNode> = {
   "split-bar": () => <SplitBarDemo />,
@@ -12,4 +13,5 @@ export const dalga2Demos: Record<string, () => ReactNode> = {
   "funnel-chart": () => <FunnelChartDemo />,
   "race-bar-chart": () => <RaceBarChartDemo />,
   "realtime-stream": () => <RealtimeStreamDemo />,
+  "metrics-dashboard": () => <MetricsDashboardDemo />,
 };

@@ -20,6 +20,7 @@ const FILES = {
   funnel: "registry/components/funnel-chart/funnel-chart-format.ts",
   race: "registry/components/race-bar-chart/race-bar-chart-format.ts",
   stream: "registry/components/realtime-stream/realtime-stream-format.ts",
+  metrics: "registry/components/metrics-dashboard/../lib/metric-format.ts",
 };
 const mods = {};
 let temp;
@@ -133,4 +134,15 @@ test("canlı akış: değer, eksen ve saat yazımı ABACUS çıktısıdır", () 
   const readings = [{ t: 0, value: 1 }, { t: 10, value: 3 }, { t: 20, value: 2 }];
   assert.equal(mods.stream.nearestIndex(readings, 12), 1);
   assert.deepEqual(mods.stream.domainFor(readings, 0, 10), [0, 10]);
+});
+
+test("gösterge yazımı: tutar, adet, yüzde ve değişim ABACUS çıktısıdır", () => {
+  assert.equal(mods.metrics.metricValueText("money", 1250000), money.formatMajor(1250000, { currency: "TRY", digits: 0 }));
+  assert.equal(mods.metrics.metricShortText("money", 1250000), money.compactMajor(1250000, { style: "B/Mn/Mr" }));
+  assert.equal(mods.metrics.metricValueText("count", 1234), money.fmtDecimalGrouped(1234, 0));
+  assert.equal(mods.metrics.metricValueText("percent", 3.2), money.percent(3.2, 1, { fixed: true }));
+  assert.equal(mods.metrics.metricChange("money", 120, 100).text, money.percent(math.percentChange(120, 100), 1, { sign: "always" }));
+  assert.equal(mods.metrics.metricChange("percent", 3.3, 3.2).text, "+0,1 puan");
+  assert.equal(mods.metrics.metricChange("count", 90, 100).arrow, "▼");
+  assert.equal(mods.metrics.metricChange("count", 5, undefined).text, "—");
 });
