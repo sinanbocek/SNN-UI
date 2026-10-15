@@ -93,6 +93,7 @@ export function ProductGallery({ colors, sizes, ratio = "4 / 5", magnification =
   const keyOpen = (event: KeyboardEvent) => { if (event.key === "Enter" && event.target === event.currentTarget) { event.preventDefault(); setViewer(safe); } };
 
   return <section className={styles.root} aria-label="Ürün galerisi" data-reduced={reduced || undefined}>
+    <div className={styles.layout}>
     <div className={styles.media}>
       {header && <div className={styles.header}>{header}</div>}
       <div ref={stage} className={styles.stage} onPointerMove={move} onPointerLeave={() => setHover(false)}
@@ -132,6 +133,7 @@ export function ProductGallery({ colors, sizes, ratio = "4 / 5", magnification =
         {sizes.some(item => isSoldOut(item, colorValue)) && <p className={styles.hint}>{sizes.filter(item => isSoldOut(item, colorValue)).map(item => soldOutText(color.label, item.label)).join(" · ")}</p>}
       </div>
       {footer && <div className={styles.footer}>{footer}</div>}
+    </div>
     </div>
     <ImageViewer images={photos} index={viewer} onIndexChange={at => { setViewer(at); setIndex(at); }} onClose={last => { setViewer(null); setIndex(last); requestAnimationFrame(() => opener.current?.focus()); }} getOrigin={originOf} label="Ürün fotoğrafları" />
     {live}
