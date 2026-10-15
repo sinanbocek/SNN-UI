@@ -198,7 +198,7 @@ export function ActionMorph({
       >
         <AnimatePresence initial={false} custom={direction}>
           {view === "menu" ? (
-            <Face key={faceKey} active custom={direction} variants={faces} onSize={setSize} className={styles.face} width={248}>
+            <Face key={faceKey} active custom={direction} variants={faces} onSize={setSize} className={styles.face} width={272}>
               <LayoutGroup id={`${ids}-menu`}>
                 <div className={styles.menu} role="menu" aria-label={menuTitle} onKeyDown={onMenuKey} onMouseLeave={() => setHot(null)}>
                   <div className={styles.menuTitle} aria-hidden="true">{menuTitle}</div>
