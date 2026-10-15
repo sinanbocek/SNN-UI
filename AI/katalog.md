@@ -92,6 +92,7 @@ Gereken paketler: React 19, `motion`; bazı bileşenlerde Radix ve `lucide-react
 | `gauge` | Gösterge halkası | Bir değerin aralığındaki yerini 270 derecelik halkayla gösterir: ortada "%72" ve isteğe bağlı durum adı. Eşik bantları (örneğin Düşük / Normal / Yüksek) rengi ve durum adını belirler; anlam yalnız renge dayanmaz. Görününce dolar, değer değişince yaylanır; sayım halkayı aşmadan izler. Yüzde `%72` biçiminde, işaret sayıdan önce yazılır (Türkçe yazım). `detail` hazır metin olarak gelir (`money.percent`, `money.formatMajor`). Eşik tonlarından `warning` mavi-gridir; kırmızı (`danger`) yalnız gerçek hata içindir. | `npx shadcn@latest add @snn-ui/gauge` |
 | `usage-meter` | Kullanım göstergesi | Depolama ya da koltuk gibi sabit bir hakkın ne kadarının neye gittiğini tek çubukta gösterir: kategoriler vurgunun basamaklarıdır, boş alan izin kendisidir. Başlıkta dönen rakamlı toplam, durum işareti ("3,2 GB boş", "Neredeyse dolu", "… aşıldı") ve klavyeyle gezilen gösterge vardır. Limit aşılınca taşan kısım taramalı çizilir; durum değişimleri ekran okuyucuya duyurulur. Sayılar ABACUS biçimindedir (sabit ondalıklı "42,5", binlik ayracı nokta); `decimals` ondalık basamak sayısıdır. Rakam sütunları `animated-counter` ile ortaktır (`counterParts`). Durum metinleri Türkçedir ("Boş", "Limit aşımı", "Neredeyse dolu"); `warnAt` varsayılanı 0,9. Gerçek kullanım verisini proje verir. | `npx shadcn@latest add @snn-ui/usage-meter` |
 | `slope-chart` | Eğim grafiği | Birkaç öğenin tam iki an arasında nasıl değiştiğini (ve sıralarının nasıl değiştiğini) gösterir: her öğe iki sütun arasında bir çizgidir. Etiketler üst üste binmez, hikâye öğesi vurgu renginde çizilir, odaktaki öğe öne çıkar ve ipucu değer, fark ve sıra değişimini söyler (yukarı/aşağı oklarla gezilir). Kapanma sırası sıra okuyla gösterilir. Değerler ABACUS biçimindedir ("1.234,5"); `formatValue` ile yüzde ya da tutar yazımı verilebilir (`snn-chart-format`: `formatPercent`, `formatMoney`). Farkı `formatChange` ile özelleştirin (varsayılan işaretli fark). Renkler `snn-chart-palette` ve nötr mürekkeptir; amber yok. Verinin iki dönemini proje verir. | `npx shadcn@latest add @snn-ui/slope-chart` |
+| `treemap` | Ağaç haritası | Bölge, ülke ve plana göre ciro gibi bir parça hiyerarşisini boyutla orantılı kutularla gösterir; boyutlar kesin karşılaştırmadan önemli olduğunda kullanılır. Üst düzey dallar dört seri tonunu alır, isteğe bağlı ikinci ölçü (büyüme gibi) koyuluğu belirler. Kutuya tıklayınca ya da Enter ile içine yakınlaşılır, Escape ya da yol izi ile geri dönülür; ipucu değeri ve üst öğedeki payı ("%12,3 Avrupa içinde") söyler. Değerler ve paylar ABACUS biçimindedir ("1.234,5", "%12,3"); `formatValue` ile tutar yazımı verilebilir (`snn-chart-format`: `formatMoney`). Renkler `snn-chart-palette`tir (en çok dört ton, sonrası nötr); amber yok. Hiyerarşiyi proje verir; yüzlerce yapraktan sonra sunucu tarafında toplama projenin işidir. | `npx shadcn@latest add @snn-ui/treemap` |
 
 ## Kullanım örnekleri
 
@@ -501,6 +502,14 @@ import { UsageMeter, UsageMeterSegment } from "@/components/snn/usage-meter/usag
 import { SlopeChart, SlopeItem } from "@/components/snn/slope-chart/slope-chart";
 
 <SlopeChart label="Kanala göre dönüşüm oranı" startLabel="1. çeyrek" endLabel="2. çeyrek" data={[{ key: "arama", label: "Arama", start: 3.2, end: 4.8 }]} highlightKey="arama" />
+```
+
+### Ağaç haritası (`treemap`)
+
+```tsx
+import { Treemap, TreemapNode } from "@/components/snn/treemap/treemap";
+
+<Treemap label="Bölgeye göre ciro" data={{ id: "kok", label: "Toplam", children: [{ id: "marmara", label: "Marmara", children: [{ id: "ist", label: "İstanbul", value: 4200 }] }] }} />
 ```
 
 ## Bu rafta olmayanlar

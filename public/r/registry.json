@@ -1746,6 +1746,38 @@
         "arcCommit": "bfdf7e8",
         "arcSource": "registry/components/slope-chart"
       }
+    },
+    {
+      "name": "treemap",
+      "type": "registry:ui",
+      "title": "Ağaç haritası",
+      "description": "Bölge, ülke ve plana göre ciro gibi bir parça hiyerarşisini boyutla orantılı kutularla gösterir; boyutlar kesin karşılaştırmadan önemli olduğunda kullanılır. Üst düzey dallar dört seri tonunu alır, isteğe bağlı ikinci ölçü (büyüme gibi) koyuluğu belirler. Kutuya tıklayınca ya da Enter ile içine yakınlaşılır, Escape ya da yol izi ile geri dönülür; ipucu değeri ve üst öğedeki payı (\"%12,3 Avrupa içinde\") söyler.",
+      "dependencies": [
+        "@snn/abacus-core@github:sinanbocek/SNN-Abacus-Core#semver:^4.3.0",
+        "motion"
+      ],
+      "registryDependencies": [
+        "@snn-ui/snn-foundation",
+        "@snn-ui/snn-motion-tokens",
+        "@snn-ui/snn-chart-format",
+        "@snn-ui/snn-chart-palette"
+      ],
+      "files": [
+        {
+          "path": "registry/components/treemap/treemap.module.css",
+          "type": "registry:component",
+          "target": "@components/snn/treemap/treemap.module.css"
+        },
+        {
+          "path": "registry/components/treemap/treemap.tsx",
+          "type": "registry:component",
+          "target": "@components/snn/treemap/treemap.tsx"
+        }
+      ],
+      "meta": {
+        "arcCommit": "bfdf7e8",
+        "arcSource": "registry/components/treemap"
+      }
     }
   ]
 }
