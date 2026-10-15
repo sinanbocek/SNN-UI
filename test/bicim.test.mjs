@@ -26,6 +26,7 @@ const FILES = {
   revenue: "registry/components/revenue-explorer/revenue-explorer-format.ts",
   waterfall: "registry/components/mrr-waterfall/mrr-waterfall-format.ts",
   cohort: "registry/components/cohort-retention/cohort-retention-format.ts",
+  usage: "registry/components/usage-forecast/usage-forecast-format.ts",
 };
 const mods = {};
 let temp;
@@ -216,4 +217,26 @@ test("kohort elde tutma: yüzde, puan farkı, büyüklük ve kohort adı ABACUS 
   assert.equal(mods.cohort.weightedAverage(cohorts, 1), null);
   assert.equal(mods.cohort.trendPoints(cohorts, 0), 3.3);
   assert.equal(mods.cohort.totalSignups(cohorts), 40);
+});
+
+test("kullanım tahmini: kullanım, yüzde, tutar ve tarih ABACUS çıktısıdır; kesişim doğru", () => {
+  assert.equal(mods.usage.usageText(38000000), money.fmtDecimalGrouped(38000000, 0));
+  assert.equal(mods.usage.usageText(38000000), "38.000.000");
+  assert.equal(mods.usage.percentOf(610, 1000), money.percent(61, 0));
+  assert.equal(mods.usage.moneyText(1250), money.formatMajor(1250, { currency: "TRY", digits: 2, kurus: true }));
+  assert.equal(mods.usage.dayText("2026-09-01", 25), "26 Eylül 2026");
+  assert.equal(mods.usage.addDays("2026-09-28", 4), "2026-10-02");
+  const used = [10, 20, 30, 40, 50];
+  const forecast = mods.usage.forecastUsage(used, 10);
+  assert.equal(forecast.enough, true);
+  assert.equal(forecast.rate, 10);
+  assert.equal(forecast.mid[9], 100);
+  assert.equal(mods.usage.crossingDay(forecast.mid, 75), 6.5);
+  const outlook = mods.usage.budgetOutlook(forecast, 75);
+  assert.equal(outlook.exceeded, false);
+  assert.equal(outlook.day, 6.5);
+  assert.equal(mods.usage.budgetOutlook(forecast, 35).exceeded, true);
+  assert.equal(mods.usage.forecastUsage([5, 9], 10).enough, false);
+  assert.equal(mods.usage.overageCost(1500, 1000, 100, 2), 10);
+  assert.equal(mods.usage.budgetStep(0, 100), 5);
 });

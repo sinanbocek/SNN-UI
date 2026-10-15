@@ -2448,6 +2448,47 @@
         "arcCommit": "bfdf7e8",
         "arcSource": "registry/components/cohort-retention"
       }
+    },
+    {
+      "name": "usage-forecast",
+      "type": "registry:ui",
+      "title": "Kullanım tahmini",
+      "description": "Blok: bir fatura döneminde bir ölçünün (istek, depolama, koltuk) şimdiye kadarki kullanımını çizer ve dönem sonuna kadar gidişini tahmin eder; tahmin soluk bir olası aralık konisiyle devam eder. Bütçe çizgisi tutamacından sürüklenir ya da ok tuşlarıyla oynatılır: ana cümle (\"Bu hızla bütçeye 26 Eylül 2026 günü ulaşırsınız, büyük olasılıkla … arası\"), aşma işareti, bütçe üstü maliyet ve %50 / %80 / %100 uyarı tarihleri hemen yeniden hesaplanır. Uyarı kuralları açılıp kapanır, grafikte gün gün okunur; zaten aşıldı, aşılmayacak, yetersiz veri, yükleniyor, hata ve boş durumları ile gizli tablo vardır.",
+      "dependencies": [
+        "@snn/abacus-core@github:sinanbocek/SNN-Abacus-Core#semver:^4.3.0",
+        "motion"
+      ],
+      "registryDependencies": [
+        "@snn-ui/snn-foundation",
+        "@snn-ui/snn-motion-tokens",
+        "@snn-ui/animated-counter",
+        "@snn-ui/button",
+        "@snn-ui/segmented-control",
+        "@snn-ui/skeleton",
+        "@snn-ui/snn-chart-format",
+        "@snn-ui/snn-viz-utils"
+      ],
+      "files": [
+        {
+          "path": "registry/components/usage-forecast/usage-forecast-format.ts",
+          "type": "registry:component",
+          "target": "@components/snn/usage-forecast/usage-forecast-format.ts"
+        },
+        {
+          "path": "registry/components/usage-forecast/usage-forecast.module.css",
+          "type": "registry:component",
+          "target": "@components/snn/usage-forecast/usage-forecast.module.css"
+        },
+        {
+          "path": "registry/components/usage-forecast/usage-forecast.tsx",
+          "type": "registry:component",
+          "target": "@components/snn/usage-forecast/usage-forecast.tsx"
+        }
+      ],
+      "meta": {
+        "arcCommit": "bfdf7e8",
+        "arcSource": "registry/components/usage-forecast"
+      }
     }
   ]
 }
