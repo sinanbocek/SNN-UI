@@ -1810,6 +1810,38 @@
         "arcCommit": "bfdf7e8",
         "arcSource": "registry/components/waffle-chart"
       }
+    },
+    {
+      "name": "brush-chart",
+      "type": "registry:ui",
+      "title": "Fırça grafiği",
+      "description": "Uzun ve yoğun bir zaman serisinde hem tüm geçmişi hem de herhangi bir kesitine yakından bakmayı sağlar: altta tüm serinin genel bakış şeridi, üstte seçili pencerenin büyük grafiği. Pencere kenarlarından boyutlandırılır, tutulup kaydırılır, boş izden yenisi çizilir (dokunma yeniden ortalar, çift dokunma sıfırlar); klavyeyle de gezilir. Uzaklaşınca yedi günlük ortalama ve bandı ham çizginin yerini alır; olaylar işaretlenir. Tarihler Türkçedir (\"15 Ekim 2026 Per\").",
+      "dependencies": [
+        "@snn/abacus-core@github:sinanbocek/SNN-Abacus-Core#semver:^4.3.0",
+        "motion"
+      ],
+      "registryDependencies": [
+        "@snn-ui/snn-foundation",
+        "@snn-ui/snn-motion-tokens",
+        "@snn-ui/snn-chart-format",
+        "@snn-ui/snn-chart-palette"
+      ],
+      "files": [
+        {
+          "path": "registry/components/brush-chart/brush-chart.module.css",
+          "type": "registry:component",
+          "target": "@components/snn/brush-chart/brush-chart.module.css"
+        },
+        {
+          "path": "registry/components/brush-chart/brush-chart.tsx",
+          "type": "registry:component",
+          "target": "@components/snn/brush-chart/brush-chart.tsx"
+        }
+      ],
+      "meta": {
+        "arcCommit": "bfdf7e8",
+        "arcSource": "registry/components/brush-chart"
+      }
     }
   ]
 }
