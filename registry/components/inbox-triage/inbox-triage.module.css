@@ -1,0 +1,48 @@
+/* Gelen kutusu ayıklama: dar kolonda satır iki satıra döner (üstte gönderen, altta konu ve önizleme), okunmamış sayısı gizlenir. */
+.root { container-type: inline-size; display: grid; gap: var(--space-4); color: var(--foreground); font-family: var(--font-body); }
+.srOnly { position: absolute; width: 1px; height: 1px; overflow: hidden; clip-path: inset(50%); white-space: nowrap; }
+.header { display: flex; align-items: center; justify-content: space-between; gap: var(--space-4); }
+.title { display: flex; align-items: baseline; gap: var(--space-3); margin: 0; font-family: var(--font-display); font-size: var(--text-xl); font-weight: 600; letter-spacing: var(--tracking-display); }
+.title:focus { outline: none; }
+.title:focus-visible { outline: var(--focus-outline-width) solid var(--focus-outline); outline-offset: var(--focus-outline-offset); }
+.unreadCount { color: var(--text-muted); font-size: var(--text-sm); font-weight: 400; font-variant-numeric: tabular-nums; }
+.skeletons { display: grid; gap: var(--space-5); padding: var(--space-3); }
+.list { display: grid; margin: var(--space-3) 0 0; padding: 0; list-style: none; border: 1px solid var(--border); border-radius: var(--radius-surface); }
+.item { overflow: hidden; }
+.item + .item { border-top: 1px solid var(--border-subtle); }
+.row { display: grid; width: 100%; grid-template-columns: var(--space-3) auto 9rem minmax(0, 1fr) auto; align-items: center; gap: var(--space-3); border: 0; padding: var(--space-3) var(--space-4); color: inherit; background: transparent; font: inherit; text-align: left; cursor: pointer; }
+.row:focus-visible { outline: var(--focus-outline-width) solid var(--focus-outline); outline-offset: calc(var(--focus-outline-width) * -1); border-radius: var(--radius-panel); }
+@media (hover: hover) and (pointer: fine) { .row:hover { background: var(--surface-muted); } }
+.mark { display: grid; place-items: center; }
+.unreadDot { width: var(--space-2); height: var(--space-2); border-radius: var(--radius-pill); background: var(--accent); }
+.from { overflow: hidden; font-size: var(--text-sm); text-overflow: ellipsis; white-space: nowrap; }
+.row[data-unread="true"] .from, .row[data-unread="true"] .subject { font-weight: 600; }
+.text { display: flex; min-width: 0; align-items: baseline; gap: var(--space-2); font-size: var(--text-sm); }
+.subject { flex: none; max-width: 55%; overflow: hidden; text-overflow: ellipsis; white-space: nowrap; }
+.preview { min-width: 0; overflow: hidden; color: var(--text-secondary); text-overflow: ellipsis; white-space: nowrap; }
+.time { color: var(--text-muted); font-size: var(--text-xs); white-space: nowrap; }
+.detail { overflow: hidden; }
+.detailBody { display: grid; gap: var(--space-3); max-height: 16rem; overflow-y: auto; padding: var(--space-1) var(--space-5) var(--space-4) calc(var(--space-4) + var(--space-3) + var(--space-3)); color: var(--text-secondary); font-size: var(--text-sm); line-height: var(--leading-body); }
+.detailBody p { margin: 0; }
+.actions { display: flex; flex-wrap: wrap; gap: var(--space-2); }
+.pager { display: flex; justify-content: center; margin-top: var(--space-3); }
+.footer { display: flex; flex-wrap: wrap; align-items: center; justify-content: space-between; gap: var(--space-3); min-height: var(--control-height-sm); }
+.status { min-height: var(--control-height-sm); }
+.notice { display: flex; align-items: center; gap: var(--space-2); font-size: var(--text-sm); }
+.notice[data-kind="error"] { color: var(--danger); }
+.shortcuts { display: flex; gap: var(--space-4); margin: 0; color: var(--text-muted); font-size: var(--text-xs); }
+.kbd { border: 1px solid var(--border); border-radius: var(--space-1); padding: 0 var(--space-2); background: var(--surface-muted); font: inherit; font-size: var(--text-xs); }
+
+@container (max-width: 40rem) {
+  .row { grid-template-columns: var(--space-3) auto minmax(0, 1fr) auto; grid-template-areas: "mark avatar from time" "mark avatar text text"; row-gap: var(--space-1); }
+  .row > :nth-child(1) { grid-area: mark; }
+  .row > :nth-child(2) { grid-area: avatar; }
+  .from { grid-area: from; }
+  .text { grid-area: text; }
+  .time { grid-area: time; }
+  .detailBody { padding-left: var(--space-4); }
+}
+@container (max-width: 26rem) {
+  .unreadCount { display: none; }
+  .shortcuts { gap: var(--space-3); }
+}

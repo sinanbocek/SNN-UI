@@ -1137,6 +1137,42 @@
         "arcCommit": "bfdf7e8",
         "arcSource": "registry/components/roles-permissions"
       }
+    },
+    {
+      "name": "inbox-triage",
+      "type": "registry:ui",
+      "title": "Gelen kutusu ayıklama",
+      "description": "Blok: karar bekleyen mesaj kuyruğu. Gelen, Ertelenen ve Arşiv sekmeleri (sayılı), yerinde açılan satırlar, \"yalnız okunmamışlar\" süzgeci, tek tuş kısayolları (E arşivle, S ertele, U geri al) ve geri alınabilir son hamle durum satırı. Hamleden sonra odak sonraki satıra geçer. Her klasör için ayrı boş durum, yükleniyor, taşıma hatası (\"Yeniden dene\") ve dar kolon (iki satırlı satır) durumları vardır.",
+      "dependencies": [
+        "motion"
+      ],
+      "registryDependencies": [
+        "@snn-ui/snn-foundation",
+        "@snn-ui/snn-motion-tokens",
+        "@snn-ui/avatar",
+        "@snn-ui/badge",
+        "@snn-ui/button",
+        "@snn-ui/empty-state",
+        "@snn-ui/pagination",
+        "@snn-ui/skeleton",
+        "@snn-ui/tabs"
+      ],
+      "files": [
+        {
+          "path": "registry/components/inbox-triage/inbox-triage.module.css",
+          "type": "registry:component",
+          "target": "@components/snn/inbox-triage/inbox-triage.module.css"
+        },
+        {
+          "path": "registry/components/inbox-triage/inbox-triage.tsx",
+          "type": "registry:component",
+          "target": "@components/snn/inbox-triage/inbox-triage.tsx"
+        }
+      ],
+      "meta": {
+        "arcCommit": "bfdf7e8",
+        "arcSource": "registry/components/inbox-triage"
+      }
     }
   ]
 }
