@@ -30,6 +30,19 @@
       ]
     },
     {
+      "name": "snn-pointer-drag",
+      "type": "registry:item",
+      "title": "SNN sürükleme kancası",
+      "description": "Fare, dokunma ve kalemle sürükle-bırak için küçük kanca (usePointerDrag, findDropTarget). Kütüphanesizdir; kenara yaklaşınca kaydırır, dokunmatikte kısa basıştan sonra başlar, Esc iptal eder. Klavyeyle taşıma bunu kullanan bloğun işidir. Sürükleyen bloklarla kendiliğinden gelir.",
+      "files": [
+        {
+          "path": "registry/components/lib/pointer-drag.ts",
+          "type": "registry:lib",
+          "target": "@components/snn/lib/pointer-drag.ts"
+        }
+      ]
+    },
+    {
       "name": "button",
       "type": "registry:ui",
       "title": "Düğme",
@@ -1238,6 +1251,52 @@
       "meta": {
         "arcCommit": "bfdf7e8",
         "arcSource": "registry/components/multi-step-form"
+      }
+    },
+    {
+      "name": "week-calendar",
+      "type": "registry:ui",
+      "title": "Haftalık takvim",
+      "description": "Blok: haftalık zaman ızgarası. Boş zamanı sürükleyerek etkinlik oluşturma (15 dakikalık adımlar), etkinliği sürükleyip taşıma, alt kenardan uzatma; üst çubukta Bugün, oklar, aralık başlığı, Hafta / İş haftası / Gün / 3 gün / Gündem görünümleri ve takvim açma kapama. Tüm gün satırı (\"+N daha\"), çakışan etkinlikler yan yana, \"şimdi\" çizgisi, ayrıntı kutusu, silince geri al (Ctrl+Z). Klavyeyle taşıma (Alt+ok), N / T / D / W kısayolları. Boş hafta, yükleniyor, kaydetme hatası ve dar kolon (3 gün + gündem) durumları vardır.",
+      "dependencies": [
+        "@snn/abacus-core@github:sinanbocek/SNN-Abacus-Core#semver:^4.3.0",
+        "lucide-react",
+        "motion"
+      ],
+      "registryDependencies": [
+        "@snn-ui/snn-foundation",
+        "@snn-ui/snn-motion-tokens",
+        "@snn-ui/button",
+        "@snn-ui/checkbox",
+        "@snn-ui/dialog",
+        "@snn-ui/empty-state",
+        "@snn-ui/input",
+        "@snn-ui/popover",
+        "@snn-ui/segmented-control",
+        "@snn-ui/select",
+        "@snn-ui/skeleton",
+        "@snn-ui/snn-pointer-drag"
+      ],
+      "files": [
+        {
+          "path": "registry/components/week-calendar/calendar-math.ts",
+          "type": "registry:component",
+          "target": "@components/snn/week-calendar/calendar-math.ts"
+        },
+        {
+          "path": "registry/components/week-calendar/week-calendar.module.css",
+          "type": "registry:component",
+          "target": "@components/snn/week-calendar/week-calendar.module.css"
+        },
+        {
+          "path": "registry/components/week-calendar/week-calendar.tsx",
+          "type": "registry:component",
+          "target": "@components/snn/week-calendar/week-calendar.tsx"
+        }
+      ],
+      "meta": {
+        "arcCommit": "bfdf7e8",
+        "arcSource": "registry/components/week-calendar"
       }
     }
   ]

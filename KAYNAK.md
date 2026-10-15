@@ -99,3 +99,4 @@ Bu parçalar Arc'tan alınmadı; tariflerinden sıfırdan yazıldı (`arayuz-sta
 | `inbox-triage` | Arc Pro inbox-triage'dan esinlenildi; kod okunmadı; tarif: docs/tarifler/inbox-triage.md | `avatar`, `badge`, `button`, `empty-state`, `pagination`, `skeleton`, `tabs` |
 | `release-readiness` | Arc Pro release-readiness'dan esinlenildi; kod okunmadı; tarif: docs/tarifler/release-readiness.md | `avatar`, `button`, `checkbox`, `progress`, `skeleton`, `switch`, `tooltip` |
 | `multi-step-form` | Arc Pro multi-step-form'dan esinlenildi; kod okunmadı; tarif: docs/tarifler/multi-step-form.md | `button` |
+| `week-calendar` | Arc Pro week-calendar'dan esinlenildi; kod okunmadı; tarif: docs/tarifler/week-calendar.md | `button`, `checkbox`, `dialog`, `empty-state`, `input`, `popover`, `segmented-control`, `select`, `skeleton`, `snn-pointer-drag` |
