@@ -14,6 +14,7 @@ const FILES = {
   chart: "registry/components/lib/chart-format.ts",
   counter: "registry/components/animated-counter/counter-parts.ts",
   metric: "registry/components/metric-card/metric-card-format.ts",
+  line: "registry/components/line-chart/line-chart-format.ts",
 };
 const mods = {};
 let temp;
@@ -66,4 +67,12 @@ test("gösterge kartı: 1234.5 → '1.234,5', 1250000 TRY → ABACUS kısaltmas�
   assert.equal(joined(mods.metric.metricDisplay(1250000, "compact-money")), money.compactMajor(1250000, { style: "B/Mn/Mr" }));
   assert.equal(joined(mods.metric.metricDisplay(1250000, "money")), money.formatMajor(1250000, { currency: "TRY", digits: 0 }));
   assert.equal(joined(mods.metric.metricDisplay(-2500, "compact-money")), money.compactMajor(-2500, { style: "B/Mn/Mr" }));
+});
+
+test("çizgi grafik: ipucu 1234.5 → '1.234,5', eksen 1250000 → ABACUS kısaltması", () => {
+  assert.equal(mods.line.formatLineValue(1234.5), money.fmtDecimalGrouped(1234.5, 1));
+  assert.equal(mods.line.formatLineValue(1234.5), "1.234,5");
+  assert.equal(mods.line.formatLineTick(1250000), money.compactMajor(1250000, { style: "B/Mn/Mr" }).replace("₺", ""));
+  assert.equal(mods.line.formatLineTick(1250000), "1,25Mn");
+  assert.equal(mods.line.formatLineTick(500), "500");
 });

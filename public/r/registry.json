@@ -1551,6 +1551,42 @@
         "arcCommit": "bfdf7e8",
         "arcSource": "registry/components/sparkline"
       }
+    },
+    {
+      "name": "line-chart",
+      "type": "registry:ui",
+      "title": "Çizgi grafik",
+      "description": "Zaman içindeki bir ya da birkaç ölçüyü yumuşak çizgilerle gösterir. Fare, dokunma ve ok tuşlarıyla gezilen artı imleç ipucuyla noktaları okur; seriler göstergeden açılıp kapanır, değer ekseni kendini ölçekler, aralık değişince çizgiler yeni biçime akar. Ekran okuyucu için veri tablosu, boş ve yükleniyor durumları vardır.",
+      "dependencies": [
+        "@snn/abacus-core@github:sinanbocek/SNN-Abacus-Core#semver:^4.3.0",
+        "motion"
+      ],
+      "registryDependencies": [
+        "@snn-ui/snn-foundation",
+        "@snn-ui/snn-motion-tokens",
+        "@snn-ui/snn-chart-format"
+      ],
+      "files": [
+        {
+          "path": "registry/components/line-chart/line-chart-format.ts",
+          "type": "registry:component",
+          "target": "@components/snn/line-chart/line-chart-format.ts"
+        },
+        {
+          "path": "registry/components/line-chart/line-chart.module.css",
+          "type": "registry:component",
+          "target": "@components/snn/line-chart/line-chart.module.css"
+        },
+        {
+          "path": "registry/components/line-chart/line-chart.tsx",
+          "type": "registry:component",
+          "target": "@components/snn/line-chart/line-chart.tsx"
+        }
+      ],
+      "meta": {
+        "arcCommit": "bfdf7e8",
+        "arcSource": "registry/components/line-chart"
+      }
     }
   ]
 }

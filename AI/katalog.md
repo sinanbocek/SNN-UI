@@ -86,6 +86,7 @@ Gereken paketler: React 19, `motion`; bazı bileşenlerde Radix ve `lucide-react
 | `animated-counter` | Dönen rakamlı sayaç | Sayı değişince her rakam kilometre sayacı gibi döner (9 → 0 sarar, yön sayının gittiği yöndür); binlik ayracı nokta, ondalık ayracı virgül ("1.234,5"). İstenirse ilk görünüşte sıfırdan yukarı sayar. Ekran okuyucu düz metni okur. Biçim ABACUS `money.fmtDecimalGrouped` ile yazılır; Arc'ın `locale` prop'u (varsayılan en-US) kaldırıldı. Para birimi ve kısaltma için `metric-card` ya da `snn-chart-format` kullanılır. | `npx shadcn@latest add @snn-ui/animated-counter` |
 | `metric-card` | Gösterge kartı | Bir göstergeyi tek kartta söyler: başlık, dönen rakamlı değer, işaretli değişim etiketi (yeşil/kırmızı) ve bağlam cümlesi. Değer düz sayı, tam tutar (₺1.250.000) ya da kısaltılmış tutar (₺1,25Mn) olabilir. Metinler değişince yön duyarlı kayar. `format`: "number" (varsayılan), "money", "compact-money"; `currency` varsayılanı TRY. Yazım ABACUS `money.formatMajor` / `money.compactMajor` çıktısıdır. Değişim etiketini ("+%12,3") proje `math.percentChange` ve `money.percent` ile üretir. Arc'ın `prefix` ve `locale` yazımı yerine `format` ve `currency` geldi. | `npx shadcn@latest add @snn-ui/metric-card` |
 | `sparkline` | Mini çizgi grafik | Başlığın yanında küçük bir eğilim çizgisi: değer, değişim ve yumuşak çizgi. Görününce soldan sağa çizilir; fare, dokunma ve ok tuşlarıyla noktalar gezilir, başlık gezilen noktayı gösterir. Veri değişince çizgi yeni biçime akar. Gezilen noktanın yazımı `formatValue` ile özelleştirilir; varsayılan ABACUS biçimidir ("1.234,5"). Başlıktaki değer ve değişim hazır metin olarak gelir (`money.fmtDecimalGrouped`, `money.percent`). Renk tonları (`accent`, `success`, `warning`, `danger`) temel değişkenlerdendir; `warning` mavi-gridir. | `npx shadcn@latest add @snn-ui/sparkline` |
+| `line-chart` | Çizgi grafik | Zaman içindeki bir ya da birkaç ölçüyü yumuşak çizgilerle gösterir. Fare, dokunma ve ok tuşlarıyla gezilen artı imleç ipucuyla noktaları okur; seriler göstergeden açılıp kapanır, değer ekseni kendini ölçekler, aralık değişince çizgiler yeni biçime akar. Ekran okuyucu için veri tablosu, boş ve yükleniyor durumları vardır. Değer ve eksen etiketleri ABACUS'tandır: ipucunda "1.234,5", eksende kısaltma ("1,2B", "1,25Mn"). `formatValue` ve `formatTick` ile para birimli yazım verilebilir (`snn-chart-format`: `formatMoney`, `formatMoneyCompact`). Tarih etiketlerini (`label`, `axisLabel`) proje ABACUS `date.format` ile hazırlar. Verinin aralığını ve yüklemeyi proje yönetir. | `npx shadcn@latest add @snn-ui/line-chart` |
 
 ## Kullanım örnekleri
 
@@ -447,6 +448,14 @@ import { MetricCard } from "@/components/snn/metric-card/metric-card";
 import { Sparkline } from "@/components/snn/sparkline/sparkline";
 
 <Sparkline label="Haftalık sipariş" value="1.284" change="+%8,2" data={[820, 910, 880, 1010, 1100, 1284]} labels={days} />
+```
+
+### Çizgi grafik (`line-chart`)
+
+```tsx
+import { LineChart, LineChartDatum, LineChartSeries } from "@/components/snn/line-chart/line-chart";
+
+<LineChart label="Haftalık sipariş" data={data} series={[{ key: "bu", label: "Bu hafta" }, { key: "gecen", label: "Geçen hafta", dashed: true }]} unit="adet" />
 ```
 
 ## Bu rafta olmayanlar
