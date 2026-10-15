@@ -42,18 +42,20 @@ const FILES = {
   checkout: "registry/components/checkout-summary/checkout-summary-format.ts",
   wallet: "registry/components/wallet-card/wallet-card-format.ts",
   flow: "registry/components/payment-flow/payment-flow-format.ts",
+  hero: "registry/components/hero-signup/hero-signup-format.ts",
 };
 const mods = {};
 let temp;
 let math;
 let money;
+let validate;
 
 before(async () => {
   temp = mkdtempSync(path.join(tmpdir(), "snn-ui-bicim-"));
   // Beklenen değerler ABACUS'tan alınır; paket TypeScript kaynağı taşıdığı için o da paketlenir.
   const abacusOut = path.join(temp, "abacus.mjs");
   await build({ stdin: { contents: 'export * from "@snn/abacus-core";', resolveDir: root }, bundle: true, format: "esm", platform: "node", outfile: abacusOut, logLevel: "silent" });
-  ({ math, money } = await import(pathToFileURL(abacusOut).href));
+  ({ math, money, validate } = await import(pathToFileURL(abacusOut).href));
   for (const [key, file] of Object.entries(FILES)) {
     const outfile = path.join(temp, `${key}.mjs`);
     await build({ entryPoints: [path.join(root, file)], bundle: true, format: "esm", platform: "node", outfile, logLevel: "silent" });
@@ -615,4 +617,24 @@ test("ödeme akışı: döngü karesi, yol üstünde konum, yerleşim ve yazıml
   assert.deepEqual(mods.flow.lineFills(mods.flow.cycleFrame(.99), .99, split), { main: 0, back: 0, settle: 0 });
   assert.equal(mods.flow.lineFills(mods.flow.cycleFrame(.7), .7, split).main, 1);
   assert.match(mods.flow.describeFlow(economics, mods.flow.DEFAULT_STOPS, "ertesi iş günü"), /₺2\.400,00 tutarındaki ödeme.*₺69,60 komisyon.*₺2\.330,40 net tutar ertesi iş günü/);
+});
+
+test("karşılama kaydı: e-posta süzme, sakin doğrulama ve yazım önerisi ABACUS kurallarıdır; sayılar ABACUS çıktısıdır", () => {
+  assert.equal(mods.hero.cleanEmail("  ALI@Site.COM "), "ali@site.com");
+  assert.equal(mods.hero.cleanEmail("IRMAK @ SITE.com"), "irmak@site.com");
+  assert.equal(mods.hero.emailProblem(""), "E-posta adresinizi yazın.");
+  assert.equal(mods.hero.emailProblem("ali"), "Adreste @ işareti eksik.");
+  assert.equal(mods.hero.emailProblem("@site.com"), "@ işaretinden önce bir ad yazın.");
+  assert.equal(mods.hero.emailProblem("ali@site"), "Alan adı tamamlanmamış (örneğin ad@site.com).");
+  assert.equal(mods.hero.emailProblem("ali@site."), "Alan adı tamamlanmamış (örneğin ad@site.com).");
+  assert.equal(mods.hero.emailProblem("ali@site.com"), null);
+  assert.equal(mods.hero.emailProblem("ali@site.com"), validate.email("ali@site.com") ? null : "x");
+  assert.equal(mods.hero.suggestEmail("ali@gmial.com"), "ali@gmail.com");
+  assert.equal(mods.hero.suggestEmail("ali@hotmail.con"), "ali@hotmail.com");
+  assert.equal(mods.hero.suggestEmail("ali@gmail.com"), null);
+  assert.equal(mods.hero.suggestEmail("ali"), null);
+  assert.equal(mods.hero.suggestionText("ali@gmail.com"), "Şunu mu demek istediniz: ali@gmail.com?");
+  assert.equal(mods.hero.peopleText(1284), "1.284 kişi listede");
+  assert.equal(mods.hero.peopleText(1284), money.fmtDecimalGrouped(1284, 0) + " kişi listede");
+  assert.equal(mods.hero.rankSentence(1285), "Listede 1.285. sıradasınız");
 });

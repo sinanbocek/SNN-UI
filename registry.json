@@ -3102,6 +3102,48 @@
         "arcCommit": "bfdf7e8",
         "arcSource": "registry/components/payment-flow"
       }
+    },
+    {
+      "name": "hero-signup",
+      "type": "registry:ui",
+      "title": "Karşılama ve e-posta kaydı",
+      "description": "Blok: sayfanın ilk ekranını dolduran, tek e-posta alanı olan karşılama bölümü. Arka planda vurgu renginden türetilmiş yavaş akan bir renk geçişi, başlıkta kelime kelime yükselen yazı, ardından alt cümle, alan ve sosyal kanıt gelir. Alan yazılırken hata göstermez (boşluk atılır, harfler küçülür); alandan çıkınca ya da gönderince belirli iletiler çıkar (\"Adreste @ işareti eksik.\", \"Alan adı tamamlanmamış\"). Bilinen bir yazım hatası (\"gmial.com\") için \"Şunu mu demek istediniz: …?\" önerisi tek tıkla uygulanır. Enter ya da \"Listeye katıl\": düğme yerinde dönen halkaya geçer (boyutu değişmez, ikinci basış yok sayılır); başarıda form onaya dönüşür, \"Listede 1.285. sıradasınız\" yazar (sıra rakam rakam döner), odak onaya gider, \"E-postayı değiştir\" forma ve alana döner. Hata alt notta \"Yerinizi kaydedemedik. Tekrar dene\" der ve alan hafif sallanır. Altta en çok beş portre ve dönen \"1.285 kişi listede\" sayısı bulunur. Çok dar kapta düğme etiketi \"Katıl\" olur. Gönderiliyor, başarı ve hata kibar durum bölgesinde duyurulur.",
+      "dependencies": [
+        "@snn/abacus-core@github:sinanbocek/SNN-Abacus-Core#semver:^4.3.0",
+        "motion"
+      ],
+      "registryDependencies": [
+        "@snn-ui/snn-foundation",
+        "@snn-ui/snn-motion-tokens",
+        "@snn-ui/animated-counter",
+        "@snn-ui/avatar",
+        "@snn-ui/button",
+        "@snn-ui/snn-chart-format",
+        "@snn-ui/snn-motion-tokens",
+        "@snn-ui/snn-shop-parts",
+        "@snn-ui/snn-viz-utils"
+      ],
+      "files": [
+        {
+          "path": "registry/components/hero-signup/hero-signup-format.ts",
+          "type": "registry:component",
+          "target": "@components/snn/hero-signup/hero-signup-format.ts"
+        },
+        {
+          "path": "registry/components/hero-signup/hero-signup.module.css",
+          "type": "registry:component",
+          "target": "@components/snn/hero-signup/hero-signup.module.css"
+        },
+        {
+          "path": "registry/components/hero-signup/hero-signup.tsx",
+          "type": "registry:component",
+          "target": "@components/snn/hero-signup/hero-signup.tsx"
+        }
+      ],
+      "meta": {
+        "arcCommit": "bfdf7e8",
+        "arcSource": "registry/components/hero-signup"
+      }
     }
   ]
 }
