@@ -24,6 +24,7 @@ const FILES = {
   kpi: "registry/components/kpi-drilldown/../lib/chart-format.ts",
   explorer: "registry/components/metric-explorer/../lib/metric-format.ts",
   revenue: "registry/components/revenue-explorer/revenue-explorer-format.ts",
+  waterfall: "registry/components/mrr-waterfall/mrr-waterfall-format.ts",
 };
 const mods = {};
 let temp;
@@ -184,4 +185,20 @@ test("gelir gezgini: tutar, büyüme, kayıp oranı ve ay adı ABACUS çıktıs�
   assert.equal(mods.revenue.growthText(summary), money.percent(math.percentChange(150, 100), 1, { sign: "always" }));
   assert.deepEqual(mods.revenue.moveRange({ start: 1, end: 2 }, "window", 5, 6), { start: 4, end: 5 });
   assert.deepEqual(mods.revenue.moveRange({ start: 1, end: 2 }, "end", -9, 6), { start: 1, end: 2 });
+});
+
+test("gelir şelalesi: tutar etiketi 1250000 TRY, yüzde ve işaretli hareket ABACUS çıktısıdır", () => {
+  assert.equal(mods.waterfall.stepValueText("amount", 1250000, 1000000), money.formatMajor(1250000, { currency: "TRY", digits: 0 }));
+  assert.equal(mods.waterfall.stepValueText("amount", 1250000, 1000000, true), money.compactMajor(1250000, { style: "B/Mn/Mr" }));
+  assert.equal(mods.waterfall.stepValueText("percent", 1250000, 1000000), money.percent(125, 1));
+  assert.equal(mods.waterfall.signedText("amount", { kind: "up", amount: 148000 }, 1000000), "+" + money.compactMajor(148000, { style: "B/Mn/Mr" }));
+  assert.equal(mods.waterfall.signedText("amount", { kind: "down", amount: 41500 }, 1000000), money.compactMajor(-41500, { style: "B/Mn/Mr" }));
+  assert.equal(mods.waterfall.signedText("percent", { kind: "down", amount: 50000 }, 1000000), money.percent(-5, 1, { sign: "always" }));
+  assert.equal(mods.waterfall.periodChangeText(100, 112.3), "+" + money.formatMajor(12, { currency: "TRY", digits: 0 }) + " (" + money.percent(12.3, 1, { sign: "always" }) + ")");
+  const movements = [{ key: "a", label: "Yeni", direction: "up", role: "new", amount: 30 }, { key: "b", label: "Kayıp", direction: "down", role: "churn", amount: 10 }];
+  const steps = mods.waterfall.buildSteps(100, movements);
+  assert.deepEqual(steps.map(step => [step.low, step.high]), [[0, 100], [100, 130], [120, 130], [0, 120]]);
+  const marks = mods.waterfall.indicators(100, movements);
+  assert.equal(marks.quickRatio, 3);
+  assert.equal(marks.churn, 10);
 });

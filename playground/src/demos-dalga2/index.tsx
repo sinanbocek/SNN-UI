@@ -9,6 +9,7 @@ import { MetricsDashboardDemo } from "./metrics-dashboard";
 import { KpiDrilldownDemo } from "./kpi-drilldown";
 import { MetricExplorerDemo } from "./metric-explorer";
 import { RevenueExplorerDemo } from "./revenue-explorer";
+import { MrrWaterfallDemo } from "./mrr-waterfall";
 
 export const dalga2Demos: Record<string, () => ReactNode> = {
   "split-bar": () => <SplitBarDemo />,
@@ -20,4 +21,5 @@ export const dalga2Demos: Record<string, () => ReactNode> = {
   "kpi-drilldown": () => <KpiDrilldownDemo />,
   "metric-explorer": () => <MetricExplorerDemo />,
   "revenue-explorer": () => <RevenueExplorerDemo />,
+  "mrr-waterfall": () => <MrrWaterfallDemo />,
 };

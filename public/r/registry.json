@@ -2366,6 +2366,47 @@
         "arcCommit": "bfdf7e8",
         "arcSource": "registry/components/revenue-explorer"
       }
+    },
+    {
+      "name": "mrr-waterfall",
+      "type": "registry:ui",
+      "title": "Gelir şelalesi",
+      "description": "Blok: düzenli (aylık yinelenen) gelirin bir dönemin başından sonuna nasıl değiştiğini köprü grafiğiyle anlatır: başlangıç çubuğu, yukarı doğru (yeni, genişleme, yeniden aktif) ve aşağı doğru (daralma, kayıp) yüzen basamaklar, bitiş çubuğu. Üstte dönen rakamlı bitiş değeri, dönem boyu değişim (\"+₺180.000 (+%12,3)\") ve net elde tutma, hızlı oran, müşteri kaybı göstergeleri vardır. Çubuğa basınca (ya da ok tuşlarıyla) altındaki panel o basamağın en büyük hesaplarını ve \"Diğer hesaplar\" satırını gösterir. \"Tutar\" / \"Başlangıca göre %\" birim seçicisi, yükleniyor, hata ve dar kap (panel altta) durumları vardır.",
+      "dependencies": [
+        "@snn/abacus-core@github:sinanbocek/SNN-Abacus-Core#semver:^4.3.0",
+        "motion"
+      ],
+      "registryDependencies": [
+        "@snn-ui/snn-foundation",
+        "@snn-ui/snn-motion-tokens",
+        "@snn-ui/animated-counter",
+        "@snn-ui/button",
+        "@snn-ui/segmented-control",
+        "@snn-ui/skeleton",
+        "@snn-ui/snn-chart-format",
+        "@snn-ui/snn-viz-utils"
+      ],
+      "files": [
+        {
+          "path": "registry/components/mrr-waterfall/mrr-waterfall-format.ts",
+          "type": "registry:component",
+          "target": "@components/snn/mrr-waterfall/mrr-waterfall-format.ts"
+        },
+        {
+          "path": "registry/components/mrr-waterfall/mrr-waterfall.module.css",
+          "type": "registry:component",
+          "target": "@components/snn/mrr-waterfall/mrr-waterfall.module.css"
+        },
+        {
+          "path": "registry/components/mrr-waterfall/mrr-waterfall.tsx",
+          "type": "registry:component",
+          "target": "@components/snn/mrr-waterfall/mrr-waterfall.tsx"
+        }
+      ],
+      "meta": {
+        "arcCommit": "bfdf7e8",
+        "arcSource": "registry/components/mrr-waterfall"
+      }
     }
   ]
 }
