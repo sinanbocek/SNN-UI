@@ -1,13 +1,13 @@
 "use client";
 
-import { useEffect, useId, useRef, useState, type FormEvent } from "react";
+import { Fragment, useEffect, useId, useRef, useState, type FormEvent } from "react";
 import { AnimatePresence, animate, motion } from "motion/react";
 import { AnimatedCounter } from "../animated-counter/animated-counter";
 import { Avatar } from "../avatar/avatar";
 import { Button } from "../button/button";
 import { motionTokens } from "../lib/motion-tokens";
 import { useElementWidth, useOnScreen, useReducedMotionSafe } from "../lib/viz-utils";
-import { SUBMIT_LABELS, cleanEmail, emailProblem, peopleText, suggestEmail, suggestionText } from "./hero-signup-format";
+import { SUBMIT_LABELS, cleanEmail, emailProblem, peopleText, rankSentence, suggestEmail, suggestionText } from "./hero-signup-format";
 import styles from "./hero-signup.module.css";
 
 export type SignupStatus = "idle" | "sending" | "error" | "done";
@@ -48,7 +48,7 @@ export function HeroSignup({ headline, subline, note = "Davetiniz hazır olunca 
   const suggestion = suggestEmail(email);
   const compact = width > 0 && width < 420;
   const words = headline.split(" ");
-  const liveText = status === "sending" ? "Gönderiliyor" : status === "done" ? `Listede ${position}. sıradasınız` : status === "error" ? "Yerinizi kaydedemedik. Tekrar deneyebilirsiniz." : "";
+  const liveText = status === "sending" ? "Gönderiliyor" : status === "done" ? rankSentence(position) : status === "error" ? "Yerinizi kaydedemedik. Tekrar deneyebilirsiniz." : "";
 
   useEffect(() => { if (status === "done") done.current?.focus(); }, [status]);
 
@@ -70,7 +70,7 @@ export function HeroSignup({ headline, subline, note = "Davetiniz hazır olunca 
   return <section ref={box} className={styles.root} style={{ minHeight }} aria-labelledby={`${uid}-title`} data-reduced={reduced || undefined}>
     <div ref={screen} className={styles.mesh} data-paused={!onScreen || undefined} aria-hidden="true" />
     <div className={styles.content}>
-      <h1 id={`${uid}-title`} className={styles.title}>{words.map((word, at) => <span key={at} className={styles.wordMask}><motion.span className={styles.word} {...rise(at * motionTokens.stagger.word)}>{word}</motion.span>{at < words.length - 1 ? " " : ""}</span>)}</h1>
+      <h1 id={`${uid}-title`} className={styles.title}>{words.map((word, at) => <Fragment key={at}><span className={styles.wordMask}><motion.span className={styles.word} {...rise(at * motionTokens.stagger.word)}>{word}</motion.span></span>{at < words.length - 1 ? " " : ""}</Fragment>)}</h1>
       {subline && <motion.p className={styles.subline} {...rise(words.length * motionTokens.stagger.word + .1)}>{subline}</motion.p>}
       <motion.div className={styles.formWrap} {...rise(words.length * motionTokens.stagger.word + .2)}>
         <AnimatePresence mode="wait" initial={false}>

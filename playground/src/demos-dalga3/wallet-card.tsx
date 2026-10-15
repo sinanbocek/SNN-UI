@@ -9,7 +9,7 @@ const PERIODS = [{ value: "week", label: "1 hafta" }, { value: "month", label: "
 function history(balance: number, days: number, step: number, seed: number): BalancePoint[] {
   return Array.from({ length: days }, (_, at) => {
     const back = days - 1 - at;
-    return { date: "", value: Math.max(0, balance - back * step + Math.sin((at + seed) * 1.7) * step * 2) };
+    return { date: "", value: Math.max(0, balance - back * step + (back ? Math.sin((at + seed) * 1.7) * step * 2 : 0)) };
   });
 }
 

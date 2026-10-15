@@ -19,7 +19,7 @@ export function CartDrawerDemo() {
       <CartDrawer products={PRODUCTS} shipping={{ fee: 49.9, freeFrom: 1000 }}
         onApplyCoupon={async code => {
           await new Promise(done => setTimeout(done, 500));
-          const key = text.upper(code.trim());
+          const key = text.toAsciiUpper(code.trim());
           return key === "HOSGELDIN" ? { code: key, percent: 10 } : key === "KARGO50" ? { code: key, amount: 50 } : null;
         }}
         onCheckout={async () => { await new Promise(done => setTimeout(done, 1100)); if (fail) throw new Error("hata"); }} />

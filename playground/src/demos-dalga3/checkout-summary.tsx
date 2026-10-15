@@ -19,7 +19,7 @@ export function CheckoutSummaryDemo() {
         discounts={[{ id: "yillik", label: "Yıllık ödeme indirimi", amount: 478.08 }]} taxRate={tax ? 20 : null} payDisabled={closed}
         onApplyCoupon={async code => {
           await new Promise(done => setTimeout(done, 500));
-          const key = text.upper(code.trim());
+          const key = text.toAsciiUpper(code.trim());
           return key === "YILLIK15" ? { code: key, percent: 15 } : key === "ARKADAS100" ? { code: key, amount: 100 } : null;
         }}
         onPay={async () => { await new Promise(done => setTimeout(done, 1200)); if (fail) throw new Error("hata"); }}
