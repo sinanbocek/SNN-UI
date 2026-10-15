@@ -6,7 +6,7 @@ import { AnimatedCounter } from "../animated-counter/animated-counter";
 import { Breadcrumb, type BreadcrumbItem } from "../breadcrumb/breadcrumb";
 import { Button } from "../button/button";
 import { motionTokens } from "../lib/motion-tokens";
-import { NumberStepper, Placeholder, SwatchGroup, SwipeTrack, useAnnouncer } from "../lib/shop-parts";
+import { FramedPhoto, NumberStepper, SwatchGroup, SwipeTrack, useAnnouncer } from "../lib/shop-parts";
 import { useReducedMotionSafe } from "../lib/viz-utils";
 import { addLabel, barRatios, barRowLabel, counterText, isSoldOut, keepSize, reviewAverage, reviewCountText, reviewTotal, sizeLabel, type DetailPhoto, type Distribution, type Finish, type Selection, type Size } from "./product-detail-format";
 import styles from "./product-detail.module.css";
@@ -40,7 +40,7 @@ function Gallery({ photos, name, finishKey }: { photos: DetailPhoto[]; name: str
   const [index, setIndex] = useState(0);
   useEffect(() => setIndex(0), [finishKey]);
   const safe = Math.min(index, Math.max(0, photos.length - 1));
-  const slide = (at: number) => { const photo = photos[at]!; return photo.src ? <img className={styles.photo} src={photo.src} alt={photo.alt} loading={at ? "lazy" : "eager"} draggable={false} /> : <Placeholder tone={photo.tone} label={photo.alt} className={styles.photo} ratio="1 / 1" />; };
+  const slide = (at: number) => { const photo = photos[at]!; return <FramedPhoto src={photo.src} alt={photo.alt} ratio="1 / 1" position={photo.position} tone={photo.tone} eager={!at} className={styles.photo} />; };
   return <div className={styles.gallery}>
     <div className={styles.stage}>
       <AnimatePresence mode="popLayout" initial={false}>
@@ -55,7 +55,7 @@ function Gallery({ photos, name, finishKey }: { photos: DetailPhoto[]; name: str
       </>}
     </div>
     <ul className={styles.thumbs}>{photos.map((photo, at) => <li key={at}><button type="button" className={styles.thumb} aria-label={`${at + 1}. fotoğrafı göster`} aria-current={at === safe || undefined} onClick={() => setIndex(at)}>
-      {photo.src ? <img src={photo.src} alt="" loading="lazy" /> : <Placeholder tone={photo.tone} label="" ratio="1 / 1" />}
+      <FramedPhoto src={photo.src} alt="" ratio="1 / 1" position={photo.position} tone={photo.tone} initial="" />
       {at === safe && <motion.span layoutId={`${finishKey}-ring`} className={styles.ring} transition={reduced ? { duration: 0 } : motionTokens.spring.snappy} />}
     </button></li>)}</ul>
   </div>;

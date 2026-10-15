@@ -1,11 +1,14 @@
-// lightbox-gallery örneği. Başlıklar uydurmadır; görseller farklı oranlı (dikey, yatay, kare) kendi yer tutucularımızdır, gerçek fotoğraf yok.
+// lightbox-gallery örneği. Başlıklar uydurmadır; fotoğraflar farklı oranlıdır (dikey, yatay, kare) ve playground/public/ornek-foto içindeki Unsplash görselleridir (KAYNAK.md).
 import { useState } from "react";
 import { LightboxGallery } from "../../../registry/components/lightbox-gallery/lightbox-gallery";
 import type { ViewerImage } from "../../../registry/components/lightbox-gallery/lightbox-gallery";
 
 const SIZES: [number, number][] = [[800, 1000], [1200, 800], [900, 900], [800, 1200], [1200, 700], [900, 1100], [1000, 1000], [1200, 900], [800, 1000], [1100, 700], [900, 1200], [1000, 800]];
-const TITLES = ["Kıyıda sabah", "Çarşı", "Taş köprü", "Zeytinlik", "Liman", "Pencere", "Sofra", "Dağ yolu", "Kapı", "Meydan", "Kule", "Sahil"];
-const IMAGES: ViewerImage[] = SIZES.map(([width, height], at) => ({ id: `f${at + 1}`, alt: `${TITLES[at]}, ${width > height ? "yatay" : width < height ? "dikey" : "kare"} yer tutucu`, tone: at, width, height, title: TITLES[at], caption: `${at + 1}. gün` }));
+const FOTOS: [string, string, string?][] = [
+  ["Kıyıda sabah", "sahne-deniz"], ["Çarşı", "sahne-sokak", "18% 50%"], ["Zeytinlik", "sahne-orman"], ["Dağ yolu", "sahne-dag"], ["Oturma odası", "sahne-ic-mekan"], ["Sofra", "sahne-yemek"],
+  ["Keten", "urun-ortu"], ["Raf", "urun-kupa-2"], ["Sehpa", "urun-sehpa-2"], ["Renkler", "doku-kapak"], ["Portre", "portre-4"], ["Rüzgârlık", "urun-ceket"],
+];
+const IMAGES: ViewerImage[] = SIZES.map(([width, height], at) => ({ id: `f${at + 1}`, alt: `${FOTOS[at]![0]}, ${width > height ? "yatay" : width < height ? "dikey" : "kare"} kare`, src: `/ornek-foto/${FOTOS[at]![1]}.jpg`, position: FOTOS[at]![2], width, height, title: FOTOS[at]![0], caption: `${at + 1}. gün` }));
 
 export function LightboxGalleryDemo() {
   const [loading, setLoading] = useState(false);

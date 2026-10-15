@@ -5,6 +5,8 @@ export interface ProductPhoto {
   alt: string;
   /** Verilmezse kendi yer tutucu çizilir. */
   src?: string;
+  /** Fotoğrafın odak noktası (CSS object-position), örneğin "40% 60%". */
+  position?: string;
   /** Yer tutucunun renk tonu (0–5). */
   tone?: number;
 }
