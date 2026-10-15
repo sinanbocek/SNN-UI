@@ -1063,6 +1063,43 @@
         "arcCommit": "bfdf7e8",
         "arcSource": "registry/components/settings-command"
       }
+    },
+    {
+      "name": "team-directory",
+      "type": "registry:ui",
+      "title": "Ekip rehberi",
+      "description": "Blok: solda aranabilir kişi listesi (ad ve göreve göre), üstte sayılı ekip süzgeç düğmeleri, sağda seçili kişinin profil paneli (durum, ekip, üzerinde çalıştığı iş, konum, e-posta ve Kopyala). Kayan vurgular, süzülen satırlar. Boş sonuç, yükleniyor, hata ve dar kolon durumları vardır.",
+      "dependencies": [
+        "@snn/abacus-core@github:sinanbocek/SNN-Abacus-Core#semver:^4.3.0",
+        "lucide-react",
+        "motion"
+      ],
+      "registryDependencies": [
+        "@snn-ui/snn-foundation",
+        "@snn-ui/snn-motion-tokens",
+        "@snn-ui/avatar",
+        "@snn-ui/button",
+        "@snn-ui/empty-state",
+        "@snn-ui/search-field",
+        "@snn-ui/skeleton",
+        "@snn-ui/tooltip"
+      ],
+      "files": [
+        {
+          "path": "registry/components/team-directory/team-directory.module.css",
+          "type": "registry:component",
+          "target": "@components/snn/team-directory/team-directory.module.css"
+        },
+        {
+          "path": "registry/components/team-directory/team-directory.tsx",
+          "type": "registry:component",
+          "target": "@components/snn/team-directory/team-directory.tsx"
+        }
+      ],
+      "meta": {
+        "arcCommit": "bfdf7e8",
+        "arcSource": "registry/components/team-directory"
+      }
     }
   ]
 }

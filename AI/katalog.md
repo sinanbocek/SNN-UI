@@ -74,6 +74,7 @@ Gereken paketler: React 19, `motion`; bazı bileşenlerde Radix ve `lucide-react
 | `search-results` | Arama sonuçları | Blok: birleşik arama kutusu (son ve önerilen aramalar), sayılı süzgeçler (tür, ekip, ay aralığı), etkin süzgeç çipleri, sıralama, kayan imleç dolgulu sonuç listesi ve önizleme paneli. Orta ve dar kolonda önizleme ve süzgeçler alttan açılan sayfalara taşınır. Boş, yükleniyor ve hata durumları vardır. Aranan her kelime Türkçe harf farkı gözetmeden (`text.searchKey`) bulunur; tarihler ABACUS `date`, sıralama `collate` ile yazılır. Bu blok verilen listeyi tarayıcıda süzer ve sıralar; birkaç yüz kayıttan sonra aramayı sunucuya taşımak projenin işidir. Arc Pro search-results'tan esinlenildi (tarif: docs/tarifler/search-results.md). | `npx shadcn@latest add @snn-ui/search-results` |
 | `help-center` | Yardım merkezi | Blok: büyük arama kutusu (sonuçlar kutunun altında, kelimeler vurgulu), hızlı aramalar, konu kartları, çok okunanlar, makale okuma görünümü ("Bu sayfada" ana hattı, Evet/Hayır geri bildirimi, ilgili makaleler) ve destek kartı. Görünümler yönüne göre kayar. Boş, yükleniyor, hata, makale bulunamadı ve dar ekran durumları vardır. Makale içeriği (`paragraphs`, `steps`, isteğe bağlı `content`), tarih ve okuma süresi metni projeden gelir; arama Türkçe harf farkı gözetmez (`text.searchKey`). İletişim ve geri bildirimi proje bağlar; reddedilirse hata yazılır. Arc Pro help-center'dan esinlenildi (tarif: docs/tarifler/help-center.md). | `npx shadcn@latest add @snn-ui/help-center` |
 | `settings-command` | Aranabilir ayarlar | Blok: onlarca ayarın tek uzun sayfada durduğu ekran. Arama kutusu Ctrl+K ya da / ile komut paletini açar (Türkçe harf farkı gözetmez, ek anahtar kelimelerle bulur); seçilen ayara sayfa kayar ve satır iki kez nefes alır. Solda bölüm gezgini, satırlarda anahtar, seçenek, açılır liste ve metin denetimleri, altta toplu kaydetme çubuğu. Yükleniyor, boş arama, doğrulama hatası, kaydetme hatası ve dar ekran durumları vardır. Ayar şemasını (bölümler, satırlar, denetim türü, anahtar kelimeler) ve gerçek kaydı proje verir; blok yalnız değişen kimlik ve değerleri `onSave`'e iletir (reddedilirse çubukta "Yeniden dene"). Arama `text.searchKey` ile yapılır. Kısa profil formu için `settings-page` kullanılır; ikisi birlikte kurulmaz. Arc Pro settings-command'dan esinlenildi (tarif: docs/tarifler/settings-command.md). | `npx shadcn@latest add @snn-ui/settings-command` |
+| `team-directory` | Ekip rehberi | Blok: solda aranabilir kişi listesi (ad ve göreve göre), üstte sayılı ekip süzgeç düğmeleri, sağda seçili kişinin profil paneli (durum, ekip, üzerinde çalıştığı iş, konum, e-posta ve Kopyala). Kayan vurgular, süzülen satırlar. Boş sonuç, yükleniyor, hata ve dar kolon durumları vardır. Kişi listesini proje verir; yerel saat gibi metinler hazır gelir (ABACUS `date`). Arama Türkçe harf farkı gözetmez (`text.searchKey`). Yüzlerce kişide süzmeyi ve sayfalamayı sunucuya taşımak projenin işidir. Rol atama için `team-members` kullanılır. Arc Pro team-directory'den esinlenildi (tarif: docs/tarifler/team-directory.md). | `npx shadcn@latest add @snn-ui/team-directory` |
 
 ## Kullanım örnekleri
 
@@ -339,6 +340,14 @@ import { HelpCenter } from "@/components/snn/help-center/help-center";
 import { SettingsCommand } from "@/components/snn/settings-command/settings-command";
 
 <SettingsCommand sections={sections} items={items} values={saved} suggestedIds={["dark", "twofa"]} onSave={save} />
+```
+
+### Ekip rehberi (`team-directory`)
+
+```tsx
+import { TeamDirectory } from "@/components/snn/team-directory/team-directory";
+
+<TeamDirectory people={people} onSelect={openProfile} />
 ```
 
 ## Bu rafta olmayanlar
