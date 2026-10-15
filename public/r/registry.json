@@ -2489,6 +2489,48 @@
         "arcCommit": "bfdf7e8",
         "arcSource": "registry/components/usage-forecast"
       }
+    },
+    {
+      "name": "budget-variance",
+      "type": "registry:ui",
+      "title": "Bütçe sapması",
+      "description": "Blok: planlanan ile gerçekleşen harcamayı bölüm (maliyet merkezi) bazında hizalı çubuklarla karşılaştırır. Her satırda bütçe işareti aynı hizada durur; harcama çubuğu bu işareti geçerse geçen kısım kırmızı görünür. Yanında işaretli sapma tutarı ve yüzdesi (\"+₺150.000\", \"+%12,5 aşım\" / \"-%4,0 altında\" / \"plana uygun\") yazar. Ay, çeyrek ve yıl başından beri arasında geçilir (tutarlar sayarak değişir); bir bölüm satır içinde açılıp bütçe kalemlerine inilir, aynı anda tek bölüm açık kalır; en üstte toplam satırı vardır. Bütün kalemler gider sayılır: altında kalmak olumlu, aşmak olumsuzdur. Yükleniyor, hata, boş ve dar kap (satır içinde alt alta) durumları vardır.",
+      "dependencies": [
+        "@snn/abacus-core@github:sinanbocek/SNN-Abacus-Core#semver:^4.3.0",
+        "motion"
+      ],
+      "registryDependencies": [
+        "@snn-ui/snn-foundation",
+        "@snn-ui/snn-motion-tokens",
+        "@snn-ui/animated-counter",
+        "@snn-ui/avatar",
+        "@snn-ui/button",
+        "@snn-ui/segmented-control",
+        "@snn-ui/skeleton",
+        "@snn-ui/snn-chart-format",
+        "@snn-ui/snn-viz-utils"
+      ],
+      "files": [
+        {
+          "path": "registry/components/budget-variance/budget-variance-format.ts",
+          "type": "registry:component",
+          "target": "@components/snn/budget-variance/budget-variance-format.ts"
+        },
+        {
+          "path": "registry/components/budget-variance/budget-variance.module.css",
+          "type": "registry:component",
+          "target": "@components/snn/budget-variance/budget-variance.module.css"
+        },
+        {
+          "path": "registry/components/budget-variance/budget-variance.tsx",
+          "type": "registry:component",
+          "target": "@components/snn/budget-variance/budget-variance.tsx"
+        }
+      ],
+      "meta": {
+        "arcCommit": "bfdf7e8",
+        "arcSource": "registry/components/budget-variance"
+      }
     }
   ]
 }

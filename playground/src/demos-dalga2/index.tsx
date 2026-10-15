@@ -12,6 +12,7 @@ import { RevenueExplorerDemo } from "./revenue-explorer";
 import { MrrWaterfallDemo } from "./mrr-waterfall";
 import { CohortRetentionDemo } from "./cohort-retention";
 import { UsageForecastDemo } from "./usage-forecast";
+import { BudgetVarianceDemo } from "./budget-variance";
 
 export const dalga2Demos: Record<string, () => ReactNode> = {
   "split-bar": () => <SplitBarDemo />,
@@ -26,4 +27,5 @@ export const dalga2Demos: Record<string, () => ReactNode> = {
   "mrr-waterfall": () => <MrrWaterfallDemo />,
   "cohort-retention": () => <CohortRetentionDemo />,
   "usage-forecast": () => <UsageForecastDemo />,
+  "budget-variance": () => <BudgetVarianceDemo />,
 };

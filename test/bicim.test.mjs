@@ -27,6 +27,7 @@ const FILES = {
   waterfall: "registry/components/mrr-waterfall/mrr-waterfall-format.ts",
   cohort: "registry/components/cohort-retention/cohort-retention-format.ts",
   usage: "registry/components/usage-forecast/usage-forecast-format.ts",
+  variance: "registry/components/budget-variance/budget-variance-format.ts",
 };
 const mods = {};
 let temp;
@@ -239,4 +240,19 @@ test("kullanım tahmini: kullanım, yüzde, tutar ve tarih ABACUS çıktısıdı
   assert.equal(mods.usage.forecastUsage([5, 9], 10).enough, false);
   assert.equal(mods.usage.overageCost(1500, 1000, 100, 2), 10);
   assert.equal(mods.usage.budgetStep(0, 100), 5);
+});
+
+test("bütçe sapması: tutar etiketi 1250000 TRY, işaretli sapma ve yüzde ABACUS çıktısıdır", () => {
+  assert.equal(mods.variance.moneyFull(1250000), money.formatMajor(1250000, { currency: "TRY", digits: 0 }));
+  assert.equal(mods.variance.moneyShort(1250000), money.compactMajor(1250000, { style: "B/Mn/Mr" }));
+  assert.equal(mods.variance.signedMoney(150000), "+" + money.formatMajor(150000, { currency: "TRY", digits: 0 }));
+  assert.equal(mods.variance.signedMoney(-8500), money.formatMajor(-8500, { currency: "TRY", digits: 0 }));
+  assert.equal(mods.variance.variancePercentText(1000, 1125), money.percent(math.percentChange(1125, 1000), 1, { sign: "always" }) + " aşım");
+  assert.equal(mods.variance.variancePercentText(1000, 960), money.percent(math.percentChange(960, 1000), 1, { sign: "always" }) + " altında");
+  assert.equal(mods.variance.variancePercentText(1000, 1010), "plana uygun");
+  assert.equal(mods.variance.scalePercent(.5), money.percent(50, 0));
+  assert.equal(mods.variance.scaleMax([{ budget: 100, actual: 90 }]), 1.2);
+  assert.equal(mods.variance.scaleMax([{ budget: 100, actual: 131 }]), 1.4);
+  const dept = mods.variance.resolveDepartment({ key: "a", name: "A", items: [{ key: "1", name: "x", budget: 10, actual: 12 }, { key: "2", name: "y", budget: 5, actual: 4 }] });
+  assert.deepEqual([dept.budget, dept.actual], [15, 16]);
 });
