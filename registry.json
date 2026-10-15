@@ -3537,6 +3537,45 @@
         "arcCommit": "bfdf7e8",
         "arcSource": "registry/components/wallet-stack"
       }
+    },
+    {
+      "name": "cover-flow",
+      "type": "registry:ui",
+      "title": "Derinlikli görsel rayı",
+      "description": "Blok: kısa bir görsel koleksiyonunu (albüm, yer, derleme) tek tek gezdirir. Öndeki kart öne çıkar; diğerleri iki yanda küçülür, kararır, merkeze doğru döner ve geri çekilir (uzaktakiler gizlenir); her görsel çerçevesinin içinde hafifçe kayar, altta hafif bir yansıma vardır. Fareyle ya da parmakla sürüklenir ve fırlatılır: ray bırakma hızının götürdüğü karta yayla oturur, hızlı bir fırlatma en az bir kart ilerletir, uçlarda esner; yatay izleme yüzeyi kaydırması rayı doğrudan oynatır, sonra bir karta oturur. Yandaki karta basınca o kart öne gelir; ray odaktayken sol/sağ ok bir kart, Home/End ilk-son gider. Altta küçük konum çentikleri (\"… göster\") ve seçili kartın açıklaması (üst bilgi, başlık, alt başlık ve uygulamanın kendi içeriği: sayılar, düğme) bulunur; ön kart değişince açıklama hareket yönünden yükselerek yenilenir. Ray \"döner şerit\" olarak etiketlidir, her kart \"2 / 8: başlık\" adlı bir slayttır, öndekinden uzak kartlar ekran okuyucuya kapalıdır ve öndeki kart kibar canlı bölgede duyurulur. Tek ya da iki kartta sade görünür (çentikler gizlenir).",
+      "dependencies": [
+        "@snn/abacus-core@github:sinanbocek/SNN-Abacus-Core#semver:^4.3.0",
+        "motion"
+      ],
+      "registryDependencies": [
+        "@snn-ui/snn-foundation",
+        "@snn-ui/snn-motion-tokens",
+        "@snn-ui/snn-chart-format",
+        "@snn-ui/snn-motion-tokens",
+        "@snn-ui/snn-shop-parts",
+        "@snn-ui/snn-viz-utils"
+      ],
+      "files": [
+        {
+          "path": "registry/components/cover-flow/cover-flow-format.ts",
+          "type": "registry:component",
+          "target": "@components/snn/cover-flow/cover-flow-format.ts"
+        },
+        {
+          "path": "registry/components/cover-flow/cover-flow.module.css",
+          "type": "registry:component",
+          "target": "@components/snn/cover-flow/cover-flow.module.css"
+        },
+        {
+          "path": "registry/components/cover-flow/cover-flow.tsx",
+          "type": "registry:component",
+          "target": "@components/snn/cover-flow/cover-flow.tsx"
+        }
+      ],
+      "meta": {
+        "arcCommit": "bfdf7e8",
+        "arcSource": "registry/components/cover-flow"
+      }
     }
   ]
 }

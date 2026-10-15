@@ -53,6 +53,7 @@ const FILES = {
   team: "registry/components/team-showcase/team-showcase-format.ts",
   player: "registry/components/media-player/media-player-format.ts",
   stack: "registry/components/wallet-stack/wallet-stack-format.ts",
+  cover: "registry/components/cover-flow/cover-flow-format.ts",
 };
 const mods = {};
 let temp;
@@ -893,4 +894,47 @@ test("kart destesi: yalnız son dört hane gösterilir; deste konumu, ok ve sür
   assert.equal(mods.stack.balanceText({ balance: 48250.75 }), money.formatMajor(48250.75, { currency: "TRY", digits: 2, kurus: true }));
   assert.equal(mods.stack.transactionText(-1240.5), "-₺1.240,50");
   assert.equal(mods.stack.transactionText(5000), "+₺5.000,00");
+});
+
+test("derinlikli ray: kart dönüşümü, momentumla oturma, sürükleme, tuşlar ve yazımlar doğru; sayılar ABACUS çıktısıdır", () => {
+  const front = mods.cover.coverTransform(0);
+  assert.deepEqual([front.x, front.scale, front.rotate, front.shade, front.hidden], [0, 1, -0, 0, false]);
+  const right = mods.cover.coverTransform(1), left = mods.cover.coverTransform(-1);
+  assert.equal(right.x, -left.x);
+  assert.equal(right.x, .62);
+  assert.equal(right.rotate, -38);
+  assert.equal(left.rotate, 38);
+  assert.ok(right.scale < 1 && right.shade > 0);
+  assert.ok(mods.cover.coverTransform(2).x > right.x);
+  assert.equal(mods.cover.coverTransform(2).rotate, -38);
+  assert.ok(mods.cover.coverTransform(.5).z > right.z);
+  assert.equal(mods.cover.coverTransform(4, 3).hidden, true);
+  assert.equal(mods.cover.coverTransform(3, 3).hidden, false);
+  assert.equal(mods.cover.coverTransform(9).scale, .55);
+  // oturma: yavaş bırakma en yakın kart, hızlı fırlatma en az bir kart ilerletir, uçlarda sınırlı
+  assert.equal(mods.cover.settleIndex(2.4, 0, 8), 2);
+  assert.equal(mods.cover.settleIndex(2.6, 0, 8), 3);
+  assert.equal(mods.cover.settleIndex(2.1, 1.2, 8), 3);
+  assert.equal(mods.cover.settleIndex(2.1, -1.2, 8), 1);
+  assert.equal(mods.cover.settleIndex(2.1, 6, 8), 6);
+  assert.equal(mods.cover.settleIndex(7.2, 3, 8), 7);
+  assert.equal(mods.cover.settleIndex(-.4, -3, 8), 0);
+  assert.equal(mods.cover.settleIndex(2.4, .3, 8), 2);
+  // sürükleme: sola sürükleme sonraki karta götürür
+  assert.ok(mods.cover.dragToPosition(2, -100, 300) > 2);
+  assert.ok(mods.cover.dragToPosition(2, 100, 300) < 2);
+  assert.equal(mods.cover.dragToPosition(2, 0, 300), 2);
+  assert.equal(mods.cover.reducedStep(-60), 1);
+  assert.equal(mods.cover.reducedStep(60), -1);
+  assert.equal(mods.cover.reducedStep(30), 0);
+  assert.equal(mods.cover.railKey("ArrowRight", 3, 8), 4);
+  assert.equal(mods.cover.railKey("ArrowRight", 7, 8), 7);
+  assert.equal(mods.cover.railKey("ArrowLeft", 0, 8), 0);
+  assert.equal(mods.cover.railKey("Home", 5, 8), 0);
+  assert.equal(mods.cover.railKey("End", 5, 8), 7);
+  assert.equal(mods.cover.railKey("x", 5, 8), 5);
+  assert.equal(mods.cover.slideLabel(1, 8, "Zeytinlik"), "2 / 8: Zeytinlik");
+  assert.equal(mods.cover.slideLabel(0, 1234, "A"), "1 / 1.234: A");
+  assert.equal(mods.cover.tickLabel("Zeytinlik"), "Zeytinlik göster");
+  assert.equal(mods.cover.liveText(2, 8, "Taş köprü"), "3 / 8: Taş köprü");
 });
