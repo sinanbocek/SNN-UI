@@ -1,0 +1,51 @@
+/* Ayar çerçevesi: solda bölüm listesi, sağda kendi içinde kayan form. Dar kolonda liste formun üstünde yatay şeride döner. */
+.root { container-type: inline-size; display: grid; grid-template-columns: 15rem minmax(0, 1fr); height: 100%; min-height: 24rem; overflow: hidden; border: 1px solid var(--border); border-radius: var(--radius-panel); background: var(--surface); color: var(--foreground); font-family: var(--font-body); }
+.side { display: flex; min-height: 0; flex-direction: column; gap: var(--space-4); border-right: 1px solid var(--border); padding: var(--space-5) var(--space-3) var(--space-3); background: var(--surface-muted); }
+.title { margin: 0 var(--space-2); font-family: var(--font-display); font-size: var(--text-lg); font-weight: 600; letter-spacing: var(--tracking-display); }
+.list { display: flex; flex: 1; flex-direction: column; gap: var(--space-1); overflow: auto; }
+.tab { position: relative; display: flex; min-height: var(--control-height-md); align-items: center; gap: var(--space-3); border: 0; border-radius: var(--radius-control); padding: 0 var(--space-3); color: var(--text-secondary); background: transparent; font: inherit; font-size: var(--text-sm); text-align: left; cursor: pointer; transition: color var(--duration-fast) var(--ease-standard); }
+.tab[aria-selected="true"] { color: var(--foreground); font-weight: 500; }
+.tab:focus-visible { outline: var(--focus-outline-width) solid var(--focus-outline); outline-offset: var(--focus-outline-offset); }
+.marker { position: absolute; inset: 0; z-index: 0; border-radius: var(--radius-control); background: var(--accent-subtle); }
+.icon, .tabLabel, .dot { position: relative; z-index: 1; }
+.icon { display: grid; place-items: center; }
+.tabLabel { min-width: 0; flex: 1; overflow: hidden; text-overflow: ellipsis; white-space: nowrap; }
+.dot { width: var(--space-2); height: var(--space-2); flex: none; border-radius: var(--radius-pill); background: var(--accent); }
+@media (hover: hover) and (pointer: fine) { .tab:hover { color: var(--foreground); } }
+.user { display: flex; align-items: center; gap: var(--space-3); border-top: 1px solid var(--border); padding: var(--space-3) var(--space-2) 0; }
+.userCopy { display: grid; min-width: 0; }
+.userName, .userSubtitle { overflow: hidden; text-overflow: ellipsis; white-space: nowrap; }
+.userName { font-size: var(--text-sm); font-weight: 500; }
+.userSubtitle { color: var(--text-muted); font-size: var(--text-xs); }
+.scroller { position: relative; min-height: 0; overflow: auto; }
+.form { max-width: 44rem; padding: var(--space-8) var(--space-8) var(--space-4); }
+.panel { display: grid; gap: var(--space-6); animation: settings-fade var(--duration-standard) var(--ease-enter) both; }
+.panel[hidden] { display: none; }
+.head { display: grid; gap: var(--space-1); }
+.sectionTitle { margin: 0; font-family: var(--font-display); font-size: var(--text-xl); font-weight: 600; letter-spacing: var(--tracking-display); }
+.sectionDescription { margin: 0; color: var(--text-secondary); font-size: var(--text-sm); line-height: var(--leading-body); }
+.fields { display: grid; gap: var(--space-5); min-width: 0; }
+.group { display: grid; gap: var(--space-2); }
+.groupTitle { margin: 0; color: var(--text-muted); font-size: var(--text-xs); font-weight: 500; }
+.groupRows { display: grid; border: 1px solid var(--border); border-radius: var(--radius-surface); }
+.row { display: flex; align-items: center; justify-content: space-between; gap: var(--space-5); padding: var(--space-4); }
+.row + .row { border-top: 1px solid var(--border-subtle); }
+.rowCopy { display: grid; min-width: 0; gap: var(--space-1); }
+.rowTitle { font-size: var(--text-sm); font-weight: 500; }
+.rowDescription { color: var(--text-secondary); font-size: var(--text-sm); line-height: var(--leading-body); }
+.rowControl { flex: none; }
+.srOnly { position: absolute; width: 1px; height: 1px; overflow: hidden; clip-path: inset(50%); white-space: nowrap; }
+@keyframes settings-fade { from { opacity: 0; } to { opacity: 1; } }
+
+/* Dar kolon (telefon, yan yana yerleşim): liste üstte yatay şerit, alanlar tek sütun. */
+@container (max-width: 40rem) {
+  .root { grid-template-columns: minmax(0, 1fr); grid-template-rows: auto minmax(0, 1fr); }
+  .side { flex-direction: row; align-items: center; gap: var(--space-2); border-right: 0; border-bottom: 1px solid var(--border); padding: var(--space-2); }
+  .title { display: none; }
+  .list { flex-direction: row; overflow-x: auto; }
+  .tab { flex: none; }
+  .user { display: none; }
+  .form { padding: var(--space-5) var(--space-4) var(--space-4); }
+  .row { align-items: flex-start; flex-direction: column; gap: var(--space-3); }
+}
+@media (prefers-reduced-motion: reduce) { .panel { animation-duration: var(--duration-instant); } .tab { transition: none; } }

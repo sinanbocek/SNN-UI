@@ -68,6 +68,7 @@ Gereken paketler: React 19, `motion`; bazı bileşenlerde Radix ve `lucide-react
 | `drawer` | Çekmece | Kenardan kayarak gelen yan panel; başlık çubuğundan sürüklenip kapatılır, Escape ve dışarı tıklama da kapatır. | `npx shadcn@latest add @snn-ui/drawer` |
 | `combobox` | Aramalı seçim | Yazarak süzülen açılır liste; ok tuşları, Enter ve Escape ile kullanılır. Türkçe aramada "İstanbul", "Istanbul" ve "istanbul" aynı sonucu bulur. Arama anahtarı ABACUS `text.searchKey` ile üretilir; proje `@snn/abacus-core` paketini kendiliğinden alır. | `npx shadcn@latest add @snn-ui/combobox` |
 | `avatar` | Kişi simgesi | Fotoğraf ya da ad baş harfleri; isteğe bağlı çevrimiçi/çevrimdışı noktası. Fotoğraf yüklenemezse baş harflere döner. Baş harf ABACUS `text.upper` ile büyütülür ("ismail" → "İ"). Fotoğraf düz `<img>` ile çizilir. | `npx shadcn@latest add @snn-ui/avatar` |
+| `settings-page` | Ayarlar sayfası | Blok: solda bölüm listesi, sağda seçili bölümün formu, altta yüzen kaydetme çubuğu. Bölümler arasında yarım kalan değişiklik korunur; kaydedilmemiş bölümde nokta çıkar. Yükleniyor, boş ve dar ekran durumları vardır. Alanları ve değişiklik sayısını proje verir (`changeCount`); gerçek kaydetmeyi de proje yapar. Arc Pro settings-page'den esinlenildi (tarif: docs/tarifler/settings-page.md). | `npx shadcn@latest add @snn-ui/settings-page` |
 
 ## Kullanım örnekleri
 
@@ -285,6 +286,14 @@ import { Combobox } from "@/components/snn/combobox/combobox";
 import { Avatar } from "@/components/snn/avatar/avatar";
 
 <Avatar name="İsmail Yılmaz" status="online" />
+```
+
+### Ayarlar sayfası (`settings-page`)
+
+```tsx
+import { SettingsPage, SettingsGroup, SettingsRow } from "@/components/snn/settings-page/settings-page";
+
+<SettingsPage sections={sections} status={status} onSave={save} onDiscard={reset} user={{ name: "Elif Aksoy", subtitle: "Yönetici" }} />
 ```
 
 ## Bu rafta olmayanlar

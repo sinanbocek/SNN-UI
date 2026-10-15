@@ -29,6 +29,7 @@ import SegmentedControl from "../../registry/components/segmented-control/segmen
 import { Drawer, DrawerTrigger, DrawerContent, DrawerClose } from "../../registry/components/drawer/drawer";
 import { Combobox } from "../../registry/components/combobox/combobox";
 import { Avatar } from "../../registry/components/avatar/avatar";
+import { blockDemos } from "./demos-bloklar";
 
 const Col = ({ title, children }: { title: string; children: ReactNode }) => (
   <div className="col"><span className="etiket">{title}</span>{children}</div>
@@ -441,4 +442,5 @@ export const demos: Record<string, () => ReactNode> = {
   drawer: () => <DrawerDemo />,
   combobox: () => <ComboboxDemo />,
   avatar: () => <AvatarDemo />,
+  ...blockDemos,
 };

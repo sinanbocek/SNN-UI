@@ -836,6 +836,39 @@
         "arcCommit": "bfdf7e8",
         "arcSource": "registry/components/avatar"
       }
+    },
+    {
+      "name": "settings-page",
+      "type": "registry:ui",
+      "title": "Ayarlar sayfası",
+      "description": "Blok: solda bölüm listesi, sağda seçili bölümün formu, altta yüzen kaydetme çubuğu. Bölümler arasında yarım kalan değişiklik korunur; kaydedilmemiş bölümde nokta çıkar. Yükleniyor, boş ve dar ekran durumları vardır.",
+      "dependencies": [
+        "motion"
+      ],
+      "registryDependencies": [
+        "@snn-ui/snn-foundation",
+        "@snn-ui/snn-motion-tokens",
+        "@snn-ui/avatar",
+        "@snn-ui/empty-state",
+        "@snn-ui/save-bar",
+        "@snn-ui/skeleton"
+      ],
+      "files": [
+        {
+          "path": "registry/components/settings-page/settings-page.module.css",
+          "type": "registry:component",
+          "target": "@components/snn/settings-page/settings-page.module.css"
+        },
+        {
+          "path": "registry/components/settings-page/settings-page.tsx",
+          "type": "registry:component",
+          "target": "@components/snn/settings-page/settings-page.tsx"
+        }
+      ],
+      "meta": {
+        "arcCommit": "bfdf7e8",
+        "arcSource": "registry/components/settings-page"
+      }
     }
   ]
 }

@@ -81,3 +81,11 @@ Arc commit'i `bfdf7e8`. Ortak uyarlamalar (içe aktarma yolu, Türkçe yorum, ku
 | `avatar` | `registry/components/avatar` | **B sınıfı, ABACUS'a bağlandı.** Baş harf `toUpperCase` yerine `text.upper` ("ismail" → "İ"). `@/lib/arc-provider` içe aktarması kalktı: `ArcImage` (fill) yerine düz `<img>`; doldurma davranışı CSS ile verildi (`position: absolute; inset: 0; width/height: 100%`). Durum etiketi Türkçe: "online/offline" → "çevrimiçi/çevrimdışı" (`statusLabel`). |
 
 **ABACUS bağımlılığı.** Kayıttaki npm bağımlılığı `@snn/abacus-core@github:sinanbocek/SNN-Abacus-Core#semver:^4.3.0` biçimindedir; `shadcn add` bunu `npm install` ile kurar ve proje `package.json`'ına `"@snn/abacus-core": "github:…#semver:^4.3.0"` yazar. Düz `@snn/abacus-core` adı npm'de olmadığı için 404 verir (2026-10-15 ölçüldü). Paket ham TypeScript sunar; boş Vite + React 19 + TS projesinde `tsc -b && vite build` geçti.
+
+## Bloklar (Arc Pro esinlenmesi, temiz oda)
+
+Bu parçalar Arc'tan alınmadı; tariflerinden sıfırdan yazıldı (`arayuz-standardi.md` §2.1). Yazan oturum uiarc.dev Pro sayfalarını açmadı, Pro kodu okunmadı. Katalogdaki parçalardan kurulur (`registryDependencies`).
+
+| Parça | Kaynak kaydı | Katalog parçaları |
+|---|---|---|
+| `settings-page` | Arc Pro settings-page'dan esinlenildi; kod okunmadı; tarif: docs/tarifler/settings-page.md | `avatar`, `empty-state`, `save-bar`, `skeleton` |
