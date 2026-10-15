@@ -133,3 +133,11 @@ Ortak uyarlamalar (ilk raftakilere ek):
 | `streamgraph` | `registry/components/streamgraph` | `Intl.NumberFormat("en-US")` yerine `chart-format.formatNumber`; `toFixed(1)` yerine `roundTo`. Ekran okuyucu metinleri Türkçe ("Bu aralıkta veri yok", "Tarih", "akış grafiği", "… ile … arası", "son değer", "N katman, toplam …", "katmanları"). CSS'teki `--series-*` artık `snn-chart-palette` dosyasından gelir. Yan yana duran iki doküman yorumu tek Türkçe yorumda birleştirildi. |
 | `ridgeline` | `registry/components/ridgeline` | `Intl.NumberFormat("en-US")` (sayı ve yüzde) yerine `chart-format.formatNumber` ve `formatRatio`; `toFixed(2)` yerine `roundTo`. Ekran okuyucu ve ipucu metinleri Türkçe ("Medyan", "Orta yarı", "Aralık", "X ve altı: %N", "sırt çizgisi grafiği", tablo başlıkları Seri/Medyan/Birinci çeyrek/…/Adet). Arc'ta `/** */` olarak yazılmış tek satır içi yorum `//` yorumuna çevrildi. CSS'teki `--series-*` artık `snn-chart-palette` dosyasından gelir. |
 | `slot-text` | `registry/components/slot-text` | `value.toLocaleString("en-US")` yerine `chart-format.formatNumber(value, 3)` (ABACUS `money.fmtDecimalGrouped`); `toFixed(2)`, `toFixed(4)` yerine `roundTo`; `LOWER.toUpperCase()` yerine her harf için ABACUS `text.upper` (i → İ, ı → I). Harf makaralarının alfabesi a–z yerine Türk alfabesi (32 harf: ç, ğ, ı, ö, ş, ü eklendi; q, w, x kaldı), böylece "İstanbul" gibi adlar da makarada döner. Başka uyarlama yok (ekran metni yok). |
+
+## Dalga 2: Arc Pro'dan esinlenen, sıfırdan yazılan parçalar
+
+Temiz oda (`arayuz-standardi.md` §2.1): tarif oturumu Pro sayfasına bakar, yazan oturum yalnız `docs/tarifler/<ad>.md` dosyasını okur. Arc Pro kodu okunmadı ve kopyalanmadı; hiçbir dosya Arc'tan gelmez. Sayılar ve tarihler ABACUS'tandır (`Intl`, `toFixed`, `toLowerCase` yok).
+
+| Parça | Kaynak | Not |
+|---|---|---|
+| `split-bar` | Arc Pro split-bar'dan esinlenildi; kod okunmadı; tarif: docs/tarifler/split-bar.md | Dilimler `flex-grow` ile genişler (kırpma ve yerleşim hesabı yok); dış etiket şeridi `spreadLabels` ile ayrılır (`lib/viz-utils.ts`). Metin ölçümü tuvalle değil karakter sayısından kestirilir. Yazım `split-bar-format.ts`. |

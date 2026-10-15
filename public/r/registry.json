@@ -72,6 +72,22 @@
       ]
     },
     {
+      "name": "snn-viz-utils",
+      "type": "registry:item",
+      "title": "SNN grafik yardımcıları",
+      "description": "Dalga 2 grafik ve finans bloklarının ortak yardımcıları: seri rengi, etiket ayırma, \"hareketi azalt\" ve eleman genişliği kancaları. Bloklarla kendiliğinden gelir.",
+      "dependencies": [
+        "motion"
+      ],
+      "files": [
+        {
+          "path": "registry/components/lib/viz-utils.ts",
+          "type": "registry:lib",
+          "target": "@components/snn/lib/viz-utils.ts"
+        }
+      ]
+    },
+    {
       "name": "button",
       "type": "registry:ui",
       "title": "Düğme",
@@ -1967,6 +1983,44 @@
       "meta": {
         "arcCommit": "bfdf7e8",
         "arcSource": "registry/components/slot-text"
+      }
+    },
+    {
+      "name": "split-bar",
+      "type": "registry:ui",
+      "title": "Bölünmüş yüzde çubuğu",
+      "description": "Bir bütünü tek yatay çubukta paylara böler: üzerine gelinen dilim biraz genişler, okuma alanı dilimin adını, payını (\"%41,6\") ve tutarını yazar. Sığmayan etiketler çubuğun altındaki şeride ince çizgiyle taşar. Açıklama satırından dilimler kapatılıp açılır, kalanlar çubuğu doldurur; son açık dilim kapanmaz. Ok tuşlarıyla gezilir; ekran okuyucu için tablo ve canlı duyuru vardır.",
+      "dependencies": [
+        "@snn/abacus-core@github:sinanbocek/SNN-Abacus-Core#semver:^4.3.0",
+        "motion"
+      ],
+      "registryDependencies": [
+        "@snn-ui/snn-foundation",
+        "@snn-ui/snn-motion-tokens",
+        "@snn-ui/snn-chart-format",
+        "@snn-ui/snn-chart-palette",
+        "@snn-ui/snn-viz-utils"
+      ],
+      "files": [
+        {
+          "path": "registry/components/split-bar/split-bar-format.ts",
+          "type": "registry:component",
+          "target": "@components/snn/split-bar/split-bar-format.ts"
+        },
+        {
+          "path": "registry/components/split-bar/split-bar.module.css",
+          "type": "registry:component",
+          "target": "@components/snn/split-bar/split-bar.module.css"
+        },
+        {
+          "path": "registry/components/split-bar/split-bar.tsx",
+          "type": "registry:component",
+          "target": "@components/snn/split-bar/split-bar.tsx"
+        }
+      ],
+      "meta": {
+        "arcCommit": "bfdf7e8",
+        "arcSource": "registry/components/split-bar"
       }
     }
   ]

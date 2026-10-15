@@ -99,6 +99,7 @@ Gereken paketler: React 19, `motion`; bazı bileşenlerde Radix ve `lucide-react
 | `streamgraph` | Akış grafiği | Birkaç parçanın karışımının zamanla nasıl değiştiğini, genel biçim kesin değerlerden önemli olduğunda gösterir: katmanlar merkezden dışa, akıcı bir şerit olarak dizilir. Katmanlar yeni veriye ve gizlemeye akarak uyar, ilk görünüşte merkezden kabarır. Katman adları yeterince kalın kesitte doğrudan yazılır; üzerine gelinen katman öne çıkar, ipucu o zamandaki tüm değerleri söyler. Ok tuşlarıyla zamanda ve katmanlar arasında gezilir. Değerler ABACUS biçimindedir ("1.234,5"); `formatValue` ile birimli yazım verilebilir. Hafta ve tarih etiketlerini (`label`, `axisLabel`) proje ABACUS `date.format` ile hazırlar. Renkler `snn-chart-palette`tir (dört ton, sonrası nötr); amber yok. Verinin zaman aralığını proje yönetir. | `npx shadcn@latest add @snn-ui/streamgraph` |
 | `ridgeline` | Sırt çizgisi grafiği | Birçok dağılımın biçimini aynı anda karşılaştırır, örneğin aylara göre günlük sıcaklık ya da bölgelere göre yanıt süresi: her satır, ham gözlemlerin yumuşatılmış yoğunluğudur ve üstteki satırlara taşar. Sırtlar medyanlarına göre açık tondan koyuya gölgelenir; üzerine gelinen sırt öne çıkar, ipucu medyanı, orta yarıyı, aralığı ve imleç değerinin altında kalan payı ("%36") söyler. Ok tuşlarıyla sırtlar ve değerler gezilir; veri değişince sırtlar yeni biçime akar. Değerler ABACUS biçimindedir ("1.234,5", eksi için gerçek eksi işareti); `formatValue` ile özel yazım verilebilir. Paylar `money.percent` ile yazılır ("%36"). Renk tek tondur: `snn-chart-palette` birinci serisi, medyana göre açıktan koyuya; amber yok. Ham gözlemleri proje verir (yüzlerce değer rahat; çok uzun listelerde önceden toplamak projenin işidir). | `npx shadcn@latest add @snn-ui/ridgeline` |
 | `slot-text` | Makaralı metin | Metin ve sayıların yeni değerine kumar makinesi makaraları gibi dönmesi: her karakter bir makaradır, rakamlar sayının gittiği yönde çarkta sayar, harfler Türk alfabesinde (ç, ğ, ı, ö, ş, ü dahil) karışır, makaralar soldan sağa birer birer yumuşakça durur. Sayılar ABACUS biçimindedir ("12.480", "1.234,5"), baştaki ₺ gibi simgeler rakama dönmez. Fiyat, istatistik ve lansman anları için; ekran okuyucu düz metni okur. Sayı değeri `format` verilmezse ABACUS `money.fmtDecimalGrouped` biçimiyle yazılır (en çok 3 ondalık, "1.234,5"); para için `snn-chart-format` (`formatMoney`) ile `format` verilir. Metin değerler olduğu gibi çizilir; harf makaraları Türk alfabesini döner (`text.upper` ile i → İ). `announce` ekran okuyucuya nazikçe duyurur. Hareketi azalt tercihine uyar. | `npx shadcn@latest add @snn-ui/slot-text` |
+| `split-bar` | Bölünmüş yüzde çubuğu | Bir bütünü tek yatay çubukta paylara böler: üzerine gelinen dilim biraz genişler, okuma alanı dilimin adını, payını ("%41,6") ve tutarını yazar. Sığmayan etiketler çubuğun altındaki şeride ince çizgiyle taşar. Açıklama satırından dilimler kapatılıp açılır, kalanlar çubuğu doldurur; son açık dilim kapanmaz. Ok tuşlarıyla gezilir; ekran okuyucu için tablo ve canlı duyuru vardır. Tutarlar TRY ve ABACUS biçimindedir ("₺1.250.000"), paylar `money.percent` ile ("%41,6"); `formatValue` ile adet gibi başka biçim verilebilir. Pay hesabı yuvarlanmamış değerle yapılır, yalnız gösterim yuvarlanır. Sıfır ve negatif dilim çubukta yer almaz; çok kategori için "Diğer"i proje toplar. Dönem seçiciyi proje `actions` ile koyar. Arc Pro split-bar'dan esinlenildi (tarif: docs/tarifler/split-bar.md). | `npx shadcn@latest add @snn-ui/split-bar` |
 
 ## Kullanım örnekleri
 
@@ -564,6 +565,14 @@ import { Ridgeline, RidgelineSeries } from "@/components/snn/ridgeline/ridgeline
 import { SlotText } from "@/components/snn/slot-text/slot-text";
 
 <SlotText value={12480} className="fiyat" />
+```
+
+### Bölünmüş yüzde çubuğu (`split-bar`)
+
+```tsx
+import { SplitBar, SplitSlice } from "@/components/snn/split-bar/split-bar";
+
+<SplitBar label="Gider dağılımı" data={[{ key: "personel", label: "Personel", value: 412000 }, { key: "kira", label: "Kira", value: 185000 }]} />
 ```
 
 ## Bu rafta olmayanlar

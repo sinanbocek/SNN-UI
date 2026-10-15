@@ -15,6 +15,7 @@ const FILES = {
   counter: "registry/components/animated-counter/counter-parts.ts",
   metric: "registry/components/metric-card/metric-card-format.ts",
   line: "registry/components/line-chart/line-chart-format.ts",
+  splitBar: "registry/components/split-bar/split-bar-format.ts",
 };
 const mods = {};
 let temp;
@@ -75,4 +76,11 @@ test("çizgi grafik: ipucu 1234.5 → '1.234,5', eksen 1250000 → ABACUS kısal
   assert.equal(mods.line.formatLineTick(1250000), money.compactMajor(1250000, { style: "B/Mn/Mr" }).replace("₺", ""));
   assert.equal(mods.line.formatLineTick(1250000), "1,25Mn");
   assert.equal(mods.line.formatLineTick(500), "500");
+});
+
+test("bölünmüş çubuk: tutar ve pay ABACUS çıktısıdır", () => {
+  assert.equal(mods.splitBar.fullValueText(1250000), money.formatMajor(1250000, { currency: "TRY", digits: 0 }));
+  assert.equal(mods.splitBar.fullValueText(1250000), "₺1.250.000");
+  assert.equal(mods.splitBar.shareText(412000, 990000), money.percent(math.mul(412000 / 990000, 100), 1));
+  assert.equal(mods.splitBar.shareText(1, 4), "%25");
 });
