@@ -32,6 +32,7 @@ const FILES = {
   replay: "registry/components/line-replay/line-replay-format.ts",
   market: "registry/components/market-terminal/market-terminal-format.ts",
   journey: "registry/components/journey-flow/journey-flow-format.ts",
+  invoice: "registry/components/invoice-studio/invoice-studio-format.ts",
 };
 const mods = {};
 let temp;
@@ -340,4 +341,25 @@ test("yolculuk akışı: toplam, pay ve düşüş yazımı ABACUS çıktısıdı
   assert.deepEqual(from.outgoing.map(row => [row.id, row.drop]), [["d", true], ["b", false]]);
   assert.deepEqual(mods.journey.topDrops(data, facts).map(row => [row.from, row.value, row.share]), [["A", 750, "%75"]]);
   assert.equal(mods.journey.channelAnnouncement(facts, "ziyaret", "ücretli plan"), "1.000 ziyaret, 250 ücretli plan");
+});
+
+test("fatura stüdyosu: kuruş hesabı, KDV, toplam ve alan yazımı ABACUS çıktısıdır", () => {
+  assert.equal(mods.invoice.lineMinor({ quantity: 3, unitPrice: 0.1 }), 30);
+  assert.equal(mods.invoice.lineMinor({ quantity: 2.5, unitPrice: 100 }), 25000);
+  assert.equal(mods.invoice.lineMinor({ quantity: -1, unitPrice: 5 }), 0);
+  const totals = mods.invoice.computeTotals([{ quantity: 3, unitPrice: 1250.5 }, { quantity: 2.5, unitPrice: 100 }], 20);
+  assert.deepEqual(totals.lines, [375150, 25000]);
+  assert.equal(totals.subtotalMinor, 400150);
+  assert.equal(totals.vatMinor, 80030);
+  assert.equal(totals.totalMinor, 480180);
+  assert.equal(mods.invoice.computeTotals([{ quantity: 1, unitPrice: 100.01 }], 20).vatMinor, 2000);
+  assert.equal(mods.invoice.minorText(480180), money.formatMajor(4801.8, { currency: "TRY", digits: 2, kurus: true }));
+  assert.equal(mods.invoice.minorText(480180), "₺4.801,80");
+  assert.equal(mods.invoice.vatLabel(20), "KDV · " + money.percent(20, 0));
+  assert.equal(mods.invoice.groupedInput("1250,5"), "1.250,5");
+  assert.equal(mods.invoice.parseField("1.250,5"), 1250.5);
+  assert.equal(mods.invoice.parseField(""), null);
+  assert.equal(mods.invoice.fieldText(1250.5), "1.250,5");
+  assert.equal(mods.invoice.fieldText(3, 3), "3");
+  assert.deepEqual(mods.invoice.validateItems([{ id: "a", description: "  " }, { id: "b", description: "x" }]).map(problem => problem.id), ["a"]);
 });

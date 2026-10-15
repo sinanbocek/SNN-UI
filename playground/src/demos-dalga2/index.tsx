@@ -17,6 +17,7 @@ import { SmallMultiplesDemo } from "./small-multiples";
 import { LineReplayDemo } from "./line-replay";
 import { MarketTerminalDemo } from "./market-terminal";
 import { JourneyFlowDemo } from "./journey-flow";
+import { InvoiceStudioDemo } from "./invoice-studio";
 
 export const dalga2Demos: Record<string, () => ReactNode> = {
   "split-bar": () => <SplitBarDemo />,
@@ -36,4 +37,5 @@ export const dalga2Demos: Record<string, () => ReactNode> = {
   "line-replay": () => <LineReplayDemo />,
   "market-terminal": () => <MarketTerminalDemo />,
   "journey-flow": () => <JourneyFlowDemo />,
+  "invoice-studio": () => <InvoiceStudioDemo />,
 };

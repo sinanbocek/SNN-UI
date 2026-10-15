@@ -48,7 +48,7 @@ Kural: `SNN-Standartlar/standartlar/arayuz-standardi.md` §2.1. Fikir serbest, k
 | line-replay | https://uiarc.dev/components/blocks/line-replay | 2 | yazıldı |
 | market-terminal | https://uiarc.dev/components/blocks/market-terminal | 2 | yazıldı |
 | journey-flow | https://uiarc.dev/components/blocks/journey-flow | 2 | yazıldı |
-| invoice-studio | https://uiarc.dev/components/blocks/invoice-studio | 2 | tarif yazıldı |
+| invoice-studio | https://uiarc.dev/components/blocks/invoice-studio | 2 | yazıldı |
 | pricing-calculator | https://uiarc.dev/components/blocks/pricing-calculator | 2 | tarif yazıldı |
 | usage-pricing | https://uiarc.dev/components/blocks/usage-pricing | 2 | tarif yazıldı |
 

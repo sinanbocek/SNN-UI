@@ -2697,6 +2697,45 @@
         "arcCommit": "bfdf7e8",
         "arcSource": "registry/components/journey-flow"
       }
+    },
+    {
+      "name": "invoice-studio",
+      "type": "registry:ui",
+      "title": "Fatura ve teklif stüdyosu",
+      "description": "Blok: kalemli bir fatura ya da teklif taslağını ekranda düzenletir. Üstte \"Fatura\" ya da \"Teklif\" başlığı ve gönderen / alıcı blokları; kalem tablosunda açıklama, adet, birim fiyat (₺ simgeli) ve satır tutarı vardır. Kalem eklenir (yeni satırın açıklamasına odaklanır) ve silinir (satır yükseklikle açılıp kapanır); adet ve birim fiyat değiştikçe ara toplam, KDV ve ödenecek toplam anında yeniden hesaplanır ve rakamlar akarak değişir. Virgül ondalık ayracıdır, binlik ayracı yazarken kendiliğinden konur. \"Taslağı kaydet\" açıklaması boş kalemi işaretler (\"Her kalem için açıklama girin\"), kayıt sürerken \"Kaydediliyor…\", sonunda \"Taslak kaydedildi\" ya da \"Kaydedilemedi\" yazar. Boş durum, dar kap (kalem kartı) ve ekran okuyucu için canlı toplam vardır. Resmî e-fatura ya da e-arşiv üretimi ve gönderimi kapsam dışıdır.",
+      "dependencies": [
+        "@snn/abacus-core@github:sinanbocek/SNN-Abacus-Core#semver:^4.3.0",
+        "motion"
+      ],
+      "registryDependencies": [
+        "@snn-ui/snn-foundation",
+        "@snn-ui/snn-motion-tokens",
+        "@snn-ui/animated-counter",
+        "@snn-ui/button",
+        "@snn-ui/snn-chart-format",
+        "@snn-ui/snn-viz-utils"
+      ],
+      "files": [
+        {
+          "path": "registry/components/invoice-studio/invoice-studio-format.ts",
+          "type": "registry:component",
+          "target": "@components/snn/invoice-studio/invoice-studio-format.ts"
+        },
+        {
+          "path": "registry/components/invoice-studio/invoice-studio.module.css",
+          "type": "registry:component",
+          "target": "@components/snn/invoice-studio/invoice-studio.module.css"
+        },
+        {
+          "path": "registry/components/invoice-studio/invoice-studio.tsx",
+          "type": "registry:component",
+          "target": "@components/snn/invoice-studio/invoice-studio.tsx"
+        }
+      ],
+      "meta": {
+        "arcCommit": "bfdf7e8",
+        "arcSource": "registry/components/invoice-studio"
+      }
     }
   ]
 }
