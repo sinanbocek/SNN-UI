@@ -5,7 +5,7 @@ import { AnimatePresence, motion, useMotionValue, useSpring } from "motion/react
 import { ImageViewer, type Rect } from "../lib/image-viewer";
 import { counterText, type ViewerImage } from "../lib/image-viewer-format";
 import { motionTokens } from "../lib/motion-tokens";
-import { Placeholder, SwatchGroup, SwipeTrack, useAnnouncer } from "../lib/shop-parts";
+import { FramedPhoto, SwatchGroup, SwipeTrack, useAnnouncer } from "../lib/shop-parts";
 import { useReducedMotionSafe } from "../lib/viz-utils";
 import { OPEN_FULLSCREEN, PICK_SIZE, clampPoint, edgeSize, isSoldOut, keepSize, lensShift, mainLabel, soldOutText, stepSize, type GalleryColor, type GallerySize } from "./product-gallery-format";
 import styles from "./product-gallery.module.css";
@@ -29,7 +29,7 @@ export interface ProductGalleryProps {
 const LENS = 72;
 
 function Slide({ image, ratio }: { image: ViewerImage; ratio: string }) {
-  return image.src ? <img className={styles.photo} src={image.src} alt={image.alt} style={{ aspectRatio: ratio }} loading="lazy" draggable={false} /> : <Placeholder tone={image.tone} label={image.alt} ratio={ratio} className={styles.photo} />;
+  return <FramedPhoto src={image.src} alt={image.alt} ratio={ratio} position={image.position} tone={image.tone} initial="" className={styles.photo} />;
 }
 
 export function ProductGallery({ colors, sizes, ratio = "4 / 5", magnification = 2.5, header, footer, onSelectionChange }: ProductGalleryProps) {
@@ -93,6 +93,7 @@ export function ProductGallery({ colors, sizes, ratio = "4 / 5", magnification =
   const keyOpen = (event: KeyboardEvent) => { if (event.key === "Enter" && event.target === event.currentTarget) { event.preventDefault(); setViewer(safe); } };
 
   return <section className={styles.root} aria-label="Ürün galerisi" data-reduced={reduced || undefined}>
+    <div className={styles.layout}>
     <div className={styles.media}>
       {header && <div className={styles.header}>{header}</div>}
       <div ref={stage} className={styles.stage} onPointerMove={move} onPointerLeave={() => setHover(false)}
@@ -114,7 +115,7 @@ export function ProductGallery({ colors, sizes, ratio = "4 / 5", magnification =
       </div>
       <div className={styles.dots} aria-hidden="true">{photos.map((_, at) => <i key={at} data-on={at === safe || undefined} />)}</div>
       <div className={styles.strip} role="tablist" aria-label="Küçük resimler">{photos.map((photo, at) => <button key={photo.id} ref={node => { tabs.current[at] = node; }} type="button" role="tab" aria-selected={at === safe} aria-label={`${at + 1}. fotoğraf: ${photo.alt}`} tabIndex={at === safe ? 0 : -1} className={styles.tab} onClick={() => setIndex(at)} onKeyDown={event => tabKey(event, at)}>
-        {photo.src ? <img src={photo.src} alt="" loading="lazy" /> : <Placeholder tone={photo.tone} label="" ratio="1 / 1" />}
+        <FramedPhoto src={photo.src} alt="" ratio="1 / 1" position={photo.position} tone={photo.tone} initial="" />
         {at === safe && <motion.span layoutId="product-gallery-ring" className={styles.ring} transition={reduced ? { duration: 0 } : motionTokens.spring.snappy} />}
       </button>)}</div>
     </div>
@@ -132,6 +133,7 @@ export function ProductGallery({ colors, sizes, ratio = "4 / 5", magnification =
         {sizes.some(item => isSoldOut(item, colorValue)) && <p className={styles.hint}>{sizes.filter(item => isSoldOut(item, colorValue)).map(item => soldOutText(color.label, item.label)).join(" · ")}</p>}
       </div>
       {footer && <div className={styles.footer}>{footer}</div>}
+    </div>
     </div>
     <ImageViewer images={photos} index={viewer} onIndexChange={at => { setViewer(at); setIndex(at); }} onClose={last => { setViewer(null); setIndex(last); requestAnimationFrame(() => opener.current?.focus()); }} getOrigin={originOf} label="Ürün fotoğrafları" />
     {live}

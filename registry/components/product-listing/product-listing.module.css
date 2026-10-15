@@ -3,6 +3,7 @@
 .title { margin: 0; font-family: var(--font-display); font-size: var(--text-3xl); font-weight: 500; letter-spacing: var(--tracking-display); line-height: var(--leading-display); }
 .total { margin-left: var(--space-2); color: var(--text-muted); font-family: var(--font-body); font-size: var(--text-sm); font-weight: 400; letter-spacing: 0; }
 .cart { position: relative; display: inline-flex; padding: var(--space-2); color: var(--foreground); }
+.cartCount span[class*="counter"] { font-family: var(--font-body); font-size: var(--text-xs); font-weight: 500; line-height: 1.1rem; }
 .cartCount { position: absolute; top: -2px; right: -4px; min-width: 1.1rem; padding: 0 4px; border-radius: var(--radius-pill); background: var(--accent); color: var(--accent-foreground); font-size: var(--text-xs); line-height: 1.1rem; text-align: center; }
 .bar { display: flex; flex-wrap: wrap; align-items: center; justify-content: flex-end; gap: var(--space-3); }
 .sort { position: relative; }
@@ -36,11 +37,11 @@
 .stock { display: flex; align-items: center; justify-content: space-between; gap: var(--space-3); font-size: var(--text-sm); }
 .grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(12.25rem, 1fr)); gap: var(--space-5) var(--space-4); margin: 0; padding: 0; list-style: none; }
 .card { display: grid; gap: var(--space-3); align-content: start; min-width: 0; }
-.photo { position: relative; overflow: hidden; border-radius: var(--radius-surface); background: var(--surface-muted); }
-.img { display: block; width: 100%; aspect-ratio: 4 / 5; object-fit: cover; }
+.photo { position: relative; overflow: hidden; border-radius: var(--radius-panel); background: var(--surface-muted); }
+.img { display: block; width: 100%; }
 .photoHover { position: absolute; inset: 0; opacity: 0; transition: opacity var(--duration-standard, .24s) var(--ease-standard); }
 .card:hover .photoHover, .card:focus-within .photoHover { opacity: 1; }
-.badge { position: absolute; top: var(--space-2); left: var(--space-2); }
+.badge { position: absolute; top: var(--space-2); left: var(--space-2); z-index: 1; padding: 2px; border-radius: var(--radius-pill); background: color-mix(in oklch, var(--surface) 90%, transparent); backdrop-filter: blur(6px); }
 .out { position: absolute; top: var(--space-2); right: var(--space-2); padding: 2px var(--space-2); border-radius: var(--radius-pill); background: var(--surface); color: var(--text-secondary); font-size: var(--text-xs); }
 .card[data-out] .img { opacity: .55; }
 .quick { position: absolute; left: var(--space-2); right: var(--space-2); bottom: var(--space-2); display: flex; justify-content: center; transform: translateY(8px); opacity: 0; transition: transform var(--duration-standard, .24s) var(--ease-standard), opacity var(--duration-fast, .16s); }

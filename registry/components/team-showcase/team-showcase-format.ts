@@ -25,6 +25,8 @@ export interface TeamMember {
   phone?: string;
   /** Verilirse gerçek portre; yoksa baş harfli yer tutucu. */
   portrait?: string;
+  /** Portrenin odak noktası (CSS object-position), örneğin "50% 30%". */
+  portraitPosition?: string;
   tone?: number;
 }
 

@@ -198,3 +198,12 @@ Bu parçalar Arc'tan alınmadı; tariflerinden sıfırdan yazıldı (`arayuz-sta
 | `liquid-tab-bar` | Arc Pro liquid-tab-bar'dan esinlenildi; kod okunmadı; tarif: docs/tarifler/liquid-tab-bar.md | Yalnız işlev tariften; görünüş sıfırdan. Rozet sayısı `animated-counter` (ABACUS). |
 | `orbit-menu` | Arc Pro orbit-menu'dan esinlenildi; kod okunmadı; tarif: docs/tarifler/orbit-menu.md | Yalnız işlev tariften; görünüş sıfırdan. Hedef seçimi imlecin açısından yapılır. Sayı, tarih yok. |
 | `data-flow` | Arc Pro data-flow'dan esinlenildi; kod okunmadı; tarif: docs/tarifler/data-flow.md | Yalnız işlev tariften; görünüş sıfırdan. Tarifin ayrı `flow-diagram` parçası yazılmadı: çizim motoru `data-flow` içindedir (`payment-flow` kendi motorunu taşır; ortaklaştırma ayrı iştir). Sayaç `animated-counter`. |
+
+## Dalga 3 cilası (2026-10-15)
+
+Görsel denetimde (`arayuz-standardi.md` §2.2) yedi blokta bariz hata görüldü ve düzeltildi; yeni parça eklenmedi.
+
+| Parça | Not |
+|---|---|
+| `snn-shop-parts` | `FramedPhoto` eklendi: oran kutusu, `object-fit: cover`, yüklenirken iskelet, odak noktası (`position`), adres yoksa ya da açılmazsa yer tutucuya dönüş. `Placeholder` simge yerine ince doku ve baş harf gösterir. Özgün yazım. |
+| Galeri fotoğrafları | `playground/public/ornek-foto/` (Unsplash License, kaynaklar KAYNAK.md içinde). Yalnız galeri örneklerinde kullanılır; kataloğa girmez. |

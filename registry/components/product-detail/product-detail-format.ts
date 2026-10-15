@@ -1,7 +1,7 @@
 // Ürün sayfasının saf mantığı: tükenme, tutar (kuruş tamsayısıyla), yorum dağılımı ve yazımlar. Para TRY'dir.
 import { exactText, averageText, countText, lineMinor, priceText, toMinor } from "../lib/shop-format";
 
-export interface DetailPhoto { alt: string; src?: string; tone?: number }
+export interface DetailPhoto { alt: string; src?: string; /** Fotoğrafın odak noktası (CSS object-position). */ position?: string; tone?: number }
 export interface Finish { value: string; label: string; /** Örnek rengi (CSS rengi). */ color: string; photos: DetailPhoto[] }
 export interface Size {
   value: string;

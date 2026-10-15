@@ -1,14 +1,14 @@
-// team-showcase örneği. Kişiler, şehirler ve iletişim bilgileri uydurmadır; portreler baş harfli yer tutucudur, gerçek yüz ve gerçek numara yok.
+// team-showcase örneği. Kişiler, şehirler ve iletişim bilgileri uydurmadır; portreler playground/public/ornek-foto içindeki Unsplash fotoğraflarıdır (KAYNAK.md); numaralar uydurmadır.
 import { useState } from "react";
 import { TeamShowcase } from "../../../registry/components/team-showcase/team-showcase";
 import type { TeamMember } from "../../../registry/components/team-showcase/team-showcase";
 
 const MEMBERS: TeamMember[] = [
-  { id: "elif", name: "Elif Aksoy", title: "Kurucu ortak", city: "İzmir", country: "Türkiye", bio: "Finans ve operasyon tarafını yönetir; ekibin ilk üyesidir.", email: "elif@ornek.test", phone: "0532 000 00 11", tone: 0 },
-  { id: "baris", name: "Barış Yıldız", title: "Ürün müdürü", city: "Ankara", country: "Türkiye", bio: "Yol haritasını ve müşteri görüşmelerini yürütür.", email: "baris@ornek.test", tone: 2 },
-  { id: "deniz", name: "Deniz Korkmaz", title: "Yazılım mühendisi", city: "İstanbul", country: "Türkiye", bio: "Arayüz kataloğunun bakımını yapar.", phone: "0533 000 00 22", tone: 3 },
-  { id: "cem", name: "Cem Arslan", title: "Tasarımcı", city: "Bursa", country: "Türkiye", bio: "Renk, yazı ve hareket kararlarına bakar.", email: "cem@ornek.test", phone: "0534 000 00 33", tone: 4 },
-  { id: "seda", name: "Seda Polat", title: "Müşteri başarısı", city: "Eskişehir", country: "Türkiye", email: "seda@ornek.test", tone: 5 },
+  { id: "elif", portrait: "/ornek-foto/portre-4.jpg", name: "Elif Aksoy", title: "Kurucu ortak", city: "İzmir", country: "Türkiye", bio: "Finans ve operasyon tarafını yönetir; ekibin ilk üyesidir.", email: "elif@ornek.test", phone: "0532 000 00 11", tone: 0 },
+  { id: "baris", portrait: "/ornek-foto/portre-3.jpg", name: "Barış Yıldız", title: "Ürün müdürü", city: "Ankara", country: "Türkiye", bio: "Yol haritasını ve müşteri görüşmelerini yürütür.", email: "baris@ornek.test", tone: 2 },
+  { id: "deniz", portrait: "/ornek-foto/portre-5.jpg", name: "Deniz Korkmaz", title: "Yazılım mühendisi", city: "İstanbul", country: "Türkiye", bio: "Arayüz kataloğunun bakımını yapar.", phone: "0533 000 00 22", tone: 3 },
+  { id: "cem", portrait: "/ornek-foto/portre-1.jpg", name: "Cem Arslan", title: "Tasarımcı", city: "Bursa", country: "Türkiye", bio: "Renk, yazı ve hareket kararlarına bakar.", email: "cem@ornek.test", phone: "0534 000 00 33", tone: 4 },
+  { id: "seda", portrait: "/ornek-foto/portre-2.jpg", portraitPosition: "48% 30%", name: "Seda Polat", title: "Müşteri başarısı", city: "Eskişehir", country: "Türkiye", email: "seda@ornek.test", tone: 5 },
 ];
 
 export function TeamShowcaseDemo() {

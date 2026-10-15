@@ -4,7 +4,7 @@ import { useEffect, useId, useRef, useState } from "react";
 import { AnimatePresence, motion } from "motion/react";
 import SegmentedControl from "../segmented-control/segmented-control";
 import { motionTokens } from "../lib/motion-tokens";
-import { Placeholder, useAnnouncer } from "../lib/shop-parts";
+import { FramedPhoto, useAnnouncer } from "../lib/shop-parts";
 import { useReducedMotionSafe } from "../lib/viz-utils";
 import { COPIED, COPY_FAILED, LAYOUTS, contactRows, copyText, counterLine, initials, placeText, profileLive, type ShowcaseLayout, type TeamMember } from "./team-showcase-format";
 import styles from "./team-showcase.module.css";
@@ -27,9 +27,7 @@ export interface TeamShowcaseProps {
 
 function Portrait({ member, className }: { member: TeamMember; className?: string }) {
   const label = `${member.name}, ${member.title}`;
-  return member.portrait
-    ? <img className={[styles.portrait, className].filter(Boolean).join(" ")} src={member.portrait} alt={label} loading="lazy" />
-    : <Placeholder tone={member.tone ?? 0} label={label} ratio="4 / 5" className={[styles.portrait, className].filter(Boolean).join(" ")}><span className={styles.initials} aria-hidden="true">{initials(member.name)}</span></Placeholder>;
+  return <FramedPhoto src={member.portrait} position={member.portraitPosition ?? "50% 25%"} alt={label} ratio="4 / 5" tone={member.tone} initial={initials(member.name)} className={[styles.portrait, className].filter(Boolean).join(" ")} />;
 }
 
 function CopyButton({ label, value, shown, announce }: { label: string; value: string; shown: string; announce: (message: string) => void }) {

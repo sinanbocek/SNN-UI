@@ -23,6 +23,7 @@ export interface WalletStackProps {
 function Face({ card }: { card: WalletCard }) {
   return <span className={styles.face} data-material={card.material ?? "flat"} aria-hidden="true">
     <span className={styles.shine} />
+    <span className={styles.chip} />
     <span className={styles.top}><b>{card.issuer}</b><i>{card.network ?? ""}</i></span>
     <span className={styles.product}>{card.product}</span>
     <span className={styles.number}>{maskedNumber(card.last4)}</span>
@@ -90,7 +91,7 @@ export function WalletStack({ title = "Kartlarım", cards: all, onFrontChange }:
       onPointerEnter={event => { if (event.pointerType === "mouse") setFan(true); }} onPointerLeave={() => { setFan(false); tiltX.set(0); tiltY.set(0); }}>
       {cards.map((card, index) => {
         const pos = index - front;
-        const place = open ? (pos === 0 ? { y: 0, scale: 1, opacity: 1, hidden: false } : { y: pos < 0 ? 1.15 : -.04, scale: .94, opacity: 0, hidden: true }) : placeOf(pos, fan && !reduced ? 1 : 0);
+        const place = open ? (pos === 0 ? { y: 0, scale: 1, opacity: 1, hidden: false } : { y: pos < 0 ? 1.15 : -.04, scale: .94, opacity: 0, hidden: true }) : placeOf(pos, fan && !reduced ? 1 : 0, .16);
         const isFront = pos === 0;
         return <motion.button key={card.id} ref={node => { refs.current[index] = node; }} type="button" className={styles.card} style={{ zIndex: cards.length - index, rotateX: isFront && !open ? rotateX : 0, rotateY: isFront && !open ? rotateY : 0, touchAction: "pan-x" }}
           tabIndex={isFront ? 0 : -1} aria-hidden={place.hidden || !isFront || undefined} aria-expanded={isFront ? !!open : undefined} aria-label={cardLabel(card, index, cards.length)}

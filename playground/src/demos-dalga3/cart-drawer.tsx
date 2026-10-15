@@ -1,14 +1,14 @@
-// cart-drawer örneği. Ürünler, fiyatlar ve kuponlar uydurmadır; görseller kendi yer tutucularımızdır. Gerçek ödeme yoktur.
+// cart-drawer örneği. Ürünler, fiyatlar ve kuponlar uydurmadır; fotoğraflar playground/public/ornek-foto içindeki Unsplash görselleridir (KAYNAK.md). Gerçek ödeme yoktur.
 import { useState } from "react";
 import { text } from "@snn/abacus-core";
 import { CartDrawer } from "../../../registry/components/cart-drawer/cart-drawer";
 import type { CartProduct } from "../../../registry/components/cart-drawer/cart-drawer";
 
-const ITEMS: [string, string, number][] = [
-  ["Seramik kupa", "350 ml, el yapımı", 185], ["Keten örtü", "140 × 220 cm", 649.9], ["Cam sürahi", "1,2 litre", 320],
-  ["Ahşap tepsi", "Meşe, 40 cm", 475.5], ["Mum seti", "Üçlü, ıhlamur", 260], ["Pamuk havlu", "Bej, 70 × 140", 410],
+const ITEMS: [string, string, number, string, string?][] = [
+  ["Seramik kupa", "350 ml, el yapımı", 185, "urun-kupa"], ["Keten örtü", "140 × 220 cm", 649.9, "urun-ortu"], ["Ahşap sehpa", "Meşe, 90 cm", 2475.5, "urun-sehpa-1", "55% 60%"],
+  ["Cam üstlü sehpa", "Çelik ayaklı", 3260, "urun-sehpa-2"], ["Kupa takımı", "Dörtlü, kil", 520, "urun-kupa-2"], ["Rüzgârlık", "Su geçirmez, mavi", 1410, "urun-ceket"],
 ];
-const PRODUCTS: CartProduct[] = ITEMS.map(([name, description, price], at) => ({ id: `u${at + 1}`, name, description, price, photo: { alt: `${name} (yer tutucu)`, tone: at } }));
+const PRODUCTS: CartProduct[] = ITEMS.map(([name, description, price, photo, position], at) => ({ id: `u${at + 1}`, name, description, price, photo: { alt: name, src: `/ornek-foto/${photo}.jpg`, position, tone: at } }));
 
 export function CartDrawerDemo() {
   const [fail, setFail] = useState(false);

@@ -10,6 +10,8 @@ export interface ViewerImage {
   src?: string;
   /** Yer tutucunun renk tonu (0–5). */
   tone?: number;
+  /** Fotoğrafın odak noktası (CSS object-position), örneğin "20% 50%"; kare kırpmada hangi bölümün kalacağını söyler. */
+  position?: string;
   /** Gerçek genişlik ve yükseklik: duvar oranı, uçuş ve yakınlaştırma bunlardan hesaplanır. */
   width: number;
   height: number;

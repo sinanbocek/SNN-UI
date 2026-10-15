@@ -1,5 +1,6 @@
 import { useState } from "react";
 import type { ReactNode } from "react";
+import { text } from "@snn/abacus-core";
 import { Download, Plus, Settings } from "lucide-react";
 import { Button } from "../../registry/components/button/button";
 import { ButtonGroup } from "../../registry/components/button-group/button-group";
@@ -270,7 +271,7 @@ function PaginationDemo() {
 
 function SearchDemo() {
   const [q, setQ] = useState("");
-  const matches = ["Teklif 12", "Teklif 18", "Şartname A", "Maliyet özeti"].filter(x => x.toLowerCase().includes(q.toLowerCase()));
+  const matches = ["Teklif 12", "Teklif 18", "Şartname A", "Maliyet özeti"].filter(x => text.searchKey(x).includes(text.searchKey(q)));
   return <>
     <Col title="Süzme">
       <SearchField label="Ara" value={q} onValueChange={setQ} />

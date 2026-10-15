@@ -24,12 +24,14 @@ export interface HeroSignupProps {
   count?: number;
   /** Sosyal kanıt portreleri için adlar (en çok beş). */
   people?: string[];
+  /** `people` ile aynı sırada portre adresleri; verilmeyenler baş harfli görünür. */
+  peopleImages?: string[];
   onStatusChange?: (status: SignupStatus) => void;
   /** Bölümün en az yüksekliği; varsayılan ekran yüksekliğidir. */
   minHeight?: string;
 }
 
-export function HeroSignup({ headline, subline, note = "Davetiniz hazır olunca tek e-posta alırsınız.", onSubmit, count, people = [], onStatusChange, minHeight = "100svh" }: HeroSignupProps) {
+export function HeroSignup({ headline, subline, note = "Davetiniz hazır olunca tek e-posta alırsınız.", onSubmit, count, people = [], peopleImages = [], onStatusChange, minHeight = "100svh" }: HeroSignupProps) {
   const reduced = useReducedMotionSafe();
   const uid = useId();
   const [box, width] = useElementWidth<HTMLElement>();
@@ -92,7 +94,7 @@ export function HeroSignup({ headline, subline, note = "Davetiniz hazır olunca 
         </AnimatePresence>
       </motion.div>
       {(people.length > 0 || count !== undefined) && <motion.div className={styles.proof} {...rise(words.length * motionTokens.stagger.word + .3)}>
-        {people.length > 0 && <span className={styles.faces} aria-hidden="true">{people.slice(0, 5).map(name => <Avatar key={name} name={name} size="sm" />)}</span>}
+        {people.length > 0 && <span className={styles.faces} aria-hidden="true">{people.slice(0, 5).map((name, at) => <Avatar key={name} name={name} src={peopleImages[at]} size="md" />)}</span>}
         {count !== undefined && <span className={styles.count}><span className={styles.srOnly}>{peopleText(total)}</span><span aria-hidden="true"><AnimatedCounter value={total} /> kişi listede</span></span>}
       </motion.div>}
     </div>

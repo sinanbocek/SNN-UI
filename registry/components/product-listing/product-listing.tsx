@@ -10,7 +10,7 @@ import { EmptyState } from "../empty-state/empty-state";
 import { Switch } from "../switch/switch";
 import { motionTokens } from "../lib/motion-tokens";
 import { priceText } from "../lib/shop-format";
-import { Placeholder, SwatchGroup, useAnnouncer, type SwatchOption } from "../lib/shop-parts";
+import { FramedPhoto, SwatchGroup, useAnnouncer, type SwatchOption } from "../lib/shop-parts";
 import { useElementWidth, useReducedMotionSafe } from "../lib/viz-utils";
 import { SORT_OPTIONS, PRICE_STEP, activeFilterCount, addedText, filtersButtonText, initialFilters, moveRange, priceBounds, productCountText, rangeText, visibleProducts, type Filters, type Product, type ProductPhoto, type SortKey } from "./product-listing-format";
 import styles from "./product-listing.module.css";
@@ -88,7 +88,7 @@ function SortMenu({ value, onChange }: { value: SortKey; onChange: (value: SortK
 }
 
 function Photo({ photo }: { photo: ProductPhoto }) {
-  return photo.src ? <img className={styles.img} src={photo.src} alt={photo.alt} loading="lazy" /> : <Placeholder tone={photo.tone} label={photo.alt} className={styles.img} />;
+  return <FramedPhoto src={photo.src} alt={photo.alt} ratio="4 / 5" position={photo.position} tone={photo.tone} className={styles.img} />;
 }
 
 function ProductCard({ product, colors, onAdd, reduced }: { product: Product; colors: SwatchOption[]; onAdd: (product: Product, size?: string) => void; reduced: boolean }) {
@@ -146,7 +146,7 @@ export function ProductListing({ title, products, colors, cartCount, onAddToCart
     <section><h3 className={styles.legend}>Fiyat</h3><RangeSlider bounds={bounds} value={filters.range} onChange={range => update({ range })} /></section>
     <section><h3 className={styles.legend}>Renk</h3><SwatchGroup label="Renk" options={colors} value={filters.colors} onToggle={value => toggle("colors", value)} /></section>
     <section><h3 className={styles.legend}>Beden</h3><div className={styles.sizeFilter} role="group" aria-label="Beden">{sizes.map(size => <button key={size} type="button" className={styles.chip} aria-pressed={filters.sizes.includes(size)} onClick={() => toggle("sizes", size)}>{size}</button>)}</div></section>
-    <label className={styles.stock}><span>Yalnız stokta</span><Switch checked={filters.inStockOnly} onCheckedChange={checked => update({ inStockOnly: checked })} label="Yalnız stokta" /></label>
+    <div className={styles.stock}><Switch checked={filters.inStockOnly} onCheckedChange={checked => update({ inStockOnly: checked })} label="Yalnız stokta" /></div>
     <Button variant="ghost" size="sm" onClick={clear} disabled={!count}>Süzgeçleri temizle</Button>
   </div>;
 

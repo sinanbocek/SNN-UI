@@ -1,16 +1,16 @@
-// scroll-story örneği. Sahne (sahte gelen kutusu), adlar ve sayılar uydurmadır; avatarlar baş harf yer tutucularıdır.
+// scroll-story örneği. Sahne (sahte gelen kutusu), adlar ve sayılar uydurmadır; avatarlar playground/public/ornek-foto içindeki Unsplash portreleridir (KAYNAK.md).
 import { motion, useTransform, type MotionValue } from "motion/react";
 import { money } from "@snn/abacus-core";
 import { Avatar } from "../../../registry/components/avatar/avatar";
 import { ScrollStory } from "../../../registry/components/scroll-story/scroll-story";
 import type { StageContext } from "../../../registry/components/scroll-story/scroll-story";
 
-const MESSAGES: { who: string; line: string; group: number }[] = [
-  { who: "Elif Aksoy", line: "Fatura tarihi yanlış", group: 0 }, { who: "Barış Yıldız", line: "Ödeme sayfası yavaş", group: 1 },
-  { who: "Deniz Korkmaz", line: "Fatura kopyası lazım", group: 0 }, { who: "Cem Arslan", line: "Sayfa açılmıyor", group: 1 },
-  { who: "Seda Polat", line: "KDV oranı hatalı", group: 0 }, { who: "Ayşe Demir", line: "Giriş çok geç açılıyor", group: 1 },
+const MESSAGES: { who: string; line: string; group: number; face?: string }[] = [
+  { who: "Elif Aksoy", face: "/ornek-foto/portre-4.jpg", line: "Fatura tarihi yanlış", group: 0 }, { who: "Barış Yıldız", face: "/ornek-foto/portre-3.jpg", line: "Ödeme sayfası yavaş", group: 1 },
+  { who: "Deniz Korkmaz", face: "/ornek-foto/portre-5.jpg", line: "Fatura kopyası lazım", group: 0 }, { who: "Cem Arslan", face: "/ornek-foto/portre-1.jpg", line: "Sayfa açılmıyor", group: 1 },
+  { who: "Seda Polat", face: "/ornek-foto/portre-2.jpg", line: "KDV oranı hatalı", group: 0 },
 ];
-const ROW = 38;
+const ROW = 36;
 
 function Message({ index, position }: { index: number; position: MotionValue<number> }) {
   const message = MESSAGES[index]!;
@@ -21,7 +21,7 @@ function Message({ index, position }: { index: number; position: MotionValue<num
   const opacity = useTransform(position, [0, 1.6, 2.1], [1, 1, 0]);
   return (
     <motion.div style={{ y, x, opacity }} className="hikaye-mesaj">
-      <Avatar name={message.who} size="sm" /><span><b>{message.who}</b> {message.line}</span>
+      <Avatar name={message.who} src={message.face} size="sm" /><span><b>{message.who}</b> {message.line}</span>
     </motion.div>
   );
 }
@@ -48,7 +48,7 @@ function Stage({ position }: StageContext) {
 export function ScrollStoryDemo() {
   return (
     <div className="col">
-      <style>{`.hikaye-sahne{position:relative;width:100%;height:100%;padding:12px;box-sizing:border-box}.hikaye-mesaj{position:absolute;left:12px;right:12px;top:12px;display:flex;align-items:center;gap:8px;padding:4px 8px;border-radius:8px;background:var(--surface);font-size:.8rem;white-space:nowrap;overflow:hidden}.hikaye-cizgi{position:absolute;left:12px;right:12px;bottom:56px;width:calc(100% - 24px)}.hikaye-kart{position:absolute;left:12px;right:12px;bottom:12px;display:grid;gap:2px;padding:8px 12px;border-radius:8px;background:var(--surface);font-size:.8rem}`}</style>
+      <style>{`.hikaye-sahne{position:relative;width:100%;height:100%;padding:var(--space-3);box-sizing:border-box}.hikaye-mesaj{position:absolute;left:var(--space-3);right:var(--space-3);top:var(--space-3);display:flex;align-items:center;gap:var(--space-2);padding:2px var(--space-3) 2px 2px;border:1px solid var(--border-subtle);border-radius:var(--radius-pill);background:var(--surface);box-shadow:var(--shadow-resting);font-size:var(--text-sm);white-space:nowrap;overflow:hidden}.hikaye-mesaj b{font-weight:500}.hikaye-cizgi{position:absolute;left:var(--space-3);right:var(--space-3);bottom:5rem;width:calc(100% - 2 * var(--space-3))}.hikaye-kart{position:absolute;left:var(--space-3);right:var(--space-3);bottom:var(--space-3);display:grid;gap:2px;padding:var(--space-3) var(--space-4);border:1px solid var(--border);border-radius:var(--radius-control);background:var(--surface);box-shadow:var(--shadow-raised);font-size:var(--text-sm)}.hikaye-kart b{font-family:var(--font-display);font-size:var(--text-lg);font-weight:500}`}</style>
       <span className="etiket">Soldaki metni kaydırın: sekmeler dolar, mesajlar önce temaya göre ayrışır, sonra eğilim çizgisine katlanır, en son paylaşım kartı gelir. Sekmeye basın ya da sol/sağ ok kullanın. Son adımdaki düğmeler benzetimdir.</span>
       <ScrollStory label="Hafta özeti nasıl çalışır" renderStage={context => <Stage {...context} />}
         steps={[

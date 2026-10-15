@@ -4,7 +4,7 @@ import { useEffect, useId, useRef, useState } from "react";
 import { AnimatePresence, motion } from "motion/react";
 import { Button } from "../button/button";
 import { motionTokens } from "../lib/motion-tokens";
-import { Placeholder, useAnnouncer } from "../lib/shop-parts";
+import { FramedPhoto, useAnnouncer } from "../lib/shop-parts";
 import { useReducedMotionSafe } from "../lib/viz-utils";
 import { afterEnd, clock, clockPair, muteLabel, neighbour, playLabel, volumeText, type Track } from "./media-player-format";
 import styles from "./media-player.module.css";
@@ -75,7 +75,7 @@ export function MediaPlayer({ tracks, defaultIndex = 0, defaultVolume = .7, onTr
     <div className={styles.now}>
       <div className={styles.cover}>
         <AnimatePresence mode="popLayout" initial={false}><motion.div key={track.id} initial={reduced ? false : { opacity: 0 }} animate={{ opacity: 1 }} exit={{ opacity: 0 }} transition={swap}>
-          {track.cover ? <img className={styles.coverImg} src={track.cover} alt="" /> : <Placeholder tone={track.tone ?? 0} label="" ratio="1 / 1" className={styles.coverImg} />}
+          <FramedPhoto src={track.cover} alt="" ratio="1 / 1" tone={track.tone ?? 0} initial={Array.from(track.title.trim())[0]} eager className={styles.coverImg} />
         </motion.div></AnimatePresence>
       </div>
       <div className={styles.meta}>
@@ -83,7 +83,7 @@ export function MediaPlayer({ tracks, defaultIndex = 0, defaultVolume = .7, onTr
           <h3 className={styles.title}>{track.title}</h3>{track.subtitle && <p className={styles.subtitle}>{track.subtitle}</p>}
         </motion.div></AnimatePresence>
         <div className={styles.scrub}>
-          <input type="range" min={0} max={duration || 0} step={.1} value={Math.min(position, duration || 0)} disabled={!duration || error} aria-label="İlerleme" aria-valuetext={clockPair(position, duration)} onChange={event => seek(Number(event.target.value))} />
+          <input type="range" style={{ ["--fill" as string]: `${duration ? Math.min(100, position / duration * 100) : 0}%` }} min={0} max={duration || 0} step={.1} value={Math.min(position, duration || 0)} disabled={!duration || error} aria-label="İlerleme" aria-valuetext={clockPair(position, duration)} onChange={event => seek(Number(event.target.value))} />
           <span className={styles.time} aria-hidden="true">{clockPair(position, duration)}</span>
         </div>
         <div className={styles.controls}>
@@ -96,7 +96,7 @@ export function MediaPlayer({ tracks, defaultIndex = 0, defaultVolume = .7, onTr
             <button type="button" className={styles.round} aria-label={muteLabel(muted || volume === 0)} aria-pressed={muted || volume === 0} onClick={() => setMuted(!muted)}>
               <svg viewBox="0 0 24 24" width="20" height="20" fill="none" stroke="currentColor" strokeWidth="1.8" strokeLinecap="round" strokeLinejoin="round" aria-hidden="true"><path d="M4 9h4l5-4v14l-5-4H4z" />{muted || volume === 0 ? <path d="M17 9l4 6M21 9l-4 6" /> : <path d="M17 8a5 5 0 0 1 0 8" />}</svg>
             </button>
-            <input type="range" min={0} max={1} step={.01} value={muted ? 0 : volume} aria-label="Ses düzeyi" aria-valuetext={volumeText(muted ? 0 : volume)} onChange={event => { setVolume(Number(event.target.value)); setMuted(false); }} />
+            <input type="range" style={{ ["--fill" as string]: `${(muted ? 0 : volume) * 100}%` }} min={0} max={1} step={.01} value={muted ? 0 : volume} aria-label="Ses düzeyi" aria-valuetext={volumeText(muted ? 0 : volume)} onChange={event => { setVolume(Number(event.target.value)); setMuted(false); }} />
           </div>
         </div>
         {error && <p className={styles.error} role="alert">Ses dosyası açılamadı. <Button size="sm" variant="ghost" onClick={retry}>Tekrar dene</Button></p>}
