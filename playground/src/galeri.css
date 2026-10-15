@@ -27,7 +27,7 @@ pre.kod { margin: 12px 0 0; padding: 12px; overflow: auto; border-radius: var(--
 .durum { margin-top: 8px; font-size: .85rem; color: var(--text-secondary); }
 
 @media (max-width: 760px) {
-  .shell { grid-template-columns: 1fr; }
+  .shell { grid-template-columns: minmax(0, 1fr); }
   .nav { position: static; height: auto; max-height: 40vh; }
   .main { padding: 16px; }
 }

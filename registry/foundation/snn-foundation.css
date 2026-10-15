@@ -6,6 +6,11 @@
      - Grafik serisi paleti (--series-*) yok: yedek renklerden biri amberdi, göreli renk formülü de vurguya göre amber üretebiliyordu.
        Grafikler 2. rafta (aşama 3) amber olmadan yeniden kurulur.
    Bu dosyada amber tonu kalırsa test/amber.test.mjs kırmızı olur. Vurgu rengi proje başına seçilir: <html data-accent="blue">. */
+/* Yazı tipleri: Inter (gövde) ve Geist (başlık), ikisi de OFL lisanslı, npm paketinden gelir (snn-foundation kurulumu paketleri ekler).
+   Türkçe harfler (ğ ş ı İ) latin-ext alt kümesindedir; paketin varsayılan girişi onu da içerir. @import dosyanın en başında kalmalıdır. */
+@import "@fontsource-variable/inter";
+@import "@fontsource-variable/geist";
+
 :root {
   color-scheme: light;
   --neutral-0: oklch(100% 0 0);
@@ -154,3 +159,8 @@
   outline: var(--focus-outline-width, 2px) solid var(--focus-outline, color-mix(in oklab, var(--accent-strong) 72%, transparent)) !important;
   outline-offset: var(--focus-outline-offset, 2px) !important;
 }
+
+/* Gövde yazı tipi ve form öğeleri. Tarayıcı düğme ve alanları kendi yazı tipiyle (Arial 13,33 px) çizer; miras aldırılır.
+   :where ile özgüllük sıfırdır: projenin ya da bileşenin kendi kuralı her zaman önce gelir. */
+:where(body) { font-family: var(--font-body); }
+:where(button, input, select, textarea) { font: inherit; }

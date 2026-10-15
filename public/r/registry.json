@@ -7,7 +7,11 @@
       "name": "snn-foundation",
       "type": "registry:item",
       "title": "SNN temel değişkenleri",
-      "description": "Renk, yüzey, boşluk, köşe, gölge, hareket ve odak değişkenleri; açık ve koyu tema. Projede bir kez kurulur ve bir kez içe aktarılır. Uyarı rengi amber değil, mavi-gridir.",
+      "description": "Renk, yüzey, boşluk, köşe, gölge, hareket ve odak değişkenleri; açık ve koyu tema; Inter ve Geist yazı tipleri (npm paketi, OFL). Projede bir kez kurulur ve bir kez içe aktarılır. Uyarı rengi amber değil, mavi-gridir.",
+      "dependencies": [
+        "@fontsource-variable/inter",
+        "@fontsource-variable/geist"
+      ],
       "files": [
         {
           "path": "registry/foundation/snn-foundation.css",
