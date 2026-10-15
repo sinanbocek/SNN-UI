@@ -1024,6 +1024,45 @@
         "arcCommit": "bfdf7e8",
         "arcSource": "registry/components/help-center"
       }
+    },
+    {
+      "name": "settings-command",
+      "type": "registry:ui",
+      "title": "Aranabilir ayarlar",
+      "description": "Blok: onlarca ayarın tek uzun sayfada durduğu ekran. Arama kutusu Ctrl+K ya da / ile komut paletini açar (Türkçe harf farkı gözetmez, ek anahtar kelimelerle bulur); seçilen ayara sayfa kayar ve satır iki kez nefes alır. Solda bölüm gezgini, satırlarda anahtar, seçenek, açılır liste ve metin denetimleri, altta toplu kaydetme çubuğu. Yükleniyor, boş arama, doğrulama hatası, kaydetme hatası ve dar ekran durumları vardır.",
+      "dependencies": [
+        "@snn/abacus-core@github:sinanbocek/SNN-Abacus-Core#semver:^4.3.0",
+        "lucide-react",
+        "motion"
+      ],
+      "registryDependencies": [
+        "@snn-ui/snn-foundation",
+        "@snn-ui/snn-motion-tokens",
+        "@snn-ui/dialog",
+        "@snn-ui/empty-state",
+        "@snn-ui/input",
+        "@snn-ui/save-bar",
+        "@snn-ui/segmented-control",
+        "@snn-ui/select",
+        "@snn-ui/skeleton",
+        "@snn-ui/switch"
+      ],
+      "files": [
+        {
+          "path": "registry/components/settings-command/settings-command.module.css",
+          "type": "registry:component",
+          "target": "@components/snn/settings-command/settings-command.module.css"
+        },
+        {
+          "path": "registry/components/settings-command/settings-command.tsx",
+          "type": "registry:component",
+          "target": "@components/snn/settings-command/settings-command.tsx"
+        }
+      ],
+      "meta": {
+        "arcCommit": "bfdf7e8",
+        "arcSource": "registry/components/settings-command"
+      }
     }
   ]
 }

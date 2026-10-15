@@ -8,7 +8,7 @@ Kural: `SNN-Standartlar/standartlar/arayuz-standardi.md` §2.1. Fikir serbest, k
 |---|---|---|---|
 | sidebar | https://uiarc.dev/components/blocks/sidebar | 1 | yazıldı |
 | settings-page | https://uiarc.dev/components/blocks/settings-page | 1 | yazıldı |
-| settings-command | https://uiarc.dev/components/blocks/settings-command | 1 | tarif yazıldı |
+| settings-command | https://uiarc.dev/components/blocks/settings-command | 1 | yazıldı |
 | search-results | https://uiarc.dev/components/blocks/search-results | 1 | yazıldı |
 | team-members | https://uiarc.dev/components/blocks/team-members | 1 | yazıldı |
 | team-directory | https://uiarc.dev/components/blocks/team-directory | 1 | tarif yazıldı |

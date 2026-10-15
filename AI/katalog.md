@@ -73,6 +73,7 @@ Gereken paketler: React 19, `motion`; bazı bileşenlerde Radix ve `lucide-react
 | `sidebar` | Kenar menüsü | Blok: solda gruplu, katlanır gezinme menüsü; şeride daralır (Ctrl+B), dar kolonda çekmeceye dönüşür. Üstte yol izi, ortada kayan içerik, altta Ayarlar ve kullanıcı kartı. Yükleniyor ve hata durumları vardır. Menü verisini, etkin sayfayı ve katlama tercihinin saklanmasını proje yapar (`onCollapsedChange`). Çekmece kararı pencereye değil bloğun kendi genişliğine bakar. Kullanıcı kartı menüsü ve şerit grup menüsü `popover` ile açılır (`dropdown-menu` özel tetikleyici kabul etmediği için). Arc Pro sidebar'dan esinlenildi (tarif: docs/tarifler/sidebar.md). | `npx shadcn@latest add @snn-ui/sidebar` |
 | `search-results` | Arama sonuçları | Blok: birleşik arama kutusu (son ve önerilen aramalar), sayılı süzgeçler (tür, ekip, ay aralığı), etkin süzgeç çipleri, sıralama, kayan imleç dolgulu sonuç listesi ve önizleme paneli. Orta ve dar kolonda önizleme ve süzgeçler alttan açılan sayfalara taşınır. Boş, yükleniyor ve hata durumları vardır. Aranan her kelime Türkçe harf farkı gözetmeden (`text.searchKey`) bulunur; tarihler ABACUS `date`, sıralama `collate` ile yazılır. Bu blok verilen listeyi tarayıcıda süzer ve sıralar; birkaç yüz kayıttan sonra aramayı sunucuya taşımak projenin işidir. Arc Pro search-results'tan esinlenildi (tarif: docs/tarifler/search-results.md). | `npx shadcn@latest add @snn-ui/search-results` |
 | `help-center` | Yardım merkezi | Blok: büyük arama kutusu (sonuçlar kutunun altında, kelimeler vurgulu), hızlı aramalar, konu kartları, çok okunanlar, makale okuma görünümü ("Bu sayfada" ana hattı, Evet/Hayır geri bildirimi, ilgili makaleler) ve destek kartı. Görünümler yönüne göre kayar. Boş, yükleniyor, hata, makale bulunamadı ve dar ekran durumları vardır. Makale içeriği (`paragraphs`, `steps`, isteğe bağlı `content`), tarih ve okuma süresi metni projeden gelir; arama Türkçe harf farkı gözetmez (`text.searchKey`). İletişim ve geri bildirimi proje bağlar; reddedilirse hata yazılır. Arc Pro help-center'dan esinlenildi (tarif: docs/tarifler/help-center.md). | `npx shadcn@latest add @snn-ui/help-center` |
+| `settings-command` | Aranabilir ayarlar | Blok: onlarca ayarın tek uzun sayfada durduğu ekran. Arama kutusu Ctrl+K ya da / ile komut paletini açar (Türkçe harf farkı gözetmez, ek anahtar kelimelerle bulur); seçilen ayara sayfa kayar ve satır iki kez nefes alır. Solda bölüm gezgini, satırlarda anahtar, seçenek, açılır liste ve metin denetimleri, altta toplu kaydetme çubuğu. Yükleniyor, boş arama, doğrulama hatası, kaydetme hatası ve dar ekran durumları vardır. Ayar şemasını (bölümler, satırlar, denetim türü, anahtar kelimeler) ve gerçek kaydı proje verir; blok yalnız değişen kimlik ve değerleri `onSave`'e iletir (reddedilirse çubukta "Yeniden dene"). Arama `text.searchKey` ile yapılır. Kısa profil formu için `settings-page` kullanılır; ikisi birlikte kurulmaz. Arc Pro settings-command'dan esinlenildi (tarif: docs/tarifler/settings-command.md). | `npx shadcn@latest add @snn-ui/settings-command` |
 
 ## Kullanım örnekleri
 
@@ -330,6 +331,14 @@ import { SearchResults } from "@/components/snn/search-results/search-results";
 import { HelpCenter } from "@/components/snn/help-center/help-center";
 
 <HelpCenter topics={topics} articles={articles} quickSearches={["fatura", "parola"]} onContact={contact} onFeedback={sendFeedback} />
+```
+
+### Aranabilir ayarlar (`settings-command`)
+
+```tsx
+import { SettingsCommand } from "@/components/snn/settings-command/settings-command";
+
+<SettingsCommand sections={sections} items={items} values={saved} suggestedIds={["dark", "twofa"]} onSave={save} />
 ```
 
 ## Bu rafta olmayanlar
