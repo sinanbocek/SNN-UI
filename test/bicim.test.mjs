@@ -35,6 +35,8 @@ const FILES = {
   invoice: "registry/components/invoice-studio/invoice-studio-format.ts",
   pricing: "registry/components/pricing-calculator/pricing-calculator-format.ts",
   usagePricing: "registry/components/usage-pricing/usage-pricing-format.ts",
+  shop: "registry/components/lib/shop-format.ts",
+  listing: "registry/components/product-listing/product-listing-format.ts",
 };
 const mods = {};
 let temp;
@@ -414,4 +416,46 @@ test("kullanıma göre fiyat: döküm, öneri, tutar ve kısa kullanım yazımı
   assert.equal(mods.usagePricing.usageFull(15000000), money.fmtDecimalGrouped(15000000, 0));
   assert.equal(mods.usagePricing.overageText(2500000), "2,5 Mn");
   assert.equal(mods.usagePricing.percentText(20), money.percent(20, 0));
+});
+
+test("satış ortak yazımı: fiyat, tutar ve kuruş hesabı ABACUS çıktısıdır", () => {
+  assert.equal(mods.shop.priceText(1250), money.formatMajor(1250, { currency: "TRY", digits: 0 }));
+  assert.equal(mods.shop.priceText(1250), "₺1.250");
+  assert.equal(mods.shop.priceText(1250.5), money.formatMajor(1250.5, { currency: "TRY", digits: 2, kurus: true }));
+  assert.equal(mods.shop.priceText(1250.5), "₺1.250,50");
+  assert.equal(mods.shop.exactText(480180), "₺4.801,80");
+  assert.equal(mods.shop.signedMinorText(1500), "+₺15,00");
+  assert.equal(mods.shop.signedMinorText(-1500), money.formatMajor(-15, { currency: "TRY", digits: 2, kurus: true }));
+  assert.equal(mods.shop.toMinor(12.35), 1235);
+  assert.equal(mods.shop.lineMinor(1999, 3), 5997);
+  assert.equal(mods.shop.countText(1234), "1.234");
+  assert.equal(mods.shop.averageText(4.64), "4,6");
+  assert.equal(mods.shop.percentText(20), money.percent(20, 0));
+});
+
+test("ürün listesi: fiyat sınırları, süzgeç ve sıralama doğru; yazımlar ABACUS çıktısıdır", () => {
+  const base = { sizes: ["S"], inStock: true, photo: { alt: "x" } };
+  const list = [
+    { id: "a", name: "A", price: 395.5, colors: ["siyah"], addedAt: 1, ...base },
+    { id: "b", name: "B", price: 1210, colors: ["krem"], addedAt: 3, ...base, inStock: false },
+    { id: "c", name: "C", price: 640, colors: ["siyah", "haki"], addedAt: 2, ...base, sizes: ["M", "L"] },
+  ];
+  const bounds = mods.listing.priceBounds(list);
+  assert.deepEqual(bounds, [390, 1210]);
+  assert.deepEqual(mods.listing.priceBounds([]), [0, 0]);
+  const open = mods.listing.initialFilters(bounds);
+  assert.equal(mods.listing.activeFilterCount(open, bounds), 0);
+  assert.deepEqual(mods.listing.visibleProducts(list, { ...open, colors: ["haki", "krem"] }, "featured").map(item => item.id), ["b", "c"]);
+  assert.deepEqual(mods.listing.visibleProducts(list, { ...open, sizes: ["L"] }, "featured").map(item => item.id), ["c"]);
+  assert.deepEqual(mods.listing.visibleProducts(list, { ...open, inStockOnly: true }, "price-desc").map(item => item.id), ["c", "a"]);
+  assert.deepEqual(mods.listing.visibleProducts(list, open, "newest").map(item => item.id), ["b", "c", "a"]);
+  assert.deepEqual(mods.listing.visibleProducts(list, { ...open, range: [400, 700] }, "price-asc").map(item => item.id), ["c"]);
+  assert.equal(mods.listing.activeFilterCount({ ...open, range: [400, 1210], colors: ["siyah"], inStockOnly: true }, bounds), 3);
+  assert.deepEqual(mods.listing.moveRange([390, 700], "low", 1000, bounds), [700, 700]);
+  assert.deepEqual(mods.listing.moveRange([390, 700], "high", 12, bounds), [390, 390]);
+  assert.deepEqual(mods.listing.moveRange([390, 700], "low", 403, bounds), [400, 700]);
+  assert.equal(mods.listing.productCountText(1234), "1.234 ürün");
+  assert.equal(mods.listing.rangeText([390, 1210]), "₺390 – ₺1.210");
+  assert.equal(mods.listing.filtersButtonText(2), "Süzgeçler (2)");
+  assert.equal(mods.listing.addedText("Mont", "M"), "Mont, M sepete eklendi.");
 });

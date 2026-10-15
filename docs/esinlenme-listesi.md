@@ -56,7 +56,7 @@ Kural: `SNN-Standartlar/standartlar/arayuz-standardi.md` §2.1. Fikir serbest, k
 
 | Ad | Bağlantı | Dalga | Durum |
 |---|---|---|---|
-| product-listing | https://uiarc.dev/components/blocks/product-listing | 3 | tarif yazıldı |
+| product-listing | https://uiarc.dev/components/blocks/product-listing | 3 | yazıldı |
 | product-detail | https://uiarc.dev/components/blocks/product-detail | 3 | tarif yazıldı |
 | cart-drawer | https://uiarc.dev/components/blocks/cart-drawer | 3 | tarif yazıldı |
 | checkout-summary | https://uiarc.dev/components/blocks/checkout-summary | 3 | tarif yazıldı |

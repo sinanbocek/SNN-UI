@@ -88,6 +88,33 @@
       ]
     },
     {
+      "name": "snn-shop-parts",
+      "type": "registry:item",
+      "title": "SNN satış blokları ortak parçaları",
+      "description": "Dalga 3 vitrin ve satış bloklarının ortak parçaları: görsel yer tutucu (Placeholder), renk örnekleri (SwatchGroup), adet düzenleyici (NumberStepper), kibar canlı bölge (useAnnouncer) ve TRY tutar yazımı (priceText, exactText, kuruş hesabı). Hepsi ABACUS'tandır. Bloklarla kendiliğinden gelir.",
+      "dependencies": [
+        "@snn/abacus-core@github:sinanbocek/SNN-Abacus-Core#semver:^4.3.0",
+        "motion"
+      ],
+      "files": [
+        {
+          "path": "registry/components/lib/shop-format.ts",
+          "type": "registry:lib",
+          "target": "@components/snn/lib/shop-format.ts"
+        },
+        {
+          "path": "registry/components/lib/shop-parts.tsx",
+          "type": "registry:lib",
+          "target": "@components/snn/lib/shop-parts.tsx"
+        },
+        {
+          "path": "registry/components/lib/shop-parts.module.css",
+          "type": "registry:lib",
+          "target": "@components/snn/lib/shop-parts.module.css"
+        }
+      ]
+    },
+    {
       "name": "snn-metric-format",
       "type": "registry:item",
       "title": "SNN gösterge yazımı",
@@ -2818,6 +2845,51 @@
       "meta": {
         "arcCommit": "bfdf7e8",
         "arcSource": "registry/components/usage-pricing"
+      }
+    },
+    {
+      "name": "product-listing",
+      "type": "registry:ui",
+      "title": "Ürün listeleme sayfası",
+      "description": "Blok: bir koleksiyondaki ürünleri kart ızgarası olarak gösterir. Başlıkta ürün sayısı ve dönen adetli sepet simgesi; yanda süzgeç paneli (çift başlı fiyat aralığı, renk örnekleri, beden düğmeleri, \"Yalnız stokta\" anahtarı, \"Süzgeçleri temizle\"), üstte sıralama menüsü (Öne çıkanlar, En yeniler, Fiyat: artan / azalan). Süzülen ya da sıralanan kartlar yay hareketiyle yer değiştirir. Karta gelince ikinci fotoğraf soluk geçişle gelir ve \"Hızlı ekle\" hapı yükselir; çok bedenli üründe beden satırı açılır, seçince \"Eklendi\" olur ve eklemeyi kibar canlı bölge duyurur. Tükenen üründe düğme kapalıdır. Dar kapta (640 px altı) süzgeçler \"Süzgeçler (n)\" düğmesiyle soldan açılan sayfaya geçer. Sonuç yok (\"Bu süzgeçlere uyan ürün yok.\"), yükleniyor ve dokunmatik durumları vardır.",
+      "dependencies": [
+        "@snn/abacus-core@github:sinanbocek/SNN-Abacus-Core#semver:^4.3.0",
+        "motion"
+      ],
+      "registryDependencies": [
+        "@snn-ui/snn-foundation",
+        "@snn-ui/snn-motion-tokens",
+        "@snn-ui/animated-counter",
+        "@snn-ui/badge",
+        "@snn-ui/button",
+        "@snn-ui/drawer",
+        "@snn-ui/empty-state",
+        "@snn-ui/snn-chart-format",
+        "@snn-ui/snn-motion-tokens",
+        "@snn-ui/snn-shop-parts",
+        "@snn-ui/snn-viz-utils",
+        "@snn-ui/switch"
+      ],
+      "files": [
+        {
+          "path": "registry/components/product-listing/product-listing-format.ts",
+          "type": "registry:component",
+          "target": "@components/snn/product-listing/product-listing-format.ts"
+        },
+        {
+          "path": "registry/components/product-listing/product-listing.module.css",
+          "type": "registry:component",
+          "target": "@components/snn/product-listing/product-listing.module.css"
+        },
+        {
+          "path": "registry/components/product-listing/product-listing.tsx",
+          "type": "registry:component",
+          "target": "@components/snn/product-listing/product-listing.tsx"
+        }
+      ],
+      "meta": {
+        "arcCommit": "bfdf7e8",
+        "arcSource": "registry/components/product-listing"
       }
     }
   ]

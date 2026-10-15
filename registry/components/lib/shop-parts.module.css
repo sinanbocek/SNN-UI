@@ -1,0 +1,25 @@
+.placeholder { position: relative; display: grid; place-items: center; width: 100%; overflow: hidden; background: var(--ph-bg, var(--surface-muted)); color: var(--ph-fg, var(--text-muted)); }
+.placeholder svg { width: 38%; height: auto; max-height: 60%; opacity: .75; }
+.placeholder[data-tone="0"] { --ph-bg: color-mix(in oklch, var(--accent) 16%, var(--surface)); --ph-fg: var(--accent-strong); }
+.placeholder[data-tone="1"] { --ph-bg: var(--neutral-3); --ph-fg: var(--neutral-7); }
+.placeholder[data-tone="2"] { --ph-bg: color-mix(in oklch, var(--success) 18%, var(--surface)); --ph-fg: var(--success); }
+.placeholder[data-tone="3"] { --ph-bg: color-mix(in oklch, var(--accent) 32%, var(--surface)); --ph-fg: var(--accent-strong); }
+.placeholder[data-tone="4"] { --ph-bg: var(--neutral-5); --ph-fg: var(--neutral-9); }
+.placeholder[data-tone="5"] { --ph-bg: color-mix(in oklch, var(--accent) 8%, var(--neutral-2)); --ph-fg: var(--neutral-8); }
+
+.swatches { display: flex; flex-wrap: wrap; gap: var(--space-2); margin: 0; padding: 0; border: 0; }
+.swatch { position: relative; width: 1.75rem; height: 1.75rem; padding: 0; border: 1px solid var(--border-strong); border-radius: var(--radius-pill); background: var(--swatch, var(--neutral-4)); cursor: pointer; }
+.swatch::after { content: ""; position: absolute; inset: -4px; border: 2px solid transparent; border-radius: inherit; transition: border-color var(--duration-fast, .16s); }
+.swatch[aria-pressed="true"]::after, .swatch[aria-checked="true"]::after { border-color: var(--foreground); }
+.swatch:focus-visible { outline: var(--focus-outline-width, 2px) solid var(--focus-outline, var(--accent)); outline-offset: 5px; }
+.swatch:disabled { cursor: not-allowed; opacity: .4; }
+.swatchDot { display: inline-block; width: .6rem; height: .6rem; border: 1px solid var(--border-strong); border-radius: var(--radius-pill); background: var(--swatch, var(--neutral-4)); }
+
+.stepper { display: inline-flex; align-items: center; border: 1px solid var(--border); border-radius: var(--radius-control); background: var(--surface); }
+.stepper button { width: 2rem; height: 2rem; border: 0; border-radius: var(--radius-control); background: transparent; color: var(--foreground); font-size: var(--text-base); cursor: pointer; }
+.stepper button:hover:not(:disabled) { background: var(--surface-muted); }
+.stepper button:disabled { color: var(--text-muted); cursor: not-allowed; }
+.stepper button:focus-visible { outline: var(--focus-outline-width, 2px) solid var(--focus-outline, var(--accent)); outline-offset: 1px; }
+.stepper output { min-width: 2rem; text-align: center; font-size: var(--text-sm); font-variant-numeric: tabular-nums; }
+
+.srOnly { position: absolute; width: 1px; height: 1px; margin: -1px; padding: 0; overflow: hidden; clip: rect(0 0 0 0); white-space: nowrap; border: 0; }
