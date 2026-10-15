@@ -7,11 +7,11 @@ import { Button } from "../../../registry/components/button/button";
 
 const DAY = 86_400_000;
 const series = [
-  { key: "fatura", label: "Fatura" },
-  { key: "giris", label: "Giriş" },
-  { key: "teslimat", label: "Teslimat" },
-  { key: "iade", label: "İade" },
-  { key: "diger", label: "Diğer" },
+  { key: "billing", label: "Fatura" },
+  { key: "signin", label: "Giriş" },
+  { key: "delivery", label: "Teslimat" },
+  { key: "returns", label: "İade" },
+  { key: "other", label: "Diğer" },
 ];
 
 /** Verilen sayıda haftalık uydurma destek talebi; son hafta 2026-10-12. */
@@ -24,7 +24,7 @@ function makeData(weeks: number): StreamgraphDatum[] {
       key: iso,
       label: `${date.format(iso, "long")} haftası`,
       axisLabel: at % 3 === 0 ? date.format(iso, "dayMonth") : undefined,
-      values: { fatura: wave(0, 42, 12), giris: wave(1.2, 30, 9), teslimat: wave(2.4, 24, 10), iade: wave(3.6, 14, 5), diger: wave(4.8, 10, 3) },
+      values: { billing: wave(0, 42, 12), signin: wave(1.2, 30, 9), delivery: wave(2.4, 24, 10), returns: wave(3.6, 14, 5), other: wave(4.8, 10, 3) },
     };
   });
 }
