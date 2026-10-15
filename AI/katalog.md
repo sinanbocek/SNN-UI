@@ -101,6 +101,7 @@ Gereken paketler: React 19, `motion`; bazı bileşenlerde Radix ve `lucide-react
 | `slot-text` | Makaralı metin | Metin ve sayıların yeni değerine kumar makinesi makaraları gibi dönmesi: her karakter bir makaradır, rakamlar sayının gittiği yönde çarkta sayar, harfler Türk alfabesinde (ç, ğ, ı, ö, ş, ü dahil) karışır, makaralar soldan sağa birer birer yumuşakça durur. Sayılar ABACUS biçimindedir ("12.480", "1.234,5"), baştaki ₺ gibi simgeler rakama dönmez. Fiyat, istatistik ve lansman anları için; ekran okuyucu düz metni okur. Sayı değeri `format` verilmezse ABACUS `money.fmtDecimalGrouped` biçimiyle yazılır (en çok 3 ondalık, "1.234,5"); para için `snn-chart-format` (`formatMoney`) ile `format` verilir. Metin değerler olduğu gibi çizilir; harf makaraları Türk alfabesini döner (`text.upper` ile i → İ). `announce` ekran okuyucuya nazikçe duyurur. Hareketi azalt tercihine uyar. | `npx shadcn@latest add @snn-ui/slot-text` |
 | `split-bar` | Bölünmüş yüzde çubuğu | Bir bütünü tek yatay çubukta paylara böler: üzerine gelinen dilim biraz genişler, okuma alanı dilimin adını, payını ("%41,6") ve tutarını yazar. Sığmayan etiketler çubuğun altındaki şeride ince çizgiyle taşar. Açıklama satırından dilimler kapatılıp açılır, kalanlar çubuğu doldurur; son açık dilim kapanmaz. Ok tuşlarıyla gezilir; ekran okuyucu için tablo ve canlı duyuru vardır. Tutarlar TRY ve ABACUS biçimindedir ("₺1.250.000"), paylar `money.percent` ile ("%41,6"); `formatValue` ile adet gibi başka biçim verilebilir. Pay hesabı yuvarlanmamış değerle yapılır, yalnız gösterim yuvarlanır. Sıfır ve negatif dilim çubukta yer almaz; çok kategori için "Diğer"i proje toplar. Dönem seçiciyi proje `actions` ile koyar. Arc Pro split-bar'dan esinlenildi (tarif: docs/tarifler/split-bar.md). | `npx shadcn@latest add @snn-ui/split-bar` |
 | `sankey-flow` | Akış şeması | Bir toplamın aşamalar boyunca nasıl bölündüğünü ve birleştiğini, düğümler arasında kalınlığı değere orantılı şeritlerle gösterir. Düğüme ya da şeride gelince o payın baştan sona tüm yolu vurgulanır, ipucu değeri ve kaynağa göre payı ("%41,6") yazar. Şeritlerde yavaşça ilerleyen noktalar yönü hissettirir; "Akış" anahtarıyla durur. Ok tuşlarıyla düğümler gezilir; dar ekranda şema dikeye döner. Ekran okuyucu için akış tablosu vardır. `kind="count"` adedi ("1.234"), `kind="money"` TRY tutarı ("₺1.250.000", düğüm yanında "₺1,25Mn") yazar; paylar `money.percent` ile. Sütunlar akış yönünden kendiliğinden bulunur (en uzun yol), döngülü akış desteklenmez. Bir sütunda yaklaşık 12'den fazla düğüm varsa küçükleri "Diğer"e proje toplar. Dönem seçiciyi proje `actions` ile koyar. Arc Pro sankey-flow'dan esinlenildi (tarif: docs/tarifler/sankey-flow.md). | `npx shadcn@latest add @snn-ui/sankey-flow` |
+| `funnel-chart` | Huni grafiği | Adım adım daralan bir süreci (ziyaretçi → sipariş) tek yatay bantla gösterir: adım başlıklarında kısa sayı ve bir önceki adımdan kalan oran ("%44,3"), adımlar arasında düşüş ("↓ 15.100 (-%70,6)"). Adıma gelince odak sütunu ve ipucu tam sayıyı, ilk adıma ve öncekine oranı yazar. Parçalı veride Toplam, Bölünmüş ya da tek parça görünümü seçilir; band yeni biçime akar. Ok tuşlarıyla gezilir; dar ekranda huni dikeye döner. Ekran okuyucu için tablo vardır. `kind="count"` adedi, `kind="money"` TRY tutarı yazar; başlıkta kısa ("12,5B", "₺1,25Mn"), ipucunda tam biçim ("48.200"). Oranlar `money.percent`, düşüş yüzdesi `math.percentChange` ile (negatif işaretli). Parçasız veride yalnız Toplam görünür. İlk adım sıfırsa "Veri yok" yazar. Arc Pro funnel-chart'tan esinlenildi (tarif: docs/tarifler/funnel-chart.md). | `npx shadcn@latest add @snn-ui/funnel-chart` |
 
 ## Kullanım örnekleri
 
@@ -582,6 +583,14 @@ import { SplitBar, SplitSlice } from "@/components/snn/split-bar/split-bar";
 import { SankeyFlow, SankeyNodeInput, SankeyLinkInput } from "@/components/snn/sankey-flow/sankey-flow";
 
 <SankeyFlow label="Nakit akışı" kind="money" nodes={[{ id: "satis", label: "Satış" }, { id: "kasa", label: "Ana kasa" }]} links={[{ source: "satis", target: "kasa", value: 2400000 }]} />
+```
+
+### Huni grafiği (`funnel-chart`)
+
+```tsx
+import { FunnelChart, FunnelStep, FunnelPart } from "@/components/snn/funnel-chart/funnel-chart";
+
+<FunnelChart label="Satış hunisi" steps={[{ key: "ziyaret", label: "Ziyaretçi", value: 48200 }, { key: "siparis", label: "Sipariş", value: 2480 }]} />
 ```
 
 ## Bu rafta olmayanlar

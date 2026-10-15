@@ -28,7 +28,7 @@ Kural: `SNN-Standartlar/standartlar/arayuz-standardi.md` §2.1. Fikir serbest, k
 |---|---|---|---|
 | split-bar | https://uiarc.dev/components/split-bar | 2 | yazıldı |
 | sankey-flow | https://uiarc.dev/components/sankey-flow | 2 | yazıldı |
-| funnel-chart | https://uiarc.dev/components/funnel-chart | 2 | tarif yazıldı |
+| funnel-chart | https://uiarc.dev/components/funnel-chart | 2 | yazıldı |
 | race-bar-chart | https://uiarc.dev/components/race-bar-chart | 2 | tarif yazıldı |
 | realtime-stream | https://uiarc.dev/components/realtime-stream | 2 | tarif yazıldı |
 
