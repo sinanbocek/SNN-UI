@@ -1,0 +1,51 @@
+.root { container-type: inline-size; display: grid; min-width: 0; gap: var(--space-5); padding: var(--space-6); border: 1px solid var(--border); border-radius: var(--radius-panel); background: var(--surface); color: var(--foreground); }
+.top { display: flex; flex-wrap: wrap; align-items: flex-start; justify-content: space-between; gap: var(--space-5); }
+.title { margin: 0; font-family: var(--font-display); font-size: var(--text-4xl); font-weight: 500; letter-spacing: var(--tracking-display); line-height: var(--leading-display); }
+.parties { display: flex; flex-wrap: wrap; gap: var(--space-6); font-size: var(--text-sm); }
+.parties > div { display: grid; gap: 2px; min-width: 9rem; }
+.partyLabel { color: var(--text-muted); font-size: var(--text-xs); }
+.table { display: grid; min-width: 0; }
+.head, .rowInner { display: grid; grid-template-columns: minmax(0, 1fr) 6rem 9rem 9rem 2rem; align-items: center; gap: var(--space-3); }
+.head { padding: 0 0 var(--space-2); border-bottom: 1px solid var(--border); color: var(--text-secondary); font-size: var(--text-xs); }
+.head span:nth-child(n+2):not(:last-child) { text-align: right; }
+.row { border-bottom: 1px solid var(--border-subtle); }
+.rowInner { padding: var(--space-2) 0; }
+.cell { display: grid; gap: var(--space-1); }
+.cellLabel { display: none; color: var(--text-muted); font-size: var(--text-xs); }
+.cell input, .note textarea { width: 100%; min-width: 0; box-sizing: border-box; min-height: var(--control-height-sm); padding: 0 var(--space-3); border: 1px solid var(--border); border-radius: var(--radius-control); background: var(--surface); color: var(--foreground); font: inherit; font-size: var(--text-sm); }
+.cell[data-cell="quantity"] input, .money input { text-align: right; font-variant-numeric: tabular-nums; }
+.cell input:focus-visible, .note textarea:focus-visible, .remove:focus-visible { outline: var(--focus-outline-width, 2px) solid var(--focus-outline, var(--accent)); outline-offset: var(--focus-outline-offset, 2px); }
+.cell input[aria-invalid="true"] { border-color: var(--danger); }
+.money { position: relative; display: block; }
+.money i { position: absolute; top: 50%; left: var(--space-3); transform: translateY(-50%); color: var(--text-muted); font-style: normal; font-size: var(--text-sm); }
+.money input { width: 100%; padding-left: var(--space-6); }
+.amount { text-align: right; font-size: var(--text-sm); font-variant-numeric: tabular-nums; }
+.remove { width: 2rem; height: 2rem; border: 0; border-radius: var(--radius-control); background: transparent; color: var(--text-muted); font-size: var(--text-sm); cursor: pointer; }
+.remove:hover { background: var(--surface-muted); color: var(--foreground); }
+.rowError { margin: 0 0 var(--space-2); color: var(--danger); font-size: var(--text-xs); }
+.empty { margin: 0; padding: var(--space-6) 0; color: var(--text-muted); text-align: center; font-size: var(--text-sm); }
+.lower { display: grid; grid-template-columns: minmax(0, 1fr) minmax(14rem, 20rem); gap: var(--space-6); align-items: start; }
+.note { display: grid; gap: var(--space-1); color: var(--text-secondary); font-size: var(--text-xs); }
+.note textarea { padding: var(--space-3); resize: vertical; }
+.totals { display: grid; gap: var(--space-2); font-size: var(--text-sm); }
+.totalRow, .grand { display: flex; justify-content: space-between; align-items: baseline; gap: var(--space-3); font-variant-numeric: tabular-nums; }
+.totalRow span { color: var(--text-secondary); }
+.grand { padding-top: var(--space-3); border-top: 1px solid var(--border-strong); }
+.grand b { font-family: var(--font-display); font-size: var(--text-2xl); letter-spacing: var(--tracking-display); font-weight: 500; }
+.footer { display: flex; flex-wrap: wrap; align-items: center; justify-content: flex-end; gap: var(--space-4); }
+.status { margin: 0; margin-right: auto; font-size: var(--text-sm); color: var(--text-secondary); }
+.status[data-tone="error"] { color: var(--danger); }
+.srOnly { position: absolute; width: 1px; height: 1px; margin: -1px; padding: 0; overflow: hidden; clip: rect(0 0 0 0); white-space: nowrap; border: 0; }
+@container (max-width: 760px) { .head, .rowInner { grid-template-columns: minmax(0, 1fr) 5rem 7.5rem 7.5rem 2rem; gap: var(--space-2); } .lower { grid-template-columns: minmax(0, 1fr); } }
+@container (max-width: 620px) {
+  .root { padding: var(--space-4); }
+  .head { display: none; }
+  .rowInner { grid-template-columns: minmax(0, 1fr) minmax(0, 1fr) 2rem; grid-template-areas: "description description remove" "quantity price price" "amount amount amount"; padding: var(--space-3) 0; }
+  .cell[data-cell="description"] { grid-area: description; }
+  .cell[data-cell="quantity"] { grid-area: quantity; }
+  .cell[data-cell="price"] { grid-area: price; }
+  .amount { grid-area: amount; display: flex; justify-content: space-between; }
+  .remove { grid-area: remove; align-self: start; }
+  .cellLabel { display: block; }
+}
+@container (max-width: 380px) { .parties { display: grid; gap: var(--space-3); } }

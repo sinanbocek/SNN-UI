@@ -10,6 +10,16 @@ import { KpiDrilldownDemo } from "./kpi-drilldown";
 import { MetricExplorerDemo } from "./metric-explorer";
 import { RevenueExplorerDemo } from "./revenue-explorer";
 import { MrrWaterfallDemo } from "./mrr-waterfall";
+import { CohortRetentionDemo } from "./cohort-retention";
+import { UsageForecastDemo } from "./usage-forecast";
+import { BudgetVarianceDemo } from "./budget-variance";
+import { SmallMultiplesDemo } from "./small-multiples";
+import { LineReplayDemo } from "./line-replay";
+import { MarketTerminalDemo } from "./market-terminal";
+import { JourneyFlowDemo } from "./journey-flow";
+import { InvoiceStudioDemo } from "./invoice-studio";
+import { PricingCalculatorDemo } from "./pricing-calculator";
+import { UsagePricingDemo } from "./usage-pricing";
 
 export const dalga2Demos: Record<string, () => ReactNode> = {
   "split-bar": () => <SplitBarDemo />,
@@ -22,4 +32,14 @@ export const dalga2Demos: Record<string, () => ReactNode> = {
   "metric-explorer": () => <MetricExplorerDemo />,
   "revenue-explorer": () => <RevenueExplorerDemo />,
   "mrr-waterfall": () => <MrrWaterfallDemo />,
+  "cohort-retention": () => <CohortRetentionDemo />,
+  "usage-forecast": () => <UsageForecastDemo />,
+  "budget-variance": () => <BudgetVarianceDemo />,
+  "small-multiples": () => <SmallMultiplesDemo />,
+  "line-replay": () => <LineReplayDemo />,
+  "market-terminal": () => <MarketTerminalDemo />,
+  "journey-flow": () => <JourneyFlowDemo />,
+  "invoice-studio": () => <InvoiceStudioDemo />,
+  "pricing-calculator": () => <PricingCalculatorDemo />,
+  "usage-pricing": () => <UsagePricingDemo />,
 };

@@ -21,6 +21,11 @@ export interface SankeyFlowProps {
   kind?: SankeyKind;
   /** Sağ üstte duran denetimler (dönem seçici gibi). */
   actions?: ReactNode;
+  /** Sabitlenmiş (seçili) düğüm; denetimli kullanım için. Tıklama ve Enter seçer, Esc kaldırır. */
+  selectedId?: string | null;
+  onSelectedChange?: (id: string | null) => void;
+  /** Başlık satırını gizler (üst blok kendi başlığını yazıyorsa); ad yine ekran okuyucuya söylenir. */
+  bare?: boolean;
   loading?: boolean;
   emptyText?: string;
 }
@@ -28,7 +33,7 @@ export interface SankeyFlowProps {
 type Focus = { type: "node" | "link"; id: string } | null;
 const NODE = 12, MARGIN = 112, HEIGHT = 340, NARROW = 420;
 
-export function SankeyFlow({ nodes, links, label, description, columnLabels, kind = "count", actions, loading = false, emptyText = "Henüz akış yok." }: SankeyFlowProps) {
+export function SankeyFlow({ nodes, links, label, description, columnLabels, kind = "count", actions, selectedId, onSelectedChange, bare = false, loading = false, emptyText = "Henüz akış yok." }: SankeyFlowProps) {
   const reduced = useReducedMotionSafe();
   const titleId = useId();
   const [box, width] = useElementWidth<HTMLDivElement>();
@@ -53,13 +58,15 @@ export function SankeyFlow({ nodes, links, label, description, columnLabels, kin
   const point = (along: number, across: number) => vertical ? { x: across + 8, y: along } : { x: along, y: across + 4 };
 
   const through = useMemo(() => {
-    if (!focus) return null;
-    if (focus.type === "node") return pathThrough(layout.links, focus.id, focus.id);
-    const link = layout.links.find(item => item.id === focus.id);
+    const active: Focus = focus ?? (selectedId ? { type: "node", id: selectedId } : null);
+    if (!active) return null;
+    if (active.type === "node") return pathThrough(layout.links, active.id, active.id);
+    const link = layout.links.find(item => item.id === active.id);
     return link ? pathThrough(layout.links, link.source, link.target) : null;
-  }, [focus, layout]);
+  }, [focus, layout, selectedId]);
 
-  const colorOf = (id: string) => seriesColor(nodeById.get(id)?.tone ?? 0);
+  const colorOf = (id: string) => nodeById.get(id)?.muted ? "var(--neutral-6)" : seriesColor(nodeById.get(id)?.tone ?? 0);
+  const linkColor = (link: { source: string; target: string }) => nodeById.get(link.target)?.muted ? "var(--neutral-6)" : colorOf(link.source);
   const total = layout.total;
   const sourceValue = (id: string) => nodeById.get(id)?.value ?? 0;
 
@@ -87,7 +94,8 @@ export function SankeyFlow({ nodes, links, label, description, columnLabels, kin
 
   const byColumn = useMemo(() => Array.from({ length: layout.columns }, (_, at) => layout.nodes.filter(node => node.column === at).sort((a, b) => a.order - b.order)), [layout]);
   const onKeyDown = (event: KeyboardEvent<HTMLDivElement>) => {
-    if (event.key === "Escape") { clear(); return; }
+    if (event.key === "Escape") { clear(); onSelectedChange?.(null); return; }
+    if ((event.key === "Enter" || event.key === " ") && focus?.type === "node") { event.preventDefault(); onSelectedChange?.(focus.id === selectedId ? null : focus.id); return; }
     const current = focus?.type === "node" ? nodeById.get(focus.id) : undefined;
     let next = current;
     if (!current) next = byColumn[0]?.[0];
@@ -119,13 +127,13 @@ export function SankeyFlow({ nodes, links, label, description, columnLabels, kin
   const motionOn = flow && !reduced && onScreen && revealed;
 
   return <figure ref={visibleRef} className={styles.figure} data-reduced={reduced || undefined} aria-labelledby={titleId}>
-    <div className={styles.head}>
+    {bare ? <h3 className={styles.srOnly} id={titleId}>{label}</h3> : <div className={styles.head}>
       <div className={styles.titles}>
         <figcaption id={titleId} className={styles.title}>{label}</figcaption>
         {description && <p className={styles.description}>{description}</p>}
       </div>
       {actions && <div className={styles.actions}>{actions}</div>}
-    </div>
+    </div>}
     {layout.nodes.length === 0 ? <p className={styles.empty}>{emptyText}</p> : <>
       {showHeads && <div className={styles.heads} aria-hidden="true">{byColumn.map((_, at) => <span key={at} className={styles.headLabel} style={{ left: alongOf(at) + NODE / 2 }}>{columnLabels![at] ?? ""}</span>)}</div>}
       <div ref={box} className={styles.stage} onPointerLeave={clear}>
@@ -134,7 +142,7 @@ export function SankeyFlow({ nodes, links, label, description, columnLabels, kin
             <g className={styles.ribbons}>
               {layout.links.map(link => {
                 const lit = through ? through.links.has(link.id) : false;
-                return <path key={link.id} className={styles.ribbon} d={curve(link)} style={{ stroke: colorOf(link.source), strokeWidth: Math.max(1, link.thickness) }}
+                return <path key={link.id} className={styles.ribbon} d={curve(link)} style={{ stroke: linkColor(link), strokeWidth: Math.max(1, link.thickness) }}
                   data-lit={lit || undefined} data-dim={(through && !lit) || undefined}
                   onPointerEnter={event => { setFocus({ type: "link", id: link.id }); showLinkTip(link.id, event); }} onPointerMove={event => showLinkTip(link.id, event)} />;
               })}
@@ -152,8 +160,8 @@ export function SankeyFlow({ nodes, links, label, description, columnLabels, kin
               const textX = vertical ? at.x : first && !vertical ? at.x - 6 : at.x + NODE + 6;
               const anchor = !vertical && first ? "end" : "start";
               const textY = vertical ? at.y - 6 : at.y + node.size / 2;
-              return <g key={node.id} className={styles.node} data-lit={lit || undefined} data-dim={(through && !lit) || undefined} data-selected={(focus?.type === "node" && focus.id === node.id) || undefined}
-                onPointerEnter={event => { setFocus({ type: "node", id: node.id }); showNodeTip(node.id, event); }} onPointerMove={event => showNodeTip(node.id, event)}>
+              return <g key={node.id} className={styles.node} data-lit={lit || undefined} data-dim={(through && !lit) || undefined} data-selected={((focus?.type === "node" && focus.id === node.id) || selectedId === node.id) || undefined}
+                onClick={() => onSelectedChange?.(node.id === selectedId ? null : node.id)} onPointerEnter={event => { setFocus({ type: "node", id: node.id }); showNodeTip(node.id, event); }} onPointerMove={event => showNodeTip(node.id, event)}>
                 <rect className={styles.rect} x={at.x} y={at.y} width={vertical ? node.size : NODE} height={vertical ? NODE : node.size} rx={3} style={{ fill: colorOf(node.id) }} />
                 {(node.size >= 14 || vertical) && <text className={styles.nodeText} x={textX} y={textY} textAnchor={last && !vertical ? "start" : anchor} dominantBaseline={vertical ? "auto" : "middle"}>
                   <tspan className={styles.nodeName}>{node.label}</tspan><tspan className={styles.nodeValue} dx={6}>{flowShortText(kind, node.value)}</tspan>
