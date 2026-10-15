@@ -115,6 +115,34 @@
       ]
     },
     {
+      "name": "snn-image-viewer",
+      "type": "registry:item",
+      "title": "SNN tam ekran fotoğraf görüntüleyicisi",
+      "description": "Fotoğraf galerisi bloklarının ortak görüntüleyicisi (ImageViewer): fotoğraf kendi yuvasından büyür ve kapanınca oraya döner, sol/sağ ok ve kaydırmayla gezilir, +/-/0, çift tıklama, iki parmak ve Ctrl+tekerlekle yakınlaştırılır, aşağı çekilerek kapatılır; küçük resim şeridi, \"2 / 12\" sayacı ve odak tuzağı vardır (kipli iletişim kutusu). Fotoğraf gerçek genişlik ve yükseklikle verilir. Bloklarla kendiliğinden gelir.",
+      "dependencies": [
+        "@snn/abacus-core@github:sinanbocek/SNN-Abacus-Core#semver:^4.3.0",
+        "motion",
+        "@radix-ui/react-dialog"
+      ],
+      "files": [
+        {
+          "path": "registry/components/lib/image-viewer-format.ts",
+          "type": "registry:lib",
+          "target": "@components/snn/lib/image-viewer-format.ts"
+        },
+        {
+          "path": "registry/components/lib/image-viewer.tsx",
+          "type": "registry:lib",
+          "target": "@components/snn/lib/image-viewer.tsx"
+        },
+        {
+          "path": "registry/components/lib/image-viewer.module.css",
+          "type": "registry:lib",
+          "target": "@components/snn/lib/image-viewer.module.css"
+        }
+      ]
+    },
+    {
       "name": "snn-metric-format",
       "type": "registry:item",
       "title": "SNN gösterge yazımı",
@@ -3223,6 +3251,47 @@
       "meta": {
         "arcCommit": "bfdf7e8",
         "arcSource": "registry/components/spotlight-grid"
+      }
+    },
+    {
+      "name": "product-gallery",
+      "type": "registry:ui",
+      "title": "Ürün fotoğraf galerisi",
+      "description": "Blok: ürün sayfası için fotoğraf galerisi. Büyük fotoğraf üstünde fareyle büyüteç merceği (yaylarla imleci izler, \"Büyüteç\" düğmesiyle kapanır), dokunmatikte parmağı bire bir izleyen kaydırma, nokta göstergesi ve büyüt simgesi; küçük resim şeridi (seçili halka kayarak değişir). Fotoğrafa basınca ya da Enter'a basınca tam ekran görüntüleyici fotoğrafın kendi yerinden büyür: sol/sağ ok, +/-/0, çift tıklama, iki parmak ve Ctrl+tekerlek yakınlaştırır, aşağı çekmek ya da Escape kapatır (Escape önce uzaklaştırır), odak ana fotoğrafa döner, \"2 / 12\" sayacı duyurulur. Renk seçici (örnekler ve seçili renk adı) değişince tüm fotoğraflar bulanıktan netleşerek yeni rengin fotoğraflarına geçer; seçili beden o renkte tükenmişse seçim kalkar ve dışarı bildirilir. Beden düğmelerinde tükenenler çizgili, seçilemez ve metinle belirtilir (\"Orman için M tükendi\"); oklar tükenenleri atlar. Beden seçilmediyse \"Beden seçin\" ipucu çıkar. Üst ve alt alan uygulamaya aittir. Dar kapta (680 px altı) üst üste dizilir.",
+      "dependencies": [
+        "@snn/abacus-core@github:sinanbocek/SNN-Abacus-Core#semver:^4.3.0",
+        "motion",
+        "@radix-ui/react-dialog"
+      ],
+      "registryDependencies": [
+        "@snn-ui/snn-foundation",
+        "@snn-ui/snn-motion-tokens",
+        "@snn-ui/snn-chart-format",
+        "@snn-ui/snn-image-viewer",
+        "@snn-ui/snn-motion-tokens",
+        "@snn-ui/snn-shop-parts",
+        "@snn-ui/snn-viz-utils"
+      ],
+      "files": [
+        {
+          "path": "registry/components/product-gallery/product-gallery-format.ts",
+          "type": "registry:component",
+          "target": "@components/snn/product-gallery/product-gallery-format.ts"
+        },
+        {
+          "path": "registry/components/product-gallery/product-gallery.module.css",
+          "type": "registry:component",
+          "target": "@components/snn/product-gallery/product-gallery.module.css"
+        },
+        {
+          "path": "registry/components/product-gallery/product-gallery.tsx",
+          "type": "registry:component",
+          "target": "@components/snn/product-gallery/product-gallery.tsx"
+        }
+      ],
+      "meta": {
+        "arcCommit": "bfdf7e8",
+        "arcSource": "registry/components/product-gallery"
       }
     }
   ]

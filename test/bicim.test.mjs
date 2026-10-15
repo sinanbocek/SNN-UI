@@ -45,6 +45,8 @@ const FILES = {
   hero: "registry/components/hero-signup/hero-signup-format.ts",
   story: "registry/components/scroll-story/scroll-story-format.ts",
   spotlight: "registry/components/spotlight-grid/spotlight-grid-format.ts",
+  viewer: "registry/components/lib/image-viewer-format.ts",
+  gallery: "registry/components/product-gallery/product-gallery-format.ts",
 };
 const mods = {};
 let temp;
@@ -679,4 +681,55 @@ test("özellik ızgarası: sütun sayısı, kart kaplaması, ışık konumu ve y
   assert.deepEqual(mods.spotlight.glowAt(rect, 900, -5), { x: 200, y: 0 });
   assert.equal(mods.spotlight.closeLabel("Gecikme"), "Gecikme: ayrıntıyı kapat");
   assert.equal(mods.spotlight.cardCountText(1234), "1.234 özellik");
+});
+
+test("fotoğraf görüntüleyici: sığdırma, yakınlaştırma, kaydırma sınırı, eşikler ve sayaç doğru; sayılar ABACUS çıktısıdır", () => {
+  assert.deepEqual(mods.viewer.fitRect(800, 1000, 1000, 600), { left: 260, top: 0, width: 480, height: 600 });
+  assert.deepEqual(mods.viewer.fitRect(1000, 500, 1000, 1000, 100), { left: 100, top: 300, width: 800, height: 400 });
+  assert.equal(mods.viewer.clampZoom(9), 4);
+  assert.equal(mods.viewer.clampZoom(.2), 1);
+  assert.equal(mods.viewer.zoomIn(1), 1.5);
+  assert.equal(mods.viewer.zoomOut(1), 1);
+  assert.equal(mods.viewer.zoomIn(3), 4);
+  const rect = { left: 0, top: 0, width: 400, height: 300 };
+  assert.deepEqual(mods.viewer.panLimit(rect, 2), { x: 200, y: 150 });
+  assert.deepEqual(mods.viewer.panLimit(rect, 1), { x: 0, y: 0 });
+  assert.deepEqual(mods.viewer.clampPan({ x: 999, y: -999 }, rect, 2), { x: 200, y: -150 });
+  assert.deepEqual(mods.viewer.zoomAround({ x: 100, y: 0 }, { x: 0, y: 0 }, 1, 2), { x: -100, y: 0 });
+  assert.equal(mods.viewer.swipeStep(-120, 0, 1, 5), 1);
+  assert.equal(mods.viewer.swipeStep(120, 0, 1, 5), -1);
+  assert.equal(mods.viewer.swipeStep(120, 0, 0, 5), 0);
+  assert.equal(mods.viewer.swipeStep(-120, 0, 4, 5), 0);
+  assert.equal(mods.viewer.swipeStep(-10, -900, 1, 5), 1);
+  assert.equal(mods.viewer.swipeStep(-10, -100, 1, 5), 0);
+  assert.equal(mods.viewer.pullCloses(130, 0), true);
+  assert.equal(mods.viewer.pullCloses(40, 800), true);
+  assert.equal(mods.viewer.pullCloses(40, 100), false);
+  assert.equal(mods.viewer.pinchZoom(1, 100, 200), 2);
+  assert.equal(mods.viewer.pinchZoom(2, 100, 400), 4);
+  assert.equal(mods.viewer.pinchZoom(2, 0, 400), 2);
+  assert.equal(mods.viewer.counterText(1, 12), "2 / 12");
+  assert.equal(mods.viewer.counterText(0, 1234), "1 / 1.234");
+  assert.equal(mods.viewer.openText({ alt: "Kıyı", title: "Kıyıda gün batımı" }, 0, 3), "Kıyıda gün batımı aç, 1 / 3 fotoğraf");
+  assert.equal(mods.viewer.zoomPercent(2.5), "250");
+});
+
+test("ürün galerisi: tükenen beden, ok tuşuyla gezme, büyüteç kayması ve yazımlar doğru", () => {
+  const sizes = [{ value: "S", label: "S" }, { value: "M", label: "M", soldOutIn: ["orman"] }, { value: "L", label: "L" }, { value: "XL", label: "XL", soldOutIn: ["orman"] }];
+  assert.equal(mods.gallery.isSoldOut(sizes[1], "orman"), true);
+  assert.equal(mods.gallery.isSoldOut(sizes[1], "kum"), false);
+  assert.equal(mods.gallery.keepSize(sizes, "M", "orman"), "");
+  assert.equal(mods.gallery.keepSize(sizes, "M", "kum"), "M");
+  assert.equal(mods.gallery.keepSize(sizes, "", "kum"), "");
+  assert.equal(mods.gallery.stepSize(sizes, "orman", "S", 1), "L");
+  assert.equal(mods.gallery.stepSize(sizes, "orman", "L", 1), "L");
+  assert.equal(mods.gallery.stepSize(sizes, "orman", "L", -1), "S");
+  assert.equal(mods.gallery.stepSize(sizes, "kum", "S", 1), "M");
+  assert.equal(mods.gallery.edgeSize(sizes, "orman", "last"), "L");
+  assert.equal(mods.gallery.edgeSize(sizes, "kum", "last"), "XL");
+  assert.equal(mods.gallery.edgeSize([{ value: "S", label: "S", soldOutIn: ["a"] }], "a", "first"), "");
+  assert.equal(mods.gallery.soldOutText("Orman", "M"), "Orman için M tükendi");
+  assert.deepEqual(mods.gallery.lensShift({ x: 100, y: 50 }, 2.5, 72), { x: -178, y: -53 });
+  assert.deepEqual(mods.gallery.clampPoint({ left: 10, top: 10, width: 100, height: 200 }, 500, -5), { x: 100, y: 0 });
+  assert.equal(mods.gallery.mainLabel({ alt: "Ön görünüm" }, 1, 4), "Ön görünüm, 2 / 4");
 });
