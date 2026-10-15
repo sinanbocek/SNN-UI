@@ -33,6 +33,7 @@ const FILES = {
   market: "registry/components/market-terminal/market-terminal-format.ts",
   journey: "registry/components/journey-flow/journey-flow-format.ts",
   invoice: "registry/components/invoice-studio/invoice-studio-format.ts",
+  pricing: "registry/components/pricing-calculator/pricing-calculator-format.ts",
 };
 const mods = {};
 let temp;
@@ -362,4 +363,30 @@ test("fatura stüdyosu: kuruş hesabı, KDV, toplam ve alan yazımı ABACUS çı
   assert.equal(mods.invoice.fieldText(1250.5), "1.250,5");
   assert.equal(mods.invoice.fieldText(3, 3), "3");
   assert.deepEqual(mods.invoice.validateItems([{ id: "a", description: "  " }, { id: "b", description: "x" }]).map(problem => problem.id), ["a"]);
+});
+
+test("fiyat hesaplayıcı: koltuk başı fiyat, toplam, tasarruf ve yazım ABACUS çıktısıdır; kademe ve öneri doğru", () => {
+  const team = { key: "team", name: "Takım", fitsSeats: [11, 50], features: [{ label: "a" }, { label: "b", fromSeats: 20 }], tiers: [{ fromSeats: 1, price: 249 }, { fromSeats: 25, price: 219 }] };
+  const starter = { key: "starter", name: "Başlangıç", maxSeats: 10, fitsSeats: [1, 10], features: [], tiers: [{ fromSeats: 1, price: 149 }] };
+  const business = { key: "business", name: "İş", fitsSeats: [51, null], features: [], tiers: [{ fromSeats: 1, price: 389 }] };
+  assert.equal(mods.pricing.seatPriceMinor(team, 20), 24900);
+  assert.equal(mods.pricing.seatPriceMinor(team, 30), 21900);
+  assert.equal(mods.pricing.periodSeatMinor(team, 20, "year", 20), 19920);
+  assert.equal(mods.pricing.totalMinor(team, 20, "month", 20), 498000);
+  assert.equal(mods.pricing.totalMinor(team, 20, "year", 20), 4780800);
+  assert.equal(mods.pricing.savingsMinor(team, 20, 20), 1195200);
+  assert.equal(mods.pricing.volumeDiscountMinor(team, 30), 3000);
+  assert.equal(mods.pricing.volumeDiscountMinor(team, 20), 0);
+  assert.equal(mods.pricing.minorMoney(21900), money.formatMajor(219, { currency: "TRY", digits: 2, kurus: true }));
+  assert.equal(mods.pricing.minorMoney(21900), "₺219,00");
+  assert.equal(mods.pricing.percentText(20), money.percent(20, 0));
+  assert.equal(mods.pricing.seatsText(1234), "1.234 koltuk");
+  assert.equal(mods.pricing.sellable(starter, 11), false);
+  assert.equal(mods.pricing.sellable(starter, 10), true);
+  assert.equal(mods.pricing.recommendedKey([starter, team, business], 5), "starter");
+  assert.equal(mods.pricing.recommendedKey([starter, team, business], 20), "team");
+  assert.equal(mods.pricing.recommendedKey([starter, team, business], 500), "business");
+  assert.deepEqual(mods.pricing.visibleFeatures(team, 10).map(feature => feature.label), ["a"]);
+  assert.deepEqual(mods.pricing.visibleFeatures(team, 20).map(feature => feature.label), ["a", "b"]);
+  assert.equal(mods.pricing.limitMessage(10, 20), "Bu plan en çok 10 koltuğa uygun. Siz 20 koltuk seçtiniz.");
 });

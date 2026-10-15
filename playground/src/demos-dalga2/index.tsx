@@ -18,6 +18,7 @@ import { LineReplayDemo } from "./line-replay";
 import { MarketTerminalDemo } from "./market-terminal";
 import { JourneyFlowDemo } from "./journey-flow";
 import { InvoiceStudioDemo } from "./invoice-studio";
+import { PricingCalculatorDemo } from "./pricing-calculator";
 
 export const dalga2Demos: Record<string, () => ReactNode> = {
   "split-bar": () => <SplitBarDemo />,
@@ -38,4 +39,5 @@ export const dalga2Demos: Record<string, () => ReactNode> = {
   "market-terminal": () => <MarketTerminalDemo />,
   "journey-flow": () => <JourneyFlowDemo />,
   "invoice-studio": () => <InvoiceStudioDemo />,
+  "pricing-calculator": () => <PricingCalculatorDemo />,
 };
