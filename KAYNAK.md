@@ -141,3 +141,4 @@ Temiz oda (`arayuz-standardi.md` §2.1): tarif oturumu Pro sayfasına bakar, yaz
 | Parça | Kaynak | Not |
 |---|---|---|
 | `split-bar` | Arc Pro split-bar'dan esinlenildi; kod okunmadı; tarif: docs/tarifler/split-bar.md | Dilimler `flex-grow` ile genişler (kırpma ve yerleşim hesabı yok); dış etiket şeridi `spreadLabels` ile ayrılır (`lib/viz-utils.ts`). Metin ölçümü tuvalle değil karakter sayısından kestirilir. Yazım `split-bar-format.ts`. |
+| `sankey-flow` | Arc Pro sankey-flow'dan esinlenildi; kod okunmadı; tarif: docs/tarifler/sankey-flow.md | Yerleşim (sütun, sıra düzeltmesi, şerit uçları) saf işlev olarak `sankey-flow-format.ts` içinde; şeritler orta çizgisi kalınlıkta çizilen eğridir; noktalar SVG `animateMotion` ile. Veri değişiminde şerit geçişi `d` CSS geçişiyle yapılır (Chromium'da yumuşak, diğerlerinde anında). |

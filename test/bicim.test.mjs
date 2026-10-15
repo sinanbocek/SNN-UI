@@ -16,6 +16,7 @@ const FILES = {
   metric: "registry/components/metric-card/metric-card-format.ts",
   line: "registry/components/line-chart/line-chart-format.ts",
   splitBar: "registry/components/split-bar/split-bar-format.ts",
+  sankey: "registry/components/sankey-flow/sankey-flow-format.ts",
 };
 const mods = {};
 let temp;
@@ -83,4 +84,15 @@ test("bölünmüş çubuk: tutar ve pay ABACUS çıktısıdır", () => {
   assert.equal(mods.splitBar.fullValueText(1250000), "₺1.250.000");
   assert.equal(mods.splitBar.shareText(412000, 990000), money.percent(math.mul(412000 / 990000, 100), 1));
   assert.equal(mods.splitBar.shareText(1, 4), "%25");
+});
+
+test("akış şeması: tutar etiketi 1250000 TRY ve pay ABACUS çıktısıdır; yerleşim toplamı korur", () => {
+  assert.equal(mods.sankey.flowValueText("money", 1250000), money.formatMajor(1250000, { currency: "TRY", digits: 0 }));
+  assert.equal(mods.sankey.flowShortText("money", 1250000), money.compactMajor(1250000, { style: "B/Mn/Mr" }));
+  assert.equal(mods.sankey.flowValueText("count", 1234), money.fmtDecimalGrouped(1234, 0));
+  assert.equal(mods.sankey.flowShareText(250, 1000), "%25");
+  const layout = mods.sankey.layoutSankey([{ id: "a", label: "A" }, { id: "b", label: "B" }, { id: "c", label: "C" }], [{ source: "a", target: "b", value: 30 }, { source: "a", target: "c", value: 10 }], 200);
+  assert.equal(layout.columns, 2);
+  assert.equal(layout.total, 40);
+  assert.equal(layout.links.reduce((sum, link) => sum + link.value, 0), 40);
 });

@@ -2022,6 +2022,45 @@
         "arcCommit": "bfdf7e8",
         "arcSource": "registry/components/split-bar"
       }
+    },
+    {
+      "name": "sankey-flow",
+      "type": "registry:ui",
+      "title": "Akış şeması",
+      "description": "Bir toplamın aşamalar boyunca nasıl bölündüğünü ve birleştiğini, düğümler arasında kalınlığı değere orantılı şeritlerle gösterir. Düğüme ya da şeride gelince o payın baştan sona tüm yolu vurgulanır, ipucu değeri ve kaynağa göre payı (\"%41,6\") yazar. Şeritlerde yavaşça ilerleyen noktalar yönü hissettirir; \"Akış\" anahtarıyla durur. Ok tuşlarıyla düğümler gezilir; dar ekranda şema dikeye döner. Ekran okuyucu için akış tablosu vardır.",
+      "dependencies": [
+        "@snn/abacus-core@github:sinanbocek/SNN-Abacus-Core#semver:^4.3.0",
+        "motion"
+      ],
+      "registryDependencies": [
+        "@snn-ui/snn-foundation",
+        "@snn-ui/snn-motion-tokens",
+        "@snn-ui/snn-chart-format",
+        "@snn-ui/snn-chart-palette",
+        "@snn-ui/snn-viz-utils",
+        "@snn-ui/switch"
+      ],
+      "files": [
+        {
+          "path": "registry/components/sankey-flow/sankey-flow-format.ts",
+          "type": "registry:component",
+          "target": "@components/snn/sankey-flow/sankey-flow-format.ts"
+        },
+        {
+          "path": "registry/components/sankey-flow/sankey-flow.module.css",
+          "type": "registry:component",
+          "target": "@components/snn/sankey-flow/sankey-flow.module.css"
+        },
+        {
+          "path": "registry/components/sankey-flow/sankey-flow.tsx",
+          "type": "registry:component",
+          "target": "@components/snn/sankey-flow/sankey-flow.tsx"
+        }
+      ],
+      "meta": {
+        "arcCommit": "bfdf7e8",
+        "arcSource": "registry/components/sankey-flow"
+      }
     }
   ]
 }
