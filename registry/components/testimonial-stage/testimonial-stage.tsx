@@ -3,7 +3,7 @@
 import { useId, useRef, useState, type KeyboardEvent } from "react";
 import { AnimatePresence, motion } from "motion/react";
 import { motionTokens } from "../lib/motion-tokens";
-import { Placeholder, useAnnouncer } from "../lib/shop-parts";
+import { Photo, useAnnouncer } from "../lib/shop-parts";
 import { useElementWidth, useReducedMotionSafe } from "../lib/viz-utils";
 import { directionOf, initials, liveText, portraitLabel, tabLabel, wrapIndex } from "./testimonial-stage-format";
 import styles from "./testimonial-stage.module.css";
@@ -16,6 +16,8 @@ export interface Testimonial {
   quote: string;
   /** Verilirse gerçek portre; verilmezse baş harfli yer tutucu çizilir. */
   portrait?: string;
+  /** Portrenin odak noktası (CSS object-position), örneğin "50% 30%". */
+  portraitPosition?: string;
   /** Yer tutucunun renk tonu (0–5). */
   tone?: number;
 }
@@ -30,9 +32,7 @@ export interface TestimonialStageProps {
 }
 
 function Portrait({ person }: { person: Testimonial }) {
-  return person.portrait
-    ? <img className={styles.portrait} src={person.portrait} alt={portraitLabel(person.name, person.role)} />
-    : <Placeholder tone={person.tone ?? 0} label={portraitLabel(person.name, person.role)} ratio="4 / 5" className={styles.portrait}><span className={styles.initials} aria-hidden="true">{initials(person.name)}</span></Placeholder>;
+  return <Photo src={person.portrait} position={person.portraitPosition ?? "50% 25%"} alt={portraitLabel(person.name, person.role)} ratio="4 / 5" tone={person.tone} initial={initials(person.name)} className={styles.portrait} />;
 }
 
 export function TestimonialStage({ title, people, onSelect, loading = false }: TestimonialStageProps) {
