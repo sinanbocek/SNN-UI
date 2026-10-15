@@ -56,28 +56,28 @@ Kural: `SNN-Standartlar/standartlar/arayuz-standardi.md` §2.1. Fikir serbest, k
 
 | Ad | Bağlantı | Dalga | Durum |
 |---|---|---|---|
-| product-listing | https://uiarc.dev/components/blocks/product-listing | 3 | bekliyor |
-| product-detail | https://uiarc.dev/components/blocks/product-detail | 3 | bekliyor |
-| cart-drawer | https://uiarc.dev/components/blocks/cart-drawer | 3 | bekliyor |
-| checkout-summary | https://uiarc.dev/components/blocks/checkout-summary | 3 | bekliyor |
-| wallet-card | https://uiarc.dev/components/blocks/wallet-card | 3 | bekliyor |
-| hero-signup | https://uiarc.dev/components/blocks/hero-signup | 3 | bekliyor |
-| scroll-story | https://uiarc.dev/components/blocks/scroll-story | 3 | bekliyor |
-| spotlight-grid | https://uiarc.dev/components/blocks/spotlight-grid | 3 | bekliyor |
-| testimonial-stage | https://uiarc.dev/components/blocks/testimonial-stage | 3 | bekliyor |
-| team-showcase | https://uiarc.dev/components/blocks/team-showcase | 3 | bekliyor |
-| media-player | https://uiarc.dev/components/blocks/media-player | 3 | bekliyor |
+| product-listing | https://uiarc.dev/components/blocks/product-listing | 3 | tarif yazıldı |
+| product-detail | https://uiarc.dev/components/blocks/product-detail | 3 | tarif yazıldı |
+| cart-drawer | https://uiarc.dev/components/blocks/cart-drawer | 3 | tarif yazıldı |
+| checkout-summary | https://uiarc.dev/components/blocks/checkout-summary | 3 | tarif yazıldı |
+| wallet-card | https://uiarc.dev/components/blocks/wallet-card | 3 | tarif yazıldı |
+| hero-signup | https://uiarc.dev/components/blocks/hero-signup | 3 | tarif yazıldı |
+| scroll-story | https://uiarc.dev/components/blocks/scroll-story | 3 | tarif yazıldı |
+| spotlight-grid | https://uiarc.dev/components/blocks/spotlight-grid | 3 | tarif yazıldı |
+| testimonial-stage | https://uiarc.dev/components/blocks/testimonial-stage | 3 | tarif yazıldı |
+| team-showcase | https://uiarc.dev/components/blocks/team-showcase | 3 | tarif yazıldı |
+| media-player | https://uiarc.dev/components/blocks/media-player | 3 | tarif yazıldı |
 
 ## Dalga 3 — vitrin ve satış, devam
 
 | Ad | Bağlantı | Dalga | Durum |
 |---|---|---|---|
-| wallet-stack | https://uiarc.dev/components/wallet-stack | 3 | bekliyor |
-| product-gallery | https://uiarc.dev/components/product-gallery | 3 | bekliyor |
-| lightbox-gallery | https://uiarc.dev/components/lightbox-gallery | 3 | bekliyor |
-| photo-grid | https://uiarc.dev/components/photo-grid | 3 | bekliyor |
-| cover-flow | https://uiarc.dev/components/cover-flow | 3 | bekliyor |
-| payment-flow | https://uiarc.dev/components/payment-flow | 3 | bekliyor |
+| wallet-stack | https://uiarc.dev/components/wallet-stack | 3 | tarif yazıldı |
+| product-gallery | https://uiarc.dev/components/product-gallery | 3 | tarif yazıldı |
+| lightbox-gallery | https://uiarc.dev/components/lightbox-gallery | 3 | tarif yazıldı |
+| photo-grid | https://uiarc.dev/components/photo-grid | 3 | tarif yazıldı |
+| cover-flow | https://uiarc.dev/components/cover-flow | 3 | tarif yazıldı |
+| payment-flow | https://uiarc.dev/components/payment-flow | 3 | tarif yazıldı |
 
 ## Dalga 4 — hareket ve süs (sahip seçecek)
 
