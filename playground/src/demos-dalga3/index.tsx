@@ -13,6 +13,7 @@ import { ProductGalleryDemo } from "./product-gallery";
 import { LightboxGalleryDemo } from "./lightbox-gallery";
 import { PhotoGridDemo } from "./photo-grid";
 import { TestimonialStageDemo } from "./testimonial-stage";
+import { TeamShowcaseDemo } from "./team-showcase";
 
 export const dalga3Demos: Record<string, () => ReactNode> = {
   "product-listing": () => <ProductListingDemo />,
@@ -28,4 +29,5 @@ export const dalga3Demos: Record<string, () => ReactNode> = {
   "lightbox-gallery": () => <LightboxGalleryDemo />,
   "photo-grid": () => <PhotoGridDemo />,
   "testimonial-stage": () => <TestimonialStageDemo />,
+  "team-showcase": () => <TeamShowcaseDemo />,
 };

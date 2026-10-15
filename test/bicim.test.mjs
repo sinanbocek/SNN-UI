@@ -50,19 +50,21 @@ const FILES = {
   lightbox: "registry/components/lightbox-gallery/lightbox-gallery-format.ts",
   pgrid: "registry/components/photo-grid/photo-grid-format.ts",
   testimonial: "registry/components/testimonial-stage/testimonial-stage-format.ts",
+  team: "registry/components/team-showcase/team-showcase-format.ts",
 };
 const mods = {};
 let temp;
 let math;
 let money;
 let validate;
+let mask;
 
 before(async () => {
   temp = mkdtempSync(path.join(tmpdir(), "snn-ui-bicim-"));
   // Beklenen değerler ABACUS'tan alınır; paket TypeScript kaynağı taşıdığı için o da paketlenir.
   const abacusOut = path.join(temp, "abacus.mjs");
   await build({ stdin: { contents: 'export * from "@snn/abacus-core";', resolveDir: root }, bundle: true, format: "esm", platform: "node", outfile: abacusOut, logLevel: "silent" });
-  ({ math, money, validate } = await import(pathToFileURL(abacusOut).href));
+  ({ math, money, validate, mask } = await import(pathToFileURL(abacusOut).href));
   for (const [key, file] of Object.entries(FILES)) {
     const outfile = path.join(temp, `${key}.mjs`);
     await build({ entryPoints: [path.join(root, file)], bundle: true, format: "esm", platform: "node", outfile, logLevel: "silent" });
@@ -797,4 +799,27 @@ test("görüş sahnesi: sarmalayan gezinme, baş harfler ve yazımlar doğru", (
   assert.equal(mods.testimonial.liveText("Elif Aksoy"), "Elif Aksoy görüşü gösteriliyor.");
   assert.equal(mods.testimonial.directionOf(1, 3), 1);
   assert.equal(mods.testimonial.directionOf(3, 1), -1);
+});
+
+test("ekip tanıtımı: iletişim satırları, maskeli telefon, sayaç ve baş harfler ABACUS çıktısıdır", () => {
+  const member = { id: "e", name: "Elif Aksoy", title: "Kurucu", city: "İzmir", country: "Türkiye", email: "elif@ornek.test", phone: "0532 000 00 11" };
+  const rows = mods.team.contactRows(member);
+  assert.deepEqual(rows.map(row => row.kind), ["email", "phone"]);
+  assert.equal(rows[0].label, "Elif Aksoy e-postasını kopyala");
+  assert.equal(rows[1].label, "Elif Aksoy telefonunu kopyala");
+  assert.equal(rows[1].shown, "0532 000 00 11");
+  const masked = mods.team.contactRows(member, true);
+  assert.equal(masked[1].shown, mask.phone("0532 000 00 11"));
+  assert.equal(masked[1].shown, "+90 5** *** ** 11");
+  assert.equal(masked[1].value, "0532 000 00 11");
+  assert.deepEqual(mods.team.contactRows({ id: "x", name: "X", title: "Y" }), []);
+  assert.deepEqual(mods.team.contactRows({ id: "x", name: "X", title: "Y", email: "x@ornek.test" }).map(row => row.kind), ["email"]);
+  assert.equal(mods.team.placeText(member), "İzmir, Türkiye");
+  assert.equal(mods.team.placeText({ city: "Ankara" }), "Ankara");
+  assert.equal(mods.team.placeText({}), "");
+  assert.equal(mods.team.counterLine(0, 5, "Elif Aksoy"), "1 / 5 · Elif Aksoy");
+  assert.equal(mods.team.counterLine(0, 1234, "A"), "1 / 1.234 · A");
+  assert.equal(mods.team.profileLive(member), "Elif Aksoy, Kurucu profili gösteriliyor.");
+  assert.equal(mods.team.initials("ismail çelik"), "İÇ");
+  assert.deepEqual(mods.team.LAYOUTS.map(item => item.value), ["gallery", "filmstrip", "directory", "spotlight"]);
 });
