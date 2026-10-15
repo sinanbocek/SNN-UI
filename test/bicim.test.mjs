@@ -41,6 +41,7 @@ const FILES = {
   cart: "registry/components/cart-drawer/cart-drawer-format.ts",
   checkout: "registry/components/checkout-summary/checkout-summary-format.ts",
   wallet: "registry/components/wallet-card/wallet-card-format.ts",
+  flow: "registry/components/payment-flow/payment-flow-format.ts",
 };
 const mods = {};
 let temp;
@@ -566,4 +567,52 @@ test("hesap kartı: tutar doğrulama, hareket arama, grafik yolu ve yazımlar AB
   assert.equal(mods.wallet.submitLabel("send", 125050), "₺1.250,50 gönder");
   assert.equal(mods.wallet.submitLabel("deposit", 125050), "₺1.250,50 ekle");
   assert.equal(mods.wallet.submitLabel("convert", null), "Çevir");
+});
+
+test("ödeme akışı: döngü karesi, yol üstünde konum, yerleşim ve yazımlar ABACUS çıktısıdır", () => {
+  const economics = { amount: 2400, commission: 69.6 };
+  assert.equal(mods.flow.netOf(economics), 2330.4);
+  assert.equal(mods.flow.chipText("amount", economics), "₺2.400,00");
+  assert.equal(mods.flow.chipText("net", economics), money.formatMajor(2330.4, { currency: "TRY", digits: 2, kurus: true }));
+  assert.equal(mods.flow.chipText("net", economics), "₺2.330,40");
+  assert.equal(mods.flow.chipText("approved", economics), "✓ Onaylandı");
+  assert.equal(mods.flow.statusText("commission", economics), "Komisyon ₺69,60");
+  assert.equal(mods.flow.statusText("risk", economics), "Risk denetleniyor");
+  assert.equal(mods.flow.secondsText(1.84), "1,84 sn");
+  assert.equal(mods.flow.secondsText(0), "0,00 sn");
+  assert.equal(mods.flow.balanceAfter(18250, 3, economics), 18250 + 3 * 2330.4);
+  assert.equal(mods.flow.balanceText(25241.2), "₺25.241,20");
+  // yol üstünde konum
+  assert.deepEqual(mods.flow.pointOnPath([{ x: 0, y: 0 }, { x: 10, y: 0 }, { x: 10, y: 10 }], .5), { x: 10, y: 0 });
+  assert.deepEqual(mods.flow.pointOnPath([{ x: 0, y: 0 }, { x: 10, y: 0 }], 2), { x: 10, y: 0 });
+  // döngü: tek zaman fonksiyonu, kesintisiz tekrar
+  const start = mods.flow.cycleFrame(0), wrapped = mods.flow.cycleFrame(1), negative = mods.flow.cycleFrame(-1);
+  assert.deepEqual(start, wrapped);
+  assert.deepEqual(start, negative);
+  assert.equal(start.statuses[0], "touch");
+  assert.equal(mods.flow.cycleFrame(.2).statuses[1], "risk");
+  assert.equal(mods.flow.cycleFrame(.38).statuses[2], "routed");
+  assert.equal(mods.flow.cycleFrame(.54).statuses[3], "approved");
+  assert.equal(mods.flow.cycleFrame(.7).chip, "approved");
+  assert.equal(mods.flow.cycleFrame(.7).leg, "back");
+  assert.equal(mods.flow.cycleFrame(.82).chip, "gross");
+  assert.equal(mods.flow.cycleFrame(.88).statuses[1], "commission");
+  assert.equal(mods.flow.cycleFrame(.88).chip, "net");
+  assert.equal(mods.flow.cycleFrame(.99).statuses[4], "paid");
+  assert.equal(mods.flow.cycleFrame(.99).chip, null);
+  assert.equal(mods.flow.STATIC_FRAME.chip, "net");
+  // yerleşim: geniş kapta yatay, 700 px altında dikey; komisyon noktası takas yolunun üçüncü noktasıdır
+  const wide = mods.flow.layoutFor(900), narrow = mods.flow.layoutFor(400);
+  assert.equal(wide.vertical, false);
+  assert.equal(narrow.vertical, true);
+  assert.deepEqual(wide.settle[2], wide.commission);
+  assert.deepEqual(narrow.settle[2], narrow.commission);
+  assert.deepEqual(mods.flow.positionOf(mods.flow.cycleFrame(0), wide), wide.stops[0]);
+  assert.deepEqual(mods.flow.positionOf(mods.flow.cycleFrame(.88), wide), wide.commission);
+  assert.deepEqual(mods.flow.positionOf(mods.flow.cycleFrame(.99), wide), wide.balance);
+  const split = mods.flow.settleSplit(wide);
+  assert.ok(split > 0 && split < 1);
+  assert.deepEqual(mods.flow.lineFills(mods.flow.cycleFrame(.99), .99, split), { main: 0, back: 0, settle: 0 });
+  assert.equal(mods.flow.lineFills(mods.flow.cycleFrame(.7), .7, split).main, 1);
+  assert.match(mods.flow.describeFlow(economics, mods.flow.DEFAULT_STOPS, "ertesi iş günü"), /₺2\.400,00 tutarındaki ödeme.*₺69,60 komisyon.*₺2\.330,40 net tutar ertesi iş günü/);
 });

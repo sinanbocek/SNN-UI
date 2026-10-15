@@ -5,6 +5,7 @@ import { ProductDetailDemo } from "./product-detail";
 import { CartDrawerDemo } from "./cart-drawer";
 import { CheckoutSummaryDemo } from "./checkout-summary";
 import { WalletCardDemo } from "./wallet-card";
+import { PaymentFlowDemo } from "./payment-flow";
 
 export const dalga3Demos: Record<string, () => ReactNode> = {
   "product-listing": () => <ProductListingDemo />,
@@ -12,4 +13,5 @@ export const dalga3Demos: Record<string, () => ReactNode> = {
   "cart-drawer": () => <CartDrawerDemo />,
   "checkout-summary": () => <CheckoutSummaryDemo />,
   "wallet-card": () => <WalletCardDemo />,
+  "payment-flow": () => <PaymentFlowDemo />,
 };

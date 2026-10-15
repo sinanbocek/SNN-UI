@@ -77,7 +77,7 @@ Kural: `SNN-Standartlar/standartlar/arayuz-standardi.md` §2.1. Fikir serbest, k
 | lightbox-gallery | https://uiarc.dev/components/lightbox-gallery | 3 | tarif yazıldı |
 | photo-grid | https://uiarc.dev/components/photo-grid | 3 | tarif yazıldı |
 | cover-flow | https://uiarc.dev/components/cover-flow | 3 | tarif yazıldı |
-| payment-flow | https://uiarc.dev/components/payment-flow | 3 | tarif yazıldı |
+| payment-flow | https://uiarc.dev/components/payment-flow | 3 | yazıldı |
 
 ## Dalga 4 — hareket ve süs (sahip seçecek)
 

@@ -3062,6 +3062,46 @@
         "arcCommit": "bfdf7e8",
         "arcSource": "registry/components/wallet-card"
       }
+    },
+    {
+      "name": "payment-flow",
+      "type": "registry:ui",
+      "title": "Ödeme akışı şeması",
+      "description": "Blok: kartlı bir ödemenin nasıl işlediğini hareketli bir şema olarak anlatır. Ödeme noktasından işlemciye, kart ağına ve karta veren bankaya giden tutar bir çip olarak yolda ilerler; her durak o an yaptığı işi yazar (\"Risk denetleniyor\", \"Bankaya yönlendirildi\", \"Onaylandı\"). Onay çipi geri döner; ikinci bir hatta takas oldu, işlemcinin komisyonu düşer (brüt tutardan net tutara geçer) ve net tutar satıcı bakiyesine ödenir, bakiye döngüden döngüye artar. Altta adım satırı vardır: yetkilendirme süresi sayar, takas aşaması dolar, takas zamanı yazılır. İlerleyen yol vurgu renginde yanar, onayla birlikte başarı rengine döner. Fareyi duraklara getirince açıklama çıkar ve hikâye yavaşlar; hız ve duraklatma yayla yumuşar. Ekran dışında ve sekme gizliyken durur. Geniş kapta yatay, 700 px altında dikey çizilir. Şema tek bir görsel olarak sesli anlatılır; \"Hareketi azalt\" açıkken komisyon düşüldükten hemen sonrasının tek durağan karesi gösterilir. Bu bir anlatım çizimidir: giriş alanı yoktur, gerçek ödeme almaz.",
+      "dependencies": [
+        "@snn/abacus-core@github:sinanbocek/SNN-Abacus-Core#semver:^4.3.0",
+        "motion"
+      ],
+      "registryDependencies": [
+        "@snn-ui/snn-foundation",
+        "@snn-ui/snn-motion-tokens",
+        "@snn-ui/animated-counter",
+        "@snn-ui/snn-chart-format",
+        "@snn-ui/snn-motion-tokens",
+        "@snn-ui/snn-shop-parts",
+        "@snn-ui/snn-viz-utils"
+      ],
+      "files": [
+        {
+          "path": "registry/components/payment-flow/payment-flow-format.ts",
+          "type": "registry:component",
+          "target": "@components/snn/payment-flow/payment-flow-format.ts"
+        },
+        {
+          "path": "registry/components/payment-flow/payment-flow.module.css",
+          "type": "registry:component",
+          "target": "@components/snn/payment-flow/payment-flow.module.css"
+        },
+        {
+          "path": "registry/components/payment-flow/payment-flow.tsx",
+          "type": "registry:component",
+          "target": "@components/snn/payment-flow/payment-flow.tsx"
+        }
+      ],
+      "meta": {
+        "arcCommit": "bfdf7e8",
+        "arcSource": "registry/components/payment-flow"
+      }
     }
   ]
 }
