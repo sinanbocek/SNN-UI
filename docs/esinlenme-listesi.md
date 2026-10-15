@@ -50,7 +50,7 @@ Kural: `SNN-Standartlar/standartlar/arayuz-standardi.md` §2.1. Fikir serbest, k
 | journey-flow | https://uiarc.dev/components/blocks/journey-flow | 2 | yazıldı |
 | invoice-studio | https://uiarc.dev/components/blocks/invoice-studio | 2 | yazıldı |
 | pricing-calculator | https://uiarc.dev/components/blocks/pricing-calculator | 2 | yazıldı |
-| usage-pricing | https://uiarc.dev/components/blocks/usage-pricing | 2 | tarif yazıldı |
+| usage-pricing | https://uiarc.dev/components/blocks/usage-pricing | 2 | yazıldı |
 
 ## Dalga 3 — vitrin ve satış
 

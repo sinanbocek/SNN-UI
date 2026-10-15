@@ -2777,6 +2777,48 @@
         "arcCommit": "bfdf7e8",
         "arcSource": "registry/components/pricing-calculator"
       }
+    },
+    {
+      "name": "usage-pricing",
+      "type": "registry:ui",
+      "title": "Kullanıma göre fiyat hesaplayıcı",
+      "description": "Blok: fiyatı koltuk sayısı ve ölçülen kullanıma (aylık istek gibi) bağlı bir ürün için \"faturanız ne kadar olur\" tahminini verir. İki kaydırıcı (koltuk, kullanım; izinde plan geçiş noktaları adlı işaretli) ve aylık / yıllık anahtarı vardır (yıllıkta tasarruf tutarı). Bileşen seçime en uygun planı kendisi bulur (koltuk × fiyat + aşım × milyon başı fiyat toplamı en düşük plan): plan adı harf harf döner, aylık tutar döner, özellikler bir önceki plana göre \"yeni\" işaretiyle listelenir ve değişim canlı bölgede duyurulur. Döküm maliyeti kalem kalem yazar: koltuk (sayı × birim fiyat = tutar), kullanım (\"Dahil\" ya da \"2,5 Mn aşım × ₺70,00 / Mn = tutar\") ve \"Tahmini toplam, vergi öncesi\". Hiçbir plana sığmayan seçimde özel teklif yönlendirmesi, ayrıca yükleniyor, deneme başlatma hatası ve dar kap durumları vardır.",
+      "dependencies": [
+        "@snn/abacus-core@github:sinanbocek/SNN-Abacus-Core#semver:^4.3.0",
+        "motion"
+      ],
+      "registryDependencies": [
+        "@snn-ui/snn-foundation",
+        "@snn-ui/snn-motion-tokens",
+        "@snn-ui/animated-counter",
+        "@snn-ui/button",
+        "@snn-ui/segmented-control",
+        "@snn-ui/skeleton",
+        "@snn-ui/slot-text",
+        "@snn-ui/snn-chart-format",
+        "@snn-ui/snn-viz-utils"
+      ],
+      "files": [
+        {
+          "path": "registry/components/usage-pricing/usage-pricing-format.ts",
+          "type": "registry:component",
+          "target": "@components/snn/usage-pricing/usage-pricing-format.ts"
+        },
+        {
+          "path": "registry/components/usage-pricing/usage-pricing.module.css",
+          "type": "registry:component",
+          "target": "@components/snn/usage-pricing/usage-pricing.module.css"
+        },
+        {
+          "path": "registry/components/usage-pricing/usage-pricing.tsx",
+          "type": "registry:component",
+          "target": "@components/snn/usage-pricing/usage-pricing.tsx"
+        }
+      ],
+      "meta": {
+        "arcCommit": "bfdf7e8",
+        "arcSource": "registry/components/usage-pricing"
+      }
     }
   ]
 }

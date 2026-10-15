@@ -34,6 +34,7 @@ const FILES = {
   journey: "registry/components/journey-flow/journey-flow-format.ts",
   invoice: "registry/components/invoice-studio/invoice-studio-format.ts",
   pricing: "registry/components/pricing-calculator/pricing-calculator-format.ts",
+  usagePricing: "registry/components/usage-pricing/usage-pricing-format.ts",
 };
 const mods = {};
 let temp;
@@ -389,4 +390,28 @@ test("fiyat hesaplayıcı: koltuk başı fiyat, toplam, tasarruf ve yazım ABACU
   assert.deepEqual(mods.pricing.visibleFeatures(team, 10).map(feature => feature.label), ["a"]);
   assert.deepEqual(mods.pricing.visibleFeatures(team, 20).map(feature => feature.label), ["a", "b"]);
   assert.equal(mods.pricing.limitMessage(10, 20), "Bu plan en çok 10 koltuğa uygun. Siz 20 koltuk seçtiniz.");
+});
+
+test("kullanıma göre fiyat: döküm, öneri, tutar ve kısa kullanım yazımı ABACUS çıktısıdır", () => {
+  const starter = { key: "starter", name: "Başlangıç", seatPrice: 129, includedUsage: 1000000, overagePerMillion: 95, maxSeats: 10, features: ["a"] };
+  const team = { key: "team", name: "Takım", seatPrice: 229, includedUsage: 5000000, overagePerMillion: 70, maxSeats: 50, features: ["a", "b"] };
+  const detail = mods.usagePricing.breakdown(team, 18, 15000000, "month", 20);
+  assert.equal(detail.seatLineMinor, 18 * 22900);
+  assert.equal(detail.overage, 10000000);
+  assert.equal(detail.overageLineMinor, 70000);
+  assert.equal(detail.periodMinor, 18 * 22900 + 70000);
+  const year = mods.usagePricing.breakdown(team, 18, 15000000, "year", 20);
+  assert.equal(year.periodMinor, Math.round((18 * 22900 + 70000) * 12 * 0.8));
+  assert.equal(year.savingsMinor, (18 * 22900 + 70000) * 12 - year.periodMinor);
+  assert.equal(mods.usagePricing.breakdown(team, 3, 100000, "month", 20).overageLineMinor, 0);
+  assert.equal(mods.usagePricing.recommendPlan([starter, team], 5, 500000).key, "starter");
+  assert.equal(mods.usagePricing.recommendPlan([starter, team], 18, 500000).key, "team");
+  assert.equal(mods.usagePricing.recommendPlan([starter, team], 100, 500000), null);
+  assert.deepEqual([...mods.usagePricing.newFeatures([starter, team], team)], ["b"]);
+  assert.equal(mods.usagePricing.minorMoney(448200), money.formatMajor(4482, { currency: "TRY", digits: 2, kurus: true }));
+  assert.equal(mods.usagePricing.minorMoney(448200), "₺4.482,00");
+  assert.equal(mods.usagePricing.usageShort(15000000), money.compactMajor(15000000, { style: "B/Mn/Mr" }).replace("₺", ""));
+  assert.equal(mods.usagePricing.usageFull(15000000), money.fmtDecimalGrouped(15000000, 0));
+  assert.equal(mods.usagePricing.overageText(2500000), "2,5 Mn");
+  assert.equal(mods.usagePricing.percentText(20), money.percent(20, 0));
 });
