@@ -1587,6 +1587,37 @@
         "arcCommit": "bfdf7e8",
         "arcSource": "registry/components/line-chart"
       }
+    },
+    {
+      "name": "bar-chart",
+      "type": "registry:ui",
+      "title": "Çubuk grafik",
+      "description": "Bir ölçüyü art arda gün, hafta ya da ay boyunca çubuklarla gösterir; dönemler birbirleriyle ve ortalama çizgisiyle karşılaştırılır. Başlık dururken ortalamayı, gezerken gezilen çubuğu okur (fare, dokunma, ok tuşları). Çubuklar sırayla büyür, aralık değişince yeni değerlere akar, eksen kendini ölçekler. Ekran okuyucu için veri tablosu vardır.",
+      "dependencies": [
+        "@snn/abacus-core@github:sinanbocek/SNN-Abacus-Core#semver:^4.3.0",
+        "motion"
+      ],
+      "registryDependencies": [
+        "@snn-ui/snn-foundation",
+        "@snn-ui/snn-motion-tokens",
+        "@snn-ui/snn-chart-format"
+      ],
+      "files": [
+        {
+          "path": "registry/components/bar-chart/bar-chart.module.css",
+          "type": "registry:component",
+          "target": "@components/snn/bar-chart/bar-chart.module.css"
+        },
+        {
+          "path": "registry/components/bar-chart/bar-chart.tsx",
+          "type": "registry:component",
+          "target": "@components/snn/bar-chart/bar-chart.tsx"
+        }
+      ],
+      "meta": {
+        "arcCommit": "bfdf7e8",
+        "arcSource": "registry/components/bar-chart"
+      }
     }
   ]
 }
