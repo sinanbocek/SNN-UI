@@ -10,6 +10,8 @@ import { Select } from "../../registry/components/select/select";
 import { Switch } from "../../registry/components/switch/switch";
 import type { SaveBarStatus } from "../../registry/components/save-bar/save-bar";
 import { SettingsGroup, SettingsPage, SettingsRow } from "../../registry/components/settings-page/settings-page";
+import { SearchResults } from "../../registry/components/search-results/search-results";
+import type { SearchResult } from "../../registry/components/search-results/search-results";
 import { Sidebar } from "../../registry/components/sidebar/sidebar";
 import type { SidebarSection } from "../../registry/components/sidebar/sidebar";
 import { TeamMembers } from "../../registry/components/team-members/team-members";
@@ -175,8 +177,45 @@ function SidebarDemo() {
   </>;
 }
 
+/* ---------- search-results ---------- */
+
+const searchData: SearchResult[] = [
+  { id: "d1", kind: "document", title: "İstanbul Şehir Hastanesi teklif dosyası", subtitle: "Teklifler › 2026", summary: "İstanbul'daki iki blok için birim fiyat tablosu ve iş programı eklenmiştir.", team: "Teklif ekibi", editedBy: "Şule Yıldırım", editedAt: "2026-10-13" },
+  { id: "d2", kind: "document", title: "Idari şartname özeti", subtitle: "Şartnameler › Kamu", summary: "Isı yalıtımı işleri için teknik şartname maddeleri ve istenen belgeler.", team: "Şartname ekibi", editedBy: "İsmail Çelik", editedAt: "2026-09-30" },
+  { id: "d3", kind: "document", title: "Maliyet karşılaştırma tablosu", subtitle: "Maliyet › Taslaklar", summary: "Üç tedarikçinin birim fiyatları yan yana; en düşük teklif işaretlendi.", team: "Maliyet ekibi", editedBy: "Elif Aksoy", editedAt: "2026-08-21" },
+  { id: "d4", kind: "document", title: "Çok uzun bir başlığa sahip belge: yıllık bakım ve onarım hizmetleri için sözleşme taslağı ve ekleri", subtitle: "Sözleşmeler › Taslak", summary: "Bu özet iki satırdan uzundur ve sonunda kesilir; aranan kelime olan teklif burada da geçiyor ama satır sınırı yüzünden son kısım görünmez. Daha fazla metin, daha fazla metin.", team: "Teklif ekibi", editedBy: "Şule Yıldırım", editedAt: "2026-07-02" },
+  { id: "p1", kind: "person", title: "İsmail Çelik", subtitle: "Şartname uzmanı", summary: "ismail.celik@ornek-firma.test · Şartname ekibi", team: "Şartname ekibi" },
+  { id: "p2", kind: "person", title: "Şule Yıldırım", subtitle: "Teklif sorumlusu", summary: "sule.yildirim@ornek-firma.test · Teklif ekibi", team: "Teklif ekibi" },
+  { id: "f1", kind: "file", title: "birim-fiyat-listesi-2026.xlsx", subtitle: "Teklifler › Ekler", summary: "Sayfa 1: yapı işleri, sayfa 2: mekanik işler.", team: "Teklif ekibi", editedBy: "Elif Aksoy", editedAt: "2026-10-01", sizeLabel: "2,4 MB" },
+  { id: "f2", kind: "file", title: "teknik-sartname.pdf", subtitle: "Şartnameler › Kamu", summary: "Isıtma ve soğutma sistemleri için teknik şartname.", team: "Şartname ekibi", editedBy: "İsmail Çelik", editedAt: "2026-06-18", sizeLabel: "860 KB" },
+];
+
+function SearchResultsDemo() {
+  const [loading, setLoading] = useState(false);
+  const [error, setError] = useState(false);
+  const [width, setWidth] = useState(1100);
+  const [opened, setOpened] = useState("");
+  return <>
+    <Col title="Kutuya tıklayın ya da / tuşuna basın; «istanbul» ya da «ISTANBUL» yazıp Enter'a basın. Genişliği küçültünce önizleme ve süzgeçler alttan açılan sayfaya taşınır.">
+      <div className="row">
+        <label className="row"><input type="checkbox" checked={loading} onChange={event => setLoading(event.target.checked)} /> Yükleniyor</label>
+        <label className="row"><input type="checkbox" checked={error} onChange={event => setError(event.target.checked)} /> Arama hatası</label>
+        <label className="row">Genişlik <input type="range" min={360} max={1100} value={width} onChange={event => setWidth(Number(event.target.value))} /></label>
+        <span className="etiket">{opened ? `Açılan: ${opened}` : ""}</span>
+      </div>
+      <div style={{ height: 620, width, maxWidth: "100%" }}>
+        <SearchResults
+          results={searchData} today="2026-10-15" workspaceName="Acme Ofis" suggestions={["teklif", "şartname", "birim fiyat"]} defaultQuery="istanbul"
+          loading={loading} error={error} onRetry={() => setError(false)} pageSize={4} onOpen={result => setOpened(result.title)}
+        />
+      </div>
+    </Col>
+  </>;
+}
+
 export const blockDemos: Record<string, () => ReactNode> = {
   "settings-page": () => <SettingsPageDemo />,
   "team-members": () => <TeamMembersDemo />,
   sidebar: () => <SidebarDemo />,
+  "search-results": () => <SearchResultsDemo />,
 };

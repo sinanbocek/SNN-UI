@@ -71,6 +71,7 @@ Gereken paketler: React 19, `motion`; bazı bileşenlerde Radix ve `lucide-react
 | `settings-page` | Ayarlar sayfası | Blok: solda bölüm listesi, sağda seçili bölümün formu, altta yüzen kaydetme çubuğu. Bölümler arasında yarım kalan değişiklik korunur; kaydedilmemiş bölümde nokta çıkar. Yükleniyor, boş ve dar ekran durumları vardır. Alanları ve değişiklik sayısını proje verir (`changeCount`); gerçek kaydetmeyi de proje yapar. Arc Pro settings-page'den esinlenildi (tarif: docs/tarifler/settings-page.md). | `npx shadcn@latest add @snn-ui/settings-page` |
 | `team-members` | Ekip üyeleri | Blok: koltuk sayacı, e-posta etiketli davet kutusu, üye listesi (rol değiştirme, satır içi çıkarma sorusu, arama, sayfalama) ve bekleyen davetler. Boş, yükleniyor, hata, koltuk dolu ve dar ekran durumları vardır. E-posta denetimi ABACUS `text.email`, arama süzmesi `text.searchKey` ile yapılır. Gerçek davet, rol kaydı ve çıkarmayı proje bağlar; işlemler reddedilirse (Promise) satırda hata yazılır ve eski hâle dönülür. Tarihler ve "son görülme" hazır metin olarak gelir (ABACUS `date`). Arc Pro team-members'dan esinlenildi (tarif: docs/tarifler/team-members.md). | `npx shadcn@latest add @snn-ui/team-members` |
 | `sidebar` | Kenar menüsü | Blok: solda gruplu, katlanır gezinme menüsü; şeride daralır (Ctrl+B), dar kolonda çekmeceye dönüşür. Üstte yol izi, ortada kayan içerik, altta Ayarlar ve kullanıcı kartı. Yükleniyor ve hata durumları vardır. Menü verisini, etkin sayfayı ve katlama tercihinin saklanmasını proje yapar (`onCollapsedChange`). Çekmece kararı pencereye değil bloğun kendi genişliğine bakar. Kullanıcı kartı menüsü ve şerit grup menüsü `popover` ile açılır (`dropdown-menu` özel tetikleyici kabul etmediği için). Arc Pro sidebar'dan esinlenildi (tarif: docs/tarifler/sidebar.md). | `npx shadcn@latest add @snn-ui/sidebar` |
+| `search-results` | Arama sonuçları | Blok: birleşik arama kutusu (son ve önerilen aramalar), sayılı süzgeçler (tür, ekip, ay aralığı), etkin süzgeç çipleri, sıralama, kayan imleç dolgulu sonuç listesi ve önizleme paneli. Orta ve dar kolonda önizleme ve süzgeçler alttan açılan sayfalara taşınır. Boş, yükleniyor ve hata durumları vardır. Aranan her kelime Türkçe harf farkı gözetmeden (`text.searchKey`) bulunur; tarihler ABACUS `date`, sıralama `collate` ile yazılır. Bu blok verilen listeyi tarayıcıda süzer ve sıralar; birkaç yüz kayıttan sonra aramayı sunucuya taşımak projenin işidir. Arc Pro search-results'tan esinlenildi (tarif: docs/tarifler/search-results.md). | `npx shadcn@latest add @snn-ui/search-results` |
 
 ## Kullanım örnekleri
 
@@ -312,6 +313,14 @@ import { TeamMembers } from "@/components/snn/team-members/team-members";
 import { Sidebar } from "@/components/snn/sidebar/sidebar";
 
 <Sidebar header={{ name: "Acme Ofis" }} sections={sections} activeId={page} onNavigate={setPage}>{content}</Sidebar>
+```
+
+### Arama sonuçları (`search-results`)
+
+```tsx
+import { SearchResults } from "@/components/snn/search-results/search-results";
+
+<SearchResults results={results} today="2026-10-15" workspaceName="Acme Ofis" suggestions={["teklif", "şartname"]} onOpen={open} />
 ```
 
 ## Bu rafta olmayanlar

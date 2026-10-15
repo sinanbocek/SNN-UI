@@ -91,3 +91,4 @@ Bu parçalar Arc'tan alınmadı; tariflerinden sıfırdan yazıldı (`arayuz-sta
 | `settings-page` | Arc Pro settings-page'dan esinlenildi; kod okunmadı; tarif: docs/tarifler/settings-page.md | `avatar`, `empty-state`, `save-bar`, `skeleton` |
 | `team-members` | Arc Pro team-members'dan esinlenildi; kod okunmadı; tarif: docs/tarifler/team-members.md | `avatar`, `badge`, `button`, `empty-state`, `pagination`, `search-field`, `select`, `skeleton`, `tooltip` |
 | `sidebar` | Arc Pro sidebar'dan esinlenildi; kod okunmadı; tarif: docs/tarifler/sidebar.md | `avatar`, `badge`, `breadcrumb`, `button`, `drawer`, `popover`, `skeleton`, `tooltip` |
+| `search-results` | Arc Pro search-results'dan esinlenildi; kod okunmadı; tarif: docs/tarifler/search-results.md | `avatar`, `badge`, `button`, `checkbox`, `drawer`, `empty-state`, `pagination`, `search-field`, `select`, `skeleton` |

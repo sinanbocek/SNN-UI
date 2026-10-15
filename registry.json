@@ -947,6 +947,47 @@
         "arcCommit": "bfdf7e8",
         "arcSource": "registry/components/sidebar"
       }
+    },
+    {
+      "name": "search-results",
+      "type": "registry:ui",
+      "title": "Arama sonuçları",
+      "description": "Blok: birleşik arama kutusu (son ve önerilen aramalar), sayılı süzgeçler (tür, ekip, ay aralığı), etkin süzgeç çipleri, sıralama, kayan imleç dolgulu sonuç listesi ve önizleme paneli. Orta ve dar kolonda önizleme ve süzgeçler alttan açılan sayfalara taşınır. Boş, yükleniyor ve hata durumları vardır.",
+      "dependencies": [
+        "@snn/abacus-core@github:sinanbocek/SNN-Abacus-Core#semver:^4.3.0",
+        "lucide-react",
+        "motion"
+      ],
+      "registryDependencies": [
+        "@snn-ui/snn-foundation",
+        "@snn-ui/snn-motion-tokens",
+        "@snn-ui/avatar",
+        "@snn-ui/badge",
+        "@snn-ui/button",
+        "@snn-ui/checkbox",
+        "@snn-ui/drawer",
+        "@snn-ui/empty-state",
+        "@snn-ui/pagination",
+        "@snn-ui/search-field",
+        "@snn-ui/select",
+        "@snn-ui/skeleton"
+      ],
+      "files": [
+        {
+          "path": "registry/components/search-results/search-results.module.css",
+          "type": "registry:component",
+          "target": "@components/snn/search-results/search-results.module.css"
+        },
+        {
+          "path": "registry/components/search-results/search-results.tsx",
+          "type": "registry:component",
+          "target": "@components/snn/search-results/search-results.tsx"
+        }
+      ],
+      "meta": {
+        "arcCommit": "bfdf7e8",
+        "arcSource": "registry/components/search-results"
+      }
     }
   ]
 }
