@@ -6,6 +6,7 @@ import { SparklineDemo } from "./sparkline";
 import { LineChartDemo } from "./line-chart";
 import { BarChartDemo } from "./bar-chart";
 import { DonutChartDemo } from "./donut-chart";
+import { GaugeDemo } from "./gauge";
 
 export const grafikDemos: Record<string, () => ReactNode> = {
   "animated-counter": () => <AnimatedCounterDemo />,
@@ -14,4 +15,5 @@ export const grafikDemos: Record<string, () => ReactNode> = {
   "line-chart": () => <LineChartDemo />,
   "bar-chart": () => <BarChartDemo />,
   "donut-chart": () => <DonutChartDemo />,
+  "gauge": () => <GaugeDemo />,
 };

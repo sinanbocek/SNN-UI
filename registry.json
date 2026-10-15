@@ -1650,6 +1650,37 @@
         "arcCommit": "bfdf7e8",
         "arcSource": "registry/components/donut-chart"
       }
+    },
+    {
+      "name": "gauge",
+      "type": "registry:ui",
+      "title": "Gösterge halkası",
+      "description": "Bir değerin aralığındaki yerini 270 derecelik halkayla gösterir: ortada \"%72\" ve isteğe bağlı durum adı. Eşik bantları (örneğin Düşük / Normal / Yüksek) rengi ve durum adını belirler; anlam yalnız renge dayanmaz. Görününce dolar, değer değişince yaylanır; sayım halkayı aşmadan izler.",
+      "dependencies": [
+        "@snn/abacus-core@github:sinanbocek/SNN-Abacus-Core#semver:^4.3.0",
+        "motion"
+      ],
+      "registryDependencies": [
+        "@snn-ui/snn-foundation",
+        "@snn-ui/snn-motion-tokens",
+        "@snn-ui/snn-chart-format"
+      ],
+      "files": [
+        {
+          "path": "registry/components/gauge/gauge.module.css",
+          "type": "registry:component",
+          "target": "@components/snn/gauge/gauge.module.css"
+        },
+        {
+          "path": "registry/components/gauge/gauge.tsx",
+          "type": "registry:component",
+          "target": "@components/snn/gauge/gauge.tsx"
+        }
+      ],
+      "meta": {
+        "arcCommit": "bfdf7e8",
+        "arcSource": "registry/components/gauge"
+      }
     }
   ]
 }

@@ -89,6 +89,7 @@ Gereken paketler: React 19, `motion`; bazı bileşenlerde Radix ve `lucide-react
 | `line-chart` | Çizgi grafik | Zaman içindeki bir ya da birkaç ölçüyü yumuşak çizgilerle gösterir. Fare, dokunma ve ok tuşlarıyla gezilen artı imleç ipucuyla noktaları okur; seriler göstergeden açılıp kapanır, değer ekseni kendini ölçekler, aralık değişince çizgiler yeni biçime akar. Ekran okuyucu için veri tablosu, boş ve yükleniyor durumları vardır. Değer ve eksen etiketleri ABACUS'tandır: ipucunda "1.234,5", eksende kısaltma ("1,2B", "1,25Mn"). `formatValue` ve `formatTick` ile para birimli yazım verilebilir (`snn-chart-format`: `formatMoney`, `formatMoneyCompact`). Tarih etiketlerini (`label`, `axisLabel`) proje ABACUS `date.format` ile hazırlar. Verinin aralığını ve yüklemeyi proje yönetir. | `npx shadcn@latest add @snn-ui/line-chart` |
 | `bar-chart` | Çubuk grafik | Bir ölçüyü art arda gün, hafta ya da ay boyunca çubuklarla gösterir; dönemler birbirleriyle ve ortalama çizgisiyle karşılaştırılır. Başlık dururken ortalamayı, gezerken gezilen çubuğu okur (fare, dokunma, ok tuşları). Çubuklar sırayla büyür, aralık değişince yeni değerlere akar, eksen kendini ölçekler. Ekran okuyucu için veri tablosu vardır. Değerler ve eksen etiketleri ABACUS biçimindedir ("1.234"); `formatValue` ile para birimli yazım verilebilir (`snn-chart-format`: `formatMoney`). Gün etiketlerini (`label`, `axisLabel`) ve dönem metnini proje ABACUS `date.format` ile hazırlar. Çubuk renkleri vurgu rengindendir (`--series-*` gerekmez). | `npx shadcn@latest add @snn-ui/bar-chart` |
 | `donut-chart` | Halka grafik | Bir bütünün birkaç parçasını halka dilimleriyle gösterir; her parçanın payı kesin karşılaştırmadan önemli olduğunda kullanılır. Üzerine gelinen ya da seçilen dilim dışarı kayar, merkez o dilimin değerini ve payını ("%36") okur; küçük parçalar "Diğer"e katılır. Eşgüdümlü gösterge dilimleri gösterip gizler, halka yeniden dağılır. Ekran okuyucu için tablo, boş durum ve ok tuşuyla gezinme vardır. Değerler ABACUS biçimindedir ("1.234,5"), paylar `money.percent` ile yazılır ("%36", yüzde birin altı "<%1"). `formatValue` ile para birimli yazım verilebilir (`snn-chart-format`: `formatMoney`). Renkler `snn-chart-palette` (mavi, menekşe, yeşil, gül) ve nötr basamaklardır; amber yok. Varsayılan metinler Türkçe ("Toplam", "Diğer", "Henüz veri yok"). | `npx shadcn@latest add @snn-ui/donut-chart` |
+| `gauge` | Gösterge halkası | Bir değerin aralığındaki yerini 270 derecelik halkayla gösterir: ortada "%72" ve isteğe bağlı durum adı. Eşik bantları (örneğin Düşük / Normal / Yüksek) rengi ve durum adını belirler; anlam yalnız renge dayanmaz. Görününce dolar, değer değişince yaylanır; sayım halkayı aşmadan izler. Yüzde `%72` biçiminde, işaret sayıdan önce yazılır (Türkçe yazım). `detail` hazır metin olarak gelir (`money.percent`, `money.formatMajor`). Eşik tonlarından `warning` mavi-gridir; kırmızı (`danger`) yalnız gerçek hata içindir. | `npx shadcn@latest add @snn-ui/gauge` |
 
 ## Kullanım örnekleri
 
@@ -474,6 +475,14 @@ import { BarChart, BarChartDatum } from "@/components/snn/bar-chart/bar-chart";
 import { DonutChart, DonutChartDatum } from "@/components/snn/donut-chart/donut-chart";
 
 <DonutChart label="Kaynağa göre ziyaret" data={[{ key: "arama", label: "Arama", value: 4200 }, { key: "dogrudan", label: "Doğrudan", value: 2100 }]} unit="ziyaret" />
+```
+
+### Gösterge halkası (`gauge`)
+
+```tsx
+import { Gauge } from "@/components/snn/gauge/gauge";
+
+<Gauge label="Kasa doluluğu" value={72} detail="Hedef %80" thresholds={[{ from: 0, tone: "accent", label: "Normal" }, { from: 85, tone: "danger", label: "Kritik" }]} />
 ```
 
 ## Bu rafta olmayanlar
