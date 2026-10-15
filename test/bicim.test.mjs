@@ -49,6 +49,7 @@ const FILES = {
   gallery: "registry/components/product-gallery/product-gallery-format.ts",
   lightbox: "registry/components/lightbox-gallery/lightbox-gallery-format.ts",
   pgrid: "registry/components/photo-grid/photo-grid-format.ts",
+  testimonial: "registry/components/testimonial-stage/testimonial-stage-format.ts",
 };
 const mods = {};
 let temp;
@@ -780,4 +781,20 @@ test("fotoğraf ızgarası: seviye, sıkıştırma, ok tuşuyla odak ve yazımla
   assert.equal(mods.pgrid.cellLabel("Kıyı", false), "Kıyı");
   assert.equal(mods.pgrid.favoriteLabel(true), "Favoriden çıkar");
   assert.equal(mods.pgrid.favoriteLabel(false), "Favoriye ekle");
+});
+
+test("görüş sahnesi: sarmalayan gezinme, baş harfler ve yazımlar doğru", () => {
+  assert.equal(mods.testimonial.wrapIndex(3, 1, 4), 0);
+  assert.equal(mods.testimonial.wrapIndex(0, -1, 4), 3);
+  assert.equal(mods.testimonial.wrapIndex(1, 1, 4), 2);
+  assert.equal(mods.testimonial.wrapIndex(1, 9, 4), 2);
+  assert.equal(mods.testimonial.wrapIndex(2, 1, 0), 0);
+  assert.equal(mods.testimonial.initials("Elif Aksoy"), "EA");
+  assert.equal(mods.testimonial.initials("  ismail  çelik yıldız "), "İÇ");
+  assert.equal(mods.testimonial.initials("ışık"), "I");
+  assert.equal(mods.testimonial.initials(""), "");
+  assert.equal(mods.testimonial.tabLabel("Elif Aksoy", "Finans müdürü"), "Elif Aksoy, Finans müdürü");
+  assert.equal(mods.testimonial.liveText("Elif Aksoy"), "Elif Aksoy görüşü gösteriliyor.");
+  assert.equal(mods.testimonial.directionOf(1, 3), 1);
+  assert.equal(mods.testimonial.directionOf(3, 1), -1);
 });
