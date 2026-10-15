@@ -136,14 +136,14 @@ export function InboxTriage({ messages, onMove, onRead, loading = false, pageSiz
     if (event.ctrlKey || event.metaKey || event.altKey) return;
     const index = shown.findIndex(item => item.id === message.id);
     const go = (target?: InboxMessage) => { if (!target) return; event.preventDefault(); setTabStop(target.id); listRef.current?.querySelector<HTMLElement>(`[data-row="${target.id}"]`)?.focus(); };
-    const key = event.key.length === 1 ? event.key.toLowerCase() : event.key;
+    const key = event.key.length === 1 ? event.code : event.key;
     if (key === "ArrowDown") go(shown[index + 1]);
     else if (key === "ArrowUp") go(shown[index - 1]);
     else if (key === "Home") go(shown[0]);
     else if (key === "End") go(shown[shown.length - 1]);
-    else if (key === "e" && folder !== "archive") { event.preventDefault(); void move(message.id, "archive"); }
-    else if (key === "s" && folder === "inbox") { event.preventDefault(); void move(message.id, "snoozed"); }
-    else if (key === "u" && folder !== "inbox") { event.preventDefault(); void move(message.id, "inbox"); }
+    else if (key === "KeyE" && folder !== "archive") { event.preventDefault(); void move(message.id, "archive"); }
+    else if (key === "KeyS" && folder === "inbox") { event.preventDefault(); void move(message.id, "snoozed"); }
+    else if (key === "KeyU" && folder !== "inbox") { event.preventDefault(); void move(message.id, "inbox"); }
   }
 
   const grow: Transition = { duration: motionTokens.duration.standard, ease: [...motionTokens.ease.enter] };

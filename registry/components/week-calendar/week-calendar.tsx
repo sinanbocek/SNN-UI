@@ -287,9 +287,9 @@ export function WeekCalendar({
     if (dialogue) return;
     const target = event.target as HTMLElement;
     if (target.matches("input, textarea, select, [role='combobox']")) return;
-    if ((event.ctrlKey || event.metaKey) && event.key.toLowerCase() === "z" && notice?.undo) { event.preventDefault(); notice.undo(); setNotice(null); return; }
+    if ((event.ctrlKey || event.metaKey) && event.code === "KeyZ" && notice?.undo) { event.preventDefault(); notice.undo(); setNotice(null); return; }
     if (event.ctrlKey || event.metaKey) return;
-    const key = event.key.length === 1 ? event.key.toLowerCase() : event.key;
+    const key = event.key.length === 1 ? event.code : event.key;
     const cell = target.closest<HTMLElement>("[data-daycell]");
     const eventNode = target.closest<HTMLElement>("[data-event]");
 
@@ -316,10 +316,10 @@ export function WeekCalendar({
     }
     if (event.altKey) return;
 
-    if (key === "t") { event.preventDefault(); goToday(); return; }
-    if (key === "d") { event.preventDefault(); changeView("day"); return; }
-    if (key === "w") { event.preventDefault(); changeView(compact ? "threeDay" : "week"); return; }
-    if (key === "n" && !eventNode) { event.preventDefault(); openCreate(cell?.dataset.daycell ?? activeDay); return; }
+    if (key === "KeyT") { event.preventDefault(); goToday(); return; }
+    if (key === "KeyD") { event.preventDefault(); changeView("day"); return; }
+    if (key === "KeyW") { event.preventDefault(); changeView(compact ? "threeDay" : "week"); return; }
+    if (key === "KeyN" && !eventNode) { event.preventDefault(); openCreate(cell?.dataset.daycell ?? activeDay); return; }
     if ((key === "Delete" || key === "Backspace") && eventNode) {
       const item = items.find(entry => entry.id === eventNode.dataset.event);
       if (item) { event.preventDefault(); void remove(item); }
