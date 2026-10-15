@@ -90,18 +90,18 @@ Kural: `SNN-Standartlar/standartlar/arayuz-standardi.md` §2.1. Fikir serbest, k
 | Ad | Bağlantı | Dalga | Durum |
 |---|---|---|---|
 | share-sheet | https://uiarc.dev/components/share-sheet | 4 | sahip seçmedi |
-| action-morph | https://uiarc.dev/components/action-morph | 4 | tarif yazıldı |
-| morph-nav | https://uiarc.dev/components/morph-nav | 4 | tarif yazıldı |
+| action-morph | https://uiarc.dev/components/action-morph | 4 | yazıldı |
+| morph-nav | https://uiarc.dev/components/morph-nav | 4 | yazıldı |
 | dock | https://uiarc.dev/components/dock | 4 | sahip seçmedi |
-| liquid-tab-bar | https://uiarc.dev/components/liquid-tab-bar | 4 | tarif yazıldı |
-| orbit-menu | https://uiarc.dev/components/orbit-menu | 4 | tarif yazıldı |
+| liquid-tab-bar | https://uiarc.dev/components/liquid-tab-bar | 4 | yazıldı |
+| orbit-menu | https://uiarc.dev/components/orbit-menu | 4 | yazıldı |
 | control-center | https://uiarc.dev/components/control-center | 4 | sahip seçmedi |
 | booking-pill | https://uiarc.dev/components/booking-pill | 4 | sahip seçmedi |
 | activity-rings | https://uiarc.dev/components/activity-rings | 4 | sahip seçmedi |
 | date-reel | https://uiarc.dev/components/date-reel | 4 | sahip seçmedi |
-| morph-loader | https://uiarc.dev/components/morph-loader | 4 | tarif yazıldı |
-| skeleton-morph | https://uiarc.dev/components/skeleton-morph | 4 | tarif yazıldı |
+| morph-loader | https://uiarc.dev/components/morph-loader | 4 | yazıldı |
+| skeleton-morph | https://uiarc.dev/components/skeleton-morph | 4 | yazıldı |
 | page-curl | https://uiarc.dev/components/page-curl | 4 | sahip seçmedi |
-| data-flow | https://uiarc.dev/components/data-flow | 4 | tarif yazıldı |
+| data-flow | https://uiarc.dev/components/data-flow | 4 | yazıldı |
 | multi-region-failover | https://uiarc.dev/components/multi-region-failover | 4 | sahip seçmedi |
 

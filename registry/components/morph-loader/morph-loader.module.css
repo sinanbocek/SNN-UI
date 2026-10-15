@@ -1,0 +1,18 @@
+.root { position: relative; display: inline-flex; flex: none; align-items: center; justify-content: center; vertical-align: middle; color: currentColor; }
+.root[data-state="success"] { color: var(--success); }
+.root[data-state="error"] { color: var(--danger); }
+.svg { display: block; width: 100%; height: 100%; overflow: visible; fill: currentColor; stroke: currentColor; }
+.result { fill: none; }
+.ring, .square { fill: none; stroke-width: inherit; }
+.dot { transform-box: fill-box; transform-origin: center; animation: loader-hop .9s var(--ease-in-out) calc(var(--index) * 120ms) infinite; }
+.bar { transform-box: fill-box; transform-origin: center; stroke: none; animation: loader-stretch .9s var(--ease-in-out) calc(var(--index) * 120ms) infinite; }
+.ring { transform-box: fill-box; transform-origin: center; animation: loader-spin .9s linear infinite; }
+.square { transform-box: fill-box; transform-origin: center; animation: loader-quarter 1.2s var(--ease-in-out) infinite; }
+@keyframes loader-hop { 0%, 60%, 100% { transform: translateY(0); opacity: .55; } 30% { transform: translateY(-3px); opacity: 1; } }
+@keyframes loader-stretch { 0%, 60%, 100% { transform: scaleY(.55); opacity: .55; } 30% { transform: scaleY(1.2); opacity: 1; } }
+@keyframes loader-spin { to { transform: rotate(360deg); } }
+@keyframes loader-quarter { 0%, 20% { transform: rotate(0); } 80%, 100% { transform: rotate(90deg); } }
+/* "Hareketi azalt": her biçim tek durağan şekil olarak kalır. */
+.dots[data-still] .dot, .bars[data-still] .bar, .ring[data-still], .square[data-still] { animation: none; }
+@media (prefers-reduced-motion: reduce) { .dot, .bar, .ring, .square { animation: none; } }
+.srOnly { position: absolute; width: 1px; height: 1px; overflow: hidden; clip-path: inset(50%); white-space: nowrap; }

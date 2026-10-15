@@ -3576,6 +3576,223 @@
         "arcCommit": "bfdf7e8",
         "arcSource": "registry/components/cover-flow"
       }
+    },
+    {
+      "name": "morph-loader",
+      "type": "registry:ui",
+      "title": "Dönüşen yükleniyor işareti",
+      "description": "Satır içine sığan küçük yükleniyor işareti. İş sürerken dört biçimden biriyle döner (noktalar, çubuklar, halka, kare); iş bitince aynı yerde onay işaretine, başarısız olursa çarpıya dönüşür (çizgi çizilerek). Sonuç işareti yeşil ya da kırmızıdır ve onay ile çarpı farklı şekildir. Kök durum bölgesidir (\"Yükleniyor\", \"Tamamlandı\", \"Başarısız\"); bir düğmenin içinde süs olarak kullanılırsa ekran okuyucudan gizlenir. \"Hareketi azalt\" açıkken her durum tek durağan şekildir.",
+      "dependencies": [
+        "motion"
+      ],
+      "registryDependencies": [
+        "@snn-ui/snn-foundation",
+        "@snn-ui/snn-motion-tokens",
+        "@snn-ui/snn-motion-tokens"
+      ],
+      "files": [
+        {
+          "path": "registry/components/morph-loader/morph-loader.module.css",
+          "type": "registry:component",
+          "target": "@components/snn/morph-loader/morph-loader.module.css"
+        },
+        {
+          "path": "registry/components/morph-loader/morph-loader.tsx",
+          "type": "registry:component",
+          "target": "@components/snn/morph-loader/morph-loader.tsx"
+        }
+      ],
+      "meta": {
+        "arcCommit": "bfdf7e8",
+        "arcSource": "registry/components/morph-loader"
+      }
+    },
+    {
+      "name": "skeleton-morph",
+      "type": "registry:ui",
+      "title": "İskeletten içeriğe dönüşüm",
+      "description": "Yükleniyor iskeletinin gerçek içeriğe sert geçişle değil, yerinde büyüyerek dönüştüğü bölge. Kabuk (`SkeletonMorph`) ve blok (`MorphBlock`) kullanılır: blok yüklenirken ölçüsü eşleşmiş iskelet (dikdörtgen, daire ya da metin satırları) gösterir; yükleme bitince bloklar belge sırasıyla, küçük gecikmeyle çözülür, iskelet kutusu içeriğin ölçüsüne uzanıp solar ve içerik bulanıklıktan netleşir. Kabuk yüksekliği yumuşakça değişir. Yükleniyora dönüş anında olur. Kabuk aria-busy taşır, \"Yükleniyor\" / \"Yüklendi\" duyurulur. \"Hareketi azalt\" açıkken nabız ve uzama yok, kısa çapraz geçiş var.",
+      "dependencies": [
+        "motion"
+      ],
+      "registryDependencies": [
+        "@snn-ui/snn-foundation",
+        "@snn-ui/snn-motion-tokens",
+        "@snn-ui/snn-motion-tokens"
+      ],
+      "files": [
+        {
+          "path": "registry/components/skeleton-morph/skeleton-morph.module.css",
+          "type": "registry:component",
+          "target": "@components/snn/skeleton-morph/skeleton-morph.module.css"
+        },
+        {
+          "path": "registry/components/skeleton-morph/skeleton-morph.tsx",
+          "type": "registry:component",
+          "target": "@components/snn/skeleton-morph/skeleton-morph.tsx"
+        }
+      ],
+      "meta": {
+        "arcCommit": "bfdf7e8",
+        "arcSource": "registry/components/skeleton-morph"
+      }
+    },
+    {
+      "name": "action-morph",
+      "type": "registry:ui",
+      "title": "Dönüşen hızlı ekle düğmesi",
+      "description": "Köşede duran yuvarlak \"Ekle\" düğmesi: basınca aynı yüzey büyüyerek kısa bir eylem menüsüne, bir eylem seçilince satır içi forma (tek ya da çok satır, isteğe bağlı seçenek grubu) dönüşür; gönderilince düğmeye küçülür, düğme yeşile döner ve onay çizilir. Yukarı/Aşağı, Home/End ve eylem harfleriyle gezilir; Escape yazma yüzünden menüye, menüden kapanışa çıkar; dışarı basmak kapatır. Her eylemin taslağı saklanır; boş gönderim reddedilir; gönderim reddedilirse form açık kalır ve yazılan silinmez. Başarı ve hata kibar canlı bölgede okunur. \"Hareketi azalt\" açıkken boyut anında atlar.",
+      "dependencies": [
+        "motion"
+      ],
+      "registryDependencies": [
+        "@snn-ui/snn-foundation",
+        "@snn-ui/snn-motion-tokens",
+        "@snn-ui/morph-loader",
+        "@snn-ui/snn-motion-tokens"
+      ],
+      "files": [
+        {
+          "path": "registry/components/action-morph/action-morph.module.css",
+          "type": "registry:component",
+          "target": "@components/snn/action-morph/action-morph.module.css"
+        },
+        {
+          "path": "registry/components/action-morph/action-morph.tsx",
+          "type": "registry:component",
+          "target": "@components/snn/action-morph/action-morph.tsx"
+        }
+      ],
+      "meta": {
+        "arcCommit": "bfdf7e8",
+        "arcSource": "registry/components/action-morph"
+      }
+    },
+    {
+      "name": "morph-nav",
+      "type": "registry:ui",
+      "title": "Dönüşen üst gezinme",
+      "description": "Site ya da ürün üst çubuğu: bölümler çubukta sıralanır; panelli bölüm üzerine gelinince (kısa niyet beklemesi, çıkışta kısa gecikme) ya da seçilince çubuğun kendisi bağlantı paneline büyür, komşu bölüme geçerken panel yan yana kayar ve vurgu öğeler arasında akar. Arama düğmesi aynı yüzeyden birleşik kutu (combobox) açar: Türkçe harf farkı gözetmez, boş sorguda \"Önerilenler\", en iyi altı sonuç, \"N sonuç\" duyurusu. Sağ/Sol/Home/End ve Aşağı ile gezilir, Escape odağı geldiği yere döndürür. Kabın genişliği dar olunca (ekranın değil) bölümler tek menüye katlanır; `tight` ile çubuk sıkılaşır. Saydamlığı azalt / yüksek karşıtlıkta bulanık arka plan düz yüzeye düşer.",
+      "dependencies": [
+        "@snn/abacus-core@github:sinanbocek/SNN-Abacus-Core#semver:^4.3.0",
+        "motion"
+      ],
+      "registryDependencies": [
+        "@snn-ui/snn-foundation",
+        "@snn-ui/snn-motion-tokens",
+        "@snn-ui/snn-motion-tokens",
+        "@snn-ui/snn-viz-utils"
+      ],
+      "files": [
+        {
+          "path": "registry/components/morph-nav/morph-nav.module.css",
+          "type": "registry:component",
+          "target": "@components/snn/morph-nav/morph-nav.module.css"
+        },
+        {
+          "path": "registry/components/morph-nav/morph-nav.tsx",
+          "type": "registry:component",
+          "target": "@components/snn/morph-nav/morph-nav.tsx"
+        }
+      ],
+      "meta": {
+        "arcCommit": "bfdf7e8",
+        "arcSource": "registry/components/morph-nav"
+      }
+    },
+    {
+      "name": "liquid-tab-bar",
+      "type": "registry:ui",
+      "title": "Simgeli kayan sekme çubuğu",
+      "description": "Uygulamanın birkaç eş bölümü arasında geçiş yapan simgeli sekme çubuğu. Seçili sekmeyi gösteren yüzey yeni sekmeye tek şekil olarak yer değiştirir; yüzey sürüklenip bırakılırsa en yakın sekme seçilir, hızlı fırlatma en az bir sekme ilerletir, uçlarda direnç vardır. Fareyle başka sekmenin üstüne gelince yüzey o yöne meyleder. Etiket modu üç seçenek: yalnız seçili / hepsi / hiçbiri; eski etiket hemen söner, yenisi yüzey ulaşınca belirir. Rozet sayısı dönen rakamlarla değişir. Kontrollüdür; Sol/Sağ/Home/End ile gezilir. \"Hareketi azalt\" açıkken yüzey yerine atlar.",
+      "dependencies": [
+        "@snn/abacus-core@github:sinanbocek/SNN-Abacus-Core#semver:^4.3.0",
+        "motion"
+      ],
+      "registryDependencies": [
+        "@snn-ui/snn-foundation",
+        "@snn-ui/snn-motion-tokens",
+        "@snn-ui/animated-counter",
+        "@snn-ui/snn-motion-tokens"
+      ],
+      "files": [
+        {
+          "path": "registry/components/liquid-tab-bar/liquid-tab-bar.module.css",
+          "type": "registry:component",
+          "target": "@components/snn/liquid-tab-bar/liquid-tab-bar.module.css"
+        },
+        {
+          "path": "registry/components/liquid-tab-bar/liquid-tab-bar.tsx",
+          "type": "registry:component",
+          "target": "@components/snn/liquid-tab-bar/liquid-tab-bar.tsx"
+        }
+      ],
+      "meta": {
+        "arcCommit": "bfdf7e8",
+        "arcSource": "registry/components/liquid-tab-bar"
+      }
+    },
+    {
+      "name": "orbit-menu",
+      "type": "registry:ui",
+      "title": "Yay biçimli eylem menüsü",
+      "description": "Bir nesne üzerinde üç ile altı hızlı eylem sunan yuvarlak düğme. Basılı tutup eylemlerden birine doğru sürükleyip bırakmak eylemi çalıştırır (hedef açıya göre belirlenir, düğmeye yakın ölü bölge hiçbir şey seçmez); yay dışında bırakmak iptaldir ve etiket hapı \"Bırakınca iptal\" yazar. Tek dokunuş menüyü açık bırakır, ikinci dokunuş kapatır. Tüm eylemlere klavyeyle ulaşılır (oklar, Home/End, Enter/Boşluk, Escape). Etiket hapı hedefin adını, eylem çalışınca onay metnini gösterir; onay canlı bölgede okunur. Tehlikeli eylem kırmızıdır ve adı da tehlikeyi söyler. \"Hareketi azalt\" açıkken yalnız solma vardır.",
+      "dependencies": [
+        "motion"
+      ],
+      "registryDependencies": [
+        "@snn-ui/snn-foundation",
+        "@snn-ui/snn-motion-tokens",
+        "@snn-ui/snn-motion-tokens"
+      ],
+      "files": [
+        {
+          "path": "registry/components/orbit-menu/orbit-menu.module.css",
+          "type": "registry:component",
+          "target": "@components/snn/orbit-menu/orbit-menu.module.css"
+        },
+        {
+          "path": "registry/components/orbit-menu/orbit-menu.tsx",
+          "type": "registry:component",
+          "target": "@components/snn/orbit-menu/orbit-menu.tsx"
+        }
+      ],
+      "meta": {
+        "arcCommit": "bfdf7e8",
+        "arcSource": "registry/components/orbit-menu"
+      }
+    },
+    {
+      "name": "data-flow",
+      "type": "registry:ui",
+      "title": "Veri akışı şeması",
+      "description": "Verinin bir üründe nasıl aktığını anlatan hareketli şema: solda kaynaklar, ortada işleme noktası ve işlenen kayıt sayacı, sağda hedefler. İşlenmemiş kayıt daire, işlenmiş kayıt yuvarlatılmış kare olarak yolda ilerler; çıkış ve varışta düğüm kenarları vurgulanır. Bir hedefe `share` verilirse kayıtların yalnız o kesri o hedefe gider. Fareyle düğümün üstüne gelince yolu vurgulanır, ayrıntı etiketi çıkar, akış yavaşlar; hız ve duraklatma yayla yumuşar. Ekran dışında ve sekme gizliyken durur. Geniş kapta soldan sağa, 700 px altında yukarıdan aşağıya çizilir. Şema tek bir görsel olarak sesli anlatılır; \"Hareketi azalt\" açıkken tek durağan kare gösterilir. Bu bir anlatım çizimidir: giriş alanı yoktur, gerçek veri hacmi göstermez.",
+      "dependencies": [
+        "@snn/abacus-core@github:sinanbocek/SNN-Abacus-Core#semver:^4.3.0",
+        "motion"
+      ],
+      "registryDependencies": [
+        "@snn-ui/snn-foundation",
+        "@snn-ui/snn-motion-tokens",
+        "@snn-ui/animated-counter",
+        "@snn-ui/snn-viz-utils"
+      ],
+      "files": [
+        {
+          "path": "registry/components/data-flow/data-flow.module.css",
+          "type": "registry:component",
+          "target": "@components/snn/data-flow/data-flow.module.css"
+        },
+        {
+          "path": "registry/components/data-flow/data-flow.tsx",
+          "type": "registry:component",
+          "target": "@components/snn/data-flow/data-flow.tsx"
+        }
+      ],
+      "meta": {
+        "arcCommit": "bfdf7e8",
+        "arcSource": "registry/components/data-flow"
+      }
     }
   ]
 }
