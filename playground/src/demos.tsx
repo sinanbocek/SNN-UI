@@ -20,6 +20,15 @@ import { EmptyState } from "../../registry/components/empty-state/empty-state";
 import { Skeleton } from "../../registry/components/skeleton/skeleton";
 import { Pagination } from "../../registry/components/pagination/pagination";
 import { SearchField } from "../../registry/components/search-field/search-field";
+import { SaveBar } from "../../registry/components/save-bar/save-bar";
+import type { SaveBarStatus } from "../../registry/components/save-bar/save-bar";
+import { Badge } from "../../registry/components/badge/badge";
+import { Breadcrumb } from "../../registry/components/breadcrumb/breadcrumb";
+import { Progress } from "../../registry/components/progress/progress";
+import SegmentedControl from "../../registry/components/segmented-control/segmented-control";
+import { Drawer, DrawerTrigger, DrawerContent, DrawerClose } from "../../registry/components/drawer/drawer";
+import { Combobox } from "../../registry/components/combobox/combobox";
+import { Avatar } from "../../registry/components/avatar/avatar";
 
 const Col = ({ title, children }: { title: string; children: ReactNode }) => (
   <div className="col"><span className="etiket">{title}</span>{children}</div>
@@ -264,6 +273,145 @@ function SearchDemo() {
   </>;
 }
 
+function SaveBarDemo() {
+  const [count, setCount] = useState(3);
+  const [status, setStatus] = useState<SaveBarStatus>("idle");
+  const [fail, setFail] = useState(false);
+  const save = () => {
+    setStatus("saving");
+    setTimeout(() => {
+      if (fail) { setStatus("error"); return; }
+      setCount(0); setStatus("saved");
+    }, 900);
+  };
+  return <>
+    <Col title="Çubuk (Ctrl/Cmd+S de kaydeder)">
+      <div className="row">
+        <Button variant="secondary" onClick={() => { setCount(count + 1); setStatus("idle"); }}>Değişiklik ekle</Button>
+        <Checkbox label="Kaydetme başarısız olsun" checked={fail} onCheckedChange={v => setFail(v === true)} />
+      </div>
+      <div style={{ minHeight: 72, position: "relative" }}>
+        <SaveBar changeCount={count} status={status} onSave={save} onDiscard={() => { setCount(0); setStatus("idle"); }} />
+      </div>
+    </Col>
+  </>;
+}
+
+function BadgeDemo() {
+  const [state, setState] = useState(0);
+  const steps = [{ tone: "neutral", text: "Taslak" }, { tone: "info", text: "İncelemede" }, { tone: "success", text: "Onaylandı" }, { tone: "danger", text: "Reddedildi" }] as const;
+  const step = steps[state % steps.length]!;
+  return <>
+    <Col title="Tonlar ve boyutlar">
+      <div className="row">
+        <Badge>Nötr</Badge><Badge tone="success">Başarılı</Badge><Badge tone="info">Bilgi</Badge><Badge tone="warning">Uyarı</Badge><Badge tone="danger">Hata</Badge>
+      </div>
+      <div className="row"><Badge size="sm">Küçük</Badge><Badge size="md">Orta</Badge></div>
+    </Col>
+    <Col title="Metin değişince genişlik yaylanır">
+      <div className="row"><Badge tone={step.tone}>{step.text}</Badge><Button variant="secondary" onClick={() => setState(state + 1)}>Durumu ilerlet</Button></div>
+    </Col>
+  </>;
+}
+
+function BreadcrumbDemo() {
+  const [path, setPath] = useState(["Projeler", "Teklif 12", "Kalemler"]);
+  const items = path.map((label, i) => ({ label, onClick: () => setPath(path.slice(0, i + 1)) }));
+  return <>
+    <Col title="Durumda yaşayan yol (düğme olarak)">
+      <Breadcrumb items={items} />
+      <div className="row">
+        <Button variant="secondary" onClick={() => setPath([...path, `Alt ${path.length}`])}>Derine in</Button>
+        <Button variant="ghost" onClick={() => setPath(["Projeler"])}>Başa dön</Button>
+      </div>
+    </Col>
+    <Col title="Bağlantılı">
+      <Breadcrumb items={[{ label: "Ana sayfa", href: "#breadcrumb" }, { label: "Ayarlar", href: "#breadcrumb" }, { label: "Profil" }]} />
+    </Col>
+  </>;
+}
+
+function ProgressDemo() {
+  const [value, setValue] = useState(35);
+  return <>
+    <Col title="Yüzdeli ilerleme">
+      <Progress label="Dosyalar yükleniyor" value={value} showValue />
+      <div className="row">
+        <Button variant="secondary" onClick={() => setValue(Math.max(0, value - 20))}>Azalt</Button>
+        <Button variant="secondary" onClick={() => setValue(Math.min(100, value + 20))}>Artır</Button>
+      </div>
+    </Col>
+    <Col title="Yalnız çubuk">
+      <Progress label="Hazırlanıyor" value={60} />
+    </Col>
+  </>;
+}
+
+function SegmentedDemo() {
+  const [view, setView] = useState("liste");
+  const [range, setRange] = useState("hafta");
+  return <>
+    <Col title="Görünüm seçici (ok tuşlarıyla gez)">
+      <SegmentedControl label="Görünüm" value={view} onValueChange={setView}
+        options={[{ value: "liste", label: "Liste" }, { value: "pano", label: "Pano" }, { value: "takvim", label: "Takvim", accessory: <Badge size="sm">Yeni</Badge> }]} />
+    </Col>
+    <Col title="Dar alanda kayar">
+      <div style={{ maxWidth: 220 }}>
+        <SegmentedControl label="Aralık" value={range} onValueChange={setRange}
+          options={[{ value: "gun", label: "Gün" }, { value: "hafta", label: "Hafta" }, { value: "ay", label: "Ay" }, { value: "ceyrek", label: "Çeyrek" }, { value: "yil", label: "Yıl" }]} />
+      </div>
+    </Col>
+  </>;
+}
+
+function DrawerDemo() {
+  const [side, setSide] = useState<"right" | "left" | "bottom">("right");
+  return <>
+    <Col title="Kenardan gelen panel (başlıktan sürükleyip kapat)">
+      <SegmentedControl label="Kenar" value={side} onValueChange={v => setSide(v as typeof side)}
+        options={[{ value: "right", label: "Sağ" }, { value: "left", label: "Sol" }, { value: "bottom", label: "Alt" }]} />
+      <div className="row">
+        <Drawer>
+          <DrawerTrigger asChild><Button>Çekmeceyi aç</Button></DrawerTrigger>
+          <DrawerContent title="Teklif ayrıntıları" description="Seçili teklifin özeti" side={side}>
+            <p>Çekmece içeriği burada durur.</p>
+            <DrawerClose asChild><Button variant="secondary">Kapat</Button></DrawerClose>
+          </DrawerContent>
+        </Drawer>
+      </div>
+    </Col>
+  </>;
+}
+
+function ComboboxDemo() {
+  const [city, setCity] = useState("");
+  const options = [{ value: "ist", label: "İstanbul" }, { value: "ank", label: "Ankara" }, { value: "izm", label: "İzmir" }, { value: "igd", label: "Iğdır" }, { value: "ada", label: "Adana", disabled: true }];
+  return <>
+    <Col title='Türkçe arama: "istanbul", "Istanbul", "igdir" yaz'>
+      <div style={{ maxWidth: 320 }}>
+        <Combobox label="Şehir" description="Adana pasif seçenek örneğidir." options={options} value={city} onValueChange={setCity} />
+      </div>
+      <span className="etiket">Seçilen: {city || "yok"}</span>
+    </Col>
+  </>;
+}
+
+function AvatarDemo() {
+  return <>
+    <Col title="Boyutlar (küçük harfli ad büyük baş harf alır)">
+      <div className="row">
+        <Avatar name="ismail yılmaz" size="sm" /><Avatar name="ismail yılmaz" size="md" /><Avatar name="ışık özdemir" size="lg" /><Avatar name="ismail yılmaz" size="xl" />
+      </div>
+    </Col>
+    <Col title="Durum noktası">
+      <div className="row"><Avatar name="Ayşe Demir" status="online" /><Avatar name="Can Öztürk" status="offline" /></div>
+    </Col>
+    <Col title="Fotoğraf bulunamazsa baş harflere döner">
+      <div className="row"><Avatar name="Zeynep Kaya" src="bulunmayan-foto.png" size="lg" /></div>
+    </Col>
+  </>;
+}
+
 /** Ad → canlı örnek. Katalogda olup burada olmayan bileşen sayfada "örnek yok" uyarısı verir; yeni parça eklenince buraya da eklenir. */
 export const demos: Record<string, () => ReactNode> = {
   button: () => <ButtonDemo />,
@@ -285,4 +433,12 @@ export const demos: Record<string, () => ReactNode> = {
   skeleton: () => <SkeletonDemo />,
   pagination: () => <PaginationDemo />,
   "search-field": () => <SearchDemo />,
+  "save-bar": () => <SaveBarDemo />,
+  badge: () => <BadgeDemo />,
+  breadcrumb: () => <BreadcrumbDemo />,
+  progress: () => <ProgressDemo />,
+  "segmented-control": () => <SegmentedDemo />,
+  drawer: () => <DrawerDemo />,
+  combobox: () => <ComboboxDemo />,
+  avatar: () => <AvatarDemo />,
 };

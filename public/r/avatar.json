@@ -1,0 +1,33 @@
+{
+  "$schema": "https://ui.shadcn.com/schema/registry-item.json",
+  "name": "avatar",
+  "title": "Kişi simgesi",
+  "description": "Fotoğraf ya da ad baş harfleri; isteğe bağlı çevrimiçi/çevrimdışı noktası. Fotoğraf yüklenemezse baş harflere döner.",
+  "dependencies": [
+    "@snn/abacus-core@github:sinanbocek/SNN-Abacus-Core#semver:^4.3.0",
+    "motion"
+  ],
+  "registryDependencies": [
+    "@snn-ui/snn-foundation",
+    "@snn-ui/snn-motion-tokens"
+  ],
+  "files": [
+    {
+      "path": "registry/components/avatar/avatar.module.css",
+      "content": ".avatar {\n  position: relative;\n  display: inline-grid;\n  flex: 0 0 auto;\n  place-items: center;\n  overflow: visible;\n  border: 1px solid var(--border);\n  border-radius: var(--radius-pill);\n  background: var(--surface-muted);\n  color: var(--foreground);\n  font-size: var(--text-xs);\n  font-weight: 500;\n}\n\n.avatar img {\n  position: absolute;\n  inset: 0;\n  width: 100%;\n  height: 100%;\n  pointer-events: none;\n  border-radius: inherit;\n  object-fit: cover;\n  transition: opacity var(--duration-standard) var(--ease-enter), filter var(--duration-standard) var(--ease-enter);\n}\n\n/* Yalnız fotoğraf bağlandıktan sonra hâlâ iniyorsa ayarlanır; önbellekteki fotoğraflar hiç solmaz. */\n.avatar img[data-loading] {\n  opacity: 0;\n  filter: blur(4px);\n  transition: none;\n}\n\n.fallback { animation: avatar-fallback-in var(--duration-standard) var(--ease-enter) both; }\n\n.sm { width: 28px; height: 28px; font-size: 10px; }\n.md { width: 36px; height: 36px; }\n.lg { width: 48px; height: 48px; font-size: var(--text-sm); }\n.xl { width: 88px; height: 88px; font-size: var(--text-xl); }\n\n.status {\n  position: absolute;\n  right: 0;\n  bottom: 0;\n  z-index: 2;\n  width: 10px;\n  height: 10px;\n  border: 2px solid var(--surface);\n  border-radius: var(--radius-pill);\n  box-shadow: 0 0 0 1px color-mix(in oklab, var(--border) 70%, transparent);\n}\n\n.sm .status { width: 8px; height: 8px; border-width: 1.5px; }\n.lg .status { width: 12px; height: 12px; }\n.xl .status { width: 14px; height: 14px; right: 4px; bottom: 4px; }\n.online { background: var(--success); }\n.offline { background: var(--text-muted); }\n\n@keyframes avatar-fallback-in { from { opacity: 0; } to { opacity: 1; } }\n\n@media (prefers-reduced-motion: reduce) {\n  .avatar img { transition: none; }\n  .avatar img[data-loading] { filter: none; }\n  .fallback { animation: none; }\n}\n",
+      "type": "registry:component",
+      "target": "@components/snn/avatar/avatar.module.css"
+    },
+    {
+      "path": "registry/components/avatar/avatar.tsx",
+      "content": "\"use client\";\n\nimport { useLayoutEffect, useRef, useState, type HTMLAttributes } from \"react\";\nimport { AnimatePresence, motion, useReducedMotion } from \"motion/react\";\nimport { text } from \"@snn/abacus-core\";\nimport { motionTokens } from \"../lib/motion-tokens\";\nimport styles from \"./avatar.module.css\";\nexport interface AvatarProps extends HTMLAttributes<HTMLSpanElement> { name: string; src?: string; size?: \"sm\" | \"md\" | \"lg\" | \"xl\"; status?: \"online\" | \"offline\" }\nconst statusLabel = { online: \"çevrimiçi\", offline: \"çevrimdışı\" } as const;\nexport function Avatar({ name, src, size = \"md\", status, className, ...props }: AvatarProps) {\n  const initials = name.trim().split(/\\s+/).slice(0, 2).map(part => text.upper(part[0] ?? \"\")).join(\"\");\n  const reduceMotion = !!useReducedMotion();\n  const image = useRef<HTMLImageElement>(null);\n  const [failedSrc, setFailedSrc] = useState<string>();\n  // Zaten çözülmüş bir fotoğraf hemen görünür. Hâlâ yüklenen bekler, sonra yumuşak bulanıklıktan solarak gelir.\n  useLayoutEffect(() => { const node = image.current; if (node && !node.complete) node.dataset.loading = \"\"; }, [src]);\n  const showImage = src && failedSrc !== src;\n  return <span {...props} className={[styles.avatar, styles[size], className].filter(Boolean).join(\" \")} role=\"img\" aria-label={`${name}${status ? `, ${statusLabel[status]}` : \"\"}`}>\n    {showImage ? <img key={src} ref={image} src={src} alt=\"\" onLoad={event => { delete event.currentTarget.dataset.loading; }} onError={() => setFailedSrc(src)} /> : <span className={src ? styles.fallback : undefined} aria-hidden=\"true\">{initials}</span>}\n    <AnimatePresence initial={false}>{status && <motion.i key={status} className={[styles.status, styles[status]].join(\" \")} aria-hidden=\"true\" initial={{ opacity: 0, scale: .6 }} animate={{ opacity: 1, scale: 1 }} exit={{ opacity: 0, scale: .6, transition: { duration: reduceMotion ? 0 : motionTokens.duration.fast } }} transition={reduceMotion ? { duration: 0 } : motionTokens.spring.snappy} />}</AnimatePresence>\n  </span>;\n}\n",
+      "type": "registry:component",
+      "target": "@components/snn/avatar/avatar.tsx"
+    }
+  ],
+  "meta": {
+    "arcCommit": "bfdf7e8",
+    "arcSource": "registry/components/avatar"
+  },
+  "type": "registry:ui"
+}

@@ -597,6 +597,245 @@
         "arcCommit": "bfdf7e8",
         "arcSource": "registry/components/search-field"
       }
+    },
+    {
+      "name": "save-bar",
+      "type": "registry:ui",
+      "title": "Kaydetme çubuğu",
+      "description": "Formun altında yüzer; \"{n} kaydedilmemiş değişiklik\", Vazgeç ve Kaydet. Kaydediliyor, kaydedildi, hata durumları ve Ctrl/Cmd+S vardır.",
+      "dependencies": [
+        "motion"
+      ],
+      "registryDependencies": [
+        "@snn-ui/snn-foundation",
+        "@snn-ui/snn-motion-tokens"
+      ],
+      "files": [
+        {
+          "path": "registry/components/save-bar/save-bar.module.css",
+          "type": "registry:component",
+          "target": "@components/snn/save-bar/save-bar.module.css"
+        },
+        {
+          "path": "registry/components/save-bar/save-bar.tsx",
+          "type": "registry:component",
+          "target": "@components/snn/save-bar/save-bar.tsx"
+        }
+      ],
+      "meta": {
+        "arcCommit": "bfdf7e8",
+        "arcSource": "registry/components/save-bar"
+      }
+    },
+    {
+      "name": "badge",
+      "type": "registry:ui",
+      "title": "Rozet",
+      "description": "Durumu kısa bir etiketle gösterir; metin ve simge değişince hap yumuşakça yeni genişliğe yaylanır.",
+      "dependencies": [
+        "motion"
+      ],
+      "registryDependencies": [
+        "@snn-ui/snn-foundation",
+        "@snn-ui/snn-motion-tokens"
+      ],
+      "files": [
+        {
+          "path": "registry/components/badge/badge.module.css",
+          "type": "registry:component",
+          "target": "@components/snn/badge/badge.module.css"
+        },
+        {
+          "path": "registry/components/badge/badge.tsx",
+          "type": "registry:component",
+          "target": "@components/snn/badge/badge.tsx"
+        }
+      ],
+      "meta": {
+        "arcCommit": "bfdf7e8",
+        "arcSource": "registry/components/badge"
+      }
+    },
+    {
+      "name": "breadcrumb",
+      "type": "registry:ui",
+      "title": "Yol izi",
+      "description": "Bulunulan yeri üst sayfalarıyla gösterir; son parça geçerli sayfadır. Bağlantı yoksa düğme olarak çizilir.",
+      "dependencies": [
+        "lucide-react",
+        "motion"
+      ],
+      "registryDependencies": [
+        "@snn-ui/snn-foundation",
+        "@snn-ui/snn-motion-tokens"
+      ],
+      "files": [
+        {
+          "path": "registry/components/breadcrumb/breadcrumb.module.css",
+          "type": "registry:component",
+          "target": "@components/snn/breadcrumb/breadcrumb.module.css"
+        },
+        {
+          "path": "registry/components/breadcrumb/breadcrumb.tsx",
+          "type": "registry:component",
+          "target": "@components/snn/breadcrumb/breadcrumb.tsx"
+        }
+      ],
+      "meta": {
+        "arcCommit": "bfdf7e8",
+        "arcSource": "registry/components/breadcrumb"
+      }
+    },
+    {
+      "name": "progress",
+      "type": "registry:ui",
+      "title": "İlerleme çubuğu",
+      "description": "Bilinen bir işin ne kadar bittiğini gösterir; yüzde etiketi çubukla birlikte sayılır, bitince onay işareti çıkar.",
+      "dependencies": [
+        "lucide-react",
+        "motion"
+      ],
+      "registryDependencies": [
+        "@snn-ui/snn-foundation",
+        "@snn-ui/snn-motion-tokens"
+      ],
+      "files": [
+        {
+          "path": "registry/components/progress/progress.module.css",
+          "type": "registry:component",
+          "target": "@components/snn/progress/progress.module.css"
+        },
+        {
+          "path": "registry/components/progress/progress.tsx",
+          "type": "registry:component",
+          "target": "@components/snn/progress/progress.tsx"
+        }
+      ],
+      "meta": {
+        "arcCommit": "bfdf7e8",
+        "arcSource": "registry/components/progress"
+      }
+    },
+    {
+      "name": "segmented-control",
+      "type": "registry:ui",
+      "title": "Bölmeli seçici",
+      "description": "Birkaç kardeş görünüm arasında tek seçim; seçili vurgu kayarak geçer, ok tuşlarıyla gezilir.",
+      "dependencies": [
+        "motion"
+      ],
+      "registryDependencies": [
+        "@snn-ui/snn-foundation",
+        "@snn-ui/snn-motion-tokens"
+      ],
+      "files": [
+        {
+          "path": "registry/components/segmented-control/segmented-control.module.css",
+          "type": "registry:component",
+          "target": "@components/snn/segmented-control/segmented-control.module.css"
+        },
+        {
+          "path": "registry/components/segmented-control/segmented-control.tsx",
+          "type": "registry:component",
+          "target": "@components/snn/segmented-control/segmented-control.tsx"
+        }
+      ],
+      "meta": {
+        "arcCommit": "bfdf7e8",
+        "arcSource": "registry/components/segmented-control"
+      }
+    },
+    {
+      "name": "drawer",
+      "type": "registry:ui",
+      "title": "Çekmece",
+      "description": "Kenardan kayarak gelen yan panel; başlık çubuğundan sürüklenip kapatılır, Escape ve dışarı tıklama da kapatır.",
+      "dependencies": [
+        "@radix-ui/react-dialog",
+        "lucide-react",
+        "motion"
+      ],
+      "registryDependencies": [
+        "@snn-ui/snn-foundation",
+        "@snn-ui/snn-motion-tokens"
+      ],
+      "files": [
+        {
+          "path": "registry/components/drawer/drawer.module.css",
+          "type": "registry:component",
+          "target": "@components/snn/drawer/drawer.module.css"
+        },
+        {
+          "path": "registry/components/drawer/drawer.tsx",
+          "type": "registry:component",
+          "target": "@components/snn/drawer/drawer.tsx"
+        }
+      ],
+      "meta": {
+        "arcCommit": "bfdf7e8",
+        "arcSource": "registry/components/drawer"
+      }
+    },
+    {
+      "name": "combobox",
+      "type": "registry:ui",
+      "title": "Aramalı seçim",
+      "description": "Yazarak süzülen açılır liste; ok tuşları, Enter ve Escape ile kullanılır. Türkçe aramada \"İstanbul\", \"Istanbul\" ve \"istanbul\" aynı sonucu bulur.",
+      "dependencies": [
+        "@snn/abacus-core@github:sinanbocek/SNN-Abacus-Core#semver:^4.3.0",
+        "lucide-react",
+        "motion"
+      ],
+      "registryDependencies": [
+        "@snn-ui/snn-foundation",
+        "@snn-ui/snn-motion-tokens"
+      ],
+      "files": [
+        {
+          "path": "registry/components/combobox/combobox.module.css",
+          "type": "registry:component",
+          "target": "@components/snn/combobox/combobox.module.css"
+        },
+        {
+          "path": "registry/components/combobox/combobox.tsx",
+          "type": "registry:component",
+          "target": "@components/snn/combobox/combobox.tsx"
+        }
+      ],
+      "meta": {
+        "arcCommit": "bfdf7e8",
+        "arcSource": "registry/components/combobox"
+      }
+    },
+    {
+      "name": "avatar",
+      "type": "registry:ui",
+      "title": "Kişi simgesi",
+      "description": "Fotoğraf ya da ad baş harfleri; isteğe bağlı çevrimiçi/çevrimdışı noktası. Fotoğraf yüklenemezse baş harflere döner.",
+      "dependencies": [
+        "@snn/abacus-core@github:sinanbocek/SNN-Abacus-Core#semver:^4.3.0",
+        "motion"
+      ],
+      "registryDependencies": [
+        "@snn-ui/snn-foundation",
+        "@snn-ui/snn-motion-tokens"
+      ],
+      "files": [
+        {
+          "path": "registry/components/avatar/avatar.module.css",
+          "type": "registry:component",
+          "target": "@components/snn/avatar/avatar.module.css"
+        },
+        {
+          "path": "registry/components/avatar/avatar.tsx",
+          "type": "registry:component",
+          "target": "@components/snn/avatar/avatar.tsx"
+        }
+      ],
+      "meta": {
+        "arcCommit": "bfdf7e8",
+        "arcSource": "registry/components/avatar"
+      }
     }
   ]
 }

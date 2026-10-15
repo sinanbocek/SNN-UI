@@ -49,7 +49,7 @@ const importPath = name => `@/components/snn/${name}/${name}`;
 const rows = components.map(item =>
   `| \`${item.name}\` | ${item.title} | ${item.description}${item.note ? ` ${item.note}` : ""} | \`npx shadcn@latest add ${NAMESPACE}/${item.name}\` |`);
 const examples = components.map(item =>
-  `### ${item.title} (\`${item.name}\`)\n\n\`\`\`tsx\nimport { ${item.exportName.split(" (")[0].replace("Toast", "default as Toast")} } from "${importPath(item.name)}";\n\n${item.use}\n\`\`\``);
+  `### ${item.title} (\`${item.name}\`)\n\n\`\`\`tsx\nimport ${item.defaultExport ? item.exportName.split(" (")[0] : `{ ${item.exportName.split(" (")[0].replace("Toast", "default as Toast")} }`} from "${importPath(item.name)}";\n\n${item.use}\n\`\`\``);
 
 const catalog = `# SNN-UI kataloğu (AI için)
 
