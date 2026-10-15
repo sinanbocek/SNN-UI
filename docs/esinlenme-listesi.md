@@ -19,7 +19,7 @@ Kural: `SNN-Standartlar/standartlar/arayuz-standardi.md` §2.1. Fikir serbest, k
 | availability-picker | https://uiarc.dev/components/blocks/availability-picker | 1 | tarif yazıldı |
 | project-board | https://uiarc.dev/components/blocks/project-board | 1 | tarif yazıldı |
 | kanban-board | https://uiarc.dev/components/blocks/kanban-board | 1 | tarif yazıldı |
-| release-readiness | https://uiarc.dev/components/blocks/release-readiness | 1 | tarif yazıldı |
+| release-readiness | https://uiarc.dev/components/blocks/release-readiness | 1 | yazıldı |
 | multi-step-form | https://uiarc.dev/components/blocks/multi-step-form | 1 | tarif yazıldı |
 
 ## Dalga 2 — grafik ve finans (ABACUS gerekir)

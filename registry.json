@@ -1173,6 +1173,42 @@
         "arcCommit": "bfdf7e8",
         "arcSource": "registry/components/inbox-triage"
       }
+    },
+    {
+      "name": "release-readiness",
+      "type": "registry:ui",
+      "title": "Yayına hazırlık listesi",
+      "description": "Blok: bir iş yapılmadan önce tamamlanması gereken kontroller. Sayaç (\"3 kontrol kaldı\" / \"Hazır\") ve ilerleme çubuğu, iki sütunlu kontrol satırları, isteğe bağlı \"ilgilileri bilgilendir\" anahtarı ve hepsi işaretlenince açılan ana eylem düğmesi. Pasif düğmenin nedeni yazıyla söylenir. Yükleniyor, çalışıyor, başarı, hata (\"Yeniden dene\") ve dar kolon durumları vardır.",
+      "dependencies": [
+        "motion"
+      ],
+      "registryDependencies": [
+        "@snn-ui/snn-foundation",
+        "@snn-ui/snn-motion-tokens",
+        "@snn-ui/avatar",
+        "@snn-ui/button",
+        "@snn-ui/checkbox",
+        "@snn-ui/progress",
+        "@snn-ui/skeleton",
+        "@snn-ui/switch",
+        "@snn-ui/tooltip"
+      ],
+      "files": [
+        {
+          "path": "registry/components/release-readiness/release-readiness.module.css",
+          "type": "registry:component",
+          "target": "@components/snn/release-readiness/release-readiness.module.css"
+        },
+        {
+          "path": "registry/components/release-readiness/release-readiness.tsx",
+          "type": "registry:component",
+          "target": "@components/snn/release-readiness/release-readiness.tsx"
+        }
+      ],
+      "meta": {
+        "arcCommit": "bfdf7e8",
+        "arcSource": "registry/components/release-readiness"
+      }
     }
   ]
 }

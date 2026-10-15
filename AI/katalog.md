@@ -77,6 +77,7 @@ Gereken paketler: React 19, `motion`; bazı bileşenlerde Radix ve `lucide-react
 | `team-directory` | Ekip rehberi | Blok: solda aranabilir kişi listesi (ad ve göreve göre), üstte sayılı ekip süzgeç düğmeleri, sağda seçili kişinin profil paneli (durum, ekip, üzerinde çalıştığı iş, konum, e-posta ve Kopyala). Kayan vurgular, süzülen satırlar. Boş sonuç, yükleniyor, hata ve dar kolon durumları vardır. Kişi listesini proje verir; yerel saat gibi metinler hazır gelir (ABACUS `date`). Arama Türkçe harf farkı gözetmez (`text.searchKey`). Yüzlerce kişide süzmeyi ve sayfalamayı sunucuya taşımak projenin işidir. Rol atama için `team-members` kullanılır. Arc Pro team-directory'den esinlenildi (tarif: docs/tarifler/team-directory.md). | `npx shadcn@latest add @snn-ui/team-directory` |
 | `roles-permissions` | Roller ve izinler | Blok: satırlar izin, sütunlar rol olan matris. İzinler katlanabilir gruplarda; grup kutusu hepsini dalga gibi açar ve karışık durumu (çizgili) gösterir. Sahip sütunu kilitlidir. Ok tuşlu tek durak gezinme, üzerinde durulan sütun vurgusu, rol menüsü, değişiklik özetli inceleme çubuğu. Boş, yükleniyor, kaydetme hatası ve dar ekran (sabit izin sütunu, yana kayan tablo) durumları vardır. İzin gruplarını, rolleri ve gerçek kaydı proje verir; blok değişen (rol, izin, verildi mi) çiftlerini `onSave`'e iletir, reddedilirse çubukta "Yeniden dene" çıkar. İzinlerin uygulanması projenin yetkilendirme sistemindedir. Kişiye rol atama için `team-members` kullanılır. Arc Pro roles-permissions'tan esinlenildi (tarif: docs/tarifler/roles-permissions.md). | `npx shadcn@latest add @snn-ui/roles-permissions` |
 | `inbox-triage` | Gelen kutusu ayıklama | Blok: karar bekleyen mesaj kuyruğu. Gelen, Ertelenen ve Arşiv sekmeleri (sayılı), yerinde açılan satırlar, "yalnız okunmamışlar" süzgeci, tek tuş kısayolları (E arşivle, S ertele, U geri al) ve geri alınabilir son hamle durum satırı. Hamleden sonra odak sonraki satıra geçer. Her klasör için ayrı boş durum, yükleniyor, taşıma hatası ("Yeniden dene") ve dar kolon (iki satırlı satır) durumları vardır. Mesajları ve zaman metnini ("09.42", "Dün") proje verir (ABACUS `date`); blok yalnız hamle olaylarını (`onMove`) ve okunma olayını iletir, gerçek veri servisini proje bağlar. Hamle reddedilirse mesaj eski klasörüne döner. Mesaj yazma, etiket ve sistem bildirimleri kapsam dışıdır. Arc Pro inbox-triage'dan esinlenildi (tarif: docs/tarifler/inbox-triage.md). | `npx shadcn@latest add @snn-ui/inbox-triage` |
+| `release-readiness` | Yayına hazırlık listesi | Blok: bir iş yapılmadan önce tamamlanması gereken kontroller. Sayaç ("3 kontrol kaldı" / "Hazır") ve ilerleme çubuğu, iki sütunlu kontrol satırları, isteğe bağlı "ilgilileri bilgilendir" anahtarı ve hepsi işaretlenince açılan ana eylem düğmesi. Pasif düğmenin nedeni yazıyla söylenir. Yükleniyor, çalışıyor, başarı, hata ("Yeniden dene") ve dar kolon durumları vardır. Kontrol listesini ve son eylemi proje verir; kontrollerin otomatik doğrulanması (CI sonucu okumak gibi) projenin işidir. Eylem reddedilirse satır içi uyarı çıkar ve düğme "Yeniden dene" olur. Çok adımlı akış için `multi-step-form` kullanılır. Arc Pro release-readiness'tan esinlenildi (tarif: docs/tarifler/release-readiness.md). | `npx shadcn@latest add @snn-ui/release-readiness` |
 
 ## Kullanım örnekleri
 
@@ -366,6 +367,14 @@ import { RolesPermissions } from "@/components/snn/roles-permissions/roles-permi
 import { InboxTriage } from "@/components/snn/inbox-triage/inbox-triage";
 
 <InboxTriage messages={messages} onMove={moveMessage} onRead={markRead} />
+```
+
+### Yayına hazırlık listesi (`release-readiness`)
+
+```tsx
+import { ReleaseReadiness } from "@/components/snn/release-readiness/release-readiness";
+
+<ReleaseReadiness title="Sürüm 2.4" checks={checks} channel="Teklif ekibi" actionLabel="Yayını başlat" onAction={start} />
 ```
 
 ## Bu rafta olmayanlar

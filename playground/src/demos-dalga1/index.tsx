@@ -7,9 +7,12 @@ import { RolesPermissionsDemo } from "./roles-permissions";
 
 import { InboxTriageDemo } from "./inbox-triage";
 
+import { ReleaseReadinessDemo } from "./release-readiness";
+
 export const dalga1Demos: Record<string, () => ReactNode> = {
   "settings-command": () => <SettingsCommandDemo />,
   "team-directory": () => <TeamDirectoryDemo />,
   "roles-permissions": () => <RolesPermissionsDemo />,
   "inbox-triage": () => <InboxTriageDemo />,
+  "release-readiness": () => <ReleaseReadinessDemo />,
 };
