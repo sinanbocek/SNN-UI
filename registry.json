@@ -1372,6 +1372,52 @@
         "arcCommit": "bfdf7e8",
         "arcSource": "registry/components/project-board"
       }
+    },
+    {
+      "name": "kanban-board",
+      "type": "registry:ui",
+      "title": "Sürükle-bırak iş panosu",
+      "description": "Blok: kartlar sütunlar arasında sürükle-bırakla taşınır. Kaldırılan kart imleci izler ve hızına göre hafifçe yatar, bırakılacağı yerde boşluk açılır; pano kenarında otomatik kayar, dokunmatikte kısa basıştan sonra başlar. Klavyeyle de taşınır (Boşluk kaldırır, ok tuşları taşır, Boşluk bırakır, Esc vazgeçer) ve her adım ekran okuyucuya duyurulur. Sütunlara iş sınırı konabilir (\"3/3\", aşılınca \"İş sınırı aşıldı.\"). \"Durum / Şerit\" görünümü (şeritte kişiye göre), sütunda \"Kart ekle\", Enter ile açılan ayrıntı çekmecesi (başlık, atanan, bitiş, etiket, puan, kontrol listesi). Boş sütun, hiç kart yok, yükleniyor, kayıt hatası (\"Yeniden dene\") ve dar kolon durumları vardır.",
+      "dependencies": [
+        "@snn/abacus-core@github:sinanbocek/SNN-Abacus-Core#semver:^4.3.0",
+        "lucide-react",
+        "motion"
+      ],
+      "registryDependencies": [
+        "@snn-ui/snn-foundation",
+        "@snn-ui/snn-motion-tokens",
+        "@snn-ui/avatar",
+        "@snn-ui/button",
+        "@snn-ui/checkbox",
+        "@snn-ui/drawer",
+        "@snn-ui/empty-state",
+        "@snn-ui/input",
+        "@snn-ui/segmented-control",
+        "@snn-ui/select",
+        "@snn-ui/skeleton",
+        "@snn-ui/snn-pointer-drag"
+      ],
+      "files": [
+        {
+          "path": "registry/components/kanban-board/kanban-board.module.css",
+          "type": "registry:component",
+          "target": "@components/snn/kanban-board/kanban-board.module.css"
+        },
+        {
+          "path": "registry/components/kanban-board/kanban-board.tsx",
+          "type": "registry:component",
+          "target": "@components/snn/kanban-board/kanban-board.tsx"
+        },
+        {
+          "path": "registry/components/kanban-board/kanban-logic.ts",
+          "type": "registry:component",
+          "target": "@components/snn/kanban-board/kanban-logic.ts"
+        }
+      ],
+      "meta": {
+        "arcCommit": "bfdf7e8",
+        "arcSource": "registry/components/kanban-board"
+      }
     }
   ]
 }

@@ -17,6 +17,8 @@ import { AvailabilityPickerDemo } from "./availability-picker";
 
 import { ProjectBoardDemo } from "./project-board";
 
+import { KanbanBoardDemo } from "./kanban-board";
+
 export const dalga1Demos: Record<string, () => ReactNode> = {
   "settings-command": () => <SettingsCommandDemo />,
   "team-directory": () => <TeamDirectoryDemo />,
@@ -27,4 +29,5 @@ export const dalga1Demos: Record<string, () => ReactNode> = {
   "week-calendar": () => <WeekCalendarDemo />,
   "availability-picker": () => <AvailabilityPickerDemo />,
   "project-board": () => <ProjectBoardDemo />,
+  "kanban-board": () => <KanbanBoardDemo />,
 };
