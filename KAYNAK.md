@@ -95,3 +95,4 @@ Bu parçalar Arc'tan alınmadı; tariflerinden sıfırdan yazıldı (`arayuz-sta
 | `help-center` | Arc Pro help-center'dan esinlenildi; kod okunmadı; tarif: docs/tarifler/help-center.md | `breadcrumb`, `button`, `empty-state`, `search-field`, `skeleton`, `textarea` |
 | `settings-command` | Arc Pro settings-command'dan esinlenildi; kod okunmadı; tarif: docs/tarifler/settings-command.md | `dialog`, `empty-state`, `input`, `save-bar`, `segmented-control`, `select`, `skeleton`, `switch` |
 | `team-directory` | Arc Pro team-directory'dan esinlenildi; kod okunmadı; tarif: docs/tarifler/team-directory.md | `avatar`, `button`, `empty-state`, `search-field`, `skeleton`, `tooltip` |
+| `roles-permissions` | Arc Pro roles-permissions'dan esinlenildi; kod okunmadı; tarif: docs/tarifler/roles-permissions.md | `avatar`, `button`, `checkbox`, `dropdown-menu`, `empty-state`, `skeleton`, `tooltip` |

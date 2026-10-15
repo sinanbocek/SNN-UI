@@ -1100,6 +1100,43 @@
         "arcCommit": "bfdf7e8",
         "arcSource": "registry/components/team-directory"
       }
+    },
+    {
+      "name": "roles-permissions",
+      "type": "registry:ui",
+      "title": "Roller ve izinler",
+      "description": "Blok: satırlar izin, sütunlar rol olan matris. İzinler katlanabilir gruplarda; grup kutusu hepsini dalga gibi açar ve karışık durumu (çizgili) gösterir. Sahip sütunu kilitlidir. Ok tuşlu tek durak gezinme, üzerinde durulan sütun vurgusu, rol menüsü, değişiklik özetli inceleme çubuğu. Boş, yükleniyor, kaydetme hatası ve dar ekran (sabit izin sütunu, yana kayan tablo) durumları vardır.",
+      "dependencies": [
+        "lucide-react",
+        "motion"
+      ],
+      "registryDependencies": [
+        "@snn-ui/snn-foundation",
+        "@snn-ui/snn-motion-tokens",
+        "@snn-ui/avatar",
+        "@snn-ui/button",
+        "@snn-ui/checkbox",
+        "@snn-ui/dropdown-menu",
+        "@snn-ui/empty-state",
+        "@snn-ui/skeleton",
+        "@snn-ui/tooltip"
+      ],
+      "files": [
+        {
+          "path": "registry/components/roles-permissions/roles-permissions.module.css",
+          "type": "registry:component",
+          "target": "@components/snn/roles-permissions/roles-permissions.module.css"
+        },
+        {
+          "path": "registry/components/roles-permissions/roles-permissions.tsx",
+          "type": "registry:component",
+          "target": "@components/snn/roles-permissions/roles-permissions.tsx"
+        }
+      ],
+      "meta": {
+        "arcCommit": "bfdf7e8",
+        "arcSource": "registry/components/roles-permissions"
+      }
     }
   ]
 }

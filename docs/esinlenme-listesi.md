@@ -12,7 +12,7 @@ Kural: `SNN-Standartlar/standartlar/arayuz-standardi.md` §2.1. Fikir serbest, k
 | search-results | https://uiarc.dev/components/blocks/search-results | 1 | yazıldı |
 | team-members | https://uiarc.dev/components/blocks/team-members | 1 | yazıldı |
 | team-directory | https://uiarc.dev/components/blocks/team-directory | 1 | yazıldı |
-| roles-permissions | https://uiarc.dev/components/blocks/roles-permissions | 1 | tarif yazıldı |
+| roles-permissions | https://uiarc.dev/components/blocks/roles-permissions | 1 | yazıldı |
 | inbox-triage | https://uiarc.dev/components/blocks/inbox-triage | 1 | tarif yazıldı |
 | help-center | https://uiarc.dev/components/blocks/help-center | 1 | yazıldı |
 | week-calendar | https://uiarc.dev/components/blocks/week-calendar | 1 | tarif yazıldı |

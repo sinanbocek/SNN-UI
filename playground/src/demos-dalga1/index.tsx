@@ -3,7 +3,10 @@ import type { ReactNode } from "react";
 import { SettingsCommandDemo } from "./settings-command";
 import { TeamDirectoryDemo } from "./team-directory";
 
+import { RolesPermissionsDemo } from "./roles-permissions";
+
 export const dalga1Demos: Record<string, () => ReactNode> = {
   "settings-command": () => <SettingsCommandDemo />,
   "team-directory": () => <TeamDirectoryDemo />,
+  "roles-permissions": () => <RolesPermissionsDemo />,
 };
