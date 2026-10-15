@@ -3,7 +3,7 @@
 import { useCallback, useEffect, useRef, useState, type KeyboardEvent, type PointerEvent, type ReactNode } from "react";
 import { AnimatePresence, animate, motion, useMotionValue, useTransform, type MotionValue } from "motion/react";
 import { motionTokens } from "../lib/motion-tokens";
-import { Photo, useAnnouncer } from "../lib/shop-parts";
+import { FramedPhoto, useAnnouncer } from "../lib/shop-parts";
 import { useElementWidth, useReducedMotionSafe } from "../lib/viz-utils";
 import { coverTransform, dragToPosition, liveText, railKey, reducedStep, settleIndex, slideLabel, tickLabel } from "./cover-flow-format";
 import styles from "./cover-flow.module.css";
@@ -47,7 +47,7 @@ function Slide({ item, index, count, position, active, reduced, onPick, reach }:
   return <motion.div className={styles.slide} style={{ x, scale, rotateY, zIndex, visibility }} role="group" aria-roledescription="slayt" aria-label={slideLabel(index, count, item.title)} aria-hidden={!active || undefined} data-active={active || undefined}>
     <button type="button" className={styles.frame} tabIndex={-1} aria-label={active ? undefined : tickLabel(item.title)} onClick={onPick} disabled={active}>
       <motion.span className={styles.media} style={{ x: inner }}>
-        <Photo src={item.src} position={item.position} alt={active ? item.alt : ""} ratio="26 / 25" tone={item.tone} initial={Array.from(item.title.trim())[0]} eager={Math.abs(index) < 3} className={styles.photo} />
+        <FramedPhoto src={item.src} position={item.position} alt={active ? item.alt : ""} ratio="26 / 25" tone={item.tone} initial={Array.from(item.title.trim())[0]} eager={Math.abs(index) < 3} className={styles.photo} />
       </motion.span>
       <motion.span className={styles.shade} style={{ opacity: shade }} aria-hidden="true" />
     </button>

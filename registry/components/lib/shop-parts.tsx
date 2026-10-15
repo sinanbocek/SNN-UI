@@ -19,7 +19,7 @@ export function Placeholder({ tone = 0, label, ratio = "4 / 5", className, child
  * Oran kutulu fotoğraf: `ratio` kadar yer ayırır (sayfa zıplamaz), `object-fit: cover` ile doldurur, yüklenirken iskelet gösterir,
  * adres yoksa ya da açılmazsa yer tutucuya döner. `position` odak noktasıdır (örneğin "left center").
  */
-export function Photo({ src, alt, ratio = "4 / 5", position, tone, initial, eager, className, onClick }: { src?: string; alt: string; ratio?: string; position?: string; tone?: number; initial?: string; eager?: boolean; className?: string; onClick?: () => void }) {
+export function FramedPhoto({ src, alt, ratio = "4 / 5", position, tone, initial, eager, className, onClick }: { src?: string; alt: string; ratio?: string; position?: string; tone?: number; initial?: string; eager?: boolean; className?: string; onClick?: () => void }) {
   const [state, setState] = useState<"loading" | "ready" | "failed">("loading");
   const image = useRef<HTMLImageElement | null>(null);
   useEffect(() => { setState("loading"); }, [src]);

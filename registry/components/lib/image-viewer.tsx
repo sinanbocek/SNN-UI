@@ -4,7 +4,7 @@ import { useCallback, useEffect, useLayoutEffect, useRef, useState, type Keyboar
 import * as DialogPrimitive from "@radix-ui/react-dialog";
 import { AnimatePresence, animate, motion, useMotionValue, useTransform } from "motion/react";
 import { motionTokens } from "./motion-tokens";
-import { Placeholder, srOnly } from "./shop-parts";
+import { FramedPhoto, Placeholder, srOnly } from "./shop-parts";
 import { useReducedMotionSafe } from "./viz-utils";
 import { MIN_ZOOM, clampPan, clampZoom, counterText, fitRect, panLimit, pinchZoom, pullCloses, swipeStep, zoomAround, zoomIn, zoomOut, type Rect, type ViewerImage } from "./image-viewer-format";
 import styles from "./image-viewer.module.css";
@@ -207,7 +207,7 @@ export function ImageViewer({ images, index, onIndexChange, onClose, getOrigin, 
             {(current.title || current.caption) && <footer className={styles.caption} style={{ bottom: filmstrip && images.length > 1 ? 88 : 12 }}>{current.title && <b>{current.title}</b>}{current.caption && <span>{current.caption}</span>}</footer>}
             {filmstrip && images.length > 1 && <ul className={styles.film} aria-label="Küçük resimler">{images.map((image, at) => <li key={image.id}>
               <button type="button" className={styles.thumb} aria-current={at === index || undefined} aria-label={`${at + 1}. fotoğraf: ${image.title ?? image.alt}`} onClick={() => go(at)} ref={node => { if (node && at === index) node.scrollIntoView?.({ inline: "center", block: "nearest" }); }}>
-                {image.src ? <img src={image.src} alt="" loading="lazy" /> : <Placeholder tone={image.tone} label="" ratio="1 / 1" />}
+                <FramedPhoto src={image.src} alt="" ratio="1 / 1" position={image.position} tone={image.tone} initial="" />
               </button>
             </li>)}</ul>}
           </motion.div>

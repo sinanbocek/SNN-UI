@@ -7,7 +7,7 @@ import { Button } from "../button/button";
 import { ImageViewer, type Rect } from "../lib/image-viewer";
 import { type ViewerImage } from "../lib/image-viewer-format";
 import { motionTokens } from "../lib/motion-tokens";
-import { Placeholder, useAnnouncer } from "../lib/shop-parts";
+import { FramedPhoto, useAnnouncer } from "../lib/shop-parts";
 import { useReducedMotionSafe } from "../lib/viz-utils";
 import { DEFAULT_LEVEL, HINT, LEVELS, cellLabel, favoriteLabel, gridFocus, nearestLevel, pinchColumns, stepLevel } from "./photo-grid-format";
 import styles from "./photo-grid.module.css";
@@ -137,7 +137,7 @@ export function PhotoGrid({ title, images, defaultFavorites = [], onFavoriteChan
             const favorite = favorites.includes(image.id);
             return <button key={image.id} ref={node => { cells.current[index] = node; }} type="button" className={styles.cell} tabIndex={index === focus ? 0 : -1} aria-label={cellLabel(image.title ?? image.alt, favorite)}
               onFocus={() => setFocus(index)} onKeyDown={event => key(event, index)} onClick={() => setOpen(index)}>
-              {image.src ? <img src={image.src} alt="" width={image.width} height={image.height} loading="lazy" draggable={false} /> : <Placeholder tone={image.tone} label="" ratio="1 / 1" className={styles.photo} />}
+              <FramedPhoto src={image.src} alt="" ratio="1 / 1" position={image.position} tone={image.tone} initial="" className={styles.photo} />
               <AnimatePresence>{favorite && <motion.span key="heart" className={styles.heart} aria-hidden="true" initial={reduced ? false : { opacity: 0, scale: .5, filter: `blur(${motionTokens.blur.subtle}px)` }} animate={{ opacity: 1, scale: 1, filter: "blur(0px)" }} exit={{ opacity: 0, scale: .5 }} transition={reduced ? { duration: 0 } : motionTokens.spring.snappy}>♥</motion.span>}</AnimatePresence>
             </button>;
           })}

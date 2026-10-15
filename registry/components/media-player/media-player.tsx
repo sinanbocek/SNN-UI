@@ -4,7 +4,7 @@ import { useEffect, useId, useRef, useState } from "react";
 import { AnimatePresence, motion } from "motion/react";
 import { Button } from "../button/button";
 import { motionTokens } from "../lib/motion-tokens";
-import { Photo, useAnnouncer } from "../lib/shop-parts";
+import { FramedPhoto, useAnnouncer } from "../lib/shop-parts";
 import { useReducedMotionSafe } from "../lib/viz-utils";
 import { afterEnd, clock, clockPair, muteLabel, neighbour, playLabel, volumeText, type Track } from "./media-player-format";
 import styles from "./media-player.module.css";
@@ -75,7 +75,7 @@ export function MediaPlayer({ tracks, defaultIndex = 0, defaultVolume = .7, onTr
     <div className={styles.now}>
       <div className={styles.cover}>
         <AnimatePresence mode="popLayout" initial={false}><motion.div key={track.id} initial={reduced ? false : { opacity: 0 }} animate={{ opacity: 1 }} exit={{ opacity: 0 }} transition={swap}>
-          <Photo src={track.cover} alt="" ratio="1 / 1" tone={track.tone ?? 0} initial={Array.from(track.title.trim())[0]} eager className={styles.coverImg} />
+          <FramedPhoto src={track.cover} alt="" ratio="1 / 1" tone={track.tone ?? 0} initial={Array.from(track.title.trim())[0]} eager className={styles.coverImg} />
         </motion.div></AnimatePresence>
       </div>
       <div className={styles.meta}>

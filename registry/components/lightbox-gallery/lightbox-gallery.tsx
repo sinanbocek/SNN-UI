@@ -3,7 +3,7 @@
 import { useMemo, useRef, useState } from "react";
 import { ImageViewer, type Rect } from "../lib/image-viewer";
 import { openText, type ViewerImage } from "../lib/image-viewer-format";
-import { Placeholder } from "../lib/shop-parts";
+import { FramedPhoto } from "../lib/shop-parts";
 import { useElementWidth, useReducedMotionSafe } from "../lib/viz-utils";
 import { DEFAULT_LABEL, assignColumns, galleryCountText, masonryColumns } from "./lightbox-gallery-format";
 import styles from "./lightbox-gallery.module.css";
@@ -37,7 +37,7 @@ export function LightboxGallery({ images, label = DEFAULT_LABEL, minColumnWidth 
       : <div className={styles.wall} style={{ gap }}>{lanes.map((lane, at) => <div key={at} className={styles.lane} style={{ gap }}>{lane.map(index => {
         const image = images[index]!;
         return <button key={image.id} ref={node => { cells.current[index] = node; }} type="button" className={styles.cell} aria-label={openText(image, index, images.length)} onClick={() => setOpen(index)}>
-          {image.src ? <img className={styles.photo} src={image.src} alt={image.alt} width={image.width} height={image.height} loading="lazy" draggable={false} /> : <Placeholder tone={image.tone} label={image.alt} ratio={`${image.width} / ${image.height}`} className={styles.photo} />}
+          <FramedPhoto src={image.src} alt={image.alt} ratio={`${image.width} / ${image.height}`} position={image.position} tone={image.tone} initial="" className={styles.photo} />
         </button>;
       })}</div>)}</div>}
     <ImageViewer images={images} index={open} onIndexChange={setOpen} getOrigin={origin} label={label}

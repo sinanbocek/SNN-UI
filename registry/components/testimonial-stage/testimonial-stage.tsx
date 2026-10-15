@@ -3,7 +3,7 @@
 import { useId, useRef, useState, type KeyboardEvent } from "react";
 import { AnimatePresence, motion } from "motion/react";
 import { motionTokens } from "../lib/motion-tokens";
-import { Photo, useAnnouncer } from "../lib/shop-parts";
+import { FramedPhoto, useAnnouncer } from "../lib/shop-parts";
 import { useElementWidth, useReducedMotionSafe } from "../lib/viz-utils";
 import { directionOf, initials, liveText, portraitLabel, tabLabel, wrapIndex } from "./testimonial-stage-format";
 import styles from "./testimonial-stage.module.css";
@@ -32,7 +32,7 @@ export interface TestimonialStageProps {
 }
 
 function Portrait({ person }: { person: Testimonial }) {
-  return <Photo src={person.portrait} position={person.portraitPosition ?? "50% 25%"} alt={portraitLabel(person.name, person.role)} ratio="4 / 5" tone={person.tone} initial={initials(person.name)} className={styles.portrait} />;
+  return <FramedPhoto src={person.portrait} position={person.portraitPosition ?? "50% 25%"} alt={portraitLabel(person.name, person.role)} ratio="4 / 5" tone={person.tone} initial={initials(person.name)} className={styles.portrait} />;
 }
 
 export function TestimonialStage({ title, people, onSelect, loading = false }: TestimonialStageProps) {
