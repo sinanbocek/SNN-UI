@@ -2531,6 +2531,47 @@
         "arcCommit": "bfdf7e8",
         "arcSource": "registry/components/budget-variance"
       }
+    },
+    {
+      "name": "small-multiples",
+      "type": "registry:ui",
+      "title": "Küçük çoklu grafikler",
+      "description": "Blok: aynı ölçünün birkaç serisini (bölge, ürün, plan) her biri küçük bir çizgi grafikte, ızgara düzeninde gösterir. Fareyle, dokunmayla ya da oklarla gezilen tek bir dikey imleç bütün panellerde aynı ayı gösterir; panel başlığında o aydaki değer, trend oku ve geçen yıla göre işaretli büyüme (\"▲ +%12,3\") yazar. Y ekseni \"Bağımsız\" (her panel kendi aralığına sığar) ya da \"Ortak\" (hepsi sıfırdan başlar) olabilir; paneller son değere, büyümeye ya da ada göre sıralanır (yer değiştirerek akar); her panelin arkasında toplamın kesikli izi durur; düz giden seriler soluklaştırılabilir. Tüm ızgara tek Tab durağıdır; ay, toplam ve en yüksek seri canlı bölgede duyurulur, gizli tablo vardır.",
+      "dependencies": [
+        "@snn/abacus-core@github:sinanbocek/SNN-Abacus-Core#semver:^4.3.0",
+        "motion"
+      ],
+      "registryDependencies": [
+        "@snn-ui/snn-foundation",
+        "@snn-ui/snn-motion-tokens",
+        "@snn-ui/segmented-control",
+        "@snn-ui/skeleton",
+        "@snn-ui/snn-chart-format",
+        "@snn-ui/snn-metric-format",
+        "@snn-ui/snn-viz-utils",
+        "@snn-ui/switch"
+      ],
+      "files": [
+        {
+          "path": "registry/components/small-multiples/small-multiples-format.ts",
+          "type": "registry:component",
+          "target": "@components/snn/small-multiples/small-multiples-format.ts"
+        },
+        {
+          "path": "registry/components/small-multiples/small-multiples.module.css",
+          "type": "registry:component",
+          "target": "@components/snn/small-multiples/small-multiples.module.css"
+        },
+        {
+          "path": "registry/components/small-multiples/small-multiples.tsx",
+          "type": "registry:component",
+          "target": "@components/snn/small-multiples/small-multiples.tsx"
+        }
+      ],
+      "meta": {
+        "arcCommit": "bfdf7e8",
+        "arcSource": "registry/components/small-multiples"
+      }
     }
   ]
 }

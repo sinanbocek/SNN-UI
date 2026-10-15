@@ -28,6 +28,7 @@ const FILES = {
   cohort: "registry/components/cohort-retention/cohort-retention-format.ts",
   usage: "registry/components/usage-forecast/usage-forecast-format.ts",
   variance: "registry/components/budget-variance/budget-variance-format.ts",
+  multiples: "registry/components/small-multiples/small-multiples-format.ts",
 };
 const mods = {};
 let temp;
@@ -255,4 +256,22 @@ test("bütçe sapması: tutar etiketi 1250000 TRY, işaretli sapma ve yüzde ABA
   assert.equal(mods.variance.scaleMax([{ budget: 100, actual: 131 }]), 1.4);
   const dept = mods.variance.resolveDepartment({ key: "a", name: "A", items: [{ key: "1", name: "x", budget: 10, actual: 12 }, { key: "2", name: "y", budget: 5, actual: 4 }] });
   assert.deepEqual([dept.budget, dept.actual], [15, 16]);
+});
+
+test("küçük çoklu grafikler: büyüme, trend, ad sıralaması ve ay etiketi ABACUS çıktısıdır", () => {
+  assert.equal(mods.multiples.growthText(12.3), money.percent(12.3, 1, { sign: "always" }));
+  assert.equal(mods.multiples.growthText(-4), money.percent(-4, 1, { sign: "always" }));
+  assert.equal(mods.multiples.growthText(null), "—");
+  const values = Array.from({ length: 13 }, (_, at) => 100 + at * 10);
+  assert.equal(mods.multiples.growthAt(values, 12), math.percentChange(220, 100));
+  assert.equal(mods.multiples.growthAt(values, 5), null);
+  assert.equal(mods.multiples.trendOf(1.5), "flat");
+  assert.equal(mods.multiples.trendOf(-8), "down");
+  assert.equal(mods.multiples.trendOf(null), "none");
+  assert.equal(mods.multiples.periodLabel("2026-09"), "Eylül 2026");
+  const series = [{ key: "a", label: "Şanlıurfa", values: [1] }, { key: "b", label: "İzmir", values: [3] }, { key: "c", label: "Ankara", values: [2] }];
+  assert.deepEqual(mods.multiples.sortSeries(series, "name", 0).map(item => item.key), ["c", "b", "a"]);
+  assert.deepEqual(mods.multiples.sortSeries(series, "last", 0).map(item => item.key), ["b", "c", "a"]);
+  assert.deepEqual(mods.multiples.totals(series, 1), [6]);
+  assert.deepEqual(mods.multiples.domainFor(series[0], series, "shared"), [0, 3]);
 });

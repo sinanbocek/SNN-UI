@@ -44,7 +44,7 @@ Kural: `SNN-Standartlar/standartlar/arayuz-standardi.md` §2.1. Fikir serbest, k
 | cohort-retention | https://uiarc.dev/components/blocks/cohort-retention | 2 | yazıldı |
 | usage-forecast | https://uiarc.dev/components/blocks/usage-forecast | 2 | yazıldı |
 | budget-variance | https://uiarc.dev/components/blocks/budget-variance | 2 | yazıldı |
-| small-multiples | https://uiarc.dev/components/blocks/small-multiples | 2 | tarif yazıldı |
+| small-multiples | https://uiarc.dev/components/blocks/small-multiples | 2 | yazıldı |
 | line-replay | https://uiarc.dev/components/blocks/line-replay | 2 | tarif yazıldı |
 | market-terminal | https://uiarc.dev/components/blocks/market-terminal | 2 | tarif yazıldı |
 | journey-flow | https://uiarc.dev/components/blocks/journey-flow | 2 | tarif yazıldı |
