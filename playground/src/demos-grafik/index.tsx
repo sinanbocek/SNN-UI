@@ -14,6 +14,7 @@ import { WaffleChartDemo } from "./waffle-chart";
 import { BrushChartDemo } from "./brush-chart";
 import { ActivityHeatmapDemo } from "./activity-heatmap";
 import { StreamgraphDemo } from "./streamgraph";
+import { RidgelineDemo } from "./ridgeline";
 
 export const grafikDemos: Record<string, () => ReactNode> = {
   "animated-counter": () => <AnimatedCounterDemo />,
@@ -30,4 +31,5 @@ export const grafikDemos: Record<string, () => ReactNode> = {
   "brush-chart": () => <BrushChartDemo />,
   "activity-heatmap": () => <ActivityHeatmapDemo />,
   "streamgraph": () => <StreamgraphDemo />,
+  "ridgeline": () => <RidgelineDemo />,
 };

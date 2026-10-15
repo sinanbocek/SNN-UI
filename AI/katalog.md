@@ -97,6 +97,7 @@ Gereken paketler: React 19, `motion`; bazı bileşenlerde Radix ve `lucide-react
 | `brush-chart` | Fırça grafiği | Uzun ve yoğun bir zaman serisinde hem tüm geçmişi hem de herhangi bir kesitine yakından bakmayı sağlar: altta tüm serinin genel bakış şeridi, üstte seçili pencerenin büyük grafiği. Pencere kenarlarından boyutlandırılır, tutulup kaydırılır, boş izden yenisi çizilir (dokunma yeniden ortalar, çift dokunma sıfırlar); klavyeyle de gezilir. Uzaklaşınca yedi günlük ortalama ve bandı ham çizginin yerini alır; olaylar işaretlenir. Tarihler Türkçedir ("15 Ekim 2026 Per"). Veri `{ date, value }` dizisidir (artan sırada; `date` Date ya da epoch milisaniyesi, günlük aralıklar UTC gününe göre okunur). Tarih etiketleri ABACUS `date` ile (gün adı, ay adı, "15.10.2026"), değerler ABACUS sayı biçimiyle yazılır; `formatValue`, `formatTick`, `formatDate` ile değiştirilir. Renkler `snn-chart-palette`tir (mavi ve menekşe); amber yok. Pencereyi `range` / `onRangeChange` ile dışarıdan yönetebilirsiniz. | `npx shadcn@latest add @snn-ui/brush-chart` |
 | `activity-heatmap` | Etkinlik takvimi | Gün başına bir kare, haftalar sütun: günün ne kadar yoğun olduğunu dört vurgu tonu söyler. Ritim, seri ve sakin haftalar kesin karşılaştırmadan önemli olduğunda kullanılır. Üstte dönen rakamlı özet ("1.284 katkı 2025 yılında"); kareler görününce dalga olur, ipucu hücreler arasında süzülür, yeni aralık ızgarayı süpürerek yeniden renklendirir. Oklarla gün ve hafta gezilir, Enter seçer; gösterge düzeyleri ızgarada önizler ve sabitler. Dar ekranda yana kayar. Gün verisi `{ date: "2025-03-14", count }` biçimindedir (ISO). Tarih ve gün adları ABACUS `date` ile ("15 Ekim 2026 Perşembe", "Eki", "Per"), sayılar `money.fmtDecimalGrouped` ile ("1.284") yazılır; Arc'ın `locale` prop'u kaldırıldı. `period` özet cümlesini tamamlar ("2025 yılında"). `unit` Türkçede çoğul almadığı için `{ one, other }` aynıdır. Renkler vurgunun tonlarıdır (`--series-*` gerekmez). | `npx shadcn@latest add @snn-ui/activity-heatmap` |
 | `streamgraph` | Akış grafiği | Birkaç parçanın karışımının zamanla nasıl değiştiğini, genel biçim kesin değerlerden önemli olduğunda gösterir: katmanlar merkezden dışa, akıcı bir şerit olarak dizilir. Katmanlar yeni veriye ve gizlemeye akarak uyar, ilk görünüşte merkezden kabarır. Katman adları yeterince kalın kesitte doğrudan yazılır; üzerine gelinen katman öne çıkar, ipucu o zamandaki tüm değerleri söyler. Ok tuşlarıyla zamanda ve katmanlar arasında gezilir. Değerler ABACUS biçimindedir ("1.234,5"); `formatValue` ile birimli yazım verilebilir. Hafta ve tarih etiketlerini (`label`, `axisLabel`) proje ABACUS `date.format` ile hazırlar. Renkler `snn-chart-palette`tir (dört ton, sonrası nötr); amber yok. Verinin zaman aralığını proje yönetir. | `npx shadcn@latest add @snn-ui/streamgraph` |
+| `ridgeline` | Sırt çizgisi grafiği | Birçok dağılımın biçimini aynı anda karşılaştırır, örneğin aylara göre günlük sıcaklık ya da bölgelere göre yanıt süresi: her satır, ham gözlemlerin yumuşatılmış yoğunluğudur ve üstteki satırlara taşar. Sırtlar medyanlarına göre açık tondan koyuya gölgelenir; üzerine gelinen sırt öne çıkar, ipucu medyanı, orta yarıyı, aralığı ve imleç değerinin altında kalan payı ("%36") söyler. Ok tuşlarıyla sırtlar ve değerler gezilir; veri değişince sırtlar yeni biçime akar. Değerler ABACUS biçimindedir ("1.234,5", eksi için gerçek eksi işareti); `formatValue` ile özel yazım verilebilir. Paylar `money.percent` ile yazılır ("%36"). Renk tek tondur: `snn-chart-palette` birinci serisi, medyana göre açıktan koyuya; amber yok. Ham gözlemleri proje verir (yüzlerce değer rahat; çok uzun listelerde önceden toplamak projenin işidir). | `npx shadcn@latest add @snn-ui/ridgeline` |
 
 ## Kullanım örnekleri
 
@@ -546,6 +547,14 @@ import { ActivityHeatmap, ActivityDay } from "@/components/snn/activity-heatmap/
 import { Streamgraph, StreamgraphDatum, StreamgraphSeries } from "@/components/snn/streamgraph/streamgraph";
 
 <Streamgraph label="Konuya göre destek talebi" data={weeks} series={[{ key: "fatura", label: "Fatura" }, { key: "giris", label: "Giriş" }]} unit="talep" />
+```
+
+### Sırt çizgisi grafiği (`ridgeline`)
+
+```tsx
+import { Ridgeline, RidgelineSeries } from "@/components/snn/ridgeline/ridgeline";
+
+<Ridgeline label="Ankara günlük en yüksek sıcaklık" unit="°C" series={[{ id: "ocak", label: "Ocak", values: temps }]} />
 ```
 
 ## Bu rafta olmayanlar

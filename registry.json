@@ -1905,6 +1905,38 @@
         "arcCommit": "bfdf7e8",
         "arcSource": "registry/components/streamgraph"
       }
+    },
+    {
+      "name": "ridgeline",
+      "type": "registry:ui",
+      "title": "Sırt çizgisi grafiği",
+      "description": "Birçok dağılımın biçimini aynı anda karşılaştırır, örneğin aylara göre günlük sıcaklık ya da bölgelere göre yanıt süresi: her satır, ham gözlemlerin yumuşatılmış yoğunluğudur ve üstteki satırlara taşar. Sırtlar medyanlarına göre açık tondan koyuya gölgelenir; üzerine gelinen sırt öne çıkar, ipucu medyanı, orta yarıyı, aralığı ve imleç değerinin altında kalan payı (\"%36\") söyler. Ok tuşlarıyla sırtlar ve değerler gezilir; veri değişince sırtlar yeni biçime akar.",
+      "dependencies": [
+        "@snn/abacus-core@github:sinanbocek/SNN-Abacus-Core#semver:^4.3.0",
+        "motion"
+      ],
+      "registryDependencies": [
+        "@snn-ui/snn-foundation",
+        "@snn-ui/snn-motion-tokens",
+        "@snn-ui/snn-chart-format",
+        "@snn-ui/snn-chart-palette"
+      ],
+      "files": [
+        {
+          "path": "registry/components/ridgeline/ridgeline.module.css",
+          "type": "registry:component",
+          "target": "@components/snn/ridgeline/ridgeline.module.css"
+        },
+        {
+          "path": "registry/components/ridgeline/ridgeline.tsx",
+          "type": "registry:component",
+          "target": "@components/snn/ridgeline/ridgeline.tsx"
+        }
+      ],
+      "meta": {
+        "arcCommit": "bfdf7e8",
+        "arcSource": "registry/components/ridgeline"
+      }
     }
   ]
 }
