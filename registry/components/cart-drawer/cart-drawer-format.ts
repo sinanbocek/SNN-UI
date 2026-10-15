@@ -3,7 +3,7 @@
 import { math } from "@snn/abacus-core";
 import { countText, exactText, lineMinor, priceText, toMinor } from "../lib/shop-format";
 
-export interface CartPhoto { alt: string; src?: string; tone?: number }
+export interface CartPhoto { alt: string; src?: string; /** Fotoğrafın odak noktası (CSS object-position). */ position?: string; tone?: number }
 export interface CartProduct { id: string; name: string; description?: string; price: number; photo: CartPhoto }
 export interface CartLine extends CartProduct { quantity: number }
 /** Sunucunun kabul ettiği kupon: yüzde ya da tutar indirimi (ana birimde TRY). */

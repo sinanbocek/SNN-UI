@@ -8,7 +8,7 @@ import { Button } from "../button/button";
 import { Drawer, DrawerContent } from "../drawer/drawer";
 import { EmptyState } from "../empty-state/empty-state";
 import { motionTokens } from "../lib/motion-tokens";
-import { NumberStepper, Placeholder, srOnly, useAnnouncer } from "../lib/shop-parts";
+import { FramedPhoto, NumberStepper, srOnly, useAnnouncer } from "../lib/shop-parts";
 import { exactText, toMajor } from "../lib/shop-format";
 import { useReducedMotionSafe } from "../lib/viz-utils";
 import { addLine, addedText, cartButtonLabel, cartTotals, couponAppliedText, discountOf, lineTotalText, orderText, quantityOf, removedText, setQuantity, shippingText, unitPriceText, type CartLine, type CartPhoto, type CartProduct, type Coupon, type ShippingRule, type Totals } from "./cart-drawer-format";
@@ -31,7 +31,7 @@ export interface CartDrawerProps {
 interface Flight { id: number; from: DOMRect; to: DOMRect; photo: CartPhoto }
 
 function Picture({ photo, ratio = "1 / 1", className }: { photo: CartPhoto; ratio?: string; className?: string }) {
-  return photo.src ? <img className={className} src={photo.src} alt={photo.alt} loading="lazy" style={{ aspectRatio: ratio }} /> : <Placeholder tone={photo.tone} label={photo.alt} ratio={ratio} className={className} />;
+  return <FramedPhoto src={photo.src} alt={photo.alt} ratio={ratio} position={photo.position} tone={photo.tone} eager className={className} />;
 }
 
 function Row({ line, reduced, onQuantity, onRemove }: { line: CartLine; reduced: boolean; onQuantity: (quantity: number) => void; onRemove: () => void }) {

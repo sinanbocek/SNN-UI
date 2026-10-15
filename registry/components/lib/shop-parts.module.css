@@ -1,5 +1,5 @@
 .placeholder { position: relative; display: grid; place-items: center; width: 100%; overflow: hidden; container-type: inline-size; background-color: var(--ph-bg, var(--surface-muted)); background-image: repeating-linear-gradient(135deg, transparent 0 .6rem, color-mix(in oklch, var(--ph-fg, var(--text-muted)) 9%, transparent) .6rem calc(.6rem + 1px)); color: var(--ph-fg, var(--text-muted)); }
-.initial { font-family: var(--font-display); font-size: clamp(var(--text-2xl), 22cqw, var(--text-5xl)); font-weight: 500; letter-spacing: var(--tracking-display); line-height: 1; opacity: .5; user-select: none; }
+.initial { position: absolute; inset: 0; display: grid; place-items: center; font-family: var(--font-display); font-size: clamp(var(--text-2xl), 22cqw, var(--text-5xl)); font-weight: 500; letter-spacing: var(--tracking-display); line-height: 1; opacity: .5; user-select: none; }
 .placeholder[data-tone="0"] { --ph-bg: color-mix(in oklch, var(--accent) 10%, var(--surface)); --ph-fg: var(--accent-strong); }
 .placeholder[data-tone="1"] { --ph-bg: var(--neutral-3); --ph-fg: var(--neutral-8); }
 .placeholder[data-tone="2"] { --ph-bg: color-mix(in oklch, var(--success) 12%, var(--surface)); --ph-fg: var(--success); }
