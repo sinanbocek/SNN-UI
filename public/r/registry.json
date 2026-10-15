@@ -104,6 +104,22 @@
       ]
     },
     {
+      "name": "snn-morph-grid",
+      "type": "registry:item",
+      "title": "SNN kart-panel geçişi",
+      "description": "Kart ızgarası; bir karta basınca kart, aynı yüzeyin büyümesiyle panele dönüşür ve kapatınca aynı karta geri katlanır (paylaşılan düzen geçişi). Açıkken ızgara etkisizdir, odak kapat düğmesine, kapanışta karta gider; \"hareketi azalt\" açıkken yalnız kısa solma. Gösterge bloklarıyla kendiliğinden gelir.",
+      "dependencies": [
+        "motion"
+      ],
+      "files": [
+        {
+          "path": "registry/components/lib/morph-grid.tsx",
+          "type": "registry:lib",
+          "target": "@components/snn/lib/morph-grid.tsx"
+        }
+      ]
+    },
+    {
       "name": "button",
       "type": "registry:ui",
       "title": "Düğme",
@@ -2229,6 +2245,84 @@
       "meta": {
         "arcCommit": "bfdf7e8",
         "arcSource": "registry/components/metrics-dashboard"
+      }
+    },
+    {
+      "name": "kpi-drilldown",
+      "type": "registry:ui",
+      "title": "Gösterge ayrıntı paneli",
+      "description": "Blok: altı kadar gösterge, her biri küçük çizgi grafikli bir kart olarak ızgarada durur. Karta basınca kart, aynı yüzeyin büyümesiyle ayrıntıya açılır: büyük çizgi grafik, önceki dönem karşılaştırması ve kırılım tablosu (değer, işaretli değişim, pay çubuğu; boyut seçilir). Esc ya da \"Kapat\" aynı karta geri katlar, odak karta döner. Üstte dönem anahtarı ve \"Karşılaştır\"; yeterli önceki dönem verisi yoksa düğme pasiftir. Yükleniyor, hata ve dar kap (3 / 2 / 1 sütun) durumları vardır.",
+      "dependencies": [
+        "@snn/abacus-core@github:sinanbocek/SNN-Abacus-Core#semver:^4.3.0",
+        "motion"
+      ],
+      "registryDependencies": [
+        "@snn-ui/snn-foundation",
+        "@snn-ui/snn-motion-tokens",
+        "@snn-ui/animated-counter",
+        "@snn-ui/button",
+        "@snn-ui/line-chart",
+        "@snn-ui/segmented-control",
+        "@snn-ui/skeleton",
+        "@snn-ui/snn-chart-format",
+        "@snn-ui/snn-metric-format",
+        "@snn-ui/snn-morph-grid",
+        "@snn-ui/snn-viz-utils"
+      ],
+      "files": [
+        {
+          "path": "registry/components/kpi-drilldown/kpi-drilldown.module.css",
+          "type": "registry:component",
+          "target": "@components/snn/kpi-drilldown/kpi-drilldown.module.css"
+        },
+        {
+          "path": "registry/components/kpi-drilldown/kpi-drilldown.tsx",
+          "type": "registry:component",
+          "target": "@components/snn/kpi-drilldown/kpi-drilldown.tsx"
+        }
+      ],
+      "meta": {
+        "arcCommit": "bfdf7e8",
+        "arcSource": "registry/components/kpi-drilldown"
+      }
+    },
+    {
+      "name": "metric-explorer",
+      "type": "registry:ui",
+      "title": "Gösterge gezgini",
+      "description": "Blok: sayfa başında dört gösterge kartı (ad, dönen rakamlı değer, işaretli değişim, dönem adı, mini çizgi). Karta basınca kart, aynı yüzeyin büyümesiyle sekmeli grafik paneline dönüşür: gösterge sekmeleri, dönem anahtarı, büyük çizgi grafik ve tarihli okuma satırı (tarih, değer, önceki noktaya göre değişim). Grafikte fare, dokunma ve ok tuşlarıyla gezilir; ilk Esc okunan noktayı, ikincisi paneli kapatır ve odak karta döner. Yükleniyor, hata, veri yok ve dar kap durumları vardır.",
+      "dependencies": [
+        "@snn/abacus-core@github:sinanbocek/SNN-Abacus-Core#semver:^4.3.0",
+        "motion"
+      ],
+      "registryDependencies": [
+        "@snn-ui/snn-foundation",
+        "@snn-ui/snn-motion-tokens",
+        "@snn-ui/animated-counter",
+        "@snn-ui/button",
+        "@snn-ui/line-chart",
+        "@snn-ui/segmented-control",
+        "@snn-ui/skeleton",
+        "@snn-ui/snn-chart-format",
+        "@snn-ui/snn-metric-format",
+        "@snn-ui/snn-morph-grid",
+        "@snn-ui/snn-viz-utils"
+      ],
+      "files": [
+        {
+          "path": "registry/components/metric-explorer/metric-explorer.module.css",
+          "type": "registry:component",
+          "target": "@components/snn/metric-explorer/metric-explorer.module.css"
+        },
+        {
+          "path": "registry/components/metric-explorer/metric-explorer.tsx",
+          "type": "registry:component",
+          "target": "@components/snn/metric-explorer/metric-explorer.tsx"
+        }
+      ],
+      "meta": {
+        "arcCommit": "bfdf7e8",
+        "arcSource": "registry/components/metric-explorer"
       }
     }
   ]

@@ -21,6 +21,8 @@ const FILES = {
   race: "registry/components/race-bar-chart/race-bar-chart-format.ts",
   stream: "registry/components/realtime-stream/realtime-stream-format.ts",
   metrics: "registry/components/metrics-dashboard/../lib/metric-format.ts",
+  kpi: "registry/components/kpi-drilldown/../lib/chart-format.ts",
+  explorer: "registry/components/metric-explorer/../lib/metric-format.ts",
 };
 const mods = {};
 let temp;
@@ -145,4 +147,23 @@ test("gösterge yazımı: tutar, adet, yüzde ve değişim ABACUS çıktısıdı
   assert.equal(mods.metrics.metricChange("percent", 3.3, 3.2).text, "+0,1 puan");
   assert.equal(mods.metrics.metricChange("count", 90, 100).arrow, "▼");
   assert.equal(mods.metrics.metricChange("count", 5, undefined).text, "—");
+});
+
+test("ayrıntı paneli: kırılım payı ve kart değeri ABACUS çıktısıdır; mini çizgi yolu geçerli", () => {
+  assert.equal(mods.metrics.metricValueText("money", 842000), money.formatMajor(842000, { currency: "TRY", digits: 0 }));
+  assert.equal(mods.metrics.metricShortText("money", 842000), money.compactMajor(842000, { style: "B/Mn/Mr" }));
+  assert.equal(mods.chart.formatRatio(0.5, 1), money.percent(50, 1));
+  assert.equal(mods.metrics.metricChange("percent", 91.4, 90.3).text, "+1,1 puan");
+  const path = mods.chart.miniLinePath([1, 3, 2], 100, 32, 2);
+  assert.ok(path.startsWith("M0 ") && path.includes("L100 "));
+});
+
+test("gösterge gezgini: okuma satırı değeri ve kart değişimi ABACUS çıktısıdır", () => {
+  assert.equal(mods.explorer.metricValueText("money", 41000), money.formatMajor(41000, { currency: "TRY", digits: 0 }));
+  assert.equal(mods.explorer.metricShortText("money", 1250000), money.compactMajor(1250000, { style: "B/Mn/Mr" }));
+  assert.equal(mods.explorer.metricValueText("count", 2410), "2.410");
+  const drop = mods.explorer.metricChange("money", 90, 100);
+  assert.equal(drop.text, money.percent(math.percentChange(90, 100), 1, { sign: "always" }));
+  assert.equal(drop.direction, -1);
+  assert.equal(mods.explorer.metricChange("money", 5, 0).text, "—");
 });

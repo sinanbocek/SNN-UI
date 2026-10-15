@@ -6,6 +6,8 @@ import { FunnelChartDemo } from "./funnel-chart";
 import { RaceBarChartDemo } from "./race-bar-chart";
 import { RealtimeStreamDemo } from "./realtime-stream";
 import { MetricsDashboardDemo } from "./metrics-dashboard";
+import { KpiDrilldownDemo } from "./kpi-drilldown";
+import { MetricExplorerDemo } from "./metric-explorer";
 
 export const dalga2Demos: Record<string, () => ReactNode> = {
   "split-bar": () => <SplitBarDemo />,
@@ -14,4 +16,6 @@ export const dalga2Demos: Record<string, () => ReactNode> = {
   "race-bar-chart": () => <RaceBarChartDemo />,
   "realtime-stream": () => <RealtimeStreamDemo />,
   "metrics-dashboard": () => <MetricsDashboardDemo />,
+  "kpi-drilldown": () => <KpiDrilldownDemo />,
+  "metric-explorer": () => <MetricExplorerDemo />,
 };

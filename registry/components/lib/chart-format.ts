@@ -63,3 +63,25 @@ export function roundTo(value: number, digits = 1): number {
   const factor = 10 ** digits;
   return Math.round(value * factor) / factor;
 }
+
+/** Noktalardan yumuşak çizgi yolu: noktaların orta noktalarından geçen ikinci derece eğriler. */
+export function smoothLine(points: { x: number; y: number }[]): string {
+  if (!points.length) return "";
+  const round = (value: number) => Math.round(value * 100) / 100;
+  const first = points[0]!;
+  if (points.length === 1) return `M${round(first.x)} ${round(first.y)}`;
+  let d = `M${round(first.x)} ${round(first.y)}`;
+  for (let at = 1; at < points.length - 1; at++) {
+    const p = points[at]!, q = points[at + 1]!;
+    d += `Q${round(p.x)} ${round(p.y)} ${round((p.x + q.x) / 2)} ${round((p.y + q.y) / 2)}`;
+  }
+  const last = points[points.length - 1]!;
+  return `${d}L${round(last.x)} ${round(last.y)}`;
+}
+
+/** Değer dizisinden `width` × `height` kutusuna sığan yumuşak mini çizgi yolu (küçük kart grafikleri için). `low`/`high` verilirse ölçek ortaktır. */
+export function miniLinePath(values: number[], width = 100, height = 32, pad = 2, low?: number, high?: number): string {
+  if (!values.length) return "";
+  const min = low ?? Math.min(...values), max = high ?? Math.max(...values), span = max - min || 1;
+  return smoothLine(values.map((value, at) => ({ x: values.length === 1 ? width / 2 : (at / (values.length - 1)) * width, y: pad + (1 - (value - min) / span) * (height - 2 * pad) })));
+}
