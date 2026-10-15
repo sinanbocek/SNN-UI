@@ -1520,6 +1520,37 @@
         "arcCommit": "bfdf7e8",
         "arcSource": "registry/components/metric-card"
       }
+    },
+    {
+      "name": "sparkline",
+      "type": "registry:ui",
+      "title": "Mini çizgi grafik",
+      "description": "Başlığın yanında küçük bir eğilim çizgisi: değer, değişim ve yumuşak çizgi. Görününce soldan sağa çizilir; fare, dokunma ve ok tuşlarıyla noktalar gezilir, başlık gezilen noktayı gösterir. Veri değişince çizgi yeni biçime akar.",
+      "dependencies": [
+        "@snn/abacus-core@github:sinanbocek/SNN-Abacus-Core#semver:^4.3.0",
+        "motion"
+      ],
+      "registryDependencies": [
+        "@snn-ui/snn-foundation",
+        "@snn-ui/snn-motion-tokens",
+        "@snn-ui/snn-chart-format"
+      ],
+      "files": [
+        {
+          "path": "registry/components/sparkline/sparkline.module.css",
+          "type": "registry:component",
+          "target": "@components/snn/sparkline/sparkline.module.css"
+        },
+        {
+          "path": "registry/components/sparkline/sparkline.tsx",
+          "type": "registry:component",
+          "target": "@components/snn/sparkline/sparkline.tsx"
+        }
+      ],
+      "meta": {
+        "arcCommit": "bfdf7e8",
+        "arcSource": "registry/components/sparkline"
+      }
     }
   ]
 }

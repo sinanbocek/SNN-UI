@@ -2,8 +2,10 @@
 import type { ReactNode } from "react";
 import { AnimatedCounterDemo } from "./animated-counter";
 import { MetricCardDemo } from "./metric-card";
+import { SparklineDemo } from "./sparkline";
 
 export const grafikDemos: Record<string, () => ReactNode> = {
   "animated-counter": () => <AnimatedCounterDemo />,
   "metric-card": () => <MetricCardDemo />,
+  "sparkline": () => <SparklineDemo />,
 };
