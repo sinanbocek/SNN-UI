@@ -1714,6 +1714,38 @@
         "arcCommit": "bfdf7e8",
         "arcSource": "registry/components/usage-meter"
       }
+    },
+    {
+      "name": "slope-chart",
+      "type": "registry:ui",
+      "title": "Eğim grafiği",
+      "description": "Birkaç öğenin tam iki an arasında nasıl değiştiğini (ve sıralarının nasıl değiştiğini) gösterir: her öğe iki sütun arasında bir çizgidir. Etiketler üst üste binmez, hikâye öğesi vurgu renginde çizilir, odaktaki öğe öne çıkar ve ipucu değer, fark ve sıra değişimini söyler (yukarı/aşağı oklarla gezilir). Kapanma sırası sıra okuyla gösterilir.",
+      "dependencies": [
+        "@snn/abacus-core@github:sinanbocek/SNN-Abacus-Core#semver:^4.3.0",
+        "motion"
+      ],
+      "registryDependencies": [
+        "@snn-ui/snn-foundation",
+        "@snn-ui/snn-motion-tokens",
+        "@snn-ui/snn-chart-format",
+        "@snn-ui/snn-chart-palette"
+      ],
+      "files": [
+        {
+          "path": "registry/components/slope-chart/slope-chart.module.css",
+          "type": "registry:component",
+          "target": "@components/snn/slope-chart/slope-chart.module.css"
+        },
+        {
+          "path": "registry/components/slope-chart/slope-chart.tsx",
+          "type": "registry:component",
+          "target": "@components/snn/slope-chart/slope-chart.tsx"
+        }
+      ],
+      "meta": {
+        "arcCommit": "bfdf7e8",
+        "arcSource": "registry/components/slope-chart"
+      }
     }
   ]
 }

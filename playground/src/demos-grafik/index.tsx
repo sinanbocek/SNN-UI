@@ -8,6 +8,7 @@ import { BarChartDemo } from "./bar-chart";
 import { DonutChartDemo } from "./donut-chart";
 import { GaugeDemo } from "./gauge";
 import { UsageMeterDemo } from "./usage-meter";
+import { SlopeChartDemo } from "./slope-chart";
 
 export const grafikDemos: Record<string, () => ReactNode> = {
   "animated-counter": () => <AnimatedCounterDemo />,
@@ -18,4 +19,5 @@ export const grafikDemos: Record<string, () => ReactNode> = {
   "donut-chart": () => <DonutChartDemo />,
   "gauge": () => <GaugeDemo />,
   "usage-meter": () => <UsageMeterDemo />,
+  "slope-chart": () => <SlopeChartDemo />,
 };
