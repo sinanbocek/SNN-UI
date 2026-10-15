@@ -103,6 +103,12 @@ export function ImageViewer({ images, index, onIndexChange, onClose, getOrigin, 
 
   useEffect(() => { setZoomState(1); scale.set(1); panX.set(0); panY.set(0); pull.set(0); }, [index, scale, panX, panY, pull]);
   useEffect(() => { if (!open) { first.current = true; setClosing(false); } }, [open]);
+  // Kapanış uçuşu bir nedenle bitmezse (sekme arka planda, hedef görünmüyor) görüntüleyici yine de kapanır.
+  useEffect(() => {
+    if (!closing || index === null) return;
+    const timer = window.setTimeout(() => onClose(index), 900);
+    return () => window.clearTimeout(timer);
+  }, [closing, index, onClose]);
 
   // Ctrl+tekerlek yakınlaştırır; tarayıcının sayfa yakınlaştırmasını engellemek için pasif olmayan dinleyici gerekir.
   useEffect(() => {
