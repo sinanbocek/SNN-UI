@@ -51,6 +51,7 @@ const FILES = {
   pgrid: "registry/components/photo-grid/photo-grid-format.ts",
   testimonial: "registry/components/testimonial-stage/testimonial-stage-format.ts",
   team: "registry/components/team-showcase/team-showcase-format.ts",
+  player: "registry/components/media-player/media-player-format.ts",
 };
 const mods = {};
 let temp;
@@ -822,4 +823,28 @@ test("ekip tanıtımı: iletişim satırları, maskeli telefon, sayaç ve baş h
   assert.equal(mods.team.profileLive(member), "Elif Aksoy, Kurucu profili gösteriliyor.");
   assert.equal(mods.team.initials("ismail çelik"), "İÇ");
   assert.deepEqual(mods.team.LAYOUTS.map(item => item.value), ["gallery", "filmstrip", "directory", "spotlight"]);
+});
+
+test("ses oynatıcı: süre, ses düzeyi ve parça sırası doğru; sayılar ABACUS çıktısıdır", () => {
+  assert.equal(mods.player.clock(12), "0:12");
+  assert.equal(mods.player.clock(74.9), "1:14");
+  assert.equal(mods.player.clock(3725), "62:05");
+  assert.equal(mods.player.clock(6000), "100:00");
+  assert.equal(mods.player.clock(70000), "1.166:40");
+  assert.equal(mods.player.clock(-5), "0:00");
+  assert.equal(mods.player.clock(NaN), "0:00");
+  assert.equal(mods.player.clock(Infinity), "0:00");
+  assert.equal(mods.player.clockPair(12, 24), "0:12 / 0:24");
+  assert.equal(mods.player.volumeText(.7), money.percent(70, 0));
+  assert.equal(mods.player.volumeText(.7), "%70");
+  assert.equal(mods.player.volumeText(0), "%0");
+  assert.equal(mods.player.volumeText(3), "%100");
+  assert.equal(mods.player.neighbour(0, "prev", 4), 0);
+  assert.equal(mods.player.neighbour(3, "next", 4), 3);
+  assert.equal(mods.player.neighbour(1, "next", 4), 2);
+  assert.equal(mods.player.afterEnd(1, 4), 2);
+  assert.equal(mods.player.afterEnd(3, 4), null);
+  assert.equal(mods.player.playLabel("Sabah kahvesi"), "Sabah kahvesi çal");
+  assert.equal(mods.player.muteLabel(true), "Sesi aç");
+  assert.equal(mods.player.muteLabel(false), "Sessize al");
 });

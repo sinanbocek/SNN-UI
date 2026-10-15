@@ -66,7 +66,7 @@ Kural: `SNN-Standartlar/standartlar/arayuz-standardi.md` §2.1. Fikir serbest, k
 | spotlight-grid | https://uiarc.dev/components/blocks/spotlight-grid | 3 | yazıldı |
 | testimonial-stage | https://uiarc.dev/components/blocks/testimonial-stage | 3 | yazıldı |
 | team-showcase | https://uiarc.dev/components/blocks/team-showcase | 3 | yazıldı |
-| media-player | https://uiarc.dev/components/blocks/media-player | 3 | tarif yazıldı |
+| media-player | https://uiarc.dev/components/blocks/media-player | 3 | yazıldı |
 
 ## Dalga 3 — vitrin ve satış, devam
 

@@ -3456,6 +3456,46 @@
         "arcCommit": "bfdf7e8",
         "arcSource": "registry/components/team-showcase"
       }
+    },
+    {
+      "name": "media-player",
+      "type": "registry:ui",
+      "title": "Ses oynatıcı",
+      "description": "Blok: küçük bir ses koleksiyonu (podcast, örnek paketi, çalma listesi) için tam oynatıcı. Kapak, parça adı ve ikinci satır (parça değişince kapak soluk geçer, başlık yükselerek gelir); ilerleme çubuğu (yerel aralık girdisi, değer metni \"0:12 / 0:24\"); önceki, oynat/duraklat (simge kısa ölçek ve bulanıkla değişir) ve sonraki düğmeleri; ses kaydırıcısı (değer metni \"%70\") ve sessize al / sesi aç düğmesi. Çalma listesinde parça satırları (ad, süre) bulunur; çalan satırın yanında kayan işaret ve çalarken oynayan çubuklar vardır, satıra basınca o parça çalar. Parça bitince bir sonrakine geçer, listenin sonunda durur. Ses dosyası açılamazsa satır içi hata ve \"Tekrar dene\" çıkar. Tek parçada önceki/sonraki kapalıdır ve liste gizlenir. Parça değişimi kibar canlı bölgede duyurulur; dar kapta (420 px altı) kapak yatay oranlı olur.",
+      "dependencies": [
+        "@snn/abacus-core@github:sinanbocek/SNN-Abacus-Core#semver:^4.3.0",
+        "motion"
+      ],
+      "registryDependencies": [
+        "@snn-ui/snn-foundation",
+        "@snn-ui/snn-motion-tokens",
+        "@snn-ui/button",
+        "@snn-ui/snn-chart-format",
+        "@snn-ui/snn-motion-tokens",
+        "@snn-ui/snn-shop-parts",
+        "@snn-ui/snn-viz-utils"
+      ],
+      "files": [
+        {
+          "path": "registry/components/media-player/media-player-format.ts",
+          "type": "registry:component",
+          "target": "@components/snn/media-player/media-player-format.ts"
+        },
+        {
+          "path": "registry/components/media-player/media-player.module.css",
+          "type": "registry:component",
+          "target": "@components/snn/media-player/media-player.module.css"
+        },
+        {
+          "path": "registry/components/media-player/media-player.tsx",
+          "type": "registry:component",
+          "target": "@components/snn/media-player/media-player.tsx"
+        }
+      ],
+      "meta": {
+        "arcCommit": "bfdf7e8",
+        "arcSource": "registry/components/media-player"
+      }
     }
   ]
 }
