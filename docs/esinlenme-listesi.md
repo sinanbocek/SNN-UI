@@ -58,7 +58,7 @@ Kural: `SNN-Standartlar/standartlar/arayuz-standardi.md` §2.1. Fikir serbest, k
 |---|---|---|---|
 | product-listing | https://uiarc.dev/components/blocks/product-listing | 3 | yazıldı |
 | product-detail | https://uiarc.dev/components/blocks/product-detail | 3 | yazıldı |
-| cart-drawer | https://uiarc.dev/components/blocks/cart-drawer | 3 | tarif yazıldı |
+| cart-drawer | https://uiarc.dev/components/blocks/cart-drawer | 3 | yazıldı |
 | checkout-summary | https://uiarc.dev/components/blocks/checkout-summary | 3 | tarif yazıldı |
 | wallet-card | https://uiarc.dev/components/blocks/wallet-card | 3 | tarif yazıldı |
 | hero-signup | https://uiarc.dev/components/blocks/hero-signup | 3 | tarif yazıldı |

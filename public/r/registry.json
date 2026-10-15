@@ -2933,6 +2933,49 @@
         "arcCommit": "bfdf7e8",
         "arcSource": "registry/components/product-detail"
       }
+    },
+    {
+      "name": "cart-drawer",
+      "type": "registry:ui",
+      "title": "Sepet çekmecesi",
+      "description": "Blok: ürün ızgarası ve yandan açılan sepet çekmecesi. \"Sepete ekle\" denince ürün fotoğrafı yay çizerek sepet düğmesine uçar, rozet sayısı uçuş bitince artar. Sepet düğmesi çekmeceyi açar (odak kapat düğmesine gider, arka plan kapalı, Escape kapatır ve odağı geri verir). Çekmecede satırlar (küçük fotoğraf, ad, birim fiyat, satır tutarı, adet düzenleyici; adet 1 iken eksi \"Kaldır\" olur), sola kaydırarak silme (her kaydırmanın düğme karşılığı var), ücretsiz kargo çubuğu (\"Ücretsiz kargo için ₺… kaldı\" / \"Ücretsiz kargo kazandınız\"), kupon alanı (geçerliyse çipe döner, geçersizse alan uyarır), ara toplam, kargo, kupon indirimi, dönen genel toplam ve \"Siparişi tamamla\" düğmesi bulunur. Sipariş sürerken çekmece kilitlenir, sonra düğme onay yuvarlağına ve çizilen tike dönüşür, örnek makbuz gösterilir; başarısızsa \"Tekrar dene\" yazar. Boş sepet ve dar kap durumları vardır; ekleme, silme, kupon ve sipariş sonucu kibar canlı bölgede duyurulur.",
+      "dependencies": [
+        "@snn/abacus-core@github:sinanbocek/SNN-Abacus-Core#semver:^4.3.0",
+        "motion"
+      ],
+      "registryDependencies": [
+        "@snn-ui/snn-foundation",
+        "@snn-ui/snn-motion-tokens",
+        "@snn-ui/animated-counter",
+        "@snn-ui/button",
+        "@snn-ui/drawer",
+        "@snn-ui/empty-state",
+        "@snn-ui/snn-chart-format",
+        "@snn-ui/snn-motion-tokens",
+        "@snn-ui/snn-shop-parts",
+        "@snn-ui/snn-viz-utils"
+      ],
+      "files": [
+        {
+          "path": "registry/components/cart-drawer/cart-drawer-format.ts",
+          "type": "registry:component",
+          "target": "@components/snn/cart-drawer/cart-drawer-format.ts"
+        },
+        {
+          "path": "registry/components/cart-drawer/cart-drawer.module.css",
+          "type": "registry:component",
+          "target": "@components/snn/cart-drawer/cart-drawer.module.css"
+        },
+        {
+          "path": "registry/components/cart-drawer/cart-drawer.tsx",
+          "type": "registry:component",
+          "target": "@components/snn/cart-drawer/cart-drawer.tsx"
+        }
+      ],
+      "meta": {
+        "arcCommit": "bfdf7e8",
+        "arcSource": "registry/components/cart-drawer"
+      }
     }
   ]
 }

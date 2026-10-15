@@ -38,6 +38,7 @@ const FILES = {
   shop: "registry/components/lib/shop-format.ts",
   listing: "registry/components/product-listing/product-listing-format.ts",
   detail: "registry/components/product-detail/product-detail-format.ts",
+  cart: "registry/components/cart-drawer/cart-drawer-format.ts",
 };
 const mods = {};
 let temp;
@@ -481,4 +482,35 @@ test("ürün sayfası: tükenme, kuruş tutarı, yorum dağılımı ve yazımlar
   assert.equal(mods.detail.barRowLabel(5, 128), "5 yıldız, 128 yorum");
   assert.equal(mods.detail.sizeLabel(sizes[1], true), "Büyük · ₺4.250,50 · Tükendi");
   assert.equal(mods.detail.counterText(0, 4), "1 / 4");
+});
+
+test("sepet: toplam, kargo eşiği, kupon indirimi ve yazımlar kuruş tamsayısıyla ve ABACUS çıktısıdır", () => {
+  const photo = { alt: "x" };
+  const lines = [{ id: "a", name: "Kupa", price: 185, quantity: 2, photo }, { id: "b", name: "Örtü", price: 649.9, quantity: 1, photo }];
+  const rule = { fee: 49.9, freeFrom: 1000 };
+  const totals = mods.cart.cartTotals(lines, rule, null);
+  assert.equal(totals.subtotalMinor, 101990);
+  assert.equal(totals.shippingMinor, 0);
+  assert.equal(totals.freeShipping, true);
+  assert.equal(totals.totalMinor, 101990);
+  const small = mods.cart.cartTotals([lines[0]], rule, null);
+  assert.equal(small.shippingMinor, 4990);
+  assert.equal(small.remainingMinor, 63000);
+  assert.equal(small.progress, .37);
+  assert.equal(small.totalMinor, 37000 + 4990);
+  assert.equal(mods.cart.shippingText(small), "Ücretsiz kargo için " + money.formatMajor(630, { currency: "TRY", digits: 2, kurus: true }) + " kaldı");
+  assert.equal(mods.cart.shippingText(totals), "Ücretsiz kargo kazandınız");
+  assert.equal(mods.cart.discountOf(101990, { code: "A", percent: 10 }), 10199);
+  assert.equal(mods.cart.discountOf(3000, { code: "B", amount: 50 }), 3000);
+  assert.equal(mods.cart.discountOf(101990, null), 0);
+  assert.equal(mods.cart.cartTotals(lines, rule, { code: "A", percent: 10 }).totalMinor, 101990 - 10199);
+  assert.equal(mods.cart.cartTotals([], rule, null).totalMinor, 0);
+  assert.equal(mods.cart.quantityOf(lines), 3);
+  assert.equal(mods.cart.addLine(lines, lines[0]).find(line => line.id === "a").quantity, 3);
+  assert.equal(mods.cart.addLine(lines, { id: "c", name: "C", price: 1, photo }).length, 3);
+  assert.deepEqual(mods.cart.setQuantity(lines, "a", 0).map(line => line.id), ["b"]);
+  assert.equal(mods.cart.lineTotalText(lines[0]), "₺370,00");
+  assert.equal(mods.cart.cartButtonLabel(1234), "Sepet, 1.234 ürün");
+  assert.equal(mods.cart.couponAppliedText("HOSGELDIN", 10199), "HOSGELDIN kuponu uygulandı, ₺101,99 indirim.");
+  assert.equal(mods.cart.orderText(101990), "Siparişiniz alındı. Toplam ₺1.019,90.");
 });
