@@ -1,0 +1,62 @@
+/* Ortak uygun saat seçici: beş gün her genişlikte beş sütun, saatler iki sütun kalır; dar kolonda katılımcı adları ve bazı başlıklar düşer. */
+.root { container-type: inline-size; display: grid; gap: var(--space-5); color: var(--foreground); font-family: var(--font-body); }
+.srOnly { position: absolute; width: 1px; height: 1px; overflow: hidden; clip-path: inset(50%); white-space: nowrap; }
+.header { display: flex; align-items: flex-start; justify-content: space-between; gap: var(--space-4); }
+.headText { min-width: 0; }
+.title { margin: 0; font-family: var(--font-display); font-size: var(--text-xl); font-weight: 600; letter-spacing: var(--tracking-display); overflow-wrap: anywhere; }
+.lead { margin: var(--space-1) 0 0; color: var(--text-secondary); font-size: var(--text-sm); }
+.people { display: flex; flex: none; align-items: center; gap: var(--space-3); }
+.avatars { display: flex; }
+.avatarItem { display: inline-flex; margin-left: calc(var(--space-2) * -1); border: 2px solid var(--background); border-radius: var(--radius-pill); }
+.avatarItem:first-child { margin-left: 0; }
+.names { max-width: 10rem; overflow: hidden; color: var(--text-secondary); font-size: var(--text-xs); text-overflow: ellipsis; white-space: nowrap; }
+.skeletons { padding: var(--space-4); border: 1px solid var(--border); border-radius: var(--radius-surface); }
+
+.strip { display: grid; grid-template-columns: repeat(5, minmax(0, 1fr)); gap: var(--space-2); }
+.dayCard { display: grid; justify-items: center; gap: var(--space-1); border: 1px solid var(--border); border-radius: var(--radius-panel); padding: var(--space-3) var(--space-2); color: var(--foreground); background: var(--surface); font: inherit; cursor: pointer; transition: background-color var(--duration-fast) var(--ease-standard), border-color var(--duration-fast) var(--ease-standard); }
+.dayCard[aria-pressed="true"] { border-color: var(--control-on); color: var(--control-glyph); background: var(--control-on); }
+.dayCard:focus-visible, .slot:focus-visible { outline: var(--focus-outline-width) solid var(--focus-outline); outline-offset: var(--focus-outline-offset); }
+@media (hover: hover) and (pointer: fine) { .dayCard[aria-pressed="false"]:hover { background: var(--surface-muted); } }
+.dayName { font-size: var(--text-xs); opacity: .8; }
+.dayNumber { font-size: var(--text-xl); font-weight: 600; font-variant-numeric: tabular-nums; }
+.dayFree { font-size: var(--text-xs); opacity: .8; white-space: nowrap; }
+
+.slots { display: grid; gap: var(--space-3); }
+.slotsHead { display: flex; align-items: center; justify-content: space-between; gap: var(--space-3); }
+.slotsTitle { margin: 0; font-size: var(--text-base); font-weight: 600; }
+.legend { display: inline-flex; gap: var(--space-4); color: var(--text-secondary); font-size: var(--text-xs); }
+.legendItem { display: inline-flex; align-items: center; gap: var(--space-2); }
+.slotPage { display: grid; gap: var(--space-3); }
+.slotGrid { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: var(--space-2); }
+.slot { position: relative; border: 1px solid var(--border); border-radius: var(--radius-panel); padding: 0; color: inherit; background: var(--surface); font: inherit; text-align: left; cursor: pointer; }
+.slot[aria-pressed="true"] { border-color: var(--control-on); }
+@media (hover: hover) and (pointer: fine) { .slot[aria-pressed="false"]:hover { background: var(--surface-muted); } }
+.slotMark { position: absolute; inset: 0; border-radius: var(--radius-panel); background: var(--accent-subtle); }
+.slotContent { position: relative; display: flex; align-items: center; justify-content: space-between; gap: var(--space-3); padding: var(--space-3) var(--space-4); }
+.slotText { display: grid; min-width: 0; }
+.slotTime { font-size: var(--text-sm); font-weight: 600; font-variant-numeric: tabular-nums; }
+.slotStatus { overflow: hidden; color: var(--text-secondary); font-size: var(--text-xs); text-overflow: ellipsis; white-space: nowrap; }
+.slot[data-busy="true"] .slotStatus { color: var(--text-muted); }
+.bars { display: inline-flex; flex: none; align-items: flex-end; gap: 2px; }
+.bar { display: inline-block; width: var(--space-1); height: var(--space-4); border-radius: var(--radius-pill); background: var(--success); }
+.bar[data-busy="true"] { background: var(--border-strong); }
+.noFree { display: flex; flex-wrap: wrap; align-items: center; gap: var(--space-3); border: 1px dashed var(--border-strong); border-radius: var(--radius-panel); padding: var(--space-4); }
+.noFreeText { margin: 0; color: var(--text-secondary); font-size: var(--text-sm); }
+
+.summary { display: flex; flex-wrap: wrap; align-items: center; justify-content: space-between; gap: var(--space-4); border-top: 1px solid var(--border); padding-top: var(--space-4); }
+.summaryText { display: grid; gap: var(--space-1); min-width: 0; }
+.summaryMain { font-size: var(--text-sm); font-weight: 500; }
+.summaryWarn { color: var(--text-secondary); font-size: var(--text-xs); }
+.summaryError { color: var(--danger); font-size: var(--text-xs); }
+
+@container (max-width: 34rem) {
+  .names, .legend { display: none; }
+  .dayCard { padding: var(--space-2) var(--space-1); }
+  .dayNumber { font-size: var(--text-lg); }
+  .summary > button { width: 100%; }
+}
+@container (max-width: 26rem) {
+  .dayName, .slotsHead .legend { display: none; }
+  .slotContent { padding: var(--space-2) var(--space-3); }
+}
+@media (prefers-reduced-motion: reduce) { .dayCard { transition: none; } }

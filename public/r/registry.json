@@ -1298,6 +1298,40 @@
         "arcCommit": "bfdf7e8",
         "arcSource": "registry/components/week-calendar"
       }
+    },
+    {
+      "name": "availability-picker",
+      "type": "registry:ui",
+      "title": "Ortak uygun saat seçici",
+      "description": "Blok: birkaç kişinin ortak toplantı saatini seçtirir. Başlıkta toplantı adı, süre ve saat dilimi, katılımcı avatarları; beş günlük şerit (kartta \"N boş\"), seçili günün saatleri iki sütunda ve her saatte kişi başına müsait/meşgul çubukları (yazıyla da bildirilir), altta özet çubuğu ve \"Saati onayla\". Gün değişince saat listesi yönüne göre kayar, seçili saat vurgusu saatler arasında kayar. Boş gün (en yakın uygun gün önerisi), hiç ortak saat yok, yükleniyor, onay hatası ve dar kolon durumları vardır.",
+      "dependencies": [
+        "@snn/abacus-core@github:sinanbocek/SNN-Abacus-Core#semver:^4.3.0",
+        "motion"
+      ],
+      "registryDependencies": [
+        "@snn-ui/snn-foundation",
+        "@snn-ui/snn-motion-tokens",
+        "@snn-ui/avatar",
+        "@snn-ui/button",
+        "@snn-ui/empty-state",
+        "@snn-ui/skeleton"
+      ],
+      "files": [
+        {
+          "path": "registry/components/availability-picker/availability-picker.module.css",
+          "type": "registry:component",
+          "target": "@components/snn/availability-picker/availability-picker.module.css"
+        },
+        {
+          "path": "registry/components/availability-picker/availability-picker.tsx",
+          "type": "registry:component",
+          "target": "@components/snn/availability-picker/availability-picker.tsx"
+        }
+      ],
+      "meta": {
+        "arcCommit": "bfdf7e8",
+        "arcSource": "registry/components/availability-picker"
+      }
     }
   ]
 }

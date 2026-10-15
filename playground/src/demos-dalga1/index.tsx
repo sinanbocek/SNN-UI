@@ -13,6 +13,8 @@ import { MultiStepFormDemo } from "./multi-step-form";
 
 import { WeekCalendarDemo } from "./week-calendar";
 
+import { AvailabilityPickerDemo } from "./availability-picker";
+
 export const dalga1Demos: Record<string, () => ReactNode> = {
   "settings-command": () => <SettingsCommandDemo />,
   "team-directory": () => <TeamDirectoryDemo />,
@@ -21,4 +23,5 @@ export const dalga1Demos: Record<string, () => ReactNode> = {
   "release-readiness": () => <ReleaseReadinessDemo />,
   "multi-step-form": () => <MultiStepFormDemo />,
   "week-calendar": () => <WeekCalendarDemo />,
+  "availability-picker": () => <AvailabilityPickerDemo />,
 };
