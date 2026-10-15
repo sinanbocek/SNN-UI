@@ -30,6 +30,7 @@ const FILES = {
   variance: "registry/components/budget-variance/budget-variance-format.ts",
   multiples: "registry/components/small-multiples/small-multiples-format.ts",
   replay: "registry/components/line-replay/line-replay-format.ts",
+  market: "registry/components/market-terminal/market-terminal-format.ts",
 };
 const mods = {};
 let temp;
@@ -294,4 +295,30 @@ test("çizgi tekrarı: değer, saat, çarpan ve etki yazımı ABACUS çıktısı
   assert.equal(mods.replay.effectText("count", { t: 0, title: "x" }, [{ t: 0, value: 100 }, { t: 3600000, value: 1340 }]), "sonraki saatte +1.240");
   assert.equal(mods.replay.effectText("count", { t: 0, kind: "issue", title: "x" }, [{ t: 0, value: 200 }, { t: 1200000, value: 150 }]), "20 dakikada " + money.percent(-25, 1, { sign: "always" }));
   assert.equal(mods.replay.niceTop(2316), 2500);
+});
+
+test("işlem ekranı: fiyat, değişim, hacim ve adet ABACUS çıktısıdır; ortalama, görünüm ve emir doğrulama doğru", () => {
+  assert.equal(mods.market.priceText(1250000), money.formatMajor(1250000, { currency: "TRY", digits: 2, kurus: true }));
+  assert.equal(mods.market.priceText(112.4), "₺112,40");
+  assert.deepEqual(mods.market.priceParts(112.4), { prefix: "₺", value: 112.4, decimals: 2, suffix: "" });
+  assert.equal(mods.market.signedPrice(1.25), "+₺1,25");
+  assert.equal(mods.market.signedPercent(1.234), money.percent(1.234, 2, { sign: "always" }));
+  assert.equal(mods.market.volumeShort(1250000), money.compactMajor(1250000, { style: "B/Mn/Mr" }).replace("₺", ""));
+  assert.equal(mods.market.volumeFull(1250000), money.fmtDecimalGrouped(1250000, 0));
+  assert.equal(mods.market.parseQuantity("1.250"), 1250);
+  assert.equal(mods.market.parseQuantity("0"), null);
+  assert.equal(mods.market.parseQuantity("2,5"), null);
+  assert.equal(mods.market.parsePrice("12,35"), 12.35);
+  assert.equal(mods.market.dayChange(110, 100).percent, math.percentChange(110, 100));
+  const base = { side: "buy", type: "market", quantityText: "10", limitText: "", price: 100, buyingPower: 5000, position: 3 };
+  assert.equal(mods.market.validateOrder(base), null);
+  assert.equal(mods.market.validateOrder({ ...base, quantityText: "60" }), "Alım gücü yetersiz");
+  assert.equal(mods.market.validateOrder({ ...base, side: "sell" }), "Satılacak yeterli hisse yok");
+  assert.equal(mods.market.validateOrder({ ...base, type: "limit" }), "Geçerli bir limit fiyat girin");
+  assert.equal(mods.market.validateOrder({ ...base, quantityText: "" }), "Adet sıfırdan büyük bir tam sayı olmalı");
+  const candles = [1, 2, 3, 4].map((close, at) => ({ t: at, open: close, high: close + 1, low: close - 1, close, volume: 10 }));
+  assert.deepEqual(mods.market.sma(candles, 2), [null, 1.5, 2.5, 3.5]);
+  assert.deepEqual(mods.market.clampView({ from: 99, count: 3 }, 4), { from: 0, count: 4 });
+  assert.deepEqual(mods.market.priceTicks({ low: 0, high: 10 }, 5), [0, 2, 4, 6, 8, 10]);
+  assert.equal(mods.market.orderTime(Date.UTC(2026, 9, 18, 11, 3, 27)), "14:03:27");
 });

@@ -15,6 +15,7 @@ import { UsageForecastDemo } from "./usage-forecast";
 import { BudgetVarianceDemo } from "./budget-variance";
 import { SmallMultiplesDemo } from "./small-multiples";
 import { LineReplayDemo } from "./line-replay";
+import { MarketTerminalDemo } from "./market-terminal";
 
 export const dalga2Demos: Record<string, () => ReactNode> = {
   "split-bar": () => <SplitBarDemo />,
@@ -32,4 +33,5 @@ export const dalga2Demos: Record<string, () => ReactNode> = {
   "budget-variance": () => <BudgetVarianceDemo />,
   "small-multiples": () => <SmallMultiplesDemo />,
   "line-replay": () => <LineReplayDemo />,
+  "market-terminal": () => <MarketTerminalDemo />,
 };

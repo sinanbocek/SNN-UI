@@ -2612,6 +2612,48 @@
         "arcCommit": "bfdf7e8",
         "arcSource": "registry/components/line-replay"
       }
+    },
+    {
+      "name": "market-terminal",
+      "type": "registry:ui",
+      "title": "İşlem ekranı",
+      "description": "Blok: bir menkul kıymetin fiyatını mum grafikle gösteren, yanında izleme listesi ve emir fişi bulunan tam bir işlem ekranı. Üstte sembol, \"Canlı\" düğmesi (akışı durdurur) ve dönen rakamlı güncel fiyat, günlük değişim (ok, işaretli tutar, yüzde), açılış / en yüksek / en düşük / hacim özeti; dönem düğmeleri (1G … 1Y), iki hareketli ortalama anahtarı ve yakınlaştırma düğmeleri. Grafikte mumlar, hacim çubukları, ortalamalar, son fiyat etiketi ve imleç altındaki açılış-en yüksek-en düşük-kapanış okuması vardır; tekerlekle ve iki parmakla yakınlaştırılır, sürüklenerek kaydırılır (bırakınca savrulur), klavyeyle gezilir. İzleme listesinde fiyat değişince satır yön tonuyla solar; emir fişi piyasa ve limit emri doğrular (alım gücü, pozisyon, geçersiz adet) ve uygulamanın verdiği işleve iletir; emir listesinde bekleyen emir iptal edilir. Yükleniyor, veri yok, akış duraklatıldı ve dar kap durumları vardır.",
+      "dependencies": [
+        "@snn/abacus-core@github:sinanbocek/SNN-Abacus-Core#semver:^4.3.0",
+        "motion"
+      ],
+      "registryDependencies": [
+        "@snn-ui/snn-foundation",
+        "@snn-ui/snn-motion-tokens",
+        "@snn-ui/animated-counter",
+        "@snn-ui/button",
+        "@snn-ui/segmented-control",
+        "@snn-ui/skeleton",
+        "@snn-ui/snn-chart-format",
+        "@snn-ui/snn-viz-utils",
+        "@snn-ui/switch"
+      ],
+      "files": [
+        {
+          "path": "registry/components/market-terminal/market-terminal-format.ts",
+          "type": "registry:component",
+          "target": "@components/snn/market-terminal/market-terminal-format.ts"
+        },
+        {
+          "path": "registry/components/market-terminal/market-terminal.module.css",
+          "type": "registry:component",
+          "target": "@components/snn/market-terminal/market-terminal.module.css"
+        },
+        {
+          "path": "registry/components/market-terminal/market-terminal.tsx",
+          "type": "registry:component",
+          "target": "@components/snn/market-terminal/market-terminal.tsx"
+        }
+      ],
+      "meta": {
+        "arcCommit": "bfdf7e8",
+        "arcSource": "registry/components/market-terminal"
+      }
     }
   ]
 }

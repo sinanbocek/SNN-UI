@@ -46,7 +46,7 @@ Kural: `SNN-Standartlar/standartlar/arayuz-standardi.md` §2.1. Fikir serbest, k
 | budget-variance | https://uiarc.dev/components/blocks/budget-variance | 2 | yazıldı |
 | small-multiples | https://uiarc.dev/components/blocks/small-multiples | 2 | yazıldı |
 | line-replay | https://uiarc.dev/components/blocks/line-replay | 2 | yazıldı |
-| market-terminal | https://uiarc.dev/components/blocks/market-terminal | 2 | tarif yazıldı |
+| market-terminal | https://uiarc.dev/components/blocks/market-terminal | 2 | yazıldı |
 | journey-flow | https://uiarc.dev/components/blocks/journey-flow | 2 | tarif yazıldı |
 | invoice-studio | https://uiarc.dev/components/blocks/invoice-studio | 2 | tarif yazıldı |
 | pricing-calculator | https://uiarc.dev/components/blocks/pricing-calculator | 2 | tarif yazıldı |
