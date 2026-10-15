@@ -40,6 +40,7 @@ const FILES = {
   detail: "registry/components/product-detail/product-detail-format.ts",
   cart: "registry/components/cart-drawer/cart-drawer-format.ts",
   checkout: "registry/components/checkout-summary/checkout-summary-format.ts",
+  wallet: "registry/components/wallet-card/wallet-card-format.ts",
 };
 const mods = {};
 let temp;
@@ -536,4 +537,33 @@ test("sipariş özeti: indirim, kupon, vergi ve toplam kuruş tamsayısıyla ve 
   assert.equal(mods.checkout.negativeText(64541), "-₺645,41");
   assert.equal(mods.checkout.removeCodeLabel("A"), "Kodu kaldır: A");
   assert.equal(mods.checkout.totalSentence(516326), "Ödenecek toplam ₺5.163,26");
+});
+
+test("hesap kartı: tutar doğrulama, hareket arama, grafik yolu ve yazımlar ABACUS çıktısıdır", () => {
+  assert.deepEqual(mods.wallet.checkAmount("", "send", 100000), { minor: null, error: "Tutarı girin." });
+  assert.equal(mods.wallet.checkAmount("0", "deposit", 0).error, "Tutar sıfırdan büyük olmalı.");
+  assert.equal(mods.wallet.checkAmount("1.250,5", "send", 200000).minor, 125050);
+  assert.equal(mods.wallet.checkAmount("1.250,5", "send", 100000).error, "Tutar bakiyenizi aşıyor.");
+  assert.equal(mods.wallet.checkAmount("1.250,5", "deposit", 100000).minor, 125050);
+  assert.equal(mods.wallet.checkAmount("12,345", "deposit", 0).error, "En çok iki ondalık yazılabilir.");
+  assert.equal(mods.wallet.checkAmount("abc", "deposit", 0).error, "Geçerli bir tutar girin.");
+  const list = [{ id: "1", title: "ÇİÇEK siparişi", date: "2026-10-14", source: "Işık Ltd.", amount: -120 }, { id: "2", title: "Kira", date: "2026-10-10", amount: -9500 }];
+  assert.deepEqual(mods.wallet.filterTransactions(list, "çiçek").map(item => item.id), ["1"]);
+  assert.deepEqual(mods.wallet.filterTransactions(list, "ışık").map(item => item.id), ["1"]);
+  assert.deepEqual(mods.wallet.filterTransactions(list, "10.10.2026").map(item => item.id), ["2"]);
+  assert.equal(mods.wallet.filterTransactions(list, " ").length, 2);
+  const shape = mods.wallet.chartGeometry([{ date: "2026-10-01", value: 100 }, { date: "2026-10-02", value: 200 }, { date: "2026-10-03", value: 150 }]);
+  assert.ok(shape.line.startsWith("M0 ") && shape.area.endsWith("Z"));
+  assert.equal(shape.dots.length, 3);
+  assert.equal(mods.wallet.chartGeometry([]).line, "");
+  assert.equal(mods.wallet.balanceText(128450.5), money.formatMajor(128450.5, { currency: "TRY", digits: 2, kurus: true }));
+  assert.equal(mods.wallet.balanceText(128450.5), "₺128.450,50");
+  assert.equal(mods.wallet.changeText(12300), "+₺12.300,00 bu ay");
+  assert.equal(mods.wallet.changeText(-1800), "-₺1.800,00 bu ay");
+  assert.equal(mods.wallet.transactionAmountText(-18450), "-₺18.450,00");
+  assert.equal(mods.wallet.pointText({ date: "2026-10-14", value: 1000 }), "14 Ekim 2026: ₺1.000,00");
+  assert.equal(mods.wallet.transactionMeta(list[0]), "14.10.2026 · Işık Ltd.");
+  assert.equal(mods.wallet.submitLabel("send", 125050), "₺1.250,50 gönder");
+  assert.equal(mods.wallet.submitLabel("deposit", 125050), "₺1.250,50 ekle");
+  assert.equal(mods.wallet.submitLabel("convert", null), "Çevir");
 });

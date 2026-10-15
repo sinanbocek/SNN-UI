@@ -60,7 +60,7 @@ Kural: `SNN-Standartlar/standartlar/arayuz-standardi.md` §2.1. Fikir serbest, k
 | product-detail | https://uiarc.dev/components/blocks/product-detail | 3 | yazıldı |
 | cart-drawer | https://uiarc.dev/components/blocks/cart-drawer | 3 | yazıldı |
 | checkout-summary | https://uiarc.dev/components/blocks/checkout-summary | 3 | yazıldı |
-| wallet-card | https://uiarc.dev/components/blocks/wallet-card | 3 | tarif yazıldı |
+| wallet-card | https://uiarc.dev/components/blocks/wallet-card | 3 | yazıldı |
 | hero-signup | https://uiarc.dev/components/blocks/hero-signup | 3 | tarif yazıldı |
 | scroll-story | https://uiarc.dev/components/blocks/scroll-story | 3 | tarif yazıldı |
 | spotlight-grid | https://uiarc.dev/components/blocks/spotlight-grid | 3 | tarif yazıldı |

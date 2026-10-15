@@ -3017,6 +3017,51 @@
         "arcCommit": "bfdf7e8",
         "arcSource": "registry/components/checkout-summary"
       }
+    },
+    {
+      "name": "wallet-card",
+      "type": "registry:ui",
+      "title": "Hesap kartı",
+      "description": "Blok: küçük bir hesap görünümü. Üstte hesap değiştirici (Ana hesap / Yedek hesap) ve bakiyeyi gizle/göster düğmesi; büyük dönen bakiye, \"bu ay\" değişimi, dönem seçici (1 hafta, 1 ay, 1 yıl) ve bakiye geçmişi grafiği (fareyle gezince nokta okunur; dokunmatik ve klavyede grafik üzerindeki aralık girdisiyle oklar noktaları dolaşır). Eylem düğmeleri (Gönder, Yatır, Çevir, Al) birinin altında kendi panelini açar: ayraçlı tutar kutusu (virgül ondalık), doğrulama iletisi (\"Tutar bakiyenizi aşıyor.\", \"Tutarı girin.\") ve tutarı taşıyan onay düğmesi (\"₺1.250,00 gönder\"). Onaylanınca bakiye yeni değere sayarak gider, yeni hareket satırı yerinde açılır, odak eylem düğmesine döner. Son hareketler üç satırdır; arama alanı bellekte süzer, \"Tümünü gör\" hepsini açar. Gizliyken ekran okuyucu \"Bakiye gizli\" der. Boş geçmiş, sonuç yok, yükleniyor ve dar kap durumları vardır.",
+      "dependencies": [
+        "@snn/abacus-core@github:sinanbocek/SNN-Abacus-Core#semver:^4.3.0",
+        "motion"
+      ],
+      "registryDependencies": [
+        "@snn-ui/snn-foundation",
+        "@snn-ui/snn-motion-tokens",
+        "@snn-ui/animated-counter",
+        "@snn-ui/button",
+        "@snn-ui/dropdown-menu",
+        "@snn-ui/empty-state",
+        "@snn-ui/search-field",
+        "@snn-ui/segmented-control",
+        "@snn-ui/snn-chart-format",
+        "@snn-ui/snn-motion-tokens",
+        "@snn-ui/snn-shop-parts",
+        "@snn-ui/snn-viz-utils"
+      ],
+      "files": [
+        {
+          "path": "registry/components/wallet-card/wallet-card-format.ts",
+          "type": "registry:component",
+          "target": "@components/snn/wallet-card/wallet-card-format.ts"
+        },
+        {
+          "path": "registry/components/wallet-card/wallet-card.module.css",
+          "type": "registry:component",
+          "target": "@components/snn/wallet-card/wallet-card.module.css"
+        },
+        {
+          "path": "registry/components/wallet-card/wallet-card.tsx",
+          "type": "registry:component",
+          "target": "@components/snn/wallet-card/wallet-card.tsx"
+        }
+      ],
+      "meta": {
+        "arcCommit": "bfdf7e8",
+        "arcSource": "registry/components/wallet-card"
+      }
     }
   ]
 }
