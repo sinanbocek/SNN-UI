@@ -115,6 +115,34 @@
       ]
     },
     {
+      "name": "snn-image-viewer",
+      "type": "registry:item",
+      "title": "SNN tam ekran fotoğraf görüntüleyicisi",
+      "description": "Fotoğraf galerisi bloklarının ortak görüntüleyicisi (ImageViewer): fotoğraf kendi yuvasından büyür ve kapanınca oraya döner, sol/sağ ok ve kaydırmayla gezilir, +/-/0, çift tıklama, iki parmak ve Ctrl+tekerlekle yakınlaştırılır, aşağı çekilerek kapatılır; küçük resim şeridi, \"2 / 12\" sayacı ve odak tuzağı vardır (kipli iletişim kutusu). Fotoğraf gerçek genişlik ve yükseklikle verilir. Bloklarla kendiliğinden gelir.",
+      "dependencies": [
+        "@snn/abacus-core@github:sinanbocek/SNN-Abacus-Core#semver:^4.3.0",
+        "motion",
+        "@radix-ui/react-dialog"
+      ],
+      "files": [
+        {
+          "path": "registry/components/lib/image-viewer-format.ts",
+          "type": "registry:lib",
+          "target": "@components/snn/lib/image-viewer-format.ts"
+        },
+        {
+          "path": "registry/components/lib/image-viewer.tsx",
+          "type": "registry:lib",
+          "target": "@components/snn/lib/image-viewer.tsx"
+        },
+        {
+          "path": "registry/components/lib/image-viewer.module.css",
+          "type": "registry:lib",
+          "target": "@components/snn/lib/image-viewer.module.css"
+        }
+      ]
+    },
+    {
       "name": "snn-metric-format",
       "type": "registry:item",
       "title": "SNN gösterge yazımı",
@@ -3223,6 +3251,330 @@
       "meta": {
         "arcCommit": "bfdf7e8",
         "arcSource": "registry/components/spotlight-grid"
+      }
+    },
+    {
+      "name": "product-gallery",
+      "type": "registry:ui",
+      "title": "Ürün fotoğraf galerisi",
+      "description": "Blok: ürün sayfası için fotoğraf galerisi. Büyük fotoğraf üstünde fareyle büyüteç merceği (yaylarla imleci izler, \"Büyüteç\" düğmesiyle kapanır), dokunmatikte parmağı bire bir izleyen kaydırma, nokta göstergesi ve büyüt simgesi; küçük resim şeridi (seçili halka kayarak değişir). Fotoğrafa basınca ya da Enter'a basınca tam ekran görüntüleyici fotoğrafın kendi yerinden büyür: sol/sağ ok, +/-/0, çift tıklama, iki parmak ve Ctrl+tekerlek yakınlaştırır, aşağı çekmek ya da Escape kapatır (Escape önce uzaklaştırır), odak ana fotoğrafa döner, \"2 / 12\" sayacı duyurulur. Renk seçici (örnekler ve seçili renk adı) değişince tüm fotoğraflar bulanıktan netleşerek yeni rengin fotoğraflarına geçer; seçili beden o renkte tükenmişse seçim kalkar ve dışarı bildirilir. Beden düğmelerinde tükenenler çizgili, seçilemez ve metinle belirtilir (\"Orman için M tükendi\"); oklar tükenenleri atlar. Beden seçilmediyse \"Beden seçin\" ipucu çıkar. Üst ve alt alan uygulamaya aittir. Dar kapta (680 px altı) üst üste dizilir.",
+      "dependencies": [
+        "@snn/abacus-core@github:sinanbocek/SNN-Abacus-Core#semver:^4.3.0",
+        "motion",
+        "@radix-ui/react-dialog"
+      ],
+      "registryDependencies": [
+        "@snn-ui/snn-foundation",
+        "@snn-ui/snn-motion-tokens",
+        "@snn-ui/snn-chart-format",
+        "@snn-ui/snn-image-viewer",
+        "@snn-ui/snn-motion-tokens",
+        "@snn-ui/snn-shop-parts",
+        "@snn-ui/snn-viz-utils"
+      ],
+      "files": [
+        {
+          "path": "registry/components/product-gallery/product-gallery-format.ts",
+          "type": "registry:component",
+          "target": "@components/snn/product-gallery/product-gallery-format.ts"
+        },
+        {
+          "path": "registry/components/product-gallery/product-gallery.module.css",
+          "type": "registry:component",
+          "target": "@components/snn/product-gallery/product-gallery.module.css"
+        },
+        {
+          "path": "registry/components/product-gallery/product-gallery.tsx",
+          "type": "registry:component",
+          "target": "@components/snn/product-gallery/product-gallery.tsx"
+        }
+      ],
+      "meta": {
+        "arcCommit": "bfdf7e8",
+        "arcSource": "registry/components/product-gallery"
+      }
+    },
+    {
+      "name": "lightbox-gallery",
+      "type": "registry:ui",
+      "title": "Fotoğraf duvarı",
+      "description": "Blok: fotoğrafları oranlarını koruyarak sütunlu bir \"duvar\" (masonry) düzeninde gösterir. Sütun sayısı kabın genişliğinden hesaplanır (sütun en az 180 piksel, en az iki sütun); fotoğraflar o ana kadar en kısa sütuna dağıtılır. Bir fotoğrafa basınca (ya da Enter / Boşluk) fotoğraf kendi yerinden büyüyerek tam ekran görüntüleyiciye açılır: arka plan kararır, sol/sağ ok ve yana kaydırma önceki/sonraki fotoğrafa götürür, +/-/0, çift tıklama, iki parmak ya da Ctrl+tekerlek yakınlaştırır, yakın planda sürüklenir, aşağı çekmek (direnç hissiyle) ya da Escape kapatır. Görüntüleyicide başlık ve alt yazı, \"2 / 12\" sayacı, yakınlaştırma düğmesi ve küçük resim şeridi vardır; kapanınca fotoğraf o an gösterilen fotoğrafın yuvasına geri uçar ve odak duvardaki o fotoğrafa döner. Fotoğraf düğmeleri \"Kıyıda sabah aç, 1 / 12 fotoğraf\" diye okunur. Yükleniyor iskeleti ve dar kap durumları vardır.",
+      "dependencies": [
+        "@snn/abacus-core@github:sinanbocek/SNN-Abacus-Core#semver:^4.3.0",
+        "motion",
+        "@radix-ui/react-dialog"
+      ],
+      "registryDependencies": [
+        "@snn-ui/snn-foundation",
+        "@snn-ui/snn-motion-tokens",
+        "@snn-ui/snn-chart-format",
+        "@snn-ui/snn-image-viewer",
+        "@snn-ui/snn-motion-tokens",
+        "@snn-ui/snn-shop-parts",
+        "@snn-ui/snn-viz-utils"
+      ],
+      "files": [
+        {
+          "path": "registry/components/lightbox-gallery/lightbox-gallery-format.ts",
+          "type": "registry:component",
+          "target": "@components/snn/lightbox-gallery/lightbox-gallery-format.ts"
+        },
+        {
+          "path": "registry/components/lightbox-gallery/lightbox-gallery.module.css",
+          "type": "registry:component",
+          "target": "@components/snn/lightbox-gallery/lightbox-gallery.module.css"
+        },
+        {
+          "path": "registry/components/lightbox-gallery/lightbox-gallery.tsx",
+          "type": "registry:component",
+          "target": "@components/snn/lightbox-gallery/lightbox-gallery.tsx"
+        }
+      ],
+      "meta": {
+        "arcCommit": "bfdf7e8",
+        "arcSource": "registry/components/lightbox-gallery"
+      }
+    },
+    {
+      "name": "photo-grid",
+      "type": "registry:ui",
+      "title": "Fotoğraf ızgarası",
+      "description": "Blok: bir albümü eş boyutlu kare hücrelerle gösterir. Üst çubukta albüm adı, dönen fotoğraf sayısı, dönen sütun sayısı ve yakınlaştır / uzaklaştır düğmeleri bulunur. İki parmakla sıkıştırınca (ya da Ctrl+tekerlek, düğmeler, `+` / `-`) sütun sayısı yoğun, orta, geniş arasında (beş, üç, iki) değişir: sıkıştırma sırasında ızgara canlı ölçeklenir, bırakınca en yakın seviyeye oturur ve parmakların altındaki fotoğraf ekranda yerinde kalır. Izgarada oklar odağı gezdirir (PageUp / PageDown üç satır, Home / End ilk-son). Bir hücreye basınca (ya da Enter / Boşluk) tam ekran görüntüleyici o hücreden büyür; görüntüleyicide başlık ve ayrıntı satırı, \"2 / 30\" sayacı, favori kalbi, önceki/sonraki, kapat ve alttaki küçük resim şeridi vardır; sol/sağ ok, Home/End, yana kaydırma gezdirir, aşağı çekmek ya da Escape kapatır. Kalbe basınca favori açılır/kapanır (hücrede küçük kalp belirir, adı \", favori\" ile okunur) ve değişim dışarı bildirilir. Yükleniyor iskeleti ve dar kap durumları vardır.",
+      "dependencies": [
+        "@snn/abacus-core@github:sinanbocek/SNN-Abacus-Core#semver:^4.3.0",
+        "motion",
+        "@radix-ui/react-dialog"
+      ],
+      "registryDependencies": [
+        "@snn-ui/snn-foundation",
+        "@snn-ui/snn-motion-tokens",
+        "@snn-ui/animated-counter",
+        "@snn-ui/button",
+        "@snn-ui/snn-chart-format",
+        "@snn-ui/snn-image-viewer",
+        "@snn-ui/snn-motion-tokens",
+        "@snn-ui/snn-shop-parts",
+        "@snn-ui/snn-viz-utils"
+      ],
+      "files": [
+        {
+          "path": "registry/components/photo-grid/photo-grid-format.ts",
+          "type": "registry:component",
+          "target": "@components/snn/photo-grid/photo-grid-format.ts"
+        },
+        {
+          "path": "registry/components/photo-grid/photo-grid.module.css",
+          "type": "registry:component",
+          "target": "@components/snn/photo-grid/photo-grid.module.css"
+        },
+        {
+          "path": "registry/components/photo-grid/photo-grid.tsx",
+          "type": "registry:component",
+          "target": "@components/snn/photo-grid/photo-grid.tsx"
+        }
+      ],
+      "meta": {
+        "arcCommit": "bfdf7e8",
+        "arcSource": "registry/components/photo-grid"
+      }
+    },
+    {
+      "name": "testimonial-stage",
+      "type": "registry:ui",
+      "title": "Görüş sahnesi",
+      "description": "Blok: birkaç kişinin görüşünü, kişinin portresi öne çıkacak biçimde gösterir. Bölüm başlığının altında kişi sekmeleri (küçük baş harf rozeti ve ad; seçili sekmenin altında kayan çizgi), altında seçili kişinin büyük portresi, alıntısı, adı, unvanı ve şirketi durur. Sekmeye basınca ya da sol/sağ ok tuşuna basınca (listenin sonunda başa sarar, Home/End ilk-son, odak yeni sekmeye gider) portre ve alıntı küçük yön kaymasıyla soluk geçişle değişir ve \"Elif Aksoy görüşü gösteriliyor.\" kibar canlı bölgede duyurulur. Kendiliğinden dönmez; seçim `onSelect` ile dışarı bildirilir. Tek kişide sekme listesi gizlenir. Yükleniyor iskeleti ve dar kap (800 / 680 / 350 px) durumları vardır.",
+      "dependencies": [
+        "@snn/abacus-core@github:sinanbocek/SNN-Abacus-Core#semver:^4.3.0",
+        "motion"
+      ],
+      "registryDependencies": [
+        "@snn-ui/snn-foundation",
+        "@snn-ui/snn-motion-tokens",
+        "@snn-ui/snn-chart-format",
+        "@snn-ui/snn-motion-tokens",
+        "@snn-ui/snn-shop-parts",
+        "@snn-ui/snn-viz-utils"
+      ],
+      "files": [
+        {
+          "path": "registry/components/testimonial-stage/testimonial-stage-format.ts",
+          "type": "registry:component",
+          "target": "@components/snn/testimonial-stage/testimonial-stage-format.ts"
+        },
+        {
+          "path": "registry/components/testimonial-stage/testimonial-stage.module.css",
+          "type": "registry:component",
+          "target": "@components/snn/testimonial-stage/testimonial-stage.module.css"
+        },
+        {
+          "path": "registry/components/testimonial-stage/testimonial-stage.tsx",
+          "type": "registry:component",
+          "target": "@components/snn/testimonial-stage/testimonial-stage.tsx"
+        }
+      ],
+      "meta": {
+        "arcCommit": "bfdf7e8",
+        "arcSource": "registry/components/testimonial-stage"
+      }
+    },
+    {
+      "name": "team-showcase",
+      "type": "registry:ui",
+      "title": "Ekip tanıtımı",
+      "description": "Blok: ekibi portre ağırlıklı tanıtan \"ekiple tanışın\" bölümü. Dört yerleşimden biriyle çalışır: galeri (portre kartları ızgarası, profil altında), film şeridi (yatay yapışmalı portre şeridi), dizin (satır satır liste, satır açılınca profil içinde yükseklik animasyonuyla açılır) ve ön plan (büyük portre bir yanda, ad ve tanım öbür yanda, küçük seçici). Bir kişiye basınca profili yerinde soluk geçişle açılır: ad, unvan, şehir ve ülke, tanım ve kopyalanabilir e-posta ile telefon (her kopyala düğmesi kişinin adıyla etiketli: \"Elif Aksoy e-postasını kopyala\"; basınca kısa süre \"Kopyalandı\" ya da \"Kopyalanamadı\" yazar). Başlıkta \"1 / 5 · Elif Aksoy\" sayacı bulunur; profil değişimi kibar canlı bölgede duyurulur. İletişim bilgisi olmayan kişide satır gizlenir. Telefon isteğe bağlı olarak ekranda maskelenir. Dar kapta (440 px altı) galeri yatay kaydırıcıya, ön plan alt alta döner.",
+      "dependencies": [
+        "@snn/abacus-core@github:sinanbocek/SNN-Abacus-Core#semver:^4.3.0",
+        "motion"
+      ],
+      "registryDependencies": [
+        "@snn-ui/snn-foundation",
+        "@snn-ui/snn-motion-tokens",
+        "@snn-ui/segmented-control",
+        "@snn-ui/snn-chart-format",
+        "@snn-ui/snn-motion-tokens",
+        "@snn-ui/snn-shop-parts",
+        "@snn-ui/snn-viz-utils"
+      ],
+      "files": [
+        {
+          "path": "registry/components/team-showcase/team-showcase-format.ts",
+          "type": "registry:component",
+          "target": "@components/snn/team-showcase/team-showcase-format.ts"
+        },
+        {
+          "path": "registry/components/team-showcase/team-showcase.module.css",
+          "type": "registry:component",
+          "target": "@components/snn/team-showcase/team-showcase.module.css"
+        },
+        {
+          "path": "registry/components/team-showcase/team-showcase.tsx",
+          "type": "registry:component",
+          "target": "@components/snn/team-showcase/team-showcase.tsx"
+        }
+      ],
+      "meta": {
+        "arcCommit": "bfdf7e8",
+        "arcSource": "registry/components/team-showcase"
+      }
+    },
+    {
+      "name": "media-player",
+      "type": "registry:ui",
+      "title": "Ses oynatıcı",
+      "description": "Blok: küçük bir ses koleksiyonu (podcast, örnek paketi, çalma listesi) için tam oynatıcı. Kapak, parça adı ve ikinci satır (parça değişince kapak soluk geçer, başlık yükselerek gelir); ilerleme çubuğu (yerel aralık girdisi, değer metni \"0:12 / 0:24\"); önceki, oynat/duraklat (simge kısa ölçek ve bulanıkla değişir) ve sonraki düğmeleri; ses kaydırıcısı (değer metni \"%70\") ve sessize al / sesi aç düğmesi. Çalma listesinde parça satırları (ad, süre) bulunur; çalan satırın yanında kayan işaret ve çalarken oynayan çubuklar vardır, satıra basınca o parça çalar. Parça bitince bir sonrakine geçer, listenin sonunda durur. Ses dosyası açılamazsa satır içi hata ve \"Tekrar dene\" çıkar. Tek parçada önceki/sonraki kapalıdır ve liste gizlenir. Parça değişimi kibar canlı bölgede duyurulur; dar kapta (420 px altı) kapak yatay oranlı olur.",
+      "dependencies": [
+        "@snn/abacus-core@github:sinanbocek/SNN-Abacus-Core#semver:^4.3.0",
+        "motion"
+      ],
+      "registryDependencies": [
+        "@snn-ui/snn-foundation",
+        "@snn-ui/snn-motion-tokens",
+        "@snn-ui/button",
+        "@snn-ui/snn-chart-format",
+        "@snn-ui/snn-motion-tokens",
+        "@snn-ui/snn-shop-parts",
+        "@snn-ui/snn-viz-utils"
+      ],
+      "files": [
+        {
+          "path": "registry/components/media-player/media-player-format.ts",
+          "type": "registry:component",
+          "target": "@components/snn/media-player/media-player-format.ts"
+        },
+        {
+          "path": "registry/components/media-player/media-player.module.css",
+          "type": "registry:component",
+          "target": "@components/snn/media-player/media-player.module.css"
+        },
+        {
+          "path": "registry/components/media-player/media-player.tsx",
+          "type": "registry:component",
+          "target": "@components/snn/media-player/media-player.tsx"
+        }
+      ],
+      "meta": {
+        "arcCommit": "bfdf7e8",
+        "arcSource": "registry/components/media-player"
+      }
+    },
+    {
+      "name": "wallet-stack",
+      "type": "registry:ui",
+      "title": "Kart destesi",
+      "description": "Blok: birkaç ödeme ya da üyelik kartını üst üste duran bir deste olarak gösterir. Başlıkta \"Kartlarım\" ve \"1 / 4\" sayacı vardır (kart açıkken sayaç yerine \"Tüm kartlar\" düğmesi). Fareyle destenin üstüne gelince kartlar yukarı doğru açılır, öndeki kart imleci hafifçe izler ve üstünde bir parlama gezer. Aşağı/yukarı sürüklemek ya da oklar (aşağı/sağ ileri, yukarı/sol geri, Home/End ilk-son) bir sonraki/önceki kartı öne getirir; uçlarda esner. Kart yüzü kurumu, ürün adını, numaranın yalnız son dört hanesini (\"•••• •••• •••• 0417\"), kart sahibini, son kullanmayı ve kurgusal bir ağ adını gösterir; malzeme görünümü kart başına seçilir (metal, siyah, cam, düz renk). Karta basınca (Enter / Boşluk) kart öne çıkar, diğerleri çekilir; altında dönen bakiye (\"₺48.250,75\") ve üç son hareket sırayla belirir (çıkan tutar eksi). Açık kartı aşağı çekmek, Escape ya da \"Tüm kartlar\" desteye geri döndürür ve odağı karta verir; kart açıkken oklar açık kartı değiştirir. Hareket yoksa \"Henüz hareket yok\" yazar. Yalnız öndeki kart sekme sırasındadır; her kart \"Örnek Banka, Metal Kart, son dört hane 0 4 1 7, 1/4, bakiye ₺48.250,75\" diye okunur. Deste genişliği kaplar, kartın yazıları karta göre ölçeklenir.",
+      "dependencies": [
+        "@snn/abacus-core@github:sinanbocek/SNN-Abacus-Core#semver:^4.3.0",
+        "motion"
+      ],
+      "registryDependencies": [
+        "@snn-ui/snn-foundation",
+        "@snn-ui/snn-motion-tokens",
+        "@snn-ui/animated-counter",
+        "@snn-ui/button",
+        "@snn-ui/snn-chart-format",
+        "@snn-ui/snn-motion-tokens",
+        "@snn-ui/snn-shop-parts",
+        "@snn-ui/snn-viz-utils"
+      ],
+      "files": [
+        {
+          "path": "registry/components/wallet-stack/wallet-stack-format.ts",
+          "type": "registry:component",
+          "target": "@components/snn/wallet-stack/wallet-stack-format.ts"
+        },
+        {
+          "path": "registry/components/wallet-stack/wallet-stack.module.css",
+          "type": "registry:component",
+          "target": "@components/snn/wallet-stack/wallet-stack.module.css"
+        },
+        {
+          "path": "registry/components/wallet-stack/wallet-stack.tsx",
+          "type": "registry:component",
+          "target": "@components/snn/wallet-stack/wallet-stack.tsx"
+        }
+      ],
+      "meta": {
+        "arcCommit": "bfdf7e8",
+        "arcSource": "registry/components/wallet-stack"
+      }
+    },
+    {
+      "name": "cover-flow",
+      "type": "registry:ui",
+      "title": "Derinlikli görsel rayı",
+      "description": "Blok: kısa bir görsel koleksiyonunu (albüm, yer, derleme) tek tek gezdirir. Öndeki kart öne çıkar; diğerleri iki yanda küçülür, kararır, merkeze doğru döner ve geri çekilir (uzaktakiler gizlenir); her görsel çerçevesinin içinde hafifçe kayar, altta hafif bir yansıma vardır. Fareyle ya da parmakla sürüklenir ve fırlatılır: ray bırakma hızının götürdüğü karta yayla oturur, hızlı bir fırlatma en az bir kart ilerletir, uçlarda esner; yatay izleme yüzeyi kaydırması rayı doğrudan oynatır, sonra bir karta oturur. Yandaki karta basınca o kart öne gelir; ray odaktayken sol/sağ ok bir kart, Home/End ilk-son gider. Altta küçük konum çentikleri (\"… göster\") ve seçili kartın açıklaması (üst bilgi, başlık, alt başlık ve uygulamanın kendi içeriği: sayılar, düğme) bulunur; ön kart değişince açıklama hareket yönünden yükselerek yenilenir. Ray \"döner şerit\" olarak etiketlidir, her kart \"2 / 8: başlık\" adlı bir slayttır, öndekinden uzak kartlar ekran okuyucuya kapalıdır ve öndeki kart kibar canlı bölgede duyurulur. Tek ya da iki kartta sade görünür (çentikler gizlenir).",
+      "dependencies": [
+        "@snn/abacus-core@github:sinanbocek/SNN-Abacus-Core#semver:^4.3.0",
+        "motion"
+      ],
+      "registryDependencies": [
+        "@snn-ui/snn-foundation",
+        "@snn-ui/snn-motion-tokens",
+        "@snn-ui/snn-chart-format",
+        "@snn-ui/snn-motion-tokens",
+        "@snn-ui/snn-shop-parts",
+        "@snn-ui/snn-viz-utils"
+      ],
+      "files": [
+        {
+          "path": "registry/components/cover-flow/cover-flow-format.ts",
+          "type": "registry:component",
+          "target": "@components/snn/cover-flow/cover-flow-format.ts"
+        },
+        {
+          "path": "registry/components/cover-flow/cover-flow.module.css",
+          "type": "registry:component",
+          "target": "@components/snn/cover-flow/cover-flow.module.css"
+        },
+        {
+          "path": "registry/components/cover-flow/cover-flow.tsx",
+          "type": "registry:component",
+          "target": "@components/snn/cover-flow/cover-flow.tsx"
+        }
+      ],
+      "meta": {
+        "arcCommit": "bfdf7e8",
+        "arcSource": "registry/components/cover-flow"
       }
     }
   ]

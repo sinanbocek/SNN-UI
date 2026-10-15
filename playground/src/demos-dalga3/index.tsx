@@ -9,6 +9,14 @@ import { PaymentFlowDemo } from "./payment-flow";
 import { HeroSignupDemo } from "./hero-signup";
 import { ScrollStoryDemo } from "./scroll-story";
 import { SpotlightGridDemo } from "./spotlight-grid";
+import { ProductGalleryDemo } from "./product-gallery";
+import { LightboxGalleryDemo } from "./lightbox-gallery";
+import { PhotoGridDemo } from "./photo-grid";
+import { TestimonialStageDemo } from "./testimonial-stage";
+import { TeamShowcaseDemo } from "./team-showcase";
+import { MediaPlayerDemo } from "./media-player";
+import { WalletStackDemo } from "./wallet-stack";
+import { CoverFlowDemo } from "./cover-flow";
 
 export const dalga3Demos: Record<string, () => ReactNode> = {
   "product-listing": () => <ProductListingDemo />,
@@ -20,4 +28,12 @@ export const dalga3Demos: Record<string, () => ReactNode> = {
   "hero-signup": () => <HeroSignupDemo />,
   "scroll-story": () => <ScrollStoryDemo />,
   "spotlight-grid": () => <SpotlightGridDemo />,
+  "product-gallery": () => <ProductGalleryDemo />,
+  "lightbox-gallery": () => <LightboxGalleryDemo />,
+  "photo-grid": () => <PhotoGridDemo />,
+  "testimonial-stage": () => <TestimonialStageDemo />,
+  "team-showcase": () => <TeamShowcaseDemo />,
+  "media-player": () => <MediaPlayerDemo />,
+  "wallet-stack": () => <WalletStackDemo />,
+  "cover-flow": () => <CoverFlowDemo />,
 };

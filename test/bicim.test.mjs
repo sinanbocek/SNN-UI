@@ -45,19 +45,29 @@ const FILES = {
   hero: "registry/components/hero-signup/hero-signup-format.ts",
   story: "registry/components/scroll-story/scroll-story-format.ts",
   spotlight: "registry/components/spotlight-grid/spotlight-grid-format.ts",
+  viewer: "registry/components/lib/image-viewer-format.ts",
+  gallery: "registry/components/product-gallery/product-gallery-format.ts",
+  lightbox: "registry/components/lightbox-gallery/lightbox-gallery-format.ts",
+  pgrid: "registry/components/photo-grid/photo-grid-format.ts",
+  testimonial: "registry/components/testimonial-stage/testimonial-stage-format.ts",
+  team: "registry/components/team-showcase/team-showcase-format.ts",
+  player: "registry/components/media-player/media-player-format.ts",
+  stack: "registry/components/wallet-stack/wallet-stack-format.ts",
+  cover: "registry/components/cover-flow/cover-flow-format.ts",
 };
 const mods = {};
 let temp;
 let math;
 let money;
 let validate;
+let mask;
 
 before(async () => {
   temp = mkdtempSync(path.join(tmpdir(), "snn-ui-bicim-"));
   // Beklenen değerler ABACUS'tan alınır; paket TypeScript kaynağı taşıdığı için o da paketlenir.
   const abacusOut = path.join(temp, "abacus.mjs");
   await build({ stdin: { contents: 'export * from "@snn/abacus-core";', resolveDir: root }, bundle: true, format: "esm", platform: "node", outfile: abacusOut, logLevel: "silent" });
-  ({ math, money, validate } = await import(pathToFileURL(abacusOut).href));
+  ({ math, money, validate, mask } = await import(pathToFileURL(abacusOut).href));
   for (const [key, file] of Object.entries(FILES)) {
     const outfile = path.join(temp, `${key}.mjs`);
     await build({ entryPoints: [path.join(root, file)], bundle: true, format: "esm", platform: "node", outfile, logLevel: "silent" });
@@ -679,4 +689,252 @@ test("özellik ızgarası: sütun sayısı, kart kaplaması, ışık konumu ve y
   assert.deepEqual(mods.spotlight.glowAt(rect, 900, -5), { x: 200, y: 0 });
   assert.equal(mods.spotlight.closeLabel("Gecikme"), "Gecikme: ayrıntıyı kapat");
   assert.equal(mods.spotlight.cardCountText(1234), "1.234 özellik");
+});
+
+test("fotoğraf görüntüleyici: sığdırma, yakınlaştırma, kaydırma sınırı, eşikler ve sayaç doğru; sayılar ABACUS çıktısıdır", () => {
+  assert.deepEqual(mods.viewer.fitRect(800, 1000, 1000, 600), { left: 260, top: 0, width: 480, height: 600 });
+  assert.deepEqual(mods.viewer.fitRect(1000, 500, 1000, 1000, 100), { left: 100, top: 300, width: 800, height: 400 });
+  assert.equal(mods.viewer.clampZoom(9), 4);
+  assert.equal(mods.viewer.clampZoom(.2), 1);
+  assert.equal(mods.viewer.zoomIn(1), 1.5);
+  assert.equal(mods.viewer.zoomOut(1), 1);
+  assert.equal(mods.viewer.zoomIn(3), 4);
+  const rect = { left: 0, top: 0, width: 400, height: 300 };
+  assert.deepEqual(mods.viewer.panLimit(rect, 2), { x: 200, y: 150 });
+  assert.deepEqual(mods.viewer.panLimit(rect, 1), { x: 0, y: 0 });
+  assert.deepEqual(mods.viewer.clampPan({ x: 999, y: -999 }, rect, 2), { x: 200, y: -150 });
+  assert.deepEqual(mods.viewer.zoomAround({ x: 100, y: 0 }, { x: 0, y: 0 }, 1, 2), { x: -100, y: 0 });
+  assert.equal(mods.viewer.swipeStep(-120, 0, 1, 5), 1);
+  assert.equal(mods.viewer.swipeStep(120, 0, 1, 5), -1);
+  assert.equal(mods.viewer.swipeStep(120, 0, 0, 5), 0);
+  assert.equal(mods.viewer.swipeStep(-120, 0, 4, 5), 0);
+  assert.equal(mods.viewer.swipeStep(-10, -900, 1, 5), 1);
+  assert.equal(mods.viewer.swipeStep(-10, -100, 1, 5), 0);
+  assert.equal(mods.viewer.pullCloses(130, 0), true);
+  assert.equal(mods.viewer.pullCloses(40, 800), true);
+  assert.equal(mods.viewer.pullCloses(40, 100), false);
+  assert.equal(mods.viewer.pinchZoom(1, 100, 200), 2);
+  assert.equal(mods.viewer.pinchZoom(2, 100, 400), 4);
+  assert.equal(mods.viewer.pinchZoom(2, 0, 400), 2);
+  assert.equal(mods.viewer.counterText(1, 12), "2 / 12");
+  assert.equal(mods.viewer.counterText(0, 1234), "1 / 1.234");
+  assert.equal(mods.viewer.openText({ alt: "Kıyı", title: "Kıyıda gün batımı" }, 0, 3), "Kıyıda gün batımı aç, 1 / 3 fotoğraf");
+  assert.equal(mods.viewer.zoomPercent(2.5), "250");
+});
+
+test("ürün galerisi: tükenen beden, ok tuşuyla gezme, büyüteç kayması ve yazımlar doğru", () => {
+  const sizes = [{ value: "S", label: "S" }, { value: "M", label: "M", soldOutIn: ["orman"] }, { value: "L", label: "L" }, { value: "XL", label: "XL", soldOutIn: ["orman"] }];
+  assert.equal(mods.gallery.isSoldOut(sizes[1], "orman"), true);
+  assert.equal(mods.gallery.isSoldOut(sizes[1], "kum"), false);
+  assert.equal(mods.gallery.keepSize(sizes, "M", "orman"), "");
+  assert.equal(mods.gallery.keepSize(sizes, "M", "kum"), "M");
+  assert.equal(mods.gallery.keepSize(sizes, "", "kum"), "");
+  assert.equal(mods.gallery.stepSize(sizes, "orman", "S", 1), "L");
+  assert.equal(mods.gallery.stepSize(sizes, "orman", "L", 1), "L");
+  assert.equal(mods.gallery.stepSize(sizes, "orman", "L", -1), "S");
+  assert.equal(mods.gallery.stepSize(sizes, "kum", "S", 1), "M");
+  assert.equal(mods.gallery.edgeSize(sizes, "orman", "last"), "L");
+  assert.equal(mods.gallery.edgeSize(sizes, "kum", "last"), "XL");
+  assert.equal(mods.gallery.edgeSize([{ value: "S", label: "S", soldOutIn: ["a"] }], "a", "first"), "");
+  assert.equal(mods.gallery.soldOutText("Orman", "M"), "Orman için M tükendi");
+  assert.deepEqual(mods.gallery.lensShift({ x: 100, y: 50 }, 2.5, 72), { x: -178, y: -53 });
+  assert.deepEqual(mods.gallery.clampPoint({ left: 10, top: 10, width: 100, height: 200 }, 500, -5), { x: 100, y: 0 });
+  assert.equal(mods.gallery.mainLabel({ alt: "Ön görünüm" }, 1, 4), "Ön görünüm, 2 / 4");
+});
+
+test("fotoğraf duvarı: sütun sayısı ve en kısa sütuna dağılım doğru; sayılar ABACUS çıktısıdır", () => {
+  assert.equal(mods.lightbox.masonryColumns(0), 2);
+  assert.equal(mods.lightbox.masonryColumns(300), 2);
+  assert.equal(mods.lightbox.masonryColumns(580, 180, 12), 3);
+  assert.equal(mods.lightbox.masonryColumns(1000, 180, 12), 5);
+  assert.equal(mods.lightbox.masonryColumns(1000, 300, 0), 3);
+  const sized = [{ width: 100, height: 200 }, { width: 100, height: 100 }, { width: 100, height: 100 }, { width: 100, height: 50 }];
+  assert.deepEqual(mods.lightbox.assignColumns(sized, 2), [[0, 3], [1, 2]]);
+  assert.deepEqual(mods.lightbox.assignColumns(sized, 1), [[0, 1, 2, 3]]);
+  assert.deepEqual(mods.lightbox.assignColumns([], 3), [[], [], []]);
+  assert.deepEqual(mods.lightbox.assignColumns(sized, 0), [[0, 1, 2, 3]]);
+  assert.equal(mods.lightbox.galleryCountText(1234), "1.234 fotoğraf");
+});
+
+test("fotoğraf ızgarası: seviye, sıkıştırma, ok tuşuyla odak ve yazımlar doğru; sayılar ABACUS çıktısıdır", () => {
+  assert.deepEqual([...mods.pgrid.LEVELS], [5, 3, 2]);
+  assert.equal(mods.pgrid.nearestLevel(5), 0);
+  assert.equal(mods.pgrid.nearestLevel(3.6), 1);
+  assert.equal(mods.pgrid.nearestLevel(2.4), 2);
+  assert.equal(mods.pgrid.nearestLevel(1), 2);
+  assert.equal(mods.pgrid.stepLevel(0, "in"), 1);
+  assert.equal(mods.pgrid.stepLevel(2, "in"), 2);
+  assert.equal(mods.pgrid.stepLevel(0, "out"), 0);
+  assert.equal(mods.pgrid.stepLevel(2, "out"), 1);
+  assert.equal(mods.pgrid.pinchColumns(5, 1), 5);
+  assert.equal(mods.pgrid.pinchColumns(5, 2), 2.5);
+  assert.equal(mods.pgrid.pinchColumns(5, 9), 2);
+  assert.equal(mods.pgrid.pinchColumns(3, .1), 5);
+  assert.equal(mods.pgrid.nearestLevel(mods.pgrid.pinchColumns(5, 1.6)), 1);
+  assert.equal(mods.pgrid.gridFocus("ArrowRight", 4, 5, 30), 5);
+  assert.equal(mods.pgrid.gridFocus("ArrowLeft", 0, 5, 30), 0);
+  assert.equal(mods.pgrid.gridFocus("ArrowDown", 27, 5, 30), 29);
+  assert.equal(mods.pgrid.gridFocus("ArrowUp", 2, 5, 30), 0);
+  assert.equal(mods.pgrid.gridFocus("PageDown", 2, 5, 30), 17);
+  assert.equal(mods.pgrid.gridFocus("PageUp", 20, 5, 30), 5);
+  assert.equal(mods.pgrid.gridFocus("Home", 9, 5, 30), 0);
+  assert.equal(mods.pgrid.gridFocus("End", 9, 5, 30), 29);
+  assert.equal(mods.pgrid.gridFocus("a", 9, 5, 30), 9);
+  assert.equal(mods.pgrid.photoCountText(1234), "1.234 fotoğraf");
+  assert.equal(mods.pgrid.columnsText(3), "3 sütun");
+  assert.equal(mods.pgrid.cellLabel("Kıyı", true), "Kıyı, favori");
+  assert.equal(mods.pgrid.cellLabel("Kıyı", false), "Kıyı");
+  assert.equal(mods.pgrid.favoriteLabel(true), "Favoriden çıkar");
+  assert.equal(mods.pgrid.favoriteLabel(false), "Favoriye ekle");
+});
+
+test("görüş sahnesi: sarmalayan gezinme, baş harfler ve yazımlar doğru", () => {
+  assert.equal(mods.testimonial.wrapIndex(3, 1, 4), 0);
+  assert.equal(mods.testimonial.wrapIndex(0, -1, 4), 3);
+  assert.equal(mods.testimonial.wrapIndex(1, 1, 4), 2);
+  assert.equal(mods.testimonial.wrapIndex(1, 9, 4), 2);
+  assert.equal(mods.testimonial.wrapIndex(2, 1, 0), 0);
+  assert.equal(mods.testimonial.initials("Elif Aksoy"), "EA");
+  assert.equal(mods.testimonial.initials("  ismail  çelik yıldız "), "İÇ");
+  assert.equal(mods.testimonial.initials("ışık"), "I");
+  assert.equal(mods.testimonial.initials(""), "");
+  assert.equal(mods.testimonial.tabLabel("Elif Aksoy", "Finans müdürü"), "Elif Aksoy, Finans müdürü");
+  assert.equal(mods.testimonial.liveText("Elif Aksoy"), "Elif Aksoy görüşü gösteriliyor.");
+  assert.equal(mods.testimonial.directionOf(1, 3), 1);
+  assert.equal(mods.testimonial.directionOf(3, 1), -1);
+});
+
+test("ekip tanıtımı: iletişim satırları, maskeli telefon, sayaç ve baş harfler ABACUS çıktısıdır", () => {
+  const member = { id: "e", name: "Elif Aksoy", title: "Kurucu", city: "İzmir", country: "Türkiye", email: "elif@ornek.test", phone: "0532 000 00 11" };
+  const rows = mods.team.contactRows(member);
+  assert.deepEqual(rows.map(row => row.kind), ["email", "phone"]);
+  assert.equal(rows[0].label, "Elif Aksoy e-postasını kopyala");
+  assert.equal(rows[1].label, "Elif Aksoy telefonunu kopyala");
+  assert.equal(rows[1].shown, "0532 000 00 11");
+  const masked = mods.team.contactRows(member, true);
+  assert.equal(masked[1].shown, mask.phone("0532 000 00 11"));
+  assert.equal(masked[1].shown, "+90 5** *** ** 11");
+  assert.equal(masked[1].value, "0532 000 00 11");
+  assert.deepEqual(mods.team.contactRows({ id: "x", name: "X", title: "Y" }), []);
+  assert.deepEqual(mods.team.contactRows({ id: "x", name: "X", title: "Y", email: "x@ornek.test" }).map(row => row.kind), ["email"]);
+  assert.equal(mods.team.placeText(member), "İzmir, Türkiye");
+  assert.equal(mods.team.placeText({ city: "Ankara" }), "Ankara");
+  assert.equal(mods.team.placeText({}), "");
+  assert.equal(mods.team.counterLine(0, 5, "Elif Aksoy"), "1 / 5 · Elif Aksoy");
+  assert.equal(mods.team.counterLine(0, 1234, "A"), "1 / 1.234 · A");
+  assert.equal(mods.team.profileLive(member), "Elif Aksoy, Kurucu profili gösteriliyor.");
+  assert.equal(mods.team.initials("ismail çelik"), "İÇ");
+  assert.deepEqual(mods.team.LAYOUTS.map(item => item.value), ["gallery", "filmstrip", "directory", "spotlight"]);
+});
+
+test("ses oynatıcı: süre, ses düzeyi ve parça sırası doğru; sayılar ABACUS çıktısıdır", () => {
+  assert.equal(mods.player.clock(12), "0:12");
+  assert.equal(mods.player.clock(74.9), "1:14");
+  assert.equal(mods.player.clock(3725), "62:05");
+  assert.equal(mods.player.clock(6000), "100:00");
+  assert.equal(mods.player.clock(70000), "1.166:40");
+  assert.equal(mods.player.clock(-5), "0:00");
+  assert.equal(mods.player.clock(NaN), "0:00");
+  assert.equal(mods.player.clock(Infinity), "0:00");
+  assert.equal(mods.player.clockPair(12, 24), "0:12 / 0:24");
+  assert.equal(mods.player.volumeText(.7), money.percent(70, 0));
+  assert.equal(mods.player.volumeText(.7), "%70");
+  assert.equal(mods.player.volumeText(0), "%0");
+  assert.equal(mods.player.volumeText(3), "%100");
+  assert.equal(mods.player.neighbour(0, "prev", 4), 0);
+  assert.equal(mods.player.neighbour(3, "next", 4), 3);
+  assert.equal(mods.player.neighbour(1, "next", 4), 2);
+  assert.equal(mods.player.afterEnd(1, 4), 2);
+  assert.equal(mods.player.afterEnd(3, 4), null);
+  assert.equal(mods.player.playLabel("Sabah kahvesi"), "Sabah kahvesi çal");
+  assert.equal(mods.player.muteLabel(true), "Sesi aç");
+  assert.equal(mods.player.muteLabel(false), "Sessize al");
+});
+
+test("kart destesi: yalnız son dört hane gösterilir; deste konumu, ok ve sürükleme kararları, yazımlar ABACUS çıktısıdır", () => {
+  // güvenlik: tam numara verilse de yalnız son dört hane kalır
+  assert.equal(mods.stack.safeLast4("0417"), "0417");
+  assert.equal(mods.stack.safeLast4("1234 5678 9012 3456"), "3456");
+  assert.equal(mods.stack.safeLast4("12"), "••12");
+  assert.equal(mods.stack.safeLast4(""), "••••");
+  assert.equal(mods.stack.maskedNumber("1234567890123456"), "•••• •••• •••• 3456");
+  assert.equal(mods.stack.maskedNumber("1234567890123456").includes("1234"), false);
+  const card = { id: "k", issuer: "Örnek Banka", product: "Metal Kart", last4: "1234567890120417", holder: "A", expiry: "08/29", balance: 48250.75, transactions: [] };
+  const label = mods.stack.cardLabel(card, 0, 4);
+  assert.equal(label, "Örnek Banka, Metal Kart, son dört hane 0 4 1 7, 1/4, bakiye ₺48.250,75");
+  assert.equal(label.includes("12345678"), false);
+  assert.equal(mods.stack.expiryText("08/29"), "08/29");
+  assert.equal(mods.stack.expiryText("13/29"), "—");
+  assert.equal(mods.stack.expiryText("8/29"), "—");
+  assert.equal(mods.stack.expiryText(""), "—");
+  assert.equal(mods.stack.visibleCards([1, 2, 3, 4, 5, 6, 7, 8]).length, 6);
+  // deste konumu
+  assert.deepEqual(mods.stack.placeOf(0, 0), { y: -0, scale: 1, opacity: 1, hidden: false });
+  assert.equal(mods.stack.placeOf(1, 0).y, -.12);
+  assert.ok(mods.stack.placeOf(1, 1).y < mods.stack.placeOf(1, 0).y);
+  assert.equal(mods.stack.placeOf(-1, 0).hidden, true);
+  assert.equal(mods.stack.placeOf(-1, 0).opacity, 0);
+  assert.equal(mods.stack.placeOf(4, 0).hidden, true);
+  assert.equal(mods.stack.placeOf(3, 0).hidden, false);
+  assert.ok(mods.stack.placeOf(3, 0).opacity < 1 && mods.stack.placeOf(3, 0).opacity > 0);
+  // ok tuşları ve sürükleme
+  assert.equal(mods.stack.stepFront("ArrowDown", 0, 4), 1);
+  assert.equal(mods.stack.stepFront("ArrowRight", 3, 4), 3);
+  assert.equal(mods.stack.stepFront("ArrowUp", 0, 4), 0);
+  assert.equal(mods.stack.stepFront("ArrowLeft", 2, 4), 1);
+  assert.equal(mods.stack.stepFront("Home", 2, 4), 0);
+  assert.equal(mods.stack.stepFront("End", 2, 4), 3);
+  assert.equal(mods.stack.stepFront("x", 2, 4), 2);
+  assert.equal(mods.stack.dragStep(80, 0), 1);
+  assert.equal(mods.stack.dragStep(-80, 0), -1);
+  assert.equal(mods.stack.dragStep(10, 600), 1);
+  assert.equal(mods.stack.dragStep(10, 10), 0);
+  // yazımlar
+  assert.equal(mods.stack.counterText(0, 4), "1 / 4");
+  assert.equal(mods.stack.balanceText({ balance: 48250.75 }), money.formatMajor(48250.75, { currency: "TRY", digits: 2, kurus: true }));
+  assert.equal(mods.stack.transactionText(-1240.5), "-₺1.240,50");
+  assert.equal(mods.stack.transactionText(5000), "+₺5.000,00");
+});
+
+test("derinlikli ray: kart dönüşümü, momentumla oturma, sürükleme, tuşlar ve yazımlar doğru; sayılar ABACUS çıktısıdır", () => {
+  const front = mods.cover.coverTransform(0);
+  assert.deepEqual([front.x, front.scale, front.rotate, front.shade, front.hidden], [0, 1, -0, 0, false]);
+  const right = mods.cover.coverTransform(1), left = mods.cover.coverTransform(-1);
+  assert.equal(right.x, -left.x);
+  assert.equal(right.x, .62);
+  assert.equal(right.rotate, -38);
+  assert.equal(left.rotate, 38);
+  assert.ok(right.scale < 1 && right.shade > 0);
+  assert.ok(mods.cover.coverTransform(2).x > right.x);
+  assert.equal(mods.cover.coverTransform(2).rotate, -38);
+  assert.ok(mods.cover.coverTransform(.5).z > right.z);
+  assert.equal(mods.cover.coverTransform(4, 3).hidden, true);
+  assert.equal(mods.cover.coverTransform(3, 3).hidden, false);
+  assert.equal(mods.cover.coverTransform(9).scale, .55);
+  // oturma: yavaş bırakma en yakın kart, hızlı fırlatma en az bir kart ilerletir, uçlarda sınırlı
+  assert.equal(mods.cover.settleIndex(2.4, 0, 8), 2);
+  assert.equal(mods.cover.settleIndex(2.6, 0, 8), 3);
+  assert.equal(mods.cover.settleIndex(2.1, 1.2, 8), 3);
+  assert.equal(mods.cover.settleIndex(2.1, -1.2, 8), 1);
+  assert.equal(mods.cover.settleIndex(2.1, 6, 8), 6);
+  assert.equal(mods.cover.settleIndex(7.2, 3, 8), 7);
+  assert.equal(mods.cover.settleIndex(-.4, -3, 8), 0);
+  assert.equal(mods.cover.settleIndex(2.4, .3, 8), 2);
+  // sürükleme: sola sürükleme sonraki karta götürür
+  assert.ok(mods.cover.dragToPosition(2, -100, 300) > 2);
+  assert.ok(mods.cover.dragToPosition(2, 100, 300) < 2);
+  assert.equal(mods.cover.dragToPosition(2, 0, 300), 2);
+  assert.equal(mods.cover.reducedStep(-60), 1);
+  assert.equal(mods.cover.reducedStep(60), -1);
+  assert.equal(mods.cover.reducedStep(30), 0);
+  assert.equal(mods.cover.railKey("ArrowRight", 3, 8), 4);
+  assert.equal(mods.cover.railKey("ArrowRight", 7, 8), 7);
+  assert.equal(mods.cover.railKey("ArrowLeft", 0, 8), 0);
+  assert.equal(mods.cover.railKey("Home", 5, 8), 0);
+  assert.equal(mods.cover.railKey("End", 5, 8), 7);
+  assert.equal(mods.cover.railKey("x", 5, 8), 5);
+  assert.equal(mods.cover.slideLabel(1, 8, "Zeytinlik"), "2 / 8: Zeytinlik");
+  assert.equal(mods.cover.slideLabel(0, 1234, "A"), "1 / 1.234: A");
+  assert.equal(mods.cover.tickLabel("Zeytinlik"), "Zeytinlik göster");
+  assert.equal(mods.cover.liveText(2, 8, "Taş köprü"), "3 / 8: Taş köprü");
 });
