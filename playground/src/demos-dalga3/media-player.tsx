@@ -20,7 +20,7 @@ function tone(frequency: number, seconds: number): string {
 const SPECS: [string, string, number, number][] = [["Sabah kahvesi", "Örnek paketi · 1", 262, 12], ["Tren penceresi", "Örnek paketi · 2", 330, 18], ["Gece yürüyüşü", "Örnek paketi · 3", 392, 24], ["Son sayfa", "Örnek paketi · 4", 440, 15]];
 
 export function MediaPlayerDemo() {
-  const tracks: Track[] = useMemo(() => SPECS.map(([title, subtitle, frequency, seconds], at) => ({ id: `p${at + 1}`, title, subtitle, src: tone(frequency, seconds), duration: seconds, tone: at })), []);
+  const tracks: Track[] = useMemo(() => SPECS.map(([title, subtitle, frequency, seconds], at) => ({ id: `p${at + 1}`, title, subtitle, src: tone(frequency, seconds), duration: seconds, cover: "/ornek-foto/doku-kapak.jpg", tone: at })), []);
   const [bad, setBad] = useState(false);
   const [single, setSingle] = useState(false);
   const list = useMemo(() => (bad ? tracks.map((item, at) => at === 1 ? { ...item, src: "yok/olmayan.wav" } : item) : tracks), [bad, tracks]);
