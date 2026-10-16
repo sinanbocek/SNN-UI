@@ -150,6 +150,9 @@ Gereken paketler: React 19, `motion`; bazı bileşenlerde Radix ve `lucide-react
 | `number-field` | Sayı alanı | Eksi/artı düğmeli sınırlı sayı kutusu; rakamlar kilometre sayacı gibi döner. Basılı tutunca hızlanarak tekrarlar, sınıra dayanınca değer gerilip geri yaylanır ve "En çok …" notu çıkar. Yazarken Türkçe gruplanır ("1.234,5"), ondalık basamak sınırı `formatOptions` ile. Yüzde için `prefix="%"`, gün için `suffix=" gün"`. Yazım ABACUS `money.fmtDecimalGrouped`, okuma `parseNumber`, canlı gruplama `formatGroupedInput` ile; Arc'ın `locale` prop'u kaldırıldı. | `npx shadcn@latest add @snn-ui/number-field` |
 | `calendar` | Takvim | Ay görünümlü takvim; hafta pazartesi başlar, ay ve gün adları Türkçe. Seçim diski günler arasında kayar, aylar şeritte yana kayar. Ok tuşları, PageUp/PageDown (Shift ile yıl), Home/End. İsteğe bağlı "Bugün" düğmesi, en erken / en geç tarih ve kapalı günler. Tatil listesi verilirse tatil günü mavi-gri yazılır ve rakamın üstünde kısa bir çizgi çıkar; adı ipucunda ve ekran okuyucuda okunur. Ay ve gün adları ABACUS `date.monthName` / `dayName` ile. ABACUS tatil tutmaz; liste projeden `holidays` ile verilir. | `npx shadcn@latest add @snn-ui/calendar` |
 | `date-picker` | Tarih seçici | Tıklayınca takvim açılan tarih kutusu; seçilen tarih "16 Ekim 2026" biçiminde yazılır, değişen parça (gün, ay, yıl) yerinde döner. Takvimdeki her şey (tatil işareti, sınırlar, Bugün) burada da geçerlidir; alt satırda Temizle ve seçim özeti. Yazım ABACUS `date.format` ile (`dateStyle`: "long", "short", "dayMonthWeekday"); Arc'ın `locale` ve `format` prop'ları kaldırıldı. Tatil listesi projeden gelir. | `npx shadcn@latest add @snn-ui/date-picker` |
+| `file-dropzone` | Dosya bırakma alanı | Dosyaları sürükleyip bırakma ya da cihazdan seçme alanı; panodan yapıştırma da çalışır. Tür (`accept`), boyut (`maxSize`) ve sayı (`maxFiles`) sınırı, görsellere küçük resim, satır başına ilerleme çubuğu ("Yükleniyor %45"), "Yüklendi" tiki, hata nedeni ve Yeniden dene. Yüklemenin kendisi projededir (`onUpload`). Liste alanın altında ya da içinde; dosya çoğalınca istem ince çubuğa katlanır. Boyut ABACUS `unit.dataSize` ("1,5 MB"), yüzde `money.percent` ("%45"), uzantı karşılaştırması `text.lower` ile ("TEKLİF.PDF" ".pdf" kuralına uyar). | `npx shadcn@latest add @snn-ui/file-dropzone` |
+| `stepper` | Adım göstergesi | Bir akışın adımlarını yatay ya da dikey gösterir: tamamlandı (tik), şu an (halka), geri dönüldü (geri ok, mavi-gri), bekliyor (numara) ve hata (uyarı). Bağlantı çizgisi ilerlemeyle dolar. `onStepSelect` verilirse tamamlanan adımlara dönülür. Yatayda dar kapta başlıklar gizlenir, geçerli adımın adı altına yazılır; çok dar kapta işaretler küçülür, 10 adımlık hat 390 px telefona sığar. Nakit'in istediği `pipeline-steps` budur; ad Arc ile izlenebilsin diye `stepper` kaldı. "Geri dönüldü" için adıma `returned: true` verilir. | `npx shadcn@latest add @snn-ui/stepper` |
+| `revision-diff` | Revizyon karşılaştırması | İki sürüm arasındaki satır farklarını gösterir: eklendi, silindi, değişti, eşlenmedi (ve isteğe bağlı aynı). Üstte özet ("3 eklendi, 1 silindi") ve sayılı süzgeç düğmeleri; değişen satırda yalnız değişen alanlar "eski → yeni" yazılır. Eşleştirmeyi proje yapar, bileşen gösterir. Dar kapta alanlar tek sütuna iner. Arc'ta karşılığı yok; SNN-UI için yazıldı. Değerler ABACUS ile (para kuruş tam sayısı). Silinen satır kırmızı değil, gri ve üstü çizili. | `npx shadcn@latest add @snn-ui/revision-diff` |
 
 ## Kullanım örnekleri
 
@@ -1007,6 +1010,30 @@ import { Calendar } from "@/components/snn/calendar/calendar";
 import { DatePicker } from "@/components/snn/date-picker/date-picker";
 
 <DatePicker label="Ödeme tarihi" value={dueDate} onChange={setDueDate} holidays={holidays} />
+```
+
+### Dosya bırakma alanı (`file-dropzone`)
+
+```tsx
+import { FileDropzone } from "@/components/snn/file-dropzone/file-dropzone";
+
+<FileDropzone accept=".pdf,.xlsx" maxSize={10 * 1024 * 1024} onUpload={upload} />
+```
+
+### Adım göstergesi (`stepper`)
+
+```tsx
+import { Stepper } from "@/components/snn/stepper/stepper";
+
+<Stepper steps={[{ id: "kesif", label: "Keşif" }, { id: "teklif", label: "Teklif", returned: true }]} current={0} />
+```
+
+### Revizyon karşılaştırması (`revision-diff`)
+
+```tsx
+import { RevisionDiff } from "@/components/snn/revision-diff/revision-diff";
+
+<RevisionDiff title="Keşif revizyonu" rows={rows} fields={[{ key: "name", label: "Kalem" }, { key: "amount", label: "Tutar", format: "money" }]} />
 ```
 
 ## Bu rafta olmayanlar

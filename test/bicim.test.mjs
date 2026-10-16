@@ -59,6 +59,9 @@ const FILES = {
   numberField: "registry/components/number-field/number-field-format.ts",
   calendar: "registry/components/calendar/calendar-format.ts",
   datePicker: "registry/components/date-picker/date-picker-format.ts",
+  dropzone: "registry/components/file-dropzone/file-dropzone-format.ts",
+  stepper: "registry/components/stepper/stepper-status.ts",
+  revision: "registry/components/revision-diff/revision-diff-format.ts",
 };
 const mods = {};
 let temp;
@@ -1075,4 +1078,85 @@ test("takvim ve tarih seçici: hafta pazartesi başlar, adlar ve yazımlar ABACU
   assert.equal(d.formatPickerDate(new Date(2026, 9, 16), "short"), "16.10.2026");
   assert.deepEqual(d.dateParts(new Date(2026, 9, 16)), [{ type: "part", value: "16" }, { type: "literal", value: " " }, { type: "part", value: "Ekim" }, { type: "literal", value: " " }, { type: "part", value: "2026" }]);
   assert.deepEqual(d.dateParts(new Date(2026, 9, 16), "short").map(part => part.type), ["part", "literal", "part", "literal", "part"]);
+});
+
+test("dosya bırakma alanı: boyut, yüzde ve uzantı ABACUS çıktısıdır; tür kuralı Türkçe harfte doğru çalışır", () => {
+  const f = mods.dropzone;
+  assert.equal(f.formatFileSize(512), "512 B");
+  assert.equal(f.formatFileSize(38 * 1024 + 300), "38 KB");
+  assert.equal(f.formatFileSize(1.5 * 1024 * 1024), "1,5 MB");
+  assert.equal(f.formatFileSize(24 * 1024 * 1024), "24 MB");
+  assert.equal(f.formatFileSize(1.2 * 1024 ** 3), "1,2 GB");
+  assert.equal(f.formatFileSize(10 * 1024 * 1024), "10 MB");
+  assert.equal(f.formatPercent(45.4), money.percent(45, 0));
+  assert.equal(f.formatPercent(45.4), "%45");
+  assert.equal(f.formatPercent(140), "%100");
+  assert.equal(f.extensionOf("RAPOR.PDF"), "pdf");
+  assert.equal(f.extensionOf("BENİOKU.TXT"), "txt");
+  assert.equal(f.extensionOf(".gizli"), "");
+  assert.equal(f.fileKind("keşif.XLSX"), "document");
+  assert.equal(f.fileKind("foto.JPEG"), "image");
+  assert.equal(f.fileKind("arsiv.7z"), "archive");
+  assert.equal(f.fileKind("not"), "other");
+  assert.equal(f.matchesAccept({ name: "TEKLİF.PDF", type: "application/pdf" }, ".pdf, .xlsx"), true);
+  assert.equal(f.matchesAccept({ name: "cizim.dwg", type: "" }, ".pdf,.xlsx"), false);
+  assert.equal(f.matchesAccept({ name: "a.png", type: "image/png" }, "image/*"), true);
+  assert.equal(f.matchesAccept({ name: "a.mp4", type: "video/mp4" }, "image/*"), false);
+  assert.equal(f.matchesAccept({ name: "a.bin", type: "application/octet-stream" }), true);
+  assert.equal(f.noteText(5), "En çok 5 dosya");
+  assert.equal(f.noteText(5, ".pdf,.xlsx"), "Kabul edilen: .pdf, .xlsx");
+  assert.equal(f.addError(1, 0, false, 5, "cizim.dwg"), "cizim.dwg kabul edilen bir dosya türü değil.");
+  assert.equal(f.addError(3, 2, false, 5), "Bazı dosyalar kabul edilen türde olmadığı için eklenmedi.");
+  assert.equal(f.addError(3, 3, true, 5), "En çok 5 dosya ekleyebilirsiniz.");
+  assert.equal(f.addError(3, 3, false, 5), "");
+  assert.equal(f.tooLargeText(10 * 1024 * 1024), "Dosya 10 MB sınırını aşıyor");
+});
+
+test("adım göstergesi: durumlar (geri dönüldü dahil), simgeler ve duyurular doğru", () => {
+  const s = mods.stepper;
+  assert.equal(s.stepStatus({}, 0, 2), "complete");
+  assert.equal(s.stepStatus({}, 2, 2), "current");
+  assert.equal(s.stepStatus({}, 3, 2), "upcoming");
+  assert.equal(s.stepStatus({ returned: true }, 3, 2), "returned");
+  // geçerli ya da tamamlanan adımda "geri dönüldü" işareti etkisizdir; hata her şeyin önündedir
+  assert.equal(s.stepStatus({ returned: true }, 2, 2), "current");
+  assert.equal(s.stepStatus({ returned: true }, 1, 2), "complete");
+  assert.equal(s.stepStatus({ error: "Belge eksik", returned: true }, 3, 2), "error");
+  assert.equal(s.glyphOf("complete"), "check");
+  assert.equal(s.glyphOf("returned"), "return");
+  assert.equal(s.glyphOf("error"), "error");
+  assert.equal(s.glyphOf("current"), "number");
+  assert.equal(s.glyphOf("upcoming"), "number");
+  assert.equal(s.statusText.returned, "geri dönüldü");
+  assert.equal(s.progressText(2, 10, "Keşif", "Bitti"), "Adım 3 / 10: Keşif");
+  assert.equal(s.progressText(10, 10, undefined, "Tüm adımlar tamamlandı"), "Tüm adımlar tamamlandı");
+});
+
+test("revizyon karşılaştırması: değişen alanlar, sayılar, özet ve yazımlar ABACUS çıktısıdır", () => {
+  const r = mods.revision;
+  const fields = [{ key: "name", label: "Kalem" }, { key: "amount", label: "Tutar", format: "money" }, { key: "qty", label: "Miktar" }, { key: "due", label: "Termin", format: "date" }];
+  const changed = { key: "k1", status: "changed", before: { name: "Beton C30", amount: 125000, qty: 12.5, due: "2026-10-16" }, after: { name: "Beton C30", amount: 130050, qty: 12.5, due: "2026-11-02" } };
+  const diff = r.changedFields(changed, fields);
+  assert.deepEqual(diff.map(item => item.field.key), ["amount", "due"]);
+  assert.equal(diff[0].before, money.format(125000, { currency: "TRY", kurus: true, zero: "symbol" }));
+  assert.equal(diff[0].before, "₺1.250,00");
+  assert.equal(diff[0].after, "₺1.300,50");
+  assert.equal(diff[1].after, abacusDate.format("2026-11-02", "short"));
+  assert.equal(r.formatValue(1234.5, { key: "x", label: "X" }), "1.234,5");
+  assert.equal(r.formatValue(-0.5, { key: "x", label: "X" }), "-0,5");
+  assert.equal(r.formatValue(null, { key: "x", label: "X" }), "–");
+  // aynı yazım aynı sayılır
+  assert.deepEqual(r.changedFields({ key: "k", status: "changed", before: { qty: 3 }, after: { qty: 3.0 } }, [{ key: "qty", label: "Miktar" }]), []);
+  const rows = [changed, { key: "k2", status: "added", after: { name: "Demir" } }, { key: "k3", status: "added", after: { name: "Kum" } }, { key: "k4", status: "removed", before: { name: "Çakıl" } }, { key: "k5", status: "unmatched", before: { name: "İşçilik" } }, { key: "k6", status: "same", before: { name: "Su" }, after: { name: "Su" } }];
+  const counts = r.countByStatus(rows);
+  assert.deepEqual(counts, { added: 2, removed: 1, changed: 1, unmatched: 1, same: 1 });
+  assert.equal(r.summaryText(counts), "2 eklendi, 1 silindi, 1 değişti, 1 eşlenmedi");
+  assert.equal(r.summaryText({ added: 0, removed: 0, changed: 0, unmatched: 0, same: 4 }), "Fark yok");
+  assert.equal(r.summaryText({ added: 1200, removed: 0, changed: 0, unmatched: 0, same: 0 }), "1.200 eklendi");
+  assert.equal(r.rowTitle(rows[3], fields[0]), "Çakıl");
+  assert.equal(r.rowTitle({ key: "k9", status: "added", after: {} }, fields[0]), "k9");
+  assert.deepEqual(r.sideFields({ name: "Demir", amount: 5000, qty: "" }, fields).map(item => item.value), ["Demir", "₺50,00"]);
+  assert.equal(r.unmatchedSide(rows[4]), "Yalnız önceki sürümde");
+  assert.equal(r.unmatchedSide({ key: "x", status: "unmatched", after: {} }), "Yalnız yeni sürümde");
+  assert.equal(r.statusLabel.unmatched, "Eşlenmedi");
 });

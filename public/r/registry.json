@@ -3994,6 +3994,112 @@
         "arcCommit": "b40c890",
         "arcSource": "registry/components/date-picker"
       }
+    },
+    {
+      "name": "file-dropzone",
+      "type": "registry:ui",
+      "title": "Dosya bırakma alanı",
+      "description": "Dosyaları sürükleyip bırakma ya da cihazdan seçme alanı; panodan yapıştırma da çalışır. Tür (`accept`), boyut (`maxSize`) ve sayı (`maxFiles`) sınırı, görsellere küçük resim, satır başına ilerleme çubuğu (\"Yükleniyor %45\"), \"Yüklendi\" tiki, hata nedeni ve Yeniden dene. Yüklemenin kendisi projededir (`onUpload`). Liste alanın altında ya da içinde; dosya çoğalınca istem ince çubuğa katlanır.",
+      "dependencies": [
+        "@snn/abacus-core@github:sinanbocek/SNN-Abacus-Core#semver:^4.3.0",
+        "lucide-react",
+        "motion"
+      ],
+      "registryDependencies": [
+        "@snn-ui/snn-foundation",
+        "@snn-ui/snn-motion-tokens"
+      ],
+      "files": [
+        {
+          "path": "registry/components/file-dropzone/file-dropzone-format.ts",
+          "type": "registry:component",
+          "target": "@components/snn/file-dropzone/file-dropzone-format.ts"
+        },
+        {
+          "path": "registry/components/file-dropzone/file-dropzone.module.css",
+          "type": "registry:component",
+          "target": "@components/snn/file-dropzone/file-dropzone.module.css"
+        },
+        {
+          "path": "registry/components/file-dropzone/file-dropzone.tsx",
+          "type": "registry:component",
+          "target": "@components/snn/file-dropzone/file-dropzone.tsx"
+        }
+      ],
+      "meta": {
+        "arcCommit": "b40c890",
+        "arcSource": "registry/components/file-dropzone"
+      }
+    },
+    {
+      "name": "stepper",
+      "type": "registry:ui",
+      "title": "Adım göstergesi",
+      "description": "Bir akışın adımlarını yatay ya da dikey gösterir: tamamlandı (tik), şu an (halka), geri dönüldü (geri ok, mavi-gri), bekliyor (numara) ve hata (uyarı). Bağlantı çizgisi ilerlemeyle dolar. `onStepSelect` verilirse tamamlanan adımlara dönülür. Yatayda dar kapta başlıklar gizlenir, geçerli adımın adı altına yazılır; çok dar kapta işaretler küçülür, 10 adımlık hat 390 px telefona sığar.",
+      "dependencies": [
+        "motion"
+      ],
+      "registryDependencies": [
+        "@snn-ui/snn-foundation",
+        "@snn-ui/snn-motion-tokens"
+      ],
+      "files": [
+        {
+          "path": "registry/components/stepper/stepper-status.ts",
+          "type": "registry:component",
+          "target": "@components/snn/stepper/stepper-status.ts"
+        },
+        {
+          "path": "registry/components/stepper/stepper.module.css",
+          "type": "registry:component",
+          "target": "@components/snn/stepper/stepper.module.css"
+        },
+        {
+          "path": "registry/components/stepper/stepper.tsx",
+          "type": "registry:component",
+          "target": "@components/snn/stepper/stepper.tsx"
+        }
+      ],
+      "meta": {
+        "arcCommit": "b40c890",
+        "arcSource": "registry/components/stepper"
+      }
+    },
+    {
+      "name": "revision-diff",
+      "type": "registry:ui",
+      "title": "Revizyon karşılaştırması",
+      "description": "İki sürüm arasındaki satır farklarını gösterir: eklendi, silindi, değişti, eşlenmedi (ve isteğe bağlı aynı). Üstte özet (\"3 eklendi, 1 silindi\") ve sayılı süzgeç düğmeleri; değişen satırda yalnız değişen alanlar \"eski → yeni\" yazılır. Eşleştirmeyi proje yapar, bileşen gösterir. Dar kapta alanlar tek sütuna iner.",
+      "dependencies": [
+        "@snn/abacus-core@github:sinanbocek/SNN-Abacus-Core#semver:^4.3.0",
+        "lucide-react",
+        "motion"
+      ],
+      "registryDependencies": [
+        "@snn-ui/snn-foundation",
+        "@snn-ui/snn-motion-tokens"
+      ],
+      "files": [
+        {
+          "path": "registry/components/revision-diff/revision-diff-format.ts",
+          "type": "registry:component",
+          "target": "@components/snn/revision-diff/revision-diff-format.ts"
+        },
+        {
+          "path": "registry/components/revision-diff/revision-diff.module.css",
+          "type": "registry:component",
+          "target": "@components/snn/revision-diff/revision-diff.module.css"
+        },
+        {
+          "path": "registry/components/revision-diff/revision-diff.tsx",
+          "type": "registry:component",
+          "target": "@components/snn/revision-diff/revision-diff.tsx"
+        }
+      ],
+      "meta": {
+        "arcCommit": "bfdf7e8",
+        "arcSource": "(Arc'ta yok; SNN-UI için yazıldı)"
+      }
     }
   ]
 }
