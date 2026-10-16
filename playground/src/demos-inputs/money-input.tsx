@@ -11,7 +11,7 @@ export function MoneyInputDemo() {
     <div className="col" style={{ maxWidth: 420 }}>
       <span className="etiket">Rakam yazın: binlik ayracı imleç kaymadan eklenir, kuruşlar soluk bekler. Hızlı ekle ve ok tuşları rakamları döndürür; birim menüsünden USD ya da EUR seçin.</span>
       <MoneyInput label="Hakediş tutarı" value={minor} onValueChange={setMinor} currency={currency} onCurrencyChange={setCurrency} min={100_00} max={50_000_000_00} description="Vergiler hariç." />
-      <span className="etiket">Dışarı verilen değer: {minor === null ? "boş" : `${money.fmtDecimalGrouped(minor)} kuruş (${currency})`}</span>
+      <span className="etiket">{`Dışarı verilen değer: ${minor === null ? "boş" : `${money.fmtDecimalGrouped(minor)} kuruş (${currency})`}`}</span>
       <span className="etiket">Tek birim, hızlı ekle yok, hata durumu</span>
       <MoneyInput label="Teminat" defaultValue={50_00} currencies={["TRY"]} quickAdd={[]} error="Teminat ihale bedelinin %3'ünden az olamaz." />
     </div>

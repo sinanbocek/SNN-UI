@@ -217,7 +217,7 @@ Ortak uyarlamalar (ilk raftakilere ek):
 
 1. **Dosya düzeni Arc'ınkidir.** Her parça tek `.tsx` ve tek `.module.css`; bölme yapılmadı. Yazım ve okuma işleri test edilsin diye ayrı bir saf dosyaya (`*-format.ts`) alındı; diğer bileşenlerdeki düzen. Nakit'in 250 satır kuralı için bölme kararı nakit'in cevabını bekliyor (issue #23 yorumu). Bugünkü satır sayıları: `money-input.tsx` 527, `number-field.tsx` 462, `sortable-data-table.tsx` 355, `calendar.tsx` 318, `date-picker.tsx` 135 (Arc: 563, 477, 312, 313, 131).
 2. **`locale` prop'u kaldırıldı.** Arc'ta varsayılan `en-US` idi. Yazım ABACUS'tan, ayraçlar Türkçe (binlik ".", ondalık ","), para birimi TRY.
-3. **Koruma:** `test/bicim.test.mjs` beş biçim dosyasını ABACUS çıktısıyla karşılaştırır; `test/yasak-cagri.test.mjs` beş yasak çağrıyı arar (0 bulgu). Galeri örnekleri `playground/src/demos-giris/`.
+3. **Koruma:** `test/bicim.test.mjs` beş biçim dosyasını ABACUS çıktısıyla karşılaştırır; `test/yasak-cagri.test.mjs` beş yasak çağrıyı arar (0 bulgu). Galeri örnekleri `playground/src/demos-inputs/`.
 4. **Tür denetimi:** beş bileşen `strict` ve `noUncheckedIndexedAccess` açıkken `tsc --noEmit` ile hatasız geçti (React 19 türleri; projede TypeScript olmadığı için depo dışı geçici klasörde, 2026-10-16).
 
 | Parça | Arc'taki yer | Uyarlama |
