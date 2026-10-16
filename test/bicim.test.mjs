@@ -54,6 +54,11 @@ const FILES = {
   player: "registry/components/media-player/media-player-format.ts",
   stack: "registry/components/wallet-stack/wallet-stack-format.ts",
   cover: "registry/components/cover-flow/cover-flow-format.ts",
+  table: "registry/components/sortable-data-table/sortable-data-table-format.ts",
+  moneyInput: "registry/components/money-input/money-input-format.ts",
+  numberField: "registry/components/number-field/number-field-format.ts",
+  calendar: "registry/components/calendar/calendar-format.ts",
+  datePicker: "registry/components/date-picker/date-picker-format.ts",
 };
 const mods = {};
 let temp;
@@ -61,13 +66,14 @@ let math;
 let money;
 let validate;
 let mask;
+let abacusDate;
 
 before(async () => {
   temp = mkdtempSync(path.join(tmpdir(), "snn-ui-bicim-"));
   // Beklenen değerler ABACUS'tan alınır; paket TypeScript kaynağı taşıdığı için o da paketlenir.
   const abacusOut = path.join(temp, "abacus.mjs");
   await build({ stdin: { contents: 'export * from "@snn/abacus-core";', resolveDir: root }, bundle: true, format: "esm", platform: "node", outfile: abacusOut, logLevel: "silent" });
-  ({ math, money, validate, mask } = await import(pathToFileURL(abacusOut).href));
+  ({ math, money, validate, mask, date: abacusDate } = await import(pathToFileURL(abacusOut).href));
   for (const [key, file] of Object.entries(FILES)) {
     const outfile = path.join(temp, `${key}.mjs`);
     await build({ entryPoints: [path.join(root, file)], bundle: true, format: "esm", platform: "node", outfile, logLevel: "silent" });
@@ -937,4 +943,136 @@ test("derinlikli ray: kart dönüşümü, momentumla oturma, sürükleme, tuşla
   assert.equal(mods.cover.slideLabel(0, 1234, "A"), "1 / 1.234: A");
   assert.equal(mods.cover.tickLabel("Zeytinlik"), "Zeytinlik göster");
   assert.equal(mods.cover.liveText(2, 8, "Taş köprü"), "3 / 8: Taş köprü");
+});
+
+test("sıralanabilir tablo: Türkçe alfabe sırası, para kuruştan, sayı ve tarih ABACUS çıktısıdır; sayfa satırı doğru", () => {
+  const t = mods.table;
+  // ABACUS collate: ç c'den sonra, ı i'den önce; büyük/küçük harf farkı yok
+  const cities = ["İzmir", "Çorum", "Iğdır", "Adana", "cide", "Denizli"];
+  assert.deepEqual([...cities].sort(t.compareText), ["Adana", "cide", "Çorum", "Denizli", "Iğdır", "İzmir"]);
+  // para kuruş tam sayısıdır
+  assert.equal(t.formatCell(123450, { format: "money" }), money.format(123450, { currency: "TRY", kurus: true, zero: "symbol" }));
+  assert.equal(t.formatCell(123450, { format: "money" }), "₺1.234,50");
+  assert.equal(t.formatCell(22075, { format: "money", currency: "USD" }), "$220,75");
+  assert.equal(t.formatCell(0, { format: "money" }), "₺0,00");
+  // sayı: türüne bakılır, ondalık korunur
+  assert.equal(t.formatCell(1234.5), "1.234,5");
+  assert.equal(t.formatCell(1234), "1.234");
+  assert.equal(t.formatCell(-0.5), "-0,5");
+  assert.equal(t.formatCell(12.3456, { digits: 2 }), money.fmtDecimalGrouped(12.3456, 2));
+  // tarih: Date ya da ISO gün
+  assert.equal(t.formatCell(new Date(2026, 9, 16)), abacusDate.format("2026-10-16", "short"));
+  assert.equal(t.formatCell("2026-10-16", { format: "date" }), "16.10.2026");
+  // boş ve metin
+  assert.equal(t.formatCell(null), "–");
+  assert.equal(t.formatCell(""), "–");
+  assert.equal(t.formatCell("Proje A"), "Proje A");
+  // sayfalama
+  assert.equal(t.pageCountOf(48, 10), 5);
+  assert.equal(t.pageCountOf(0, 10), 1);
+  assert.equal(t.pageCountOf(48), 1);
+  assert.equal(t.rangeLabel(2, 10, 48, "kayıt"), "11–20 / 48 kayıt");
+  assert.equal(t.rangeLabel(5, 10, 48, "kayıt"), "41–48 / 48 kayıt");
+  assert.equal(t.rangeLabel(101, 10, 2400, "kayıt"), "1.001–1.010 / 2.400 kayıt");
+  assert.equal(t.rangeLabel(1, 10, 0, "kayıt"), "0–0 / 0 kayıt");
+  assert.equal(t.pageSpan(3, 8, 24), "17–24");
+  assert.equal(t.sortAnnouncement("Tutar", "desc"), "Tutar sütununa göre azalan sıralandı");
+});
+
+test("para kutusu: taslak kuruşa ABACUS ile okunur, yapıştırma yalnız Türkçe biçimi kabul eder, yazımlar ABACUS çıktısıdır", () => {
+  const m = mods.moneyInput;
+  assert.equal(m.draftToMinor(""), null);
+  assert.equal(m.draftToMinor("1234.5"), 123450);
+  assert.equal(m.draftToMinor("1234.56"), 123456);
+  assert.equal(m.draftToMinor("12."), 1200);
+  assert.equal(m.draftToMinor("0.05"), 5);
+  assert.equal(m.draftToMinor("999999999999.99"), 99999999999999);
+  assert.equal(m.minorToDraft(123450), "1234.50");
+  assert.equal(m.minorToDraft(5), "0.05");
+  assert.equal(m.minorToDraft(null), "");
+  assert.equal(m.minorToDraft(123456), money.formatMinorInput(123456, 2).split(".").join("").replace(",", "."));
+  // gidiş-dönüş: kuruş → taslak → kuruş
+  for (const minor of [0, 1, 99, 100, 123456, 99999999999999]) assert.equal(m.draftToMinor(m.minorToDraft(minor)), minor);
+  assert.equal(m.pastedToDraft("₺1.234,56"), "1234.56");
+  assert.equal(m.pastedToDraft("1234,5"), "1234.50");
+  assert.equal(m.pastedToDraft("220,75 USD"), "220.75");
+  assert.equal(m.pastedToDraft("1,234.56"), null);
+  assert.equal(m.pastedToDraft("abc"), null);
+  assert.equal(m.formatAmount(123450, "TRY"), "₺1.234,50");
+  assert.equal(m.formatAmount(123450, "EUR"), money.format(123450, { currency: "EUR", kurus: true, zero: "symbol" }));
+  assert.equal(m.formatAmount(0, "TRY"), "₺0,00");
+  assert.equal(m.formatWhole(100, "TRY"), "₺100");
+  assert.equal(m.formatWhole(1000, "USD"), "$1.000");
+  assert.equal(m.majorToMinor(100, "TRY"), 10000);
+  assert.equal(m.majorToMinor(0.1 + 0.2, "TRY"), 30);
+  assert.equal(m.currencyInfo("USD").name, "ABD doları");
+  assert.equal(m.currencyInfo("XYZ").code, "TRY");
+  assert.deepEqual(m.MONEY_CURRENCIES, ["TRY", "USD", "EUR"]);
+  assert.equal(m.matchesTypeahead(m.currencyInfo("TRY"), "TÜ"), true);
+  assert.equal(m.matchesTypeahead(m.currencyInfo("EUR"), "e"), true);
+  assert.equal(m.matchesTypeahead(m.currencyInfo("USD"), "e"), false);
+  assert.equal(m.rangeText("TRY", 1000, 50000), "₺10,00 – ₺500,00");
+  assert.equal(m.rangeText("TRY", undefined, 50000), "En çok ₺500,00");
+  assert.equal(m.rangeText("TRY", 1000), "En az ₺10,00");
+  assert.equal(m.rangeText("TRY"), "");
+});
+
+test("sayı alanı: yazım, sütunlar, okuma ve canlı gruplama ABACUS çıktısıdır", () => {
+  const n = mods.numberField;
+  assert.equal(n.formatValue(1234.5, 1, 1), money.fmtDecimalGrouped(1234.5, 1));
+  assert.equal(n.formatValue(1234.5, 0, 2), "1.234,5");
+  assert.equal(n.formatValue(3, 2, 2), "3,00");
+  assert.equal(n.formatValue(3, 0, 2), "3");
+  assert.equal(n.formatValue(-0.5, 1, 1), "-0,5");
+  assert.equal(n.formatValue(1234567, 0, 0, false), "1234567");
+  assert.equal(n.formatValue(0.1 + 0.2, 0, 2), "0,3");
+  // sütunlar basamak değerine göre anahtarlanır
+  assert.deepEqual(n.partsOf("1.234,5").map(part => part.key), ["i3", "g3", "i2", "i1", "i0", "d", "f0"]);
+  assert.deepEqual(n.partsOf("-12").map(part => part.key), ["m", "i1", "i0"]);
+  assert.equal(n.partsOf("9")[0].digit, 9);
+  // okuma
+  assert.equal(n.parseDraft("1.234,5"), 1234.5);
+  assert.equal(n.parseDraft("1234,5"), 1234.5);
+  assert.equal(n.parseDraft("12,"), 12);
+  assert.equal(n.parseDraft("-12"), -12);
+  assert.equal(n.parseDraft(""), null);
+  assert.equal(n.parseDraft("-"), null);
+  assert.equal(n.parseDraft("1234.56"), money.parseNumber("1234.56"));
+  // canlı gruplama: ondalık sınırı, nokta tuşu, eksi
+  assert.equal(n.formatDraft("12345", 0, false), "12.345");
+  assert.equal(n.formatDraft("12,345", 2, false), "12,34");
+  assert.equal(n.formatDraft("12,5", 0, false), "12");
+  assert.equal(n.formatDraft("98.5", 2, false), "98,5");
+  assert.equal(n.formatDraft("8.5340", 2, false, "8.534"), "85.340");
+  assert.equal(n.formatDraft("-1234", 0, true), "-1.234");
+  assert.equal(n.formatDraft("-1234", 0, false), "1.234");
+  assert.equal(n.formatDraft("12345", 0, false, undefined, false), "12345");
+  // imleç: anlamlı karakter sayısı gruplamadan sonra aynı yere döner
+  assert.equal(n.significantBefore("1234", 4), 4);
+  assert.equal(n.caretAfter("1.234", 4), 5);
+  assert.equal(n.caretAfter("1.234", 1), 1);
+  assert.equal(n.caretAfter("1.234", 0), 0);
+  assert.equal(n.numberInWord("₺1.234,5"), 1234.5);
+  assert.equal(n.numberInWord("gün"), null);
+});
+
+test("takvim ve tarih seçici: hafta pazartesi başlar, adlar ve yazımlar ABACUS çıktısıdır, tatil listesi okunur", () => {
+  const c = mods.calendar, d = mods.datePicker;
+  assert.deepEqual(c.weekdayLabels(), ["Pzt", "Sal", "Çar", "Per", "Cum", "Cts", "Paz"].map((_, index) => abacusDate.dayName(`2024-01-0${index + 1}`)));
+  assert.equal(c.weekdayLabels()[0], abacusDate.dayName("2026-10-12"));
+  assert.equal(c.weekIndex(new Date(2026, 9, 12)), 0);
+  assert.equal(c.weekIndex(new Date(2026, 9, 18)), 6);
+  assert.equal(c.isoKey(new Date(2026, 0, 5)), "2026-01-05");
+  assert.equal(c.monthTitle(new Date(2026, 9, 1)), `${abacusDate.monthName(10)} 2026`);
+  assert.equal(c.monthTitle(new Date(2026, 9, 1)), "Ekim 2026");
+  assert.equal(c.dayLabel(new Date(2026, 9, 29)), `${abacusDate.format("2026-10-29", "long")} ${abacusDate.dayName("2026-10-29", "long")}`);
+  assert.equal(c.dayLabel(new Date(2026, 9, 29), "Cumhuriyet Bayramı"), "29 Ekim 2026 Perşembe, tatil: Cumhuriyet Bayramı");
+  const holidays = c.holidayMap([{ date: "2026-10-29", name: "Cumhuriyet Bayramı" }, { date: "2026-10-29", name: "Kurum tatili" }, { date: "2026-02-30", name: "Geçersiz" }, { date: "2026-05-01", name: "" }]);
+  assert.equal(holidays.get("2026-10-29"), "Cumhuriyet Bayramı, Kurum tatili");
+  assert.equal(holidays.size, 1);
+  assert.equal(c.holidayMap().size, 0);
+  assert.equal(d.formatPickerDate(new Date(2026, 9, 16)), abacusDate.format("2026-10-16", "long"));
+  assert.equal(d.formatPickerDate(new Date(2026, 9, 16), "short"), "16.10.2026");
+  assert.deepEqual(d.dateParts(new Date(2026, 9, 16)), [{ type: "part", value: "16" }, { type: "literal", value: " " }, { type: "part", value: "Ekim" }, { type: "literal", value: " " }, { type: "part", value: "2026" }]);
+  assert.deepEqual(d.dateParts(new Date(2026, 9, 16), "short").map(part => part.type), ["part", "literal", "part", "literal", "part"]);
 });

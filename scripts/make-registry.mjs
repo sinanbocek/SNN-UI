@@ -35,7 +35,7 @@ const items = [
     // Bloklar (settings-page gibi) katalogdaki başka parçaları içe aktarır; `uses` bunları kurulum bağımlılığına çevirir.
     registryDependencies: [`${NAMESPACE}/snn-foundation`, ...(item.deps.includes("motion") ? [`${NAMESPACE}/snn-motion-tokens`] : []), ...(item.uses ?? []).map(name => `${NAMESPACE}/${name}`)],
     files: componentFiles(item.name),
-    meta: { arcCommit: ARC_COMMIT, arcSource: `registry/components/${item.name}` },
+    meta: { arcCommit: item.arcCommit ?? ARC_COMMIT, arcSource: `registry/components/${item.name}` },
   })),
 ];
 
@@ -64,7 +64,7 @@ Yoksa Arc'a (uiarc.dev) bak; ikisinde de yoksa yaz ve kataloğa aday olarak bild
 
 - Renk, boşluk, köşe, gölge ve hareket süresi elle yazılmaz; \`snn-foundation.css\` değişkenlerinden alınır.
 - Uyarı rengi amber/turuncu olmaz (\`--warning\` mavi-gridir). Kırmızı (\`--danger\`) yalnız gerçek hata içindir.
-- Sayı, para, tarih kutusu bu rafta yok: ABACUS ile 2. rafta gelir. \`Intl\`, \`toLocaleString\`, \`toFixed\` kullanılmaz (\`giris-alanlari-standardi.md\`).
+- Sayı, para ve tarih kutusu ABACUS'a bağlı olarak katalogdadır (\`number-field\`, \`money-input\`, \`date-picker\`); kendi kutunu yazma.\`Intl\`, \`toLocaleString\`, \`toFixed\` kullanılmaz (\`giris-alanlari-standardi.md\`).
 - Ekran metni Türkçe; tanımlayıcılar İngilizce.
 - Arc'ın MCP sunucusu kullanılmaz: oradan uyarlanmamış bileşen gelebilir.
 
@@ -109,7 +109,7 @@ ${examples.join("\n\n")}
 | Ad | Neden | Ne zaman |
 |---|---|---|
 | \`metric-card\` | Arc'ta \`animated-counter\` ile gelir; o da \`Intl.NumberFormat\` ve varsayılan \`en-US\` biçimi kullanır (\`1,234\`). | 2. raf, ABACUS ile |
-| \`money-input\`, \`number-field\`, \`phone-input\`, \`date-picker\`, \`sortable-data-table\`, grafikler | B sınıfı: yasak biçim çağrısı içerir. | 2. raf, ABACUS ile |
+| \`phone-input\`, grafikler | B sınıfı: yasak biçim çağrısı içerir. | 2. raf, ABACUS ile |
 `;
 writeFileSync(path.join(root, "AI", "katalog.md"), catalog);
 console.log(`registry.json: ${items.length} parça; AI/katalog.md: ${components.length} bileşen`);

@@ -1,0 +1,15 @@
+{
+  "$schema": "https://ui.shadcn.com/schema/registry-item.json",
+  "name": "snn-use-today",
+  "title": "SNN bugün kancası",
+  "description": "Bakanın yerel tarihini veren kanca (useToday): sunucuda tanımsızdır, gece yarısını geçince ve sekmeye dönülünce yenilenir. calendar ve date-picker paylaşır; bileşen kurulurken kendiliğinden gelir.",
+  "files": [
+    {
+      "path": "registry/components/lib/use-today.ts",
+      "content": "import { useMemo, useSyncExternalStore } from \"react\";\n\n/** calendar ve date-picker paylaşır; tek kopya, ikisinin \"bugün\"ünü aynı tutar. */\nconst dateKey = (date: Date) => `${date.getFullYear()}-${String(date.getMonth() + 1).padStart(2, \"0\")}-${String(date.getDate()).padStart(2, \"0\")}`;\nconst fromKey = (key: string) => {\n  const [year = 1970, month = 1, day = 1] = key.split(\"-\").map(Number);\n  return new Date(year, month - 1, day);\n};\n\n/** Bugün yerel gece yarısında değişir; sekmeye dönmek, pencereye odaklanmak ya da cihazı uyandırmak onu yeniden okur. */\nconst subscribeToday = (notify: () => void) => {\n  let timer = 0;\n  const schedule = () => {\n    const now = new Date();\n    const nextMidnight = new Date(now.getFullYear(), now.getMonth(), now.getDate() + 1);\n    timer = window.setTimeout(() => { notify(); schedule(); }, nextMidnight.getTime() - now.getTime() + 1000);\n  };\n  const onVisible = () => { if (document.visibilityState === \"visible\") notify(); };\n  schedule();\n  document.addEventListener(\"visibilitychange\", onVisible);\n  window.addEventListener(\"focus\", notify);\n  return () => { window.clearTimeout(timer); document.removeEventListener(\"visibilitychange\", onVisible); window.removeEventListener(\"focus\", notify); };\n};\nconst readToday = () => dateKey(new Date());\nconst serverToday = () => \"\";\n\n/** Bakanın yerel tarihi. Sunucuda ve hidrasyon sırasında tanımsızdır; çıktı sunucunun saatine ya da saat dilimine bağlı kalmaz. Sonra gece yarısını geçerek gerçek tarihi izler. */\nexport function useToday() {\n  const key = useSyncExternalStore(subscribeToday, readToday, serverToday);\n  return useMemo(() => (key ? fromKey(key) : undefined), [key]);\n}\n",
+      "type": "registry:lib",
+      "target": "@components/snn/lib/use-today.ts"
+    }
+  ],
+  "type": "registry:item"
+}

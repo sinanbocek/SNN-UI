@@ -179,6 +179,19 @@
       ]
     },
     {
+      "name": "snn-use-today",
+      "type": "registry:item",
+      "title": "SNN bugün kancası",
+      "description": "Bakanın yerel tarihini veren kanca (useToday): sunucuda tanımsızdır, gece yarısını geçince ve sekmeye dönülünce yenilenir. calendar ve date-picker paylaşır; bileşen kurulurken kendiliğinden gelir.",
+      "files": [
+        {
+          "path": "registry/components/lib/use-today.ts",
+          "type": "registry:lib",
+          "target": "@components/snn/lib/use-today.ts"
+        }
+      ]
+    },
+    {
       "name": "button",
       "type": "registry:ui",
       "title": "Düğme",
@@ -3796,6 +3809,190 @@
       "meta": {
         "arcCommit": "bfdf7e8",
         "arcSource": "registry/components/data-flow"
+      }
+    },
+    {
+      "name": "sortable-data-table",
+      "type": "registry:ui",
+      "title": "Sıralanabilir veri tablosu",
+      "description": "Başlığa basınca sütuna göre sıralanan tablo; satırlar yeni yerine kayar, sıralanan sütun hafifçe boyanır. Sıra Türkçe alfabedir (ç c'den, ı i'den önce). Para sütunu kuruş tam sayısından \"₺1.234,50\" yazılır ve sağa yaslanır; sayı \"1.234,5\", tarih \"16.10.2026\". İsteğe bağlı seçim (onay kutusu, Shift ile aralık, Escape ile temizleme) ve sayfalama (\"11–20 / 48 kayıt\"). Dar ekranda her kayıt bir kart olur: üstte ad ve tutar, altında etiketli satırlar.",
+      "dependencies": [
+        "@snn/abacus-core@github:sinanbocek/SNN-Abacus-Core#semver:^4.3.0",
+        "lucide-react",
+        "motion"
+      ],
+      "registryDependencies": [
+        "@snn-ui/snn-foundation",
+        "@snn-ui/snn-motion-tokens",
+        "@snn-ui/pagination"
+      ],
+      "files": [
+        {
+          "path": "registry/components/sortable-data-table/sortable-data-table-format.ts",
+          "type": "registry:component",
+          "target": "@components/snn/sortable-data-table/sortable-data-table-format.ts"
+        },
+        {
+          "path": "registry/components/sortable-data-table/sortable-data-table.module.css",
+          "type": "registry:component",
+          "target": "@components/snn/sortable-data-table/sortable-data-table.module.css"
+        },
+        {
+          "path": "registry/components/sortable-data-table/sortable-data-table.tsx",
+          "type": "registry:component",
+          "target": "@components/snn/sortable-data-table/sortable-data-table.tsx"
+        }
+      ],
+      "meta": {
+        "arcCommit": "b40c890",
+        "arcSource": "registry/components/sortable-data-table"
+      }
+    },
+    {
+      "name": "money-input",
+      "type": "registry:ui",
+      "title": "Para tutarı kutusu",
+      "description": "Tutar yazılırken binlik ayracı imleç kaymadan eklenir (\"1.234,5\"), eksik kuruşlar soluk bekler, uzun tutar sığacak kadar küçülür. TRY, USD ve EUR arasında birim menüsü; hızlı ekle düğmeleri (\"+₺100\"), ok tuşlarıyla adım, en az / en çok sınırı ve aralık satırı. Değer dışarıya kuruş tam sayısı olarak verilir: ₺12,50 → 1250.",
+      "dependencies": [
+        "@snn/abacus-core@github:sinanbocek/SNN-Abacus-Core#semver:^4.3.0",
+        "lucide-react",
+        "motion"
+      ],
+      "registryDependencies": [
+        "@snn-ui/snn-foundation",
+        "@snn-ui/snn-motion-tokens"
+      ],
+      "files": [
+        {
+          "path": "registry/components/money-input/money-input-format.ts",
+          "type": "registry:component",
+          "target": "@components/snn/money-input/money-input-format.ts"
+        },
+        {
+          "path": "registry/components/money-input/money-input.module.css",
+          "type": "registry:component",
+          "target": "@components/snn/money-input/money-input.module.css"
+        },
+        {
+          "path": "registry/components/money-input/money-input.tsx",
+          "type": "registry:component",
+          "target": "@components/snn/money-input/money-input.tsx"
+        }
+      ],
+      "meta": {
+        "arcCommit": "b40c890",
+        "arcSource": "registry/components/money-input"
+      }
+    },
+    {
+      "name": "number-field",
+      "type": "registry:ui",
+      "title": "Sayı alanı",
+      "description": "Eksi/artı düğmeli sınırlı sayı kutusu; rakamlar kilometre sayacı gibi döner. Basılı tutunca hızlanarak tekrarlar, sınıra dayanınca değer gerilip geri yaylanır ve \"En çok …\" notu çıkar. Yazarken Türkçe gruplanır (\"1.234,5\"), ondalık basamak sınırı `formatOptions` ile. Yüzde için `prefix=\"%\"`, gün için `suffix=\" gün\"`.",
+      "dependencies": [
+        "@snn/abacus-core@github:sinanbocek/SNN-Abacus-Core#semver:^4.3.0",
+        "lucide-react",
+        "motion"
+      ],
+      "registryDependencies": [
+        "@snn-ui/snn-foundation",
+        "@snn-ui/snn-motion-tokens"
+      ],
+      "files": [
+        {
+          "path": "registry/components/number-field/number-field-format.ts",
+          "type": "registry:component",
+          "target": "@components/snn/number-field/number-field-format.ts"
+        },
+        {
+          "path": "registry/components/number-field/number-field.module.css",
+          "type": "registry:component",
+          "target": "@components/snn/number-field/number-field.module.css"
+        },
+        {
+          "path": "registry/components/number-field/number-field.tsx",
+          "type": "registry:component",
+          "target": "@components/snn/number-field/number-field.tsx"
+        }
+      ],
+      "meta": {
+        "arcCommit": "b40c890",
+        "arcSource": "registry/components/number-field"
+      }
+    },
+    {
+      "name": "calendar",
+      "type": "registry:ui",
+      "title": "Takvim",
+      "description": "Ay görünümlü takvim; hafta pazartesi başlar, ay ve gün adları Türkçe. Seçim diski günler arasında kayar, aylar şeritte yana kayar. Ok tuşları, PageUp/PageDown (Shift ile yıl), Home/End. İsteğe bağlı \"Bugün\" düğmesi, en erken / en geç tarih ve kapalı günler. Tatil listesi verilirse tatil günü mavi-gri yazılır ve rakamın üstünde kısa bir çizgi çıkar; adı ipucunda ve ekran okuyucuda okunur.",
+      "dependencies": [
+        "@snn/abacus-core@github:sinanbocek/SNN-Abacus-Core#semver:^4.3.0",
+        "lucide-react",
+        "motion"
+      ],
+      "registryDependencies": [
+        "@snn-ui/snn-foundation",
+        "@snn-ui/snn-motion-tokens",
+        "@snn-ui/snn-use-today"
+      ],
+      "files": [
+        {
+          "path": "registry/components/calendar/calendar-format.ts",
+          "type": "registry:component",
+          "target": "@components/snn/calendar/calendar-format.ts"
+        },
+        {
+          "path": "registry/components/calendar/calendar.module.css",
+          "type": "registry:component",
+          "target": "@components/snn/calendar/calendar.module.css"
+        },
+        {
+          "path": "registry/components/calendar/calendar.tsx",
+          "type": "registry:component",
+          "target": "@components/snn/calendar/calendar.tsx"
+        }
+      ],
+      "meta": {
+        "arcCommit": "b40c890",
+        "arcSource": "registry/components/calendar"
+      }
+    },
+    {
+      "name": "date-picker",
+      "type": "registry:ui",
+      "title": "Tarih seçici",
+      "description": "Tıklayınca takvim açılan tarih kutusu; seçilen tarih \"16 Ekim 2026\" biçiminde yazılır, değişen parça (gün, ay, yıl) yerinde döner. Takvimdeki her şey (tatil işareti, sınırlar, Bugün) burada da geçerlidir; alt satırda Temizle ve seçim özeti.",
+      "dependencies": [
+        "@snn/abacus-core@github:sinanbocek/SNN-Abacus-Core#semver:^4.3.0",
+        "lucide-react",
+        "motion"
+      ],
+      "registryDependencies": [
+        "@snn-ui/snn-foundation",
+        "@snn-ui/snn-motion-tokens",
+        "@snn-ui/calendar",
+        "@snn-ui/snn-use-today"
+      ],
+      "files": [
+        {
+          "path": "registry/components/date-picker/date-picker-format.ts",
+          "type": "registry:component",
+          "target": "@components/snn/date-picker/date-picker-format.ts"
+        },
+        {
+          "path": "registry/components/date-picker/date-picker.module.css",
+          "type": "registry:component",
+          "target": "@components/snn/date-picker/date-picker.module.css"
+        },
+        {
+          "path": "registry/components/date-picker/date-picker.tsx",
+          "type": "registry:component",
+          "target": "@components/snn/date-picker/date-picker.tsx"
+        }
+      ],
+      "meta": {
+        "arcCommit": "b40c890",
+        "arcSource": "registry/components/date-picker"
       }
     }
   ]
