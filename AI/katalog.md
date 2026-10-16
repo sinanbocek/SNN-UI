@@ -9,7 +9,7 @@ Yoksa Arc'a (uiarc.dev) bak; ikisinde de yoksa yaz ve kataloğa aday olarak bild
 
 - Renk, boşluk, köşe, gölge ve hareket süresi elle yazılmaz; `snn-foundation.css` değişkenlerinden alınır.
 - Uyarı rengi amber/turuncu olmaz (`--warning` mavi-gridir). Kırmızı (`--danger`) yalnız gerçek hata içindir.
-- Sayı, para, tarih kutusu bu rafta yok: ABACUS ile 2. rafta gelir. `Intl`, `toLocaleString`, `toFixed` kullanılmaz (`giris-alanlari-standardi.md`).
+- Sayı, para ve tarih kutusu ABACUS'a bağlı olarak katalogdadır (`number-field`, `money-input`, `date-picker`); kendi kutunu yazma.`Intl`, `toLocaleString`, `toFixed` kullanılmaz (`giris-alanlari-standardi.md`).
 - Ekran metni Türkçe; tanımlayıcılar İngilizce.
 - Arc'ın MCP sunucusu kullanılmaz: oradan uyarlanmamış bileşen gelebilir.
 
@@ -145,6 +145,11 @@ Gereken paketler: React 19, `motion`; bazı bileşenlerde Radix ve `lucide-react
 | `liquid-tab-bar` | Simgeli kayan sekme çubuğu | Uygulamanın birkaç eş bölümü arasında geçiş yapan simgeli sekme çubuğu. Seçili sekmeyi gösteren yüzey yeni sekmeye tek şekil olarak yer değiştirir; yüzey sürüklenip bırakılırsa en yakın sekme seçilir, hızlı fırlatma en az bir sekme ilerletir, uçlarda direnç vardır. Fareyle başka sekmenin üstüne gelince yüzey o yöne meyleder. Etiket modu üç seçenek: yalnız seçili / hepsi / hiçbiri; eski etiket hemen söner, yenisi yüzey ulaşınca belirir. Rozet sayısı dönen rakamlarla değişir. Kontrollüdür; Sol/Sağ/Home/End ile gezilir. "Hareketi azalt" açıkken yüzey yerine atlar. Birkaç sekme için tasarlandı (3–5). Çok sekme, metin ağırlıklı panel sekmeleri için `tabs`; küçük görünüm anahtarı için `segmented-control`; site gezinmesi için `morph-nav`. Panelleri `liquidPanelId` / `liquidTabId` ile bağlayın. Görünüş SNN-UI değişkenleriyle sıfırdan tasarlandı; Arc Pro liquid-tab-bar'dan yalnız işlev esinlendi (tarif: docs/tarifler/liquid-tab-bar.md). | `npx shadcn@latest add @snn-ui/liquid-tab-bar` |
 | `orbit-menu` | Yay biçimli eylem menüsü | Bir nesne üzerinde üç ile altı hızlı eylem sunan yuvarlak düğme. Basılı tutup eylemlerden birine doğru sürükleyip bırakmak eylemi çalıştırır (hedef açıya göre belirlenir, düğmeye yakın ölü bölge hiçbir şey seçmez); yay dışında bırakmak iptaldir ve etiket hapı "Bırakınca iptal" yazar. Tek dokunuş menüyü açık bırakır, ikinci dokunuş kapatır. Tüm eylemlere klavyeyle ulaşılır (oklar, Home/End, Enter/Boşluk, Escape). Etiket hapı hedefin adını, eylem çalışınca onay metnini gösterir; onay canlı bölgede okunur. Tehlikeli eylem kırmızıdır ve adı da tehlikeyi söyler. "Hareketi azalt" açıkken yalnız solma vardır. Yay ekrana göre kısıtlanmaz; boş alana açılacak yönü (`center`) ve yarıçapı çağıran seçer. Uzun listeler için `dropdown-menu`. Görünüş SNN-UI değişkenleriyle sıfırdan tasarlandı; Arc Pro orbit-menu'dan yalnız işlev esinlendi (tarif: docs/tarifler/orbit-menu.md). | `npx shadcn@latest add @snn-ui/orbit-menu` |
 | `data-flow` | Veri akışı şeması | Verinin bir üründe nasıl aktığını anlatan hareketli şema: solda kaynaklar, ortada işleme noktası ve işlenen kayıt sayacı, sağda hedefler. İşlenmemiş kayıt daire, işlenmiş kayıt yuvarlatılmış kare olarak yolda ilerler; çıkış ve varışta düğüm kenarları vurgulanır. Bir hedefe `share` verilirse kayıtların yalnız o kesri o hedefe gider. Fareyle düğümün üstüne gelince yolu vurgulanır, ayrıntı etiketi çıkar, akış yavaşlar; hız ve duraklatma yayla yumuşar. Ekran dışında ve sekme gizliyken durur. Geniş kapta soldan sağa, 700 px altında yukarıdan aşağıya çizilir. Şema tek bir görsel olarak sesli anlatılır; "Hareketi azalt" açıkken tek durağan kare gösterilir. Bu bir anlatım çizimidir: giriş alanı yoktur, gerçek veri hacmi göstermez. Gerçek hacim için `sankey-flow`; bu çizim yalnız anlatır. Düğüm adlarını, simgelerini ve `share` değerlerini uygulamanın gerçek akışıyla eşleştirin. Sayaç ABACUS biçimindedir ("1.284"). Çizim tek bir zaman fonksiyonudur: kare başına React yeniden çizilmez. Görünüş SNN-UI değişkenleriyle sıfırdan tasarlandı; Arc Pro data-flow'dan yalnız işlev esinlendi (tarif: docs/tarifler/data-flow.md). | `npx shadcn@latest add @snn-ui/data-flow` |
+| `sortable-data-table` | Sıralanabilir veri tablosu | Başlığa basınca sütuna göre sıralanan tablo; satırlar yeni yerine kayar, sıralanan sütun hafifçe boyanır. Sıra Türkçe alfabedir (ç c'den, ı i'den önce). Para sütunu kuruş tam sayısından "₺1.234,50" yazılır ve sağa yaslanır; sayı "1.234,5", tarih "16.10.2026". İsteğe bağlı seçim (onay kutusu, Shift ile aralık, Escape ile temizleme) ve sayfalama ("11–20 / 48 kayıt"). Dar ekranda her kayıt bir kart olur: üstte ad ve tutar, altında etiketli satırlar. Sıralama ABACUS `collate`, hücre yazımı ABACUS `money` / `date` ile; Arc'ın İngilizce sıralayıcısı kaldırıldı. Para sütunu değeri kuruştur. Sayfalama katalogdaki `pagination` ile gelir. | `npx shadcn@latest add @snn-ui/sortable-data-table` |
+| `money-input` | Para tutarı kutusu | Tutar yazılırken binlik ayracı imleç kaymadan eklenir ("1.234,5"), eksik kuruşlar soluk bekler, uzun tutar sığacak kadar küçülür. TRY, USD ve EUR arasında birim menüsü; hızlı ekle düğmeleri ("+₺100"), ok tuşlarıyla adım, en az / en çok sınırı ve aralık satırı. Değer dışarıya kuruş tam sayısı olarak verilir: ₺12,50 → 1250. Biçim ve okuma ABACUS `money.format` / `parse` / `toMinor` / `formatMinorInput` ile; yapıştırmada yalnız Türkçe biçim okunur ("1,234.56" okunmaz). | `npx shadcn@latest add @snn-ui/money-input` |
+| `number-field` | Sayı alanı | Eksi/artı düğmeli sınırlı sayı kutusu; rakamlar kilometre sayacı gibi döner. Basılı tutunca hızlanarak tekrarlar, sınıra dayanınca değer gerilip geri yaylanır ve "En çok …" notu çıkar. Yazarken Türkçe gruplanır ("1.234,5"), ondalık basamak sınırı `formatOptions` ile. Yüzde için `prefix="%"`, gün için `suffix=" gün"`. Yazım ABACUS `money.fmtDecimalGrouped`, okuma `parseNumber`, canlı gruplama `formatGroupedInput` ile; Arc'ın `locale` prop'u kaldırıldı. | `npx shadcn@latest add @snn-ui/number-field` |
+| `calendar` | Takvim | Ay görünümlü takvim; hafta pazartesi başlar, ay ve gün adları Türkçe. Seçim diski günler arasında kayar, aylar şeritte yana kayar. Ok tuşları, PageUp/PageDown (Shift ile yıl), Home/End. İsteğe bağlı "Bugün" düğmesi, en erken / en geç tarih ve kapalı günler. Tatil listesi verilirse tatil günü mavi-gri yazılır ve rakamın üstünde kısa bir çizgi çıkar; adı ipucunda ve ekran okuyucuda okunur. Ay ve gün adları ABACUS `date.monthName` / `dayName` ile. ABACUS tatil tutmaz; liste projeden `holidays` ile verilir. | `npx shadcn@latest add @snn-ui/calendar` |
+| `date-picker` | Tarih seçici | Tıklayınca takvim açılan tarih kutusu; seçilen tarih "16 Ekim 2026" biçiminde yazılır, değişen parça (gün, ay, yıl) yerinde döner. Takvimdeki her şey (tatil işareti, sınırlar, Bugün) burada da geçerlidir; alt satırda Temizle ve seçim özeti. Yazım ABACUS `date.format` ile (`dateStyle`: "long", "short", "dayMonthWeekday"); Arc'ın `locale` ve `format` prop'ları kaldırıldı. Tatil listesi projeden gelir. | `npx shadcn@latest add @snn-ui/date-picker` |
 
 ## Kullanım örnekleri
 
@@ -964,9 +969,49 @@ import { DataFlow } from "@/components/snn/data-flow/data-flow";
 <DataFlow sources={sources} process={{ label: "Dönüştür" }} targets={targets} caption="Veri kaynaktan çıkar, dönüştürülür, hedeflere dağılır." />
 ```
 
+### Sıralanabilir veri tablosu (`sortable-data-table`)
+
+```tsx
+import { SortableDataTable } from "@/components/snn/sortable-data-table/sortable-data-table";
+
+<SortableDataTable rows={rows} rowKey="id" pageSize={10} columns={[{ key: "name", label: "Proje" }, { key: "amount", label: "Tutar", format: "money" }, { key: "date", label: "Tarih", format: "date" }]} />
+```
+
+### Para tutarı kutusu (`money-input`)
+
+```tsx
+import { MoneyInput } from "@/components/snn/money-input/money-input";
+
+<MoneyInput label="Tutar" value={amountMinor} onValueChange={setAmountMinor} currencies={["TRY", "USD", "EUR"]} />
+```
+
+### Sayı alanı (`number-field`)
+
+```tsx
+import { NumberField } from "@/components/snn/number-field/number-field";
+
+<NumberField label="Vade" value={days} onValueChange={setDays} min={0} max={365} suffix=" gün" />
+```
+
+### Takvim (`calendar`)
+
+```tsx
+import { Calendar } from "@/components/snn/calendar/calendar";
+
+<Calendar value={day} onChange={setDay} holidays={[{ date: "2026-10-29", name: "Cumhuriyet Bayramı" }]} showToday />
+```
+
+### Tarih seçici (`date-picker`)
+
+```tsx
+import { DatePicker } from "@/components/snn/date-picker/date-picker";
+
+<DatePicker label="Ödeme tarihi" value={dueDate} onChange={setDueDate} holidays={holidays} />
+```
+
 ## Bu rafta olmayanlar
 
 | Ad | Neden | Ne zaman |
 |---|---|---|
 | `metric-card` | Arc'ta `animated-counter` ile gelir; o da `Intl.NumberFormat` ve varsayılan `en-US` biçimi kullanır (`1,234`). | 2. raf, ABACUS ile |
-| `money-input`, `number-field`, `phone-input`, `date-picker`, `sortable-data-table`, grafikler | B sınıfı: yasak biçim çağrısı içerir. | 2. raf, ABACUS ile |
+| `phone-input`, grafikler | B sınıfı: yasak biçim çağrısı içerir. | 2. raf, ABACUS ile |
