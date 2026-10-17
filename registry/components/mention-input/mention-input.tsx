@@ -502,7 +502,7 @@ export const MentionInput = forwardRef<MentionInputHandle, MentionInputProps>(fu
               </span>
               {suggestion.kind === "channel" && suggestion.item.members !== undefined && <span className={styles.count}>{suggestion.item.members}</span>}
             </li>)}
-          </ul> : <p className={styles.empty}>“{trigger?.query}” ile eşleşen {trigger?.kind === "person" ? "kişi" : "kanal"} yok</p>}
+          </ul> : <p className={styles.empty}>{`“${trigger?.query ?? ""}” ile eşleşen ${trigger?.kind === "person" ? "kişi" : "kanal"} yok`}</p>}
         </div>
       </motion.div>}
     </AnimatePresence>
