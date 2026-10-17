@@ -123,6 +123,12 @@ export function OtpInput({ length = 6, value = "", onChange, label, description,
   };
 
   const handleKeyDown = (index: number, event: KeyboardEvent<HTMLInputElement>) => {
+    // Dolu kutuda tek tuş: kutu 1 karakter aldığı için tarayıcı yeni tuşu geçirmez. Geçerli tuş içindekinin yerine yazılır ve sağa geçilir.
+    if (event.key.length === 1 && !event.ctrlKey && !event.metaKey && !event.altKey && values[index] && sanitize(event.key)) {
+      event.preventDefault();
+      updateAt(index, event.key);
+      return;
+    }
     if (event.key === "ArrowLeft") { event.preventDefault(); focusAt(index - 1); }
     if (event.key === "ArrowRight") { event.preventDefault(); focusAt(index + 1); }
     if (event.key === "Backspace" && !values[index] && index > 0) {
@@ -138,7 +144,7 @@ export function OtpInput({ length = 6, value = "", onChange, label, description,
       onChange?.(next.join(""));
     }
   };
-  const handleFocus = (event: FocusEvent<HTMLInputElement>) => { const slot = event.currentTarget.parentElement as HTMLElement; setRing(current => ({ x: slot.offsetLeft, width: slot.offsetWidth, shown: true, glide: current.shown })); };
+  const handleFocus = (event: FocusEvent<HTMLInputElement>) => { event.currentTarget.select(); const slot = event.currentTarget.parentElement as HTMLElement; setRing(current => ({ x: slot.offsetLeft, width: slot.offsetWidth, shown: true, glide: current.shown })); };
   const handleBlur = (event: FocusEvent<HTMLInputElement>) => { if (!scope.current?.contains(event.relatedTarget as Node | null)) setRing(current => ({ ...current, shown: false, glide: false })); };
   const glyphTransition = (index: number): Transition => reduced ? { duration: motionTokens.duration.instant } : { duration: motionTokens.duration.standard, ease: [...motionTokens.ease.enter], delay: fill.wave ? index * motionTokens.stagger.item : 0 };
 
