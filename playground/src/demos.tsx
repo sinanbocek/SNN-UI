@@ -169,8 +169,11 @@ function DropdownDemo() {
   const [last, setLast] = useState("");
   return <>
     <Col title="İşlem menüsü">
-      <DropdownMenu label="İşlemler"
+      {/* Menü düğmesi kendi genişliğinde durur; sütun düzeni onu tam genişliğe germesin (menü düğmenin altında açılsın). */}
+      <div className="row">
+        <DropdownMenu label="İşlemler"
         items={[{ label: "Düzenle", onSelect: () => setLast("Düzenle") }, { label: "Kopyala", onSelect: () => setLast("Kopyala") }, { label: "Pasif seçenek", disabled: true }, { label: "Sil", destructive: true, separatorBefore: true, onSelect: () => setLast("Sil") }]} />
+      </div>
       <span className="durum">Son seçim: {last || "yok"}</span>
     </Col>
   </>;

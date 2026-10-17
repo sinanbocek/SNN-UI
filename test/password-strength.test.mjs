@@ -57,3 +57,28 @@ test("etiketler ve güç sözcükleri geçersiz kılınabilir", () => {
   assert.equal(rules.find(rule => rule.id === "number").label, "Rakam şart");
   assert.equal(mod.estimateStrength("abc", rules, { levels: { tooShort: "Kısa" } }).label, "Kısa");
 });
+
+test("üretici: istenen uzunluk, seçilen her kümeden en az bir karakter, yalnız seçilen kümeler", () => {
+  const sets = mod.PASSWORD_CHARSETS;
+  for (let round = 0; round < 50; round++) {
+    const value = mod.generatePassword({ length: 16, sets: ["lower", "upper", "digits", "symbols"] });
+    assert.equal(value.length, 16);
+    for (const key of ["lower", "upper", "digits", "symbols"]) assert.ok([...value].some(char => sets[key].includes(char)), `${key} eksik: ${value}`);
+  }
+  const digitsOnly = mod.generatePassword({ length: 10, sets: ["digits"] });
+  assert.match(digitsOnly, /^\d{10}$/);
+  const noSymbols = mod.generatePassword({ length: 30, sets: ["lower", "upper", "digits"] });
+  assert.match(noSymbols, /^[A-Za-z0-9]{30}$/);
+});
+
+test("üretici: uzunluk sınırları, boş küme, güçlü sonuç", () => {
+  assert.equal(mod.generatePassword({ length: 1, sets: ["lower"] }).length, mod.PASSWORD_LENGTH_MIN);
+  assert.equal(mod.generatePassword({ length: 999, sets: ["lower"] }).length, mod.PASSWORD_LENGTH_MAX);
+  assert.equal(mod.generatePassword({ length: 16, sets: [] }), "");
+  const strong = mod.generatePassword({ length: 16, sets: ["lower", "upper", "digits", "symbols"] });
+  assert.equal(mod.estimateStrength(strong).level, 4);
+});
+
+test("üretici: tarafsız rastgele sayı aralıkta kalır", () => {
+  for (let round = 0; round < 200; round++) { const n = mod.secureRandomInt(7); assert.ok(Number.isInteger(n) && n >= 0 && n < 7); }
+});
