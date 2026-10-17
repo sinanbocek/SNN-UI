@@ -86,52 +86,33 @@ export function estimateStrength(password: string, rules: PasswordRule[] = defau
   return { level, label: [words.weak, words.fair, words.good, words.strong][level - 1] ?? words.weak, met };
 }
 
-/** Parola üreticisinin karakter kümeleri. Yalnız ASCII: Türkçe harfler (ğ, ş, ı) her klavyede ve her sistemde yazılamaz. */
-export const PASSWORD_CHARSETS = {
-  lower: "abcdefghijklmnopqrstuvwxyz",
-  upper: "ABCDEFGHIJKLMNOPQRSTUVWXYZ",
-  digits: "0123456789",
-  symbols: "!@#$%^&*()-_=+[]{};:,.?/~",
-} as const;
 
-export type PasswordCharset = keyof typeof PASSWORD_CHARSETS;
+// Parola üretimi ortak parçadadır (snn-password-generator); burada yeniden dışa aktarılır ve kurallara göre üretim eklenir.
+export { PASSWORD_CHARSETS, PASSWORD_LENGTH_MAX, PASSWORD_LENGTH_MIN, generatePassword, secureRandomInt, type PasswordCharset, type PasswordGeneratorOptions } from "../lib/password-generator";
+import { generatePassword, type PasswordCharset } from "../lib/password-generator";
 
-export interface PasswordGeneratorOptions {
-  /** Karakter sayısı; 4 ile 128 arasına sıkıştırılır. */
-  length: number;
-  /** Kullanılacak kümeler. Seçilen her kümeden en az bir karakter bulunur. */
-  sets: PasswordCharset[];
-}
-
-export const PASSWORD_LENGTH_MIN = 4;
-export const PASSWORD_LENGTH_MAX = 128;
-
-/** 0 ile max-1 arasında tarafsız rastgele tam sayı: Web Crypto ve reddetme örneklemesi (mod sapması yok). */
-export function secureRandomInt(max: number): number {
-  const limit = Math.floor(0x100000000 / max) * max;
-  const buffer = new Uint32Array(1);
-  for (;;) {
-    crypto.getRandomValues(buffer);
-    if (buffer[0]! < limit) return buffer[0]! % max;
-  }
+/** Kural kimliklerinden karakter türleri: büyük/küçük harf kuralı → ikisi, rakam → rakam, simge → simge. Küçük harf her zaman vardır. */
+export function setsForRules(ruleIds: string[]): PasswordCharset[] {
+  const sets = new Set<PasswordCharset>(["lower"]);
+  if (ruleIds.includes("case")) sets.add("upper");
+  if (ruleIds.includes("number")) sets.add("digits");
+  if (ruleIds.includes("symbol")) sets.add("symbols");
+  // Yalnız uzunluk gibi tür söylemeyen kurallar varsa karışık ve güçlü üretilir.
+  if (sets.size === 1) { sets.add("upper"); sets.add("digits"); }
+  return [...sets];
 }
 
 /**
- * Cihazda rastgele parola üretir; hiçbir yere gönderilmez. Seçilen her kümeden bir karakter konur, kalan uzunluk
- * kümelerin birleşiminden doldurulur ve sonuç karıştırılır. Küme seçilmemişse boş döner. `random` test içindir.
+ * Ekrandaki kuralların hepsini karşılayan parola üretir: türler kurallardan çıkar, uzunluk en az `length` (varsayılan 16).
+ * Kural karşılanmazsa (ör. en az uzunluk daha büyükse) uzunluğu artırarak yeniden dener.
  */
-export function generatePassword({ length, sets }: PasswordGeneratorOptions, random: (max: number) => number = secureRandomInt): string {
-  const chosen = [...new Set(sets)].filter(set => set in PASSWORD_CHARSETS);
-  if (!chosen.length) return "";
-  const size = Math.min(PASSWORD_LENGTH_MAX, Math.max(PASSWORD_LENGTH_MIN, Math.round(length)));
-  const pool = chosen.map(set => PASSWORD_CHARSETS[set]).join("");
-  const pick = (from: string) => from[random(from.length)]!;
-  const chars = chosen.map(set => pick(PASSWORD_CHARSETS[set]));
-  while (chars.length < size) chars.push(pick(pool));
-  // Fisher-Yates karıştırması: zorunlu karakterler hep başta durmasın.
-  for (let index = chars.length - 1; index > 0; index--) {
-    const other = random(index + 1);
-    [chars[index], chars[other]] = [chars[other]!, chars[index]!];
+export function generateForRules(rules: PasswordRule[], length = 16, generate: typeof generatePassword = generatePassword): string {
+  const sets = setsForRules(rules.map(rule => rule.id));
+  let size = length, value = "";
+  for (let attempt = 0; attempt < 24; attempt++) {
+    value = generate({ length: size, sets });
+    if (rules.every(rule => rule.test(value))) return value;
+    if (attempt % 3 === 2) size += 4;
   }
-  return chars.join("");
+  return value;
 }

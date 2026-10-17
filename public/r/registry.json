@@ -249,6 +249,32 @@
       ]
     },
     {
+      "name": "snn-password-generator",
+      "type": "registry:item",
+      "title": "SNN parola üretici",
+      "description": "Parola alanlarının ortak üreticisi: Web Crypto ile cihazda üretim (seçilen her türden en az bir karakter, yalnız ASCII), göz simgesiyle uyumlu üret ve kopyala simgeleri, parolayı soldan sağa harf harf yazan kanca (useTypeOut) ve uzunluk/karakter türü seçenek paneli. password-field ve password-strength kurulurken kendiliğinden gelir.",
+      "dependencies": [
+        "motion"
+      ],
+      "files": [
+        {
+          "path": "registry/components/lib/password-generator.ts",
+          "type": "registry:lib",
+          "target": "@components/snn/lib/password-generator.ts"
+        },
+        {
+          "path": "registry/components/lib/password-generator-ui.tsx",
+          "type": "registry:lib",
+          "target": "@components/snn/lib/password-generator-ui.tsx"
+        },
+        {
+          "path": "registry/components/lib/password-generator-ui.module.css",
+          "type": "registry:lib",
+          "target": "@components/snn/lib/password-generator-ui.module.css"
+        }
+      ]
+    },
+    {
       "name": "snn-copy-feedback",
       "type": "registry:item",
       "title": "SNN kopyalama geri bildirimi",
@@ -4950,7 +4976,7 @@
       "name": "password-field",
       "type": "registry:ui",
       "title": "Parola alanı",
-      "description": "Göz simgesiyle parolayı gösterip gizleyen etiketli alan; açıklama ve hata metni yayla açılır.",
+      "description": "Göz simgesiyle parolayı gösterip gizleyen etiketli alan; açıklama ve hata metni yayla açılır. İsteğe bağlı üretici: yıldız simgesi uzunluk ve karakter türü seçeneklerini açar, parola harf harf yazılır, bitince kopyala simgesi belirir.",
       "categories": [
         "forms"
       ],
@@ -4959,7 +4985,8 @@
       ],
       "registryDependencies": [
         "@snn-ui/snn-foundation",
-        "@snn-ui/snn-motion-tokens"
+        "@snn-ui/snn-motion-tokens",
+        "@snn-ui/snn-password-generator"
       ],
       "files": [
         {
@@ -4982,7 +5009,7 @@
       "name": "password-strength",
       "type": "registry:ui",
       "title": "Parola gücü",
-      "description": "Yeni parola alanı: yazdıkça dört bölümlü ölçer dolar, kurallar çizilen onay işaretiyle işaretlenir, güç sözcüğü yerinde değişir; göster düğmesi ve hata sallanması vardır. Puanlama cihazda yapılır.",
+      "description": "Yeni parola alanı: yazdıkça dört bölümlü ölçer dolar, kurallar çizilen onay işaretiyle işaretlenir, güç sözcüğü yerinde değişir; göster düğmesi ve hata sallanması vardır. İsteğe bağlı üretici: göz simgesinin sağındaki yıldız ekrandaki kurallara uygun parolayı harf harf yazar. Puanlama cihazda yapılır.",
       "categories": [
         "forms"
       ],
@@ -4991,14 +5018,10 @@
       ],
       "registryDependencies": [
         "@snn-ui/snn-foundation",
-        "@snn-ui/snn-motion-tokens"
+        "@snn-ui/snn-motion-tokens",
+        "@snn-ui/snn-password-generator"
       ],
       "files": [
-        {
-          "path": "registry/components/password-strength/password-generator.tsx",
-          "type": "registry:component",
-          "target": "@components/snn/password-strength/password-generator.tsx"
-        },
         {
           "path": "registry/components/password-strength/password-strength-format.ts",
           "type": "registry:component",

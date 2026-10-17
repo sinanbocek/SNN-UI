@@ -11,8 +11,8 @@ export function PasswordFieldDemo() {
   const shortError = touched.password && password && countCodePoints(password) < 12 ? "Parola en az 12 karakter olmalı." : undefined;
   const mismatchError = touched.confirm && confirm && confirm !== password ? "Parolalar eşleşmiyor." : undefined;
   return <div className="col">
-    <span className="etiket">Göz simgesi parolayı gösterir ya da gizler. Alandan çıkınca kısa parola ve eşleşmeyen doğrulama uyarılır.</span>
-    <PasswordField label="Parola" placeholder="Bir deneme metni yazın" description="En az 12 karakter olmalı." autoComplete="off" value={password} onChange={event => setPassword(event.target.value)} onBlur={() => setTouched(current => ({ ...current, password: true }))} error={shortError} />
+    <span className="etiket">Göz simgesi parolayı gösterir ya da gizler. Yıldız simgesi seçeneklerle parola üretir. Alandan çıkınca kısa parola ve eşleşmeyen doğrulama uyarılır.</span>
+    <PasswordField label="Parola" placeholder="Bir deneme metni yazın" description="En az 12 karakter olmalı." autoComplete="off" generator value={password} onChange={event => setPassword(event.target.value)} onBlur={() => setTouched(current => ({ ...current, password: true }))} error={shortError} />
     <PasswordField label="Parolayı doğrula" placeholder="Aynı metni yeniden yazın" autoComplete="off" value={confirm} onChange={event => setConfirm(event.target.value)} onBlur={() => setTouched(current => ({ ...current, confirm: true }))} error={mismatchError} />
     <span className="durum">{confirm && !mismatchError && confirm === password ? "Parolalar eşleşiyor." : "\u00a0"}</span>
   </div>;

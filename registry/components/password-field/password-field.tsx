@@ -3,6 +3,8 @@ import { forwardRef, useEffect, useId, useRef, useState } from "react";
 import type { InputHTMLAttributes } from "react";
 import { AnimatePresence, motion, useReducedMotion } from "motion/react";
 import { motionTokens } from "../lib/motion-tokens";
+import { generatePassword, type PasswordCharset } from "../lib/password-generator";
+import { GenerateIcon, GeneratedCopyButton, PasswordGeneratorOptions, defaultPasswordGeneratorText, useTypeOut, type PasswordGeneratorText } from "../lib/password-generator-ui";
 import styles from "./password-field.module.css";
 /** Açma düğmesinin adları. İkisinin de Türkçe varsayılanı var; değiştirmek istediğini ver. */
 export interface PasswordFieldMessages { showPassword: string; hidePassword: string }
@@ -14,6 +16,8 @@ export interface PasswordFieldProps extends Omit<InputHTMLAttributes<HTMLInputEl
   error?: string;
   /** Çevrilmiş ya da yeniden yazılmış düğme adları. */
   messages?: Partial<PasswordFieldMessages>;
+  /** Göz simgesinin sağında parola üret düğmesi. Basınca uzunluk ve karakter türü seçenekleri açılır; "Üret" parolayı soldan sağa harf harf yazar, bitince kopyala düğmesi belirir. Verilen değerler seçeneklerin varsayılanıdır. Varsayılan kapalı. */
+  generator?: boolean | { length?: number; sets?: PasswordCharset[]; text?: Partial<PasswordGeneratorText> };
 }
 /** İki simgeyi değiştirmek yerine, üzerinden çizgi geçen ve altındaki dış çizgiyi kesen tek bir göz. */
 function EyeMorph({ slashed }: { slashed: boolean }) {
@@ -58,11 +62,56 @@ function MessageRow({ id, text, className, alert }: { id?: string; text: string;
   </motion.span>;
 }
 
-export const PasswordField = forwardRef<HTMLInputElement, PasswordFieldProps>(function PasswordField({ label, description, error, messages: messagesProp, id, className, ...props }, ref) {
+export const PasswordField = forwardRef<HTMLInputElement, PasswordFieldProps>(function PasswordField({ label, description, error, messages: messagesProp, generator, id, className, onChange, ...props }, ref) {
   const messages = { ...defaultPasswordFieldMessages, ...messagesProp };
   const generated = useId(); const controlId = id ?? generated; const [visible, setVisible] = useState(false); const [toggled, setToggled] = useState(false);
   const hintId = description ? `${controlId}-description` : undefined;
   const errorId = error ? `${controlId}-error` : undefined;
+  const reduced = !!useReducedMotion();
+  const inputRef = useRef<HTMLInputElement | null>(null);
+  const setRefs = (node: HTMLInputElement | null) => { inputRef.current = node; if (typeof ref === "function") ref(node); else if (ref) ref.current = node; };
+
+  // Üretici: seçenekler son kullanıcıdadır (bu alanda kural listesi yok). Varsayılanlar `generator` ile verilir.
+  const options = typeof generator === "object" ? generator : {};
+  const text: PasswordGeneratorText = { ...defaultPasswordGeneratorText, ...options.text, sets: { ...defaultPasswordGeneratorText.sets, ...options.text?.sets } };
+  const [panelOpen, setPanelOpen] = useState(false);
+  const [length, setLength] = useState(options.length ?? 16);
+  const [sets, setSets] = useState<PasswordCharset[]>(options.sets ?? ["lower", "upper", "digits", "symbols"]);
+  const [generatedPassword, setGeneratedPassword] = useState("");
+  const [current, setCurrent] = useState("");
+  const panelId = `${controlId}-generator`;
+  const fieldRef = useRef<HTMLDivElement>(null);
+  // Değer yerel ayarlayıcıyla yazılır ve input olayı gönderilir: alan denetimli de olsa denetimsiz de olsa onChange çalışır.
+  const write = (next: string) => {
+    const node = inputRef.current; if (!node) return;
+    Object.getOwnPropertyDescriptor(HTMLInputElement.prototype, "value")?.set?.call(node, next);
+    node.dispatchEvent(new Event("input", { bubbles: true }));
+  };
+  const typeOut = useTypeOut(write, reduced);
+  const create = () => {
+    const next = generatePassword({ length, sets });
+    setGeneratedPassword(next); setPanelOpen(false); setVisible(true); setToggled(true);
+    typeOut.start(next);
+    inputRef.current?.focus();
+  };
+  useEffect(() => {
+    if (!panelOpen) return;
+    const outside = (event: PointerEvent) => { if (!fieldRef.current?.contains(event.target as Node)) setPanelOpen(false); };
+    const escape = (event: KeyboardEvent) => { if (event.key === "Escape") setPanelOpen(false); };
+    document.addEventListener("pointerdown", outside); document.addEventListener("keydown", escape);
+    return () => { document.removeEventListener("pointerdown", outside); document.removeEventListener("keydown", escape); };
+  }, [panelOpen]);
+
   // data-reveal ilk açma kapamadan sonra görünür; değer her değişimde çözülür, ilk yüklemede çözülmez.
-  return <div className={styles.field}><label htmlFor={controlId}>{label}</label><div className={styles.shell}><input {...props} ref={ref} id={controlId} type={visible ? "text" : "password"} data-reveal={toggled ? (visible ? "shown" : "hidden") : undefined} aria-invalid={error ? true : props["aria-invalid"]} aria-describedby={[props["aria-describedby"], hintId, errorId].filter(Boolean).join(" ") || undefined} className={[styles.input, className].filter(Boolean).join(" ")} /><button type="button" onClick={() => { setVisible(current => !current); setToggled(true); }} aria-label={visible ? messages.hidePassword : messages.showPassword} aria-pressed={visible}><EyeMorph slashed={visible} /></button></div><FieldMessage id={hintId} text={description} className={styles.hint} /><FieldMessage id={errorId} text={error} className={styles.error} alert /></div>;
+  return <div ref={fieldRef} className={styles.field}><label htmlFor={controlId}>{label}</label><div className={styles.control}><div className={styles.shell}>
+    <input {...props} ref={setRefs} id={controlId} type={visible ? "text" : "password"} data-reveal={toggled ? (visible ? "shown" : "hidden") : undefined} aria-invalid={error ? true : props["aria-invalid"]} aria-describedby={[props["aria-describedby"], hintId, errorId].filter(Boolean).join(" ") || undefined} className={[styles.input, className].filter(Boolean).join(" ")}
+      onChange={event => { setCurrent(event.target.value); if (event.nativeEvent.isTrusted) typeOut.cancel(); onChange?.(event); }} />
+    {generator ? <GeneratedCopyButton show={!typeOut.typing && !!generatedPassword && current === generatedPassword} value={current} text={text} reduced={reduced} /> : null}
+    <button type="button" onClick={() => { setVisible(value => !value); setToggled(true); }} aria-label={visible ? messages.hidePassword : messages.showPassword} aria-pressed={visible}><EyeMorph slashed={visible} /></button>
+    {generator ? <button type="button" onClick={() => setPanelOpen(open => !open)} aria-label={typeOut.typing ? text.generating : text.generate} aria-expanded={panelOpen} aria-controls={panelId} title={text.generate}><GenerateIcon spinning={typeOut.typing} reduced={reduced} /></button> : null}
+  </div>
+    {generator ? <AnimatePresence initial={false}>{panelOpen && <motion.div key="generator" className={styles.popover} initial={reduced ? { opacity: 0 } : { opacity: 0, y: -6, scale: .98 }} animate={{ opacity: 1, y: 0, scale: 1 }} exit={{ opacity: 0, y: -4, transition: { duration: motionTokens.duration.fast } }} transition={reduced ? { duration: 0 } : motionTokens.spring.snappy}>
+      <PasswordGeneratorOptions id={panelId} length={length} sets={sets} onLengthChange={setLength} onSetsChange={setSets} onCreate={create} text={text} />
+    </motion.div>}</AnimatePresence> : null}</div>
+    <FieldMessage id={hintId} text={description} className={styles.hint} /><FieldMessage id={errorId} text={error} className={styles.error} alert /></div>;
 });
