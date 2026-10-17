@@ -262,10 +262,11 @@ SNN-Piyasa-Core panelinin taşınmasında (sinanbocek/SNN-Piyasa-Core PR #72–#
 | `ridgeline` | düzeltme | TB-001: görünüme girmeden önce eksen işaretleri 0–1 yer tutucusuna göre diziliyor, kabı 11 000 px'e taşırıyordu. Çizim başlamadan alan verinin alanına ayarlanır. |
 | `morph-nav`, `skeleton-morph` | düzeltme | Yalnız tip yazımı: `PointerEvent` DOM türüne, `fade` `Transition` türüne bağlandı. Çalışma davranışı değişmedi. `npm run typecheck` artık hatasız. |
 
-## morph-nav ve fotoğraf görüntüleyicisi düzeltmeleri (2026-10-17)
+## morph-nav, fotoğraf görüntüleyicisi ve kart destesi düzeltmeleri (2026-10-17)
 
 | Parça | Düzeltme |
 |---|---|
 | `morph-nav` | Kapalı çubuğun köşe yarıçapı 999 px yerine çubuk yüksekliğinin yarısı (32 px, sıkı çubukta 24 px). Önce açılış ve kapanışta yarıçap 999 ile 24 arasında doğrusal geçtiği için ilk karelerde 128 px'e kadar çıkıyor, yüzey elipse dönüyor; kenardaki logo ve eylem düğmesi köşe kırpmasının altında kalıyordu (sahip bildirdi). Görünüm kapalıyken aynı. Ölçüm: açılışın ilk 4 karesinde kırpılma vardı, şimdi hiçbir karede yok. |
 | `morph-nav` (dar kap) | 400 px altındaki kapta marka adı görsel olarak gizlenir (logo kalır, ad ekran okuyucuda); çubuk aralığı daralır. Önce 390 px telefonda eylem düğmesi sağ kenarda kesiliyordu. |
 | `lib/image-viewer` (`lightbox-gallery`, `photo-grid`, `product-gallery`) | Alan ölçümü geri çağrılı ref ile öğe bağlanınca başlar. Önce görüntüleyici içeriği portal ile bir kare sonra bağlandığından ilk açılışta alan ölçülmüyor, büyük fotoğraf hiç yerleşmiyor; ancak ileri/geri ile yeniden çizilince geliyordu (sahip bildirdi). Ctrl+tekerlek yakınlaştırması da aynı nedenle ilk açılışta çalışmıyordu; aynı öğeye bağlandı. |
+| `wallet-stack` | Arkadaki bir karta basmak o kartı öne getirip açar (bakiye ve son hareketler altında). Önce yalnız öndeki kart tıklanıyordu; fare desteye gelince yelpaze açılıyor, görünen arka kartlara basınca hiçbir şey olmuyordu (sahip bildirdi). Klavye ve sürükleme değişmedi. |
