@@ -1,0 +1,5 @@
+.icon { display: block; flex: none; overflow: visible; }
+
+/* Beğenilen kalp beğeni rengini alır; varsayılanı tehlike rolüdür, beğeninin alışılmış kırmızısı. */
+.heart { transition: color var(--duration-fast) var(--ease-standard); }
+.heart[data-on] { color: var(--icon-morph-like, var(--danger)); }

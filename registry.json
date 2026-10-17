@@ -179,6 +179,19 @@
       ]
     },
     {
+      "name": "snn-copy-feedback",
+      "type": "registry:item",
+      "title": "SNN kopyalama geri bildirimi",
+      "description": "Panoya kopyalayan eylemlerin ortak durumu (useCopyFeedback): \"kopyalandı\" ya da \"kopyalanamadı\" durumunu kısa süre tutar, sonra sıfırlar. copy-button kurulurken kendiliğinden gelir.",
+      "files": [
+        {
+          "path": "registry/components/lib/use-copy-feedback.ts",
+          "type": "registry:lib",
+          "target": "@components/snn/lib/use-copy-feedback.ts"
+        }
+      ]
+    },
+    {
       "name": "snn-use-today",
       "type": "registry:item",
       "title": "SNN bugün kancası",
@@ -4551,6 +4564,495 @@
       "meta": {
         "arcCommit": "bfdf7e8",
         "arcSource": "(Arc'ta yok; SNN-UI için yazıldı)"
+      }
+    },
+    {
+      "name": "action-button",
+      "type": "registry:ui",
+      "title": "Eylem düğmesi",
+      "description": "Basınca bekleme ve başarı durumlarına geçen düğme: yazı yerinde harf harf dönüşür, genişlik yayla izler, ok önce dönen göstergeye sonra çizilen tike döner. Bekleme sırasında odak kaybolmaz.",
+      "categories": [
+        "forms"
+      ],
+      "dependencies": [
+        "motion",
+        "lucide-react"
+      ],
+      "registryDependencies": [
+        "@snn-ui/snn-foundation",
+        "@snn-ui/snn-motion-tokens"
+      ],
+      "files": [
+        {
+          "path": "registry/components/action-button/action-button.module.css",
+          "type": "registry:component",
+          "target": "@components/snn/action-button/action-button.module.css"
+        },
+        {
+          "path": "registry/components/action-button/action-button.tsx",
+          "type": "registry:component",
+          "target": "@components/snn/action-button/action-button.tsx"
+        }
+      ],
+      "meta": {
+        "arcCommit": "b40c890",
+        "arcSource": "registry/components/action-button"
+      }
+    },
+    {
+      "name": "confirm-morph",
+      "type": "registry:ui",
+      "title": "Onaylı eylem düğmesi",
+      "description": "Silme gibi geri alınamaz işler için sorusunu yerinde soran düğme: basınca aynı hap soruya (Vazgeç / Sil), sonra dönen göstergeye, sonra Geri al düğmeli sonuca dönüşür. Basma, basılı tutma ve geri sayım kipleri vardır.",
+      "categories": [
+        "feedback"
+      ],
+      "dependencies": [
+        "motion",
+        "lucide-react"
+      ],
+      "registryDependencies": [
+        "@snn-ui/snn-foundation",
+        "@snn-ui/snn-motion-tokens"
+      ],
+      "files": [
+        {
+          "path": "registry/components/confirm-morph/confirm-morph.module.css",
+          "type": "registry:component",
+          "target": "@components/snn/confirm-morph/confirm-morph.module.css"
+        },
+        {
+          "path": "registry/components/confirm-morph/confirm-morph.tsx",
+          "type": "registry:component",
+          "target": "@components/snn/confirm-morph/confirm-morph.tsx"
+        }
+      ],
+      "meta": {
+        "arcCommit": "b40c890",
+        "arcSource": "registry/components/confirm-morph"
+      }
+    },
+    {
+      "name": "copy-button",
+      "type": "registry:ui",
+      "title": "Kopyalama düğmesi",
+      "description": "Panoya kopyalar; simge ve yazı \"Kopyalandı\" ya da \"Başarısız\" durumuna yumuşak geçişle döner, sonra kendiliğinden geri gelir.",
+      "categories": [
+        "feedback"
+      ],
+      "dependencies": [
+        "motion",
+        "lucide-react"
+      ],
+      "registryDependencies": [
+        "@snn-ui/snn-foundation",
+        "@snn-ui/snn-motion-tokens",
+        "@snn-ui/snn-copy-feedback"
+      ],
+      "files": [
+        {
+          "path": "registry/components/copy-button/copy-button.module.css",
+          "type": "registry:component",
+          "target": "@components/snn/copy-button/copy-button.module.css"
+        },
+        {
+          "path": "registry/components/copy-button/copy-button.tsx",
+          "type": "registry:component",
+          "target": "@components/snn/copy-button/copy-button.tsx"
+        }
+      ],
+      "meta": {
+        "arcCommit": "b40c890",
+        "arcSource": "registry/components/copy-button"
+      }
+    },
+    {
+      "name": "expanding-button-group",
+      "type": "registry:ui",
+      "title": "Açılan düğme grubu",
+      "description": "Simge düğmelerinden oluşan kompakt hap: bir eylem hep yazısını gösterir, üzerine gelinen ya da odaklanan yazıyı devralır, komşular kayar. Eylem yerinde onaylanabilir (onay işareti ve geçmiş zaman sözcüğü), tehlike tonu, dokunmatikte iki dokunuş.",
+      "categories": [
+        "navigation"
+      ],
+      "dependencies": [
+        "motion"
+      ],
+      "registryDependencies": [
+        "@snn-ui/snn-foundation",
+        "@snn-ui/snn-motion-tokens"
+      ],
+      "files": [
+        {
+          "path": "registry/components/expanding-button-group/expanding-button-group.module.css",
+          "type": "registry:component",
+          "target": "@components/snn/expanding-button-group/expanding-button-group.module.css"
+        },
+        {
+          "path": "registry/components/expanding-button-group/expanding-button-group.tsx",
+          "type": "registry:component",
+          "target": "@components/snn/expanding-button-group/expanding-button-group.tsx"
+        }
+      ],
+      "meta": {
+        "arcCommit": "b40c890",
+        "arcSource": "registry/components/expanding-button-group"
+      }
+    },
+    {
+      "name": "expanding-search",
+      "type": "registry:ui",
+      "title": "Açılan arama",
+      "description": "Simge olarak bekleyen, basınca alana dönüşen ve sonuçları gruplu açan arama. Sonuçlar başlık başı, sözcük başı, sözcük içi, anahtar sözcük sırasıyla dizilir; Türkçe harfe duyarsızdır; klavyeyle gezilir; son aramaları gösterir.",
+      "categories": [
+        "navigation"
+      ],
+      "dependencies": [
+        "motion",
+        "lucide-react",
+        "@snn/abacus-core@github:sinanbocek/SNN-Abacus-Core#semver:^4.3.0"
+      ],
+      "registryDependencies": [
+        "@snn-ui/snn-foundation",
+        "@snn-ui/snn-motion-tokens"
+      ],
+      "files": [
+        {
+          "path": "registry/components/expanding-search/expanding-search-format.ts",
+          "type": "registry:component",
+          "target": "@components/snn/expanding-search/expanding-search-format.ts"
+        },
+        {
+          "path": "registry/components/expanding-search/expanding-search.module.css",
+          "type": "registry:component",
+          "target": "@components/snn/expanding-search/expanding-search.module.css"
+        },
+        {
+          "path": "registry/components/expanding-search/expanding-search.tsx",
+          "type": "registry:component",
+          "target": "@components/snn/expanding-search/expanding-search.tsx"
+        }
+      ],
+      "meta": {
+        "arcCommit": "b40c890",
+        "arcSource": "registry/components/expanding-search"
+      }
+    },
+    {
+      "name": "floating-button-group",
+      "type": "registry:ui",
+      "title": "Yüzen düğme grubu",
+      "description": "Sakin bir tepside ayrı düğmeler; ortak tek vurgu imleç ya da klavye odağını izleyerek düğmeler arasında akar. Yalnız simge kipi, ipucu, kısayol notu, basılı durum, ayraç, yatay ve dikey düzen, ok tuşuyla gezinti.",
+      "categories": [
+        "navigation"
+      ],
+      "dependencies": [
+        "motion",
+        "@radix-ui/react-tooltip"
+      ],
+      "registryDependencies": [
+        "@snn-ui/snn-foundation",
+        "@snn-ui/snn-motion-tokens",
+        "@snn-ui/tooltip"
+      ],
+      "files": [
+        {
+          "path": "registry/components/floating-button-group/floating-button-group.module.css",
+          "type": "registry:component",
+          "target": "@components/snn/floating-button-group/floating-button-group.module.css"
+        },
+        {
+          "path": "registry/components/floating-button-group/floating-button-group.tsx",
+          "type": "registry:component",
+          "target": "@components/snn/floating-button-group/floating-button-group.tsx"
+        }
+      ],
+      "meta": {
+        "arcCommit": "b40c890",
+        "arcSource": "registry/components/floating-button-group"
+      }
+    },
+    {
+      "name": "icon-morph",
+      "type": "registry:ui",
+      "title": "Dönüşen simgeler",
+      "description": "İki durum arasında yer değiştirmek yerine biçim değiştiren sekiz simge: menü/kapat, oynat/duraklat, artı/tik, kopyala/tik, güneş/ay, ayraç, zil ve kalp. Yay üstünde, kesilebilir ve `state` ile sürülür.",
+      "categories": [
+        "feedback"
+      ],
+      "dependencies": [
+        "motion"
+      ],
+      "registryDependencies": [
+        "@snn-ui/snn-foundation",
+        "@snn-ui/snn-motion-tokens"
+      ],
+      "files": [
+        {
+          "path": "registry/components/icon-morph/icon-morph.module.css",
+          "type": "registry:component",
+          "target": "@components/snn/icon-morph/icon-morph.module.css"
+        },
+        {
+          "path": "registry/components/icon-morph/icon-morph.tsx",
+          "type": "registry:component",
+          "target": "@components/snn/icon-morph/icon-morph.tsx"
+        }
+      ],
+      "meta": {
+        "arcCommit": "b40c890",
+        "arcSource": "registry/components/icon-morph"
+      }
+    },
+    {
+      "name": "inline-edit",
+      "type": "registry:ui",
+      "title": "Yerinde düzenleme",
+      "description": "Basınca yerinde alana dönüşen metin: Enter iyimser kaydeder, Escape geri alır; kayıt başarısız olursa son kaydedilen değeri geri getirir ve yeniden dene sunar. Proje adı, açıklama gibi kısa alanlar için.",
+      "categories": [
+        "forms"
+      ],
+      "dependencies": [
+        "motion",
+        "lucide-react"
+      ],
+      "registryDependencies": [
+        "@snn-ui/snn-foundation",
+        "@snn-ui/snn-motion-tokens"
+      ],
+      "files": [
+        {
+          "path": "registry/components/inline-edit/inline-edit.module.css",
+          "type": "registry:component",
+          "target": "@components/snn/inline-edit/inline-edit.module.css"
+        },
+        {
+          "path": "registry/components/inline-edit/inline-edit.tsx",
+          "type": "registry:component",
+          "target": "@components/snn/inline-edit/inline-edit.tsx"
+        }
+      ],
+      "meta": {
+        "arcCommit": "b40c890",
+        "arcSource": "registry/components/inline-edit"
+      }
+    },
+    {
+      "name": "mention-input",
+      "type": "registry:ui",
+      "title": "Anma alanı",
+      "description": "@ ile kişi, # ile kanal anılan çok satırlı metin alanı. Anmalar bölünmez, öneriler Türkçe harfe duyarsız aranır, değer metin ve konumlu anma listesi olarak döner.",
+      "categories": [
+        "forms"
+      ],
+      "dependencies": [
+        "motion",
+        "lucide-react",
+        "@snn/abacus-core@github:sinanbocek/SNN-Abacus-Core#semver:^4.3.0"
+      ],
+      "registryDependencies": [
+        "@snn-ui/snn-foundation",
+        "@snn-ui/snn-motion-tokens",
+        "@snn-ui/avatar"
+      ],
+      "files": [
+        {
+          "path": "registry/components/mention-input/mention-input-format.ts",
+          "type": "registry:component",
+          "target": "@components/snn/mention-input/mention-input-format.ts"
+        },
+        {
+          "path": "registry/components/mention-input/mention-input.module.css",
+          "type": "registry:component",
+          "target": "@components/snn/mention-input/mention-input.module.css"
+        },
+        {
+          "path": "registry/components/mention-input/mention-input.tsx",
+          "type": "registry:component",
+          "target": "@components/snn/mention-input/mention-input.tsx"
+        }
+      ],
+      "meta": {
+        "arcCommit": "b40c890",
+        "arcSource": "registry/components/mention-input"
+      }
+    },
+    {
+      "name": "password-field",
+      "type": "registry:ui",
+      "title": "Parola alanı",
+      "description": "Göz simgesiyle parolayı gösterip gizleyen etiketli alan; açıklama ve hata metni yayla açılır.",
+      "categories": [
+        "forms"
+      ],
+      "dependencies": [
+        "motion"
+      ],
+      "registryDependencies": [
+        "@snn-ui/snn-foundation",
+        "@snn-ui/snn-motion-tokens"
+      ],
+      "files": [
+        {
+          "path": "registry/components/password-field/password-field.module.css",
+          "type": "registry:component",
+          "target": "@components/snn/password-field/password-field.module.css"
+        },
+        {
+          "path": "registry/components/password-field/password-field.tsx",
+          "type": "registry:component",
+          "target": "@components/snn/password-field/password-field.tsx"
+        }
+      ],
+      "meta": {
+        "arcCommit": "b40c890",
+        "arcSource": "registry/components/password-field"
+      }
+    },
+    {
+      "name": "password-strength",
+      "type": "registry:ui",
+      "title": "Parola gücü",
+      "description": "Yeni parola alanı: yazdıkça dört bölümlü ölçer dolar, kurallar çizilen onay işaretiyle işaretlenir, güç sözcüğü yerinde değişir; göster düğmesi ve hata sallanması vardır. Puanlama cihazda yapılır.",
+      "categories": [
+        "forms"
+      ],
+      "dependencies": [
+        "motion"
+      ],
+      "registryDependencies": [
+        "@snn-ui/snn-foundation",
+        "@snn-ui/snn-motion-tokens"
+      ],
+      "files": [
+        {
+          "path": "registry/components/password-strength/password-strength-format.ts",
+          "type": "registry:component",
+          "target": "@components/snn/password-strength/password-strength-format.ts"
+        },
+        {
+          "path": "registry/components/password-strength/password-strength.module.css",
+          "type": "registry:component",
+          "target": "@components/snn/password-strength/password-strength.module.css"
+        },
+        {
+          "path": "registry/components/password-strength/password-strength.tsx",
+          "type": "registry:component",
+          "target": "@components/snn/password-strength/password-strength.tsx"
+        }
+      ],
+      "meta": {
+        "arcCommit": "b40c890",
+        "arcSource": "registry/components/password-strength"
+      }
+    },
+    {
+      "name": "reactions",
+      "type": "registry:ui",
+      "title": "Tepki çubuğu",
+      "description": "Yorum, gönderi ve sürüm notları için tepki çubuğu: hap her tepkiyi ve sayısını gösterir, dokununca eklenir ya da kalkar; ekleme düğmesi küçük bir seçici açar. Bin üstü sayılar Türkçe kısaltılır (\"1,2B\").",
+      "categories": [
+        "feedback"
+      ],
+      "dependencies": [
+        "motion",
+        "lucide-react",
+        "@radix-ui/react-popover",
+        "@snn/abacus-core@github:sinanbocek/SNN-Abacus-Core#semver:^4.3.0"
+      ],
+      "registryDependencies": [
+        "@snn-ui/snn-foundation",
+        "@snn-ui/snn-motion-tokens",
+        "@snn-ui/snn-chart-format"
+      ],
+      "files": [
+        {
+          "path": "registry/components/reactions/reactions.module.css",
+          "type": "registry:component",
+          "target": "@components/snn/reactions/reactions.module.css"
+        },
+        {
+          "path": "registry/components/reactions/reactions.tsx",
+          "type": "registry:component",
+          "target": "@components/snn/reactions/reactions.tsx"
+        }
+      ],
+      "meta": {
+        "arcCommit": "b40c890",
+        "arcSource": "registry/components/reactions"
+      }
+    },
+    {
+      "name": "theme-switch",
+      "type": "registry:ui",
+      "title": "Tema düğmesi",
+      "description": "Açık ve koyu tema arasında geçiş düğmesi: simge döner; reveal, eclipse, split ve rise adlı dört sayfa geçişi çeşidini bildirir. Temayı sayfaya uygulamak uygulamanın işidir.",
+      "categories": [
+        "forms"
+      ],
+      "dependencies": [
+        "motion",
+        "lucide-react"
+      ],
+      "registryDependencies": [
+        "@snn-ui/snn-foundation",
+        "@snn-ui/snn-motion-tokens",
+        "@snn-ui/button"
+      ],
+      "files": [
+        {
+          "path": "registry/components/theme-switch/theme-switch.module.css",
+          "type": "registry:component",
+          "target": "@components/snn/theme-switch/theme-switch.module.css"
+        },
+        {
+          "path": "registry/components/theme-switch/theme-switch.tsx",
+          "type": "registry:component",
+          "target": "@components/snn/theme-switch/theme-switch.tsx"
+        }
+      ],
+      "meta": {
+        "arcCommit": "b40c890",
+        "arcSource": "registry/components/theme-switch"
+      }
+    },
+    {
+      "name": "user-menu",
+      "type": "registry:ui",
+      "title": "Kullanıcı menüsü",
+      "description": "Üst çubukta kişinin fotoğrafının arkasındaki hesap menüsü: kimlik başlığı, hesap bağlantıları, satır içi durum ve tema seçimi, çıkış. 640 px altında alttan açılan sayfa olur; klavyeyle gezilir, harf yazarak satıra atlanır (Türkçe harfe duyarsız).",
+      "categories": [
+        "navigation"
+      ],
+      "dependencies": [
+        "motion",
+        "lucide-react",
+        "@snn/abacus-core@github:sinanbocek/SNN-Abacus-Core#semver:^4.3.0"
+      ],
+      "registryDependencies": [
+        "@snn-ui/snn-foundation",
+        "@snn-ui/snn-motion-tokens",
+        "@snn-ui/avatar"
+      ],
+      "files": [
+        {
+          "path": "registry/components/user-menu/user-menu-format.ts",
+          "type": "registry:component",
+          "target": "@components/snn/user-menu/user-menu-format.ts"
+        },
+        {
+          "path": "registry/components/user-menu/user-menu.module.css",
+          "type": "registry:component",
+          "target": "@components/snn/user-menu/user-menu.module.css"
+        },
+        {
+          "path": "registry/components/user-menu/user-menu.tsx",
+          "type": "registry:component",
+          "target": "@components/snn/user-menu/user-menu.tsx"
+        }
+      ],
+      "meta": {
+        "arcCommit": "b40c890",
+        "arcSource": "registry/components/user-menu"
       }
     }
   ]

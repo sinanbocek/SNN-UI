@@ -156,6 +156,20 @@ Gereken paketler: React 19, `motion`; bazı bileşenlerde Radix ve `lucide-react
 | `status-card` | Durum kartı | Gösterge kartıyla aynı ölçüde, değeri sayı yerine durum cümlesi olan kart ("Sorun yok", "Kontrol gerekli", "Bağlantı kurulamadı"). Ton renk, simge ve etiketle birlikte söylenir; değer değişince yükselerek geçer. `tone`: "success", "warning" (mavi-gri), "danger", "neutral". `live` verilirse değer değişimi ekran okuyucuya duyurulur. Sayı gösterecekseniz `metric-card` kullanın. | `npx shadcn@latest add @snn-ui/status-card` |
 | `grouped-table` | Açılır gruplu tablo | Satırları gruplara bölen tablo: her grup bir <tbody>, başlığı aria-expanded taşıyan düğmedir ve satır sayısıyla durum rozeti gösterir. Arama yazılınca gruplar zorla açılır, eşleşme sayısı yazılır. Dar kapta isteğe bağlı sütunlar gizlenir; tablo yana kaymaz. Arama ABACUS `text.searchKey` ile Türkçe harfe duyarsızdır ("istanbul" → "İstanbul"). Arama kutusunu proje koyar ve `query` ile verir (`search-field`). Sütunda `optional: true` dar ekranda gizler, `numeric: true` sağa yaslar. Sıralama gerekiyorsa `sortable-data-table`. | `npx shadcn@latest add @snn-ui/grouped-table` |
 | `tree-view` | Ağaç görünümü | İç içe liste: açma düğmesi ile seçim düğmesi ayrıdır. Üstteki arama eşleşen düğümün bütün üstlerini açar, eşleşme sayısını yazar ve eşleşen parçayı vurgular. Yüzlerce kalemli sınıflamalar (ör. TÜFE) için. Arama ABACUS `text.searchKey` ile yapılır ("sut" → "Süt"); ad ve `meta` alanına bakar. Seçili düğümün üstleri açık başlar. `selected` ile denetimli kullanılabilir. | `npx shadcn@latest add @snn-ui/tree-view` |
+| `action-button` | Eylem düğmesi | Basınca bekleme ve başarı durumlarına geçen düğme: yazı yerinde harf harf dönüşür, genişlik yayla izler, ok önce dönen göstergeye sonra çizilen tike döner. Bekleme sırasında odak kaybolmaz. Yasak çağrı yoktu; varsayılan metinler Türkçe ("Kaydediliyor", "Kaydedildi"). | `npx shadcn@latest add @snn-ui/action-button` |
+| `confirm-morph` | Onaylı eylem düğmesi | Silme gibi geri alınamaz işler için sorusunu yerinde soran düğme: basınca aynı hap soruya (Vazgeç / Sil), sonra dönen göstergeye, sonra Geri al düğmeli sonuca dönüşür. Basma, basılı tutma ve geri sayım kipleri vardır. B sınıfı uyarlandı: `confirmLabel.toLowerCase()` ile kurulan İngilizce duyuru sabit Türkçe cümle oldu; geri sayım "Siliniyor: 3" biçiminde. Bütün varsayılan metinler Türkçe. | `npx shadcn@latest add @snn-ui/confirm-morph` |
+| `copy-button` | Kopyalama düğmesi | Panoya kopyalar; simge ve yazı "Kopyalandı" ya da "Başarısız" durumuna yumuşak geçişle döner, sonra kendiliğinden geri gelir. Yasak çağrı yoktu; metinler Türkçe. Pano durumu ortak `snn-copy-feedback` parçasından gelir. | `npx shadcn@latest add @snn-ui/copy-button` |
+| `expanding-button-group` | Açılan düğme grubu | Simge düğmelerinden oluşan kompakt hap: bir eylem hep yazısını gösterir, üzerine gelinen ya da odaklanan yazıyı devralır, komşular kayar. Eylem yerinde onaylanabilir (onay işareti ve geçmiş zaman sözcüğü), tehlike tonu, dokunmatikte iki dokunuş. Yasak çağrı yoktu; yorumlar ve örnekler Türkçe. | `npx shadcn@latest add @snn-ui/expanding-button-group` |
+| `expanding-search` | Açılan arama | Simge olarak bekleyen, basınca alana dönüşen ve sonuçları gruplu açan arama. Sonuçlar başlık başı, sözcük başı, sözcük içi, anahtar sözcük sırasıyla dizilir; Türkçe harfe duyarsızdır; klavyeyle gezilir; son aramaları gösterir. B sınıfı uyarlandı: `toLocaleLowerCase` eşleştirmesi ABACUS `text.searchKey` oldu ("cagri" → "Çağrı"); sıralama ve vurgu `expanding-search-format.ts` içinde, testli. | `npx shadcn@latest add @snn-ui/expanding-search` |
+| `floating-button-group` | Yüzen düğme grubu | Sakin bir tepside ayrı düğmeler; ortak tek vurgu imleç ya da klavye odağını izleyerek düğmeler arasında akar. Yalnız simge kipi, ipucu, kısayol notu, basılı durum, ayraç, yatay ve dikey düzen, ok tuşuyla gezinti. Yasak çağrı yoktu; yorumlar ve örnekler Türkçe. İpucu katalogdaki `tooltip` ile gelir. | `npx shadcn@latest add @snn-ui/floating-button-group` |
+| `icon-morph` | Dönüşen simgeler | İki durum arasında yer değiştirmek yerine biçim değiştiren sekiz simge: menü/kapat, oynat/duraklat, artı/tik, kopyala/tik, güneş/ay, ayraç, zil ve kalp. Yay üstünde, kesilebilir ve `state` ile sürülür. Ekran metni yok; yorumlar Türkçe. | `npx shadcn@latest add @snn-ui/icon-morph` |
+| `inline-edit` | Yerinde düzenleme | Basınca yerinde alana dönüşen metin: Enter iyimser kaydeder, Escape geri alır; kayıt başarısız olursa son kaydedilen değeri geri getirir ve yeniden dene sunar. Proje adı, açıklama gibi kısa alanlar için. B sınıfı uyarlandı: iki `label.toLowerCase()` cümle kurgusu kalktı, duyurular etiketle Türkçe cümle ("Proje adı kaydediliyor"). React 19.2 `useEffectEvent` yerine yerel kanca: daha eski React tür tanımlarında da çalışır. | `npx shadcn@latest add @snn-ui/inline-edit` |
+| `mention-input` | Anma alanı | @ ile kişi, # ile kanal anılan çok satırlı metin alanı. Anmalar bölünmez, öneriler Türkçe harfe duyarsız aranır, değer metin ve konumlu anma listesi olarak döner. B sınıfı uyarlandı: eşleştirme ABACUS `text.searchKey` ("cagri" → "Çağrı", "ismail" → "İsmail"), baş harf `avatarInitials`; mantık `mention-input-format.ts` içinde, testli. | `npx shadcn@latest add @snn-ui/mention-input` |
+| `password-field` | Parola alanı | Göz simgesiyle parolayı gösterip gizleyen etiketli alan; açıklama ve hata metni yayla açılır. Yasak çağrı yoktu; düğme adları Türkçe ("Parolayı göster", "Parolayı gizle"). | `npx shadcn@latest add @snn-ui/password-field` |
+| `password-strength` | Parola gücü | Yeni parola alanı: yazdıkça dört bölümlü ölçer dolar, kurallar çizilen onay işaretiyle işaretlenir, güç sözcüğü yerinde değişir; göster düğmesi ve hata sallanması vardır. Puanlama cihazda yapılır. Puanlama ve kurallar `password-strength-format.ts` içinde, testli. Güç sözcükleri ve kurallar Türkçe ("Zayıf", "Orta", "Güçlü", "En az 12 karakter"). | `npx shadcn@latest add @snn-ui/password-strength` |
+| `reactions` | Tepki çubuğu | Yorum, gönderi ve sürüm notları için tepki çubuğu: hap her tepkiyi ve sayısını gösterir, dokununca eklenir ya da kalkar; ekleme düğmesi küçük bir seçici açar. Bin üstü sayılar Türkçe kısaltılır ("1,2B"). Sayılar ABACUS ile (`snn-chart-format`: `formatCompact`, `formatNumber`); Arc `String(value)` yazıyordu. Metinler Türkçe. | `npx shadcn@latest add @snn-ui/reactions` |
+| `theme-switch` | Tema düğmesi | Açık ve koyu tema arasında geçiş düğmesi: simge döner; reveal, eclipse, split ve rise adlı dört sayfa geçişi çeşidini bildirir. Temayı sayfaya uygulamak uygulamanın işidir. Yasak çağrı yoktu; etiketler Türkçe ("Koyu temaya geç", "Açık temaya geç"). | `npx shadcn@latest add @snn-ui/theme-switch` |
+| `user-menu` | Kullanıcı menüsü | Üst çubukta kişinin fotoğrafının arkasındaki hesap menüsü: kimlik başlığı, hesap bağlantıları, satır içi durum ve tema seçimi, çıkış. 640 px altında alttan açılan sayfa olur; klavyeyle gezilir, harf yazarak satıra atlanır (Türkçe harfe duyarsız). B sınıfı uyarlandı: baş harf `avatarInitials`, yazarak atlama ABACUS `text.searchKey` ("i" → "İzinler"); eşleştirme `user-menu-format.ts` içinde, testli. | `npx shadcn@latest add @snn-ui/user-menu` |
 
 ## Kullanım örnekleri
 
@@ -1061,6 +1075,118 @@ import { GroupedTable, GroupedTableColumn, GroupedTableGroup } from "@/component
 import { TreeView, TreeNode } from "@/components/snn/tree-view/tree-view";
 
 <TreeView label="TÜFE sınıflaması" nodes={nodes} onSelect={node => setSelected(node.id)} />
+```
+
+### Eylem düğmesi (`action-button`)
+
+```tsx
+import { ActionButton } from "@/components/snn/action-button/action-button";
+
+<ActionButton label="Değişiklikleri kaydet" onAction={save} />
+```
+
+### Onaylı eylem düğmesi (`confirm-morph`)
+
+```tsx
+import { ConfirmMorph } from "@/components/snn/confirm-morph/confirm-morph";
+
+<ConfirmMorph label="Projeyi sil" prompt="Proje silinsin mi?" confirmMode="hold" onConfirm={remove} onUndo={restore} />
+```
+
+### Kopyalama düğmesi (`copy-button`)
+
+```tsx
+import { CopyButton } from "@/components/snn/copy-button/copy-button";
+
+<CopyButton value="FTR-2026-000184" />
+```
+
+### Açılan düğme grubu (`expanding-button-group`)
+
+```tsx
+import { ExpandingButtonGroup } from "@/components/snn/expanding-button-group/expanding-button-group";
+
+<ExpandingButtonGroup label="İleti işlemleri" items={[{ id: "archive", label: "Arşivle", doneLabel: "Arşivlendi", icon: <Archive /> }]} />
+```
+
+### Açılan arama (`expanding-search`)
+
+```tsx
+import { ExpandingSearch } from "@/components/snn/expanding-search/expanding-search";
+
+<ExpandingSearch label="Projelerde ara" items={items} onSelect={open} />
+```
+
+### Yüzen düğme grubu (`floating-button-group`)
+
+```tsx
+import { FloatingButtonGroup } from "@/components/snn/floating-button-group/floating-button-group";
+
+<FloatingButtonGroup label="Pano işlemleri" items={[{ id: "share", label: "Paylaş", icon: <Share2 /> }]} onAction={run} />
+```
+
+### Dönüşen simgeler (`icon-morph`)
+
+```tsx
+import { IconMorph } from "@/components/snn/icon-morph/icon-morph";
+
+<IconMorph name="heart" state={liked} />
+```
+
+### Yerinde düzenleme (`inline-edit`)
+
+```tsx
+import { InlineEdit } from "@/components/snn/inline-edit/inline-edit";
+
+<InlineEdit label="Proje adı" value={name} onSave={saveName} />
+```
+
+### Anma alanı (`mention-input`)
+
+```tsx
+import { MentionInput } from "@/components/snn/mention-input/mention-input";
+
+<MentionInput people={people} channels={channels} onChange={setValue} aria-label="Mesaj" />
+```
+
+### Parola alanı (`password-field`)
+
+```tsx
+import { PasswordField } from "@/components/snn/password-field/password-field";
+
+<PasswordField label="Parola" description="En az 12 karakter olmalı." />
+```
+
+### Parola gücü (`password-strength`)
+
+```tsx
+import { PasswordStrength } from "@/components/snn/password-strength/password-strength";
+
+<PasswordStrength label="Yeni parola" value={value} onValueChange={setValue} />
+```
+
+### Tepki çubuğu (`reactions`)
+
+```tsx
+import { Reactions } from "@/components/snn/reactions/reactions";
+
+<Reactions options={options} defaultValue={[{ id: "like", count: 12, reacted: false }]} />
+```
+
+### Tema düğmesi (`theme-switch`)
+
+```tsx
+import { ThemeSwitch } from "@/components/snn/theme-switch/theme-switch";
+
+<ThemeSwitch theme={theme} onThemeChange={setTheme} />
+```
+
+### Kullanıcı menüsü (`user-menu`)
+
+```tsx
+import { UserMenu } from "@/components/snn/user-menu/user-menu";
+
+<UserMenu user={{ name: "İsmail Yılmaz", email: "ismail@ornek.com.tr" }} items={[{ label: "Hesap ayarları" }]} onSignOut={signOut} />
 ```
 
 ## Bu rafta olmayanlar
