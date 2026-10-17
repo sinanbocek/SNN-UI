@@ -38,7 +38,7 @@ export function CartDrawer({ open, onOpenChange, shop, clear }: { open: boolean;
             <span className="code-label">Yazı tipi</span>
             {shop.cartFont
               ? <div className="cart-theme-row">{shop.cartFont.title} (data-font="{shop.cartFont.key}")<Button variant="ghost" size="sm" aria-label="Yazı tipi takımını sepetten çıkar" onClick={() => shop.setCartFont(null)}><X size={15} strokeWidth={1.75} aria-hidden="true" /></Button></div>
-              : <div className="cart-theme-row">Varsayılan (Geist ve Inter).{shop.font !== "default" && fontTitles[shop.font] ? <Button variant="secondary" size="sm" onClick={() => shop.setCartFont({ key: shop.font, title: fontTitles[shop.font]! })}>Şu anki takımı ekle</Button> : null}</div>}
+              : <div className="cart-theme-row">{"Varsayılan (Geist ve Inter)."}{shop.font !== "default" && fontTitles[shop.font] ? <Button variant="secondary" size="sm" onClick={() => shop.setCartFont({ key: shop.font, title: fontTitles[shop.font]! })}>Şu anki takımı ekle</Button> : null}</div>}
           </div>
           <label className="code-label" htmlFor="cart-prompt">AI'a verilecek metin</label>
           <textarea id="cart-prompt" className="prompt" readOnly value={prompt} rows={12} onFocus={event => event.currentTarget.select()} />
