@@ -1,0 +1,11 @@
+/* Yazı tipi takımı "Yumuşak": Manrope (başlık), DM Sans (gövde), Geist Mono (rakam ve kod), OFL lisanslı.
+   Kişisel uygulamalar, oyun ve topluluk ekranları için; yuvarlak ve dostane. Kullanım: <html data-font="soft">.
+   snn-foundation.css'ten sonra içe aktarılır; Geist Mono temel değişkenlerle zaten gelir. Türkçe harfler latin-ext alt kümesindedir. */
+@import "@fontsource-variable/manrope";
+@import "@fontsource-variable/dm-sans";
+
+:root[data-font="soft"] {
+  --font-display: "Manrope Variable", sans-serif;
+  --font-body: "DM Sans Variable", sans-serif;
+  --font-mono: var(--font-geist-mono, "Geist Mono Variable"), ui-monospace, Consolas, monospace;
+}

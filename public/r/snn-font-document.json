@@ -1,0 +1,20 @@
+{
+  "$schema": "https://ui.shadcn.com/schema/registry-item.json",
+  "name": "snn-font-document",
+  "title": "SNN yazı tipi takımı: Belge",
+  "description": "Source Serif 4 (başlık), Source Sans 3 (gövde), Source Code Pro (rakam ve kod). Teklif, şartname ve rapor ekranları için; basılı belge görünümü. snn-foundation.css'ten sonra bir kez içe aktarılır, <html data-font=\"document\"> ile seçilir. Seçilmeyen takımın yazı tipi indirilmez. OFL lisanslı; Türkçe harfler tam.",
+  "dependencies": [
+    "@fontsource-variable/source-serif-4@5.3.0",
+    "@fontsource-variable/source-sans-3@5.3.0",
+    "@fontsource-variable/source-code-pro@5.3.0"
+  ],
+  "files": [
+    {
+      "path": "registry/foundation/fonts/snn-font-document.css",
+      "content": "/* Yazı tipi takımı \"Belge\": Source Serif 4 (başlık), Source Sans 3 (gövde), Source Code Pro (rakam ve kod), OFL lisanslı.\n   Teklif, şartname ve rapor ekranları için; basılı belge görünümü. Kullanım: <html data-font=\"document\">.\n   snn-foundation.css'ten sonra içe aktarılır. Türkçe harfler latin-ext alt kümesindedir. */\n@import \"@fontsource-variable/source-serif-4\";\n@import \"@fontsource-variable/source-sans-3\";\n@import \"@fontsource-variable/source-code-pro\";\n\n:root[data-font=\"document\"] {\n  --font-display: \"Source Serif 4 Variable\", Georgia, serif;\n  --font-body: \"Source Sans 3 Variable\", sans-serif;\n  --font-mono: \"Source Code Pro Variable\", ui-monospace, Consolas, monospace;\n  /* Tırnaklı başlıkta sıkı harf aralığı okunurluğu düşürür. */\n  --tracking-display: -0.01em;\n}\n",
+      "type": "registry:component",
+      "target": "@components/snn/snn-font-document.css"
+    }
+  ],
+  "type": "registry:item"
+}

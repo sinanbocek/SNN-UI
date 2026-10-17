@@ -1,0 +1,19 @@
+{
+  "$schema": "https://ui.shadcn.com/schema/registry-item.json",
+  "name": "snn-font-soft",
+  "title": "SNN yazı tipi takımı: Yumuşak",
+  "description": "Manrope (başlık), DM Sans (gövde), Geist Mono (rakam ve kod). Kişisel uygulamalar, oyun ve topluluk ekranları için; yuvarlak ve dostane. snn-foundation.css'ten sonra bir kez içe aktarılır, <html data-font=\"soft\"> ile seçilir. Seçilmeyen takımın yazı tipi indirilmez. OFL lisanslı; Türkçe harfler tam.",
+  "dependencies": [
+    "@fontsource-variable/manrope",
+    "@fontsource-variable/dm-sans"
+  ],
+  "files": [
+    {
+      "path": "registry/foundation/fonts/snn-font-soft.css",
+      "content": "/* Yazı tipi takımı \"Yumuşak\": Manrope (başlık), DM Sans (gövde), Geist Mono (rakam ve kod), OFL lisanslı.\n   Kişisel uygulamalar, oyun ve topluluk ekranları için; yuvarlak ve dostane. Kullanım: <html data-font=\"soft\">.\n   snn-foundation.css'ten sonra içe aktarılır; Geist Mono temel değişkenlerle zaten gelir. Türkçe harfler latin-ext alt kümesindedir. */\n@import \"@fontsource-variable/manrope\";\n@import \"@fontsource-variable/dm-sans\";\n\n:root[data-font=\"soft\"] {\n  --font-display: \"Manrope Variable\", sans-serif;\n  --font-body: \"DM Sans Variable\", sans-serif;\n  --font-mono: var(--font-geist-mono, \"Geist Mono Variable\"), ui-monospace, Consolas, monospace;\n}\n",
+      "type": "registry:component",
+      "target": "@components/snn/snn-font-soft.css"
+    }
+  ],
+  "type": "registry:item"
+}

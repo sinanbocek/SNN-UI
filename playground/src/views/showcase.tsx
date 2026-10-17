@@ -6,7 +6,7 @@ import { EmptyState } from "../../../registry/components/empty-state/empty-state
 import { Skeleton } from "../../../registry/components/skeleton/skeleton";
 import { useDemos } from "../lib/demo-loader";
 import { accentTitles, copyText, entries, entryOf, groupOf, groups, type Category, type Entry, type Shop } from "../lib/data";
-import type { CartTheme } from "../lib/cart";
+import type { CartFont, CartTheme } from "../lib/cart";
 import { routeHash } from "../lib/route";
 
 const usesAbacus = (entry: Entry) => entry.deps.some(dep => dep.startsWith("@snn/abacus-core"));
@@ -119,16 +119,17 @@ export function SearchResults({ query, results, shop, onOpen }: { query: string;
   </>;
 }
 
-export function SharedCart({ names, theme, shop, setCart, onDone }: { names: string[]; theme: CartTheme | null; shop: Shop; setCart: (names: string[]) => void; onDone: () => void }) {
+export function SharedCart({ names, theme, font, shop, setCart, onDone }: { names: string[]; theme: CartTheme | null; font: CartFont | null; shop: Shop; setCart: (names: string[]) => void; onDone: () => void }) {
   const items = names.map(entryOf).filter((entry): entry is Entry => !!entry);
   return <>
     <header className="page-head">
       <p className="eyebrow">Paylaşılan sepet</p>
-      <h1>{items.length} bileşen{theme ? " ve bir tema" : ""}</h1>
+      <h1>{items.length} bileşen{theme ? ", bir renk teması" : ""}{font ? `, ${font.title} yazı tipi takımı` : ""}</h1>
       <p className="lead">Bu bağlantı birinin seçtiği bileşenleri taşıyor. Sepetine eklersen kendi seçtiklerin korunur.</p>
     </header>
     <ul className="results">{items.map(entry => <li key={entry.name}><a className="result-open" href={routeHash.component(entry.name)}><strong>{entry.title}</strong><span className="result-desc">{entry.description}</span></a></li>)}</ul>
     {theme && <p className="note">Tema: {theme.kind === "preset" ? theme.title : theme.hex}</p>}
-    <div className="row"><Button onClick={() => { setCart([...new Set([...shop.cart, ...names])]); if (theme) shop.setCartTheme(theme); shop.notify("Sepetine eklendi"); onDone(); }}>Sepetime ekle</Button></div>
+    {font && <p className="note">Yazı tipi takımı: {font.title}</p>}
+    <div className="row"><Button onClick={() => { setCart([...new Set([...shop.cart, ...names])]); if (theme) shop.setCartTheme(theme); if (font) shop.setCartFont(font); shop.notify("Sepetine eklendi"); onDone(); }}>Sepetime ekle</Button></div>
   </>;
 }

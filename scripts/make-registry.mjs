@@ -91,7 +91,9 @@ import "@/components/snn/snn-foundation.css";
 
 4. Vurgu rengini proje seçer: \`<html data-accent="blue">\` (\`neutral\`, \`violet\`, \`blue\`, \`green\`, \`coral\`, \`rose\`). Koyu tema: \`data-theme="dark"\`.
 
-Yazı tipleri (Inter, Geist; \`@fontsource-variable/*\`, OFL) temel değişkenlerle birlikte kurulur ve aynı içe aktarmayla yüklenir; ayrıca bir şey eklenmez.
+Yazı tipleri (Inter, Geist, Geist Mono; \`@fontsource-variable/*\`, OFL) temel değişkenlerle birlikte kurulur ve aynı içe aktarmayla yüklenir. Kod ve hizalı rakam \`--font-mono\` kullanır.
+
+5. Başka yazı tipi takımı isteğe bağlıdır: \`snn-font-plex\` (Kurumsal), \`snn-font-modern\` (Modern), \`snn-font-document\` (Belge), \`snn-font-soft\` (Yumuşak). Kur (\`npx shadcn@latest add ${NAMESPACE}/snn-font-plex\`), temel değişkenlerden sonra içe aktar (\`import "@/components/snn/snn-font-plex.css";\`) ve \`<html data-font="plex">\` yaz. Takım başlık, gövde ve kod yazı tipini birlikte değiştirir.
 
 Gereken paketler: React 19, \`motion\`; bazı bileşenlerde Radix ve \`lucide-react\` (kurulum kendisi ekler).
 

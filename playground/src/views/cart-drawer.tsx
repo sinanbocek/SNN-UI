@@ -5,7 +5,7 @@ import { Button } from "../../../registry/components/button/button";
 import { Drawer, DrawerContent } from "../../../registry/components/drawer/drawer";
 import { EmptyState } from "../../../registry/components/empty-state/empty-state";
 import { buildPrompt, installCommand, shareHash, SITE_URL, type CartTheme } from "../lib/cart";
-import { accentTitles, copyText, entryOf, type Entry, type Shop } from "../lib/data";
+import { accentTitles, copyText, entryOf, fontTitles, type Entry, type Shop } from "../lib/data";
 import { routeHash } from "../lib/route";
 
 /** Galerinin şu anki vurgusunu sepet temasına çevirir. */
@@ -15,11 +15,11 @@ const themeColor = (theme: CartTheme) => theme.kind === "custom" ? theme.hex : u
 
 export function CartDrawer({ open, onOpenChange, shop, clear }: { open: boolean; onOpenChange: (open: boolean) => void; shop: Shop; clear: () => void }) {
   const items = shop.cart.map(entryOf).filter((entry): entry is Entry => !!entry);
-  const prompt = buildPrompt(items, shop.cartTheme, REGISTRY_URL);
+  const prompt = buildPrompt(items, shop.cartTheme, REGISTRY_URL, shop.cartFont);
   const copy = async (value: string, done: string) => shop.notify(await copyText(value) ? done : "Kopyalanamadı; metni seçip kopyalayın");
-  const empty = !items.length && !shop.cartTheme;
+  const empty = !items.length && !shop.cartTheme && !shop.cartFont;
   return <Drawer open={open} onOpenChange={onOpenChange}>
-    <DrawerContent title="Sepet" description={empty ? "Henüz bir şey eklenmedi." : `${items.length} bileşen${shop.cartTheme ? " ve bir tema" : ""}`} side="right">
+    <DrawerContent title="Sepet" description={empty ? "Henüz bir şey eklenmedi." : `${items.length} bileşen${shop.cartTheme ? ", renk teması" : ""}${shop.cartFont ? ", yazı tipi takımı" : ""}`} side="right">
       <div className="cart">
         {empty ? <EmptyState title="Sepet boş" description="Bileşen sayfalarındaki “Sepete ekle” düğmesiyle seçim yapın. Renk laboratuvarından tema da eklenebilir." /> : <>
           <ul className="cart-list">
@@ -34,12 +34,18 @@ export function CartDrawer({ open, onOpenChange, shop, clear }: { open: boolean;
               ? <div className="cart-theme-row"><span className="dot" style={{ background: themeColor(shop.cartTheme) ?? "var(--accent)" }} aria-hidden="true" />{themeLabel(shop.cartTheme)}<Button variant="ghost" size="sm" aria-label="Temayı sepetten çıkar" onClick={() => shop.setCartTheme(null)}><X size={15} strokeWidth={1.75} aria-hidden="true" /></Button></div>
               : <div className="cart-theme-row">Tema eklenmedi.<Button variant="secondary" size="sm" onClick={() => shop.setCartTheme(themeFromAccent(shop.accent))}>Şu anki rengi ekle</Button></div>}
           </div>
+          <div className="cart-theme">
+            <span className="code-label">Yazı tipi</span>
+            {shop.cartFont
+              ? <div className="cart-theme-row">{shop.cartFont.title} (data-font="{shop.cartFont.key}")<Button variant="ghost" size="sm" aria-label="Yazı tipi takımını sepetten çıkar" onClick={() => shop.setCartFont(null)}><X size={15} strokeWidth={1.75} aria-hidden="true" /></Button></div>
+              : <div className="cart-theme-row">{"Varsayılan (Geist ve Inter)."}{shop.font !== "default" && fontTitles[shop.font] ? <Button variant="secondary" size="sm" onClick={() => shop.setCartFont({ key: shop.font, title: fontTitles[shop.font]! })}>Şu anki takımı ekle</Button> : null}</div>}
+          </div>
           <label className="code-label" htmlFor="cart-prompt">AI'a verilecek metin</label>
           <textarea id="cart-prompt" className="prompt" readOnly value={prompt} rows={12} onFocus={event => event.currentTarget.select()} />
           <div className="cart-actions">
             <Button onClick={() => copy(prompt, "AI metni kopyalandı")}><Bot size={16} strokeWidth={1.75} aria-hidden="true" /> AI metnini kopyala</Button>
-            {items.length > 0 && <Button variant="secondary" onClick={() => copy(installCommand(items.map(entry => entry.name)), "Komut kopyalandı")}><Terminal size={16} strokeWidth={1.75} aria-hidden="true" /> Yalnız komut</Button>}
-            <Button variant="secondary" onClick={() => copy(`${SITE_URL}/${shareHash(shop.cart, shop.cartTheme)}`, "Bağlantı kopyalandı")}><Link2 size={16} strokeWidth={1.75} aria-hidden="true" /> Bağlantı</Button>
+            {(items.length > 0 || shop.cartFont) && <Button variant="secondary" onClick={() => copy(installCommand([...items.map(entry => entry.name), ...(shop.cartFont ? [`snn-font-${shop.cartFont.key}`] : [])]), "Komut kopyalandı")}><Terminal size={16} strokeWidth={1.75} aria-hidden="true" /> Yalnız komut</Button>}
+            <Button variant="secondary" onClick={() => copy(`${SITE_URL}/${shareHash(shop.cart, shop.cartTheme, shop.cartFont)}`, "Bağlantı kopyalandı")}><Link2 size={16} strokeWidth={1.75} aria-hidden="true" /> Bağlantı</Button>
             <Button variant="ghost" onClick={() => { clear(); shop.notify("Sepet boşaltıldı"); }}><Trash2 size={16} strokeWidth={1.75} aria-hidden="true" /> Boşalt</Button>
           </div>
         </>}

@@ -293,3 +293,17 @@ Sahibin istediği 14 bileşen Arc'ın ücretsiz deposundan (MIT) uyarlandı. Hep
 | `user-menu` | `registry/components/user-menu` | **B sınıfı.** Metinler: "Müsait / Meşgul / Uzakta", "Açık / Koyu / Sistem", "Durum", "Tema", "Çıkış yap", "Çıkış yapılıyor", "Hesap menüsü, …". Baş harf `toUpperCase` yerine `avatarInitials`; yazarak atlamadaki `toLowerCase` yerine `user-menu-format.ts` içindeki `matchesTypeahead` (ABACUS `text.searchKey`; "i" → "İzinler"; test: `test/user-menu.test.mjs`). |
 
 Uyarlama beş ayrı çalışma kopyasında paralel yapıldı (Sonnet, orta); koordinatör her birinde yasak çağrı, `@/` yolu ve satır sayısını (yorum çevirisi dışında aynı) denetledi.
+
+## Yazı tipi takımları ve --font-mono (2026-10-17)
+
+Arc'ta yok; SNN-UI için yazıldı. Sahip istedi.
+
+| Parça | Uyarlama |
+|---|---|
+| `snn-foundation` | `--font-mono` eklendi: Geist Mono (`@fontsource-variable/geist-mono`, OFL). `code`, `kbd`, `samp`, `pre` öğeleri onu kullanır (`:where(...)`, özgüllük sıfır; bileşen kendi yazı tipini verirse o kazanır). Önce kod parçaları tarayıcının varsayılan eş genişlikli yazı tipiyle çıkıyordu. |
+| `snn-font-plex` | Kurumsal: IBM Plex Sans (başlık ve gövde), IBM Plex Mono 400/500 (Plex Mono'nun değişken sürümü yok). |
+| `snn-font-modern` | Modern: Plus Jakarta Sans (başlık), Inter (gövde, temelden), JetBrains Mono. |
+| `snn-font-document` | Belge: Source Serif 4 (başlık), Source Sans 3, Source Code Pro. Tırnaklı başlıkta `--tracking-display: -0.01em` (temeldeki -0.03em okunurluğu düşürüyordu). Paketler 5.3.0'a sabit: 5.3.1 altı günlüktü. |
+| `snn-font-soft` | Yumuşak: Manrope (başlık), DM Sans (gövde), Geist Mono (temelden). |
+
+Her takım `:root[data-font="<anahtar>"]` altında yalnız `--font-display`, `--font-body`, `--font-mono` (Belge'de ayrıca `--tracking-display`) değiştirir; projede `snn-foundation.css`'ten sonra içe aktarılır. `@fontsource` CSS'i `unicode-range` taşıdığı için seçilmeyen takımın yazı tipi indirilmez. Hepsinde latin-ext alt kümesi var (ğ ş ı İ ve ₺ U+20BA). Galeride tipografi sayfasından seçilir; sepete eklenince AI metni kurulum ve `data-font` satırını yazar, paylaşım bağlantısına `yazi=` girer.
