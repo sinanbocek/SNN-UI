@@ -8,5 +8,6 @@
 .glyph { position: absolute; inset: var(--feather) 0; text-align: center; }
 .labelText { display: inline-block; }
 .labelSwap { position: relative; display: block; }
-.symbol { display: inline-block; overflow-x: clip; }
+/* Ek ve önekteki boşluk yazıldığı gibi kalır (" kez" → "21 kez"); esnek kutu baştaki boşluğu yutmasın. */
+.symbol { display: inline-block; overflow-x: clip; white-space: pre; }
 .srOnly { position: absolute; width: 1px; height: 1px; overflow: hidden; clip-path: inset(50%); white-space: nowrap; }

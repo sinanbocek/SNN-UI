@@ -15,6 +15,8 @@ const FILES = {
   counter: "registry/components/animated-counter/counter-parts.ts",
   metric: "registry/components/metric-card/metric-card-format.ts",
   line: "registry/components/line-chart/line-chart-format.ts",
+  lineScale: "registry/components/line-chart/line-chart-scale.ts",
+  avatar: "registry/components/avatar/avatar-initials.ts",
   splitBar: "registry/components/split-bar/split-bar-format.ts",
   sankey: "registry/components/sankey-flow/sankey-flow-format.ts",
   funnel: "registry/components/funnel-chart/funnel-chart-format.ts",
@@ -125,6 +127,29 @@ test("çizgi grafik: ipucu 1234.5 → '1.234,5', eksen 1250000 → ABACUS kısal
   assert.equal(mods.line.formatLineTick(1250000), money.compactMajor(1250000, { style: "B/Mn/Mr" }).replace("₺", ""));
   assert.equal(mods.line.formatLineTick(1250000), "1,25Mn");
   assert.equal(mods.line.formatLineTick(500), "500");
+});
+
+test("çizgi grafik ölçeği: varsayılan sıfırdan başlar, \"auto\" verinin aralığına oturur, dar aralıkta etiketler ayrışır", () => {
+  assert.deepEqual(mods.lineScale.niceScale(49.4, 49.55), { min: 0, max: 60, step: 20, ticks: [0, 20, 40, 60] });
+  const auto = mods.lineScale.niceScale(49.4, 49.55, "auto");
+  assert.deepEqual(auto, { min: 49.4, max: 49.55, step: 0.05, ticks: [49.4, 49.45, 49.5, 49.55] });
+  assert.deepEqual(auto.ticks.map(value => mods.line.formatLineTick(value, mods.lineScale.tickDigits(auto.step))), ["49,4", "49,45", "49,5", "49,55"]);
+  const flat = mods.lineScale.niceScale(50, 50, "auto");
+  assert.ok(flat.min < 50 && flat.max > 50 && flat.max - flat.min <= 2, "düz seri %1 açılır");
+  assert.equal(mods.lineScale.niceScale(-5, 10, "zero").min, -5);
+  assert.equal(mods.lineScale.tickDigits(5), 1);
+  assert.equal(mods.lineScale.tickDigits(0.25), 2);
+  assert.equal(mods.line.formatLineTick(1250000, 3), "1,25Mn");
+});
+
+test("kişi simgesi: baş harf parantezi atar, tire ve alt çizgiyi ayraç sayar, Türkçe büyütür", () => {
+  assert.equal(mods.avatar.avatarInitials("trade-kasa (tarayıcı)"), "TK");
+  assert.equal(mods.avatar.avatarInitials("Gunum-Var (grup harcama)"), "GV");
+  assert.equal(mods.avatar.avatarInitials("ismail yılmaz"), "İY");
+  assert.equal(mods.avatar.avatarInitials("snn_ui"), "SU");
+  assert.equal(mods.avatar.avatarInitials("\"Ayşe\" Kaya"), "AK");
+  assert.equal(mods.avatar.avatarInitials("Sinan"), "S");
+  assert.equal(mods.avatar.avatarInitials("  "), "");
 });
 
 test("bölünmüş çubuk: tutar ve pay ABACUS çıktısıdır", () => {
