@@ -48,11 +48,18 @@ export function MrrWaterfall({ start, movements, title = "Gelir köprüsü", sub
   const marks = useMemo(() => indicators(start, movements), [start, movements]);
   const chosen = steps.find(step => step.key === selected) ?? null;
 
-  const plotWidth = Math.max(width, 1), column = plotWidth / steps.length, barWidth = Math.min(56, column * .6);
+  // Dar sütunda (telefon) adlar eğik yazılır, altta onlara yer açılır; çubuk üstü değerler yalnız seçili ya da üzerine gelinen çubukta görünür.
+  const narrowGuess = Math.max(width, 1) / Math.max(steps.length, 1) < 72;
+  const bottom = narrowGuess ? BOTTOM + 30 : BOTTOM;
   const top = unit === "percent" ? niceTop(Math.max(...steps.map(step => step.high)) / (start || 1)) * (start || 1) : niceTop(Math.max(...steps.map(step => step.high), 1));
-  const plotHeight = HEIGHT - TOP - BOTTOM;
+  const plotHeight = HEIGHT - TOP - bottom;
   const yOf = (value: number) => TOP + (1 - value / top) * plotHeight;
   const ticks = [0, .25, .5, .75, 1].map(share => top * share);
+  const tickText = (tick: number) => unit === "percent" ? formatRatio(tick / (start || 1), 0) : formatMoneyCompact(tick);
+  // Eksen değerleri için soldan ayrı şerit: en uzun etiket (11 px yazıda karakter başına ~6,5 px) ve 12 px pay. Çubuklar şeridin sağından başlar, değerlerle çakışmaz.
+  const gutter = Math.min(80, Math.max(32, Math.ceil(Math.max(...ticks.map(tick => tickText(tick).length)) * 6.5) + 12));
+  const plotWidth = Math.max(width, 1), column = Math.max(plotWidth - gutter, 1) / steps.length, barWidth = Math.min(56, column * .6);
+  const colX = (at: number) => gutter + column * at;
 
   const pick = (key: string | null) => {
     setSelected(key);
@@ -104,19 +111,21 @@ export function MrrWaterfall({ start, movements, title = "Gelir köprüsü", sub
     <div className={styles.body}>
       <div ref={box} className={styles.chart}>
         <svg className={styles.svg} width={plotWidth} height={HEIGHT} role="img" aria-label={`${title}: ${steps.map(step => `${step.label} ${signedText(unit, step, start, false)}`).join(", ")}`}>
-          {ticks.map(tick => <g key={tick}><line className={styles.grid} x1={0} x2={plotWidth} y1={yOf(tick)} y2={yOf(tick)} /><text className={styles.axisText} x={0} y={yOf(tick) - 4}>{unit === "percent" ? formatRatio(tick / (start || 1), 0) : formatMoneyCompact(tick)}</text></g>)}
+          {ticks.map(tick => <g key={tick}><line className={styles.grid} x1={0} x2={plotWidth} y1={yOf(tick)} y2={yOf(tick)} /><text className={styles.axisText} x={0} y={yOf(tick) - 4}>{tickText(tick)}</text></g>)}
           <g role="radiogroup" aria-label="Basamaklar" onKeyDown={onKeyDown}>
             {steps.map((step, at) => {
-              const x = column * at + (column - barWidth) / 2;
+              const x = colX(at) + (column - barWidth) / 2;
               const y = yOf(step.high), h = Math.max(2, yOf(step.low) - yOf(step.high));
               const isSelected = selected === step.key;
               return <g key={step.key} role="radio" aria-checked={isSelected} aria-label={stepAnnouncement(unit, step, start)} tabIndex={isSelected || (selected === null && at === 0) ? 0 : -1} className={styles.step}
                 data-selected={isSelected || undefined} data-dim={(hover && hover !== step.key && !isSelected) || undefined}
                 onClick={() => pick(step.key)} onPointerEnter={event => { if (event.pointerType === "mouse") setHover(step.key); }} onPointerLeave={() => setHover(null)} onFocus={() => { if (selected !== step.key) setSelected(step.key); }}>
-                <rect className={styles.hit} x={column * at} y={0} width={column} height={HEIGHT} />
+                <rect className={styles.hit} x={colX(at)} y={0} width={column} height={HEIGHT} />
                 <motion.rect className={styles.bar} rx={4} x={x} width={barWidth} style={{ fill: toneOf(step.kind) }} initial={false} animate={{ y, height: h }} transition={reduced ? { duration: 0 } : { type: "spring", visualDuration: .4, bounce: .05 }} />
-                <text className={styles.valueText} x={column * at + column / 2} y={Math.max(12, y - 6)} textAnchor="middle">{signedText(unit, step, start)}</text>
-                <text className={styles.labelText} x={column * at + column / 2} y={HEIGHT - 12} textAnchor="middle">{step.label}</text>
+                {!narrowGuess || isSelected || hover === step.key ? <text className={styles.valueText} x={colX(at) + column / 2} y={Math.max(12, y - 6)} textAnchor="middle">{signedText(unit, step, start)}</text> : null}
+                {narrowGuess
+                  ? <text className={styles.labelText} x={colX(at) + column / 2} y={HEIGHT - bottom + 14} textAnchor="end" transform={`rotate(-40 ${colX(at) + column / 2} ${HEIGHT - bottom + 14})`}>{step.label}</text>
+                  : <text className={styles.labelText} x={colX(at) + column / 2} y={HEIGHT - 12} textAnchor="middle">{step.label}</text>}
               </g>;
             })}
           </g>

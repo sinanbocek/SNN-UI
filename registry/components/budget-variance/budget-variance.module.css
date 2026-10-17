@@ -13,7 +13,16 @@ button.row:hover { background: var(--surface-muted); }
 button.row:focus-visible { outline: var(--focus-outline-width, 2px) solid var(--focus-outline, var(--accent)); outline-offset: var(--focus-outline-offset, 2px); }
 .total { border-bottom: 1px solid var(--border); border-radius: 0; font-weight: 500; }
 .nested { min-height: 2.75rem; font-size: var(--text-sm); }
-.nested .name { padding-left: var(--space-5); }
+.nested .name { position: relative; padding-left: var(--space-5); color: var(--text-secondary); }
+/* Alt kırılım kategoriden bir basamak geridedir: ince ve soluk çubuk, küçük yazı, kategoriye bağlayan ince çizgi. */
+.nested .name::before { content: ""; position: absolute; top: -0.6rem; bottom: -0.6rem; left: calc(var(--space-2) + 1px); width: 1px; background: var(--border); }
+.nested .bar { height: .4375rem; }
+.nested .fill { opacity: .55; }
+.nested .over { opacity: .8; }
+.nested .marker { width: 1.5px; }
+.nested .amounts b { font-weight: 400; font-size: var(--text-xs); }
+.nested .variance { font-size: var(--text-xs); }
+.nested .variance small { font-size: 11px; }
 .name { display: flex; align-items: center; gap: var(--space-2); min-width: 0; }
 .nameText { min-width: 0; overflow-wrap: anywhere; }
 .bar { position: relative; display: block; height: .75rem; border-radius: 999px; background: var(--surface-muted); overflow: hidden; }

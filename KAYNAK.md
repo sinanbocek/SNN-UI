@@ -359,3 +359,11 @@ Sahibin isteği: üretici seçenek paneli olmadan, göz simgesinin yanında.
 | `password-strength` | Alttaki "Parola üret" paneli kalktı. `generator` açıkken göz simgesinin sağında yıldız düğmesi: türler ve uzunluk ekrandaki kurallardan çıkar (`setsForRules`, `generateForRules`; en az uzunluk büyükse uzatarak yeniden dener, testli). Parola soldan sağa harf harf yazılır (32 ms/harf; hareket azaltılmışsa tek seferde), ölçer yazıyla dolar; bitince gözün solunda kopyala simgesi belirir, kullanıcı alanı değiştirince kaybolur. |
 | `password-field` | Yeni isteğe bağlı `generator`: göz simgesinin sağında yıldız; basınca kutunun altında seçenek paneli (uzunluk 8–64, karakter türleri) açılır, "Üret" parolayı harf harf yazar ve paneli kapatır, bitince kopyala simgesi belirir. Bu alanda kural listesi olmadığı için seçenekler son kullanıcıdadır; `generator={{ length, sets }}` varsayılanları verir. Değer yerel ayarlayıcı + `input` olayıyla yazılır: alan denetimli de denetimsiz de olsa `onChange` çalışır; kullanıcı yazınca harf harf yazma kesilir. |
 | `segmented-control` | Seçili öğeyi görünür alana kaydıran hesap `offsetLeft` yerine iz kabına göre ölçülen konumu kullanır; önce dar alanda seçili öğe kenara yapışıp solma bölgesinde kalıyordu ("Hafta"nın "H"si). Pay 24 px (solma 20 px). |
+
+## Doğrulama kodu, gelir köprüsü, bütçe sapması düzeltmeleri (2026-10-17)
+
+| Parça | Düzeltme |
+|---|---|
+| `otp-input` | Dolu kutuya tıklayıp tek tuşa basınca rakam değişir ve sağdaki kutuya geçilir; odakta kutunun içi seçilir. Önce kutu 1 karakter aldığı (`maxLength`) için tarayıcı yeni tuşu geçirmiyordu. Geçersiz tuş (sayısal kipte harf) yine reddedilir. `sign-in` ve `login-centered` aynı bileşeni kullandığı için onlar da düzeldi. |
+| `mrr-waterfall` | Eksen değerleri için solda ayrı şerit (en uzun etikete göre 32–80 px); önce ilk çubuk "₺1,25Mn" gibi değerlerin üstüne biniyordu. Dar sütunda (telefon) adlar eğik yazılır, çubuk üstü değerler yalnız seçili ya da üzerine gelinen çubukta görünür; önce birbirine biniyorlardı. |
+| `budget-variance` | Alt kırılım satırları kategoriden bir basamak geride: ince (7 px) ve soluk çubuk, küçük tutar ve sapma yazısı, kategoriye bağlayan ince çizgi. Önce kategoriyle aynı boydaydı. |
