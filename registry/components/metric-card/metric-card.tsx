@@ -14,7 +14,7 @@ export interface MetricCardProps {
   currency?: string;
   /** Ondalık basamak sayısı (düz sayı ve tam tutar için). */
   decimals?: number;
-  /** Sayının yanına yazılan ek (örneğin "kişi"). Tutar biçiminde ABACUS'un eki kullanılır. */
+  /** Sayının yanına yazılan ek. Boşluk yazıldığı gibi kalır: " kişi" → "12 kişi", "%" → "12%". Tutar biçiminde ABACUS'un eki kullanılır. */
   suffix?: string;
 }
 

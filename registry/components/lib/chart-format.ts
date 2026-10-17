@@ -3,7 +3,7 @@
 import { math, money } from "@snn/abacus-core";
 
 /** Kısaltmanın başladığı eşik: bunun altındaki sayı kısaltılmadan yazılır. */
-const COMPACT_FROM = 1000;
+export const COMPACT_FROM = 1000;
 
 /**
  * Sayıyı binlik ayraçlı yazar; en çok `maxDigits` ondalık basamak, sondaki sıfırlar atılır.

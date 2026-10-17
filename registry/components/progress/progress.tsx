@@ -36,7 +36,7 @@ export function Progress({ value = 0, max = 100, label, showValue = false, class
   const progress = useMotionValue(percentage);
   // Dolgu ölçeklenmek yerine soldan kayar; yuvarlak ucu her değerde biçimini korur.
   const x = useTransform(progress, latest => `${Math.min(Math.max(latest, 0), 100) - 100}%`);
-  const counted = useTransform(progress, latest => `${Math.round(Math.min(Math.max(latest, 0), 100))}%`);
+  const counted = useTransform(progress, latest => `%${Math.round(Math.min(Math.max(latest, 0), 100))}`);
   useEffect(() => {
     if (reduce) { progress.jump(percentage); return; }
     const controls = animate(progress, percentage, motionTokens.spring.smooth);
@@ -44,7 +44,7 @@ export function Progress({ value = 0, max = 100, label, showValue = false, class
   }, [percentage, progress, reduce]);
   const enter: Transition = reduce ? { duration: motionTokens.duration.instant } : { duration: motionTokens.duration.standard, ease: [...motionTokens.ease.enter] };
   const classes = [styles.progress, className].filter(Boolean).join(" ");
-  return <div {...props} className={classes} data-complete={complete ? "" : undefined} role="progressbar" aria-label={label ?? "İlerleme"} aria-valuemin={0} aria-valuemax={safeMax} aria-valuenow={safeValue} aria-valuetext={`${percentage}%`}>
+  return <div {...props} className={classes} data-complete={complete ? "" : undefined} role="progressbar" aria-label={label ?? "İlerleme"} aria-valuemin={0} aria-valuemax={safeMax} aria-valuenow={safeValue} aria-valuetext={`%${percentage}`}>
     {(label || showValue) ? <div className={styles.meta}>
       {label ? <span className={styles.label}><AnimatePresence mode="popLayout" initial={false}><Swap key={label} className={styles.line} initial={reduce ? { opacity: 0 } : textIn} animate={shown} exit={reduce ? fadeOut : textOut} transition={enter}>{label}</Swap></AnimatePresence></span> : <span />}
       {showValue ? <span className={styles.value}>

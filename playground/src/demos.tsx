@@ -414,6 +414,9 @@ function AvatarDemo() {
     <Col title="Durum noktası">
       <div className="row"><Avatar name="Ayşe Demir" status="online" /><Avatar name="Can Öztürk" status="offline" /></div>
     </Col>
+    <Col title="Parantez atılır, tire ve alt çizgi ayraçtır">
+      <div className="row"><Avatar name="trade-kasa (tarayıcı)" /><Avatar name="Gunum-Var (grup harcama)" /><Avatar name="snn_ui" /></div>
+    </Col>
     <Col title="Fotoğraf bulunamazsa baş harflere döner">
       <div className="row"><Avatar name="Zeynep Kaya" src="bulunmayan-foto.png" size="lg" /></div>
     </Col>

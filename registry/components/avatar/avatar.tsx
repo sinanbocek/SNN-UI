@@ -2,13 +2,13 @@
 
 import { useLayoutEffect, useRef, useState, type HTMLAttributes } from "react";
 import { AnimatePresence, motion, useReducedMotion } from "motion/react";
-import { text } from "@snn/abacus-core";
 import { motionTokens } from "../lib/motion-tokens";
+import { avatarInitials } from "./avatar-initials";
 import styles from "./avatar.module.css";
 export interface AvatarProps extends HTMLAttributes<HTMLSpanElement> { name: string; src?: string; size?: "sm" | "md" | "lg" | "xl"; status?: "online" | "offline" }
 const statusLabel = { online: "çevrimiçi", offline: "çevrimdışı" } as const;
 export function Avatar({ name, src, size = "md", status, className, ...props }: AvatarProps) {
-  const initials = name.trim().split(/\s+/).slice(0, 2).map(part => text.upper(part[0] ?? "")).join("");
+  const initials = avatarInitials(name);
   const reduceMotion = !!useReducedMotion();
   const image = useRef<HTMLImageElement>(null);
   const [failedSrc, setFailedSrc] = useState<string>();

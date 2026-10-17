@@ -6,6 +6,7 @@ import { text } from "@snn/abacus-core";
 import { roundTo } from "../lib/chart-format";
 import { motionTokens } from "../lib/motion-tokens";
 import { formatLineTick, formatLineValue } from "./line-chart-format";
+import { niceScale, tickDigits, type LineChartBaseline } from "./line-chart-scale";
 import styles from "./line-chart.module.css";
 
 export interface LineChartSeries {
@@ -44,8 +45,10 @@ export interface LineChartProps {
   height?: number;
   /** İpucu ve veri tablosundaki değerleri biçimler. Varsayılan: ABACUS biçimi ("1.234,5"). */
   formatValue?: (value: number, series: LineChartSeries) => string;
-  /** Değer eksenini biçimler. Varsayılan kısaltılmış sayı ("1,2B", "1,25Mn"). */
+  /** Değer eksenini biçimler. Varsayılan kısaltılmış sayı ("1,2B", "1,25Mn"); dar aralıkta etiketler ayrışacak kadar ondalık alır ("49,45"). */
   formatTick?: (value: number) => string;
+  /** Değer ekseninin alt ucu. "zero" (varsayılan) sıfırdan başlar: toplam ve adet için. "auto" verinin aralığına oturur: kur, fiyat ve endeks için. */
+  baseline?: LineChartBaseline;
   /** Denetimli gizli seri anahtarları. */
   hiddenSeries?: string[];
   defaultHiddenSeries?: string[];
@@ -83,22 +86,6 @@ const TOP = 12, GAP = 14;
 const PALETTE = ["var(--accent)", "color-mix(in oklab, var(--foreground) 46%, var(--surface))", "color-mix(in oklab, var(--foreground) 26%, var(--surface))"];
 const clamp = (value: number, low: number, high: number) => Math.min(high, Math.max(low, value));
 const colorOf = (series: LineChartSeries, index: number) => series.color ?? PALETTE[Math.min(index, PALETTE.length - 1)];
-const clean = (value: number) => Number(value.toPrecision(12));
-
-/** Temiz kılavuz çizgileri: veriyi en çok dört satırda kapayan en küçük 1, 2, 2,5 ya da 5 adımı; veri sıfırın altına inmedikçe sıfırdan başlar. */
-function niceScale(low: number, high: number) {
-  const lo = Math.min(0, low), hi = Math.max(high, lo + 1);
-  const span = hi - lo, magnitude = 10 ** Math.floor(Math.log10(span / 4));
-  for (const factor of [1, 2, 2.5, 5, 10]) {
-    const step = factor * magnitude, bottom = Math.floor(lo / step) * step, top = Math.ceil(hi / step) * step;
-    if ((top - bottom) / step <= 4 + 1e-9) {
-      const ticks: number[] = [];
-      for (let value = bottom; value <= top + step / 2; value += step) ticks.push(clean(value));
-      return { min: clean(bottom), max: clean(top), ticks };
-    }
-  }
-  return { min: lo, max: hi, ticks: [lo, hi] };
-}
 
 /** Her değerden geçen çizgi; x üzerinde 0 ile 1 arası veri biriminde sık örneklenir. Tekdüze kübik teğetler yumuşak eğrinin veriyi aşmasını önler. */
 function curveFor(values: number[], smooth: boolean): Point[] {
@@ -174,7 +161,7 @@ function axisPicks(data: LineChartDatum[], width: number) {
   return labeled.reverse().filter((_, rank) => rank % stride === 0).reverse();
 }
 
-export function LineChart({ data, series, label, unit = "", height = 220, formatValue, formatTick = formatLineTick, hiddenSeries, defaultHiddenSeries, onHiddenSeriesChange, onActiveChange, loading = false, emptyLabel = "Bu aralıkta veri yok", legend, categoryLabel = "Tarih", curve = "smooth", ref, className }: LineChartProps) {
+export function LineChart({ data, series, label, unit = "", height = 220, formatValue, formatTick, baseline = "zero", hiddenSeries, defaultHiddenSeries, onHiddenSeriesChange, onActiveChange, loading = false, emptyLabel = "Bu aralıkta veri yok", legend, categoryLabel = "Tarih", curve = "smooth", ref, className }: LineChartProps) {
   const reduced = useReducedMotionSafe();
   const figure = useRef<HTMLElement>(null);
   const plot = useRef<HTMLDivElement>(null);
@@ -207,10 +194,11 @@ export function LineChart({ data, series, label, unit = "", height = 220, format
   const targets = useMemo(() => new Map(series.map(line => [line.key, curveFor(data.map(item => item.values[line.key] ?? 0), curve === "smooth")])), [signature]); // eslint-disable-line react-hooks/exhaustive-deps
   let low = Infinity, high = -Infinity;
   for (const line of visible) for (const item of data) { const value = item.values[line.key] ?? 0; low = Math.min(low, value); high = Math.max(high, value); }
-  const range = Number.isFinite(low) ? niceScale(low, high) : null;
+  const range = Number.isFinite(low) ? niceScale(low, high, baseline) : null;
   const [steady, setSteady] = useState(() => range ?? niceScale(0, 100));
   if (range && (range.min !== steady.min || range.max !== steady.max)) setSteady(range);
   const scale = { min: useMotionValue(steady.min), max: useMotionValue(steady.max) };
+  const tickFormat = formatTick ?? ((value: number) => formatLineTick(value, tickDigits(steady.step)));
 
   // Gezinme: yeni aralık artı imleci bırakır.
   const [active, setActive] = useState<number | null>(null);
@@ -414,7 +402,7 @@ export function LineChart({ data, series, label, unit = "", height = 220, format
         </AnimatePresence>
       </div>
       <div className={styles.gutter} aria-hidden="true">
-        <AnimatePresence initial={false}>{steady.ticks.map(value => <TickLabel key={value} value={value} scale={scale} height={height} format={formatTick} />)}</AnimatePresence>
+        <AnimatePresence initial={false}>{steady.ticks.map(value => <TickLabel key={value} value={value} scale={scale} height={height} format={tickFormat} />)}</AnimatePresence>
       </div>
       <div className={styles.axis} aria-hidden="true">
         <AnimatePresence initial={false}>
