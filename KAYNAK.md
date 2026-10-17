@@ -348,3 +348,14 @@ Sahibin galeride bildirdikleri.
 | `card` | Hızlı bakışın açılışı kapanışın tersi oldu: panel kartın kutusunda başlar, iki kare sonra ortaya büyür. Önce açılışta panel kartın yerinde bir an bekleyip ortaya sıçrıyor, kapanışta ise kayarak dönüyordu; kapanış da kartın kutusuna 100 px kala kesiliyordu. Ölçüm: açılış 462 → 361 px yumuşak, kapanış tam kart kutusunda (732 px) biter. |
 | Galeri `theme-switch` örneği | Dört çeşit adlandırıldı (Daire açılımı, Daireye çekilme, Ortadan açılma, Alttan yükselme) ve küçük bir önizleme sayfasında geçiş gerçekten oynatılır. Önce dört aynı görünen düğme vardı. |
 | Galeri `dropdown-menu` örneği | Düğme sütunda tam genişliğe geriliyordu, menü bu yüzden en sağda açılıyordu; düğme artık kendi genişliğinde. |
+
+## Parola üretici simgeye taşındı; bölmeli seçici kaydırma (2026-10-17)
+
+Sahibin isteği: üretici seçenek paneli olmadan, göz simgesinin yanında.
+
+| Parça | Değişiklik |
+|---|---|
+| `snn-password-generator` (yeni ortak parça) | `lib/password-generator.ts` (saf üretim; önce `password-strength-format.ts` içindeydi, oradan yeniden dışa aktarılır), `lib/password-generator-ui.tsx` (göz simgesiyle aynı 18 px / 1,75 çizgili yıldız simgesi, kopyala→onay simgesi, `useTypeOut` harf harf yazma kancası, seçenek paneli). |
+| `password-strength` | Alttaki "Parola üret" paneli kalktı. `generator` açıkken göz simgesinin sağında yıldız düğmesi: türler ve uzunluk ekrandaki kurallardan çıkar (`setsForRules`, `generateForRules`; en az uzunluk büyükse uzatarak yeniden dener, testli). Parola soldan sağa harf harf yazılır (32 ms/harf; hareket azaltılmışsa tek seferde), ölçer yazıyla dolar; bitince gözün solunda kopyala simgesi belirir, kullanıcı alanı değiştirince kaybolur. |
+| `password-field` | Yeni isteğe bağlı `generator`: göz simgesinin sağında yıldız; basınca kutunun altında seçenek paneli (uzunluk 8–64, karakter türleri) açılır, "Üret" parolayı harf harf yazar ve paneli kapatır, bitince kopyala simgesi belirir. Bu alanda kural listesi olmadığı için seçenekler son kullanıcıdadır; `generator={{ length, sets }}` varsayılanları verir. Değer yerel ayarlayıcı + `input` olayıyla yazılır: alan denetimli de denetimsiz de olsa `onChange` çalışır; kullanıcı yazınca harf harf yazma kesilir. |
+| `segmented-control` | Seçili öğeyi görünür alana kaydıran hesap `offsetLeft` yerine iz kabına göre ölçülen konumu kullanır; önce dar alanda seçili öğe kenara yapışıp solma bölgesinde kalıyordu ("Hafta"nın "H"si). Pay 24 px (solma 20 px). |

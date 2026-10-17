@@ -5,9 +5,9 @@ import type { InputHTMLAttributes } from "react";
 import { AnimatePresence, animate, motion, useMotionValue, useReducedMotion } from "motion/react";
 import type { AnimationPlaybackControls, Transition, Variants } from "motion/react";
 import { motionTokens } from "../lib/motion-tokens";
-import { countCodePoints, createPasswordRules, defaultPasswordRules, defaultPasswordStrengthLevels, estimateStrength } from "./password-strength-format";
+import { countCodePoints, createPasswordRules, generateForRules, defaultPasswordRules, defaultPasswordStrengthLevels, estimateStrength } from "./password-strength-format";
 import type { EstimateStrengthOptions, PasswordRule, PasswordRuleLabels, PasswordRuleOptions, PasswordStrengthLevels, PasswordStrengthResult } from "./password-strength-format";
-import { PasswordGenerator, defaultPasswordGeneratorMessages, type PasswordGeneratorMessages } from "./password-generator";
+import { GenerateIcon, GeneratedCopyButton, defaultPasswordGeneratorText, useTypeOut, type PasswordGeneratorText } from "../lib/password-generator-ui";
 import styles from "./password-strength.module.css";
 
 // Puanlama mantığı saf dosyada durur; tüketiciler her şeyi buradan almaya devam eder.
@@ -73,8 +73,8 @@ export interface PasswordStrengthProps extends Omit<InputHTMLAttributes<HTMLInpu
   shortLength?: number;
   /** shortLength için karakterlerin nasıl sayıldığı. Varsayılan kod noktalarıdır, yani emoji bir sayılır; bir sunucu gibi UTF-16 birimi saymak için `password => password.length` verin. */
   countCharacters?: (password: string) => number;
-  /** Alanın altında parola üretici: uzunluk, karakter türleri, yeniden üret ve kopyala. Üretilen parola alana yazılır ve görünür olur. Varsayılan kapalı. */
-  generator?: boolean | { minLength?: number; maxLength?: number; defaultLength?: number; messages?: Partial<PasswordGeneratorMessages> };
+  /** Göz simgesinin sağında parola üret düğmesi. Parola ekrandaki kurallara uygun üretilir (uzunluk, büyük/küçük harf, rakam, simge), soldan sağa harf harf yazılır; bitince yanında kopyala düğmesi belirir. Varsayılan kapalı. */
+  generator?: boolean | { length?: number; text?: Partial<PasswordGeneratorText> };
 }
 
 const enter = [...motionTokens.ease.enter] as [number, number, number, number];
@@ -195,14 +195,19 @@ export const PasswordStrength = forwardRef<HTMLInputElement, PasswordStrengthPro
     shaking.current = animate(shake, 0, { type: "spring", velocity: -240, stiffness: 900, damping: 15, restDelta: .1 });
   }, [error, reduced, shake]);
 
-  // Üretilen parola alana yazılır ve görünür olur; kullanıcı neyi kaydedeceğini görür.
-  function applyGenerated(next: string) {
-    if (valueProp === undefined) setInternal(next);
-    onValueChange?.(next, estimateStrength(next, rules, options));
+  // Üretilen parola harf harf alana yazılır ve görünür olur; kullanıcı neyi kaydedeceğini görür. Ölçer de yazıyla birlikte dolar.
+  const generatorOptions = typeof generator === "object" ? generator : {};
+  const generatorText: PasswordGeneratorText = { ...defaultPasswordGeneratorText, ...generatorOptions.text, sets: { ...defaultPasswordGeneratorText.sets, ...generatorOptions.text?.sets } };
+  const [generatedPassword, setGeneratedPassword] = useState("");
+  const writeValue = (next: string) => { if (valueProp === undefined) setInternal(next); onValueChange?.(next, estimateStrength(next, rules, options)); };
+  const typeOut = useTypeOut(writeValue, reduced);
+  function generateNow() {
+    const next = generateForRules(rules, generatorOptions.length ?? 16);
+    setGeneratedPassword(next);
     if (revealedProp === undefined) setRevealedInternal(true);
     if (!revealed) onRevealedChange?.(true);
+    typeOut.start(next);
   }
-  const generatorOptions = typeof generator === "object" ? generator : {};
 
   function toggleReveal() {
     if (revealedProp === undefined) setRevealedInternal(!revealed);
@@ -216,9 +221,11 @@ export const PasswordStrength = forwardRef<HTMLInputElement, PasswordStrengthPro
     <label className={styles.label} htmlFor={controlId}>{label}</label>
     <motion.div className={styles.shell} style={{ x: shake }}>
       <input autoComplete="new-password" autoCapitalize="off" autoCorrect="off" spellCheck={false} {...props} ref={ref} id={controlId} type={revealed ? "text" : "password"} value={value}
-        onChange={event => { const next = event.target.value; if (valueProp === undefined) setInternal(next); onChange?.(event); onValueChange?.(next, estimateStrength(next, rules, options)); }}
+        onChange={event => { const next = event.target.value; typeOut.cancel(); if (valueProp === undefined) setInternal(next); onChange?.(event); onValueChange?.(next, estimateStrength(next, rules, options)); }}
         aria-invalid={error ? true : props["aria-invalid"]} aria-describedby={describedBy} data-reveal={reveal.changed ? (revealed ? "shown" : "hidden") : undefined} className={[styles.input, className].filter(Boolean).join(" ")} />
+      {generator ? <GeneratedCopyButton show={!typeOut.typing && !!generatedPassword && value === generatedPassword} value={value} text={generatorText} reduced={reduced} className={styles.reveal} /> : null}
       <button type="button" className={styles.reveal} onClick={toggleReveal} aria-label={messages.showPassword} aria-pressed={revealed} aria-controls={controlId}><EyeMorph slashed={revealed} reduced={reduced} /></button>
+      {generator ? <button type="button" className={styles.reveal} onClick={generateNow} aria-label={typeOut.typing ? generatorText.generating : generatorText.generate} aria-controls={controlId} title={generatorText.generate}><GenerateIcon spinning={typeOut.typing} reduced={reduced} /></button> : null}
     </motion.div>
     <AnimatePresence initial={false}>{error ? <ErrorRow key="error" id={errorId} text={error} reduced={reduced} /> : null}</AnimatePresence>
     <div className={styles.meterRow}>
@@ -252,7 +259,6 @@ export const PasswordStrength = forwardRef<HTMLInputElement, PasswordStrengthPro
         </li>;
       })}
     </ul>
-    {generator ? <PasswordGenerator onGenerate={applyGenerated} value={value} reduced={reduced} minLength={generatorOptions.minLength} maxLength={generatorOptions.maxLength} defaultLength={generatorOptions.defaultLength} messages={{ ...defaultPasswordGeneratorMessages, ...generatorOptions.messages, sets: { ...defaultPasswordGeneratorMessages.sets, ...generatorOptions.messages?.sets } }} /> : null}
     <span className={styles.srOnly} role="status">{summary}</span>
   </div>;
 });

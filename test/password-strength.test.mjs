@@ -82,3 +82,17 @@ test("üretici: uzunluk sınırları, boş küme, güçlü sonuç", () => {
 test("üretici: tarafsız rastgele sayı aralıkta kalır", () => {
   for (let round = 0; round < 200; round++) { const n = mod.secureRandomInt(7); assert.ok(Number.isInteger(n) && n >= 0 && n < 7); }
 });
+
+test("kurala uygun üretim: türler kurallardan çıkar, sonuç bütün kuralları karşılar, uzun kural için uzar", () => {
+  assert.deepEqual(mod.setsForRules(["length", "case", "number", "symbol"]), ["lower", "upper", "digits", "symbols"]);
+  assert.deepEqual(mod.setsForRules(["length"]), ["lower", "upper", "digits"]);
+  assert.deepEqual(mod.setsForRules(["case"]), ["lower", "upper"]);
+  for (let round = 0; round < 20; round++) {
+    const value = mod.generateForRules(mod.defaultPasswordRules);
+    assert.ok(mod.defaultPasswordRules.every(rule => rule.test(value)), value);
+    assert.equal(value.length, 16);
+  }
+  const long = mod.createPasswordRules({ minLength: 30 });
+  const longValue = mod.generateForRules(long);
+  assert.ok(longValue.length >= 30 && long.every(rule => rule.test(longValue)), longValue);
+});

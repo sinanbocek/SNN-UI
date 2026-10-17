@@ -43,7 +43,9 @@ export default function SegmentedControl({ options, value, onValueChange, label,
     const node = track.current;
     const button = node?.querySelector<HTMLElement>('[aria-pressed="true"]');
     if (!node || !button || node.scrollWidth <= node.clientWidth) { first.current = false; return; }
-    const room = 20, start = button.offsetLeft - room, end = button.offsetLeft + button.offsetWidth + room - node.clientWidth;
+    // Konum iz kabına göre ölçülür: offsetLeft daha dıştaki konumlu öğeye göre sayar ve solma payını yutardı (seçili öğe kenara yapışıp soluyordu).
+    const offset = button.getBoundingClientRect().left - node.getBoundingClientRect().left + node.scrollLeft;
+    const room = 24, start = offset - room, end = offset + button.offsetWidth + room - node.clientWidth;
     const left = node.scrollLeft > start ? start : node.scrollLeft < end ? end : node.scrollLeft;
     if (left !== node.scrollLeft) node.scrollTo({ left: Math.max(0, left), behavior: first.current || reduced ? "auto" : "smooth" });
     first.current = false;
