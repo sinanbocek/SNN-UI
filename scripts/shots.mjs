@@ -114,11 +114,12 @@ try {
   await send("Page.enable");
   for (const width of WIDTHS) {
     await send("Emulation.setDeviceMetricsOverride", { width, height: 900, deviceScaleFactor: 1, mobile: width < 600 });
-    await send("Page.navigate", { url: `${baseUrl}/#${names[0]}` });
-    await sleep(1500);
-    await evaluate(send, "document.fonts.ready.then(() => true)");
-    const fonts = await evaluate(send, "[...new Set([...document.fonts].filter(f => f.status === 'loaded').map(f => f.family))].join(', ')");
     for (const name of names) {
+      // Galeri her bileşeni kendi sayfasında açar (#ad); her ad için sayfa yeniden yüklenir.
+      await send("Page.navigate", { url: `${baseUrl}/#${name}` });
+      await sleep(1500);
+      await evaluate(send, "document.fonts.ready.then(() => true)");
+      const fonts = await evaluate(send, "[...new Set([...document.fonts].filter(f => f.status === 'loaded').map(f => f.family))].join(', ')");
       // Bölüm kaydırılıp görünür yapılır ki geç yüklenen içerik ve görünüşe bağlı hareketler otursun.
       const box = await evaluate(send, `(async () => {
         const el = document.getElementById(${JSON.stringify(name)});

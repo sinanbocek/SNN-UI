@@ -36,5 +36,8 @@
     "arcCommit": "b40c890",
     "arcSource": "registry/components/file-dropzone"
   },
+  "categories": [
+    "forms"
+  ],
   "type": "registry:ui"
 }

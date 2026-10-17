@@ -36,5 +36,8 @@
     "arcCommit": "b40c890",
     "arcSource": "registry/components/number-field"
   },
+  "categories": [
+    "forms"
+  ],
   "type": "registry:ui"
 }

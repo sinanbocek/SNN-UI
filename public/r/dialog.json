@@ -30,5 +30,8 @@
     "arcCommit": "bfdf7e8",
     "arcSource": "registry/components/dialog"
   },
+  "categories": [
+    "navigation"
+  ],
   "type": "registry:ui"
 }

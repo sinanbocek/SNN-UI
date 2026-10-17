@@ -1,0 +1,45 @@
+# Galeri sitesini (https://snn-ui.web.app) main'e her birleşmede Firebase Hosting'e yükler.
+# Anahtar: FIREBASE_SERVICE_ACCOUNT_SNN_UI (bir kez `firebase init hosting:github` ile oluşturulur). Anahtar yoksa iş atlanır, kırmızı olmaz.
+name: galeri-yayin
+on:
+  push:
+    branches: [main]
+    paths: ["playground/**", "registry/**", "scripts/catalog.mjs", "firebase.json", ".github/workflows/galeri-yayin.yml"]
+  workflow_dispatch:
+permissions:
+  contents: read
+concurrency:
+  group: galeri-yayin
+  cancel-in-progress: true
+jobs:
+  yayin:
+    runs-on: ubuntu-latest
+    timeout-minutes: 10
+    env:
+      HAS_KEY: ${{ secrets.FIREBASE_SERVICE_ACCOUNT_SNN_UI != '' }}
+    steps:
+      - name: Anahtar yoksa atla
+        if: env.HAS_KEY != 'true'
+        run: echo "::notice::FIREBASE_SERVICE_ACCOUNT_SNN_UI anahtarı yok; yayın atlandı."
+      - uses: actions/checkout@v4
+        if: env.HAS_KEY == 'true'
+      - uses: actions/setup-node@v4
+        if: env.HAS_KEY == 'true'
+        with:
+          node-version: 22
+      - name: Kurulum
+        if: env.HAS_KEY == 'true'
+        run: |
+          npm ci
+          npm ci --prefix playground
+      - name: Galeriyi derle
+        if: env.HAS_KEY == 'true'
+        run: npm run build --prefix playground
+      - name: Firebase Hosting'e yükle
+        if: env.HAS_KEY == 'true'
+        uses: FirebaseExtended/action-hosting-deploy@v0
+        with:
+          repoToken: ${{ secrets.GITHUB_TOKEN }}
+          firebaseServiceAccount: ${{ secrets.FIREBASE_SERVICE_ACCOUNT_SNN_UI }}
+          channelId: live
+          projectId: snn-ui

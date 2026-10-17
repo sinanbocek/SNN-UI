@@ -40,5 +40,8 @@
     "arcCommit": "bfdf7e8",
     "arcSource": "registry/components/payment-flow"
   },
+  "categories": [
+    "commerce"
+  ],
   "type": "registry:ui"
 }

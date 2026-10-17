@@ -39,5 +39,8 @@
     "arcCommit": "bfdf7e8",
     "arcSource": "registry/components/project-board"
   },
+  "categories": [
+    "blocks"
+  ],
   "type": "registry:ui"
 }

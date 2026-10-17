@@ -35,5 +35,8 @@
     "arcCommit": "bfdf7e8",
     "arcSource": "registry/components/help-center"
   },
+  "categories": [
+    "blocks"
+  ],
   "type": "registry:ui"
 }

@@ -37,5 +37,8 @@
     "arcCommit": "b40c890",
     "arcSource": "registry/components/calendar"
   },
+  "categories": [
+    "forms"
+  ],
   "type": "registry:ui"
 }

@@ -32,5 +32,8 @@
     "arcCommit": "bfdf7e8",
     "arcSource": "registry/components/settings-page"
   },
+  "categories": [
+    "blocks"
+  ],
   "type": "registry:ui"
 }

@@ -30,5 +30,8 @@
     "arcCommit": "bfdf7e8",
     "arcSource": "registry/components/select"
   },
+  "categories": [
+    "forms"
+  ],
   "type": "registry:ui"
 }

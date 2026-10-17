@@ -196,6 +196,9 @@
       "type": "registry:ui",
       "title": "Düğme",
       "description": "Açık, tepki veren eylem düğmesi; ikincil durumları sakin.",
+      "categories": [
+        "forms"
+      ],
       "dependencies": [
         "motion"
       ],
@@ -225,6 +228,9 @@
       "type": "registry:ui",
       "title": "Düğme grubu",
       "description": "İlgili eylemler ince ayraçlı tek yüzeyde; isteğe bağlı açılır menüyle biter.",
+      "categories": [
+        "forms"
+      ],
       "dependencies": [
         "@radix-ui/react-dropdown-menu",
         "lucide-react",
@@ -256,6 +262,9 @@
       "type": "registry:ui",
       "title": "Metin kutusu",
       "description": "Tek satırlı alan; açık etiket ve anlamlı durumlar (hata, açıklama).",
+      "categories": [
+        "forms"
+      ],
       "dependencies": [
         "motion"
       ],
@@ -285,6 +294,9 @@
       "type": "registry:ui",
       "title": "Çok satırlı metin",
       "description": "Not, açıklama ve uzun metin alanı.",
+      "categories": [
+        "forms"
+      ],
       "dependencies": [
         "motion"
       ],
@@ -314,6 +326,9 @@
       "type": "registry:ui",
       "title": "Seçim kutusu",
       "description": "Klavyeyle rahat kullanılan açılır listeden tek seçim.",
+      "categories": [
+        "forms"
+      ],
       "dependencies": [
         "@radix-ui/react-select",
         "lucide-react",
@@ -345,6 +360,9 @@
       "type": "registry:ui",
       "title": "Onay kutusu",
       "description": "İki durumlu seçim; durumu net okunur.",
+      "categories": [
+        "forms"
+      ],
       "dependencies": [
         "@radix-ui/react-checkbox",
         "motion"
@@ -375,6 +393,9 @@
       "type": "registry:ui",
       "title": "Anahtar",
       "description": "Hemen etkili olan ayarlar için aç/kapa.",
+      "categories": [
+        "forms"
+      ],
       "dependencies": [
         "@radix-ui/react-switch",
         "motion"
@@ -405,6 +426,9 @@
       "type": "registry:ui",
       "title": "Radyo grubu",
       "description": "Görünür seçeneklerden birini seçtirir.",
+      "categories": [
+        "forms"
+      ],
       "dependencies": [
         "motion"
       ],
@@ -434,6 +458,9 @@
       "type": "registry:ui",
       "title": "Pencere",
       "description": "Dikkat isteyen karar için odaklı pencere.",
+      "categories": [
+        "navigation"
+      ],
       "dependencies": [
         "@radix-ui/react-dialog",
         "lucide-react",
@@ -465,6 +492,9 @@
       "type": "registry:ui",
       "title": "Açılır menü",
       "description": "Bir düğmeye bağlı kısa eylem listesi.",
+      "categories": [
+        "navigation"
+      ],
       "dependencies": [
         "@radix-ui/react-dropdown-menu",
         "lucide-react",
@@ -496,6 +526,9 @@
       "type": "registry:ui",
       "title": "Açılır kutu",
       "description": "Bir öğeye bağlı küçük bağlamsal bilgi yüzeyi.",
+      "categories": [
+        "navigation"
+      ],
       "dependencies": [
         "@radix-ui/react-popover"
       ],
@@ -524,6 +557,9 @@
       "type": "registry:ui",
       "title": "İpucu",
       "description": "Tanıdık olmayan denetim için kısa yardımcı metin.",
+      "categories": [
+        "navigation"
+      ],
       "dependencies": [
         "@radix-ui/react-tooltip",
         "motion"
@@ -554,6 +590,9 @@
       "type": "registry:ui",
       "title": "Sekmeler",
       "description": "Aynı bağlamdaki ilgili içerikler arasında geçiş.",
+      "categories": [
+        "navigation"
+      ],
       "dependencies": [
         "@radix-ui/react-tabs",
         "lucide-react",
@@ -585,6 +624,9 @@
       "type": "registry:ui",
       "title": "Kart",
       "description": "İlgili içerik ve eylemleri bir arada tutan kutu; isteğe bağlı hızlı bakış.",
+      "categories": [
+        "feedback"
+      ],
       "dependencies": [
         "@radix-ui/react-dialog",
         "lucide-react",
@@ -616,6 +658,9 @@
       "type": "registry:ui",
       "title": "Bildirim balonu",
       "description": "Arka planda biten işin kısa onayı.",
+      "categories": [
+        "feedback"
+      ],
       "dependencies": [
         "lucide-react",
         "motion"
@@ -646,6 +691,9 @@
       "type": "registry:ui",
       "title": "Boş durum",
       "description": "Gösterilecek bir şey yokken bir sonraki adımı söyler.",
+      "categories": [
+        "feedback"
+      ],
       "dependencies": [
         "lucide-react",
         "motion"
@@ -676,6 +724,9 @@
       "type": "registry:ui",
       "title": "Yükleniyor iskeleti",
       "description": "İçerik yüklenirken yer ayırır.",
+      "categories": [
+        "feedback"
+      ],
       "dependencies": [
         "motion"
       ],
@@ -705,6 +756,9 @@
       "type": "registry:ui",
       "title": "Sayfalama",
       "description": "Uzun listede sınırları belli sayfa geçişi.",
+      "categories": [
+        "navigation"
+      ],
       "dependencies": [
         "lucide-react",
         "motion"
@@ -735,6 +789,9 @@
       "type": "registry:ui",
       "title": "Arama kutusu",
       "description": "Tanınır arama girişi; temizleme düğmesiyle.",
+      "categories": [
+        "forms"
+      ],
       "dependencies": [
         "lucide-react",
         "motion"
@@ -765,6 +822,9 @@
       "type": "registry:ui",
       "title": "Kaydetme çubuğu",
       "description": "Formun altında yüzer; \"{n} kaydedilmemiş değişiklik\", Vazgeç ve Kaydet. Kaydediliyor, kaydedildi, hata durumları ve Ctrl/Cmd+S vardır.",
+      "categories": [
+        "feedback"
+      ],
       "dependencies": [
         "motion"
       ],
@@ -794,6 +854,9 @@
       "type": "registry:ui",
       "title": "Rozet",
       "description": "Durumu kısa bir etiketle gösterir; metin ve simge değişince hap yumuşakça yeni genişliğe yaylanır.",
+      "categories": [
+        "feedback"
+      ],
       "dependencies": [
         "motion"
       ],
@@ -823,6 +886,9 @@
       "type": "registry:ui",
       "title": "Yol izi",
       "description": "Bulunulan yeri üst sayfalarıyla gösterir; son parça geçerli sayfadır. Bağlantı yoksa düğme olarak çizilir.",
+      "categories": [
+        "navigation"
+      ],
       "dependencies": [
         "lucide-react",
         "motion"
@@ -853,6 +919,9 @@
       "type": "registry:ui",
       "title": "İlerleme çubuğu",
       "description": "Bilinen bir işin ne kadar bittiğini gösterir; yüzde etiketi (\"%72\", işaret sayıdan önce) çubukla birlikte sayılır, bitince onay işareti çıkar.",
+      "categories": [
+        "feedback"
+      ],
       "dependencies": [
         "lucide-react",
         "motion"
@@ -883,6 +952,9 @@
       "type": "registry:ui",
       "title": "Bölmeli seçici",
       "description": "Birkaç kardeş görünüm arasında tek seçim; seçili vurgu kayarak geçer, ok tuşlarıyla gezilir.",
+      "categories": [
+        "forms"
+      ],
       "dependencies": [
         "motion"
       ],
@@ -912,6 +984,9 @@
       "type": "registry:ui",
       "title": "Çekmece",
       "description": "Kenardan kayarak gelen yan panel; başlık çubuğundan sürüklenip kapatılır, Escape ve dışarı tıklama da kapatır.",
+      "categories": [
+        "navigation"
+      ],
       "dependencies": [
         "@radix-ui/react-dialog",
         "lucide-react",
@@ -943,6 +1018,9 @@
       "type": "registry:ui",
       "title": "Aramalı seçim",
       "description": "Yazarak süzülen açılır liste; ok tuşları, Enter ve Escape ile kullanılır. Türkçe aramada \"İstanbul\", \"Istanbul\" ve \"istanbul\" aynı sonucu bulur.",
+      "categories": [
+        "forms"
+      ],
       "dependencies": [
         "@snn/abacus-core@github:sinanbocek/SNN-Abacus-Core#semver:^4.3.0",
         "lucide-react",
@@ -974,6 +1052,9 @@
       "type": "registry:ui",
       "title": "Kişi simgesi",
       "description": "Fotoğraf ya da ad baş harfleri; isteğe bağlı çevrimiçi/çevrimdışı noktası. Fotoğraf yüklenemezse baş harflere döner.",
+      "categories": [
+        "feedback"
+      ],
       "dependencies": [
         "@snn/abacus-core@github:sinanbocek/SNN-Abacus-Core#semver:^4.3.0",
         "motion"
@@ -1009,6 +1090,9 @@
       "type": "registry:ui",
       "title": "Ayarlar sayfası",
       "description": "Blok: solda bölüm listesi, sağda seçili bölümün formu, altta yüzen kaydetme çubuğu. Bölümler arasında yarım kalan değişiklik korunur; kaydedilmemiş bölümde nokta çıkar. Yükleniyor, boş ve dar ekran durumları vardır.",
+      "categories": [
+        "blocks"
+      ],
       "dependencies": [
         "motion"
       ],
@@ -1042,6 +1126,9 @@
       "type": "registry:ui",
       "title": "Ekip üyeleri",
       "description": "Blok: koltuk sayacı, e-posta etiketli davet kutusu, üye listesi (rol değiştirme, satır içi çıkarma sorusu, arama, sayfalama) ve bekleyen davetler. Boş, yükleniyor, hata, koltuk dolu ve dar ekran durumları vardır.",
+      "categories": [
+        "blocks"
+      ],
       "dependencies": [
         "@snn/abacus-core@github:sinanbocek/SNN-Abacus-Core#semver:^4.3.0",
         "motion"
@@ -1081,6 +1168,9 @@
       "type": "registry:ui",
       "title": "Kenar menüsü",
       "description": "Blok: solda gruplu, katlanır gezinme menüsü; şeride daralır (Ctrl+B), dar kolonda çekmeceye dönüşür. Üstte yol izi, ortada kayan içerik, altta Ayarlar ve kullanıcı kartı. Yükleniyor ve hata durumları vardır.",
+      "categories": [
+        "navigation"
+      ],
       "dependencies": [
         "@snn/abacus-core@github:sinanbocek/SNN-Abacus-Core#semver:^4.3.0",
         "lucide-react",
@@ -1120,6 +1210,9 @@
       "type": "registry:ui",
       "title": "Arama sonuçları",
       "description": "Blok: birleşik arama kutusu (son ve önerilen aramalar), sayılı süzgeçler (tür, ekip, ay aralığı), etkin süzgeç çipleri, sıralama, kayan imleç dolgulu sonuç listesi ve önizleme paneli. Orta ve dar kolonda önizleme ve süzgeçler alttan açılan sayfalara taşınır. Boş, yükleniyor ve hata durumları vardır.",
+      "categories": [
+        "blocks"
+      ],
       "dependencies": [
         "@snn/abacus-core@github:sinanbocek/SNN-Abacus-Core#semver:^4.3.0",
         "lucide-react",
@@ -1161,6 +1254,9 @@
       "type": "registry:ui",
       "title": "Yardım merkezi",
       "description": "Blok: büyük arama kutusu (sonuçlar kutunun altında, kelimeler vurgulu), hızlı aramalar, konu kartları, çok okunanlar, makale okuma görünümü (\"Bu sayfada\" ana hattı, Evet/Hayır geri bildirimi, ilgili makaleler) ve destek kartı. Görünümler yönüne göre kayar. Boş, yükleniyor, hata, makale bulunamadı ve dar ekran durumları vardır.",
+      "categories": [
+        "blocks"
+      ],
       "dependencies": [
         "@snn/abacus-core@github:sinanbocek/SNN-Abacus-Core#semver:^4.3.0",
         "motion"
@@ -1197,6 +1293,9 @@
       "type": "registry:ui",
       "title": "Aranabilir ayarlar",
       "description": "Blok: onlarca ayarın tek uzun sayfada durduğu ekran. Arama kutusu Ctrl+K ya da / ile komut paletini açar (Türkçe harf farkı gözetmez, ek anahtar kelimelerle bulur); seçilen ayara sayfa kayar ve satır iki kez nefes alır. Solda bölüm gezgini, satırlarda anahtar, seçenek, açılır liste ve metin denetimleri, altta toplu kaydetme çubuğu. Yükleniyor, boş arama, doğrulama hatası, kaydetme hatası ve dar ekran durumları vardır.",
+      "categories": [
+        "blocks"
+      ],
       "dependencies": [
         "@snn/abacus-core@github:sinanbocek/SNN-Abacus-Core#semver:^4.3.0",
         "lucide-react",
@@ -1236,6 +1335,9 @@
       "type": "registry:ui",
       "title": "Ekip rehberi",
       "description": "Blok: solda aranabilir kişi listesi (ad ve göreve göre), üstte sayılı ekip süzgeç düğmeleri, sağda seçili kişinin profil paneli (durum, ekip, üzerinde çalıştığı iş, konum, e-posta ve Kopyala). Kayan vurgular, süzülen satırlar. Boş sonuç, yükleniyor, hata ve dar kolon durumları vardır.",
+      "categories": [
+        "blocks"
+      ],
       "dependencies": [
         "@snn/abacus-core@github:sinanbocek/SNN-Abacus-Core#semver:^4.3.0",
         "lucide-react",
@@ -1273,6 +1375,9 @@
       "type": "registry:ui",
       "title": "Roller ve izinler",
       "description": "Blok: satırlar izin, sütunlar rol olan matris. İzinler katlanabilir gruplarda; grup kutusu hepsini dalga gibi açar ve karışık durumu (çizgili) gösterir. Sahip sütunu kilitlidir. Ok tuşlu tek durak gezinme, üzerinde durulan sütun vurgusu, rol menüsü, değişiklik özetli inceleme çubuğu. Boş, yükleniyor, kaydetme hatası ve dar ekran (sabit izin sütunu, yana kayan tablo) durumları vardır.",
+      "categories": [
+        "blocks"
+      ],
       "dependencies": [
         "lucide-react",
         "motion"
@@ -1310,6 +1415,9 @@
       "type": "registry:ui",
       "title": "Gelen kutusu ayıklama",
       "description": "Blok: karar bekleyen mesaj kuyruğu. Gelen, Ertelenen ve Arşiv sekmeleri (sayılı), yerinde açılan satırlar, \"yalnız okunmamışlar\" süzgeci, tek tuş kısayolları (E arşivle, S ertele, U geri al) ve geri alınabilir son hamle durum satırı. Hamleden sonra odak sonraki satıra geçer. Her klasör için ayrı boş durum, yükleniyor, taşıma hatası (\"Yeniden dene\") ve dar kolon (iki satırlı satır) durumları vardır.",
+      "categories": [
+        "blocks"
+      ],
       "dependencies": [
         "motion"
       ],
@@ -1346,6 +1454,9 @@
       "type": "registry:ui",
       "title": "Yayına hazırlık listesi",
       "description": "Blok: bir iş yapılmadan önce tamamlanması gereken kontroller. Sayaç (\"3 kontrol kaldı\" / \"Hazır\") ve ilerleme çubuğu, iki sütunlu kontrol satırları, isteğe bağlı \"ilgilileri bilgilendir\" anahtarı ve hepsi işaretlenince açılan ana eylem düğmesi. Pasif düğmenin nedeni yazıyla söylenir. Yükleniyor, çalışıyor, başarı, hata (\"Yeniden dene\") ve dar kolon durumları vardır.",
+      "categories": [
+        "blocks"
+      ],
       "dependencies": [
         "motion"
       ],
@@ -1382,6 +1493,9 @@
       "type": "registry:ui",
       "title": "Adım adım form",
       "description": "Blok: uzun formu kısa adımlara böler. Numaralı adım listesi (tamamlananlarda çizilen tik, etkin adım vurgulu; tamamlanan adıma geri dönülür), yönlü kayan geçiş, adımın yüksekliğine yaylanan kutu, \"Adım 1 / 2\" sayacı, Geri / Devam / Bitir düğmeleri ve başarı ekranı. Yerel kısıtlar (`required`, `pattern`) ve isteğe bağlı özel denetim geçişi engeller, ilk geçersiz alana odak gider. Gönderiliyor, sunucu hatası (\"Yeniden dene\") ve dar kolon durumları vardır.",
+      "categories": [
+        "blocks"
+      ],
       "dependencies": [
         "motion"
       ],
@@ -1412,6 +1526,9 @@
       "type": "registry:ui",
       "title": "Haftalık takvim",
       "description": "Blok: haftalık zaman ızgarası. Boş zamanı sürükleyerek etkinlik oluşturma (15 dakikalık adımlar), etkinliği sürükleyip taşıma, alt kenardan uzatma; üst çubukta Bugün, oklar, aralık başlığı, Hafta / İş haftası / Gün / 3 gün / Gündem görünümleri ve takvim açma kapama. Tüm gün satırı (\"+N daha\"), çakışan etkinlikler yan yana, \"şimdi\" çizgisi, ayrıntı kutusu, silince geri al (Ctrl+Z). Klavyeyle taşıma (Alt+ok), N / T / D / W kısayolları. Boş hafta, yükleniyor, kaydetme hatası ve dar kolon (3 gün + gündem) durumları vardır.",
+      "categories": [
+        "blocks"
+      ],
       "dependencies": [
         "@snn/abacus-core@github:sinanbocek/SNN-Abacus-Core#semver:^4.3.0",
         "lucide-react",
@@ -1458,6 +1575,9 @@
       "type": "registry:ui",
       "title": "Ortak uygun saat seçici",
       "description": "Blok: birkaç kişinin ortak toplantı saatini seçtirir. Başlıkta toplantı adı, süre ve saat dilimi, katılımcı avatarları; beş günlük şerit (kartta \"N boş\"), seçili günün saatleri iki sütunda ve her saatte kişi başına müsait/meşgul çubukları (yazıyla da bildirilir), altta özet çubuğu ve \"Saati onayla\". Gün değişince saat listesi yönüne göre kayar, seçili saat vurgusu saatler arasında kayar. Boş gün (en yakın uygun gün önerisi), hiç ortak saat yok, yükleniyor, onay hatası ve dar kolon durumları vardır.",
+      "categories": [
+        "blocks"
+      ],
       "dependencies": [
         "@snn/abacus-core@github:sinanbocek/SNN-Abacus-Core#semver:^4.3.0",
         "motion"
@@ -1492,6 +1612,9 @@
       "type": "registry:ui",
       "title": "Küçük proje panosu",
       "description": "Blok: az sayıda işin sabit aşamalar (Planlandı, Sürüyor, Kontrolde, Bitti) arasında ilerlediği pano. Sürükleme yok: her kartta önceki ve sonraki aşamaya taşıma okları var (dokunmatikte de rahat). Üstte \"Bu dönem 6 işten 1'i bitti\" cümlesi ve ilerleme çubuğu, \"Tümü / Benim işlerim\" süzgeci, \"Görev ekle\" ile başlığı hemen yazılan yeni kart. Kartlar sütunlar arasında uçar. Boş sütun, hiç iş yok, süzgeç sonucu yok, yükleniyor, taşıma hatası (\"Yeniden dene\") ve dar kolon (yana kayan, yakınlığa oturan sütunlar) durumları vardır.",
+      "categories": [
+        "blocks"
+      ],
       "dependencies": [
         "@snn/abacus-core@github:sinanbocek/SNN-Abacus-Core#semver:^4.3.0",
         "lucide-react",
@@ -1532,6 +1655,9 @@
       "type": "registry:ui",
       "title": "Sürükle-bırak iş panosu",
       "description": "Blok: kartlar sütunlar arasında sürükle-bırakla taşınır. Kaldırılan kart imleci izler ve hızına göre hafifçe yatar, bırakılacağı yerde boşluk açılır; pano kenarında otomatik kayar, dokunmatikte kısa basıştan sonra başlar. Klavyeyle de taşınır (Boşluk kaldırır, ok tuşları taşır, Boşluk bırakır, Esc vazgeçer) ve her adım ekran okuyucuya duyurulur. Sütunlara iş sınırı konabilir (\"3/3\", aşılınca \"İş sınırı aşıldı.\"). \"Durum / Şerit\" görünümü (şeritte kişiye göre), sütunda \"Kart ekle\", Enter ile açılan ayrıntı çekmecesi (başlık, atanan, bitiş, etiket, puan, kontrol listesi). Boş sütun, hiç kart yok, yükleniyor, kayıt hatası (\"Yeniden dene\") ve dar kolon durumları vardır.",
+      "categories": [
+        "blocks"
+      ],
       "dependencies": [
         "@snn/abacus-core@github:sinanbocek/SNN-Abacus-Core#semver:^4.3.0",
         "lucide-react",
@@ -1578,6 +1704,9 @@
       "type": "registry:ui",
       "title": "Dönen rakamlı sayaç",
       "description": "Sayı değişince her rakam kilometre sayacı gibi döner (9 → 0 sarar, yön sayının gittiği yöndür); binlik ayracı nokta, ondalık ayracı virgül (\"1.234,5\"). İstenirse ilk görünüşte sıfırdan yukarı sayar. Ekran okuyucu düz metni okur.",
+      "categories": [
+        "feedback"
+      ],
       "dependencies": [
         "@snn/abacus-core@github:sinanbocek/SNN-Abacus-Core#semver:^4.3.0",
         "motion"
@@ -1614,6 +1743,9 @@
       "type": "registry:ui",
       "title": "Gösterge kartı",
       "description": "Bir göstergeyi tek kartta söyler: başlık, dönen rakamlı değer, işaretli değişim etiketi (yeşil/kırmızı) ve bağlam cümlesi. Değer düz sayı, tam tutar (₺1.250.000) ya da kısaltılmış tutar (₺1,25Mn) olabilir. Metinler değişince yön duyarlı kayar.",
+      "categories": [
+        "charts"
+      ],
       "dependencies": [
         "@snn/abacus-core@github:sinanbocek/SNN-Abacus-Core#semver:^4.3.0",
         "motion"
@@ -1651,6 +1783,9 @@
       "type": "registry:ui",
       "title": "Mini çizgi grafik",
       "description": "Başlığın yanında küçük bir eğilim çizgisi: değer, değişim ve yumuşak çizgi. Görününce soldan sağa çizilir; fare, dokunma ve ok tuşlarıyla noktalar gezilir, başlık gezilen noktayı gösterir. Veri değişince çizgi yeni biçime akar.",
+      "categories": [
+        "charts"
+      ],
       "dependencies": [
         "@snn/abacus-core@github:sinanbocek/SNN-Abacus-Core#semver:^4.3.0",
         "motion"
@@ -1682,6 +1817,9 @@
       "type": "registry:ui",
       "title": "Çizgi grafik",
       "description": "Zaman içindeki bir ya da birkaç ölçüyü yumuşak çizgilerle gösterir. Fare, dokunma ve ok tuşlarıyla gezilen artı imleç ipucuyla noktaları okur; seriler göstergeden açılıp kapanır, değer ekseni kendini ölçekler, aralık değişince çizgiler yeni biçime akar. Ekran okuyucu için veri tablosu, boş ve yükleniyor durumları vardır.",
+      "categories": [
+        "charts"
+      ],
       "dependencies": [
         "@snn/abacus-core@github:sinanbocek/SNN-Abacus-Core#semver:^4.3.0",
         "motion"
@@ -1723,6 +1861,9 @@
       "type": "registry:ui",
       "title": "Çubuk grafik",
       "description": "Bir ölçüyü art arda gün, hafta ya da ay boyunca çubuklarla gösterir; dönemler birbirleriyle ve ortalama çizgisiyle karşılaştırılır. Başlık dururken ortalamayı, gezerken gezilen çubuğu okur (fare, dokunma, ok tuşları). Çubuklar sırayla büyür, aralık değişince yeni değerlere akar, eksen kendini ölçekler. Ekran okuyucu için veri tablosu vardır.",
+      "categories": [
+        "charts"
+      ],
       "dependencies": [
         "@snn/abacus-core@github:sinanbocek/SNN-Abacus-Core#semver:^4.3.0",
         "motion"
@@ -1754,6 +1895,9 @@
       "type": "registry:ui",
       "title": "Halka grafik",
       "description": "Bir bütünün birkaç parçasını halka dilimleriyle gösterir; her parçanın payı kesin karşılaştırmadan önemli olduğunda kullanılır. Üzerine gelinen ya da seçilen dilim dışarı kayar, merkez o dilimin değerini ve payını (\"%36\") okur; küçük parçalar \"Diğer\"e katılır. Eşgüdümlü gösterge dilimleri gösterip gizler, halka yeniden dağılır. Ekran okuyucu için tablo, boş durum ve ok tuşuyla gezinme vardır.",
+      "categories": [
+        "charts"
+      ],
       "dependencies": [
         "@snn/abacus-core@github:sinanbocek/SNN-Abacus-Core#semver:^4.3.0",
         "motion"
@@ -1786,6 +1930,9 @@
       "type": "registry:ui",
       "title": "Gösterge halkası",
       "description": "Bir değerin aralığındaki yerini 270 derecelik halkayla gösterir: ortada \"%72\" ve isteğe bağlı durum adı. Eşik bantları (örneğin Düşük / Normal / Yüksek) rengi ve durum adını belirler; anlam yalnız renge dayanmaz. Görününce dolar, değer değişince yaylanır; sayım halkayı aşmadan izler.",
+      "categories": [
+        "charts"
+      ],
       "dependencies": [
         "@snn/abacus-core@github:sinanbocek/SNN-Abacus-Core#semver:^4.3.0",
         "motion"
@@ -1817,6 +1964,9 @@
       "type": "registry:ui",
       "title": "Kullanım göstergesi",
       "description": "Depolama ya da koltuk gibi sabit bir hakkın ne kadarının neye gittiğini tek çubukta gösterir: kategoriler vurgunun basamaklarıdır, boş alan izin kendisidir. Başlıkta dönen rakamlı toplam, durum işareti (\"3,2 GB boş\", \"Neredeyse dolu\", \"… aşıldı\") ve klavyeyle gezilen gösterge vardır. Limit aşılınca taşan kısım taramalı çizilir; durum değişimleri ekran okuyucuya duyurulur.",
+      "categories": [
+        "charts"
+      ],
       "dependencies": [
         "@snn/abacus-core@github:sinanbocek/SNN-Abacus-Core#semver:^4.3.0",
         "lucide-react",
@@ -1850,6 +2000,9 @@
       "type": "registry:ui",
       "title": "Eğim grafiği",
       "description": "Birkaç öğenin tam iki an arasında nasıl değiştiğini (ve sıralarının nasıl değiştiğini) gösterir: her öğe iki sütun arasında bir çizgidir. Etiketler üst üste binmez, hikâye öğesi vurgu renginde çizilir, odaktaki öğe öne çıkar ve ipucu değer, fark ve sıra değişimini söyler (yukarı/aşağı oklarla gezilir). Kapanma sırası sıra okuyla gösterilir.",
+      "categories": [
+        "charts"
+      ],
       "dependencies": [
         "@snn/abacus-core@github:sinanbocek/SNN-Abacus-Core#semver:^4.3.0",
         "motion"
@@ -1882,6 +2035,9 @@
       "type": "registry:ui",
       "title": "Ağaç haritası",
       "description": "Bölge, ülke ve plana göre ciro gibi bir parça hiyerarşisini boyutla orantılı kutularla gösterir; boyutlar kesin karşılaştırmadan önemli olduğunda kullanılır. Üst düzey dallar dört seri tonunu alır, isteğe bağlı ikinci ölçü (büyüme gibi) koyuluğu belirler. Kutuya tıklayınca ya da Enter ile içine yakınlaşılır, Escape ya da yol izi ile geri dönülür; ipucu değeri ve üst öğedeki payı (\"%12,3 Avrupa içinde\") söyler.",
+      "categories": [
+        "charts"
+      ],
       "dependencies": [
         "@snn/abacus-core@github:sinanbocek/SNN-Abacus-Core#semver:^4.3.0",
         "motion"
@@ -1914,6 +2070,9 @@
       "type": "registry:ui",
       "title": "Kare ızgara grafiği",
       "description": "Bir bütünün parçalarını sayılabilir karelerle gösterir: her hücre bütünün bir payıdır (10 × 10 ızgarada yüzde başına bir hücre). Hücreler sol alttan sütun sütun, bardak dolar gibi dolar; veri değişince hücreler bir kategoriden ötekine uçarak taşınır. Renk yalnız tek kanal değildir: nötr kategoriler kare, yuvarlak ve çerçeveli hücrelerle de ayrışır. Gösterge payları (\"%36\") yeni değerine döner; ok tuşlarıyla hücre hücre gezilir.",
+      "categories": [
+        "charts"
+      ],
       "dependencies": [
         "@snn/abacus-core@github:sinanbocek/SNN-Abacus-Core#semver:^4.3.0",
         "motion"
@@ -1946,6 +2105,9 @@
       "type": "registry:ui",
       "title": "Fırça grafiği",
       "description": "Uzun ve yoğun bir zaman serisinde hem tüm geçmişi hem de herhangi bir kesitine yakından bakmayı sağlar: altta tüm serinin genel bakış şeridi, üstte seçili pencerenin büyük grafiği. Pencere kenarlarından boyutlandırılır, tutulup kaydırılır, boş izden yenisi çizilir (dokunma yeniden ortalar, çift dokunma sıfırlar); klavyeyle de gezilir. Uzaklaşınca yedi günlük ortalama ve bandı ham çizginin yerini alır; olaylar işaretlenir. Tarihler Türkçedir (\"15 Ekim 2026 Per\").",
+      "categories": [
+        "charts"
+      ],
       "dependencies": [
         "@snn/abacus-core@github:sinanbocek/SNN-Abacus-Core#semver:^4.3.0",
         "motion"
@@ -1978,6 +2140,9 @@
       "type": "registry:ui",
       "title": "Etkinlik takvimi",
       "description": "Gün başına bir kare, haftalar sütun: günün ne kadar yoğun olduğunu dört vurgu tonu söyler. Ritim, seri ve sakin haftalar kesin karşılaştırmadan önemli olduğunda kullanılır. Üstte dönen rakamlı özet (\"1.284 katkı 2025 yılında\"); kareler görününce dalga olur, ipucu hücreler arasında süzülür, yeni aralık ızgarayı süpürerek yeniden renklendirir. Oklarla gün ve hafta gezilir, Enter seçer; gösterge düzeyleri ızgarada önizler ve sabitler. Dar ekranda yana kayar.",
+      "categories": [
+        "charts"
+      ],
       "dependencies": [
         "@snn/abacus-core@github:sinanbocek/SNN-Abacus-Core#semver:^4.3.0",
         "motion"
@@ -2009,6 +2174,9 @@
       "type": "registry:ui",
       "title": "Akış grafiği",
       "description": "Birkaç parçanın karışımının zamanla nasıl değiştiğini, genel biçim kesin değerlerden önemli olduğunda gösterir: katmanlar merkezden dışa, akıcı bir şerit olarak dizilir. Katmanlar yeni veriye ve gizlemeye akarak uyar, ilk görünüşte merkezden kabarır. Katman adları yeterince kalın kesitte doğrudan yazılır; üzerine gelinen katman öne çıkar, ipucu o zamandaki tüm değerleri söyler. Ok tuşlarıyla zamanda ve katmanlar arasında gezilir.",
+      "categories": [
+        "charts"
+      ],
       "dependencies": [
         "@snn/abacus-core@github:sinanbocek/SNN-Abacus-Core#semver:^4.3.0",
         "motion"
@@ -2041,6 +2209,9 @@
       "type": "registry:ui",
       "title": "Sırt çizgisi grafiği",
       "description": "Birçok dağılımın biçimini aynı anda karşılaştırır, örneğin aylara göre günlük sıcaklık ya da bölgelere göre yanıt süresi: her satır, ham gözlemlerin yumuşatılmış yoğunluğudur ve üstteki satırlara taşar. Sırtlar medyanlarına göre açık tondan koyuya gölgelenir; üzerine gelinen sırt öne çıkar, ipucu medyanı, orta yarıyı, aralığı ve imleç değerinin altında kalan payı (\"%36\") söyler. Ok tuşlarıyla sırtlar ve değerler gezilir; veri değişince sırtlar yeni biçime akar.",
+      "categories": [
+        "charts"
+      ],
       "dependencies": [
         "@snn/abacus-core@github:sinanbocek/SNN-Abacus-Core#semver:^4.3.0",
         "motion"
@@ -2073,6 +2244,9 @@
       "type": "registry:ui",
       "title": "Makaralı metin",
       "description": "Metin ve sayıların yeni değerine kumar makinesi makaraları gibi dönmesi: her karakter bir makaradır, rakamlar sayının gittiği yönde çarkta sayar, harfler Türk alfabesinde (ç, ğ, ı, ö, ş, ü dahil) karışır, makaralar soldan sağa birer birer yumuşakça durur. Sayılar ABACUS biçimindedir (\"12.480\", \"1.234,5\"), baştaki ₺ gibi simgeler rakama dönmez. Fiyat, istatistik ve lansman anları için; ekran okuyucu düz metni okur.",
+      "categories": [
+        "feedback"
+      ],
       "dependencies": [
         "@snn/abacus-core@github:sinanbocek/SNN-Abacus-Core#semver:^4.3.0",
         "motion"
@@ -2104,6 +2278,9 @@
       "type": "registry:ui",
       "title": "Bölünmüş yüzde çubuğu",
       "description": "Bir bütünü tek yatay çubukta paylara böler: üzerine gelinen dilim biraz genişler, okuma alanı dilimin adını, payını (\"%41,6\") ve tutarını yazar. Sığmayan etiketler çubuğun altındaki şeride ince çizgiyle taşar. Açıklama satırından dilimler kapatılıp açılır, kalanlar çubuğu doldurur; son açık dilim kapanmaz. Ok tuşlarıyla gezilir; ekran okuyucu için tablo ve canlı duyuru vardır.",
+      "categories": [
+        "charts"
+      ],
       "dependencies": [
         "@snn/abacus-core@github:sinanbocek/SNN-Abacus-Core#semver:^4.3.0",
         "motion"
@@ -2142,6 +2319,9 @@
       "type": "registry:ui",
       "title": "Akış şeması",
       "description": "Bir toplamın aşamalar boyunca nasıl bölündüğünü ve birleştiğini, düğümler arasında kalınlığı değere orantılı şeritlerle gösterir. Düğüme ya da şeride gelince o payın baştan sona tüm yolu vurgulanır, ipucu değeri ve kaynağa göre payı (\"%41,6\") yazar. Şeritlerde yavaşça ilerleyen noktalar yönü hissettirir; \"Akış\" anahtarıyla durur. Ok tuşlarıyla düğümler gezilir; dar ekranda şema dikeye döner. Ekran okuyucu için akış tablosu vardır.",
+      "categories": [
+        "charts"
+      ],
       "dependencies": [
         "@snn/abacus-core@github:sinanbocek/SNN-Abacus-Core#semver:^4.3.0",
         "motion"
@@ -2181,6 +2361,9 @@
       "type": "registry:ui",
       "title": "Huni grafiği",
       "description": "Adım adım daralan bir süreci (ziyaretçi → sipariş) tek yatay bantla gösterir: adım başlıklarında kısa sayı ve bir önceki adımdan kalan oran (\"%44,3\"), adımlar arasında düşüş (\"↓ 15.100 (-%70,6)\"). Adıma gelince odak sütunu ve ipucu tam sayıyı, ilk adıma ve öncekine oranı yazar. Parçalı veride Toplam, Bölünmüş ya da tek parça görünümü seçilir; band yeni biçime akar. Ok tuşlarıyla gezilir; dar ekranda huni dikeye döner. Ekran okuyucu için tablo vardır.",
+      "categories": [
+        "charts"
+      ],
       "dependencies": [
         "@snn/abacus-core@github:sinanbocek/SNN-Abacus-Core#semver:^4.3.0",
         "motion"
@@ -2220,6 +2403,9 @@
       "type": "registry:ui",
       "title": "Sıralama yarışı",
       "description": "Bir sıralamanın zaman içinde nasıl değiştiğini yatay çubuklarla anlatır: çubuklar uzar, birbirini geçer, değerler dönemler arasında ara değerle akar; büyük dönem etiketi değişir. Altta oynat/duraklat düğmesi ve istenen döneme götüren kaydırıcı vardır. Görününce kendiliğinden oynar (\"hareketi azalt\" açıkken oynamaz), görünüm dışında durur. Boşluk, ok tuşları, Home/End ve yukarı/aşağı ok ile gezilir; dönem ve lider kibar canlı bölgede duyurulur. Ekran okuyucu için tüm dönemlerin tablosu vardır.",
+      "categories": [
+        "charts"
+      ],
       "dependencies": [
         "@snn/abacus-core@github:sinanbocek/SNN-Abacus-Core#semver:^4.3.0",
         "motion"
@@ -2258,6 +2444,9 @@
       "type": "registry:ui",
       "title": "Canlı akış grafiği",
       "description": "Saniyeler içinde değişen bir ölçümü canlı izler: büyük anlık değer (rakamlar döner), \"Canlı\" / \"Duraklatıldı\" durum düğmesi ve son 30 saniyeyi gösteren yumuşak çizgi. Grafiğin üstüne gelince ya da odaklanınca görüntü durur, okumalar arka planda birikir; ipucu zamanı (\"14:03:27\"), değeri ve varsa notu yazar. Anomali notları çizgi üstünde işaretlenir ve bir kez duyurulur. Veri bekleniyor ve bağlantı kesildi (\"Yeniden dene\") durumları vardır; görünüm dışında çizim durur.",
+      "categories": [
+        "charts"
+      ],
       "dependencies": [
         "@snn/abacus-core@github:sinanbocek/SNN-Abacus-Core#semver:^4.3.0",
         "motion"
@@ -2296,6 +2485,9 @@
       "type": "registry:ui",
       "title": "Özet gösterge paneli",
       "description": "Blok: dört ana gösterge sekme gibi sıralanır (ad, dönen rakamlı değer, ok ve işaretli değişim); seçilen gösterge altındaki çizgi grafikte görülür, \"Karşılaştır\" önceki dönemin kesikli çizgisini ekler. Üstte dönem anahtarı (7/30/90 gün) ve \"Dışa aktar\"; altta iki sıralı liste yatay oran çubuklarıyla durur. Yükleniyor, hata (\"Yeniden dene\"), boş ve dar ekran durumları vardır; düzen pencereye değil bileşenin kendi genişliğine bakar.",
+      "categories": [
+        "finance"
+      ],
       "dependencies": [
         "@snn/abacus-core@github:sinanbocek/SNN-Abacus-Core#semver:^4.3.0",
         "motion"
@@ -2334,6 +2526,9 @@
       "type": "registry:ui",
       "title": "Gösterge ayrıntı paneli",
       "description": "Blok: altı kadar gösterge, her biri küçük çizgi grafikli bir kart olarak ızgarada durur. Karta basınca kart, aynı yüzeyin büyümesiyle ayrıntıya açılır: büyük çizgi grafik, önceki dönem karşılaştırması ve kırılım tablosu (değer, işaretli değişim, pay çubuğu; boyut seçilir). Esc ya da \"Kapat\" aynı karta geri katlar, odak karta döner. Üstte dönem anahtarı ve \"Karşılaştır\"; yeterli önceki dönem verisi yoksa düğme pasiftir. Yükleniyor, hata ve dar kap (3 / 2 / 1 sütun) durumları vardır.",
+      "categories": [
+        "finance"
+      ],
       "dependencies": [
         "@snn/abacus-core@github:sinanbocek/SNN-Abacus-Core#semver:^4.3.0",
         "motion"
@@ -2373,6 +2568,9 @@
       "type": "registry:ui",
       "title": "Gösterge gezgini",
       "description": "Blok: sayfa başında dört gösterge kartı (ad, dönen rakamlı değer, işaretli değişim, dönem adı, mini çizgi). Karta basınca kart, aynı yüzeyin büyümesiyle sekmeli grafik paneline dönüşür: gösterge sekmeleri, dönem anahtarı, büyük çizgi grafik ve tarihli okuma satırı (tarih, değer, önceki noktaya göre değişim). Grafikte fare, dokunma ve ok tuşlarıyla gezilir; ilk Esc okunan noktayı, ikincisi paneli kapatır ve odak karta döner. Yükleniyor, hata, veri yok ve dar kap durumları vardır.",
+      "categories": [
+        "finance"
+      ],
       "dependencies": [
         "@snn/abacus-core@github:sinanbocek/SNN-Abacus-Core#semver:^4.3.0",
         "motion"
@@ -2412,6 +2610,9 @@
       "type": "registry:ui",
       "title": "Gelir gezgini",
       "description": "Blok: aylık yinelenen gelirin üç hareketini (yeni, genişleme, kayıp) aylara göre çizgilerle gösterir; kayıp sıfırın altında durur. Altındaki fırça şeridinde pencere sürüklenir, kenar tutamaçlarından büyütülüp küçültülür (aylık adımlarla; klavyeyle de) ya da \"3A / 6A / 12A / Tümü\" düğmeleriyle seçilir; çizgiler ve özet rakamları yeni döneme akar. Özet üçlüsü: ana gelir ve büyüme, aylık net yeni gelir, aylık kayıp oranı (puan farkı). Seri düğmeleri seriyi çıkarıp getirir; \"Önceki dönemle karşılaştır\" bir önceki aynı uzunlukta dönemi ekler. Yükleniyor, hata ve dar kap durumları ile ekran okuyucu tablosu vardır.",
+      "categories": [
+        "finance"
+      ],
       "dependencies": [
         "@snn/abacus-core@github:sinanbocek/SNN-Abacus-Core#semver:^4.3.0",
         "motion"
@@ -2454,6 +2655,9 @@
       "type": "registry:ui",
       "title": "Gelir şelalesi",
       "description": "Blok: düzenli (aylık yinelenen) gelirin bir dönemin başından sonuna nasıl değiştiğini köprü grafiğiyle anlatır: başlangıç çubuğu, yukarı doğru (yeni, genişleme, yeniden aktif) ve aşağı doğru (daralma, kayıp) yüzen basamaklar, bitiş çubuğu. Üstte dönen rakamlı bitiş değeri, dönem boyu değişim (\"+₺180.000 (+%12,3)\") ve net elde tutma, hızlı oran, müşteri kaybı göstergeleri vardır. Çubuğa basınca (ya da ok tuşlarıyla) altındaki panel o basamağın en büyük hesaplarını ve \"Diğer hesaplar\" satırını gösterir. \"Tutar\" / \"Başlangıca göre %\" birim seçicisi, yükleniyor, hata ve dar kap (panel altta) durumları vardır.",
+      "categories": [
+        "finance"
+      ],
       "dependencies": [
         "@snn/abacus-core@github:sinanbocek/SNN-Abacus-Core#semver:^4.3.0",
         "motion"
@@ -2495,6 +2699,9 @@
       "type": "registry:ui",
       "title": "Kohort elde tutma",
       "description": "Blok: aynı ayda katılan grupların (kohortların) aylar geçtikçe ne kadarının aktif kaldığını gösterir. Her satır bir katılım ayı (ad ve büyüklük), her sütun katılımdan sonraki ay; hücrede kalan yüzde (\"%68\") yazar, rengi yüzdeye göre koyulaşır; ölçülmemiş aylar boştur (alt üçgen), en altta büyüklüğe göre ağırlıklı \"Ortalama\" satırı durur. Üstte \"1. ay\" ve \"6. ay\" elde tutma ile yeni kayıt toplamı (son üç kohort ile ilk üç kohort farkı \"+5,2 puan\"); segment seçilince renkler hücre hücre yeniden boyanır. \"Isı haritası\" / \"Eğriler\" anahtarıyla her kohort bir çizgi olur. Hücre ve eğri okuması fare ve ok tuşlarıyla yapılır, canlı bölgede duyurulur; gizli tablo, yükleniyor, hata ve boş durum vardır.",
+      "categories": [
+        "finance"
+      ],
       "dependencies": [
         "@snn/abacus-core@github:sinanbocek/SNN-Abacus-Core#semver:^4.3.0",
         "motion"
@@ -2536,6 +2743,9 @@
       "type": "registry:ui",
       "title": "Kullanım tahmini",
       "description": "Blok: bir fatura döneminde bir ölçünün (istek, depolama, koltuk) şimdiye kadarki kullanımını çizer ve dönem sonuna kadar gidişini tahmin eder; tahmin soluk bir olası aralık konisiyle devam eder. Bütçe çizgisi tutamacından sürüklenir ya da ok tuşlarıyla oynatılır: ana cümle (\"Bu hızla bütçeye 26 Eylül 2026 günü ulaşırsınız, büyük olasılıkla … arası\"), aşma işareti, bütçe üstü maliyet ve %50 / %80 / %100 uyarı tarihleri hemen yeniden hesaplanır. Uyarı kuralları açılıp kapanır, grafikte gün gün okunur; zaten aşıldı, aşılmayacak, yetersiz veri, yükleniyor, hata ve boş durumları ile gizli tablo vardır.",
+      "categories": [
+        "finance"
+      ],
       "dependencies": [
         "@snn/abacus-core@github:sinanbocek/SNN-Abacus-Core#semver:^4.3.0",
         "motion"
@@ -2577,6 +2787,9 @@
       "type": "registry:ui",
       "title": "Bütçe sapması",
       "description": "Blok: planlanan ile gerçekleşen harcamayı bölüm (maliyet merkezi) bazında hizalı çubuklarla karşılaştırır. Her satırda bütçe işareti aynı hizada durur; harcama çubuğu bu işareti geçerse geçen kısım kırmızı görünür. Yanında işaretli sapma tutarı ve yüzdesi (\"+₺150.000\", \"+%12,5 aşım\" / \"-%4,0 altında\" / \"plana uygun\") yazar. Ay, çeyrek ve yıl başından beri arasında geçilir (tutarlar sayarak değişir); bir bölüm satır içinde açılıp bütçe kalemlerine inilir, aynı anda tek bölüm açık kalır; en üstte toplam satırı vardır. Bütün kalemler gider sayılır: altında kalmak olumlu, aşmak olumsuzdur. Yükleniyor, hata, boş ve dar kap (satır içinde alt alta) durumları vardır.",
+      "categories": [
+        "finance"
+      ],
       "dependencies": [
         "@snn/abacus-core@github:sinanbocek/SNN-Abacus-Core#semver:^4.3.0",
         "motion"
@@ -2619,6 +2832,9 @@
       "type": "registry:ui",
       "title": "Küçük çoklu grafikler",
       "description": "Blok: aynı ölçünün birkaç serisini (bölge, ürün, plan) her biri küçük bir çizgi grafikte, ızgara düzeninde gösterir. Fareyle, dokunmayla ya da oklarla gezilen tek bir dikey imleç bütün panellerde aynı ayı gösterir; panel başlığında o aydaki değer, trend oku ve geçen yıla göre işaretli büyüme (\"▲ +%12,3\") yazar. Y ekseni \"Bağımsız\" (her panel kendi aralığına sığar) ya da \"Ortak\" (hepsi sıfırdan başlar) olabilir; paneller son değere, büyümeye ya da ada göre sıralanır (yer değiştirerek akar); her panelin arkasında toplamın kesikli izi durur; düz giden seriler soluklaştırılabilir. Tüm ızgara tek Tab durağıdır; ay, toplam ve en yüksek seri canlı bölgede duyurulur, gizli tablo vardır.",
+      "categories": [
+        "finance"
+      ],
       "dependencies": [
         "@snn/abacus-core@github:sinanbocek/SNN-Abacus-Core#semver:^4.3.0",
         "motion"
@@ -2660,6 +2876,9 @@
       "type": "registry:ui",
       "title": "Çizgi tekrarı",
       "description": "Blok: bir günün (ya da bir olayın) tek serisini, oynat düğmesine basınca soldan sağa kendini çizerek anlatır. Çizginin ucunda oynatma imleci ve değer etiketi gider; kilit anlar (duyuru, yayın, sorun) imleç oradan geçince çizgi üzerinde işaretlenir, üstte açıklama çıkar, yandaki \"Kilit anlar\" listesinde satır yanar ve etki satırı açılır (\"sonraki saatte +1.240\", sorunda \"20 dakikada -%12,3\"). Okuma satırı saat, değer, kıyasa göre çarpan (\"4,8×\") ve şu ana kadarki tepeyi yazar. Oynat/duraklat, kilit an işaretli kaydırıcı ve hız seçici (0,5× 1× 2× 4×) vardır; listeden bir ana basınca imleç oraya atlar. Varsayılan olarak çizgi tamam ve tüm anlar işlidir. Sorun anı farklı simge ve başlıkla gösterilir; yükleniyor, veri yok ve dar kap durumları ile klavye ve canlı duyurular vardır.",
+      "categories": [
+        "finance"
+      ],
       "dependencies": [
         "@snn/abacus-core@github:sinanbocek/SNN-Abacus-Core#semver:^4.3.0",
         "motion"
@@ -2700,6 +2919,9 @@
       "type": "registry:ui",
       "title": "İşlem ekranı",
       "description": "Blok: bir menkul kıymetin fiyatını mum grafikle gösteren, yanında izleme listesi ve emir fişi bulunan tam bir işlem ekranı. Üstte sembol, \"Canlı\" düğmesi (akışı durdurur) ve dönen rakamlı güncel fiyat, günlük değişim (ok, işaretli tutar, yüzde), açılış / en yüksek / en düşük / hacim özeti; dönem düğmeleri (1G … 1Y), iki hareketli ortalama anahtarı ve yakınlaştırma düğmeleri. Grafikte mumlar, hacim çubukları, ortalamalar, son fiyat etiketi ve imleç altındaki açılış-en yüksek-en düşük-kapanış okuması vardır; tekerlekle ve iki parmakla yakınlaştırılır, sürüklenerek kaydırılır (bırakınca savrulur), klavyeyle gezilir. İzleme listesinde fiyat değişince satır yön tonuyla solar; emir fişi piyasa ve limit emri doğrular (alım gücü, pozisyon, geçersiz adet) ve uygulamanın verdiği işleve iletir; emir listesinde bekleyen emir iptal edilir. Yükleniyor, veri yok, akış duraklatıldı ve dar kap durumları vardır.",
+      "categories": [
+        "finance"
+      ],
       "dependencies": [
         "@snn/abacus-core@github:sinanbocek/SNN-Abacus-Core#semver:^4.3.0",
         "motion"
@@ -2742,6 +2964,9 @@
       "type": "registry:ui",
       "title": "Yolculuk akışı",
       "description": "Blok: kullanıcıların bir sürecin aşamaları boyunca (ziyaret, hesap, kurulum, ilk hafta, plan) nereye gittiğini akış şemasıyla gösterir; her aşamada devam edenler kaynağın renginde, düşenler gri ayrı kollar olarak görünür. Başlıkta dönen rakamlı toplam (\"16.965\") ve alt cümle, kanal seçici (\"Tüm kullanıcılar\", kanallar) vardır; kanal değişince şeritler yeni değere akar ve \"16.965 ziyaret, 1.018 ücretli plan\" duyurulur. Adıma ya da şeride gelince o grup baştan sona vurgulanır; adıma basınca (Enter) yan panel adımın sayısını, ilk aşamadaki payını, nereden geldiğini ve nereye gittiğini yazar, Esc seçimi kaldırır; panelde \"En büyük düşüşler\" listesi durur. \"Akış tablosu\" anahtarı aynı sayıları tablo olarak açar. Yükleniyor, hata ve kanal verisi yok durumları ile dar kap düzeni vardır.",
+      "categories": [
+        "finance"
+      ],
       "dependencies": [
         "@snn/abacus-core@github:sinanbocek/SNN-Abacus-Core#semver:^4.3.0",
         "motion"
@@ -2785,6 +3010,9 @@
       "type": "registry:ui",
       "title": "Fatura ve teklif stüdyosu",
       "description": "Blok: kalemli bir fatura ya da teklif taslağını ekranda düzenletir. Üstte \"Fatura\" ya da \"Teklif\" başlığı ve gönderen / alıcı blokları; kalem tablosunda açıklama, adet, birim fiyat (₺ simgeli) ve satır tutarı vardır. Kalem eklenir (yeni satırın açıklamasına odaklanır) ve silinir (satır yükseklikle açılıp kapanır); adet ve birim fiyat değiştikçe ara toplam, KDV ve ödenecek toplam anında yeniden hesaplanır ve rakamlar akarak değişir. Virgül ondalık ayracıdır, binlik ayracı yazarken kendiliğinden konur. \"Taslağı kaydet\" açıklaması boş kalemi işaretler (\"Her kalem için açıklama girin\"), kayıt sürerken \"Kaydediliyor…\", sonunda \"Taslak kaydedildi\" ya da \"Kaydedilemedi\" yazar. Boş durum, dar kap (kalem kartı) ve ekran okuyucu için canlı toplam vardır. Resmî e-fatura ya da e-arşiv üretimi ve gönderimi kapsam dışıdır.",
+      "categories": [
+        "finance"
+      ],
       "dependencies": [
         "@snn/abacus-core@github:sinanbocek/SNN-Abacus-Core#semver:^4.3.0",
         "motion"
@@ -2824,6 +3052,9 @@
       "type": "registry:ui",
       "title": "Fiyat hesaplayıcı",
       "description": "Blok: koltuk (kullanıcı) başına fiyatlanan bir ürün için ekip büyüklüğünü sabit duraklı kaydırıcıyla (ve eksi/artı düğmeleriyle) seçtirir; ortadaki büyük koltuk sayısı döner. Aylık / yıllık anahtarı ve üç plan kartı seçime göre canlı güncellenir: koltuk başı fiyat (döner), dönemlik toplam, hacim indirimi (\"koltuk başı ₺30,00 daha az\") ve koltuğa bağlı özellikler (yükseklikle açılıp kapanır). \"Önerilen\" rozeti ve seçim çerçevesi ekip büyüklüğüne en uygun plana kayar. En küçük (sınırlı) plan koltuk üst sınırını aşınca fiyat yerine \"Bu plan en çok 10 koltuğa uygun. Siz 20 koltuk seçtiniz.\" ve \"10 koltuğa dön\" düğmesi gösterir. Seçim özeti toplamı, yıllıkta tasarrufu (\"Tasarruf ettiğiniz: ₺…/yıl\") ve \"Denemeyi başlat\" düğmesini taşır. Yükleniyor, deneme başlatma hatası (\"Başlatılamadı\") ve dar kap durumları vardır.",
+      "categories": [
+        "finance"
+      ],
       "dependencies": [
         "@snn/abacus-core@github:sinanbocek/SNN-Abacus-Core#semver:^4.3.0",
         "motion"
@@ -2865,6 +3096,9 @@
       "type": "registry:ui",
       "title": "Kullanıma göre fiyat hesaplayıcı",
       "description": "Blok: fiyatı koltuk sayısı ve ölçülen kullanıma (aylık istek gibi) bağlı bir ürün için \"faturanız ne kadar olur\" tahminini verir. İki kaydırıcı (koltuk, kullanım; izinde plan geçiş noktaları adlı işaretli) ve aylık / yıllık anahtarı vardır (yıllıkta tasarruf tutarı). Bileşen seçime en uygun planı kendisi bulur (koltuk × fiyat + aşım × milyon başı fiyat toplamı en düşük plan): plan adı harf harf döner, aylık tutar döner, özellikler bir önceki plana göre \"yeni\" işaretiyle listelenir ve değişim canlı bölgede duyurulur. Döküm maliyeti kalem kalem yazar: koltuk (sayı × birim fiyat = tutar), kullanım (\"Dahil\" ya da \"2,5 Mn aşım × ₺70,00 / Mn = tutar\") ve \"Tahmini toplam, vergi öncesi\". Hiçbir plana sığmayan seçimde özel teklif yönlendirmesi, ayrıca yükleniyor, deneme başlatma hatası ve dar kap durumları vardır.",
+      "categories": [
+        "finance"
+      ],
       "dependencies": [
         "@snn/abacus-core@github:sinanbocek/SNN-Abacus-Core#semver:^4.3.0",
         "motion"
@@ -2907,6 +3141,9 @@
       "type": "registry:ui",
       "title": "Ürün listeleme sayfası",
       "description": "Blok: bir koleksiyondaki ürünleri kart ızgarası olarak gösterir. Başlıkta ürün sayısı ve dönen adetli sepet simgesi; yanda süzgeç paneli (çift başlı fiyat aralığı, renk örnekleri, beden düğmeleri, \"Yalnız stokta\" anahtarı, \"Süzgeçleri temizle\"), üstte sıralama menüsü (Öne çıkanlar, En yeniler, Fiyat: artan / azalan). Süzülen ya da sıralanan kartlar yay hareketiyle yer değiştirir. Karta gelince ikinci fotoğraf soluk geçişle gelir ve \"Hızlı ekle\" hapı yükselir; çok bedenli üründe beden satırı açılır, seçince \"Eklendi\" olur ve eklemeyi kibar canlı bölge duyurur. Tükenen üründe düğme kapalıdır. Dar kapta (640 px altı) süzgeçler \"Süzgeçler (n)\" düğmesiyle soldan açılan sayfaya geçer. Sonuç yok (\"Bu süzgeçlere uyan ürün yok.\"), yükleniyor ve dokunmatik durumları vardır.",
+      "categories": [
+        "commerce"
+      ],
       "dependencies": [
         "@snn/abacus-core@github:sinanbocek/SNN-Abacus-Core#semver:^4.3.0",
         "motion"
@@ -2952,6 +3189,9 @@
       "type": "registry:ui",
       "title": "Ürün sayfası",
       "description": "Blok: tek bir ürünün sayfası. Yol izi, sürüklenebilir fotoğraf galerisi (\"1 / 4\" sayacı, küçük resim şeridi, sol/sağ ok), ürün adı, dönen fiyat, yıldız ortalaması, kaplama örnekleri (radyo grubu) ve her boyun adı ile fiyatı. Kaplama değişince fotoğraflar yerinde soluk geçişle o kaplamanınkilerle değişir; seçili boy o kaplamada tükenmişse seçim kalkar. Adet düzenleyici ve \"Sepete ekle · ₺2.400,00\" düğmesi (tutar adetle çarpılır; Ekleniyor → Sepete eklendi, başarısızsa Tekrar dene). Tükenen kaplama ve boy seçilebilir kalır ama düğme \"Gelince haber ver\" olur. Teslimat vaatleri, yorum özeti (ortalama ve 5'ten 1'e dolan yıldız çubukları) ve açılır ayrıntı bölümleri (ilki açık), favori kalbi. Yükleniyor ve dar kap (alt alta, dört küçük resim) durumları vardır.",
+      "categories": [
+        "commerce"
+      ],
       "dependencies": [
         "@snn/abacus-core@github:sinanbocek/SNN-Abacus-Core#semver:^4.3.0",
         "motion"
@@ -2994,6 +3234,9 @@
       "type": "registry:ui",
       "title": "Sepet çekmecesi",
       "description": "Blok: ürün ızgarası ve yandan açılan sepet çekmecesi. \"Sepete ekle\" denince ürün fotoğrafı yay çizerek sepet düğmesine uçar, rozet sayısı uçuş bitince artar. Sepet düğmesi çekmeceyi açar (odak kapat düğmesine gider, arka plan kapalı, Escape kapatır ve odağı geri verir). Çekmecede satırlar (küçük fotoğraf, ad, birim fiyat, satır tutarı, adet düzenleyici; adet 1 iken eksi \"Kaldır\" olur), sola kaydırarak silme (her kaydırmanın düğme karşılığı var), ücretsiz kargo çubuğu (\"Ücretsiz kargo için ₺… kaldı\" / \"Ücretsiz kargo kazandınız\"), kupon alanı (geçerliyse çipe döner, geçersizse alan uyarır), ara toplam, kargo, kupon indirimi, dönen genel toplam ve \"Siparişi tamamla\" düğmesi bulunur. Sipariş sürerken çekmece kilitlenir, sonra düğme onay yuvarlağına ve çizilen tike dönüşür, örnek makbuz gösterilir; başarısızsa \"Tekrar dene\" yazar. Boş sepet ve dar kap durumları vardır; ekleme, silme, kupon ve sipariş sonucu kibar canlı bölgede duyurulur.",
+      "categories": [
+        "commerce"
+      ],
       "dependencies": [
         "@snn/abacus-core@github:sinanbocek/SNN-Abacus-Core#semver:^4.3.0",
         "motion"
@@ -3037,6 +3280,9 @@
       "type": "registry:ui",
       "title": "Sipariş özeti",
       "description": "Blok: tek ürünlü bir siparişin ödemeden önceki son özeti. Küçük görsel kutulu ürün satırı (ad tek satır, fiyat ve dönem notu), kupon alanı (kod yazılıp Enter ya da \"Uygula\"; geçerliyse alan çipe döner ve indirim satırı yükseklikle açılır, geçersizse alan yatay sallanır ve \"Bu kupon geçerli değil.\" çıkar; çipin kaldır düğmesi kodu geri alır ve odağı alana verir), otomatik indirim satırları (eksi tutar), vergi satırı (oran verilirse hesaplanır, verilmezse \"ödemede hesaplanır\"), dönen genel toplam ve \"₺… öde\" düğmesi. Düğme boşta → İşleniyor (dönen halka) → Ödendi arasında yükselerek ve bulanıkla değişir, hata olursa \"Tekrar dene\" ve satır içi hata yazar; ödeme kapalıysa düğme görünür ama basılamaz. Altında kilit simgeli \"Şifreli ödeme\" notu ve isteğe bağlı küçük yazı vardır. Kart en çok 440 px, daha dar kapta doldurur.",
+      "categories": [
+        "commerce"
+      ],
       "dependencies": [
         "@snn/abacus-core@github:sinanbocek/SNN-Abacus-Core#semver:^4.3.0",
         "motion"
@@ -3078,6 +3324,9 @@
       "type": "registry:ui",
       "title": "Hesap kartı",
       "description": "Blok: küçük bir hesap görünümü. Üstte hesap değiştirici (Ana hesap / Yedek hesap) ve bakiyeyi gizle/göster düğmesi; büyük dönen bakiye, \"bu ay\" değişimi, dönem seçici (1 hafta, 1 ay, 1 yıl) ve bakiye geçmişi grafiği (fareyle gezince nokta okunur; dokunmatik ve klavyede grafik üzerindeki aralık girdisiyle oklar noktaları dolaşır). Eylem düğmeleri (Gönder, Yatır, Çevir, Al) birinin altında kendi panelini açar: ayraçlı tutar kutusu (virgül ondalık), doğrulama iletisi (\"Tutar bakiyenizi aşıyor.\", \"Tutarı girin.\") ve tutarı taşıyan onay düğmesi (\"₺1.250,00 gönder\"). Onaylanınca bakiye yeni değere sayarak gider, yeni hareket satırı yerinde açılır, odak eylem düğmesine döner. Son hareketler üç satırdır; arama alanı bellekte süzer, \"Tümünü gör\" hepsini açar. Gizliyken ekran okuyucu \"Bakiye gizli\" der. Boş geçmiş, sonuç yok, yükleniyor ve dar kap durumları vardır.",
+      "categories": [
+        "commerce"
+      ],
       "dependencies": [
         "@snn/abacus-core@github:sinanbocek/SNN-Abacus-Core#semver:^4.3.0",
         "motion"
@@ -3123,6 +3372,9 @@
       "type": "registry:ui",
       "title": "Ödeme akışı şeması",
       "description": "Blok: kartlı bir ödemenin nasıl işlediğini hareketli bir şema olarak anlatır. Ödeme noktasından işlemciye, kart ağına ve karta veren bankaya giden tutar bir çip olarak yolda ilerler; her durak o an yaptığı işi yazar (\"Risk denetleniyor\", \"Bankaya yönlendirildi\", \"Onaylandı\"). Onay çipi geri döner; ikinci bir hatta takas oldu, işlemcinin komisyonu düşer (brüt tutardan net tutara geçer) ve net tutar satıcı bakiyesine ödenir, bakiye döngüden döngüye artar. Altta adım satırı vardır: yetkilendirme süresi sayar, takas aşaması dolar, takas zamanı yazılır. İlerleyen yol vurgu renginde yanar, onayla birlikte başarı rengine döner. Fareyi duraklara getirince açıklama çıkar ve hikâye yavaşlar; hız ve duraklatma yayla yumuşar. Ekran dışında ve sekme gizliyken durur. Geniş kapta yatay, 700 px altında dikey çizilir. Şema tek bir görsel olarak sesli anlatılır; \"Hareketi azalt\" açıkken komisyon düşüldükten hemen sonrasının tek durağan karesi gösterilir. Bu bir anlatım çizimidir: giriş alanı yoktur, gerçek ödeme almaz.",
+      "categories": [
+        "commerce"
+      ],
       "dependencies": [
         "@snn/abacus-core@github:sinanbocek/SNN-Abacus-Core#semver:^4.3.0",
         "motion"
@@ -3163,6 +3415,9 @@
       "type": "registry:ui",
       "title": "Karşılama ve e-posta kaydı",
       "description": "Blok: sayfanın ilk ekranını dolduran, tek e-posta alanı olan karşılama bölümü. Arka planda vurgu renginden türetilmiş yavaş akan bir renk geçişi, başlıkta kelime kelime yükselen yazı, ardından alt cümle, alan ve sosyal kanıt gelir. Alan yazılırken hata göstermez (boşluk atılır, harfler küçülür); alandan çıkınca ya da gönderince belirli iletiler çıkar (\"Adreste @ işareti eksik.\", \"Alan adı tamamlanmamış\"). Bilinen bir yazım hatası (\"gmial.com\") için \"Şunu mu demek istediniz: …?\" önerisi tek tıkla uygulanır. Enter ya da \"Listeye katıl\": düğme yerinde dönen halkaya geçer (boyutu değişmez, ikinci basış yok sayılır); başarıda form onaya dönüşür, \"Listede 1.285. sıradasınız\" yazar (sıra rakam rakam döner), odak onaya gider, \"E-postayı değiştir\" forma ve alana döner. Hata alt notta \"Yerinizi kaydedemedik. Tekrar dene\" der ve alan hafif sallanır. Altta en çok beş portre ve dönen \"1.285 kişi listede\" sayısı bulunur. Çok dar kapta düğme etiketi \"Katıl\" olur. Gönderiliyor, başarı ve hata kibar durum bölgesinde duyurulur.",
+      "categories": [
+        "commerce"
+      ],
       "dependencies": [
         "@snn/abacus-core@github:sinanbocek/SNN-Abacus-Core#semver:^4.3.0",
         "motion"
@@ -3205,6 +3460,9 @@
       "type": "registry:ui",
       "title": "Kaydırmalı ürün anlatısı",
       "description": "Blok: bir ürünü dört adım gibi kısa bir akışta anlatan tanıtım bölümü. Kendi içinde kayan, odaklanabilir ve etiketli bir metin alanında adım metinleri akar; yanda (dar kapta üstte) sabit duran ürün sahnesi kaydırdıkça adımdan adıma değişir. Üstteki adım sekmeleri (\"Adım 2/4 · …\") ilerleme gösterir: sekme, kaydırma o adıma yaklaştıkça dolar. Sekmeye basınca ya da sol/sağ (Home/End) ok tuşuna basınca ilgili adımın metnine kayar. Etkin adım işaretlenir; sahne durumu (\"Gelen kutusunda yeni mesaj var\") kibar canlı bölgede duyurulur. Son adımın altında isteğe bağlı \"Bağlantıyı kopyala\" ve \"Kanala gönder\" düğmeleri bulunur; sonuç (\"Bağlantı kopyalandı\", \"Gönderildi\") duyurulur. Sahneyi `renderStage` ile siz çizersiniz (adım konumu yayla yumuşayan bir hareket değeridir), kaydırma konumu doğrudan ilerleme değerini sürer. Dar kapta (700 px altı) sahne metnin üstünde sabit kalır.",
+      "categories": [
+        "commerce"
+      ],
       "dependencies": [
         "@snn/abacus-core@github:sinanbocek/SNN-Abacus-Core#semver:^4.3.0",
         "motion"
@@ -3245,6 +3503,9 @@
       "type": "registry:ui",
       "title": "Özellik ızgarası",
       "description": "Blok: dört kadar özelliği kart ızgarasında gösteren tanıtım bölümü. Bölüm başlığı ve alt cümlesi altında kartlar durur; her kart canlı bir önizleme, başlık ve açıklama taşır, başlık tüm kartı kaplayan bir düğmedir. Fareyi kartlar üstünde gezdirince kenarlarda yumuşak bir ışık imleci yaylarla izler (yalnız fare) ve kartın önizlemesi oynar (ızgara ilk göründüğünde de bir kez oynar). Karta basınca (ya da Enter / Boşluk) kart yerinde büyüyerek çalışan bir ayrıntı görünümüne dönüşür: odak \"Kapat\" düğmesine gider, arkadaki ızgara etkileşime kapanır, Escape kapatır ve odağı açan karta geri verir. Kap boyutuna göre 1 / 2 / 3 sütun (geniş kart iki sütun kaplar). Ayrıntı içindeki seçici, anahtar ve onay düğmesini siz çizersiniz; sonuçlar kibar canlı bölgede duyurulur.",
+      "categories": [
+        "commerce"
+      ],
       "dependencies": [
         "@snn/abacus-core@github:sinanbocek/SNN-Abacus-Core#semver:^4.3.0",
         "motion"
@@ -3285,6 +3546,9 @@
       "type": "registry:ui",
       "title": "Ürün fotoğraf galerisi",
       "description": "Blok: ürün sayfası için fotoğraf galerisi. Büyük fotoğraf üstünde fareyle büyüteç merceği (yaylarla imleci izler, \"Büyüteç\" düğmesiyle kapanır), dokunmatikte parmağı bire bir izleyen kaydırma, nokta göstergesi ve büyüt simgesi; küçük resim şeridi (seçili halka kayarak değişir). Fotoğrafa basınca ya da Enter'a basınca tam ekran görüntüleyici fotoğrafın kendi yerinden büyür: sol/sağ ok, +/-/0, çift tıklama, iki parmak ve Ctrl+tekerlek yakınlaştırır, aşağı çekmek ya da Escape kapatır (Escape önce uzaklaştırır), odak ana fotoğrafa döner, \"2 / 12\" sayacı duyurulur. Renk seçici (örnekler ve seçili renk adı) değişince tüm fotoğraflar bulanıktan netleşerek yeni rengin fotoğraflarına geçer; seçili beden o renkte tükenmişse seçim kalkar ve dışarı bildirilir. Beden düğmelerinde tükenenler çizgili, seçilemez ve metinle belirtilir (\"Orman için M tükendi\"); oklar tükenenleri atlar. Beden seçilmediyse \"Beden seçin\" ipucu çıkar. Üst ve alt alan uygulamaya aittir. Dar kapta (680 px altı) üst üste dizilir.",
+      "categories": [
+        "commerce"
+      ],
       "dependencies": [
         "@snn/abacus-core@github:sinanbocek/SNN-Abacus-Core#semver:^4.3.0",
         "motion",
@@ -3326,6 +3590,9 @@
       "type": "registry:ui",
       "title": "Fotoğraf duvarı",
       "description": "Blok: fotoğrafları oranlarını koruyarak sütunlu bir \"duvar\" (masonry) düzeninde gösterir. Sütun sayısı kabın genişliğinden hesaplanır (sütun en az 180 piksel, en az iki sütun); fotoğraflar o ana kadar en kısa sütuna dağıtılır. Bir fotoğrafa basınca (ya da Enter / Boşluk) fotoğraf kendi yerinden büyüyerek tam ekran görüntüleyiciye açılır: arka plan kararır, sol/sağ ok ve yana kaydırma önceki/sonraki fotoğrafa götürür, +/-/0, çift tıklama, iki parmak ya da Ctrl+tekerlek yakınlaştırır, yakın planda sürüklenir, aşağı çekmek (direnç hissiyle) ya da Escape kapatır. Görüntüleyicide başlık ve alt yazı, \"2 / 12\" sayacı, yakınlaştırma düğmesi ve küçük resim şeridi vardır; kapanınca fotoğraf o an gösterilen fotoğrafın yuvasına geri uçar ve odak duvardaki o fotoğrafa döner. Fotoğraf düğmeleri \"Kıyıda sabah aç, 1 / 12 fotoğraf\" diye okunur. Yükleniyor iskeleti ve dar kap durumları vardır.",
+      "categories": [
+        "commerce"
+      ],
       "dependencies": [
         "@snn/abacus-core@github:sinanbocek/SNN-Abacus-Core#semver:^4.3.0",
         "motion",
@@ -3367,6 +3634,9 @@
       "type": "registry:ui",
       "title": "Fotoğraf ızgarası",
       "description": "Blok: bir albümü eş boyutlu kare hücrelerle gösterir. Üst çubukta albüm adı, dönen fotoğraf sayısı, dönen sütun sayısı ve yakınlaştır / uzaklaştır düğmeleri bulunur. İki parmakla sıkıştırınca (ya da Ctrl+tekerlek, düğmeler, `+` / `-`) sütun sayısı yoğun, orta, geniş arasında (beş, üç, iki) değişir: sıkıştırma sırasında ızgara canlı ölçeklenir, bırakınca en yakın seviyeye oturur ve parmakların altındaki fotoğraf ekranda yerinde kalır. Izgarada oklar odağı gezdirir (PageUp / PageDown üç satır, Home / End ilk-son). Bir hücreye basınca (ya da Enter / Boşluk) tam ekran görüntüleyici o hücreden büyür; görüntüleyicide başlık ve ayrıntı satırı, \"2 / 30\" sayacı, favori kalbi, önceki/sonraki, kapat ve alttaki küçük resim şeridi vardır; sol/sağ ok, Home/End, yana kaydırma gezdirir, aşağı çekmek ya da Escape kapatır. Kalbe basınca favori açılır/kapanır (hücrede küçük kalp belirir, adı \", favori\" ile okunur) ve değişim dışarı bildirilir. Yükleniyor iskeleti ve dar kap durumları vardır.",
+      "categories": [
+        "commerce"
+      ],
       "dependencies": [
         "@snn/abacus-core@github:sinanbocek/SNN-Abacus-Core#semver:^4.3.0",
         "motion",
@@ -3410,6 +3680,9 @@
       "type": "registry:ui",
       "title": "Görüş sahnesi",
       "description": "Blok: birkaç kişinin görüşünü, kişinin portresi öne çıkacak biçimde gösterir. Bölüm başlığının altında kişi sekmeleri (küçük baş harf rozeti ve ad; seçili sekmenin altında kayan çizgi), altında seçili kişinin büyük portresi, alıntısı, adı, unvanı ve şirketi durur. Sekmeye basınca ya da sol/sağ ok tuşuna basınca (listenin sonunda başa sarar, Home/End ilk-son, odak yeni sekmeye gider) portre ve alıntı küçük yön kaymasıyla soluk geçişle değişir ve \"Elif Aksoy görüşü gösteriliyor.\" kibar canlı bölgede duyurulur. Kendiliğinden dönmez; seçim `onSelect` ile dışarı bildirilir. Tek kişide sekme listesi gizlenir. Yükleniyor iskeleti ve dar kap (800 / 680 / 350 px) durumları vardır.",
+      "categories": [
+        "commerce"
+      ],
       "dependencies": [
         "@snn/abacus-core@github:sinanbocek/SNN-Abacus-Core#semver:^4.3.0",
         "motion"
@@ -3449,6 +3722,9 @@
       "type": "registry:ui",
       "title": "Ekip tanıtımı",
       "description": "Blok: ekibi portre ağırlıklı tanıtan \"ekiple tanışın\" bölümü. Dört yerleşimden biriyle çalışır: galeri (portre kartları ızgarası, profil altında), film şeridi (yatay yapışmalı portre şeridi), dizin (satır satır liste, satır açılınca profil içinde yükseklik animasyonuyla açılır) ve ön plan (büyük portre bir yanda, ad ve tanım öbür yanda, küçük seçici). Bir kişiye basınca profili yerinde soluk geçişle açılır: ad, unvan, şehir ve ülke, tanım ve kopyalanabilir e-posta ile telefon (her kopyala düğmesi kişinin adıyla etiketli: \"Elif Aksoy e-postasını kopyala\"; basınca kısa süre \"Kopyalandı\" ya da \"Kopyalanamadı\" yazar). Başlıkta \"1 / 5 · Elif Aksoy\" sayacı bulunur; profil değişimi kibar canlı bölgede duyurulur. İletişim bilgisi olmayan kişide satır gizlenir. Telefon isteğe bağlı olarak ekranda maskelenir. Dar kapta (440 px altı) galeri yatay kaydırıcıya, ön plan alt alta döner.",
+      "categories": [
+        "commerce"
+      ],
       "dependencies": [
         "@snn/abacus-core@github:sinanbocek/SNN-Abacus-Core#semver:^4.3.0",
         "motion"
@@ -3489,6 +3765,9 @@
       "type": "registry:ui",
       "title": "Ses oynatıcı",
       "description": "Blok: küçük bir ses koleksiyonu (podcast, örnek paketi, çalma listesi) için tam oynatıcı. Kapak, parça adı ve ikinci satır (parça değişince kapak soluk geçer, başlık yükselerek gelir); ilerleme çubuğu (yerel aralık girdisi, değer metni \"0:12 / 0:24\"); önceki, oynat/duraklat (simge kısa ölçek ve bulanıkla değişir) ve sonraki düğmeleri; ses kaydırıcısı (değer metni \"%70\") ve sessize al / sesi aç düğmesi. Çalma listesinde parça satırları (ad, süre) bulunur; çalan satırın yanında kayan işaret ve çalarken oynayan çubuklar vardır, satıra basınca o parça çalar. Parça bitince bir sonrakine geçer, listenin sonunda durur. Ses dosyası açılamazsa satır içi hata ve \"Tekrar dene\" çıkar. Tek parçada önceki/sonraki kapalıdır ve liste gizlenir. Parça değişimi kibar canlı bölgede duyurulur; dar kapta (420 px altı) kapak yatay oranlı olur.",
+      "categories": [
+        "commerce"
+      ],
       "dependencies": [
         "@snn/abacus-core@github:sinanbocek/SNN-Abacus-Core#semver:^4.3.0",
         "motion"
@@ -3529,6 +3808,9 @@
       "type": "registry:ui",
       "title": "Kart destesi",
       "description": "Blok: birkaç ödeme ya da üyelik kartını üst üste duran bir deste olarak gösterir. Başlıkta \"Kartlarım\" ve \"1 / 4\" sayacı vardır (kart açıkken sayaç yerine \"Tüm kartlar\" düğmesi). Fareyle destenin üstüne gelince kartlar yukarı doğru açılır, öndeki kart imleci hafifçe izler ve üstünde bir parlama gezer. Aşağı/yukarı sürüklemek ya da oklar (aşağı/sağ ileri, yukarı/sol geri, Home/End ilk-son) bir sonraki/önceki kartı öne getirir; uçlarda esner. Kart yüzü kurumu, ürün adını, numaranın yalnız son dört hanesini (\"•••• •••• •••• 0417\"), kart sahibini, son kullanmayı ve kurgusal bir ağ adını gösterir; malzeme görünümü kart başına seçilir (metal, siyah, cam, düz renk). Karta basınca (Enter / Boşluk) kart öne çıkar, diğerleri çekilir; altında dönen bakiye (\"₺48.250,75\") ve üç son hareket sırayla belirir (çıkan tutar eksi). Açık kartı aşağı çekmek, Escape ya da \"Tüm kartlar\" desteye geri döndürür ve odağı karta verir; kart açıkken oklar açık kartı değiştirir. Hareket yoksa \"Henüz hareket yok\" yazar. Yalnız öndeki kart sekme sırasındadır; her kart \"Örnek Banka, Metal Kart, son dört hane 0 4 1 7, 1/4, bakiye ₺48.250,75\" diye okunur. Deste genişliği kaplar, kartın yazıları karta göre ölçeklenir.",
+      "categories": [
+        "commerce"
+      ],
       "dependencies": [
         "@snn/abacus-core@github:sinanbocek/SNN-Abacus-Core#semver:^4.3.0",
         "motion"
@@ -3570,6 +3852,9 @@
       "type": "registry:ui",
       "title": "Derinlikli görsel rayı",
       "description": "Blok: kısa bir görsel koleksiyonunu (albüm, yer, derleme) tek tek gezdirir. Öndeki kart öne çıkar; diğerleri iki yanda küçülür, kararır, merkeze doğru döner ve geri çekilir (uzaktakiler gizlenir); her görsel çerçevesinin içinde hafifçe kayar, altta hafif bir yansıma vardır. Fareyle ya da parmakla sürüklenir ve fırlatılır: ray bırakma hızının götürdüğü karta yayla oturur, hızlı bir fırlatma en az bir kart ilerletir, uçlarda esner; yatay izleme yüzeyi kaydırması rayı doğrudan oynatır, sonra bir karta oturur. Yandaki karta basınca o kart öne gelir; ray odaktayken sol/sağ ok bir kart, Home/End ilk-son gider. Altta küçük konum çentikleri (\"… göster\") ve seçili kartın açıklaması (üst bilgi, başlık, alt başlık ve uygulamanın kendi içeriği: sayılar, düğme) bulunur; ön kart değişince açıklama hareket yönünden yükselerek yenilenir. Ray \"döner şerit\" olarak etiketlidir, her kart \"2 / 8: başlık\" adlı bir slayttır, öndekinden uzak kartlar ekran okuyucuya kapalıdır ve öndeki kart kibar canlı bölgede duyurulur. Tek ya da iki kartta sade görünür (çentikler gizlenir).",
+      "categories": [
+        "commerce"
+      ],
       "dependencies": [
         "@snn/abacus-core@github:sinanbocek/SNN-Abacus-Core#semver:^4.3.0",
         "motion"
@@ -3609,6 +3894,9 @@
       "type": "registry:ui",
       "title": "Dönüşen yükleniyor işareti",
       "description": "Satır içine sığan küçük yükleniyor işareti. İş sürerken dört biçimden biriyle döner (noktalar, çubuklar, halka, kare); iş bitince aynı yerde onay işaretine, başarısız olursa çarpıya dönüşür (çizgi çizilerek). Sonuç işareti yeşil ya da kırmızıdır ve onay ile çarpı farklı şekildir. Kök durum bölgesidir (\"Yükleniyor\", \"Tamamlandı\", \"Başarısız\"); bir düğmenin içinde süs olarak kullanılırsa ekran okuyucudan gizlenir. \"Hareketi azalt\" açıkken her durum tek durağan şekildir.",
+      "categories": [
+        "feedback"
+      ],
       "dependencies": [
         "motion"
       ],
@@ -3639,6 +3927,9 @@
       "type": "registry:ui",
       "title": "İskeletten içeriğe dönüşüm",
       "description": "Yükleniyor iskeletinin gerçek içeriğe sert geçişle değil, yerinde büyüyerek dönüştüğü bölge. Kabuk (`SkeletonMorph`) ve blok (`MorphBlock`) kullanılır: blok yüklenirken ölçüsü eşleşmiş iskelet (dikdörtgen, daire ya da metin satırları) gösterir; yükleme bitince bloklar belge sırasıyla, küçük gecikmeyle çözülür, iskelet kutusu içeriğin ölçüsüne uzanıp solar ve içerik bulanıklıktan netleşir. Kabuk yüksekliği yumuşakça değişir. Yükleniyora dönüş anında olur. Kabuk aria-busy taşır, \"Yükleniyor\" / \"Yüklendi\" duyurulur. \"Hareketi azalt\" açıkken nabız ve uzama yok, kısa çapraz geçiş var.",
+      "categories": [
+        "feedback"
+      ],
       "dependencies": [
         "motion"
       ],
@@ -3669,6 +3960,9 @@
       "type": "registry:ui",
       "title": "Dönüşen hızlı ekle düğmesi",
       "description": "Köşede duran yuvarlak \"Ekle\" düğmesi: basınca aynı yüzey büyüyerek kısa bir eylem menüsüne, bir eylem seçilince satır içi forma (tek ya da çok satır, isteğe bağlı seçenek grubu) dönüşür; gönderilince düğmeye küçülür, düğme yeşile döner ve onay çizilir. Yukarı/Aşağı, Home/End ve eylem harfleriyle gezilir; Escape yazma yüzünden menüye, menüden kapanışa çıkar; dışarı basmak kapatır. Her eylemin taslağı saklanır; boş gönderim reddedilir; gönderim reddedilirse form açık kalır ve yazılan silinmez. Başarı ve hata kibar canlı bölgede okunur. \"Hareketi azalt\" açıkken boyut anında atlar.",
+      "categories": [
+        "navigation"
+      ],
       "dependencies": [
         "motion"
       ],
@@ -3700,6 +3994,9 @@
       "type": "registry:ui",
       "title": "Dönüşen üst gezinme",
       "description": "Site ya da ürün üst çubuğu: bölümler çubukta sıralanır; panelli bölüm üzerine gelinince (kısa niyet beklemesi, çıkışta kısa gecikme) ya da seçilince çubuğun kendisi bağlantı paneline büyür, komşu bölüme geçerken panel yan yana kayar ve vurgu öğeler arasında akar. Arama düğmesi aynı yüzeyden birleşik kutu (combobox) açar: Türkçe harf farkı gözetmez, boş sorguda \"Önerilenler\", en iyi altı sonuç, \"N sonuç\" duyurusu. Sağ/Sol/Home/End ve Aşağı ile gezilir, Escape odağı geldiği yere döndürür. Kabın genişliği dar olunca (ekranın değil) bölümler tek menüye katlanır; `tight` ile çubuk sıkılaşır. Saydamlığı azalt / yüksek karşıtlıkta bulanık arka plan düz yüzeye düşer.",
+      "categories": [
+        "navigation"
+      ],
       "dependencies": [
         "@snn/abacus-core@github:sinanbocek/SNN-Abacus-Core#semver:^4.3.0",
         "motion"
@@ -3732,6 +4029,9 @@
       "type": "registry:ui",
       "title": "Simgeli kayan sekme çubuğu",
       "description": "Uygulamanın birkaç eş bölümü arasında geçiş yapan simgeli sekme çubuğu. Seçili sekmeyi gösteren yüzey yeni sekmeye tek şekil olarak yer değiştirir; yüzey sürüklenip bırakılırsa en yakın sekme seçilir, hızlı fırlatma en az bir sekme ilerletir, uçlarda direnç vardır. Fareyle başka sekmenin üstüne gelince yüzey o yöne meyleder. Etiket modu üç seçenek: yalnız seçili / hepsi / hiçbiri; eski etiket hemen söner, yenisi yüzey ulaşınca belirir. Rozet sayısı dönen rakamlarla değişir. Kontrollüdür; Sol/Sağ/Home/End ile gezilir. \"Hareketi azalt\" açıkken yüzey yerine atlar.",
+      "categories": [
+        "navigation"
+      ],
       "dependencies": [
         "@snn/abacus-core@github:sinanbocek/SNN-Abacus-Core#semver:^4.3.0",
         "motion"
@@ -3764,6 +4064,9 @@
       "type": "registry:ui",
       "title": "Yay biçimli eylem menüsü",
       "description": "Bir nesne üzerinde üç ile altı hızlı eylem sunan yuvarlak düğme. Basılı tutup eylemlerden birine doğru sürükleyip bırakmak eylemi çalıştırır (hedef açıya göre belirlenir, düğmeye yakın ölü bölge hiçbir şey seçmez); yay dışında bırakmak iptaldir ve etiket hapı \"Bırakınca iptal\" yazar. Tek dokunuş menüyü açık bırakır, ikinci dokunuş kapatır. Tüm eylemlere klavyeyle ulaşılır (oklar, Home/End, Enter/Boşluk, Escape). Etiket hapı hedefin adını, eylem çalışınca onay metnini gösterir; onay canlı bölgede okunur. Tehlikeli eylem kırmızıdır ve adı da tehlikeyi söyler. \"Hareketi azalt\" açıkken yalnız solma vardır.",
+      "categories": [
+        "navigation"
+      ],
       "dependencies": [
         "motion"
       ],
@@ -3794,6 +4097,9 @@
       "type": "registry:ui",
       "title": "Veri akışı şeması",
       "description": "Verinin bir üründe nasıl aktığını anlatan hareketli şema: solda kaynaklar, ortada işleme noktası ve işlenen kayıt sayacı, sağda hedefler. İşlenmemiş kayıt daire, işlenmiş kayıt yuvarlatılmış kare olarak yolda ilerler; çıkış ve varışta düğüm kenarları vurgulanır. Bir hedefe `share` verilirse kayıtların yalnız o kesri o hedefe gider. Fareyle düğümün üstüne gelince yolu vurgulanır, ayrıntı etiketi çıkar, akış yavaşlar; hız ve duraklatma yayla yumuşar. Ekran dışında ve sekme gizliyken durur. Geniş kapta soldan sağa, 700 px altında yukarıdan aşağıya çizilir. Şema tek bir görsel olarak sesli anlatılır; \"Hareketi azalt\" açıkken tek durağan kare gösterilir. Bu bir anlatım çizimidir: giriş alanı yoktur, gerçek veri hacmi göstermez.",
+      "categories": [
+        "charts"
+      ],
       "dependencies": [
         "@snn/abacus-core@github:sinanbocek/SNN-Abacus-Core#semver:^4.3.0",
         "motion"
@@ -3826,6 +4132,9 @@
       "type": "registry:ui",
       "title": "Sıralanabilir veri tablosu",
       "description": "Başlığa basınca sütuna göre sıralanan tablo; satırlar yeni yerine kayar, sıralanan sütun hafifçe boyanır. Sıra Türkçe alfabedir (ç c'den, ı i'den önce). Para sütunu kuruş tam sayısından \"₺1.234,50\" yazılır ve sağa yaslanır; sayı \"1.234,5\", tarih \"16.10.2026\". İsteğe bağlı seçim (onay kutusu, Shift ile aralık, Escape ile temizleme) ve sayfalama (\"11–20 / 48 kayıt\"). Dar ekranda her kayıt bir kart olur: üstte ad ve tutar, altında etiketli satırlar.",
+      "categories": [
+        "finance"
+      ],
       "dependencies": [
         "@snn/abacus-core@github:sinanbocek/SNN-Abacus-Core#semver:^4.3.0",
         "lucide-react",
@@ -3863,6 +4172,9 @@
       "type": "registry:ui",
       "title": "Para tutarı kutusu",
       "description": "Tutar yazılırken binlik ayracı imleç kaymadan eklenir (\"1.234,5\"), eksik kuruşlar soluk bekler, uzun tutar sığacak kadar küçülür. TRY, USD ve EUR arasında birim menüsü; hızlı ekle düğmeleri (\"+₺100\"), ok tuşlarıyla adım, en az / en çok sınırı ve aralık satırı. Değer dışarıya kuruş tam sayısı olarak verilir: ₺12,50 → 1250.",
+      "categories": [
+        "forms"
+      ],
       "dependencies": [
         "@snn/abacus-core@github:sinanbocek/SNN-Abacus-Core#semver:^4.3.0",
         "lucide-react",
@@ -3899,6 +4211,9 @@
       "type": "registry:ui",
       "title": "Sayı alanı",
       "description": "Eksi/artı düğmeli sınırlı sayı kutusu; rakamlar kilometre sayacı gibi döner. Basılı tutunca hızlanarak tekrarlar, sınıra dayanınca değer gerilip geri yaylanır ve \"En çok …\" notu çıkar. Yazarken Türkçe gruplanır (\"1.234,5\"), ondalık basamak sınırı `formatOptions` ile. Yüzde için `prefix=\"%\"`, gün için `suffix=\" gün\"`.",
+      "categories": [
+        "forms"
+      ],
       "dependencies": [
         "@snn/abacus-core@github:sinanbocek/SNN-Abacus-Core#semver:^4.3.0",
         "lucide-react",
@@ -3935,6 +4250,9 @@
       "type": "registry:ui",
       "title": "Takvim",
       "description": "Ay görünümlü takvim; hafta pazartesi başlar, ay ve gün adları Türkçe. Seçim diski günler arasında kayar, aylar şeritte yana kayar. Ok tuşları, PageUp/PageDown (Shift ile yıl), Home/End. İsteğe bağlı \"Bugün\" düğmesi, en erken / en geç tarih ve kapalı günler. Tatil listesi verilirse tatil günü mavi-gri yazılır ve rakamın üstünde kısa bir çizgi çıkar; adı ipucunda ve ekran okuyucuda okunur.",
+      "categories": [
+        "forms"
+      ],
       "dependencies": [
         "@snn/abacus-core@github:sinanbocek/SNN-Abacus-Core#semver:^4.3.0",
         "lucide-react",
@@ -3972,6 +4290,9 @@
       "type": "registry:ui",
       "title": "Tarih seçici",
       "description": "Tıklayınca takvim açılan tarih kutusu; seçilen tarih \"16 Ekim 2026\" biçiminde yazılır, değişen parça (gün, ay, yıl) yerinde döner. Takvimdeki her şey (tatil işareti, sınırlar, Bugün) burada da geçerlidir; alt satırda Temizle ve seçim özeti.",
+      "categories": [
+        "forms"
+      ],
       "dependencies": [
         "@snn/abacus-core@github:sinanbocek/SNN-Abacus-Core#semver:^4.3.0",
         "lucide-react",
@@ -4010,6 +4331,9 @@
       "type": "registry:ui",
       "title": "Dosya bırakma alanı",
       "description": "Dosyaları sürükleyip bırakma ya da cihazdan seçme alanı; panodan yapıştırma da çalışır. Tür (`accept`), boyut (`maxSize`) ve sayı (`maxFiles`) sınırı, görsellere küçük resim, satır başına ilerleme çubuğu (\"Yükleniyor %45\"), \"Yüklendi\" tiki, hata nedeni ve Yeniden dene. Yüklemenin kendisi projededir (`onUpload`). Liste alanın altında ya da içinde; dosya çoğalınca istem ince çubuğa katlanır.",
+      "categories": [
+        "forms"
+      ],
       "dependencies": [
         "@snn/abacus-core@github:sinanbocek/SNN-Abacus-Core#semver:^4.3.0",
         "lucide-react",
@@ -4046,6 +4370,9 @@
       "type": "registry:ui",
       "title": "Adım göstergesi",
       "description": "Bir akışın adımlarını yatay ya da dikey gösterir: tamamlandı (tik), şu an (halka), geri dönüldü (geri ok, mavi-gri), bekliyor (numara) ve hata (uyarı). Bağlantı çizgisi ilerlemeyle dolar. `onStepSelect` verilirse tamamlanan adımlara dönülür. Yatayda dar kapta başlıklar gizlenir, geçerli adımın adı altına yazılır; çok dar kapta işaretler küçülür, 10 adımlık hat 390 px telefona sığar.",
+      "categories": [
+        "feedback"
+      ],
       "dependencies": [
         "motion"
       ],
@@ -4080,6 +4407,9 @@
       "type": "registry:ui",
       "title": "Revizyon karşılaştırması",
       "description": "İki sürüm arasındaki satır farklarını gösterir: eklendi, silindi, değişti, eşlenmedi (ve isteğe bağlı aynı). Üstte özet (\"3 eklendi, 1 silindi\") ve sayılı süzgeç düğmeleri; değişen satırda yalnız değişen alanlar \"eski → yeni\" yazılır. Eşleştirmeyi proje yapar, bileşen gösterir. Dar kapta alanlar tek sütuna iner.",
+      "categories": [
+        "finance"
+      ],
       "dependencies": [
         "@snn/abacus-core@github:sinanbocek/SNN-Abacus-Core#semver:^4.3.0",
         "lucide-react",

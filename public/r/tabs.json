@@ -30,5 +30,8 @@
     "arcCommit": "bfdf7e8",
     "arcSource": "registry/components/tabs"
   },
+  "categories": [
+    "navigation"
+  ],
   "type": "registry:ui"
 }

@@ -35,5 +35,8 @@
     "arcCommit": "bfdf7e8",
     "arcSource": "registry/components/avatar"
   },
+  "categories": [
+    "feedback"
+  ],
   "type": "registry:ui"
 }

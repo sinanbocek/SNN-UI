@@ -28,5 +28,8 @@
     "arcCommit": "bfdf7e8",
     "arcSource": "registry/components/badge"
   },
+  "categories": [
+    "feedback"
+  ],
   "type": "registry:ui"
 }

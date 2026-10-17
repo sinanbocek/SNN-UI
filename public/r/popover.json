@@ -27,5 +27,8 @@
     "arcCommit": "bfdf7e8",
     "arcSource": "registry/components/popover"
   },
+  "categories": [
+    "navigation"
+  ],
   "type": "registry:ui"
 }

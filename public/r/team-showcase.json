@@ -40,5 +40,8 @@
     "arcCommit": "bfdf7e8",
     "arcSource": "registry/components/team-showcase"
   },
+  "categories": [
+    "commerce"
+  ],
   "type": "registry:ui"
 }
