@@ -6,7 +6,7 @@ Kategoriler ve liste `scripts/catalog.mjs`'ten gelir (`categories`): kataloğa e
 
 - **Sepet:** "Sepete ekle" ile seçilen bileşenler ve tema, AI'a yapıştırılacak kurulum metnine çevrilir. Sepet tarayıcıda saklanır; bağlantıyla paylaşılır (`#/sepet?b=...&renk=...`).
 - **Renk laboratuvarı** (`#/renk`): hazır vurgular, renk kodu girişi (#EEEEEE, 238,238,238), 11 basamak, alternatifler, okunabilirlik oranı, amber uyarısı. Hesaplar `src/lib/color.ts` (test: `test/galeri.test.mjs`).
-- **Tipografi** (`#/yazi`): yazı aileleri ve boyut basamakları.
+- **Tipografi** (`#/yazi`): beş yazı tipi takımı (Varsayılan, Kurumsal, Modern, Belge, Yumuşak; `data-font`), yazı aileleri ve boyut basamakları. Takım sepete eklenebilir.
 - `#<bileşen-adı>` tek bileşen sayfasını açar; `npm run shots` bunu kullanır.
 
 ## Çalıştırma

@@ -1,0 +1,11 @@
+/* Yazı tipi takımı "Modern": Plus Jakarta Sans (başlık), Inter (gövde), JetBrains Mono (rakam ve kod), OFL lisanslı.
+   Vitrin, karşılama ve ürün sayfaları için. Kullanım: <html data-font="modern">.
+   snn-foundation.css'ten sonra içe aktarılır; Inter temel değişkenlerle zaten gelir. Türkçe harfler latin-ext alt kümesindedir. */
+@import "@fontsource-variable/plus-jakarta-sans";
+@import "@fontsource-variable/jetbrains-mono";
+
+:root[data-font="modern"] {
+  --font-display: "Plus Jakarta Sans Variable", sans-serif;
+  --font-body: var(--font-inter, "Inter Variable"), sans-serif;
+  --font-mono: "JetBrains Mono Variable", ui-monospace, Consolas, monospace;
+}

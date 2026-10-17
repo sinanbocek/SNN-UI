@@ -1,0 +1,19 @@
+{
+  "$schema": "https://ui.shadcn.com/schema/registry-item.json",
+  "name": "snn-font-modern",
+  "title": "SNN yazı tipi takımı: Modern",
+  "description": "Plus Jakarta Sans (başlık), Inter (gövde), JetBrains Mono (rakam ve kod). Vitrin, karşılama ve ürün sayfaları için. snn-foundation.css'ten sonra bir kez içe aktarılır, <html data-font=\"modern\"> ile seçilir. Seçilmeyen takımın yazı tipi indirilmez. OFL lisanslı; Türkçe harfler tam.",
+  "dependencies": [
+    "@fontsource-variable/plus-jakarta-sans",
+    "@fontsource-variable/jetbrains-mono"
+  ],
+  "files": [
+    {
+      "path": "registry/foundation/fonts/snn-font-modern.css",
+      "content": "/* Yazı tipi takımı \"Modern\": Plus Jakarta Sans (başlık), Inter (gövde), JetBrains Mono (rakam ve kod), OFL lisanslı.\n   Vitrin, karşılama ve ürün sayfaları için. Kullanım: <html data-font=\"modern\">.\n   snn-foundation.css'ten sonra içe aktarılır; Inter temel değişkenlerle zaten gelir. Türkçe harfler latin-ext alt kümesindedir. */\n@import \"@fontsource-variable/plus-jakarta-sans\";\n@import \"@fontsource-variable/jetbrains-mono\";\n\n:root[data-font=\"modern\"] {\n  --font-display: \"Plus Jakarta Sans Variable\", sans-serif;\n  --font-body: var(--font-inter, \"Inter Variable\"), sans-serif;\n  --font-mono: \"JetBrains Mono Variable\", ui-monospace, Consolas, monospace;\n}\n",
+      "type": "registry:component",
+      "target": "@components/snn/snn-font-modern.css"
+    }
+  ],
+  "type": "registry:item"
+}

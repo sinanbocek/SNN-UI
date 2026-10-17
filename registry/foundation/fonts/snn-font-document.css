@@ -1,0 +1,14 @@
+/* Yazı tipi takımı "Belge": Source Serif 4 (başlık), Source Sans 3 (gövde), Source Code Pro (rakam ve kod), OFL lisanslı.
+   Teklif, şartname ve rapor ekranları için; basılı belge görünümü. Kullanım: <html data-font="document">.
+   snn-foundation.css'ten sonra içe aktarılır. Türkçe harfler latin-ext alt kümesindedir. */
+@import "@fontsource-variable/source-serif-4";
+@import "@fontsource-variable/source-sans-3";
+@import "@fontsource-variable/source-code-pro";
+
+:root[data-font="document"] {
+  --font-display: "Source Serif 4 Variable", Georgia, serif;
+  --font-body: "Source Sans 3 Variable", sans-serif;
+  --font-mono: "Source Code Pro Variable", ui-monospace, Consolas, monospace;
+  /* Tırnaklı başlıkta sıkı harf aralığı okunurluğu düşürür. */
+  --tracking-display: -0.01em;
+}

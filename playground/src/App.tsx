@@ -7,7 +7,7 @@ import { SearchField } from "../../registry/components/search-field/search-field
 import SegmentedControl from "../../registry/components/segmented-control/segmented-control";
 import Toast from "../../registry/components/toast/toast";
 import { accentCss, parseColor } from "./lib/color";
-import { parseShare, type CartTheme } from "./lib/cart";
+import { parseShare, type CartFont, type CartTheme } from "./lib/cart";
 import { parseRoute, routeHash } from "./lib/route";
 import { useStored } from "./lib/stored";
 import { loadDemos } from "./lib/demo-loader";
@@ -16,13 +16,15 @@ import { ColorLab } from "./views/color-lab";
 import { TypeScale } from "./views/type-scale";
 import { CategoryView, ComponentView, Home, SearchResults, SharedCart } from "./views/showcase";
 
-import { accentTitles, entries, groups, type Shop } from "./lib/data";
+import { accentTitles, entries, fontTitles, groups, type Shop } from "./lib/data";
 
 const known = new Set(entries.map(entry => entry.name));
 const categoryKeys = new Set(groups.map(group => group.key));
 const isNames = (value: unknown): value is string[] => Array.isArray(value) && value.every(item => typeof item === "string" && known.has(item));
 const isTheme = (value: unknown): value is CartTheme | null => value === null || (typeof value === "object" && value !== null && ((value as CartTheme).kind === "preset" || ((value as CartTheme).kind === "custom" && !!parseColor((value as { hex: string }).hex))));
 const isMode = (value: unknown): value is "light" | "dark" | "system" => value === "light" || value === "dark" || value === "system";
+const isFontKey = (value: unknown): value is string => value === "default" || (typeof value === "string" && value in fontTitles);
+const isCartFont = (value: unknown): value is CartFont | null => value === null || (typeof value === "object" && value !== null && typeof (value as CartFont).key === "string" && (value as CartFont).key in fontTitles);
 const isAccent = (value: unknown): value is string => typeof value === "string" && (value in accentTitles || !!parseColor(value));
 const searchable = entries.map(entry => ({ entry, key: text.searchKey(`${entry.title} ${entry.name} ${entry.description} ${groups.find(group => group.names.includes(entry.name))?.title ?? ""}`) }));
 
@@ -43,6 +45,10 @@ export function App() {
   const [accent, setAccent] = useStored("snn-ui-vurgu", "blue", isAccent);
   const [cart, setCart] = useStored<string[]>("snn-ui-sepet", [], isNames);
   const [cartTheme, setCartTheme] = useStored<CartTheme | null>("snn-ui-sepet-tema", null, isTheme);
+  const [font, setFont] = useStored("snn-ui-yazi", "default", isFontKey);
+  const [cartFont, setCartFont] = useStored<CartFont | null>("snn-ui-sepet-yazi", null, isCartFont);
+  // Yazı tipi takımı data-font ile uygulanır; varsayılan takımda öznitelik kalkar.
+  useEffect(() => { if (font === "default") delete document.documentElement.dataset.font; else document.documentElement.dataset.font = font; }, [font]);
   const [query, setQuery] = useState("");
   const [cartOpen, setCartOpen] = useState(false);
   const [toast, setToast] = useState({ open: false, message: "", key: 0 });
@@ -72,11 +78,11 @@ export function App() {
     cart,
     inCart: name => cart.includes(name),
     toggle: name => setCart(cart.includes(name) ? cart.filter(item => item !== name) : [...cart, name]),
-    accent, setAccent, cartTheme, setCartTheme,
+    accent, setAccent, cartTheme, setCartTheme, font, setFont, cartFont, setCartFont,
     notify: message => setToast(current => ({ open: true, message, key: current.key + 1 })),
-  }), [accent, cart, cartTheme, setAccent, setCart, setCartTheme]);
+  }), [accent, cart, cartFont, cartTheme, font, setAccent, setCart, setCartFont, setCartTheme, setFont]);
 
-  const shared = route.view === "share" ? parseShare(hash, known, accentTitles) : null;
+  const shared = route.view === "share" ? parseShare(hash, known, accentTitles, fontTitles) : null;
   const searchKey = text.searchKey(query.trim());
   const results = searchKey ? searchable.filter(item => searchKey.split(/\s+/).every(word => item.key.includes(word))).map(item => item.entry) : [];
 
@@ -110,12 +116,12 @@ export function App() {
             : route.view === "category" ? <CategoryView group={groups.find(group => group.key === route.key)!} shop={shop} />
             : route.view === "component" ? <ComponentView name={route.name} shop={shop} />
             : route.view === "color" ? <ColorLab shop={shop} />
-            : route.view === "type" ? <TypeScale />
-            : route.view === "share" && shared ? <SharedCart names={shared.names} theme={shared.theme} shop={shop} onDone={() => { go(routeHash.home); setCartOpen(true); }} setCart={setCart} />
+            : route.view === "type" ? <TypeScale shop={shop} />
+            : route.view === "share" && shared ? <SharedCart names={shared.names} theme={shared.theme} font={shared.font} shop={shop} onDone={() => { go(routeHash.home); setCartOpen(true); }} setCart={setCart} />
             : <Home shop={shop} />}
         </main>
       </div>
-      <CartDrawer open={cartOpen} onOpenChange={setCartOpen} shop={shop} clear={() => { setCart([]); setCartTheme(null); }} />
+      <CartDrawer open={cartOpen} onOpenChange={setCartOpen} shop={shop} clear={() => { setCart([]); setCartTheme(null); setCartFont(null); }} />
       <Toast key={toast.key} title={toast.message} open={toast.open} onOpenChange={open => setToast(current => ({ ...current, open }))} duration={2500} />
     </MotionConfig>
   );

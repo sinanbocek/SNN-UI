@@ -1,0 +1,12 @@
+/* Yazı tipi takımı "Kurumsal": IBM Plex Sans (başlık ve gövde) ve IBM Plex Mono (rakam ve kod), OFL lisanslı.
+   Finans, portföy ve tablolu ekranlar için; rakamlar eşit genişlikli ve nettir. Kullanım: <html data-font="plex">.
+   snn-foundation.css'ten sonra içe aktarılır; @import dosyanın en başında kalmalıdır. Türkçe harfler latin-ext alt kümesindedir. */
+@import "@fontsource-variable/ibm-plex-sans";
+@import "@fontsource/ibm-plex-mono/400.css";
+@import "@fontsource/ibm-plex-mono/500.css";
+
+:root[data-font="plex"] {
+  --font-display: "IBM Plex Sans Variable", sans-serif;
+  --font-body: "IBM Plex Sans Variable", sans-serif;
+  --font-mono: "IBM Plex Mono", ui-monospace, Consolas, monospace;
+}

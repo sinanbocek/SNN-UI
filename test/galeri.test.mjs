@@ -105,6 +105,10 @@ test("sepet: komut, AI metni, hazır ve özel tema", () => {
   assert.match(custom, /--accent: #0562EF;/);
   assert.doesNotMatch(custom, /npx shadcn/);
   assert.equal(cart.buildPrompt([], null, "x"), "");
+  const withFont = cart.buildPrompt(items, null, "x", { key: "plex", title: "Kurumsal" });
+  assert.match(withFont, /npx shadcn@latest add @snn-ui\/line-chart @snn-ui\/snn-font-plex/);
+  assert.match(withFont, /<html data-font="plex">/);
+  assert.match(cart.buildPrompt([], null, "x", { key: "soft", title: "Yumuşak" }), /add @snn-ui\/snn-font-soft/);
 });
 
 test("paylaşım bağlantısı: gidiş-dönüş; bilinmeyen ad ve geçersiz renk atılır", () => {
@@ -112,9 +116,13 @@ test("paylaşım bağlantısı: gidiş-dönüş; bilinmeyen ad ve geçersiz renk
   const presets = { blue: "Mavi" };
   const hash = cart.shareHash(["line-chart", "avatar"], { kind: "preset", key: "blue", title: "Mavi" });
   assert.equal(hash, "#/sepet?b=line-chart,avatar&renk=blue");
-  assert.deepEqual(cart.parseShare(hash, known, presets), { names: ["line-chart", "avatar"], theme: { kind: "preset", key: "blue", title: "Mavi" } });
+  assert.deepEqual(cart.parseShare(hash, known, presets), { names: ["line-chart", "avatar"], theme: { kind: "preset", key: "blue", title: "Mavi" }, font: null });
   const custom = cart.parseShare(cart.shareHash(["avatar"], { kind: "custom", hex: "#0562EF" }), known, presets);
-  assert.deepEqual(custom, { names: ["avatar"], theme: { kind: "custom", hex: "#0562EF" } });
-  assert.deepEqual(cart.parseShare("#/sepet?b=yok,avatar,avatar&renk=zzz", known, presets), { names: ["avatar"], theme: null });
+  assert.deepEqual(custom, { names: ["avatar"], theme: { kind: "custom", hex: "#0562EF" }, font: null });
+  assert.deepEqual(cart.parseShare("#/sepet?b=yok,avatar,avatar&renk=zzz", known, presets), { names: ["avatar"], theme: null, font: null });
   assert.equal(cart.parseShare("#/renk", known, presets), null);
+  const fontHash = cart.shareHash(["avatar"], null, { key: "plex", title: "Kurumsal" });
+  assert.equal(fontHash, "#/sepet?b=avatar&yazi=plex");
+  assert.deepEqual(cart.parseShare(fontHash, known, presets, { plex: "Kurumsal" }).font, { key: "plex", title: "Kurumsal" });
+  assert.equal(cart.parseShare("#/sepet?yazi=zzz", known, presets, { plex: "Kurumsal" }).font, null);
 });

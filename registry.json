@@ -7,16 +7,86 @@
       "name": "snn-foundation",
       "type": "registry:item",
       "title": "SNN temel değişkenleri",
-      "description": "Renk, yüzey, boşluk, köşe, gölge, hareket ve odak değişkenleri; açık ve koyu tema; Inter ve Geist yazı tipleri (npm paketi, OFL). Projede bir kez kurulur ve bir kez içe aktarılır. Uyarı rengi amber değil, mavi-gridir.",
+      "description": "Renk, yüzey, boşluk, köşe, gölge, hareket ve odak değişkenleri; açık ve koyu tema; Inter, Geist ve Geist Mono yazı tipleri (npm paketi, OFL). Projede bir kez kurulur ve bir kez içe aktarılır. Uyarı rengi amber değil, mavi-gridir.",
       "dependencies": [
         "@fontsource-variable/inter",
-        "@fontsource-variable/geist"
+        "@fontsource-variable/geist",
+        "@fontsource-variable/geist-mono"
       ],
       "files": [
         {
           "path": "registry/foundation/snn-foundation.css",
           "type": "registry:component",
           "target": "@components/snn/snn-foundation.css"
+        }
+      ]
+    },
+    {
+      "name": "snn-font-plex",
+      "type": "registry:item",
+      "title": "SNN yazı tipi takımı: Kurumsal",
+      "description": "IBM Plex Sans (başlık ve gövde) ve IBM Plex Mono (rakam ve kod). Finans, portföy ve tablolu ekranlar için; rakamlar eşit genişlikli ve net. snn-foundation.css'ten sonra bir kez içe aktarılır, <html data-font=\"plex\"> ile seçilir. Seçilmeyen takımın yazı tipi indirilmez. OFL lisanslı; Türkçe harfler tam.",
+      "dependencies": [
+        "@fontsource-variable/ibm-plex-sans",
+        "@fontsource/ibm-plex-mono"
+      ],
+      "files": [
+        {
+          "path": "registry/foundation/fonts/snn-font-plex.css",
+          "type": "registry:component",
+          "target": "@components/snn/snn-font-plex.css"
+        }
+      ]
+    },
+    {
+      "name": "snn-font-modern",
+      "type": "registry:item",
+      "title": "SNN yazı tipi takımı: Modern",
+      "description": "Plus Jakarta Sans (başlık), Inter (gövde), JetBrains Mono (rakam ve kod). Vitrin, karşılama ve ürün sayfaları için. snn-foundation.css'ten sonra bir kez içe aktarılır, <html data-font=\"modern\"> ile seçilir. Seçilmeyen takımın yazı tipi indirilmez. OFL lisanslı; Türkçe harfler tam.",
+      "dependencies": [
+        "@fontsource-variable/plus-jakarta-sans",
+        "@fontsource-variable/jetbrains-mono"
+      ],
+      "files": [
+        {
+          "path": "registry/foundation/fonts/snn-font-modern.css",
+          "type": "registry:component",
+          "target": "@components/snn/snn-font-modern.css"
+        }
+      ]
+    },
+    {
+      "name": "snn-font-document",
+      "type": "registry:item",
+      "title": "SNN yazı tipi takımı: Belge",
+      "description": "Source Serif 4 (başlık), Source Sans 3 (gövde), Source Code Pro (rakam ve kod). Teklif, şartname ve rapor ekranları için; basılı belge görünümü. snn-foundation.css'ten sonra bir kez içe aktarılır, <html data-font=\"document\"> ile seçilir. Seçilmeyen takımın yazı tipi indirilmez. OFL lisanslı; Türkçe harfler tam.",
+      "dependencies": [
+        "@fontsource-variable/source-serif-4@5.3.0",
+        "@fontsource-variable/source-sans-3@5.3.0",
+        "@fontsource-variable/source-code-pro@5.3.0"
+      ],
+      "files": [
+        {
+          "path": "registry/foundation/fonts/snn-font-document.css",
+          "type": "registry:component",
+          "target": "@components/snn/snn-font-document.css"
+        }
+      ]
+    },
+    {
+      "name": "snn-font-soft",
+      "type": "registry:item",
+      "title": "SNN yazı tipi takımı: Yumuşak",
+      "description": "Manrope (başlık), DM Sans (gövde), Geist Mono (rakam ve kod). Kişisel uygulamalar, oyun ve topluluk ekranları için; yuvarlak ve dostane. snn-foundation.css'ten sonra bir kez içe aktarılır, <html data-font=\"soft\"> ile seçilir. Seçilmeyen takımın yazı tipi indirilmez. OFL lisanslı; Türkçe harfler tam.",
+      "dependencies": [
+        "@fontsource-variable/manrope",
+        "@fontsource-variable/dm-sans"
+      ],
+      "files": [
+        {
+          "path": "registry/foundation/fonts/snn-font-soft.css",
+          "type": "registry:component",
+          "target": "@components/snn/snn-font-soft.css"
         }
       ]
     },
