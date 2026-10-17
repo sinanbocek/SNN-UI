@@ -1,0 +1,17 @@
+/* İki giriş bloğunun ortak form gövdesi. Renk, boşluk ve hareket yalnız foundation değişkenlerinden. */
+.form { position: relative; display: grid; grid-template-columns: minmax(0, 1fr); gap: var(--space-4); min-width: 0; }
+.alertSlot { overflow: hidden; }
+.alert { margin: 0; padding: var(--space-3) var(--space-4); border: 1px solid color-mix(in oklch, var(--danger) 35%, transparent); border-radius: var(--radius-control); background: color-mix(in oklch, var(--danger) 9%, var(--surface)); color: var(--danger); font-size: var(--text-sm); }
+.passwordWrap { display: grid; gap: var(--space-1); }
+.fieldError { margin: 0; color: var(--danger); font-size: var(--text-sm); }
+.options { display: flex; align-items: center; justify-content: flex-end; gap: var(--space-3); flex-wrap: wrap; }
+.options[data-remember] { justify-content: space-between; }
+.link { min-height: 1.5rem; padding: 0; border: 0; background: none; color: var(--accent-strong); font: inherit; font-size: var(--text-sm); text-decoration: underline; cursor: pointer; }
+.link:hover { color: var(--foreground); }
+.link:focus-visible { outline: var(--focus-outline-width, 2px) solid var(--focus-outline, var(--accent)); outline-offset: 2px; border-radius: 2px; }
+.link:disabled { color: var(--text-muted); cursor: default; }
+.submit, .provider { width: 100%; }
+.providers { display: grid; gap: var(--space-3); }
+.divider { display: flex; align-items: center; gap: var(--space-3); color: var(--text-muted); font-size: var(--text-sm); }
+.divider::before, .divider::after { content: ""; flex: 1; height: 1px; background: var(--border); }
+.srOnly { position: absolute; width: 1px; height: 1px; margin: -1px; padding: 0; overflow: hidden; clip: rect(0 0 0 0); white-space: nowrap; border: 0; }

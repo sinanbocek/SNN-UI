@@ -39,6 +39,7 @@ import { dalga4Demos } from "./demos-dalga4";
 import { inputDemos } from "./demos-inputs";
 import { dataDemos } from "./demos-data";
 import { arc5Demos } from "./demos-arc5";
+import { arc6Demos } from "./demos-arc6";
 
 const Col = ({ title, children }: { title: string; children: ReactNode }) => (
   <div className="col"><span className="etiket">{title}</span>{children}</div>
@@ -463,4 +464,5 @@ export const demos: Record<string, () => ReactNode> = {
   ...grafikDemos,
   ...dataDemos,
   ...arc5Demos,
+  ...arc6Demos,
 };

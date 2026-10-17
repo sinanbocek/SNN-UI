@@ -172,6 +172,26 @@ Gereken paketler: React 19, `motion`; bazı bileşenlerde Radix ve `lucide-react
 | `reactions` | Tepki çubuğu | Yorum, gönderi ve sürüm notları için tepki çubuğu: hap her tepkiyi ve sayısını gösterir, dokununca eklenir ya da kalkar; ekleme düğmesi küçük bir seçici açar. Bin üstü sayılar Türkçe kısaltılır ("1,2B"). Sayılar ABACUS ile (`snn-chart-format`: `formatCompact`, `formatNumber`); Arc `String(value)` yazıyordu. Metinler Türkçe. | `npx shadcn@latest add @snn-ui/reactions` |
 | `theme-switch` | Tema düğmesi | Açık ve koyu tema arasında geçiş düğmesi: simge döner; reveal, eclipse, split ve rise adlı dört sayfa geçişi çeşidini bildirir. Temayı sayfaya uygulamak uygulamanın işidir. Yasak çağrı yoktu; etiketler Türkçe ("Koyu temaya geç", "Açık temaya geç"). | `npx shadcn@latest add @snn-ui/theme-switch` |
 | `user-menu` | Kullanıcı menüsü | Üst çubukta kişinin fotoğrafının arkasındaki hesap menüsü: kimlik başlığı, hesap bağlantıları, satır içi durum ve tema seçimi, çıkış. 640 px altında alttan açılan sayfa olur; klavyeyle gezilir, harf yazarak satıra atlanır (Türkçe harfe duyarsız). B sınıfı uyarlandı: baş harf `avatarInitials`, yazarak atlama ABACUS `text.searchKey` ("i" → "İzinler"); eşleştirme `user-menu-format.ts` içinde, testli. | `npx shadcn@latest add @snn-ui/user-menu` |
+| `accordion` | Akordeon | Başlığa basınca içeriği yay hareketiyle açan, aynı anda tek panel açık tutan liste (sık sorulan sorular gibi). Yasak çağrı yoktu; yorumlar Türkçe. | `npx shadcn@latest add @snn-ui/accordion` |
+| `avatar-group` | Kişi simgesi grubu | Üst üste binen kişi simgelerinden ekip yığını; sığmayanlar "ve N kişi daha" sayacına toplanır, kişi gelip gidince yığın kayar, üzerine gelince ad görünür. Varsayılan etiket "Ekip üyeleri"; `label.toLowerCase()` kurgusu kalktı. | `npx shadcn@latest add @snn-ui/avatar-group` |
+| `billing-toggle` | Faturalama anahtarı | Aylık/yıllık dönem anahtarı: tek başparmak kayar, indirim notu seçilince renklenir. Yanında yeni tutara dönen fiyat (BillingPrice) ve yıllık indirim hesabı gelir. B sınıfı uyarlandı: `toFixed` ve `$` öneki kalktı; tutar ABACUS `money.formatMajor` (TRY), para birimi ISO kodu (`currency="TRY"`). Fiyat hesabı `billing-format.ts` içinde, testli. | `npx shadcn@latest add @snn-ui/billing-toggle` |
+| `color-picker` | Renk seçici | Renk kutusu tam bir seçiciye dönüşür: doygunluk/parlaklık alanı, ton ve saydamlık sürgüleri, hex/RGB/HSL/OKLCH yazımı, damlalık, kayıtlı renkler ve arka plana göre WCAG karşıtlık göstergesi ("4,56:1"). B sınıfı uyarlandı: hex büyütme ve okuma ABACUS `text.upper` / `text.lower`, karşıtlık oranı Türkçe ondalıkla; renk matematiği `color-picker-format.ts` içinde, testli ("#eee" ve "238, 238, 238" okunur). React 19.2 `useEffectEvent` yerine yerel kanca. | `npx shadcn@latest add @snn-ui/color-picker` |
+| `empty-states` | Boş durumlar | Dört boş durumu (sonuç yok, bağlantı yok, hepsi tamam, sayfa bulunamadı) tek çizimde gösteren sekmeli blok; şekiller yayla biçim değiştirir, her ana düğme yerel bir şey yapar. Tek boş durum için `empty-state`. Yasak çağrı yoktu; metinler ve çizim etiketleri Türkçe. | `npx shadcn@latest add @snn-ui/empty-states` |
+| `file-upload` | Dosya yükleme | Sürükle-bırak ve gözat ile dosya ekleyen, tür ve boyut sınırını denetleyen, satır başına yaylı ilerleme çubuğu, yeniden deneme ve kaldırma sunan yükleme alanı. Daha sade alan için `file-dropzone`. B sınıfı uyarlandı: boyut ABACUS `unit.dataSize` ("1,5 MB"), uzantı karşılaştırması `text.lower` ("TEKLİF.PDF" ".pdf" kuralına uyar), yüzde "%45". Mantık `file-upload-format.ts` içinde, testli. | `npx shadcn@latest add @snn-ui/file-upload` |
+| `hero-section` | Açılış bölümü | Tam ekran açılış sayfası girişi, üç tasarımda: perspektifli canlı gelir panosu, olay akışını düğüm düğüm çalıştıran iş akışı grafiği ve ağ geçişli sade zemin. Kendi içeriğin için HeroContent da gelir. B sınıfı uyarlandı: para ABACUS `money.formatMajor` / `compactMajor` (TRY), tarih `date.format`. Örnek fotoğraf dosyası ve gerçek marka logoları kalktı; kişi fotoğrafı prop (`userAvatarSrc`). Amber tonlu ağ renkleri mavi-gri yapıldı. | `npx shadcn@latest add @snn-ui/hero-section` |
+| `login-centered` | Ortalanmış giriş ekranı | Çizgili arka planlı tam ekran giriş ve kayıt: geçiş anahtarı, e-posta kodu, tek oturum açma. Yalnız görünümdür; kimlik doğrulamayı uygulama bağlar. B sınıfı uyarlandı: `toFixed` yerine ABACUS `math.round`; e-posta küçültme `text.toAsciiLower` (Türkçe kural I harfini ı yapıp adresi bozardı). | `npx shadcn@latest add @snn-ui/login-centered` |
+| `login-immersive` | Tam ekran görselli giriş | Blok: bütün kabı kaplayan fotoğraf üstünde buzlu cam kartta giriş formu; üstte marka ve "Yardım", altta künye ve yasal bağlantılar. Fare fotoğrafı hafifçe kaydırır; saydamlığı azalt açıkken kart düz yüzeye döner. Yalnız görünümdür. Ortak form gövdesi ve doğrulama `login-split` ile gelir. Fotoğraf `media={{ src, alt, position, credit }}` prop'u; `cardAlign` kartın yeri. E-posta denetimi ABACUS `validate.email`. | `npx shadcn@latest add @snn-ui/login-immersive` |
+| `login-split` | İki bölmeli giriş ekranı | Blok: bir yanda giriş formu (e-posta, parola, beni hatırla, parolamı unuttum, sağlayıcı düğmesi, kayıt ol), öbür yanda fotoğraf ve alıntı. Alan hataları alandan çıkınca ve gönderimde; reddedilen girişte hata kutusu. 768 px altında görsel ince şeride iner. Yalnız görünümdür. `onSubmit({ email, password, remember })` söz döndürür; reddedilirse "E-posta ya da parola hatalı." yazılır. E-posta denetimi ABACUS `validate.email`, süzme `text.toAsciiLower`; mantık `login-form-format.ts` içinde, testli. | `npx shadcn@latest add @snn-ui/login-split` |
+| `notification-center` | Bildirim merkezi | Çan düğmesinden açılan; Tümü ve Okunmamış görünümleri, tek tek ve toplu okundu işareti, ayrıntı açma ve kaldırma sunan bildirim paneli. Metinler Türkçe; İngilizce çoğul kurgusu kalktı. Kişi fotoğrafı isteğe bağlı; yoksa baş harf. Göreli zamanı ("1 sa önce") uygulama ABACUS ile üretip verir. | `npx shadcn@latest add @snn-ui/notification-center` |
+| `otp-input` | Doğrulama kodu girişi | Tek kullanımlık kod için haneli giriş; yapıştırma, ok tuşlarıyla gezinme ve hatada sarsıntı. Hane etiketi Türkçe ("{etiket}, 6 haneden 2. hane"); yasak çağrı yoktu. | `npx shadcn@latest add @snn-ui/otp-input` |
+| `plan-comparison` | Plan karşılaştırması | İki planın yalnız değişen ayrıntılarını gösteren karşılaştırma bloğu: aylık/yıllık anahtarı, "yalnızca farkları göster" süzgeci, TRY fiyatlar ve plan seçimi. B sınıfı uyarlandı: `$`/USD kalktı; fiyatlar TRY, indirim ve tutar ABACUS ile (`plan-comparison-format.ts`, testli). İndirim notu hesaptan gelir ("en çok %20 indirim"). | `npx shadcn@latest add @snn-ui/plan-comparison` |
+| `radio-cards` | Seçim kartları | Etiketle anlatılamayan seçimler (plan, kargo hızı, bölge) için kartlı radyo grubu; seçim halkası kartlar arasında yayla kayar, klavyeyle gezilir, forma gizli girdi yazar. Yasak çağrı yoktu; yorumlar Türkçe. | `npx shadcn@latest add @snn-ui/radio-cards` |
+| `sign-in` | Giriş kartı | E-posta kodu, geçiş anahtarı ve tek oturum açmayla adım adım giriş kartı; kartın yüksekliği adıma göre akar, tanınan hesapta kişi simgesi görünür. Yalnız görünümdür. B sınıfı uyarlandı: adresten ad tahmini ABACUS `text.lower` + `text.title` (Türkçe baş harf), e-posta küçültme `text.toAsciiLower`; mantık `sign-in-format.ts` içinde, testli. Örnek fotoğraf dosyası kalktı; kişiler `people` prop'u. | `npx shadcn@latest add @snn-ui/sign-in` |
+| `signature-pad` | İmza panosu | Mürekkepli imza alanı: kalem basıncına ya da hıza göre kalınlık, geri al/yinele, temizleme, imzayı özgün ritminde yeniden oynatma, kırpılmış PNG ve SVG dışa aktarma. B sınıfı uyarlandı: kısayol tuşu `text.lower`, dışa aktarma etiketi `text.upper`; metinler Türkçe ("Buraya imzalayın", "PNG indir"). | `npx shadcn@latest add @snn-ui/signature-pad` |
+| `signup-form` | Kayıt formu | Ad, e-posta ve parola; parola gücü çubuğu, tek oturum açma ve başarı adımı. Yalnız görünümdür. Metinler Türkçe; sözleşme bağlantıları `termsHref` / `privacyHref` (varsayılan "#"). | `npx shadcn@latest add @snn-ui/signup-form` |
+| `site-footer` | Site alt bilgisi | Üç yerleşimli site alt bilgisi: bülten kaydı ve bağlantı sütunları, tek sakin satır ve alt kenardan kırpılıp solan büyük marka işareti. Metinler Türkçe; Arc markası ve `--arc-gradient` değişkenleri kalktı (vurgu `--accent`). Bülten kaydı yalnız görünümdür. | `npx shadcn@latest add @snn-ui/site-footer` |
+| `text-morph` | Dönüşen metin | Kısa bir etiketi yerinde bir sonrakine dönüştürür: ortak harfler süzülür, yeniler netleşerek gelir, kalkanlar bulanıp kaybolur, genişlik yayla izler. "Yayınla → Yayınlanıyor → Yayınlandı" gibi durum sözcükleri için. Yasak çağrı yoktu; yorumlar Türkçe. `color-picker` bunu kullanır. | `npx shadcn@latest add @snn-ui/text-morph` |
+| `toast-stack` | Bildirim yığını | Yeni bildirimleri alttan yükselten, eskileri arkaya istifleyen, üzerine gelince liste gibi açan; yerinde güncelleme, geri alma eylemi ve sağa kaydırarak kapatma sunan bildirim yığını. Tekli bildirim için `toast`. Metinler Türkçe ("Başarılı", "Bilgi", "Uyarı", "Hata", "Sürüyor", "Bildirimi kapat"). Uyarı tonu mavi-gri. | `npx shadcn@latest add @snn-ui/toast-stack` |
 
 ## Kullanım örnekleri
 
@@ -1189,6 +1209,166 @@ import { ThemeSwitch } from "@/components/snn/theme-switch/theme-switch";
 import { UserMenu } from "@/components/snn/user-menu/user-menu";
 
 <UserMenu user={{ name: "İsmail Yılmaz", email: "ismail@ornek.com.tr" }} items={[{ label: "Hesap ayarları" }]} onSignOut={signOut} />
+```
+
+### Akordeon (`accordion`)
+
+```tsx
+import { Accordion } from "@/components/snn/accordion/accordion";
+
+<Accordion items={[{ title: "Faturayı nasıl indiririm?", content: "Ayarlar > Faturalar" }]} />
+```
+
+### Kişi simgesi grubu (`avatar-group`)
+
+```tsx
+import { AvatarGroup } from "@/components/snn/avatar-group/avatar-group";
+
+<AvatarGroup members={[{ name: "Elif Kaya", status: "online" }, { name: "Mehmet Çelik" }]} max={4} />
+```
+
+### Faturalama anahtarı (`billing-toggle`)
+
+```tsx
+import { BillingToggle, BillingPrice } from "@/components/snn/billing-toggle/billing-toggle";
+
+<BillingToggle value={period} onValueChange={setPeriod} /> <BillingPrice amount={319} was={399} period="ayda" />
+```
+
+### Renk seçici (`color-picker`)
+
+```tsx
+import { ColorPicker } from "@/components/snn/color-picker/color-picker";
+
+<ColorPicker label="Vurgu rengi" value={color} onValueChange={setColor} />
+```
+
+### Boş durumlar (`empty-states`)
+
+```tsx
+import { EmptyStates } from "@/components/snn/empty-states/empty-states";
+
+<EmptyStates />
+```
+
+### Dosya yükleme (`file-upload`)
+
+```tsx
+import { FileUpload } from "@/components/snn/file-upload/file-upload";
+
+<FileUpload accept=".pdf,.xlsx,image/*" maxSize={5 * 1024 * 1024} onUpload={upload} />
+```
+
+### Açılış bölümü (`hero-section`)
+
+```tsx
+import { HeroSection, HeroContent } from "@/components/snn/hero-section/hero-section";
+
+<HeroSection variant="centered" />
+```
+
+### Ortalanmış giriş ekranı (`login-centered`)
+
+```tsx
+import { LoginCentered } from "@/components/snn/login-centered/login-centered";
+
+<LoginCentered fullScreen termsHref="/kosullar" privacyHref="/gizlilik" />
+```
+
+### Tam ekran görselli giriş (`login-immersive`)
+
+```tsx
+import { LoginImmersive } from "@/components/snn/login-immersive/login-immersive";
+
+<LoginImmersive brand={{ name: "SNN Panel" }} media={{ src: "/foto/dag.jpg", credit: "Unsplash" }} onSubmit={signIn} />
+```
+
+### İki bölmeli giriş ekranı (`login-split`)
+
+```tsx
+import { LoginSplit, LoginForm, LoginValues, LoginProvider } from "@/components/snn/login-split/login-split";
+
+<LoginSplit brand={{ name: "SNN Panel" }} media={{ src: "/foto/ofis.jpg" }} quote={{ text: "…", name: "Elif Yıldız", role: "Operasyon Müdürü" }} onSubmit={signIn} />
+```
+
+### Bildirim merkezi (`notification-center`)
+
+```tsx
+import { NotificationCenter } from "@/components/snn/notification-center/notification-center";
+
+<NotificationCenter notifications={[{ id: "n1", title: "Ödeme alındı", time: "1 sa önce" }]} />
+```
+
+### Doğrulama kodu girişi (`otp-input`)
+
+```tsx
+import { OtpInput } from "@/components/snn/otp-input/otp-input";
+
+<OtpInput label="6 haneli doğrulama kodu" value={code} onChange={setCode} />
+```
+
+### Plan karşılaştırması (`plan-comparison`)
+
+```tsx
+import { PlanComparison } from "@/components/snn/plan-comparison/plan-comparison";
+
+<PlanComparison />
+```
+
+### Seçim kartları (`radio-cards`)
+
+```tsx
+import { RadioCards } from "@/components/snn/radio-cards/radio-cards";
+
+<RadioCards aria-label="Teslimat" options={options} value={value} onValueChange={setValue} />
+```
+
+### Giriş kartı (`sign-in`)
+
+```tsx
+import { SignIn } from "@/components/snn/sign-in/sign-in";
+
+<SignIn people={[{ name: "Elif Demir", email: "elif@ornek.com.tr" }]} onSignIn={(account, method) => {}} />
+```
+
+### İmza panosu (`signature-pad`)
+
+```tsx
+import { SignaturePad } from "@/components/snn/signature-pad/signature-pad";
+
+<SignaturePad signer="Ayşe Yılmaz" onChange={setStrokes} />
+```
+
+### Kayıt formu (`signup-form`)
+
+```tsx
+import { SignupForm } from "@/components/snn/signup-form/signup-form";
+
+<SignupForm onSubmit={async details => {}} />
+```
+
+### Site alt bilgisi (`site-footer`)
+
+```tsx
+import { SiteFooter } from "@/components/snn/site-footer/site-footer";
+
+<SiteFooter variant="columns" brand={{ name: "Örnek A.Ş." }} />
+```
+
+### Dönüşen metin (`text-morph`)
+
+```tsx
+import { TextMorph } from "@/components/snn/text-morph/text-morph";
+
+<TextMorph>{status}</TextMorph>
+```
+
+### Bildirim yığını (`toast-stack`)
+
+```tsx
+import { default as ToastStack, ToastStackProvider, useToastStack } from "@/components/snn/toast-stack/toast-stack";
+
+<ToastStackProvider><ToastStack /></ToastStackProvider>
 ```
 
 ## Bu rafta olmayanlar
