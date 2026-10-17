@@ -336,3 +336,15 @@ Sahibin istediği 19 parça ve onların bağımlılığı `text-morph`. 18'i Arc
 | `toast-stack` | `registry/components/toast-stack` | Tür etiketleri "Başarılı / Bilgi / Uyarı / Hata / Sürüyor", "Bildirimi kapat". Tekli `toast` bileşeninden ayrıdır. |
 
 Uyarlama yedi ayrı çalışma kopyasında paralel yapıldı (Sonnet, orta). Koordinatör her parçada yasak çağrı, `@/` yolu, satır sayısı ve amber taramasını kendisi yaptı; e-posta küçültmeyi ajanın elle yazdığı ASCII satırından ABACUS `text.toAsciiLower`'a çevirdi; site altlığındaki yinelenen "Yasal" sütununu "Destek" yaptı.
+
+## Parola, tema, menü ve kart düzeltmeleri (2026-10-17)
+
+Sahibin galeride bildirdikleri.
+
+| Parça | Değişiklik |
+|---|---|
+| `password-field` | Yeni `error` özelliği: kenar kırmızı (`aria-invalid`), metin açıklamanın altında yayla açılır ve duyurulur (`role="alert"`). Arc sürümünde hata desteği yoktu; CSS'teki `aria-invalid` kuralı bağlanmamıştı. Galeri örneği kısa parolayı ve eşleşmeyen doğrulamayı alandan çıkınca uyarır. |
+| `password-strength` | Yeni isteğe bağlı `generator` özelliği (varsayılan kapalı; kurulu projelerin görünümü değişmez): uzunluk sürgüsü (8–64), karakter türleri (küçük, büyük, rakam, simge; en az biri seçili kalır), yeniden üret, kopyala. Üretilen parola alana yazılır ve görünür olur. Üretim saf `generatePassword` (Web Crypto, reddetme örneklemesi, seçilen her türden en az bir karakter, Fisher-Yates karıştırma; yalnız ASCII) ve testli. Arayüz `password-generator.tsx`. Avast'ın üreticisinden yalnız işlev fikri alındı; kod ve görünüm SNN-UI'nin. |
+| `card` | Hızlı bakışın açılışı kapanışın tersi oldu: panel kartın kutusunda başlar, iki kare sonra ortaya büyür. Önce açılışta panel kartın yerinde bir an bekleyip ortaya sıçrıyor, kapanışta ise kayarak dönüyordu; kapanış da kartın kutusuna 100 px kala kesiliyordu. Ölçüm: açılış 462 → 361 px yumuşak, kapanış tam kart kutusunda (732 px) biter. |
+| Galeri `theme-switch` örneği | Dört çeşit adlandırıldı (Daire açılımı, Daireye çekilme, Ortadan açılma, Alttan yükselme) ve küçük bir önizleme sayfasında geçiş gerçekten oynatılır. Önce dört aynı görünen düğme vardı. |
+| Galeri `dropdown-menu` örneği | Düğme sütunda tam genişliğe geriliyordu, menü bu yüzden en sağda açılıyordu; düğme artık kendi genişliğinde. |

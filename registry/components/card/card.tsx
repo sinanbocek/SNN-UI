@@ -87,6 +87,10 @@ export function Card({ title, description, media, action, avatar, meta, status, 
   const open = details ? openProp ?? uncontrolled : false;
   const morph = Boolean(details) && !reduced;
   const returning = !open && landing !== null;
+  /** Açılışın ilk karesi: panel kartın kutusunda başlar, sonraki karede ortadaki yerine büyür. Kapanışın tam tersidir. */
+  const opening = open && landing !== null;
+  /** Panel kartın kutusunda duruyor (açılışın ilk karesi ya da kapanış inişi): kart görünümü, ayrıntılar gizli. */
+  const landed = returning || opening;
   const hasDescription = Boolean(description);
   const setOpen = useCallback((next: boolean) => { if (openProp === undefined) setUncontrolled(next); onOpenChange?.(next); }, [openProp, onOpenChange]);
 
@@ -108,9 +112,19 @@ export function Card({ title, description, media, action, avatar, meta, status, 
   const wasOpen = useRef(open);
   useLayoutEffect(() => {
     const closed = wasOpen.current && !open;
+    const wasOpenBefore = wasOpen.current;
     wasOpen.current = open;
     const node = cardRef.current;
-    if (open) setLanding(null); // eslint-disable-line react-hooks/set-state-in-effect -- dönüş sırasında yeniden açmak inişi iptal eder
+    const opened = !closed && open && wasOpenBefore === false;
+    if (opened && morph && node) {
+      // Açılış: panel önce kartın kutusuna konur, iki kare sonra serbest bırakılır; yerleşim yayı onu karttan ortaya büyütür.
+      const box = node.getBoundingClientRect();
+      setLanding({ top: box.top, left: box.left, width: box.width, height: box.height }); // eslint-disable-line react-hooks/set-state-in-effect -- açılışın başlangıç kutusu ölçümden gelir
+      let second = 0;
+      const first = requestAnimationFrame(() => { second = requestAnimationFrame(() => setLanding(null)); });
+      return () => { cancelAnimationFrame(first); cancelAnimationFrame(second); };
+    }
+    if (open) setLanding(null);
     else if (closed && morph && node) {
       const box = node.getBoundingClientRect();
       setLanding({ top: box.top, left: box.left, width: box.width, height: box.height });
@@ -125,7 +139,7 @@ export function Card({ title, description, media, action, avatar, meta, status, 
 
   /** Aynı parçalar hem kartta hem hızlı bakışta bulunur; ortak kimlik her birinin ikisi arasında yol almasını sağlar.
       Çapraz geçiş kapalı: gelen parça tam opaklıkla devralır, diğeri gizlenir; iki yarı saydam kopya yerine tek katı yüzey hareket eder. */
-  const shared = (id: string, side: Side, layout: true | "position" = true): MotionProps => morph ? { layoutId: id, layout, layoutCrossfade: false, layoutDependency: side === "card" ? open : returning ? "return" : "panel", transition: { layout: side === "card" ? settle : grow } } : {};
+  const shared = (id: string, side: Side, layout: true | "position" = true): MotionProps => morph ? { layoutId: id, layout, layoutCrossfade: false, layoutDependency: side === "card" ? open : returning ? "return" : opening ? "opening" : "panel", transition: { layout: side === "card" ? settle : grow } } : {};
 
   const footer = (side: Side) => avatar || meta || status || action ? <div className={styles.footer}>
     {avatar || meta || status ? <motion.div className={styles.byline} {...shared("byline", side, "position")}>
@@ -169,25 +183,25 @@ export function Card({ title, description, media, action, avatar, meta, status, 
             <motion.div
               className={styles.panel}
               data-framer-portal-id={group}
-              data-returning={returning || undefined}
+              data-returning={landed || undefined}
               layoutScroll
-              style={{ borderRadius: geometry.panel, "--card-measure": geometry.measure ? `${geometry.measure}px` : undefined, ...(landing && returning ? { "--landing-top": `${landing.top}px`, "--landing-left": `${landing.left}px`, "--landing-width": `${landing.width}px`, "--landing-height": `${landing.height}px` } : {}) } as CSSProperties}
+              style={{ borderRadius: geometry.panel, "--card-measure": geometry.measure ? `${geometry.measure}px` : undefined, ...(landing && landed ? { "--landing-top": `${landing.top}px`, "--landing-left": `${landing.left}px`, "--landing-width": `${landing.width}px`, "--landing-height": `${landing.height}px` } : {}) } as CSSProperties}
               {...(morph ? {
                 ...shared("card", "panel"),
                 initial: false,
-                animate: geometry.card !== undefined && geometry.panel !== undefined ? { borderRadius: returning ? geometry.card : geometry.panel } : undefined,
+                animate: geometry.card !== undefined && geometry.panel !== undefined ? { borderRadius: landed ? geometry.card : geometry.panel } : undefined,
                 transition: { layout: returning ? settle : grow, borderRadius: returning ? settle : grow },
                 exit: { opacity: 0, transition: { duration: 0 } },
               } : { initial: { opacity: 0 }, animate: { opacity: 1 }, exit: { opacity: 0, transition: fade }, transition: fade })}
             >
               {media ? <motion.div className={styles.media} {...shared("media", "panel")}><motion.div className={styles.zoom} initial={{ scale: hovered && !reduced ? ZOOM : 1 }} animate={{ scale: 1 }} transition={grow}>{media}</motion.div></motion.div> : null}
-              <motion.span className={styles.closeSlot} initial={reduced ? { opacity: 0 } : { opacity: 0, scale: .9 }} animate={returning ? { opacity: 0, scale: .9 } : { opacity: 1, scale: 1 }} transition={returning ? fade : reduced ? fade : closeIn}><Dialog.Close asChild><motion.button type="button" className={styles.close} aria-label="Hızlı bakışı kapat" whileTap={reduced ? undefined : { scale: .94 }} transition={spring.snappy}><X width={16} height={16} strokeWidth={1.75} aria-hidden="true" /></motion.button></Dialog.Close></motion.span>
+              <motion.span className={styles.closeSlot} initial={reduced ? { opacity: 0 } : { opacity: 0, scale: .9 }} animate={landed ? { opacity: 0, scale: .9 } : { opacity: 1, scale: 1 }} transition={returning ? fade : reduced ? fade : closeIn}><Dialog.Close asChild><motion.button type="button" className={styles.close} aria-label="Hızlı bakışı kapat" whileTap={reduced ? undefined : { scale: .94 }} transition={spring.snappy}><X width={16} height={16} strokeWidth={1.75} aria-hidden="true" /></motion.button></Dialog.Close></motion.span>
               <div className={styles.content}>
                 <Dialog.Title asChild><motion.h2 className={styles.title} {...shared("title", "panel")}>{title}</motion.h2></Dialog.Title>
                 {description ? <Dialog.Description asChild><motion.p className={styles.description} {...shared("description", "panel", "position")}>{description}</motion.p></Dialog.Description> : null}
                 {children}
                 {footer("panel")}
-                <motion.div className={styles.details} initial={reduced ? false : { opacity: 0, y: 6 }} animate={returning ? { opacity: 0, y: 0 } : { opacity: 1, y: 0 }} exit={{ opacity: 0, transition: fade }} transition={returning || reduced ? fade : reveal}>{details}</motion.div>
+                <motion.div className={styles.details} initial={reduced ? false : { opacity: 0, y: 6 }} animate={landed ? { opacity: 0, y: 0 } : { opacity: 1, y: 0 }} exit={{ opacity: 0, transition: fade }} transition={returning || reduced ? fade : reveal}>{details}</motion.div>
               </div>
             </motion.div>
           </Dialog.Content>

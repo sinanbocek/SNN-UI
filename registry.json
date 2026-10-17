@@ -4995,6 +4995,11 @@
       ],
       "files": [
         {
+          "path": "registry/components/password-strength/password-generator.tsx",
+          "type": "registry:component",
+          "target": "@components/snn/password-strength/password-generator.tsx"
+        },
+        {
           "path": "registry/components/password-strength/password-strength-format.ts",
           "type": "registry:component",
           "target": "@components/snn/password-strength/password-strength-format.ts"

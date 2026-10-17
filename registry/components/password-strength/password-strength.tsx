@@ -7,6 +7,7 @@ import type { AnimationPlaybackControls, Transition, Variants } from "motion/rea
 import { motionTokens } from "../lib/motion-tokens";
 import { countCodePoints, createPasswordRules, defaultPasswordRules, defaultPasswordStrengthLevels, estimateStrength } from "./password-strength-format";
 import type { EstimateStrengthOptions, PasswordRule, PasswordRuleLabels, PasswordRuleOptions, PasswordStrengthLevels, PasswordStrengthResult } from "./password-strength-format";
+import { PasswordGenerator, defaultPasswordGeneratorMessages, type PasswordGeneratorMessages } from "./password-generator";
 import styles from "./password-strength.module.css";
 
 // Puanlama mantığı saf dosyada durur; tüketiciler her şeyi buradan almaya devam eder.
@@ -72,6 +73,8 @@ export interface PasswordStrengthProps extends Omit<InputHTMLAttributes<HTMLInpu
   shortLength?: number;
   /** shortLength için karakterlerin nasıl sayıldığı. Varsayılan kod noktalarıdır, yani emoji bir sayılır; bir sunucu gibi UTF-16 birimi saymak için `password => password.length` verin. */
   countCharacters?: (password: string) => number;
+  /** Alanın altında parola üretici: uzunluk, karakter türleri, yeniden üret ve kopyala. Üretilen parola alana yazılır ve görünür olur. Varsayılan kapalı. */
+  generator?: boolean | { minLength?: number; maxLength?: number; defaultLength?: number; messages?: Partial<PasswordGeneratorMessages> };
 }
 
 const enter = [...motionTokens.ease.enter] as [number, number, number, number];
@@ -152,7 +155,7 @@ function ErrorRow({ id, text, reduced }: { id: string; text: string; reduced: bo
   </motion.span>;
 }
 
-export const PasswordStrength = forwardRef<HTMLInputElement, PasswordStrengthProps>(function PasswordStrength({ label, value: valueProp, defaultValue = "", onValueChange, onChange, rules = defaultPasswordRules, error, revealed: revealedProp, onRevealedChange, messages: messagesProp, shortLength, countCharacters, id, className, ...props }, ref) {
+export const PasswordStrength = forwardRef<HTMLInputElement, PasswordStrengthProps>(function PasswordStrength({ label, value: valueProp, defaultValue = "", onValueChange, onChange, rules = defaultPasswordRules, error, revealed: revealedProp, onRevealedChange, messages: messagesProp, shortLength, countCharacters, generator, id, className, ...props }, ref) {
   const messages: PasswordStrengthMessages = { ...defaultPasswordStrengthMessages, ...messagesProp, levels: { ...defaultPasswordStrengthMessages.levels, ...messagesProp?.levels } };
   const options: EstimateStrengthOptions = { shortLength, levels: messages.levels, countCharacters };
   const generated = useId();
@@ -191,6 +194,15 @@ export const PasswordStrength = forwardRef<HTMLInputElement, PasswordStrengthPro
     shaking.current?.stop();
     shaking.current = animate(shake, 0, { type: "spring", velocity: -240, stiffness: 900, damping: 15, restDelta: .1 });
   }, [error, reduced, shake]);
+
+  // Üretilen parola alana yazılır ve görünür olur; kullanıcı neyi kaydedeceğini görür.
+  function applyGenerated(next: string) {
+    if (valueProp === undefined) setInternal(next);
+    onValueChange?.(next, estimateStrength(next, rules, options));
+    if (revealedProp === undefined) setRevealedInternal(true);
+    if (!revealed) onRevealedChange?.(true);
+  }
+  const generatorOptions = typeof generator === "object" ? generator : {};
 
   function toggleReveal() {
     if (revealedProp === undefined) setRevealedInternal(!revealed);
@@ -240,6 +252,7 @@ export const PasswordStrength = forwardRef<HTMLInputElement, PasswordStrengthPro
         </li>;
       })}
     </ul>
+    {generator ? <PasswordGenerator onGenerate={applyGenerated} value={value} reduced={reduced} minLength={generatorOptions.minLength} maxLength={generatorOptions.maxLength} defaultLength={generatorOptions.defaultLength} messages={{ ...defaultPasswordGeneratorMessages, ...generatorOptions.messages, sets: { ...defaultPasswordGeneratorMessages.sets, ...generatorOptions.messages?.sets } }} /> : null}
     <span className={styles.srOnly} role="status">{summary}</span>
   </div>;
 });
