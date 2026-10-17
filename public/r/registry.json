@@ -275,6 +275,24 @@
       ]
     },
     {
+      "name": "snn-stage-icon",
+      "type": "registry:item",
+      "title": "SNN aşama simgesi",
+      "description": "İş panolarının sütun başlığındaki aşama simgesi: planlandı (kesikli daire), sürüyor (yarım dolu), kontrolde (dörtte üç dolu), bitti (onaylı dolu daire). Tür aşama kimliğinden, adından ya da sırasından çıkarılır. project-board ve kanban-board kurulurken kendiliğinden gelir.",
+      "files": [
+        {
+          "path": "registry/components/lib/stage-kind.ts",
+          "type": "registry:lib",
+          "target": "@components/snn/lib/stage-kind.ts"
+        },
+        {
+          "path": "registry/components/lib/stage-icon.tsx",
+          "type": "registry:lib",
+          "target": "@components/snn/lib/stage-icon.tsx"
+        }
+      ]
+    },
+    {
       "name": "snn-copy-feedback",
       "type": "registry:item",
       "title": "SNN kopyalama geri bildirimi",
@@ -1740,7 +1758,8 @@
         "@snn-ui/progress",
         "@snn-ui/segmented-control",
         "@snn-ui/skeleton",
-        "@snn-ui/tooltip"
+        "@snn-ui/tooltip",
+        "@snn-ui/snn-stage-icon"
       ],
       "files": [
         {
@@ -1784,7 +1803,8 @@
         "@snn-ui/segmented-control",
         "@snn-ui/select",
         "@snn-ui/skeleton",
-        "@snn-ui/snn-pointer-drag"
+        "@snn-ui/snn-pointer-drag",
+        "@snn-ui/snn-stage-icon"
       ],
       "files": [
         {

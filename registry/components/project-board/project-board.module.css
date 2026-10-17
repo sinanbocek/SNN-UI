@@ -13,7 +13,7 @@
 .board { display: grid; grid-auto-flow: column; grid-auto-columns: minmax(15rem, 1fr); gap: var(--space-3); overflow-x: auto; padding-bottom: var(--space-2); scroll-snap-type: x proximity; }
 .column { display: grid; align-content: start; gap: var(--space-3); min-width: 0; border: 1px solid var(--border); border-radius: var(--radius-surface); padding: var(--space-3); background: var(--surface-muted); scroll-snap-align: start; }
 .columnHead { display: flex; align-items: center; justify-content: space-between; padding-inline: var(--space-2); }
-.columnTitle { margin: 0; font-size: var(--text-sm); font-weight: 600; }
+.columnTitle { display: flex; align-items: center; gap: var(--space-2); margin: 0; font-size: var(--text-sm); font-weight: 600; }
 .count { color: var(--text-muted); font-size: var(--text-sm); font-variant-numeric: tabular-nums; }
 .list { display: grid; gap: var(--space-2); margin: 0; padding: 0; list-style: none; }
 .skeletons { display: grid; gap: var(--space-3); }
