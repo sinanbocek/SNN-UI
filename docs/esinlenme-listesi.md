@@ -105,3 +105,10 @@ Kural: `SNN-Standartlar/standartlar/arayuz-standardi.md` §2.1. Fikir serbest, k
 | data-flow | https://uiarc.dev/components/data-flow | 4 | yazıldı |
 | multi-region-failover | https://uiarc.dev/components/multi-region-failover | 4 | sahip seçmedi |
 
+
+## Dalga 6 — giriş ekranı çeşitleri (temiz oda)
+
+| Ad | Bağlantı | Dalga | Durum |
+|---|---|---|---|
+| login-split | https://uiarc.dev/components/blocks/login?variant=login-split | 6 | tarif |
+| login-immersive | https://uiarc.dev/components/blocks/login?variant=login-immersive | 6 | tarif |
