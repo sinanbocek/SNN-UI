@@ -12,7 +12,8 @@
     "build": "node scripts/make-registry.mjs && shadcn build",
     "test": "node --test test/*.test.mjs",
     "sabotage": "node scripts/sabotage-amber.mjs",
-    "shots": "node scripts/shots.mjs"
+    "shots": "node scripts/shots.mjs",
+    "typecheck": "npm run typecheck --prefix playground"
   },
   "devDependencies": {
     "@fontsource-variable/geist": "^5.3.0",

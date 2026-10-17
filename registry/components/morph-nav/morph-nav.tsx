@@ -113,7 +113,7 @@ export function MorphNav({
   // Odak nav dışına çıkınca ya da dışarı basılınca kapanır.
   useEffect(() => {
     if (mode.kind === "none") return;
-    const outside = (event: PointerEvent) => { if (!root.current?.contains(event.target as Node)) close(false); };
+    const outside = (event: globalThis.PointerEvent) => { if (!root.current?.contains(event.target as Node)) close(false); };
     document.addEventListener("pointerdown", outside);
     return () => document.removeEventListener("pointerdown", outside);
   }, [mode.kind, close]);

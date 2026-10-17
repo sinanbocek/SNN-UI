@@ -1,0 +1,16 @@
+/* Gösterge kartıyla aynı kutu: kenar, köşe, iç boşluk ve başlık aralığı aynı değişkenlerden. */
+.card { --tone: var(--text-secondary); min-width: 0; border: 1px solid var(--border); border-radius: var(--radius-surface); padding: var(--space-6); background: var(--surface); box-shadow: var(--shadow-resting); }
+.card[data-tone="success"] { --tone: var(--success); }
+.card[data-tone="warning"] { --tone: var(--warning); }
+.card[data-tone="danger"] { --tone: var(--danger); }
+.top { display: flex; align-items: center; justify-content: space-between; gap: var(--space-3); margin-bottom: var(--space-8); }
+.label { min-width: 0; color: var(--text-secondary); font-size: var(--text-sm); }
+/* Ton etiketi: soluk ton zemin, tonlu yazı ve simge. Renk tek başına anlam taşımaz; yazı da söyler. */
+.pill { display: inline-flex; flex: 0 0 auto; align-items: center; gap: 5px; border-radius: var(--radius-pill); padding: 3px 9px 3px 7px; background: color-mix(in oklab, var(--tone) 11%, transparent); color: var(--tone); font-size: var(--text-sm); transition: color var(--duration-fast) var(--ease-standard), background-color var(--duration-fast) var(--ease-standard); }
+/* Değer satırı sayaçla aynı yükseklikte durur; uzun durum cümlesi alt satıra iner. */
+.value { position: relative; min-height: calc(var(--text-3xl) * 1); display: flex; align-items: center; color: var(--foreground); font-family: var(--font-display); font-size: var(--text-2xl); font-weight: 500; letter-spacing: var(--tracking-display); line-height: 1.15; }
+.valueText { display: inline-flex; align-items: center; gap: var(--space-2); }
+.mark { display: inline-flex; flex: 0 0 auto; color: var(--tone); }
+.context { margin: var(--space-4) 0 0; color: var(--text-muted); font-size: var(--text-sm); line-height: var(--leading-body); }
+@media (max-width: 380px) { .card { padding: var(--space-4); } .top { align-items: flex-start; flex-wrap: wrap; margin-bottom: var(--space-6); } }
+@media (prefers-reduced-motion: reduce) { .pill { transition: none; } }

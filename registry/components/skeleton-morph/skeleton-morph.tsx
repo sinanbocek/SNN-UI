@@ -1,7 +1,7 @@
 "use client";
 
 import { createContext, useContext, useEffect, useLayoutEffect, useRef, useState, type CSSProperties, type ReactNode, type RefObject } from "react";
-import { animate, motion, useMotionValue, useReducedMotion, type AnimationPlaybackControls } from "motion/react";
+import { animate, motion, useMotionValue, useReducedMotion, type AnimationPlaybackControls, type Transition } from "motion/react";
 import { motionTokens } from "../lib/motion-tokens";
 import styles from "./skeleton-morph.module.css";
 
@@ -114,7 +114,7 @@ export function MorphBlock({ shape = "rect", width, height, lines = 3, radius, c
     : <span className={styles.shape} data-shape={shape} style={{ ...size, borderRadius: shape === "rect" ? radius : undefined }} aria-hidden="true" />;
 
   if (!shown) return <div ref={element} className={`${styles.block} ${className ?? ""}`} data-morph-block="">{skeleton}</div>;
-  const fade = { duration: motionTokens.duration.standard, ease: [...motionTokens.ease.enter] };
+  const fade: Transition = { duration: motionTokens.duration.standard, ease: [...motionTokens.ease.enter] };
   return (
     <div ref={element} className={`${styles.block} ${className ?? ""}`} data-morph-block="" data-shown="">
       <motion.div

@@ -17,8 +17,9 @@ function resolveFromGallery() {
   };
 }
 
-// Tek dosyalı çıktı: `npm run build` sonrası dist/index.html çift tıkla açılır (sunucu gerekmez).
-export default defineConfig({
-  plugins: [resolveFromGallery(), react(), viteSingleFile()],
+// `npm run build`: site için parçalı çıktı (snn-ui.web.app). Yazı tipleri ayrı dosya kalır; tarayıcı yalnız gereken alfabe parçasını indirir.
+// `npm run build:single`: tek dosyalı çıktı; dist/index.html çift tıkla açılır (sunucu gerekmez).
+export default defineConfig(({ mode }) => ({
+  plugins: [resolveFromGallery(), react(), ...(mode === "single" ? [viteSingleFile()] : [])],
   server: { fs: { allow: [".."] }, port: 5311 },
-});
+}));

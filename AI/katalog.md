@@ -153,6 +153,9 @@ Gereken paketler: React 19, `motion`; bazı bileşenlerde Radix ve `lucide-react
 | `file-dropzone` | Dosya bırakma alanı | Dosyaları sürükleyip bırakma ya da cihazdan seçme alanı; panodan yapıştırma da çalışır. Tür (`accept`), boyut (`maxSize`) ve sayı (`maxFiles`) sınırı, görsellere küçük resim, satır başına ilerleme çubuğu ("Yükleniyor %45"), "Yüklendi" tiki, hata nedeni ve Yeniden dene. Yüklemenin kendisi projededir (`onUpload`). Liste alanın altında ya da içinde; dosya çoğalınca istem ince çubuğa katlanır. Boyut ABACUS `unit.dataSize` ("1,5 MB"), yüzde `money.percent` ("%45"), uzantı karşılaştırması `text.lower` ile ("TEKLİF.PDF" ".pdf" kuralına uyar). | `npx shadcn@latest add @snn-ui/file-dropzone` |
 | `stepper` | Adım göstergesi | Bir akışın adımlarını yatay ya da dikey gösterir: tamamlandı (tik), şu an (halka), geri dönüldü (geri ok, mavi-gri), bekliyor (numara) ve hata (uyarı). Bağlantı çizgisi ilerlemeyle dolar. `onStepSelect` verilirse tamamlanan adımlara dönülür. Yatayda dar kapta başlıklar gizlenir, geçerli adımın adı altına yazılır; çok dar kapta işaretler küçülür, 10 adımlık hat 390 px telefona sığar. Nakit'in istediği `pipeline-steps` budur; ad Arc ile izlenebilsin diye `stepper` kaldı. "Geri dönüldü" için adıma `returned: true` verilir. | `npx shadcn@latest add @snn-ui/stepper` |
 | `revision-diff` | Revizyon karşılaştırması | İki sürüm arasındaki satır farklarını gösterir: eklendi, silindi, değişti, eşlenmedi (ve isteğe bağlı aynı). Üstte özet ("3 eklendi, 1 silindi") ve sayılı süzgeç düğmeleri; değişen satırda yalnız değişen alanlar "eski → yeni" yazılır. Eşleştirmeyi proje yapar, bileşen gösterir. Dar kapta alanlar tek sütuna iner. Arc'ta karşılığı yok; SNN-UI için yazıldı. Değerler ABACUS ile (para kuruş tam sayısı). Silinen satır kırmızı değil, gri ve üstü çizili. | `npx shadcn@latest add @snn-ui/revision-diff` |
+| `status-card` | Durum kartı | Gösterge kartıyla aynı ölçüde, değeri sayı yerine durum cümlesi olan kart ("Sorun yok", "Kontrol gerekli", "Bağlantı kurulamadı"). Ton renk, simge ve etiketle birlikte söylenir; değer değişince yükselerek geçer. `tone`: "success", "warning" (mavi-gri), "danger", "neutral". `live` verilirse değer değişimi ekran okuyucuya duyurulur. Sayı gösterecekseniz `metric-card` kullanın. | `npx shadcn@latest add @snn-ui/status-card` |
+| `grouped-table` | Açılır gruplu tablo | Satırları gruplara bölen tablo: her grup bir <tbody>, başlığı aria-expanded taşıyan düğmedir ve satır sayısıyla durum rozeti gösterir. Arama yazılınca gruplar zorla açılır, eşleşme sayısı yazılır. Dar kapta isteğe bağlı sütunlar gizlenir; tablo yana kaymaz. Arama ABACUS `text.searchKey` ile Türkçe harfe duyarsızdır ("istanbul" → "İstanbul"). Arama kutusunu proje koyar ve `query` ile verir (`search-field`). Sütunda `optional: true` dar ekranda gizler, `numeric: true` sağa yaslar. Sıralama gerekiyorsa `sortable-data-table`. | `npx shadcn@latest add @snn-ui/grouped-table` |
+| `tree-view` | Ağaç görünümü | İç içe liste: açma düğmesi ile seçim düğmesi ayrıdır. Üstteki arama eşleşen düğümün bütün üstlerini açar, eşleşme sayısını yazar ve eşleşen parçayı vurgular. Yüzlerce kalemli sınıflamalar (ör. TÜFE) için. Arama ABACUS `text.searchKey` ile yapılır ("sut" → "Süt"); ad ve `meta` alanına bakar. Seçili düğümün üstleri açık başlar. `selected` ile denetimli kullanılabilir. | `npx shadcn@latest add @snn-ui/tree-view` |
 
 ## Kullanım örnekleri
 
@@ -1034,6 +1037,30 @@ import { Stepper } from "@/components/snn/stepper/stepper";
 import { RevisionDiff } from "@/components/snn/revision-diff/revision-diff";
 
 <RevisionDiff title="Keşif revizyonu" rows={rows} fields={[{ key: "name", label: "Kalem" }, { key: "amount", label: "Tutar", format: "money" }]} />
+```
+
+### Durum kartı (`status-card`)
+
+```tsx
+import { StatusCard } from "@/components/snn/status-card/status-card";
+
+<StatusCard label="Veri akışı" value="Kontrol gerekli" tone="warning" context="3 seri 2 gündür güncellenmedi" />
+```
+
+### Açılır gruplu tablo (`grouped-table`)
+
+```tsx
+import { GroupedTable, GroupedTableColumn, GroupedTableGroup } from "@/components/snn/grouped-table/grouped-table";
+
+<GroupedTable caption="Piyasa serileri" groups={groups} columns={columns} rowKey={row => row.code} query={query} />
+```
+
+### Ağaç görünümü (`tree-view`)
+
+```tsx
+import { TreeView, TreeNode } from "@/components/snn/tree-view/tree-view";
+
+<TreeView label="TÜFE sınıflaması" nodes={nodes} onSelect={node => setSelected(node.id)} />
 ```
 
 ## Bu rafta olmayanlar

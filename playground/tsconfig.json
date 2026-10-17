@@ -1,0 +1,21 @@
+{
+  // Tip denetimi: galeri ve katalogdaki bütün bileşenler. Derleme Vite ile yapılır; bu ayar yalnız `npm run typecheck` içindir.
+  "compilerOptions": {
+    "target": "ES2022",
+    "lib": ["ES2023", "DOM", "DOM.Iterable"],
+    "module": "ESNext",
+    "moduleResolution": "Bundler",
+    "jsx": "react-jsx",
+    "strict": true,
+    "noEmit": true,
+    "skipLibCheck": true,
+    "allowJs": true,
+    "checkJs": false,
+    "allowImportingTsExtensions": true,
+    "isolatedModules": true,
+    "types": [],
+    "baseUrl": ".",
+    "paths": { "*": ["./node_modules/@types/*", "./node_modules/*"] }
+  },
+  "include": ["src", "../registry/components", "src/env.d.ts"]
+}

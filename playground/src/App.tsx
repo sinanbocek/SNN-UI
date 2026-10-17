@@ -10,6 +10,7 @@ import { accentCss, parseColor } from "./lib/color";
 import { parseShare, type CartTheme } from "./lib/cart";
 import { parseRoute, routeHash } from "./lib/route";
 import { useStored } from "./lib/stored";
+import { loadDemos } from "./lib/demo-loader";
 import { CartDrawer } from "./views/cart-drawer";
 import { ColorLab } from "./views/color-lab";
 import { TypeScale } from "./views/type-scale";
@@ -53,6 +54,8 @@ export function App() {
     media.addEventListener("change", onChange);
     return () => media.removeEventListener("change", onChange);
   }, []);
+  // Ana sayfa açıldıktan sonra örnekleri arka planda indir; kategoriye geçiş beklemeden açılsın.
+  useEffect(() => { const timer = window.setTimeout(() => { void loadDemos(); }, 1500); return () => window.clearTimeout(timer); }, []);
   const theme = mode === "system" ? (systemDark ? "dark" : "light") : mode;
   useEffect(() => { document.documentElement.dataset.theme = theme; }, [theme]);
 

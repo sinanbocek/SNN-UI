@@ -119,6 +119,10 @@ try {
       await send("Page.navigate", { url: `${baseUrl}/#${name}` });
       await sleep(1500);
       await evaluate(send, "document.fonts.ready.then(() => true)");
+      // Yapışkan üst çubuk kaydırılan bölümün üstüne binmesin.
+      await evaluate(send, "(() => { const style = document.createElement('style'); style.textContent = '.top { position: static !important; }'; document.head.append(style); return true; })()");
+      // Örnekler ayrı parçada gecikmeli yüklenir; iskelet kalkana kadar (en çok 10 sn) beklenir.
+      await evaluate(send, "new Promise(resolve => { const start = Date.now(); const check = () => !document.querySelector('[data-loading]') || Date.now() - start > 10000 ? resolve(true) : setTimeout(check, 100); check(); })");
       const fonts = await evaluate(send, "[...new Set([...document.fonts].filter(f => f.status === 'loaded').map(f => f.family))].join(', ')");
       // Bölüm kaydırılıp görünür yapılır ki geç yüklenen içerik ve görünüşe bağlı hareketler otursun.
       const box = await evaluate(send, `(async () => {

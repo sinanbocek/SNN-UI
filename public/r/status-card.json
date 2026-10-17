@@ -1,0 +1,36 @@
+{
+  "$schema": "https://ui.shadcn.com/schema/registry-item.json",
+  "name": "status-card",
+  "title": "Durum kartı",
+  "description": "Gösterge kartıyla aynı ölçüde, değeri sayı yerine durum cümlesi olan kart (\"Sorun yok\", \"Kontrol gerekli\", \"Bağlantı kurulamadı\"). Ton renk, simge ve etiketle birlikte söylenir; değer değişince yükselerek geçer.",
+  "dependencies": [
+    "lucide-react",
+    "motion"
+  ],
+  "registryDependencies": [
+    "@snn-ui/snn-foundation",
+    "@snn-ui/snn-motion-tokens"
+  ],
+  "files": [
+    {
+      "path": "registry/components/status-card/status-card.module.css",
+      "content": "/* Gösterge kartıyla aynı kutu: kenar, köşe, iç boşluk ve başlık aralığı aynı değişkenlerden. */\n.card { --tone: var(--text-secondary); min-width: 0; border: 1px solid var(--border); border-radius: var(--radius-surface); padding: var(--space-6); background: var(--surface); box-shadow: var(--shadow-resting); }\n.card[data-tone=\"success\"] { --tone: var(--success); }\n.card[data-tone=\"warning\"] { --tone: var(--warning); }\n.card[data-tone=\"danger\"] { --tone: var(--danger); }\n.top { display: flex; align-items: center; justify-content: space-between; gap: var(--space-3); margin-bottom: var(--space-8); }\n.label { min-width: 0; color: var(--text-secondary); font-size: var(--text-sm); }\n/* Ton etiketi: soluk ton zemin, tonlu yazı ve simge. Renk tek başına anlam taşımaz; yazı da söyler. */\n.pill { display: inline-flex; flex: 0 0 auto; align-items: center; gap: 5px; border-radius: var(--radius-pill); padding: 3px 9px 3px 7px; background: color-mix(in oklab, var(--tone) 11%, transparent); color: var(--tone); font-size: var(--text-sm); transition: color var(--duration-fast) var(--ease-standard), background-color var(--duration-fast) var(--ease-standard); }\n/* Değer satırı sayaçla aynı yükseklikte durur; uzun durum cümlesi alt satıra iner. */\n.value { position: relative; min-height: calc(var(--text-3xl) * 1); display: flex; align-items: center; color: var(--foreground); font-family: var(--font-display); font-size: var(--text-2xl); font-weight: 500; letter-spacing: var(--tracking-display); line-height: 1.15; }\n.valueText { display: inline-flex; align-items: center; gap: var(--space-2); }\n.mark { display: inline-flex; flex: 0 0 auto; color: var(--tone); }\n.context { margin: var(--space-4) 0 0; color: var(--text-muted); font-size: var(--text-sm); line-height: var(--leading-body); }\n@media (max-width: 380px) { .card { padding: var(--space-4); } .top { align-items: flex-start; flex-wrap: wrap; margin-bottom: var(--space-6); } }\n@media (prefers-reduced-motion: reduce) { .pill { transition: none; } }\n",
+      "type": "registry:component",
+      "target": "@components/snn/status-card/status-card.module.css"
+    },
+    {
+      "path": "registry/components/status-card/status-card.tsx",
+      "content": "\"use client\";\n\nimport { AnimatePresence, motion, useReducedMotion, type Variants } from \"motion/react\";\nimport { CircleAlert, CircleCheck, CircleX, Info, type LucideIcon } from \"lucide-react\";\nimport { motionTokens } from \"../lib/motion-tokens\";\nimport styles from \"./status-card.module.css\";\n\nexport type StatusTone = \"success\" | \"warning\" | \"danger\" | \"neutral\";\n\nexport interface StatusCardProps {\n  /** Neyin durumu, örneğin \"Veri akışı\". */\n  label: string;\n  /** Durum metni, örneğin \"Sorun yok\", \"Kontrol gerekli\", \"Bağlantı kurulamadı\". */\n  value: string;\n  /** Renk, simge ve ton etiketi birlikte değişir; durum yalnız renge bırakılmaz. Uyarı tonu mavi-gridir. */\n  tone?: StatusTone;\n  /** Alttaki bağlam cümlesi, örneğin \"Son kontrol 09:42\". */\n  context?: string;\n  /** Sağ üstteki ton etiketi. Varsayılan: \"Tamam\", \"Dikkat\", \"Hata\", \"Bilgi\". */\n  toneLabel?: string;\n  /** Değer değişince ekran okuyucuya duyurulur (canlı izleme ekranları için). */\n  live?: boolean;\n  className?: string;\n}\n\nconst TONES: Record<StatusTone, { icon: LucideIcon; label: string }> = {\n  success: { icon: CircleCheck, label: \"Tamam\" },\n  warning: { icon: CircleAlert, label: \"Dikkat\" },\n  danger: { icon: CircleX, label: \"Hata\" },\n  neutral: { icon: Info, label: \"Bilgi\" },\n};\n\nconst rise: Variants = {\n  hidden: { opacity: 0, y: \"0.3em\", filter: `blur(${motionTokens.blur.soft}px)` },\n  shown: { opacity: 1, y: 0, filter: \"blur(0px)\", transition: { duration: motionTokens.duration.standard, ease: [...motionTokens.ease.enter] } },\n  gone: { opacity: 0, y: \"-0.3em\", filter: `blur(${motionTokens.blur.subtle}px)`, transition: { duration: motionTokens.duration.fast, ease: [...motionTokens.ease.standard] } },\n};\nconst fade: Variants = { hidden: { opacity: 0 }, shown: { opacity: 1, transition: { duration: motionTokens.duration.instant } }, gone: { opacity: 0, transition: { duration: motionTokens.duration.instant } } };\n\n/** Metin gösteren durum kartı: gösterge kartıyla aynı ölçüde, değeri sayı yerine bir durum cümlesi. */\nexport function StatusCard({ label, value, tone = \"neutral\", context, toneLabel, live = false, className }: StatusCardProps) {\n  const reduce = !!useReducedMotion();\n  const { icon: Icon, label: defaultToneLabel } = TONES[tone];\n  const variants = reduce ? fade : rise;\n  return <article className={[styles.card, className].filter(Boolean).join(\" \")} data-tone={tone} aria-label={label}>\n    <div className={styles.top}>\n      <span className={styles.label}>{label}</span>\n      <small className={styles.pill}><Icon size={14} strokeWidth={2} aria-hidden=\"true\" />{toneLabel ?? defaultToneLabel}</small>\n    </div>\n    <div className={styles.value} role={live ? \"status\" : undefined} aria-live={live ? \"polite\" : undefined}>\n      <AnimatePresence mode=\"popLayout\" initial={false}>\n        <motion.span key={`${tone}:${value}`} className={styles.valueText} variants={variants} initial=\"hidden\" animate=\"shown\" exit=\"gone\">\n          <span className={styles.mark} aria-hidden=\"true\"><Icon size={22} strokeWidth={1.75} /></span>{value}\n        </motion.span>\n      </AnimatePresence>\n    </div>\n    {context && <p className={styles.context}>{context}</p>}\n  </article>;\n}\n\nexport default StatusCard;\n",
+      "type": "registry:component",
+      "target": "@components/snn/status-card/status-card.tsx"
+    }
+  ],
+  "meta": {
+    "arcCommit": "bfdf7e8",
+    "arcSource": "(Arc'ta yok; SNN-UI için yazıldı)"
+  },
+  "categories": [
+    "feedback"
+  ],
+  "type": "registry:ui"
+}
