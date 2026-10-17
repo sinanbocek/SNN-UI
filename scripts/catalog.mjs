@@ -96,6 +96,14 @@ export const foundation = [
     arcSource: "(Arc'ta yok; SNN-UI için yazıldı)",
   },
   {
+    name: "snn-copy-feedback",
+    title: "SNN kopyalama geri bildirimi",
+    description: "Panoya kopyalayan eylemlerin ortak durumu (useCopyFeedback): \"kopyalandı\" ya da \"kopyalanamadı\" durumunu kısa süre tutar, sonra sıfırlar. copy-button kurulurken kendiliğinden gelir.",
+    files: [{ path: "registry/components/lib/use-copy-feedback.ts", target: "lib/use-copy-feedback.ts", type: "registry:lib" }],
+    arcSource: "lib/use-copy-feedback.ts",
+    arcCommit: "b40c890",
+  },
+  {
     name: "snn-use-today",
     title: "SNN bugün kancası",
     description: "Bakanın yerel tarihini veren kanca (useToday): sunucuda tanımsızdır, gece yarısını geçince ve sekmeye dönülünce yenilenir. calendar ve date-picker paylaşır; bileşen kurulurken kendiliğinden gelir.",
