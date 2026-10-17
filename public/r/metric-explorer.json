@@ -38,5 +38,8 @@
     "arcCommit": "bfdf7e8",
     "arcSource": "registry/components/metric-explorer"
   },
+  "categories": [
+    "finance"
+  ],
   "type": "registry:ui"
 }

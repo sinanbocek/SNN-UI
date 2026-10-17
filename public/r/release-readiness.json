@@ -35,5 +35,8 @@
     "arcCommit": "bfdf7e8",
     "arcSource": "registry/components/release-readiness"
   },
+  "categories": [
+    "blocks"
+  ],
   "type": "registry:ui"
 }

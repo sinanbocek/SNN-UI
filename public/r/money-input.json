@@ -36,5 +36,8 @@
     "arcCommit": "b40c890",
     "arcSource": "registry/components/money-input"
   },
+  "categories": [
+    "forms"
+  ],
   "type": "registry:ui"
 }

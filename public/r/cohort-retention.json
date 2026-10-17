@@ -41,5 +41,8 @@
     "arcCommit": "bfdf7e8",
     "arcSource": "registry/components/cohort-retention"
   },
+  "categories": [
+    "finance"
+  ],
   "type": "registry:ui"
 }

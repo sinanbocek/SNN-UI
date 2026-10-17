@@ -41,5 +41,8 @@
     "arcCommit": "bfdf7e8",
     "arcSource": "registry/components/checkout-summary"
   },
+  "categories": [
+    "commerce"
+  ],
   "type": "registry:ui"
 }

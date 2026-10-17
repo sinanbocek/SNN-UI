@@ -41,5 +41,8 @@
     "arcCommit": "bfdf7e8",
     "arcSource": "registry/components/usage-forecast"
   },
+  "categories": [
+    "finance"
+  ],
   "type": "registry:ui"
 }

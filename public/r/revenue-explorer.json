@@ -42,5 +42,8 @@
     "arcCommit": "bfdf7e8",
     "arcSource": "registry/components/revenue-explorer"
   },
+  "categories": [
+    "finance"
+  ],
   "type": "registry:ui"
 }

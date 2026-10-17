@@ -40,5 +40,8 @@
     "arcCommit": "bfdf7e8",
     "arcSource": "registry/components/search-results"
   },
+  "categories": [
+    "blocks"
+  ],
   "type": "registry:ui"
 }

@@ -29,5 +29,8 @@
     "arcCommit": "bfdf7e8",
     "arcSource": "registry/components/orbit-menu"
   },
+  "categories": [
+    "navigation"
+  ],
   "type": "registry:ui"
 }

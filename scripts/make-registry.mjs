@@ -3,7 +3,7 @@
 import { readdirSync, writeFileSync } from "node:fs";
 import path from "node:path";
 import { fileURLToPath } from "node:url";
-import { ARC_COMMIT, INSTALL_ROOT, REGISTRY_URL, components, foundation } from "./catalog.mjs";
+import { ARC_COMMIT, INSTALL_ROOT, REGISTRY_URL, categories, components, foundation } from "./catalog.mjs";
 
 const root = path.join(path.dirname(fileURLToPath(import.meta.url)), "..");
 const NAMESPACE = "@snn-ui";
@@ -31,6 +31,7 @@ const items = [
     type: "registry:ui",
     title: item.title,
     description: item.description,
+    categories: categories.filter(category => category.names.includes(item.name)).map(category => category.key),
     dependencies: item.deps,
     // Bloklar (settings-page gibi) katalogdaki başka parçaları içe aktarır; `uses` bunları kurulum bağımlılığına çevirir.
     registryDependencies: [`${NAMESPACE}/snn-foundation`, ...(item.deps.includes("motion") ? [`${NAMESPACE}/snn-motion-tokens`] : []), ...(item.uses ?? []).map(name => `${NAMESPACE}/${name}`)],

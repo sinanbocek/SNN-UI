@@ -37,5 +37,8 @@
     "arcCommit": "b40c890",
     "arcSource": "registry/components/sortable-data-table"
   },
+  "categories": [
+    "finance"
+  ],
   "type": "registry:ui"
 }

@@ -33,5 +33,8 @@
     "arcCommit": "bfdf7e8",
     "arcSource": "registry/components/availability-picker"
   },
+  "categories": [
+    "blocks"
+  ],
   "type": "registry:ui"
 }

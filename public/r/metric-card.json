@@ -37,5 +37,8 @@
     "arcCommit": "bfdf7e8",
     "arcSource": "registry/components/metric-card"
   },
+  "categories": [
+    "charts"
+  ],
   "type": "registry:ui"
 }

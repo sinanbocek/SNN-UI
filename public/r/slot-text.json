@@ -30,5 +30,8 @@
     "arcCommit": "bfdf7e8",
     "arcSource": "registry/components/slot-text"
   },
+  "categories": [
+    "feedback"
+  ],
   "type": "registry:ui"
 }

@@ -39,5 +39,8 @@
     "arcCommit": "bfdf7e8",
     "arcSource": "registry/components/testimonial-stage"
   },
+  "categories": [
+    "commerce"
+  ],
   "type": "registry:ui"
 }

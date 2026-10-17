@@ -40,5 +40,8 @@
     "arcCommit": "bfdf7e8",
     "arcSource": "registry/components/line-replay"
   },
+  "categories": [
+    "finance"
+  ],
   "type": "registry:ui"
 }

@@ -34,5 +34,8 @@
     "arcCommit": "b40c890",
     "arcSource": "registry/components/stepper"
   },
+  "categories": [
+    "feedback"
+  ],
   "type": "registry:ui"
 }

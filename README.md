@@ -3,6 +3,7 @@
 SNN ailesinin arayüz kataloğu. Arc'tan ([uiarc.dev](https://uiarc.dev), MIT) seçilmiş, Türkçeye uyarlanmış React bileşenleri.
 Bileşenler shadcn ile projeye **kopyalanır**: kurulan kod projenindir, katalog güncellense de projenin ekranı kendiliğinden değişmez.
 
+- **Canlı galeri ve sepet:** https://snn-ui.web.app — bileşenleri dene, sepete ekle, AI için kurulum metnini kopyala.
 - **AI için liste:** [`AI/katalog.md`](AI/katalog.md) — hangi bileşen var, ne işe yarar, nasıl kurulur.
 - **Kaynak ve uyarlamalar:** [`KAYNAK.md`](KAYNAK.md)
 - **Ajan rehberi:** [`CLAUDE.md`](CLAUDE.md)

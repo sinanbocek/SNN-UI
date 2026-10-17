@@ -46,5 +46,8 @@
     "arcCommit": "bfdf7e8",
     "arcSource": "registry/components/kanban-board"
   },
+  "categories": [
+    "blocks"
+  ],
   "type": "registry:ui"
 }

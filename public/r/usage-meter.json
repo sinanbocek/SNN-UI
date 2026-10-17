@@ -32,5 +32,8 @@
     "arcCommit": "bfdf7e8",
     "arcSource": "registry/components/usage-meter"
   },
+  "categories": [
+    "charts"
+  ],
   "type": "registry:ui"
 }
