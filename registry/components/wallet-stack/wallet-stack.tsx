@@ -98,7 +98,7 @@ export function WalletStack({ title = "Kartlarım", cards: all, onFrontChange }:
           animate={{ y: `${place.y * 100}%`, scale: place.scale, opacity: place.opacity }} transition={spring}
           drag={isFront && !reduced ? "y" : false} dragConstraints={{ top: 0, bottom: 0 }} dragElastic={.35}
           onDragEnd={(_, info) => { if (open) { if (info.offset.y > 80) close(); return; } const step = dragStep(info.offset.y, info.velocity.y); if (step) goto(front + step); }}
-          onClick={() => { if (!isFront) return; if (open) close(); else openCard(index); }} onKeyDown={event => key(event, index)} onPointerMove={isFront ? move : undefined}>
+          onClick={() => { if (isFront && open) close(); else openCard(index); }} onKeyDown={event => key(event, index)} onPointerMove={isFront ? move : undefined}>
           <Face card={card} />
         </motion.button>;
       })}

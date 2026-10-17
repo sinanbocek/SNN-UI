@@ -232,7 +232,9 @@ export function MorphNav({
         aria-label={label}
         data-open={expanded || undefined}
         initial={false}
-        animate={{ borderRadius: expanded ? 24 : 999 }}
+        // Kapalı hâlde yarıçap çubuk yüksekliğinin yarısıdır: tam hap görünür. 999 kullanılsaydı açılıp kapanırken yarıçap
+        // yüzlerce pikselden geçer, kutu elipse döner ve kenardaki logo ile eylem düğmesi köşe kırpmasının altında kalırdı.
+        animate={{ borderRadius: expanded ? 24 : barHeight / 2 }}
         transition={reduced ? { duration: 0 } : motionTokens.spring.smooth}
       >
         <div className={styles.bar} style={{ height: barHeight - 2 }}>
@@ -262,7 +264,7 @@ export function MorphNav({
             <>
               <a className={styles.brand} href={brand.href ?? "/"} onClick={event => follow(brand.href ?? "/", event)}>
                 {brand.mark && <span className={styles.brandMark} aria-hidden="true">{brand.mark}</span>}
-                <span>{brand.label}</span>
+                <span className={brand.mark ? styles.brandLabel : undefined}>{brand.label}</span>
               </a>
               {!collapsed && (
                 <LayoutGroup id={`${ids}-bar`}>

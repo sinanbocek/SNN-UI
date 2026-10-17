@@ -31,11 +31,14 @@ const NARROW = 640;
 const MARGIN = 12;
 const TOP = 64;
 
+/**
+ * Alanın boyutu. Ölçüm öğe bağlandığı anda başlar (geri çağrılı ref): görüntüleyici içeriği portal ile bir kare sonra
+ * bağlandığından, yalnız bileşen çizilirken ölçülseydi ilk açılışta alan boş kalır ve büyük fotoğraf hiç yerleşmezdi.
+ */
 function useBox() {
-  const ref = useRef<HTMLDivElement | null>(null);
+  const [node, ref] = useState<HTMLDivElement | null>(null);
   const [size, setSize] = useState({ width: 0, height: 0 });
   useLayoutEffect(() => {
-    const node = ref.current;
     if (!node) return;
     const read = () => setSize(previous => previous.width === node.clientWidth && previous.height === node.clientHeight ? previous : { width: node.clientWidth, height: node.clientHeight });
     read();
@@ -43,8 +46,8 @@ function useBox() {
     const observer = new ResizeObserver(read);
     observer.observe(node);
     return () => observer.disconnect();
-  });
-  return [ref, size] as const;
+  }, [node]);
+  return [ref, size, node] as const;
 }
 
 function Photo({ image }: { image: ViewerImage }) {
@@ -57,7 +60,7 @@ const slide = { out: (dir: number) => ({ opacity: 0, x: -40 * dir }) };
 export function ImageViewer({ images, index, onIndexChange, onClose, getOrigin, label, filmstrip = true, renderExtra }: ImageViewerProps) {
   const reduced = useReducedMotionSafe();
   const open = index !== null;
-  const [area, box] = useBox();
+  const [area, box, areaNode] = useBox();
   const [zoom, setZoomState] = useState(1);
   const [closing, setClosing] = useState(false);
   const closeButton = useRef<HTMLButtonElement>(null);
@@ -112,7 +115,7 @@ export function ImageViewer({ images, index, onIndexChange, onClose, getOrigin, 
 
   // Ctrl+tekerlek yakınlaştırır; tarayıcının sayfa yakınlaştırmasını engellemek için pasif olmayan dinleyici gerekir.
   useEffect(() => {
-    const node = area.current;
+    const node = areaNode;
     if (!node) return;
     const wheel = (event: WheelEvent) => {
       if (!event.ctrlKey) return;
