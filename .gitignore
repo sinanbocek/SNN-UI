@@ -1,3 +1,4 @@
 node_modules/
 shots/
 .firebase/
+firebase-debug.log
