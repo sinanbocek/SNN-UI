@@ -23,7 +23,7 @@ function makeData(days: number): LineChartDatum[] {
 
 /** 14 günlük uydurma dolar kuru: 49,40 ile 49,55 arasında oynar; sıfırdan başlayan eksende düz görünürdü. */
 function makeRate(days: number): LineChartDatum[] {
-  return makeData(days).map((item, at) => ({ ...item, values: { kur: Math.round((49.47 + Math.sin(at / 1.7) * .06 + Math.cos(at / 3.1) * .02) * 100) / 100 } }));
+  return makeData(days).map((item, at) => ({ ...item, values: { rate: Math.round((49.47 + Math.sin(at / 1.7) * .06 + Math.cos(at / 3.1) * .02) * 100) / 100 } }));
 }
 
 export function LineChartDemo() {
@@ -47,11 +47,11 @@ export function LineChartDemo() {
         formatValue={para ? value => formatMoneyCompact(value * 1000) : undefined}
         formatTick={para ? value => formatMoneyCompact(value * 1000) : undefined}
       />
-      <span className="etiket">Sıfırdan uzak seri: baseline="auto" ekseni verinin aralığına oturtur.</span>
+      <span className="etiket">{"Sıfırdan uzak seri: baseline=\"auto\" ekseni verinin aralığına oturtur."}</span>
       <LineChart
         label="Dolar kuru"
         data={rate}
-        series={[{ key: "kur", label: "USD/TRY" }]}
+        series={[{ key: "rate", label: "USD/TRY" }]}
         unit="₺"
         baseline="auto"
         formatValue={value => formatNumber(value, 2)}
