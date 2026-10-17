@@ -1,0 +1,21 @@
+{
+  "$schema": "https://ui.shadcn.com/schema/registry-item.json",
+  "name": "snn-stage-icon",
+  "title": "SNN aşama simgesi",
+  "description": "İş panolarının sütun başlığındaki aşama simgesi: planlandı (kesikli daire), sürüyor (yarım dolu), kontrolde (dörtte üç dolu), bitti (onaylı dolu daire). Tür aşama kimliğinden, adından ya da sırasından çıkarılır. project-board ve kanban-board kurulurken kendiliğinden gelir.",
+  "files": [
+    {
+      "path": "registry/components/lib/stage-kind.ts",
+      "content": "// Aşama türünün saf seçimi (React içermez; test bunu okur). Simge: stage-icon.tsx.\n\nexport type StageKind = \"planned\" | \"progress\" | \"review\" | \"done\";\n\nconst PATTERNS: [StageKind, RegExp][] = [\n  [\"done\", /done|complete|closed|bit|tamam/i],\n  [\"review\", /review|check|qa|test|kontrol|onay/i],\n  [\"progress\", /progress|doing|active|wip|s[uü]r|devam/i],\n  [\"planned\", /todo|plan|backlog|queue|yap[iı]l|bekle|new/i],\n];\n\n/** Aşama türü: önce kimlik ve adda tanıdık sözcük aranır, yoksa sıraya bakılır (ilk planlandı, son bitti, sondan bir önceki kontrolde). */\nexport function stageKind(id: string, label: string, index: number, total: number): StageKind {\n  for (const [kind, pattern] of PATTERNS) if (pattern.test(id) || pattern.test(label)) return kind;\n  if (index === 0) return \"planned\";\n  if (index === total - 1) return \"done\";\n  return index === total - 2 && total > 3 ? \"review\" : \"progress\";\n}\n",
+      "type": "registry:lib",
+      "target": "@components/snn/lib/stage-kind.ts"
+    },
+    {
+      "path": "registry/components/lib/stage-icon.tsx",
+      "content": "// İş panolarının aşama simgesi: sütun başlığının önünde aşamayı biçim ve renkle söyler (planlandı → bitti dolarak ilerler).\n// project-board ve kanban-board kullanır (snn-stage-icon). Simgeler süstür; aşama adı başlıkta yazılıdır.\n\nimport type { StageKind } from \"./stage-kind\";\n\nexport { stageKind, type StageKind } from \"./stage-kind\";\n\nconst TONE: Record<StageKind, string> = {\n  planned: \"var(--text-muted)\",\n  progress: \"var(--accent)\",\n  review: \"var(--warning)\",\n  done: \"var(--success)\",\n};\n\n/** 16 px aşama simgesi; renk tona göre temel değişkenlerden (uyarı tonu mavi-gri). */\nexport function StageIcon({ kind }: { kind: StageKind }) {\n  const color = TONE[kind];\n  return <svg width={16} height={16} viewBox=\"0 0 16 16\" fill=\"none\" aria-hidden=\"true\" style={{ flex: \"none\", color }}>\n    {kind === \"planned\" && <circle cx=\"8\" cy=\"8\" r=\"6\" stroke=\"currentColor\" strokeWidth=\"1.6\" strokeDasharray=\"2.4 2.2\" strokeLinecap=\"round\" />}\n    {kind === \"progress\" && <><circle cx=\"8\" cy=\"8\" r=\"6\" stroke=\"currentColor\" strokeWidth=\"1.6\" /><path d=\"M8 4a4 4 0 0 1 0 8z\" fill=\"currentColor\" /></>}\n    {kind === \"review\" && <><circle cx=\"8\" cy=\"8\" r=\"6\" stroke=\"currentColor\" strokeWidth=\"1.6\" /><path d=\"M8 4a4 4 0 1 1-4 4h4z\" fill=\"currentColor\" /></>}\n    {kind === \"done\" && <><circle cx=\"8\" cy=\"8\" r=\"6.8\" fill=\"currentColor\" /><path d=\"m5.2 8.2 1.9 1.9 3.8-4\" stroke=\"var(--surface, #fff)\" strokeWidth=\"1.6\" strokeLinecap=\"round\" strokeLinejoin=\"round\" /></>}\n  </svg>;\n}\n",
+      "type": "registry:lib",
+      "target": "@components/snn/lib/stage-icon.tsx"
+    }
+  ],
+  "type": "registry:item"
+}

@@ -367,3 +367,11 @@ Sahibin isteği: üretici seçenek paneli olmadan, göz simgesinin yanında.
 | `otp-input` | Dolu kutuya tıklayıp tek tuşa basınca rakam değişir ve sağdaki kutuya geçilir; odakta kutunun içi seçilir. Önce kutu 1 karakter aldığı (`maxLength`) için tarayıcı yeni tuşu geçirmiyordu. Geçersiz tuş (sayısal kipte harf) yine reddedilir. `sign-in` ve `login-centered` aynı bileşeni kullandığı için onlar da düzeldi. |
 | `mrr-waterfall` | Eksen değerleri için solda ayrı şerit (en uzun etikete göre 32–80 px); önce ilk çubuk "₺1,25Mn" gibi değerlerin üstüne biniyordu. Dar sütunda (telefon) adlar eğik yazılır, çubuk üstü değerler yalnız seçili ya da üzerine gelinen çubukta görünür; önce birbirine biniyorlardı. |
 | `budget-variance` | Alt kırılım satırları kategoriden bir basamak geride: ince (7 px) ve soluk çubuk, küçük tutar ve sapma yazısı, kategoriye bağlayan ince çizgi. Önce kategoriyle aynı boydaydı. |
+
+## İş panolarında aşama simgeleri ve kanban kaydırması (2026-10-17)
+
+| Parça | Değişiklik |
+|---|---|
+| `snn-stage-icon` (yeni ortak parça) | `lib/stage-kind.ts` (saf seçim, testli: `test/stage-icon.test.mjs`) ve `lib/stage-icon.tsx`: planlandı kesikli gri daire, sürüyor yarım dolu vurgu, kontrolde dörtte üç dolu mavi-gri, bitti onaylı yeşil. Tür aşama kimliğinden ya da adından (Türkçe ve İngilizce tanıdık sözcükler), yoksa sıradan çıkar. |
+| `project-board`, `kanban-board` | Sütun başlıklarının önünde aşama simgesi; aşama/sütun tanımına isteğe bağlı `kind`. Önce dört sütun birbirinden ayırt edilmiyordu (sahip bildirdi). |
+| `kanban-board` | Kart listesi kendi içinde kaydırılmaz (`max-height: 30rem; overflow-y: auto` kalktı), sütun içeriği kadar uzar. Önce bırakılan kartın uçuşu ve büyüme yayı listeyi birkaç piksel taşırınca yatay ve dikey kaydırma çubukları beliriyordu. |

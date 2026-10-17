@@ -19,6 +19,7 @@ import SegmentedControl from "../segmented-control/segmented-control";
 import { Select } from "../select/select";
 import { Skeleton } from "../skeleton/skeleton";
 import { cellCards, placeCard, positionOf } from "./kanban-logic";
+import { StageIcon, stageKind, type StageKind } from "../lib/stage-icon";
 import styles from "./kanban-board.module.css";
 
 export type KanbanTone = "accent" | "success" | "info" | "muted";
@@ -26,6 +27,8 @@ export type KanbanTone = "accent" | "success" | "info" | "muted";
 export interface KanbanColumn {
   id: string;
   label: string;
+  /** Başlık simgesi türü (planlandı, sürüyor, kontrolde, bitti); verilmezse kimlik, ad ya da sıradan çıkarılır. */
+  kind?: StageKind;
   /** Eşzamanlı iş sınırı. Dolunca sayaç ("3/3") vurgulanır; aşılınca "İş sınırı aşıldı." yazılır. Taşıma engellenmez. */
   limit?: number;
 }
@@ -344,7 +347,7 @@ export function KanbanBoard({ name, cards, columns, people = [], tags = [], curr
                 const full = column.limit !== undefined && count >= column.limit;
                 return (
                   <div key={column.id} className={styles.columnHead}>
-                    <h3 className={styles.columnTitle}>{column.label}</h3>
+                    <h3 className={styles.columnTitle}><StageIcon kind={column.kind ?? stageKind(column.id, column.label, columns.indexOf(column), columns.length)} />{column.label}</h3>
                     <span className={styles.count} data-full={full ? "true" : undefined} data-over={over ? "true" : undefined}>
                       {column.limit !== undefined ? `${count}/${column.limit}` : String(count)}
                       {over && <span className={styles.over}> İş sınırı aşıldı.</span>}

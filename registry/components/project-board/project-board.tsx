@@ -15,9 +15,11 @@ import { Progress } from "../progress/progress";
 import SegmentedControl from "../segmented-control/segmented-control";
 import { Skeleton } from "../skeleton/skeleton";
 import { Tooltip } from "../tooltip/tooltip";
+import { StageIcon, stageKind, type StageKind } from "../lib/stage-icon";
 import styles from "./project-board.module.css";
 
-export interface BoardStage { id: string; label: string }
+/** Aşama. `kind` başlık simgesini seçer (planlandı, sürüyor, kontrolde, bitti); verilmezse kimlik, ad ya da sıradan çıkarılır. */
+export interface BoardStage { id: string; label: string; kind?: StageKind }
 export interface BoardPerson { id: string; name: string; src?: string }
 
 export interface BoardTask {
@@ -167,7 +169,7 @@ export function ProjectBoard({ name, tasks, people = [], currentUserId, stages =
               return (
                 <section key={stage.id} className={styles.column} aria-label={`${stage.label}, ${column.length} görev`}>
                   <header className={styles.columnHead}>
-                    <h3 className={styles.columnTitle}>{stage.label}</h3>
+                    <h3 className={styles.columnTitle}><StageIcon kind={stage.kind ?? stageKind(stage.id, stage.label, stages.indexOf(stage), stages.length)} />{stage.label}</h3>
                     <span className={styles.count} aria-hidden="true">{String(column.length)}</span>
                   </header>
 
