@@ -5124,6 +5124,808 @@
         "arcCommit": "b40c890",
         "arcSource": "registry/components/user-menu"
       }
+    },
+    {
+      "name": "accordion",
+      "type": "registry:ui",
+      "title": "Akordeon",
+      "description": "Başlığa basınca içeriği yay hareketiyle açan, aynı anda tek panel açık tutan liste (sık sorulan sorular gibi).",
+      "categories": [
+        "navigation"
+      ],
+      "dependencies": [
+        "motion",
+        "lucide-react",
+        "@radix-ui/react-accordion"
+      ],
+      "registryDependencies": [
+        "@snn-ui/snn-foundation",
+        "@snn-ui/snn-motion-tokens"
+      ],
+      "files": [
+        {
+          "path": "registry/components/accordion/accordion.module.css",
+          "type": "registry:component",
+          "target": "@components/snn/accordion/accordion.module.css"
+        },
+        {
+          "path": "registry/components/accordion/accordion.tsx",
+          "type": "registry:component",
+          "target": "@components/snn/accordion/accordion.tsx"
+        }
+      ],
+      "meta": {
+        "arcCommit": "b40c890",
+        "arcSource": "registry/components/accordion"
+      }
+    },
+    {
+      "name": "avatar-group",
+      "type": "registry:ui",
+      "title": "Kişi simgesi grubu",
+      "description": "Üst üste binen kişi simgelerinden ekip yığını; sığmayanlar \"ve N kişi daha\" sayacına toplanır, kişi gelip gidince yığın kayar, üzerine gelince ad görünür.",
+      "categories": [
+        "feedback"
+      ],
+      "dependencies": [
+        "motion"
+      ],
+      "registryDependencies": [
+        "@snn-ui/snn-foundation",
+        "@snn-ui/snn-motion-tokens",
+        "@snn-ui/avatar"
+      ],
+      "files": [
+        {
+          "path": "registry/components/avatar-group/avatar-group.module.css",
+          "type": "registry:component",
+          "target": "@components/snn/avatar-group/avatar-group.module.css"
+        },
+        {
+          "path": "registry/components/avatar-group/avatar-group.tsx",
+          "type": "registry:component",
+          "target": "@components/snn/avatar-group/avatar-group.tsx"
+        }
+      ],
+      "meta": {
+        "arcCommit": "b40c890",
+        "arcSource": "registry/components/avatar-group"
+      }
+    },
+    {
+      "name": "billing-toggle",
+      "type": "registry:ui",
+      "title": "Faturalama anahtarı",
+      "description": "Aylık/yıllık dönem anahtarı: tek başparmak kayar, indirim notu seçilince renklenir. Yanında yeni tutara dönen fiyat (BillingPrice) ve yıllık indirim hesabı gelir.",
+      "categories": [
+        "forms"
+      ],
+      "dependencies": [
+        "motion",
+        "@snn/abacus-core@github:sinanbocek/SNN-Abacus-Core#semver:^4.3.0"
+      ],
+      "registryDependencies": [
+        "@snn-ui/snn-foundation",
+        "@snn-ui/snn-motion-tokens",
+        "@snn-ui/animated-counter"
+      ],
+      "files": [
+        {
+          "path": "registry/components/billing-toggle/billing-format.ts",
+          "type": "registry:component",
+          "target": "@components/snn/billing-toggle/billing-format.ts"
+        },
+        {
+          "path": "registry/components/billing-toggle/billing-toggle.module.css",
+          "type": "registry:component",
+          "target": "@components/snn/billing-toggle/billing-toggle.module.css"
+        },
+        {
+          "path": "registry/components/billing-toggle/billing-toggle.tsx",
+          "type": "registry:component",
+          "target": "@components/snn/billing-toggle/billing-toggle.tsx"
+        }
+      ],
+      "meta": {
+        "arcCommit": "b40c890",
+        "arcSource": "registry/components/billing-toggle"
+      }
+    },
+    {
+      "name": "color-picker",
+      "type": "registry:ui",
+      "title": "Renk seçici",
+      "description": "Renk kutusu tam bir seçiciye dönüşür: doygunluk/parlaklık alanı, ton ve saydamlık sürgüleri, hex/RGB/HSL/OKLCH yazımı, damlalık, kayıtlı renkler ve arka plana göre WCAG karşıtlık göstergesi (\"4,56:1\").",
+      "categories": [
+        "forms"
+      ],
+      "dependencies": [
+        "motion",
+        "lucide-react",
+        "@snn/abacus-core@github:sinanbocek/SNN-Abacus-Core#semver:^4.3.0"
+      ],
+      "registryDependencies": [
+        "@snn-ui/snn-foundation",
+        "@snn-ui/snn-motion-tokens",
+        "@snn-ui/text-morph"
+      ],
+      "files": [
+        {
+          "path": "registry/components/color-picker/color-picker-format.ts",
+          "type": "registry:component",
+          "target": "@components/snn/color-picker/color-picker-format.ts"
+        },
+        {
+          "path": "registry/components/color-picker/color-picker.module.css",
+          "type": "registry:component",
+          "target": "@components/snn/color-picker/color-picker.module.css"
+        },
+        {
+          "path": "registry/components/color-picker/color-picker.tsx",
+          "type": "registry:component",
+          "target": "@components/snn/color-picker/color-picker.tsx"
+        }
+      ],
+      "meta": {
+        "arcCommit": "b40c890",
+        "arcSource": "registry/components/color-picker"
+      }
+    },
+    {
+      "name": "empty-states",
+      "type": "registry:ui",
+      "title": "Boş durumlar",
+      "description": "Dört boş durumu (sonuç yok, bağlantı yok, hepsi tamam, sayfa bulunamadı) tek çizimde gösteren sekmeli blok; şekiller yayla biçim değiştirir, her ana düğme yerel bir şey yapar. Tek boş durum için `empty-state`.",
+      "categories": [
+        "feedback"
+      ],
+      "dependencies": [
+        "motion"
+      ],
+      "registryDependencies": [
+        "@snn-ui/snn-foundation",
+        "@snn-ui/snn-motion-tokens",
+        "@snn-ui/button"
+      ],
+      "files": [
+        {
+          "path": "registry/components/empty-states/empty-states-art.ts",
+          "type": "registry:component",
+          "target": "@components/snn/empty-states/empty-states-art.ts"
+        },
+        {
+          "path": "registry/components/empty-states/empty-states.module.css",
+          "type": "registry:component",
+          "target": "@components/snn/empty-states/empty-states.module.css"
+        },
+        {
+          "path": "registry/components/empty-states/empty-states.tsx",
+          "type": "registry:component",
+          "target": "@components/snn/empty-states/empty-states.tsx"
+        }
+      ],
+      "meta": {
+        "arcCommit": "b40c890",
+        "arcSource": "registry/components/empty-states"
+      }
+    },
+    {
+      "name": "file-upload",
+      "type": "registry:ui",
+      "title": "Dosya yükleme",
+      "description": "Sürükle-bırak ve gözat ile dosya ekleyen, tür ve boyut sınırını denetleyen, satır başına yaylı ilerleme çubuğu, yeniden deneme ve kaldırma sunan yükleme alanı. Daha sade alan için `file-dropzone`.",
+      "categories": [
+        "forms"
+      ],
+      "dependencies": [
+        "motion",
+        "lucide-react",
+        "@snn/abacus-core@github:sinanbocek/SNN-Abacus-Core#semver:^4.3.0"
+      ],
+      "registryDependencies": [
+        "@snn-ui/snn-foundation",
+        "@snn-ui/snn-motion-tokens"
+      ],
+      "files": [
+        {
+          "path": "registry/components/file-upload/file-upload-format.ts",
+          "type": "registry:component",
+          "target": "@components/snn/file-upload/file-upload-format.ts"
+        },
+        {
+          "path": "registry/components/file-upload/file-upload.module.css",
+          "type": "registry:component",
+          "target": "@components/snn/file-upload/file-upload.module.css"
+        },
+        {
+          "path": "registry/components/file-upload/file-upload.tsx",
+          "type": "registry:component",
+          "target": "@components/snn/file-upload/file-upload.tsx"
+        }
+      ],
+      "meta": {
+        "arcCommit": "b40c890",
+        "arcSource": "registry/components/file-upload"
+      }
+    },
+    {
+      "name": "hero-section",
+      "type": "registry:ui",
+      "title": "Açılış bölümü",
+      "description": "Tam ekran açılış sayfası girişi, üç tasarımda: perspektifli canlı gelir panosu, olay akışını düğüm düğüm çalıştıran iş akışı grafiği ve ağ geçişli sade zemin. Kendi içeriğin için HeroContent da gelir.",
+      "categories": [
+        "commerce"
+      ],
+      "dependencies": [
+        "motion",
+        "lucide-react",
+        "@snn/abacus-core@github:sinanbocek/SNN-Abacus-Core#semver:^4.3.0"
+      ],
+      "registryDependencies": [
+        "@snn-ui/snn-foundation",
+        "@snn-ui/snn-motion-tokens",
+        "@snn-ui/button",
+        "@snn-ui/copy-button",
+        "@snn-ui/segmented-control",
+        "@snn-ui/line-chart",
+        "@snn-ui/sparkline",
+        "@snn-ui/avatar"
+      ],
+      "files": [
+        {
+          "path": "registry/components/hero-section/hero-cadence.module.css",
+          "type": "registry:component",
+          "target": "@components/snn/hero-section/hero-cadence.module.css"
+        },
+        {
+          "path": "registry/components/hero-section/hero-cadence.tsx",
+          "type": "registry:component",
+          "target": "@components/snn/hero-section/hero-cadence.tsx"
+        },
+        {
+          "path": "registry/components/hero-section/hero-content.module.css",
+          "type": "registry:component",
+          "target": "@components/snn/hero-section/hero-content.module.css"
+        },
+        {
+          "path": "registry/components/hero-section/hero-content.tsx",
+          "type": "registry:component",
+          "target": "@components/snn/hero-section/hero-content.tsx"
+        },
+        {
+          "path": "registry/components/hero-section/hero-lumen-data.ts",
+          "type": "registry:component",
+          "target": "@components/snn/hero-section/hero-lumen-data.ts"
+        },
+        {
+          "path": "registry/components/hero-section/hero-lumen.module.css",
+          "type": "registry:component",
+          "target": "@components/snn/hero-section/hero-lumen.module.css"
+        },
+        {
+          "path": "registry/components/hero-section/hero-lumen.tsx",
+          "type": "registry:component",
+          "target": "@components/snn/hero-section/hero-lumen.tsx"
+        },
+        {
+          "path": "registry/components/hero-section/hero-mesh.module.css",
+          "type": "registry:component",
+          "target": "@components/snn/hero-section/hero-mesh.module.css"
+        },
+        {
+          "path": "registry/components/hero-section/hero-mesh.tsx",
+          "type": "registry:component",
+          "target": "@components/snn/hero-section/hero-mesh.tsx"
+        },
+        {
+          "path": "registry/components/hero-section/hero-motion.ts",
+          "type": "registry:component",
+          "target": "@components/snn/hero-section/hero-motion.ts"
+        },
+        {
+          "path": "registry/components/hero-section/hero-relay.module.css",
+          "type": "registry:component",
+          "target": "@components/snn/hero-section/hero-relay.module.css"
+        },
+        {
+          "path": "registry/components/hero-section/hero-relay.tsx",
+          "type": "registry:component",
+          "target": "@components/snn/hero-section/hero-relay.tsx"
+        },
+        {
+          "path": "registry/components/hero-section/hero-section.module.css",
+          "type": "registry:component",
+          "target": "@components/snn/hero-section/hero-section.module.css"
+        },
+        {
+          "path": "registry/components/hero-section/hero-section.tsx",
+          "type": "registry:component",
+          "target": "@components/snn/hero-section/hero-section.tsx"
+        }
+      ],
+      "meta": {
+        "arcCommit": "b40c890",
+        "arcSource": "registry/components/hero-section"
+      }
+    },
+    {
+      "name": "login-centered",
+      "type": "registry:ui",
+      "title": "Ortalanmış giriş ekranı",
+      "description": "Çizgili arka planlı tam ekran giriş ve kayıt: geçiş anahtarı, e-posta kodu, tek oturum açma. Yalnız görünümdür; kimlik doğrulamayı uygulama bağlar.",
+      "categories": [
+        "blocks"
+      ],
+      "dependencies": [
+        "motion",
+        "lucide-react",
+        "@snn/abacus-core@github:sinanbocek/SNN-Abacus-Core#semver:^4.3.0"
+      ],
+      "registryDependencies": [
+        "@snn-ui/snn-foundation",
+        "@snn-ui/snn-motion-tokens",
+        "@snn-ui/button",
+        "@snn-ui/input",
+        "@snn-ui/otp-input"
+      ],
+      "files": [
+        {
+          "path": "registry/components/login-centered/login-centered.module.css",
+          "type": "registry:component",
+          "target": "@components/snn/login-centered/login-centered.module.css"
+        },
+        {
+          "path": "registry/components/login-centered/login-centered.tsx",
+          "type": "registry:component",
+          "target": "@components/snn/login-centered/login-centered.tsx"
+        }
+      ],
+      "meta": {
+        "arcCommit": "b40c890",
+        "arcSource": "registry/components/login-centered"
+      }
+    },
+    {
+      "name": "login-immersive",
+      "type": "registry:ui",
+      "title": "Tam ekran görselli giriş",
+      "description": "Blok: bütün kabı kaplayan fotoğraf üstünde buzlu cam kartta giriş formu; üstte marka ve \"Yardım\", altta künye ve yasal bağlantılar. Fare fotoğrafı hafifçe kaydırır; saydamlığı azalt açıkken kart düz yüzeye döner. Yalnız görünümdür.",
+      "categories": [
+        "blocks"
+      ],
+      "dependencies": [
+        "motion",
+        "@snn/abacus-core@github:sinanbocek/SNN-Abacus-Core#semver:^4.3.0"
+      ],
+      "registryDependencies": [
+        "@snn-ui/snn-foundation",
+        "@snn-ui/snn-motion-tokens",
+        "@snn-ui/login-split"
+      ],
+      "files": [
+        {
+          "path": "registry/components/login-immersive/login-immersive.module.css",
+          "type": "registry:component",
+          "target": "@components/snn/login-immersive/login-immersive.module.css"
+        },
+        {
+          "path": "registry/components/login-immersive/login-immersive.tsx",
+          "type": "registry:component",
+          "target": "@components/snn/login-immersive/login-immersive.tsx"
+        }
+      ],
+      "meta": {
+        "arcCommit": "bfdf7e8",
+        "arcSource": "Arc Pro login (login-immersive) çeşidinden esinlenildi; kod okunmadı; tarif: docs/tarifler/login-immersive.md"
+      }
+    },
+    {
+      "name": "login-split",
+      "type": "registry:ui",
+      "title": "İki bölmeli giriş ekranı",
+      "description": "Blok: bir yanda giriş formu (e-posta, parola, beni hatırla, parolamı unuttum, sağlayıcı düğmesi, kayıt ol), öbür yanda fotoğraf ve alıntı. Alan hataları alandan çıkınca ve gönderimde; reddedilen girişte hata kutusu. 768 px altında görsel ince şeride iner. Yalnız görünümdür.",
+      "categories": [
+        "blocks"
+      ],
+      "dependencies": [
+        "motion",
+        "@snn/abacus-core@github:sinanbocek/SNN-Abacus-Core#semver:^4.3.0"
+      ],
+      "registryDependencies": [
+        "@snn-ui/snn-foundation",
+        "@snn-ui/snn-motion-tokens",
+        "@snn-ui/avatar",
+        "@snn-ui/button",
+        "@snn-ui/checkbox",
+        "@snn-ui/input",
+        "@snn-ui/password-field",
+        "@snn-ui/snn-viz-utils"
+      ],
+      "files": [
+        {
+          "path": "registry/components/login-split/login-form-format.ts",
+          "type": "registry:component",
+          "target": "@components/snn/login-split/login-form-format.ts"
+        },
+        {
+          "path": "registry/components/login-split/login-form.module.css",
+          "type": "registry:component",
+          "target": "@components/snn/login-split/login-form.module.css"
+        },
+        {
+          "path": "registry/components/login-split/login-form.tsx",
+          "type": "registry:component",
+          "target": "@components/snn/login-split/login-form.tsx"
+        },
+        {
+          "path": "registry/components/login-split/login-split.module.css",
+          "type": "registry:component",
+          "target": "@components/snn/login-split/login-split.module.css"
+        },
+        {
+          "path": "registry/components/login-split/login-split.tsx",
+          "type": "registry:component",
+          "target": "@components/snn/login-split/login-split.tsx"
+        }
+      ],
+      "meta": {
+        "arcCommit": "bfdf7e8",
+        "arcSource": "Arc Pro login (login-split) çeşidinden esinlenildi; kod okunmadı; tarif: docs/tarifler/login-split.md"
+      }
+    },
+    {
+      "name": "notification-center",
+      "type": "registry:ui",
+      "title": "Bildirim merkezi",
+      "description": "Çan düğmesinden açılan; Tümü ve Okunmamış görünümleri, tek tek ve toplu okundu işareti, ayrıntı açma ve kaldırma sunan bildirim paneli.",
+      "categories": [
+        "feedback"
+      ],
+      "dependencies": [
+        "motion",
+        "lucide-react",
+        "@radix-ui/react-popover"
+      ],
+      "registryDependencies": [
+        "@snn-ui/snn-foundation",
+        "@snn-ui/snn-motion-tokens",
+        "@snn-ui/avatar"
+      ],
+      "files": [
+        {
+          "path": "registry/components/notification-center/notification-center.module.css",
+          "type": "registry:component",
+          "target": "@components/snn/notification-center/notification-center.module.css"
+        },
+        {
+          "path": "registry/components/notification-center/notification-center.tsx",
+          "type": "registry:component",
+          "target": "@components/snn/notification-center/notification-center.tsx"
+        }
+      ],
+      "meta": {
+        "arcCommit": "b40c890",
+        "arcSource": "registry/components/notification-center"
+      }
+    },
+    {
+      "name": "otp-input",
+      "type": "registry:ui",
+      "title": "Doğrulama kodu girişi",
+      "description": "Tek kullanımlık kod için haneli giriş; yapıştırma, ok tuşlarıyla gezinme ve hatada sarsıntı.",
+      "categories": [
+        "forms"
+      ],
+      "dependencies": [
+        "motion"
+      ],
+      "registryDependencies": [
+        "@snn-ui/snn-foundation",
+        "@snn-ui/snn-motion-tokens"
+      ],
+      "files": [
+        {
+          "path": "registry/components/otp-input/otp-input.module.css",
+          "type": "registry:component",
+          "target": "@components/snn/otp-input/otp-input.module.css"
+        },
+        {
+          "path": "registry/components/otp-input/otp-input.tsx",
+          "type": "registry:component",
+          "target": "@components/snn/otp-input/otp-input.tsx"
+        }
+      ],
+      "meta": {
+        "arcCommit": "b40c890",
+        "arcSource": "registry/components/otp-input"
+      }
+    },
+    {
+      "name": "plan-comparison",
+      "type": "registry:ui",
+      "title": "Plan karşılaştırması",
+      "description": "İki planın yalnız değişen ayrıntılarını gösteren karşılaştırma bloğu: aylık/yıllık anahtarı, \"yalnızca farkları göster\" süzgeci, TRY fiyatlar ve plan seçimi.",
+      "categories": [
+        "commerce"
+      ],
+      "dependencies": [
+        "motion",
+        "lucide-react",
+        "@snn/abacus-core@github:sinanbocek/SNN-Abacus-Core#semver:^4.3.0"
+      ],
+      "registryDependencies": [
+        "@snn-ui/snn-foundation",
+        "@snn-ui/snn-motion-tokens",
+        "@snn-ui/button",
+        "@snn-ui/segmented-control",
+        "@snn-ui/switch"
+      ],
+      "files": [
+        {
+          "path": "registry/components/plan-comparison/plan-comparison-format.ts",
+          "type": "registry:component",
+          "target": "@components/snn/plan-comparison/plan-comparison-format.ts"
+        },
+        {
+          "path": "registry/components/plan-comparison/plan-comparison.module.css",
+          "type": "registry:component",
+          "target": "@components/snn/plan-comparison/plan-comparison.module.css"
+        },
+        {
+          "path": "registry/components/plan-comparison/plan-comparison.tsx",
+          "type": "registry:component",
+          "target": "@components/snn/plan-comparison/plan-comparison.tsx"
+        }
+      ],
+      "meta": {
+        "arcCommit": "b40c890",
+        "arcSource": "registry/components/plan-comparison"
+      }
+    },
+    {
+      "name": "radio-cards",
+      "type": "registry:ui",
+      "title": "Seçim kartları",
+      "description": "Etiketle anlatılamayan seçimler (plan, kargo hızı, bölge) için kartlı radyo grubu; seçim halkası kartlar arasında yayla kayar, klavyeyle gezilir, forma gizli girdi yazar.",
+      "categories": [
+        "forms"
+      ],
+      "dependencies": [
+        "motion"
+      ],
+      "registryDependencies": [
+        "@snn-ui/snn-foundation",
+        "@snn-ui/snn-motion-tokens"
+      ],
+      "files": [
+        {
+          "path": "registry/components/radio-cards/radio-cards.module.css",
+          "type": "registry:component",
+          "target": "@components/snn/radio-cards/radio-cards.module.css"
+        },
+        {
+          "path": "registry/components/radio-cards/radio-cards.tsx",
+          "type": "registry:component",
+          "target": "@components/snn/radio-cards/radio-cards.tsx"
+        }
+      ],
+      "meta": {
+        "arcCommit": "b40c890",
+        "arcSource": "registry/components/radio-cards"
+      }
+    },
+    {
+      "name": "sign-in",
+      "type": "registry:ui",
+      "title": "Giriş kartı",
+      "description": "E-posta kodu, geçiş anahtarı ve tek oturum açmayla adım adım giriş kartı; kartın yüksekliği adıma göre akar, tanınan hesapta kişi simgesi görünür. Yalnız görünümdür.",
+      "categories": [
+        "blocks"
+      ],
+      "dependencies": [
+        "motion",
+        "lucide-react",
+        "@snn/abacus-core@github:sinanbocek/SNN-Abacus-Core#semver:^4.3.0"
+      ],
+      "registryDependencies": [
+        "@snn-ui/snn-foundation",
+        "@snn-ui/snn-motion-tokens",
+        "@snn-ui/avatar",
+        "@snn-ui/button",
+        "@snn-ui/input",
+        "@snn-ui/otp-input"
+      ],
+      "files": [
+        {
+          "path": "registry/components/sign-in/sign-in-format.ts",
+          "type": "registry:component",
+          "target": "@components/snn/sign-in/sign-in-format.ts"
+        },
+        {
+          "path": "registry/components/sign-in/sign-in.module.css",
+          "type": "registry:component",
+          "target": "@components/snn/sign-in/sign-in.module.css"
+        },
+        {
+          "path": "registry/components/sign-in/sign-in.tsx",
+          "type": "registry:component",
+          "target": "@components/snn/sign-in/sign-in.tsx"
+        }
+      ],
+      "meta": {
+        "arcCommit": "b40c890",
+        "arcSource": "registry/components/sign-in"
+      }
+    },
+    {
+      "name": "signature-pad",
+      "type": "registry:ui",
+      "title": "İmza panosu",
+      "description": "Mürekkepli imza alanı: kalem basıncına ya da hıza göre kalınlık, geri al/yinele, temizleme, imzayı özgün ritminde yeniden oynatma, kırpılmış PNG ve SVG dışa aktarma.",
+      "categories": [
+        "forms"
+      ],
+      "dependencies": [
+        "motion",
+        "lucide-react",
+        "@snn/abacus-core@github:sinanbocek/SNN-Abacus-Core#semver:^4.3.0"
+      ],
+      "registryDependencies": [
+        "@snn-ui/snn-foundation",
+        "@snn-ui/snn-motion-tokens"
+      ],
+      "files": [
+        {
+          "path": "registry/components/signature-pad/signature-pad.module.css",
+          "type": "registry:component",
+          "target": "@components/snn/signature-pad/signature-pad.module.css"
+        },
+        {
+          "path": "registry/components/signature-pad/signature-pad.tsx",
+          "type": "registry:component",
+          "target": "@components/snn/signature-pad/signature-pad.tsx"
+        }
+      ],
+      "meta": {
+        "arcCommit": "b40c890",
+        "arcSource": "registry/components/signature-pad"
+      }
+    },
+    {
+      "name": "signup-form",
+      "type": "registry:ui",
+      "title": "Kayıt formu",
+      "description": "Ad, e-posta ve parola; parola gücü çubuğu, tek oturum açma ve başarı adımı. Yalnız görünümdür.",
+      "categories": [
+        "blocks"
+      ],
+      "dependencies": [
+        "motion"
+      ],
+      "registryDependencies": [
+        "@snn-ui/snn-foundation",
+        "@snn-ui/snn-motion-tokens",
+        "@snn-ui/button",
+        "@snn-ui/checkbox",
+        "@snn-ui/input",
+        "@snn-ui/password-field"
+      ],
+      "files": [
+        {
+          "path": "registry/components/signup-form/signup-form.module.css",
+          "type": "registry:component",
+          "target": "@components/snn/signup-form/signup-form.module.css"
+        },
+        {
+          "path": "registry/components/signup-form/signup-form.tsx",
+          "type": "registry:component",
+          "target": "@components/snn/signup-form/signup-form.tsx"
+        }
+      ],
+      "meta": {
+        "arcCommit": "b40c890",
+        "arcSource": "registry/components/signup-form"
+      }
+    },
+    {
+      "name": "site-footer",
+      "type": "registry:ui",
+      "title": "Site alt bilgisi",
+      "description": "Üç yerleşimli site alt bilgisi: bülten kaydı ve bağlantı sütunları, tek sakin satır ve alt kenardan kırpılıp solan büyük marka işareti.",
+      "categories": [
+        "commerce"
+      ],
+      "dependencies": [
+        "motion",
+        "lucide-react"
+      ],
+      "registryDependencies": [
+        "@snn-ui/snn-foundation",
+        "@snn-ui/snn-motion-tokens",
+        "@snn-ui/button",
+        "@snn-ui/segmented-control"
+      ],
+      "files": [
+        {
+          "path": "registry/components/site-footer/site-footer.module.css",
+          "type": "registry:component",
+          "target": "@components/snn/site-footer/site-footer.module.css"
+        },
+        {
+          "path": "registry/components/site-footer/site-footer.tsx",
+          "type": "registry:component",
+          "target": "@components/snn/site-footer/site-footer.tsx"
+        }
+      ],
+      "meta": {
+        "arcCommit": "b40c890",
+        "arcSource": "registry/components/site-footer"
+      }
+    },
+    {
+      "name": "text-morph",
+      "type": "registry:ui",
+      "title": "Dönüşen metin",
+      "description": "Kısa bir etiketi yerinde bir sonrakine dönüştürür: ortak harfler süzülür, yeniler netleşerek gelir, kalkanlar bulanıp kaybolur, genişlik yayla izler. \"Yayınla → Yayınlanıyor → Yayınlandı\" gibi durum sözcükleri için.",
+      "categories": [
+        "feedback"
+      ],
+      "dependencies": [
+        "motion"
+      ],
+      "registryDependencies": [
+        "@snn-ui/snn-foundation",
+        "@snn-ui/snn-motion-tokens"
+      ],
+      "files": [
+        {
+          "path": "registry/components/text-morph/text-morph.module.css",
+          "type": "registry:component",
+          "target": "@components/snn/text-morph/text-morph.module.css"
+        },
+        {
+          "path": "registry/components/text-morph/text-morph.tsx",
+          "type": "registry:component",
+          "target": "@components/snn/text-morph/text-morph.tsx"
+        }
+      ],
+      "meta": {
+        "arcCommit": "b40c890",
+        "arcSource": "registry/components/text-morph"
+      }
+    },
+    {
+      "name": "toast-stack",
+      "type": "registry:ui",
+      "title": "Bildirim yığını",
+      "description": "Yeni bildirimleri alttan yükselten, eskileri arkaya istifleyen, üzerine gelince liste gibi açan; yerinde güncelleme, geri alma eylemi ve sağa kaydırarak kapatma sunan bildirim yığını. Tekli bildirim için `toast`.",
+      "categories": [
+        "feedback"
+      ],
+      "dependencies": [
+        "motion",
+        "lucide-react"
+      ],
+      "registryDependencies": [
+        "@snn-ui/snn-foundation",
+        "@snn-ui/snn-motion-tokens"
+      ],
+      "files": [
+        {
+          "path": "registry/components/toast-stack/toast-stack.module.css",
+          "type": "registry:component",
+          "target": "@components/snn/toast-stack/toast-stack.module.css"
+        },
+        {
+          "path": "registry/components/toast-stack/toast-stack.tsx",
+          "type": "registry:component",
+          "target": "@components/snn/toast-stack/toast-stack.tsx"
+        }
+      ],
+      "meta": {
+        "arcCommit": "b40c890",
+        "arcSource": "registry/components/toast-stack"
+      }
     }
   ]
 }
