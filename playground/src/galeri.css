@@ -58,7 +58,7 @@ h1, h2, h3 { font-family: var(--font-display); letter-spacing: var(--tracking-di
 .tile-accent { background: linear-gradient(160deg, var(--accent-subtle), var(--surface) 70%); }
 
 /* Bileşen bölümü */
-/* Taşan bir örnek (ör. ridgeline, TB kaydı) sayfayı yana kaydırmasın; açılır katmanlar portal ile dışarıda çizildiği için kırpılmaz. */
+/* Taşan bir örnek sayfayı yana kaydırmasın (güvenlik payı); açılır katmanlar portal ile dışarıda çizildiği için kırpılmaz. */
 .product { padding: 28px 0 36px; border-top: 1px solid var(--border-subtle); overflow-x: clip; }
 .product-head { display: flex; align-items: flex-start; justify-content: space-between; gap: 16px; }
 .product h2 { font-size: var(--text-xl); }

@@ -26,6 +26,7 @@ Plan: `SNN-Standartlar/docs/arayuz-standardi-plani.md`.
 ```bash
 npm run build      # katalog → registry.json, AI/katalog.md, public/r
 npm test           # amber testi
+npm run typecheck  # TypeScript tip denetimi: galeri ve bütün bileşenler
 npm run sabotage   # amber testini bilerek boz, kırmızıya döndüğünü gör
 npm run shots -- <ad> # bileşenin galeri ekran görüntüsü, 1400 ve 390 px (shots/)
 ```

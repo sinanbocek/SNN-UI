@@ -3,7 +3,8 @@ import { Check, Copy, Plus, ArrowRight } from "lucide-react";
 import { Button } from "../../../registry/components/button/button";
 import { Badge } from "../../../registry/components/badge/badge";
 import { EmptyState } from "../../../registry/components/empty-state/empty-state";
-import { demos } from "../demos";
+import { Skeleton } from "../../../registry/components/skeleton/skeleton";
+import { useDemos } from "../lib/demo-loader";
 import { accentTitles, copyText, entries, entryOf, groupOf, groups, type Category, type Entry, type Shop } from "../lib/data";
 import type { CartTheme } from "../lib/cart";
 import { routeHash } from "../lib/route";
@@ -20,7 +21,8 @@ export function CartButton({ name, shop, size = "sm" }: { name: string; shop: Sh
 
 /** Tek bileşenin vitrin bölümü: başlık, sepet düğmesi, canlı örnek, kullanım ve not. `id` npm run shots için bileşen adıdır. */
 function Product({ entry, shop }: { entry: Entry; shop: Shop }) {
-  const demo = demos[entry.name];
+  const demos = useDemos();
+  const demo = demos?.[entry.name];
   return <section id={entry.name} className="product" aria-labelledby={`${entry.name}-title`}>
     <div className="product-head">
       <div>
@@ -30,7 +32,7 @@ function Product({ entry, shop }: { entry: Entry; shop: Shop }) {
       <CartButton name={entry.name} shop={shop} />
     </div>
     <p className="product-desc">{entry.description}</p>
-    <div className="stage">{demo ? demo() : <span className="eksik">Bu bileşen için örnek henüz yazılmadı.</span>}</div>
+    <div className="stage" data-loading={!demos || undefined}>{!demos ? <Skeleton label="Örnek yükleniyor" lines={4} /> : demo ? demo() : <span className="eksik">Bu bileşen için örnek henüz yazılmadı.</span>}</div>
     <details className="usage">
       <summary>Kullanım ve kurulum</summary>
       <CodeLine label="Kurulum" value={`npx shadcn@latest add @snn-ui/${entry.name}`} shop={shop} />

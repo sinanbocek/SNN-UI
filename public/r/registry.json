@@ -4440,6 +4440,118 @@
         "arcCommit": "bfdf7e8",
         "arcSource": "(Arc'ta yok; SNN-UI için yazıldı)"
       }
+    },
+    {
+      "name": "status-card",
+      "type": "registry:ui",
+      "title": "Durum kartı",
+      "description": "Gösterge kartıyla aynı ölçüde, değeri sayı yerine durum cümlesi olan kart (\"Sorun yok\", \"Kontrol gerekli\", \"Bağlantı kurulamadı\"). Ton renk, simge ve etiketle birlikte söylenir; değer değişince yükselerek geçer.",
+      "categories": [
+        "feedback"
+      ],
+      "dependencies": [
+        "lucide-react",
+        "motion"
+      ],
+      "registryDependencies": [
+        "@snn-ui/snn-foundation",
+        "@snn-ui/snn-motion-tokens"
+      ],
+      "files": [
+        {
+          "path": "registry/components/status-card/status-card.module.css",
+          "type": "registry:component",
+          "target": "@components/snn/status-card/status-card.module.css"
+        },
+        {
+          "path": "registry/components/status-card/status-card.tsx",
+          "type": "registry:component",
+          "target": "@components/snn/status-card/status-card.tsx"
+        }
+      ],
+      "meta": {
+        "arcCommit": "bfdf7e8",
+        "arcSource": "(Arc'ta yok; SNN-UI için yazıldı)"
+      }
+    },
+    {
+      "name": "grouped-table",
+      "type": "registry:ui",
+      "title": "Açılır gruplu tablo",
+      "description": "Satırları gruplara bölen tablo: her grup bir <tbody>, başlığı aria-expanded taşıyan düğmedir ve satır sayısıyla durum rozeti gösterir. Arama yazılınca gruplar zorla açılır, eşleşme sayısı yazılır. Dar kapta isteğe bağlı sütunlar gizlenir; tablo yana kaymaz.",
+      "categories": [
+        "finance"
+      ],
+      "dependencies": [
+        "@snn/abacus-core@github:sinanbocek/SNN-Abacus-Core#semver:^4.3.0",
+        "lucide-react",
+        "motion"
+      ],
+      "registryDependencies": [
+        "@snn-ui/snn-foundation",
+        "@snn-ui/snn-motion-tokens"
+      ],
+      "files": [
+        {
+          "path": "registry/components/grouped-table/grouped-table-filter.ts",
+          "type": "registry:component",
+          "target": "@components/snn/grouped-table/grouped-table-filter.ts"
+        },
+        {
+          "path": "registry/components/grouped-table/grouped-table.module.css",
+          "type": "registry:component",
+          "target": "@components/snn/grouped-table/grouped-table.module.css"
+        },
+        {
+          "path": "registry/components/grouped-table/grouped-table.tsx",
+          "type": "registry:component",
+          "target": "@components/snn/grouped-table/grouped-table.tsx"
+        }
+      ],
+      "meta": {
+        "arcCommit": "bfdf7e8",
+        "arcSource": "(Arc'ta yok; SNN-UI için yazıldı)"
+      }
+    },
+    {
+      "name": "tree-view",
+      "type": "registry:ui",
+      "title": "Ağaç görünümü",
+      "description": "İç içe liste: açma düğmesi ile seçim düğmesi ayrıdır. Üstteki arama eşleşen düğümün bütün üstlerini açar, eşleşme sayısını yazar ve eşleşen parçayı vurgular. Yüzlerce kalemli sınıflamalar (ör. TÜFE) için.",
+      "categories": [
+        "finance"
+      ],
+      "dependencies": [
+        "@snn/abacus-core@github:sinanbocek/SNN-Abacus-Core#semver:^4.3.0",
+        "lucide-react",
+        "motion"
+      ],
+      "registryDependencies": [
+        "@snn-ui/snn-foundation",
+        "@snn-ui/snn-motion-tokens",
+        "@snn-ui/search-field"
+      ],
+      "files": [
+        {
+          "path": "registry/components/tree-view/tree-view-search.ts",
+          "type": "registry:component",
+          "target": "@components/snn/tree-view/tree-view-search.ts"
+        },
+        {
+          "path": "registry/components/tree-view/tree-view.module.css",
+          "type": "registry:component",
+          "target": "@components/snn/tree-view/tree-view.module.css"
+        },
+        {
+          "path": "registry/components/tree-view/tree-view.tsx",
+          "type": "registry:component",
+          "target": "@components/snn/tree-view/tree-view.tsx"
+        }
+      ],
+      "meta": {
+        "arcCommit": "bfdf7e8",
+        "arcSource": "(Arc'ta yok; SNN-UI için yazıldı)"
+      }
     }
   ]
 }

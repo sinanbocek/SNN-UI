@@ -226,7 +226,11 @@ export function Ridgeline({ series, label, unit = "", formatValue, domain, overl
     }, onComplete: finish });
     return () => controls.stop();
   }, [shown, model, reduced]);
-  useLayoutEffect(() => { paintRef.current(); });
+  useLayoutEffect(() => {
+    // Açılış hareketi başlamadan (grafik görünüme girmeden) eksen işaretleri verinin alanına göre durur; 0–1 yer tutucusuna göre dizilip kabı taşırmaz.
+    if (drawn.current.shapes.size === 0) { drawn.current.lo = model.lo; drawn.current.hi = model.hi; }
+    paintRef.current();
+  });
 
   // Hedef alan için eksen işaretleri; konumları her karede çizilen alanı izler.
   const tickCount = Math.max(2, Math.floor(plotWidth / 72));

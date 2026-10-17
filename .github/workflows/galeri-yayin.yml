@@ -21,9 +21,9 @@ jobs:
       - name: Anahtar yoksa atla
         if: env.HAS_KEY != 'true'
         run: echo "::notice::FIREBASE_SERVICE_ACCOUNT_SNN_UI anahtarı yok; yayın atlandı."
-      - uses: actions/checkout@v4
+      - uses: actions/checkout@v5
         if: env.HAS_KEY == 'true'
-      - uses: actions/setup-node@v4
+      - uses: actions/setup-node@v5
         if: env.HAS_KEY == 'true'
         with:
           node-version: 22

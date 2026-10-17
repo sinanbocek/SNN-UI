@@ -21,7 +21,7 @@ Tarayıcıda `http://localhost:5311` açılır. Üst çubukta arama, açık/koyu
 
 ## Tek dosya (sunucusuz)
 
-`npm run build` sonrası `playground/dist/index.html` çift tıkla açılır.
+`npm run build:single` sonrası `playground/dist/index.html` çift tıkla açılır. `npm run build` site içindir: parçalı çıktı, örnekler ve yazı tipleri gerektiğinde iner.
 
 ## Yeni bileşen örneği eklemek
 

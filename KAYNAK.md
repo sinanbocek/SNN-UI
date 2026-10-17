@@ -249,3 +249,15 @@ SNN-Piyasa-Core panelinin taşınmasında (sinanbocek/SNN-Piyasa-Core PR #72–#
 | `avatar` | Baş harf seçimi `avatar-initials.ts` dosyasına ayrıldı (saf, test edilir). Parantez içi atılır, tire ve alt çizgi sözcük ayracıdır, yalnız harf ya da rakam baş harf olur: "trade-kasa (tarayıcı)" → "TK" (önce "T("). `text.upper` korundu. |
 | `line-chart` | Yeni `baseline` seçeneği: `"zero"` (varsayılan, davranış değişmedi) ya da `"auto"` (eksen verinin aralığına oturur; düz seride aralık değerin %1'i kadar açılır). Ölçek `line-chart-scale.ts` dosyasına ayrıldı (saf, test edilir); bölümdeki kayan nokta artığı temizlendi (49,4 / 0,05). Varsayılan eksen etiketi ayrışacak kadar ondalık alır (adım 0,05 → "49,45"); önce tek ondalıkla "49,5" iki kez yazılıyordu. `snn-chart-format` içinden `COMPACT_FROM` dışa açıldı. |
 | `progress` | Yüzde Türkçe yazımla: "72%" yerine "%72", hem ekrandaki sayaçta hem `aria-valuetext`'te (`gauge` ile aynı). |
+
+## Piyasa-Core adayları (issue #26) ve bakım (2026-10-17)
+
+Üç parça Arc'ta yok; SNN-Piyasa-Core'un tarif ettiği işlevle sıfırdan yazıldı. Piyasa-Core kodu okunmadı, kopyalanmadı.
+
+| Parça | Arc'taki yer | Uyarlama |
+|---|---|---|
+| `status-card` | (Arc'ta yok; SNN-UI için yazıldı) | `metric-card` ile aynı kutu ve başlık düzeni; değer sayı yerine metin. Ton (success, warning, danger, neutral) renk, simge ve sağ üstteki etiketle birlikte söylenir; uyarı tonu mavi-gri. Değer değişince yükselerek geçer (`motion-tokens`); `live` ile ekran okuyucuya duyurulur. `metric-card`'a `value: string` eklemek yerine ayrı parça seçildi: sayaç mantığı bozulmasın. |
+| `grouped-table` | (Arc'ta yok; SNN-UI için yazıldı) | Her grup bir `<tbody>`; başlık `aria-expanded` taşıyan düğme, satır sayısı ve durum rozeti gösterir. Arama `grouped-table-filter.ts` içinde ABACUS `text.searchKey` ile (test edilir); arama varken gruplar zorla açılır, "N satır eşleşti" yazılır. Görünüm `sortable-data-table` ile aynı değişkenlerden. Dar kapta (36rem altı) `optional` sütunlar gizlenir, sabit genişlikler bırakılır; tablo yana kaymaz. |
+| `tree-view` | (Arc'ta yok; SNN-UI için yazıldı) | İç içe liste; açma düğmesi ile seçim düğmesi ayrı. Arama `tree-view-search.ts` içinde (test edilir): eşleşen düğümün bütün üstleri açılır, eşleşme sayısı yazılır, eşleşen parça vurgulanır. Seçili düğümün üstleri açık başlar. Arama kutusu `search-field`. |
+| `ridgeline` | düzeltme | TB-001: görünüme girmeden önce eksen işaretleri 0–1 yer tutucusuna göre diziliyor, kabı 11 000 px'e taşırıyordu. Çizim başlamadan alan verinin alanına ayarlanır. |
+| `morph-nav`, `skeleton-morph` | düzeltme | Yalnız tip yazımı: `PointerEvent` DOM türüne, `fade` `Transition` türüne bağlandı. Çalışma davranışı değişmedi. `npm run typecheck` artık hatasız. |
