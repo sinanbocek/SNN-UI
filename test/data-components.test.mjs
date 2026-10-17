@@ -11,7 +11,7 @@ const root = path.join(path.dirname(fileURLToPath(import.meta.url)), "..");
 let temp, table, tree;
 
 before(async () => {
-  temp = mkdtempSync(path.join(tmpdir(), "snn-ui-veri-"));
+  temp = mkdtempSync(path.join(tmpdir(), "snn-ui-data-"));
   const load = async (file, name) => {
     const outfile = path.join(temp, `${name}.mjs`);
     await build({ entryPoints: [path.join(root, file)], bundle: true, format: "esm", platform: "node", outfile, logLevel: "silent" });
