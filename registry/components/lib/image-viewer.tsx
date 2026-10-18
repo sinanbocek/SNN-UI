@@ -22,9 +22,9 @@ export interface ImageViewerProps {
   getOrigin: (index: number) => Rect | null;
   label: string;
   /** Alt tarafta küçük resim şeridi. */
-  filmstrip?: boolean;
+  filmstrip?: boolean | undefined;
   /** Her fotoğraf için ek denetim (örneğin favori kalbi). */
-  renderExtra?: (image: ViewerImage, index: number) => ReactNode;
+  renderExtra?: ((image: ViewerImage, index: number) => ReactNode) | undefined;
 }
 
 const NARROW = 640;

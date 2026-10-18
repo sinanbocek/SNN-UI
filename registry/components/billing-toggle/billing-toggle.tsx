@@ -11,19 +11,19 @@ export interface BillingToggleOption {
   value: string;
   label: string;
   /** Kısa tasarruf notu, örneğin "%20 indirim". */
-  badge?: string;
+  badge?: string | undefined;
   /** Bu seçenek seçilince rozet metni, örneğin "₺576 kazanırsınız". Verilmezse `badge` kullanılır. */
-  activeBadge?: string;
+  activeBadge?: string | undefined;
 }
 
 export interface BillingToggleProps {
   value: string;
   onValueChange: (value: string) => void;
-  options?: BillingToggleOption[];
+  options?: BillingToggleOption[] | undefined;
   /** Grubun erişilebilir adı. */
-  label?: string;
-  size?: "md" | "lg";
-  className?: string;
+  label?: string | undefined;
+  size?: "md" | "lg" | undefined;
+  className?: string | undefined;
 }
 
 const { duration, ease, blur } = motionTokens;
@@ -47,7 +47,7 @@ const still: Variants = { hidden: { opacity: 0 }, shown: { opacity: 1, transitio
  * Yerinde değişen metin. Bütün adaylar aynı ızgara hücresinde durur; kutu en uzun adayın genişliğinde kalır
  * ve metin değişince çevresindeki hiçbir şey kaymaz.
  */
-function StableSwap({ text, candidates, reduced, className }: { text: string; candidates: string[]; reduced: boolean; className?: string }) {
+function StableSwap({ text, candidates, reduced, className }: { text: string; candidates: string[]; reduced: boolean; className?: string | undefined }) {
   return (
     <span className={[styles.swap, className].filter(Boolean).join(" ")}>
       {[...new Set(candidates)].map(candidate => <span key={candidate} className={styles.swapSizer} aria-hidden="true">{candidate}</span>)}
@@ -142,13 +142,13 @@ export function BillingToggle({ value, onValueChange, options = DEFAULT_OPTIONS,
 export interface BillingPriceProps {
   amount: number;
   /** ISO para birimi kodu (ABACUS): "TRY", "USD", "EUR". Varsayılan "TRY". */
-  currency?: string;
+  currency?: string | undefined;
   /** Fiyatın ardından gelen dönem, örneğin "ayda". Değişince yerinde değişir. */
-  period?: string;
+  period?: string | undefined;
   /** Önceki fiyat; `amount` değerinden yüksekse üstü çizili gösterilir. */
-  was?: number;
-  decimals?: number;
-  className?: string;
+  was?: number | undefined;
+  decimals?: number | undefined;
+  className?: string | undefined;
 }
 
 const clip: Transition = { type: "spring", visualDuration: 0.36, bounce: 0 };
@@ -190,7 +190,7 @@ export function BillingPrice({ amount, currency = "TRY", period, was, decimals =
           <motion.span
             className={styles.period}
             initial={false}
-            animate={periodWidth === null ? undefined : { width: periodWidth }}
+            {...(periodWidth === null ? {} : { animate: { width: periodWidth } })}
             transition={reduced ? { duration: 0 } : clip}
           >
             <span ref={periodRef} className={styles.periodSizer} aria-hidden="true">{period}</span>

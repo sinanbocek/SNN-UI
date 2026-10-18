@@ -6,18 +6,18 @@ import { motionTokens } from "../lib/motion-tokens";
 import styles from "./skeleton.module.css";
 
 export interface SkeletonProps {
-  label?: string;
-  lines?: number;
-  avatar?: boolean;
-  className?: string;
+  label?: string | undefined;
+  lines?: number | undefined;
+  avatar?: boolean | undefined;
+  className?: string | undefined;
   /** Yükleme bitince gösterilecek içerik. Çocuk öğe varsa yer tutucu onlara çapraz geçişle döner. */
-  children?: ReactNode;
+  children?: ReactNode | undefined;
   /** true iken yer tutucuyu görünür tutar. Yalnız çocuk öğelerle birlikte kullanılır. */
-  loading?: boolean;
+  loading?: boolean | undefined;
 }
 
 /** İçeriğinin yüksekliğini izler. `morphKey` değişince yükseklik eski boyuttan yenisine yaylanır, sonra auto'ya döner; böylece edilgen yeniden akışlar (boyut değişimi, yazı tipi değişimi) anında izlenir. Yalnız hareket ederken kırpar, böylece odak halkaları duruyorken görünür kalır. */
-function HeightFrame({ className, busy, reduce, children }: { className?: string; busy: boolean; reduce: boolean | null; children: ReactNode }) {
+function HeightFrame({ className, busy, reduce, children }: { className?: string | undefined; busy: boolean; reduce: boolean | null; children: ReactNode }) {
   const frame = useRef<HTMLDivElement>(null);
   const content = useRef<HTMLDivElement>(null);
   const height = useMotionValue<number | "auto">("auto");

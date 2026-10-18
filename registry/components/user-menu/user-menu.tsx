@@ -27,8 +27,8 @@ const themes: { value: ThemePreference; label: string; icon: ReactNode }[] = [
   { value: "system", label: "Sistem", icon: <Monitor size={14} strokeWidth={1.75} aria-hidden="true" /> },
 ];
 
-export interface UserMenuUser { name: string; email: string; plan?: string; avatarSrc?: string; avatarSrcSet?: string }
-export interface UserMenuItem { label: string; icon?: ReactNode; keys?: string[]; onSelect?: () => void }
+export interface UserMenuUser { name: string; email: string; plan?: string | undefined; avatarSrc?: string | undefined; avatarSrcSet?: string | undefined }
+export interface UserMenuItem { label: string; icon?: ReactNode | undefined; keys?: string[] | undefined; onSelect?: (() => void) | undefined }
 
 /**
  * Uygulamanın üst çubuğunda kişinin fotoğrafının arkasındaki hesap menüsü. Kısa bir kimlik başlığı, birkaç hesap bağlantısı,
@@ -39,33 +39,33 @@ export interface UserMenuItem { label: string; icon?: ReactNode; keys?: string[]
 export interface UserMenuProps {
   user: UserMenuUser;
   /** Çevrimiçi durumu. `status` ya da `onStatusChange` verilirse durum noktası ve satır içi durum anahtarı görünür. */
-  status?: UserStatus;
-  defaultStatus?: UserStatus;
-  onStatusChange?: (status: UserStatus) => void;
-  theme?: ThemePreference;
-  defaultTheme?: ThemePreference;
+  status?: UserStatus | undefined;
+  defaultStatus?: UserStatus | undefined;
+  onStatusChange?: ((status: UserStatus) => void) | undefined;
+  theme?: ThemePreference | undefined;
+  defaultTheme?: ThemePreference | undefined;
   /** Seçimi bildirir. Sayfaya uygulamak uygulamanın işidir. */
-  onThemeChange?: (theme: ThemePreference) => void;
+  onThemeChange?: ((theme: ThemePreference) => void) | undefined;
   /** Satır içi açık, koyu ve sistem anahtarını gösterir. */
-  showTheme?: boolean;
+  showTheme?: boolean | undefined;
   /** Kısayol ipuçlu hesap bağlantıları, örneğin ["⌘", ","]. Üç ya da dörtle sınırlı tut. */
-  items?: UserMenuItem[];
-  onSignOut?: () => void | Promise<unknown>;
-  signOutKeys?: string[];
-  align?: "start" | "center" | "end";
+  items?: UserMenuItem[] | undefined;
+  onSignOut?: (() => void | Promise<unknown>) | undefined;
+  signOutKeys?: string[] | undefined;
+  align?: "start" | "center" | "end" | undefined;
   /** 640 px ve üstünde avatarın yanında adı ve bir ok gösterir. */
-  showName?: boolean;
-  open?: boolean;
-  defaultOpen?: boolean;
-  onOpenChange?: (open: boolean) => void;
+  showName?: boolean | undefined;
+  open?: boolean | undefined;
+  defaultOpen?: boolean | undefined;
+  onOpenChange?: ((open: boolean) => void) | undefined;
   /** Masaüstü paneli body üzerinde bir portalda çizer. Düğmenin sarmalayıcısında tutmak için false ver. */
-  portal?: boolean;
+  portal?: boolean | undefined;
   /** Menü değiştirildikten sonra odağı geri vermek için açma düğmesi. */
-  ref?: Ref<HTMLButtonElement>;
-  className?: string;
+  ref?: Ref<HTMLButtonElement> | undefined;
+  className?: string | undefined;
 }
 
-type Highlight = { top: number; height: number; tone?: string; glide: boolean };
+type Highlight = { top: number; height: number; tone?: string | undefined; glide: boolean };
 type OpenReason = "first" | "last" | "pointer" | null;
 
 const compactQuery = "(max-width: 639px)";
@@ -91,7 +91,7 @@ const stillMotion: Variants = { closed: { opacity: 0 }, open: { opacity: 1, tran
 const rowMotion: Variants = { closed: { opacity: 0, y: 3 }, open: { opacity: 1, y: 0, transition: { duration: .2, ease: enter } } };
 
 /** Durumlar arasında biçim değiştiren bir işaret: renk geçişir, "uzakta" için içi açılır, "meşgul" için çubuk kayar. */
-export function PresenceDot({ status, className }: { status: UserStatus | "offline"; className?: string }) {
+export function PresenceDot({ status, className }: { status: UserStatus | "offline"; className?: string | undefined }) {
   return <span className={[styles.dot, className].filter(Boolean).join(" ")} data-status={status} aria-hidden="true" />;
 }
 
@@ -101,11 +101,11 @@ function Portrait({ user }: { user: UserMenuUser }) {
     const initials = avatarInitials(user.name);
     return <span className={`${styles.portrait} ${styles.initials}`}>{initials}</span>;
   }
-  // eslint-disable-next-line @next/next/no-img-element -- kayıt defteri bileşenleri çerçeveden bağımsız kalır; en uygun adresleri avatarSrc ve avatarSrcSet ile ver.
+  // Bilerek düz <img>: kayıt defteri bileşenleri çerçeveden bağımsız kalır; en uygun adresleri avatarSrc ve avatarSrcSet ile ver.
   return <img className={styles.portrait} src={user.avatarSrc} srcSet={user.avatarSrcSet} alt="" decoding="async" draggable={false} onError={() => setFailed(user.avatarSrc)} />;
 }
 
-function Face({ user, status, size }: { user: UserMenuUser; status?: UserStatus; size: "sm" | "md" }) {
+function Face({ user, status, size }: { user: UserMenuUser; status?: UserStatus | undefined; size: "sm" | "md" }) {
   return <span className={styles.face} data-size={size}><Portrait user={user} />{status && <PresenceDot status={status} />}</span>;
 }
 
@@ -123,9 +123,9 @@ function Keys({ keys }: { keys: string[] }) {
 }
 
 /** Küçük satır içi anahtar. Menüde tek duraktır: yukarı ve aşağı üzerinden geçer, sol ve sağ içinden seçer. */
-function Segmented<T extends string>({ label, icon, value, options, onChange, variants }: { label: string; icon: ReactNode; value: T; options: { value: T; label: string; icon: ReactNode }[]; onChange: (value: T) => void; variants?: Variants }) {
+function Segmented<T extends string>({ label, icon, value, options, onChange, variants }: { label: string; icon: ReactNode; value: T; options: { value: T; label: string; icon: ReactNode }[]; onChange: (value: T) => void; variants?: Variants | undefined }) {
   const index = Math.max(0, options.findIndex(option => option.value === value));
-  return <motion.div className={styles.row} data-stop="group" data-label={label} variants={variants}>
+  return <motion.div className={styles.row} data-stop="group" data-label={label} variants={variants ?? {}}>
     <span className={styles.icon} aria-hidden="true">{icon}</span>
     <span className={styles.rowLabel} aria-hidden="true">{label}</span>
     <div className={styles.segments} role="group" aria-label={label} style={{ "--index": index, "--count": options.length } as CSSProperties}>
@@ -351,7 +351,7 @@ export function UserMenu({ user, status: statusProp, defaultStatus = "available"
   }
 
   const glide: Transition = highlight?.glide && !reduced ? motionTokens.spring.snappy : { duration: 0 };
-  const row = reduced ? undefined : rowMotion;
+  const row: Variants = reduced ? {} : rowMotion;
   const menuProps = { id: menuId, role: "menu", "aria-labelledby": triggerId, tabIndex: -1, onKeyDown };
 
   const content = <>

@@ -15,11 +15,11 @@ export interface StepperStep {
   id: string;
   label: string;
   /** Başlığın altında kısa ipucu. */
-  description?: string;
+  description?: string | undefined;
   /** Adımı başarısız işaretler: işaret uyarıya dönüşür, bu ileti açıklamanın yerine geçer. */
-  error?: string;
+  error?: string | undefined;
   /** Geri dönüldü (SNN ekledi): geçerli adımdan sonra gelen ve daha önce yapılmış adım. Geri okla, mavi-gri işaretlenir. */
-  returned?: boolean;
+  returned?: boolean | undefined;
 }
 
 /**
@@ -31,19 +31,19 @@ export interface StepperProps {
   steps: StepperStep[];
   /** Süren adımın sırası. `steps.length` bütün akışın bittiğini gösterir. */
   current: number;
-  orientation?: StepperOrientation;
+  orientation?: StepperOrientation | undefined;
   /** Tamamlanan bir adım seçilince sırasıyla çağrılır. Verilmezse gösterge yalnız okunur. */
-  onStepSelect?: (index: number) => void;
+  onStepSelect?: ((index: number) => void) | undefined;
   /** `current` yalnız etkin adımın açıklamasını gösterir, dar yerler için. Hatalar hep görünür. */
-  details?: "all" | "current";
+  details?: "all" | "current" | undefined;
   /** Yalnız işaretler; başlıklar yardımcı teknolojide kalır. Yatay gösterge 30rem altında buna kendiliğinden geçer ve geçerli
    *  adımın adını altına yazar; 22rem altında işaretler de küçülür (10 adım 390 px telefona sığar). */
-  compact?: boolean;
+  compact?: boolean | undefined;
   /** Göstergenin erişilebilir adı. */
-  label?: string;
+  label?: string | undefined;
   /** Her adım bitince duyurulur ve sıkışık alt yazıda gösterilir. */
-  completeLabel?: string;
-  className?: string;
+  completeLabel?: string | undefined;
+  className?: string | undefined;
 }
 
 const blur = (radius: number) => `blur(${radius}px)`;
@@ -58,7 +58,7 @@ const glyphRest = { opacity: 1, scale: 1, filter: blur(0) };
 
 /** Değişince hafif bulanıklıkla yükselen metin. Yuvası yeni yüksekliğe yaylanır; kaydırılan ileti alttaki adımları itmeden
  *  aşağı taşır; ilgisiz boyut değişimleri (yazı tipi, kap genişliği) olduğu gibi izlenir. */
-function SwapText({ text, className, reduced }: { text?: string; className?: string; reduced: boolean }) {
+function SwapText({ text, className, reduced }: { text?: string | undefined; className?: string | undefined; reduced: boolean }) {
   const inner = useRef<HTMLSpanElement>(null);
   const armedUntil = useRef(0);
   const height = useMotionValue<number | "auto">("auto");

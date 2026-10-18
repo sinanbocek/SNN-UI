@@ -3,7 +3,7 @@
 import { useEffect, useId, useMemo, useRef, useState } from "react";
 import type { FormEvent, KeyboardEvent } from "react";
 import { createPortal } from "react-dom";
-import { AnimatePresence, LayoutGroup, motion, useReducedMotion } from "motion/react";
+import { LayoutGroup, motion, useReducedMotion } from "motion/react";
 import { ListChecks, Plus } from "lucide-react";
 import { date, text } from "@snn/abacus-core";
 import { motionTokens } from "../lib/motion-tokens";
@@ -28,28 +28,28 @@ export interface KanbanColumn {
   id: string;
   label: string;
   /** Başlık simgesi türü (planlandı, sürüyor, kontrolde, bitti); verilmezse kimlik, ad ya da sıradan çıkarılır. */
-  kind?: StageKind;
+  kind?: StageKind | undefined;
   /** Eşzamanlı iş sınırı. Dolunca sayaç ("3/3") vurgulanır; aşılınca "İş sınırı aşıldı." yazılır. Taşıma engellenmez. */
-  limit?: number;
+  limit?: number | undefined;
 }
 
-export interface KanbanPerson { id: string; name: string; src?: string }
+export interface KanbanPerson { id: string; name: string; src?: string | undefined }
 export interface KanbanTag { id: string; label: string; tone: KanbanTone }
 export interface KanbanChecklistItem { id: string; text: string; done: boolean }
 
 export interface KanbanCard {
   id: string;
   /** Kimlik kodu ("TKL-12"). */
-  code?: string;
+  code?: string | undefined;
   title: string;
   /** `columns` içindeki bir sütun kimliği. */
   column: string;
-  assigneeId?: string;
-  tagId?: string;
+  assigneeId?: string | undefined;
+  tagId?: string | undefined;
   /** Bitiş günü, "2026-10-24". */
-  due?: string;
-  points?: number;
-  checklist?: KanbanChecklistItem[];
+  due?: string | undefined;
+  points?: number | undefined;
+  checklist?: KanbanChecklistItem[] | undefined;
 }
 
 export interface KanbanBoardProps {
@@ -57,16 +57,16 @@ export interface KanbanBoardProps {
   /** Sıralı kartlar: sütun içi sıra, dizideki sıradır. */
   cards: KanbanCard[];
   columns: KanbanColumn[];
-  people?: KanbanPerson[];
-  tags?: KanbanTag[];
+  people?: KanbanPerson[] | undefined;
+  tags?: KanbanTag[] | undefined;
   /** Yeni kartın atanacağı kişi. */
-  currentUserId?: string;
+  currentUserId?: string | undefined;
   /** Taşıma, sıralama ya da ayrıntı değişti: kartların tümü yeni sırayla gelir. Reddedilirse kartlar eski hâline döner ve "Yeniden dene" çıkar. */
   onChange: (cards: KanbanCard[]) => void | Promise<void>;
   /** Sütun sonuna yeni kart. Kimliği proje verir; yeni liste `cards` ile geri gelir. */
   onAdd: (columnId: string, title: string) => void | Promise<void>;
-  loading?: boolean;
-  className?: string;
+  loading?: boolean | undefined;
+  className?: string | undefined;
 }
 
 type Placeholder = { column: string; lane: string | null | undefined; index: number };
@@ -76,7 +76,7 @@ const toneVar: Record<KanbanTone, string> = { accent: "var(--accent)", success: 
 const clampNumber = (value: number, low: number, high: number) => Math.min(Math.max(value, low), high);
 
 /** Kartın görünümü. Listede de, sürüklenirken imleci izleyen kopyada da aynıdır. */
-function CardFace({ card, tag, person }: { card: KanbanCard; tag?: KanbanTag; person?: KanbanPerson }) {
+function CardFace({ card, tag, person }: { card: KanbanCard; tag?: KanbanTag | undefined; person?: KanbanPerson | undefined }) {
   const done = card.checklist?.filter(item => item.done).length ?? 0;
   const total = card.checklist?.length ?? 0;
   return (
@@ -306,7 +306,7 @@ export function KanbanBoard({ name, cards, columns, people = [], tags = [], curr
     const grabbed = grab?.id === card.id;
     return (
       <motion.li
-        key={card.id} layoutId={reduced ? undefined : `${uid}-${card.id}`} layout={reduced ? false : "position"} transition={{ layout: flight }}
+        key={card.id} {...(reduced ? {} : { layoutId: `${uid}-${card.id}` })} layout={reduced ? false : "position"} transition={{ layout: flight }}
         className={styles.cardItem} data-card-item={card.id} data-grabbed={grabbed ? "true" : undefined}
         animate={dropped === card.id && !reduced ? { scale: [1.04, 1] } : { scale: 1 }} onAnimationComplete={() => { if (dropped === card.id) setDropped(null); }}
         {...bind({ id: card.id })}

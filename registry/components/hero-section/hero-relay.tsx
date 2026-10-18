@@ -77,10 +77,10 @@ const RESULTS: Record<(typeof ACTIONS)[number], (event: RelayEvent) => string> =
 
 
 export interface HeroRelayProps {
-  primaryAction?: HeroAction;
-  secondaryAction?: HeroAction;
-  animateIn?: boolean;
-  className?: string;
+  primaryAction?: HeroAction | undefined;
+  secondaryAction?: HeroAction | undefined;
+  animateIn?: boolean | undefined;
+  className?: string | undefined;
 }
 
 /**
@@ -223,7 +223,7 @@ export function HeroRelay({ primaryAction = { label: "Kurmaya başla", doneLabel
   </section></MotionConfig>;
 }
 
-function RelayNode({ box, status, icon, title, sub, meta, compact = false }: { box: Box; status: Status; icon: ReactNode; title: string; sub: string; meta?: string; compact?: boolean }) {
+function RelayNode({ box, status, icon, title, sub, meta, compact = false }: { box: Box; status: Status; icon: ReactNode; title: string; sub: string; meta?: string | undefined; compact?: boolean | undefined }) {
   return <div className={styles.node} data-status={status} data-compact={compact || undefined} style={{ left: box.x, top: box.y, width: box.w, height: box.h }}>
     <span className={styles.icon}>{icon}</span>
     <span className={styles.text}>

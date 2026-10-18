@@ -4,7 +4,7 @@ import { exactText, signedMinorText, toMinor, countText } from "../lib/shop-form
 
 export type CardMaterial = "metal" | "black" | "glass" | "flat";
 
-export interface CardTransaction { id: string; merchant: string; detail?: string; /** Ana birimde TRY; çıkan eksi. */ amount: number }
+export interface CardTransaction { id: string; merchant: string; detail?: string | undefined; /** Ana birimde TRY; çıkan eksi. */ amount: number }
 export interface WalletCard {
   id: string;
   issuer: string;
@@ -15,8 +15,8 @@ export interface WalletCard {
   /** "AA/YY" biçimli son kullanma; geçersizse "—" yazılır. */
   expiry: string;
   /** Kurgusal ağ adı; gerçek marka işareti konmaz. */
-  network?: string;
-  material?: CardMaterial;
+  network?: string | undefined;
+  material?: CardMaterial | undefined;
   /** Kullanılabilir bakiye (ana birimde TRY). */
   balance: number;
   transactions: CardTransaction[];

@@ -21,23 +21,23 @@ export interface UsageForecastProps {
   /** Dönemin ilk günü: ISO "2026-09-01". Tarihleri ABACUS üretir. */
   startDate: string;
   budget: number;
-  onBudgetChange?: (budget: number) => void;
-  minBudget?: number;
-  maxBudget?: number;
+  onBudgetChange?: ((budget: number) => void) | undefined;
+  minBudget?: number | undefined;
+  maxBudget?: number | undefined;
   /** Birim adı, örneğin "istek". */
-  unit?: string;
+  unit?: string | undefined;
   /** Bütçe üstü maliyet: her `per` birim için `price` TRY. */
-  overage?: { per: number; price: number };
-  title?: string;
+  overage?: { per: number; price: number } | undefined;
+  title?: string | undefined;
   /** Alt satır: müşteri ya da plan ve yenileme tarihi (hazır metin). */
-  subtitle?: string;
-  measures?: UsageMeasure[];
-  measure?: string;
-  onMeasureChange?: (value: string) => void;
+  subtitle?: string | undefined;
+  measures?: UsageMeasure[] | undefined;
+  measure?: string | undefined;
+  onMeasureChange?: ((value: string) => void) | undefined;
   /** Uyarı eşikleri (bütçenin yüzdesi). */
-  thresholds?: number[];
-  status?: "ready" | "loading" | "error";
-  onRetry?: () => void;
+  thresholds?: number[] | undefined;
+  status?: "ready" | "loading" | "error" | undefined;
+  onRetry?: (() => void) | undefined;
 }
 
 const HEIGHT = 280, PAD_TOP = 14, PAD_BOTTOM = 26, GUTTER = 8;

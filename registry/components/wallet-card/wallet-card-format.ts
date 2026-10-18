@@ -20,7 +20,7 @@ export interface WalletTransaction {
   /** İşlem günü, ISO tarih ("2026-10-14"). */
   date: string;
   /** Kaynak ya da kişi ("Kasa", "Barış Yıldız"). */
-  source?: string;
+  source?: string | undefined;
   /** Ana birimde TRY; çıkan eksi. */
   amount: number;
 }

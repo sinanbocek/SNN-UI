@@ -6,11 +6,11 @@ import { motionTokens } from "../lib/motion-tokens";
 import styles from "./breadcrumb.module.css";
 export interface BreadcrumbItem {
   label: string;
-  href?: string;
+  href?: string | undefined;
   /** Parça seçilince çalışır. href yoksa parça düğme olarak çizilir; yerel durumda yaşayan yollar içindir. */
-  onClick?: (event: MouseEvent<HTMLElement>) => void;
+  onClick?: ((event: MouseEvent<HTMLElement>) => void) | undefined;
 }
-export interface BreadcrumbProps { items: BreadcrumbItem[]; ariaLabel?: string }
+export interface BreadcrumbProps { items: BreadcrumbItem[]; ariaLabel?: string | undefined }
 /** İlk çizimde var olan parçalar durağan kalır; sonradan eklenenler kendinden önceki yoldan kayarak gelir. */
 export function Breadcrumb({ items, ariaLabel = "Yol izi" }: BreadcrumbProps) {
   const reduced = useReducedMotion() ?? false;

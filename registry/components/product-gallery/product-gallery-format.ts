@@ -2,7 +2,7 @@
 import { counterText, type ViewerImage } from "../lib/image-viewer-format";
 
 export interface GalleryColor { value: string; label: string; /** Örnek rengi (CSS rengi). */ color: string; photos: ViewerImage[] }
-export interface GallerySize { value: string; label: string; /** Bu bedenin tükendiği renkler (`GalleryColor.value`). */ soldOutIn?: string[] }
+export interface GallerySize { value: string; label: string; /** Bu bedenin tükendiği renkler (`GalleryColor.value`). */ soldOutIn?: string[] | undefined }
 
 export const isSoldOut = (size: GallerySize, color: string): boolean => !!size.soldOutIn?.includes(color);
 

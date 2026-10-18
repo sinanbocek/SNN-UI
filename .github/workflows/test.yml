@@ -17,7 +17,7 @@ jobs:
           node-version: 22
       - run: npm ci
       - run: npm test
-      - name: Tip denetimi (galeri ve bütün bileşenler)
+      - name: Tip denetimi (galeri ve bütün bileşenler; bileşenler ayrıca sıkı ayarla)
         run: |
           npm ci --prefix playground
           npm run typecheck

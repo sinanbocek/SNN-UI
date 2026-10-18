@@ -15,38 +15,38 @@ export interface SettingsSection {
   id: string;
   label: string;
   /** Bölüm listesinde adın yanındaki simge. Süstür; ekran okuyucu okumaz. */
-  icon?: ReactNode;
+  icon?: ReactNode | undefined;
   /** Bölüm başlığının altındaki bir cümlelik açıklama. */
-  description?: string;
+  description?: string | undefined;
   /** Bu bölümde kaydedilmemiş kaç alan var. Sıfırdan büyükse satırda nokta çıkar; toplam, kaydetme çubuğuna gider. */
-  changeCount?: number;
+  changeCount?: number | undefined;
   /** Bölümün alanları. Boş bırakılırsa "boş durum" gösterilir. */
-  content?: ReactNode;
+  content?: ReactNode | undefined;
 }
 
-export interface SettingsUser { name: string; subtitle?: string; src?: string }
+export interface SettingsUser { name: string; subtitle?: string | undefined; src?: string | undefined }
 
 export interface SettingsPageProps {
   sections: SettingsSection[];
   /** Seçili bölüm (denetimli kullanım). Verilmezse blok kendisi tutar. */
-  value?: string;
-  defaultValue?: string;
-  onValueChange?: (id: string) => void;
+  value?: string | undefined;
+  defaultValue?: string | undefined;
+  onValueChange?: ((id: string) => void) | undefined;
   /** Bölüm listesinin altındaki kullanıcı kartı. */
-  user?: SettingsUser;
+  user?: SettingsUser | undefined;
   /** Kaydetme çubuğu: gerçek kaydetmeyi proje yapar, blok yalnız durumu gösterir. */
-  status?: SaveBarStatus;
+  status?: SaveBarStatus | undefined;
   onSave: () => void;
   onDiscard: () => void;
   /** Form verisi gelirken true: alanlar yerine iskelet çıkar, kaydetme kapalıdır. */
-  loading?: boolean;
-  title?: string;
+  loading?: boolean | undefined;
+  title?: string | undefined;
   /** Bölgenin erişilebilir adı. */
-  label?: string;
-  loadingLabel?: string;
-  emptyTitle?: string;
-  emptyDescription?: string;
-  className?: string;
+  label?: string | undefined;
+  loadingLabel?: string | undefined;
+  emptyTitle?: string | undefined;
+  emptyDescription?: string | undefined;
+  className?: string | undefined;
 }
 
 /** Bildirimler gibi bölümlerde satırları gruplayan başlıklı küme. */
@@ -56,7 +56,7 @@ export function SettingsGroup({ title, children }: { title: string; children: Re
 }
 
 /** Başlık, açıklama ve sağda bir denetim (çoğunlukla anahtar). */
-export function SettingsRow({ title, description, children }: { title: string; description?: string; children: ReactNode }) {
+export function SettingsRow({ title, description, children }: { title: string; description?: string | undefined; children: ReactNode }) {
   return <div className={styles.row}><div className={styles.rowCopy}><span className={styles.rowTitle}>{title}</span>{description && <span className={styles.rowDescription}>{description}</span>}</div><div className={styles.rowControl}>{children}</div></div>;
 }
 

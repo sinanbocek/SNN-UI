@@ -9,19 +9,19 @@ import styles from "./sparkline.module.css";
 export interface SparklineProps {
   data: number[];
   label: string;
-  value?: string;
-  change?: string;
-  tone?: "accent" | "success" | "warning" | "danger";
-  width?: number;
-  height?: number;
+  value?: string | undefined;
+  change?: string | undefined;
+  tone?: "accent" | "success" | "warning" | "danger" | undefined;
+  width?: number | undefined;
+  height?: number | undefined;
   /** Her nokta için bir etiket (örneğin tarih). Nokta gezilirken değişimin yerine geçer. */
-  labels?: string[];
+  labels?: string[] | undefined;
   /** Gezilen noktayı başlık için biçimler. Varsayılan: binlik ayraçlı sayı ("1.234,5"). */
-  formatValue?: (value: number, index: number) => string;
+  formatValue?: ((value: number, index: number) => string) | undefined;
   /** Çizginin altında sakin, nötr bir dolgu. */
-  area?: boolean;
+  area?: boolean | undefined;
   /** Fare, dokunma ve klavyeyle noktalar arasında gezinme. */
-  interactive?: boolean;
+  interactive?: boolean | undefined;
 }
 
 /** Sayı taşıyan metin hareket ettiği yönden girer: büyüyen değer alttan yükselir, küçülen üstten düşer. */
@@ -44,7 +44,7 @@ function chunksOf(text: string, whole: boolean): Chunk[] {
 }
 
 /** Değişen metin yerinde döner; `morph` kabı yeni genişliğe yaylandırır, yanındaki hiçbir şey sıçramaz. */
-function Roll({ text, direction, whole = false, morph = false, tone }: { text: string; direction?: number; whole?: boolean; morph?: boolean; tone?: string }) {
+function Roll({ text, direction, whole = false, morph = false, tone }: { text: string; direction?: number | undefined; whole?: boolean | undefined; morph?: boolean | undefined; tone?: string | undefined }) {
   const reduceMotion = !!useReducedMotion();
   const sizer = useRef<HTMLSpanElement>(null);
   const width = useMotionValue<number | "auto">("auto");
@@ -68,7 +68,7 @@ function Roll({ text, direction, whole = false, morph = false, tone }: { text: s
   const numeric = !whole && !/\p{L}/u.test(text);
   const variants = reduceMotion ? fade : rise;
   const anchor = numeric ? "right" : "left";
-  return <motion.span className={styles.roll} data-end={numeric || undefined} data-whole={whole || undefined} style={morph ? { width } : undefined}>
+  return <motion.span className={styles.roll} data-end={numeric || undefined} data-whole={whole || undefined} {...(morph ? { style: { width } } : {})}>
     {morph && <span ref={sizer} className={styles.sizer} aria-hidden="true">{text}</span>}
     {/* Parçaları tek bir esnek öğe tutar; metin satır içinde kalır, tek dize gibi okunur ve kopyalanır. */}
     <span className={styles.track}><AnimatePresence mode="popLayout" initial={false} custom={shown.direction} anchorX={anchor}>

@@ -12,24 +12,24 @@ import { domainFor, growthAt, growthText, periodLabel, readingAnnouncement, sort
 import styles from "./small-multiples.module.css";
 
 export type { MultiSeries };
-export interface MultiPeriod { /** Ay anahtarı: "2026-09". */ key: string; /** Verilmezse ABACUS `date.format` ile "Eylül 2026". */ label?: string }
+export interface MultiPeriod { /** Ay anahtarı: "2026-09". */ key: string; /** Verilmezse ABACUS `date.format` ile "Eylül 2026". */ label?: string | undefined }
 
 /** Aynı ölçünün birkaç serisini (bölge, ürün, plan) küçük çizgi grafiklerde, ortak bir dikey imleçle yan yana karşılaştırmak için kullanın; iki üç seri tek çizimde karşılaştırılacaksa çizgi grafik daha doğrudur. */
 export interface SmallMultiplesProps {
   periods: MultiPeriod[];
   series: MultiSeries[];
-  title?: string;
+  title?: string | undefined;
   /** Alt satır: ölçü ve dönem aralığı, örneğin "Aylık ciro · Ekim 2025 – Eylül 2026". */
-  subtitle?: string;
-  kind?: MetricKind;
+  subtitle?: string | undefined;
+  kind?: MetricKind | undefined;
   /** Büyümenin kıyaslandığı geçmiş (ay sayısı); varsayılan 12 (geçen yıl). */
-  lookback?: number;
+  lookback?: number | undefined;
   /** Bu yüzdenin altındaki büyüme "düz" sayılır. */
-  flatBelow?: number;
-  defaultSort?: SortMode;
-  defaultScale?: ScaleMode;
-  loading?: boolean;
-  emptyText?: string;
+  flatBelow?: number | undefined;
+  defaultSort?: SortMode | undefined;
+  defaultScale?: ScaleMode | undefined;
+  loading?: boolean | undefined;
+  emptyText?: string | undefined;
 }
 
 const SORTS = [{ value: "last", label: "Son değer" }, { value: "growth", label: "Büyüme" }, { value: "name", label: "Ad" }];

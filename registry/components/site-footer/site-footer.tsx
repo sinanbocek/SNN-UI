@@ -13,9 +13,9 @@ export type SiteFooterVariant = "columns" | "minimal" | "logo";
 
 export interface SiteFooterLink {
   label: string;
-  href?: string;
+  href?: string | undefined;
   /** Yeni sekmede açar ve dışa bakan bir ok gösterir. */
-  external?: boolean;
+  external?: boolean | undefined;
 }
 
 export interface SiteFooterColumn {
@@ -24,34 +24,34 @@ export interface SiteFooterColumn {
 }
 
 export interface SiteFooterNewsletter {
-  title?: string;
-  description?: string;
-  placeholder?: string;
+  title?: string | undefined;
+  description?: string | undefined;
+  placeholder?: string | undefined;
   /** Geçerli bir adresle çağrılır. Hata göstermek için fırlatın ya da reddedin; abone durumunu göstermek için çözün. */
-  onSubscribe?: (email: string) => void | Promise<void>;
+  onSubscribe?: ((email: string) => void | Promise<void>) | undefined;
 }
 
 export interface SiteFooterProps {
   /** `columns` bülteni bağlantı sütunlarıyla eşler, `minimal` tek sakin satırdır, `logo` büyük, solan bir marka işaretiyle biter. */
-  variant?: SiteFooterVariant;
-  brand?: { name: string; href?: string; mark?: ReactNode };
+  variant?: SiteFooterVariant | undefined;
+  brand?: { name: string; href?: string | undefined; mark?: ReactNode | undefined } | undefined;
   /** Markanın altında tek kısa satır. */
-  tagline?: string;
-  columns?: SiteFooterColumn[];
+  tagline?: string | undefined;
+  columns?: SiteFooterColumn[] | undefined;
   /** Minimal çeşidin bağlantıları. Varsayılan: her sütunun ilk bağlantısı. */
-  links?: SiteFooterLink[];
+  links?: SiteFooterLink[] | undefined;
   /** Telif satırının yanındaki küçük bağlantılar, örneğin Gizlilik ve Koşullar. */
-  legal?: SiteFooterLink[];
-  socials?: SiteFooterLink[];
+  legal?: SiteFooterLink[] | undefined;
+  socials?: SiteFooterLink[] | undefined;
   /** Bülten kaydı. Gizlemek için null verin. */
-  newsletter?: SiteFooterNewsletter | null;
+  newsletter?: SiteFooterNewsletter | null | undefined;
   /** Sistem durumu bağlantısı. Gizlemek için null verin. */
-  status?: { label: string; tone?: "success" | "warning" | "danger"; href?: string } | null;
+  status?: { label: string; tone?: "success" | "warning" | "danger" | undefined; href?: string | undefined } | null | undefined;
   /** Telif satırındaki yıl. */
-  year?: number;
+  year?: number | undefined;
   /** Basılan her bağlantı için çağrılır. `href`'siz bağlantılar düğme olarak çizilir ve yalnız bunu çağırır. */
-  onNavigate?: (link: SiteFooterLink) => void;
-  className?: string;
+  onNavigate?: ((link: SiteFooterLink) => void) | undefined;
+  className?: string | undefined;
 }
 
 type Bezier = [number, number, number, number];
@@ -67,14 +67,14 @@ const exampleLegal: SiteFooterLink[] = [{ label: "Gizlilik" }, { label: "Koşull
 const exampleSocials: SiteFooterLink[] = [{ label: "X", external: true }, { label: "YouTube", external: true }, { label: "LinkedIn", external: true }];
 const EMAIL = /^[^\s@]+@[^\s@]+\.[^\s@]{2,}$/;
 
-function FooterLink({ link, onNavigate, className }: { link: SiteFooterLink; onNavigate?: (link: SiteFooterLink) => void; className?: string }) {
+function FooterLink({ link, onNavigate, className }: { link: SiteFooterLink; onNavigate?: ((link: SiteFooterLink) => void) | undefined; className?: string | undefined }) {
   const content = <>{link.label}{link.external && <ArrowUpRight className={styles.external} size={13} strokeWidth={2} aria-hidden="true" />}</>;
   const onClick = () => onNavigate?.(link);
   if (link.href) return <a className={className ?? styles.link} href={link.href} onClick={onClick} {...(link.external ? { target: "_blank", rel: "noopener noreferrer" } : {})}>{content}</a>;
   return <button type="button" className={className ?? styles.link} onClick={onClick}>{content}</button>;
 }
 
-function BrandMark({ className }: { className?: string }) {
+function BrandMark({ className }: { className?: string | undefined }) {
   return <svg className={className} viewBox="0 14 64 38" fill="none" stroke="currentColor" strokeWidth="5.5" strokeLinecap="round" strokeLinejoin="round" aria-hidden="true">
     <path d="M4 48a28 28 0 0 1 56 0" />
     <path d="M14 48a18 18 0 0 1 36 0" />
@@ -239,7 +239,7 @@ SiteFooter.displayName = "SiteFooter";
 const variantOptions = [{ value: "columns", label: "Sütunlar" }, { value: "minimal", label: "Sade" }, { value: "logo", label: "Logo" }];
 
 /** Önizleme: alt bilgi, üç yerleşimi arasında bir anahtar ve basılan son bağlantının notuyla. */
-export function SiteFooterBlock({ variant: initial = "columns" }: { variant?: SiteFooterVariant }) {
+export function SiteFooterBlock({ variant: initial = "columns" }: { variant?: SiteFooterVariant | undefined }) {
   const [variant, setVariant] = useState<SiteFooterVariant>(initial);
   const [last, setLast] = useState<string | null>(null);
   const reduced = !!useReducedMotion();

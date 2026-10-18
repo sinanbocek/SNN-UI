@@ -19,18 +19,18 @@ export interface MrrWaterfallProps {
   /** Dönem başındaki toplam gelir (TRY). */
   start: number;
   movements: WaterfallMovement[];
-  title?: string;
+  title?: string | undefined;
   /** Alt satır: kapsam ve tarih aralığı, örneğin "Tüm planlar · 1 Temmuz – 30 Eylül 2026". */
-  subtitle?: string;
+  subtitle?: string | undefined;
   /** Büyük bitiş değerinin altındaki metin, örneğin "30 Eylül itibarıyla". */
-  asOf?: string;
-  periods?: WaterfallPeriod[];
-  period?: string;
-  onPeriodChange?: (value: string) => void;
-  status?: "ready" | "loading" | "error";
-  onRetry?: () => void;
+  asOf?: string | undefined;
+  periods?: WaterfallPeriod[] | undefined;
+  period?: string | undefined;
+  onPeriodChange?: ((value: string) => void) | undefined;
+  status?: "ready" | "loading" | "error" | undefined;
+  onRetry?: (() => void) | undefined;
   /** Panelde gösterilen en çok hesap sayısı; kalanlar "Diğer hesaplar" satırında toplanır. */
-  maxAccounts?: number;
+  maxAccounts?: number | undefined;
 }
 
 const HEIGHT = 280, TOP = 22, BOTTOM = 34;

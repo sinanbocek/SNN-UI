@@ -20,15 +20,15 @@ type Provider = "Google" | "Apple" | "GitHub";
 
 export interface SignupFormProps {
   /** Her alan geçerli olunca bilgileri alır. Gönderim hatası göstermek için hata fırlatın. */
-  onSubmit?: (details: SignupDetails) => void | Promise<void>;
+  onSubmit?: ((details: SignupDetails) => void | Promise<void>) | undefined;
   /** API'nizden gelen hata; gönder düğmesinin üstünde görünür. */
-  serverError?: string | null;
+  serverError?: string | null | undefined;
   /** Biri tek oturum açma sağlayıcısı seçince çağrılır. Önizleme yönlendirmeyi benzetir. */
-  onProvider?: (provider: Provider) => void;
+  onProvider?: ((provider: Provider) => void) | undefined;
   /** Kullanım koşulları bağlantısı. Örnek olarak "#" kalır; "#" ise bağlantı yalnız durum satırını günceller. */
-  termsHref?: string;
+  termsHref?: string | undefined;
   /** Gizlilik politikası bağlantısı (termsHref ile aynı davranır). */
-  privacyHref?: string;
+  privacyHref?: string | undefined;
 }
 
 type Field = "name" | "email" | "password";

@@ -7,10 +7,10 @@ import { motionTokens } from "../lib/motion-tokens";
 import styles from "./progress.module.css";
 
 export interface ProgressProps extends Omit<React.HTMLAttributes<HTMLDivElement>, "children"> {
-  value?: number;
-  max?: number;
-  label?: string;
-  showValue?: boolean;
+  value?: number | undefined;
+  max?: number | undefined;
+  label?: string | undefined;
+  showValue?: boolean | undefined;
 }
 
 const exitFast: Transition = { duration: motionTokens.duration.fast, ease: [...motionTokens.ease.standard] };

@@ -14,18 +14,18 @@ export type CalendarDateMatcher = (date: Date) => boolean;
 export type { CalendarHoliday };
 
 export interface CalendarProps {
-  value?: Date;
-  onChange?: (date: Date) => void;
-  month?: Date;
-  onMonthChange?: (month: Date) => void;
-  minDate?: Date;
-  maxDate?: Date;
-  disabledDates?: CalendarDateMatcher;
+  value?: Date | undefined;
+  onChange?: ((date: Date) => void) | undefined;
+  month?: Date | undefined;
+  onMonthChange?: ((month: Date) => void) | undefined;
+  minDate?: Date | undefined;
+  maxDate?: Date | undefined;
+  disabledDates?: CalendarDateMatcher | undefined;
   /** Tatil günleri ("2026-10-29" ve adı). Gün işaretlenir, adı ipucunda ve ekran okuyucuda söylenir; seçimi engellemez (engellemek için `disabledDates`). */
-  holidays?: readonly CalendarHoliday[];
-  className?: string;
+  holidays?: readonly CalendarHoliday[] | undefined;
+  className?: string | undefined;
   /** Başlığa "Bugün" düğmesi ekler: bugünün ayına kayar ve seçilebiliyorsa bugünü seçer. */
-  showToday?: boolean;
+  showToday?: boolean | undefined;
 }
 
 const startOfDay = (date: Date) => new Date(date.getFullYear(), date.getMonth(), date.getDate());

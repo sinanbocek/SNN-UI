@@ -13,29 +13,29 @@ export type NumberFieldAffix = string | ((value: number) => string);
 
 export interface NumberFieldProps {
   label: string;
-  value?: number;
-  defaultValue?: number;
-  onValueChange?: (value: number) => void;
-  min?: number;
-  max?: number;
-  step?: number;
+  value?: number | undefined;
+  defaultValue?: number | undefined;
+  onValueChange?: ((value: number) => void) | undefined;
+  min?: number | undefined;
+  max?: number | undefined;
+  step?: number | undefined;
   /** PageUp, PageDown ve Shift ile ok bu kadar ilerler. Varsayılan on adım. */
-  largeStep?: number;
-  description?: string;
-  disabled?: boolean;
-  id?: string;
+  largeStep?: number | undefined;
+  description?: string | undefined;
+  disabled?: boolean | undefined;
+  id?: string | undefined;
   /** Sayıdan önceki metin, örneğin "%" ya da "₺". */
-  prefix?: NumberFieldAffix;
+  prefix?: NumberFieldAffix | undefined;
   /** Sayıdan sonraki metin, örneğin " gün". */
-  suffix?: NumberFieldAffix;
+  suffix?: NumberFieldAffix | undefined;
   /** Etiketi yana sürükleyerek değeri değiştirir; birkaç pikselde bir adım. */
-  scrub?: boolean;
+  scrub?: boolean | undefined;
   /** Ondalık basamak sınırı ve binlik gruplama. Ondalık basamak varsayılan olarak `step`in hassasiyetini izler. Yazım ABACUS ile. */
-  formatOptions?: { minimumFractionDigits?: number; maximumFractionDigits?: number; useGrouping?: boolean };
+  formatOptions?: { minimumFractionDigits?: number | undefined; maximumFractionDigits?: number | undefined; useGrouping?: boolean | undefined } | undefined;
   /** Denetim yüksekliği, yazı boyu ve varsayılan genişlik. */
-  size?: NumberFieldSize;
+  size?: NumberFieldSize | undefined;
   /** Basma bir sınıra dayanınca ya da yazılan değer sınırı geçince etiketin yanında kısa not. `false` gizler; işlev metni yazar. */
-  limitHint?: boolean | ((edge: "min" | "max", limit: number) => string);
+  limitHint?: boolean | ((edge: "min" | "max", limit: number) => string) | undefined;
 }
 
 export type NumberFieldSize = "sm" | "md" | "lg";
@@ -116,7 +116,7 @@ function Digits({ text, direction, instant }: { text: string; direction: number;
 }
 
 /** Ön ek ve son ek karakterleri konumla anahtarlanır; " gün" → " günü" yalnız yeni harfi açar, gerisi yerinde kalır. */
-function AffixText({ text, direction, className }: { text: string; direction: number; className?: string }) {
+function AffixText({ text, direction, className }: { text: string; direction: number; className?: string | undefined }) {
   const reduced = useReducedMotion();
   return <span className={className}><AnimatePresence initial={false} custom={direction}>{[...text].map((char, index) => <motion.span key={`${index}:${char}`} className={styles.char} custom={direction} variants={reduced ? still : slot} initial="enter" animate="center" exit="exit">{char}</motion.span>)}</AnimatePresence></span>;
 }
@@ -167,12 +167,12 @@ function MotionText({ text }: { text: string }) {
 }
 
 /** Yardım metni: satır yüksekliğini yayla açar, sonra sözcükler yerleşir. */
-function FieldMessage({ id, text, className }: { id?: string; text?: string; className?: string }) {
+function FieldMessage({ id, text, className }: { id?: string | undefined; text?: string | undefined; className?: string | undefined }) {
   return <AnimatePresence initial={false}>{text ? <MessageRow key="message" id={id} text={text} className={className} /> : null}</AnimatePresence>;
 }
 
 /** Satır ölçülen metni izler; kaydırılan daha uzun ileti sonraki satırını sıçramadan açar. */
-function MessageRow({ id, text, className }: { id?: string; text: string; className?: string }) {
+function MessageRow({ id, text, className }: { id?: string | undefined; text: string; className?: string | undefined }) {
   const reduced = useReducedMotion();
   const copyRef = useRef<HTMLSpanElement>(null);
   const [height, setHeight] = useState<number | "auto">("auto");
@@ -201,7 +201,7 @@ function LimitNote({ id, edge, text }: { id: string; edge: 1 | -1 | 0; text: str
 }
 
 /** İşaretçiyle basılı tutmak tekrarlar; klavye ve yardımcı tıklamalar (detail 0) tek adım atar. */
-function StepButton({ toward, label, disabled, controls, limit, pressed, iconRef, onPress, onRelease, onActivate }: { toward: 1 | -1; label: string; disabled?: boolean; controls: string; limit: boolean; pressed: boolean; iconRef: Ref<HTMLSpanElement>; onPress: () => void; onRelease: () => void; onActivate: () => void }) {
+function StepButton({ toward, label, disabled, controls, limit, pressed, iconRef, onPress, onRelease, onActivate }: { toward: 1 | -1; label: string; disabled?: boolean | undefined; controls: string; limit: boolean; pressed: boolean; iconRef: Ref<HTMLSpanElement>; onPress: () => void; onRelease: () => void; onActivate: () => void }) {
   const Icon = toward > 0 ? Plus : Minus;
   // Sınır düğmeyi söndürür ama odaklanabilir bırakır; orada basmak odağı düşürmek yerine değeri gerer.
   // Fare basması odağı yerinde tutar: açık taslak adımla birlikte işlenir, düğme odak halkasını çalmaz.

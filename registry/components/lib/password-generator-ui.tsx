@@ -36,7 +36,7 @@ export const defaultPasswordGeneratorText: PasswordGeneratorText = {
 };
 
 /** Göz simgesiyle aynı çizgi kalınlığında, 18 px: büyük ve küçük iki yıldız. Üret düğmesinin simgesi. */
-export function GenerateIcon({ spinning = false, reduced = false }: { spinning?: boolean; reduced?: boolean }) {
+export function GenerateIcon({ spinning = false, reduced = false }: { spinning?: boolean | undefined; reduced?: boolean | undefined }) {
   return <motion.svg width={18} height={18} viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth={1.75} strokeLinecap="round" strokeLinejoin="round" aria-hidden="true"
     animate={spinning && !reduced ? { rotate: [0, 18, -12, 0] } : { rotate: 0 }} transition={spinning && !reduced ? { duration: .6, ease: [...motionTokens.ease.standard] } : { duration: 0 }}>
     <path d="M10 3.5 11.6 8.4 16.5 10 11.6 11.6 10 16.5 8.4 11.6 3.5 10 8.4 8.4z" />
@@ -58,7 +58,7 @@ function CopyGlyph({ done, reduced }: { done: boolean; reduced: boolean }) {
 }
 
 /** Üretim bitince alanda beliren kopyala düğmesi. `className` alanın düğme biçimini taşır (göz düğmesiyle aynı görünsün). */
-export function GeneratedCopyButton({ show, value, text, reduced, className }: { show: boolean; value: string; text: PasswordGeneratorText; reduced: boolean; className?: string }) {
+export function GeneratedCopyButton({ show, value, text, reduced, className }: { show: boolean; value: string; text: PasswordGeneratorText; reduced: boolean; className?: string | undefined }) {
   const [state, setState] = useState<"idle" | "copied" | "error">("idle");
   useEffect(() => { if (!show) setState("idle"); }, [show]);
   useEffect(() => { if (state === "idle") return; const timer = window.setTimeout(() => setState("idle"), 1600); return () => window.clearTimeout(timer); }, [state]);
@@ -106,7 +106,7 @@ const SAMPLE: Record<PasswordCharset, string> = { lower: "abc", upper: "ABC", di
 
 /** Seçenek paneli: uzunluk ve karakter türleri; "Üret" seçilen ayarla üretir. Parola alanında üret simgesinin altında açılır. */
 export function PasswordGeneratorOptions({ id, length, sets, onLengthChange, onSetsChange, onCreate, text, minLength = 8, maxLength = 64 }: {
-  id: string; length: number; sets: PasswordCharset[]; onLengthChange: (length: number) => void; onSetsChange: (sets: PasswordCharset[]) => void; onCreate: () => void; text: PasswordGeneratorText; minLength?: number; maxLength?: number;
+  id: string; length: number; sets: PasswordCharset[]; onLengthChange: (length: number) => void; onSetsChange: (sets: PasswordCharset[]) => void; onCreate: () => void; text: PasswordGeneratorText; minLength?: number | undefined; maxLength?: number | undefined;
 }) {
   const toggle = (set: PasswordCharset) => {
     // Son seçili tür kapatılamaz: en az bir karakter türü kalmalı.

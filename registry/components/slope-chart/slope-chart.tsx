@@ -27,21 +27,21 @@ export interface SlopeChartProps {
   /** İkinci sütunun başlığı, örneğin "2. çeyrek". */
   endLabel: string;
   /** Değerleri biçimler. Varsayılan: ABACUS biçimi ("1.234,5"). */
-  formatValue?: (value: number) => string;
+  formatValue?: ((value: number) => string) | undefined;
   /** İpucundaki değişimi biçimler. Varsayılan: formatValue cinsinden fark. */
-  formatChange?: (change: number, item: SlopeItem) => string;
+  formatChange?: ((change: number, item: SlopeItem) => string) | undefined;
   /** Çizim alanı yüksekliği (piksel). Varsayılan: öğe başına 44 piksel. */
-  height?: number;
+  height?: number | undefined;
   /** Vurgu renginde çizilen öğe; örneğin hikâyenin konusu olan. */
-  highlightKey?: string | null;
+  highlightKey?: string | null | undefined;
   /** Denetimli odaktaki öğe. Biri odaktayken diğerleri solar. */
-  activeKey?: string | null;
-  onActiveChange?: (key: string | null) => void;
+  activeKey?: string | null | undefined;
+  onActiveChange?: ((key: string | null) => void) | undefined;
   /** Her bitiş değerinin yanında sıra hareketi. */
-  ranks?: boolean;
-  emptyLabel?: string;
-  ref?: Ref<HTMLElement>;
-  className?: string;
+  ranks?: boolean | undefined;
+  emptyLabel?: string | undefined;
+  ref?: Ref<HTMLElement> | undefined;
+  className?: string | undefined;
 }
 
 type Row = { item: SlopeItem; y0: number; y1: number; l0: number; l1: number; rank0: number; rank1: number; order: number };

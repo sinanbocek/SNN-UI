@@ -7,16 +7,16 @@ export interface ViewerImage {
   /** Anlamlı açıklama (zorunlu). */
   alt: string;
   /** Verilmezse kendi yer tutucusu çizilir. */
-  src?: string;
+  src?: string | undefined;
   /** Yer tutucunun renk tonu (0–5). */
-  tone?: number;
+  tone?: number | undefined;
   /** Fotoğrafın odak noktası (CSS object-position), örneğin "20% 50%"; kare kırpmada hangi bölümün kalacağını söyler. */
-  position?: string;
+  position?: string | undefined;
   /** Gerçek genişlik ve yükseklik: duvar oranı, uçuş ve yakınlaştırma bunlardan hesaplanır. */
   width: number;
   height: number;
-  title?: string;
-  caption?: string;
+  title?: string | undefined;
+  caption?: string | undefined;
 }
 
 export const MIN_ZOOM = 1;

@@ -11,13 +11,13 @@ import { EmptyState } from "../empty-state/empty-state";
 import { Skeleton } from "../skeleton/skeleton";
 import styles from "./availability-picker.module.css";
 
-export interface AvailabilityParticipant { id: string; name: string; src?: string }
+export interface AvailabilityParticipant { id: string; name: string; src?: string | undefined }
 
 export interface AvailabilitySlot {
   /** "2026-10-19T10:30" (başlangıç, veri ve etiket aynı saat diliminde). */
   start: string;
   /** Bu saatte meşgul olan katılımcıların kimlikleri. Boşsa herkes müsait. */
-  busy?: string[];
+  busy?: string[] | undefined;
 }
 
 export interface AvailabilityDay {
@@ -41,9 +41,9 @@ export interface AvailabilityPickerProps {
   /** "Saati onayla" basıldı. Reddedilirse özet çubuğunda "Planlanamadı." ve "Yeniden dene" çıkar; seçim korunur. */
   onConfirm: (choice: AvailabilityChoice) => void | Promise<void>;
   /** Hiç ortak uygun saat yokken çıkan "Katılımcıları değiştir" düğmesi. */
-  onChangeParticipants?: () => void;
-  loading?: boolean;
-  className?: string;
+  onChangeParticipants?: (() => void) | undefined;
+  loading?: boolean | undefined;
+  className?: string | undefined;
 }
 
 type Phase = "idle" | "busy" | "done" | "error";
@@ -98,15 +98,17 @@ export function AvailabilityPicker({ title, durationMinutes, timezoneLabel, part
   useEffect(() => { if (phase !== "idle" && phase !== "busy") setPhase("idle"); }, [slotStart]); // eslint-disable-line react-hooks/exhaustive-deps
 
   function selectDay(index: number) {
-    if (index === dayIndex) return;
+    const target = shown[index];
+    if (index === dayIndex || !target) return;
     setDirection(index > dayIndex ? 1 : -1);
     setDayIndex(index);
     setSlotStart(null);
     setPhase("idle");
-    setNote(`Seçilen gün: ${date.format(shown[index].date, "dayMonthWeekday")}`);
+    setNote(`Seçilen gün: ${date.format(target.date, "dayMonthWeekday")}`);
   }
 
   function selectSlot(item: AvailabilitySlot) {
+    if (!day) return;
     setSlotStart(item.start);
     const people = (item.busy ?? []).map(name);
     setNote(`Seçilen: ${date.format(day.date, "dayMonthWeekday")}, saat ${clock(item.start)}–${clock(endOf(item.start, durationMinutes))}${people.length ? `. Herkes müsait değil: ${people.join(", ")}` : ". Herkes müsait"}`);
@@ -127,10 +129,11 @@ export function AvailabilityPicker({ title, durationMinutes, timezoneLabel, part
 
   const rowText = (item: AvailabilitySlot) => {
     const busy = item.busy ?? [];
-    return busy.length === 0 ? "Herkes müsait" : busy.length === 1 ? `${name(busy[0])} meşgul` : `${busy.length} kişi meşgul`;
+    return busy.length === 0 ? "Herkes müsait" : busy.length === 1 ? `${name(busy[0] ?? "")} meşgul` : `${busy.length} kişi meşgul`;
   };
 
-  const summary = !slot
+  const nearestDay = nearestFree >= 0 ? shown[nearestFree] : undefined;
+  const summary = !slot || !day
     ? "Bir saat seçin"
     : `${date.format(day.date, "dayMonthWeekday")}, ${clock(slot.start)}–${clock(endOf(slot.start, durationMinutes))}`;
   const warning = slot && (slot.busy ?? []).length > 0 ? `Herkes müsait değil: ${(slot.busy ?? []).map(name).join(", ")}` : "";
@@ -156,7 +159,7 @@ export function AvailabilityPicker({ title, durationMinutes, timezoneLabel, part
 
       {loading ? (
         <div className={styles.skeletons}><Skeleton lines={5} label="Müsaitlik yükleniyor" /></div>
-      ) : !anyFree ? (
+      ) : !anyFree || !day ? (
         <EmptyState title="Ortak uygun saat bulunamadı." description="Seçilen katılımcıların bu günlerde ortak boş saati yok." action={onChangeParticipants ? <Button variant="secondary" onClick={onChangeParticipants}>Katılımcıları değiştir</Button> : undefined} />
       ) : (
         <>
@@ -187,7 +190,7 @@ export function AvailabilityPicker({ title, durationMinutes, timezoneLabel, part
                 {freeCount(day) === 0 ? (
                   <div className={styles.noFree}>
                     <p className={styles.noFreeText}>Bu gün için uygun saat yok.</p>
-                    {nearestFree >= 0 && <Button variant="secondary" size="sm" onClick={() => selectDay(nearestFree)}>{`En yakın uygun gün: ${date.format(shown[nearestFree].date, "dayMonthWeekday")}`}</Button>}
+                    {nearestDay && <Button variant="secondary" size="sm" onClick={() => selectDay(nearestFree)}>{`En yakın uygun gün: ${date.format(nearestDay.date, "dayMonthWeekday")}`}</Button>}
                   </div>
                 ) : null}
                 {day.slots.length > 0 && (

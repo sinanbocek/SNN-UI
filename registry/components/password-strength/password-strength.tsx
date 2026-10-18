@@ -49,7 +49,7 @@ export const defaultPasswordStrengthMessages: PasswordStrengthMessages = {
 };
 
 /** `messages` prop'u için kısmi iletiler ve kısmi güç sözcükleri. */
-export type PasswordStrengthMessagesInput = Partial<Omit<PasswordStrengthMessages, "levels">> & { levels?: Partial<PasswordStrengthLevels> };
+export type PasswordStrengthMessagesInput = Partial<Omit<PasswordStrengthMessages, "levels">> & { levels?: Partial<PasswordStrengthLevels> | undefined };
 
 /**
  * Yeni parola alanı: parola yazılırken gücünü gösterir. Dört bölüm dolar ve ton değiştirir,
@@ -58,23 +58,23 @@ export type PasswordStrengthMessagesInput = Partial<Omit<PasswordStrengthMessage
  */
 export interface PasswordStrengthProps extends Omit<InputHTMLAttributes<HTMLInputElement>, "type" | "value" | "defaultValue" | "children"> {
   label: string;
-  value?: string;
-  defaultValue?: string;
-  onValueChange?: (value: string, strength: PasswordStrengthResult) => void;
+  value?: string | undefined;
+  defaultValue?: string | undefined;
+  onValueChange?: ((value: string, strength: PasswordStrengthResult) => void) | undefined;
   /** Denetlenecek kurallar. Güç, karşılanan kural payıdır ve dört adıma yayılır. */
-  rules?: PasswordRule[];
+  rules?: PasswordRule[] | undefined;
   /** Alana bağlı hata metni. Yeni bir hata her göründüğünde alan bir kez sallanır. */
-  error?: string;
-  revealed?: boolean;
-  onRevealedChange?: (revealed: boolean) => void;
+  error?: string | undefined;
+  revealed?: boolean | undefined;
+  onRevealedChange?: ((revealed: boolean) => void) | undefined;
   /** Çevrilmiş ya da yeniden yazılmış metinler. Her metnin Türkçe varsayılanı vardır; bkz. PasswordStrengthMessages. */
-  messages?: PasswordStrengthMessagesInput;
+  messages?: PasswordStrengthMessagesInput | undefined;
   /** Bu karakter sayısının altında ölçer ilk adımda kalır ve "Çok kısa" yazar. Varsayılan 8. */
-  shortLength?: number;
+  shortLength?: number | undefined;
   /** shortLength için karakterlerin nasıl sayıldığı. Varsayılan kod noktalarıdır, yani emoji bir sayılır; bir sunucu gibi UTF-16 birimi saymak için `password => password.length` verin. */
-  countCharacters?: (password: string) => number;
+  countCharacters?: ((password: string) => number) | undefined;
   /** Göz simgesinin sağında parola üret düğmesi. Parola ekrandaki kurallara uygun üretilir (uzunluk, büyük/küçük harf, rakam, simge), soldan sağa harf harf yazılır; bitince yanında kopyala düğmesi belirir. Varsayılan kapalı. */
-  generator?: boolean | { length?: number; text?: Partial<PasswordGeneratorText> };
+  generator?: boolean | { length?: number | undefined; text?: Partial<PasswordGeneratorText> | undefined } | undefined;
 }
 
 const enter = [...motionTokens.ease.enter] as [number, number, number, number];

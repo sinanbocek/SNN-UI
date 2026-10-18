@@ -14,16 +14,16 @@ import styles from "./metric-explorer.module.css";
 
 export type { MetricKind };
 
-export interface ExplorerPoint { key: string; /** Tam etiket, örneğin "12 Eylül Cuma". */ label: string; axisLabel?: string; value: number }
+export interface ExplorerPoint { key: string; /** Tam etiket, örneğin "12 Eylül Cuma". */ label: string; axisLabel?: string | undefined; value: number }
 export interface ExplorerMetric {
   key: string;
   label: string;
   kind: MetricKind;
   /** Dönem sonundaki değer ve bir önceki dönemin değeri (değişim için). */
   value: number;
-  previous?: number;
+  previous?: number | undefined;
   /** Düşmesi iyi gösterge (maliyet, kayıp): azalış olumlu renkte yazılır. */
-  lowerIsBetter?: boolean;
+  lowerIsBetter?: boolean | undefined;
   series: ExplorerPoint[];
 }
 export interface ExplorerPeriod { value: string; label: string }
@@ -34,13 +34,13 @@ export interface MetricExplorerProps {
   periods: ExplorerPeriod[];
   period: string;
   onPeriodChange: (value: string) => void;
-  title?: string;
+  title?: string | undefined;
   /** Başlık satırının sağı: "Güncelleme: 18.10.2026 09:40" gibi hazır metin (ABACUS `date.format`). */
-  updatedText?: string;
+  updatedText?: string | undefined;
   /** Kaynak adı, örneğin "Satış veritabanı". */
-  sourceText?: string;
-  status?: "ready" | "loading" | "error";
-  onRetry?: () => void;
+  sourceText?: string | undefined;
+  status?: "ready" | "loading" | "error" | undefined;
+  onRetry?: (() => void) | undefined;
 }
 
 function ChangeTag({ metric, change }: { metric: ExplorerMetric; change: ReturnType<typeof metricChange> }) {

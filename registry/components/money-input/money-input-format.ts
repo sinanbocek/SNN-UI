@@ -22,6 +22,7 @@ export const SYMBOLS = { group: ".", decimal: "," } as const;
 export const currencyInfo = (code: string): CurrencyInfo => TABLE[code as MoneyCurrency] ?? TABLE.TRY;
 
 /** Kuruşu simgeli ve kuruşlu yazar: 123450, "TRY" → "₺1.234,50"; sıfır da simgeli yazılır ("₺0,00"). */
+// eslint-disable-next-line no-restricted-properties -- değer kuruş (alt birim); money.format bilerek kullanılır
 export const formatAmount = (minor: number, code: string) => money.format(minor, { currency: currencyInfo(code).code, kurus: true, zero: "symbol" });
 
 /** Ana birimdeki tam tutarı kuruşsuz yazar (hızlı ekle düğmesi): 100, "EUR" → "€100". */

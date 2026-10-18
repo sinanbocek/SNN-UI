@@ -17,11 +17,11 @@ export type { RevenueMonth };
 export interface RevenueExplorerProps {
   /** Aylık veri, eskiden yeniye. Aylara toplulaştırmayı proje yapar. */
   months: RevenueMonth[];
-  title?: string;
+  title?: string | undefined;
   /** Başlangıçtaki pencere uzunluğu (ay); 0 = tümü. */
-  initialLength?: number;
-  status?: "ready" | "loading" | "error";
-  onRetry?: () => void;
+  initialLength?: number | undefined;
+  status?: "ready" | "loading" | "error" | undefined;
+  onRetry?: (() => void) | undefined;
 }
 
 type SeriesKey = "newMrr" | "expansion" | "churn";
@@ -32,7 +32,7 @@ const SERIES: { key: SeriesKey; label: string; color: string }[] = [
 ];
 const LENGTHS = [{ value: 3, label: "3A" }, { value: 6, label: "6A" }, { value: 12, label: "12A" }, { value: 0, label: "Tümü" }];
 
-function Delta({ children, calm }: { children: string; calm?: boolean }) {
+function Delta({ children, calm }: { children: string; calm?: boolean | undefined }) {
   return <span className={styles.delta} data-calm={calm || undefined}>{children}</span>;
 }
 

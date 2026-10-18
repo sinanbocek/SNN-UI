@@ -2,7 +2,7 @@
 import { formatChange, formatCompact, formatMoney, formatMoneyCompact, formatNumber, formatRatio } from "../lib/chart-format";
 
 export interface FunnelPart { key: string; label: string; value: number }
-export interface FunnelStep { key: string; label: string; value: number; /** Adımın parça kırılımı (isteğe bağlı). Toplamı `value` olmalıdır. */ parts?: FunnelPart[] }
+export interface FunnelStep { key: string; label: string; value: number; /** Adımın parça kırılımı (isteğe bağlı). Toplamı `value` olmalıdır. */ parts?: FunnelPart[] | undefined }
 export type FunnelKind = "count" | "money";
 /** "total": tek bant, "split": parçalar üst üste, başka bir değer: yalnız o parça (parça anahtarı). */
 export type FunnelView = "total" | "split" | string;

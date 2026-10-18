@@ -23,11 +23,11 @@ export interface WalletCardProps {
   accounts: WalletAccount[];
   /** Dönem düğmeleri; `value` her hesabın `history` anahtarıdır. */
   periods: { value: string; label: string }[];
-  defaultAccount?: string;
+  defaultAccount?: string | undefined;
   /** İşlemi defterde yapar; reddederse hata iletisi yazılır. Hesapları güncelleyip yeni `accounts` verin: bakiye yeni değere sayar, yeni hareket yerinde açılır. */
   onSubmit: (order: { account: string; action: WalletAction; amountMinor: number }) => Promise<void>;
-  onViewAll?: () => void;
-  loading?: boolean;
+  onViewAll?: (() => void) | undefined;
+  loading?: boolean | undefined;
 }
 
 function BalanceChart({ points, label }: { points: BalancePoint[]; label: string }) {

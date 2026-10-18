@@ -19,14 +19,14 @@ export interface PricingCalculatorProps {
   plans: PricingPlan[];
   /** Kaydırıcının sabit koltuk durakları, artan: [1, 5, 10, 20, 50, 100]. */
   stops: number[];
-  defaultSeats?: number;
+  defaultSeats?: number | undefined;
   /** Yıllık ödeme indirimi (yüzde), örneğin 20. */
-  yearlyDiscount?: number;
-  title?: string;
-  description?: string;
+  yearlyDiscount?: number | undefined;
+  title?: string | undefined;
+  description?: string | undefined;
   /** "Denemeyi başlat": reddederse (Promise) satır içi "Başlatılamadı" yazılır ve yeniden denenir. */
   onStartTrial: (selection: TrialSelection) => Promise<void>;
-  loading?: boolean;
+  loading?: boolean | undefined;
 }
 
 export function PricingCalculator({ plans, stops, defaultSeats, yearlyDiscount = 20, title = "Kullandığınız koltuk kadar ödeyin", description, onStartTrial, loading = false }: PricingCalculatorProps) {

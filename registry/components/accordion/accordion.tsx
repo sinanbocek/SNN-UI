@@ -12,9 +12,9 @@ import styles from "./accordion.module.css";
 export interface AccordionItem { title: string; content: ReactNode; }
 export interface AccordionProps {
   items: AccordionItem[];
-  defaultOpen?: number;
+  defaultOpen?: number | undefined;
   /** "lg" sayfa düzeyindeki sık sorulan sorulara uygundur: sorular büyük, cevaplar gövde yazı boyutunda. */
-  size?: "md" | "lg";
+  size?: "md" | "lg" | undefined;
 }
 
 /** Yükseklik içeriği, taşmayan bir yay hareketiyle izler; kapalı paneller katlanmayı bitirince erişilebilirlik ağacından çıkar. */

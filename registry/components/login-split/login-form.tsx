@@ -11,8 +11,8 @@ import { useReducedMotionSafe } from "../lib/viz-utils";
 import { LOGIN_TEXT, cleanLoginEmail, firstInvalidField, loginEmailProblem, loginPasswordProblem } from "./login-form-format";
 import styles from "./login-form.module.css";
 
-export interface LoginValues { email: string; password: string; remember?: boolean }
-export interface LoginProvider { id: string; label: string; icon?: ReactNode }
+export interface LoginValues { email: string; password: string; remember?: boolean | undefined }
+export interface LoginProvider { id: string; label: string; icon?: ReactNode | undefined }
 export const DEFAULT_PROVIDERS: LoginProvider[] = [{ id: "google", label: "Google ile devam et" }];
 
 type Status = "idle" | "sending" | "error" | "done";
@@ -20,15 +20,15 @@ type Status = "idle" | "sending" | "error" | "done";
 export interface LoginFormProps {
   /** Giriş denemesini yapar; sözü reddederse form üstünde hata kutusu açılır. */
   onSubmit: (values: LoginValues) => Promise<unknown>;
-  onForgot?: (email: string) => void;
-  onProvider?: (id: string) => void;
-  providers?: LoginProvider[];
+  onForgot?: ((email: string) => void) | undefined;
+  onProvider?: ((id: string) => void) | undefined;
+  providers?: LoginProvider[] | undefined;
   /** "Beni hatırla" kutusunu gösterir; `onSubmit` değerine `remember` olarak girer. */
-  showRemember?: boolean;
+  showRemember?: boolean | undefined;
   /** Açılış kademesinin başlangıç gecikmesi (sn). */
-  introDelay?: number;
+  introDelay?: number | undefined;
   /** Formu adlandıran başlığın kimliği (`aria-labelledby`). */
-  labelledBy?: string;
+  labelledBy?: string | undefined;
 }
 
 /** İki giriş bloğunun ortak gövdesi: alanlar, gönderim durumları, hata kutusu ve sağlayıcı düğmeleri. Başlık ve kayıt satırı kabın işidir. */

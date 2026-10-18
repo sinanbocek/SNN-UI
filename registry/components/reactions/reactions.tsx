@@ -22,13 +22,13 @@ export interface ReactionsProps {
   /** Seçicinin sunduğu bütün tepkiler, seçici sırasıyla. */
   options: ReactionOption[];
   /** Denetimli tepkiler. Haplar bu sırayı korur, sayısı sıfıra inen tepki çubuktan çıkar. */
-  value?: Reaction[];
-  defaultValue?: Reaction[];
+  value?: Reaction[] | undefined;
+  defaultValue?: Reaction[] | undefined;
   /** Sonraki tepkilerle ve onları doğuran değişiklikle çağrılır. */
-  onValueChange?: (next: Reaction[], change: { id: string; reacted: boolean }) => void;
+  onValueChange?: ((next: Reaction[], change: { id: string; reacted: boolean }) => void) | undefined;
   /** Çubuğun erişilebilir adı. */
-  label?: string;
-  className?: string;
+  label?: string | undefined;
+  className?: string | undefined;
 }
 
 const enter = [...motionTokens.ease.enter] as [number, number, number, number];

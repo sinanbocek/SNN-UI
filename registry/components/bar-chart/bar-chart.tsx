@@ -13,7 +13,7 @@ export interface BarChartDatum {
   /** Başlık ve ekran okuyucular için tam etiket, örneğin "15 Ekim Perşembe". */
   label: string;
   /** Çubuğun altındaki kısa etiket, örneğin "P" ya da "14 Eyl". Eksen sessiz kalsın diye boş bırakılabilir. */
-  axisLabel?: string;
+  axisLabel?: string | undefined;
   value: number;
 }
 
@@ -25,19 +25,19 @@ export interface BarChartProps {
   /** Gösterilen aralık, örneğin "15–21 Ekim 2026". Başlığın altında durur. */
   period: string;
   /** Her değerin ardından gelen birim, örneğin "dk". */
-  unit?: string;
+  unit?: string | undefined;
   /** Dururken başlık etiketi; ortalamanın üstünde. */
-  averageLabel?: string;
+  averageLabel?: string | undefined;
   /** Bir çubuk gezilirken başlık etiketi. */
-  valueLabel?: string;
+  valueLabel?: string | undefined;
   /** Ekran okuyucuların okuduğu veri tablosunun ilk sütun başlığı. */
-  categoryLabel?: string;
+  categoryLabel?: string | undefined;
   /** Ortalamayı, her yeni aralığa yaylanan bir başvuru çizgisi olarak çizer. */
-  showAverage?: boolean;
+  showAverage?: boolean | undefined;
   /** Çizim alanı yüksekliği (piksel). */
-  height?: number;
+  height?: number | undefined;
   /** Değerleri biçimler. Varsayılan: ABACUS biçimi ("1.234"). */
-  formatValue?: (value: number) => string;
+  formatValue?: ((value: number) => string) | undefined;
 }
 
 const { spring, duration, ease, blur, stagger } = motionTokens;

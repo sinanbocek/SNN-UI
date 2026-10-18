@@ -12,12 +12,12 @@ import styles from "./hero-content.module.css";
 
 export interface HeroAction {
   label: string;
-  href?: string;
-  onClick?: () => void;
+  href?: string | undefined;
+  onClick?: (() => void) | undefined;
   /** Yeni sekmede açar ve dışa bakan bir ok gösterir. */
-  external?: boolean;
+  external?: boolean | undefined;
   /** Basıştan sonra bir an etiketin yerinde görünür, örneğin "Deneme başladı". Yalnız düğmelerde. */
-  doneLabel?: string;
+  doneLabel?: string | undefined;
 }
 
 export interface HeroInstallCommand {
@@ -28,20 +28,20 @@ export interface HeroInstallCommand {
 
 export interface HeroContentProps {
   layout: "centered" | "split" | "minimal";
-  announcement?: HeroAction | null;
+  announcement?: HeroAction | null | undefined;
   title: string;
-  description?: string;
-  primaryAction?: HeroAction | null;
-  secondaryAction?: HeroAction | null;
-  install?: HeroInstallCommand[] | null;
-  media?: ReactNode;
-  meta?: string[];
-  animateIn?: boolean;
-  className?: string;
+  description?: string | undefined;
+  primaryAction?: HeroAction | null | undefined;
+  secondaryAction?: HeroAction | null | undefined;
+  install?: HeroInstallCommand[] | null | undefined;
+  media?: ReactNode | undefined;
+  meta?: string[] | undefined;
+  animateIn?: boolean | undefined;
+  className?: string | undefined;
 }
 
 /** Düğme görünümlü bir bağlantı ya da düğme. Bağlantılar yerel gezinmeyi korur; `doneLabel` taşıyan düğme yerinde onaylar. */
-export function ActionLink({ action, kind, className }: { action: HeroAction; kind: "primary" | "secondary"; className?: string }) {
+export function ActionLink({ action, kind, className }: { action: HeroAction; kind: "primary" | "secondary"; className?: string | undefined }) {
   const [done, setDone] = useState(false);
   useEffect(() => {
     if (!done) return;

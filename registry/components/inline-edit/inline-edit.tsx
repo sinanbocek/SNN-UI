@@ -22,16 +22,16 @@ export interface InlineEditProps {
   /** Erişilebilir ad, örneğin “Proje adı”. */
   label: string;
   /** Taslak kaydedilemiyorsa bir ileti döndürür. */
-  validate?: (next: string) => string | null | undefined;
+  validate?: ((next: string) => string | null | undefined) | undefined;
   /** Değer boşken gösterilir. */
-  placeholder?: string;
+  placeholder?: string | undefined;
   /** Birkaç satıra sarılır ve boyu uzar. Enter yine kaydeder; Shift+Enter satır sonu ekler. */
-  multiline?: boolean;
+  multiline?: boolean | undefined;
   /** Ad ve başlıklar için `title`, açıklamalar için `body`. */
-  variant?: "title" | "body";
+  variant?: "title" | "body" | undefined;
   /** Metni taşıyan öğe; başlık başlık olarak kalabilsin diye. */
-  as?: "span" | "p" | "h1" | "h2" | "h3";
-  className?: string;
+  as?: "span" | "p" | "h1" | "h2" | "h3" | undefined;
+  className?: string | undefined;
 }
 
 type Phase = "idle" | "saving" | "saved" | "failed";
@@ -106,8 +106,8 @@ function Reveal({ id, message, reduced }: { id: string; message: { key: string; 
 }
 
 type CaretDocument = Document & {
-  caretPositionFromPoint?: (x: number, y: number) => { offsetNode: Node; offset: number } | null;
-  caretRangeFromPoint?: (x: number, y: number) => Range | null;
+  caretPositionFromPoint?: ((x: number, y: number) => { offsetNode: Node; offset: number } | null) | undefined;
+  caretRangeFromPoint?: ((x: number, y: number) => Range | null) | undefined;
 };
 
 export function InlineEdit({ value, onSave, label, validate, placeholder = "", multiline = false, variant = "title", as: Tag = "span", className }: InlineEditProps) {
@@ -181,7 +181,7 @@ export function InlineEdit({ value, onSave, label, validate, placeholder = "", m
     if (Math.abs(next - previous) < .1) return;
     animate(target, next, multiline ? motionTokens.spring.smooth : typing ? typingSpring : motionTokens.spring.morph);
   });
-  useLayoutEffect(() => { onContentChange(); }, [layerText, editing, multiline, reduced]);
+  useLayoutEffect(() => { onContentChange(); }, [layerText, editing, multiline, reduced]); // eslint-disable-line react-hooks/exhaustive-deps -- onContentChange her çizimde güncel (useLatestCallback)
 
   // Geç yüklenen bir yazı tipi ya da yeniden boyutlanan kap, animasyonsuz hemen izlenir.
   const onResize = useLatestCallback(() => {
@@ -197,7 +197,7 @@ export function InlineEdit({ value, onSave, label, validate, placeholder = "", m
     const observer = new ResizeObserver(() => onResize());
     observer.observe(node, { box: "border-box" });
     return () => observer.disconnect();
-  }, []);
+  }, []); // eslint-disable-line react-hooks/exhaustive-deps -- onResize her çizimde güncel (useLatestCallback)
 
   // Odak moda uyar: alana, imleç metne tıklanan yerde olacak biçimde girer; Enter ya da Escape sonrası metne döner.
   useLayoutEffect(() => {
@@ -322,7 +322,7 @@ export function InlineEdit({ value, onSave, label, validate, placeholder = "", m
   return <div ref={root} className={[styles.root, className].filter(Boolean).join(" ")} data-variant={variant} data-multiline={multiline || undefined} data-editing={editing || undefined}
     data-phase={phase} data-invalid={error ? "" : undefined} data-flash={flash ?? undefined} onBlur={onBlur}>
     <Tag className={styles.line}>
-      <motion.span ref={box} className={styles.box} style={multiline ? { height: boxHeight } : undefined}>
+      <motion.span ref={box} className={styles.box} {...(multiline ? { style: { height: boxHeight } } : {})}>
         {/* Düzenlerken metin akışta kalır; gizlidir ve taslağı yansıtır. Böylece kutuyu boyutlandırır ve Escape'te hareketle geri dönebilir. */}
         <button ref={display} type="button" className={styles.display} onClick={onDisplayClick} tabIndex={editing ? -1 : undefined}
           aria-label={`${label}: ${shown || placeholder}`} aria-describedby={describedBy(displayHintId)} aria-disabled={saving || undefined}>
@@ -338,7 +338,7 @@ export function InlineEdit({ value, onSave, label, validate, placeholder = "", m
         {editing && (multiline
           ? <textarea ref={node => { control.current = node; }} {...fieldProps} rows={1} enterKeyHint="done" />
           : <input ref={node => { control.current = node; }} {...fieldProps} type="text" enterKeyHint="done" />)}
-        <motion.span ref={frame} className={styles.frame} style={multiline ? undefined : { width: frameWidth }}>
+        <motion.span ref={frame} className={styles.frame} {...(multiline ? {} : { style: { width: frameWidth } })}>
           <span className={styles.slot}>
             <AnimatePresence initial={false}>
               <motion.span key={slot} className={styles.slotItem} initial={reduced ? fadeIn : iconIn} animate={rest} exit={reduced ? fadeOut : iconOut} transition={reduced ? { duration: motionTokens.duration.fast } : iconEnter}>

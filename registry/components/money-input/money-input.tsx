@@ -22,34 +22,34 @@ export interface MoneyInputDetails {
 
 export interface MoneyInputProps {
   label: string;
-  hideLabel?: boolean;
+  hideLabel?: boolean | undefined;
   /** Kuruş (alt birim) tam sayısı: ₺12,50 → 1250. `null` boştur. */
-  value?: number | null;
-  defaultValue?: number | null;
-  onValueChange?: (value: number | null, details: MoneyInputDetails) => void;
+  value?: number | null | undefined;
+  defaultValue?: number | null | undefined;
+  onValueChange?: ((value: number | null, details: MoneyInputDetails) => void) | undefined;
   /** Birim kodu: "TRY", "USD" ya da "EUR". */
-  currency?: MoneyCurrency;
-  defaultCurrency?: MoneyCurrency;
-  onCurrencyChange?: (currency: MoneyCurrency) => void;
+  currency?: MoneyCurrency | undefined;
+  defaultCurrency?: MoneyCurrency | undefined;
+  onCurrencyChange?: ((currency: MoneyCurrency) => void) | undefined;
   /** Menüde sunulan birimler. Tek kod verilirse menü gizlenir. */
-  currencies?: MoneyCurrency[];
+  currencies?: MoneyCurrency[] | undefined;
   /** Kuruş cinsinden en düşük tutar. Alan odağı bırakınca denetlenir. */
-  min?: number;
+  min?: number | undefined;
   /** Kuruş cinsinden en yüksek tutar. Onu aşan yazım bir itmeyle geri çevrilir. */
-  max?: number;
+  max?: number | undefined;
   /** Ana birimde hızlı ekle düğmeleri. Boş dizi düğmeleri gizler. */
-  quickAdd?: number[];
+  quickAdd?: number[] | undefined;
   /** Ok tuşlarının kuruş cinsinden adımı. Varsayılan bir ana birim; Shift on katını alır. */
-  step?: number;
-  description?: string;
+  step?: number | undefined;
+  description?: string | undefined;
   /** Yerleşik aralık iletisinin yerine geçer. */
-  error?: string;
-  disabled?: boolean;
+  error?: string | undefined;
+  disabled?: boolean | undefined;
   /** Kuruş tutarını taşıyan gizli bir girdi ekler. */
-  name?: string;
-  id?: string;
-  className?: string;
-  onBlur?: (event: ReactFocusEvent<HTMLInputElement>) => void;
+  name?: string | undefined;
+  id?: string | undefined;
+  className?: string | undefined;
+  onBlur?: ((event: ReactFocusEvent<HTMLInputElement>) => void) | undefined;
 }
 
 type Source = "type" | "chip" | "key" | "external";

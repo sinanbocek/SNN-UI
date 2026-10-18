@@ -18,29 +18,29 @@ export interface ExpandingButtonGroupItem {
   /** Kapalıyken görünen simge. 16 px lucide simgesi uyar; boyutu grup ayarlar. */
   icon: ReactNode;
   /** Eylemi çalıştırır. Onayı atlamak için false döndür ya da reddet. Söz (promise) sonuçlanana kadar düğme meşgul kalır. */
-  onSelect?: () => void | boolean | Promise<void | boolean>;
+  onSelect?: (() => void | boolean | Promise<void | boolean>) | undefined;
   /** Eylemden sonra yerinde görünen geçmiş zaman sözcüğü, ör. "Arşivlendi". Simge confirmDuration boyunca onay işaretine dönüşür. Bir şey açan eylemlerde verme. */
-  doneLabel?: string;
+  doneLabel?: string | undefined;
   /** "danger", açık durumu tehlike rengiyle boyar; Sil gibi yıkıcı eylemler içindir. */
-  tone?: ExpandingButtonGroupTone;
+  tone?: ExpandingButtonGroupTone | undefined;
   /** Soluk ve etkisiz. Odaklanılabilir kalır, yazısını yine gösterir; böylece ne yapacağı öğrenilebilir. */
-  disabled?: boolean;
+  disabled?: boolean | undefined;
 }
 
 export interface ExpandingButtonGroupProps {
   items: readonly ExpandingButtonGroupItem[];
   /** Araç çubuğunun erişilebilir adı, ör. "İleti işlemleri". */
   label: string;
-  size?: ExpandingButtonGroupSize;
+  size?: ExpandingButtonGroupSize | undefined;
   /** Dinlenirken yazısı görünen eylemin kimliği, genellikle ana eylem. Varsayılan ilk etkin eylemdir: bir eylem her zaman
    *  açıktır. Başka birini göstermek ya da odaklamak açıklığı oraya taşır; imleç ve odak çekilince buraya döner. */
-  defaultExpanded?: string | null;
+  defaultExpanded?: string | null | undefined;
   /** Bir eylem çalışırken, kendi onSelect'inden önce öğe kimliğiyle çağrılır. */
-  onAction?: (id: string) => void;
+  onAction?: ((id: string) => void) | undefined;
   /** Onayın ne kadar kalacağı, milisaniye. */
-  confirmDuration?: number;
-  className?: string;
-  style?: CSSProperties;
+  confirmDuration?: number | undefined;
+  className?: string | undefined;
+  style?: CSSProperties | undefined;
 }
 
 /** Boyuta göre ölçüler. Simge kapalıyken de açıkken de aynı sol boşluğu korur; yazı açılırken yerinden oynamaz. */

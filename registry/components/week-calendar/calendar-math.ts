@@ -52,6 +52,7 @@ export const clamp = (value: number, low: number, high: number) => Math.min(Math
 export function rangeTitle(days: string[]): string {
   const first = days[0];
   const last = days[days.length - 1];
+  if (first === undefined || last === undefined) return "";
   if (first === last) return `${date.format(first, "long")} ${date.dayName(first, "long")}`;
   const sameMonth = first.slice(0, 7) === last.slice(0, 7);
   return sameMonth ? `${Number(first.slice(8, 10))}–${date.format(last, "long")}` : `${date.format(first, "dayMonth")} – ${date.format(last, "long")}`;

@@ -19,27 +19,27 @@ export interface ButtonGroupItem {
   /** Görünen yazı ve erişilebilir ad. Değişince yerinde çapraz geçişle değişir; böylece "Share" yerine "Copied" gelebilir. */
   label: string;
   /** Bu bölümün gösterebileceği diğer tüm etiketler, örneğin ["Copied"]. Bölüm en genişe göre boyutlanır; etiket değişimi boyutunu değiştirmez. */
-  reserve?: string[];
-  icon?: ReactNode;
+  reserve?: string[] | undefined;
+  icon?: ReactNode | undefined;
   /** Yalnız simgeyi gösterir; etiket erişilebilir ad ve ipucu olur. */
-  iconOnly?: boolean;
+  iconOnly?: boolean | undefined;
   /** Etiketin yerine görünen içerik, örneğin canlı bir değer. Erişilebilir ad yine etikettir. */
-  content?: ReactNode;
-  onSelect?: () => void;
+  content?: ReactNode | undefined;
+  onSelect?: (() => void) | undefined;
   /** Bölümü bağlantı olarak çizer. */
-  href?: string;
-  disabled?: boolean;
+  href?: string | undefined;
+  disabled?: boolean | undefined;
 }
 
 export interface ButtonGroupMenuItem {
   id: string;
   label: string;
-  icon?: ReactNode;
-  onSelect?: () => void;
-  href?: string;
-  disabled?: boolean;
+  icon?: ReactNode | undefined;
+  onSelect?: (() => void) | undefined;
+  href?: string | undefined;
+  disabled?: boolean | undefined;
   /** Öğeyi yıkıcı eylem olarak renklendirir. */
-  destructive?: boolean;
+  destructive?: boolean | undefined;
 }
 
 export interface ButtonGroupMenu {
@@ -51,18 +51,18 @@ export interface ButtonGroupMenu {
 export interface ButtonGroupProps {
   items: ButtonGroupItem[];
   /** Sona, bu eylemleri grubun kenarına hizalı bir menüde açan bir ok bölümü ekler. */
-  menu?: ButtonGroupMenu;
+  menu?: ButtonGroupMenu | undefined;
   /** Grubun erişilebilir adı, örneğin "Document actions". */
   label: string;
-  variant?: ButtonGroupVariant;
-  size?: ButtonGroupSize;
-  orientation?: ButtonGroupOrientation;
+  variant?: ButtonGroupVariant | undefined;
+  size?: ButtonGroupSize | undefined;
+  orientation?: ButtonGroupOrientation | undefined;
   /** Satır kabına sığmazsa simgesi olan bölümler etiketi bırakıp simgeyi korur. Yalnız yatayda. */
-  collapseLabels?: boolean;
+  collapseLabels?: boolean | undefined;
   /** Tüm bölümleri ve menüyü devre dışı bırakır. */
-  disabled?: boolean;
-  className?: string;
-  style?: CSSProperties;
+  disabled?: boolean | undefined;
+  className?: string | undefined;
+  style?: CSSProperties | undefined;
 }
 
 /** Ok bölümünün anahtarı. Düz yazıdır, çünkü HTML ayrıştırıcı sunucuda çizilen niteliklerdeki denetim karakterlerini yeniden yazar. */
@@ -77,7 +77,7 @@ const fadeOut: TargetAndTransition = { opacity: 0, transition: { duration: motio
 /** Simge öğesini adlandırır; Link yerine Check konunca dönüşüm olur, aynı simgenin yeniden çizimi ise yerinde kalır. */
 function iconKey(node: ReactNode): string {
   if (!isValidElement(node)) return node == null || typeof node === "boolean" ? "" : String(node);
-  const type = node.type as string | { displayName?: string; name?: string };
+  const type = node.type as string | { displayName?: string | undefined; name?: string | undefined };
   return typeof type === "string" ? type : type?.displayName ?? type?.name ?? "icon";
 }
 

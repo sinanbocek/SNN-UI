@@ -126,7 +126,7 @@ function cloud(lobes: { c: Pt; r: number }[], base: number): Seg[] {
   return segs;
 }
 
-type TileOptions = { rot?: number; skew?: number; z?: number; o?: number };
+type TileOptions = { rot?: number | undefined; skew?: number | undefined; z?: number | undefined; o?: number | undefined };
 const tile = (cx: number, cy: number, w: number, h: number, r: number, tone: string, { rot = 0, skew = 0, z = 1, o = 1 }: TileOptions = {}): Prim =>
   ({ kind: "tile", geo: [cx, cy, w, h, r, rot, skew, z], fx: [o, 1], tone, redraw: false });
 const box = (x: number, y: number, w: number, h: number, r: number, tone: string, options?: TileOptions) => tile(x + w / 2, y + h / 2, w, h, r, tone, options);
@@ -135,7 +135,7 @@ const disc = (c: Pt, r: number, tone: string, options?: TileOptions) => tile(c[0
 const park = (c: Pt, z: number) => tile(c[0], c[1], 4, 4, 2, "tuck", { z, o: 0 });
 const body = (segs: Seg[], z: number): Prim => ({ kind: "body", geo: [...sample(segs, N, false), z], fx: [1, 1], tone: "outline", redraw: false });
 
-type StrokeOptions = { dash?: number; z?: number; z1?: number; o?: number; draw?: number; redraw?: boolean };
+type StrokeOptions = { dash?: number | undefined; z?: number | undefined; z1?: number | undefined; o?: number | undefined; draw?: number | undefined; redraw?: boolean | undefined };
 const line = (segs: Seg[], tone: string, { dash = 0, z = 1, z1 = z, o = 1, draw = 1, redraw = false }: StrokeOptions = {}): Prim =>
   ({ kind: "stroke", geo: [...sample(segs, K, true), dash, z, z1], fx: [o, draw], tone, redraw });
 const rest = (p: Pt, z: number) => line([seg(p, p)], "ink", { z, o: 0, draw: 0 });

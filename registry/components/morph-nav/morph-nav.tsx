@@ -7,41 +7,41 @@ import { motionTokens } from "../lib/motion-tokens";
 import { useElementWidth } from "../lib/viz-utils";
 import styles from "./morph-nav.module.css";
 
-export interface MorphNavLink { id: string; label: string; href: string; description?: string; icon?: ReactNode }
+export interface MorphNavLink { id: string; label: string; href: string; description?: string | undefined; icon?: ReactNode | undefined }
 export interface MorphNavItem {
   id: string;
   label: string;
   /** Panelsiz öğe doğrudan bağlantıdır. */
-  href?: string;
+  href?: string | undefined;
   /** Panelli öğenin bağlantıları. */
-  links?: MorphNavLink[];
+  links?: MorphNavLink[] | undefined;
   /** Panelde öne çıkan alan (çağıranın içeriği). */
-  featured?: ReactNode;
+  featured?: ReactNode | undefined;
   /** Geçerli sayfanın bölümü. */
-  current?: boolean;
+  current?: boolean | undefined;
 }
-export interface MorphNavSearchEntry { id: string; label: string; href: string; group?: string }
+export interface MorphNavSearchEntry { id: string; label: string; href: string; group?: string | undefined }
 
 export interface MorphNavProps {
   items: MorphNavItem[];
-  brand: { label: string; href?: string; mark?: ReactNode };
+  brand: { label: string; href?: string | undefined; mark?: ReactNode | undefined };
   /** Çubuğun ucundaki tek ana eylem (çağıranın düğmesi). */
-  action?: ReactNode;
+  action?: ReactNode | undefined;
   /** Verilirse çubukta arama düğmesi çıkar. Dizin büyükse önceden süzülür. */
-  searchEntries?: MorphNavSearchEntry[];
+  searchEntries?: MorphNavSearchEntry[] | undefined;
   /** Verilirse bağlantılar sayfayı yenilemez; adres bu işleve gider. */
-  onNavigate?: (href: string) => void;
+  onNavigate?: ((href: string) => void) | undefined;
   /** Sayfa kayınca çağıran verir: çubuk küçülür. */
-  tight?: boolean;
+  tight?: boolean | undefined;
   /** Bu genişliğin (kabın, ekranın değil) altında bölümler tek menüye katlanır. */
-  collapseBelow?: number;
-  label?: string;
-  searchLabel?: string;
-  suggestedLabel?: string;
-  noResultsLabel?: string;
-  menuLabel?: string;
-  closeLabel?: string;
-  className?: string;
+  collapseBelow?: number | undefined;
+  label?: string | undefined;
+  searchLabel?: string | undefined;
+  suggestedLabel?: string | undefined;
+  noResultsLabel?: string | undefined;
+  menuLabel?: string | undefined;
+  closeLabel?: string | undefined;
+  className?: string | undefined;
 }
 
 type Mode = { kind: "none" } | { kind: "panel"; id: string } | { kind: "search" } | { kind: "menu" };
@@ -148,7 +148,7 @@ export function MorphNav({
     show({ kind: "panel", id });
     if (focusFirst) requestAnimationFrame(() => root.current?.querySelector<HTMLElement>(`[data-pane="${id}"] a`)?.focus());
   };
-  const hoverOpen = (id: string, event: { pointerType?: string }) => {
+  const hoverOpen = (id: string, event: { pointerType?: string | undefined }) => {
     if (event.pointerType && event.pointerType !== "mouse") return;
     clearTimeout(hoverTimer.current);
     hoverTimer.current = setTimeout(() => openPanel(id), mode.kind === "panel" ? 0 : 90);

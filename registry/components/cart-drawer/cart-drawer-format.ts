@@ -3,11 +3,11 @@
 import { math } from "@snn/abacus-core";
 import { countText, exactText, lineMinor, priceText, toMinor } from "../lib/shop-format";
 
-export interface CartPhoto { alt: string; src?: string; /** Fotoğrafın odak noktası (CSS object-position). */ position?: string; tone?: number }
-export interface CartProduct { id: string; name: string; description?: string; price: number; photo: CartPhoto }
+export interface CartPhoto { alt: string; src?: string | undefined; /** Fotoğrafın odak noktası (CSS object-position). */ position?: string | undefined; tone?: number | undefined }
+export interface CartProduct { id: string; name: string; description?: string | undefined; price: number; photo: CartPhoto }
 export interface CartLine extends CartProduct { quantity: number }
 /** Sunucunun kabul ettiği kupon: yüzde ya da tutar indirimi (ana birimde TRY). */
-export interface Coupon { code: string; percent?: number; amount?: number }
+export interface Coupon { code: string; percent?: number | undefined; amount?: number | undefined }
 export interface ShippingRule { /** Kargo ücreti (ana birimde TRY). */ fee: number; /** Bu ara toplamdan itibaren kargo ücretsizdir. */ freeFrom: number }
 
 export interface Totals {

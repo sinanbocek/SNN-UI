@@ -21,15 +21,15 @@ export interface JourneyFlowProps {
   channels: JourneyChannel[];
   channel: string;
   onChannelChange: (value: string) => void;
-  title?: string;
+  title?: string | undefined;
   /** Alt cümle: örneğin "Ağustos ayında ziyaret, ilk oturumdan plana kadar izlendi" (ABACUS `date.monthName`). */
-  subtitle?: string;
+  subtitle?: string | undefined;
   /** Başlıktaki büyük toplamın, canlı bölgedeki ve sayfadaki adı: "ziyaret". */
-  totalLabel?: string;
+  totalLabel?: string | undefined;
   /** Son aşamanın adı (canlı bölge için): "ücretli plan". */
-  finalLabel?: string;
-  status?: "ready" | "loading" | "error";
-  onRetry?: () => void;
+  finalLabel?: string | undefined;
+  status?: "ready" | "loading" | "error" | undefined;
+  onRetry?: (() => void) | undefined;
 }
 
 export function JourneyFlow({ data, channels, channel, onChannelChange, title = "Kullanıcı yolculuğu", subtitle, totalLabel = "ziyaret", finalLabel = "ücretli plan", status = "ready", onRetry }: JourneyFlowProps) {

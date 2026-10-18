@@ -12,13 +12,13 @@ export interface SplitBarProps {
   data: SplitSlice[];
   /** Neyin dağıldığı, örneğin "Gider dağılımı". Çubuğu yardımcı teknolojiye adlandırır. */
   label: string;
-  description?: string;
+  description?: string | undefined;
   /** Sağ üstte duran denetimler (dönem seçici gibi). */
-  actions?: ReactNode;
+  actions?: ReactNode | undefined;
   /** Tam değer yazımı (okuma alanı, tablo). Varsayılan: ABACUS ile "₺1.250.000". */
-  formatValue?: (value: number) => string;
-  loading?: boolean;
-  emptyText?: string;
+  formatValue?: ((value: number) => string) | undefined;
+  loading?: boolean | undefined;
+  emptyText?: string | undefined;
 }
 
 const STRIP_LINK = 28;

@@ -13,7 +13,7 @@ export interface DonutChartDatum {
   label: string;
   value: number;
   /** Herhangi bir CSS rengi. Varsayılan: veri sırasıyla ortak --series-* paleti, sonra nötr basamaklar. */
-  color?: string;
+  color?: string | undefined;
 }
 
 /** Bir bütünün birkaç parçası için, her parçanın payı kesin karşılaştırmadan önemliyse halka grafik kullanın. */
@@ -22,38 +22,38 @@ export interface DonutChartProps {
   /** Bütünün ne olduğu, örneğin "Kaynağa göre ziyaret". Grafiği yardımcı teknolojiye adlandırır. */
   label: string;
   /** Değerlerin ardından gelen birim, örneğin "ziyaret". */
-  unit?: string;
+  unit?: string | undefined;
   /** Değerleri biçimler. Varsayılan: ABACUS biçimi ("1.234,5"). */
-  formatValue?: (value: number) => string;
+  formatValue?: ((value: number) => string) | undefined;
   /** Dururken merkez etiketi; toplamın üstünde. */
-  totalLabel?: string;
+  totalLabel?: string | undefined;
   /** Çap (piksel). Grafik dar kaplara sığmak için küçülür. */
-  size?: number;
+  size?: number | undefined;
   /** Halka kalınlığı (piksel). */
-  thickness?: number;
+  thickness?: number | undefined;
   /** Toplamın bu payının altındaki dilimler "Diğer"e katılır. */
-  groupBelow?: number;
+  groupBelow?: number | undefined;
   /** Çizilen en çok dilim sayısı ("Diğer" dahil). Ötesindeki en küçük parçalar gruplanır. */
-  maxSegments?: number;
-  otherLabel?: string;
+  maxSegments?: number | undefined;
+  otherLabel?: string | undefined;
   /** Denetimli seçili dilim anahtarı. Üzerine gelme ve odak, seçimi değiştirmeden başka dilimleri önizler. */
-  activeKey?: string | null;
-  defaultActiveKey?: string | null;
-  onActiveChange?: (key: string | null) => void;
+  activeKey?: string | null | undefined;
+  defaultActiveKey?: string | null | undefined;
+  onActiveChange?: ((key: string | null) => void) | undefined;
   /** Denetimli gizli dilim anahtarları. Gizlenen dilim kapanır, halkanın kalanı yeniden dağılır. */
-  hiddenKeys?: string[];
-  defaultHiddenKeys?: string[];
-  onHiddenKeysChange?: (keys: string[]) => void;
+  hiddenKeys?: string[] | undefined;
+  defaultHiddenKeys?: string[] | undefined;
+  onHiddenKeysChange?: ((keys: string[]) => void) | undefined;
   /** Gösterge satırına tıklayınca olan: dilimi göster ya da gizle, ya da seçili dilim olarak sabitle. */
-  legendAction?: "toggle" | "select";
+  legendAction?: "toggle" | "select" | undefined;
   /** Halkanın yanındaki ya da altındaki eşgüdümlü gösterge. */
-  legend?: boolean;
-  emptyLabel?: string;
-  ref?: Ref<HTMLElement>;
-  className?: string;
+  legend?: boolean | undefined;
+  emptyLabel?: string | undefined;
+  ref?: Ref<HTMLElement> | undefined;
+  className?: string | undefined;
 }
 
-type Slice = { key: string; label: string; value: number; color?: string; members?: DonutChartDatum[] };
+type Slice = { key: string; label: string; value: number; color?: string | undefined; members?: DonutChartDatum[] | undefined };
 type Arc = { start: number; end: number };
 type Segment = { start: MotionValue<number>; end: MotionValue<number>; lift: MotionValue<number>; off: () => void };
 
@@ -307,7 +307,7 @@ export function DonutChart({ data, label, unit = "", formatValue = value => form
         return;
       }
       animate(segment.start, to.start, settle);
-      animate(segment.end, to.end, { ...settle, onComplete: leaving ? () => drop(item.key) : undefined });
+      animate(segment.end, to.end, { ...settle, ...(leaving ? { onComplete: () => drop(item.key) } : {}) });
     });
     schedule();
   }, [shown, signature, reduced, schedule]); // eslint-disable-line react-hooks/exhaustive-deps

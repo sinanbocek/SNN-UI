@@ -1,7 +1,7 @@
 "use client";
 
 import { useEffect, useId, useRef, useState, type KeyboardEvent, type PointerEvent } from "react";
-import { AnimatePresence, animate, motion, useMotionValue, useTransform } from "motion/react";
+import { AnimatePresence, motion, useMotionValue, useTransform } from "motion/react";
 import { AnimatedCounter } from "../animated-counter/animated-counter";
 import { Button } from "../button/button";
 import { motionTokens } from "../lib/motion-tokens";
@@ -14,10 +14,10 @@ export type { CardMaterial, CardTransaction, WalletCard };
 
 /** Birkaç ödeme ya da üyelik kartını üst üste duran bir deste olarak göstermek için kullanın: üstüne gelince deste açılır, sürükleyerek ya da oklarla dönülür, karta basınca kart öne çıkıp bakiyesini ve son hareketlerini gösterir. **Yalnız bir görünümdür: gerçek kart numarası tutmaz ve göstermez (yalnız son dört hane), gerçek ödeme yapmaz.** Kart ekleme/silme, çok sayıda hesap listesi ve kart girişi kapsam dışıdır (`wallet-card` hesap özeti içindir). En çok altı kart çizilir. */
 export interface WalletStackProps {
-  title?: string;
+  title?: string | undefined;
   cards: WalletCard[];
   /** Öne gelen ya da açılan kart değişince çağrılır. */
-  onFrontChange?: (card: WalletCard, index: number) => void;
+  onFrontChange?: ((card: WalletCard, index: number) => void) | undefined;
 }
 
 function Face({ card }: { card: WalletCard }) {

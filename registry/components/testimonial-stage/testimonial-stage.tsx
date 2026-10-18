@@ -15,11 +15,11 @@ export interface Testimonial {
   company: string;
   quote: string;
   /** Verilirse gerçek portre; verilmezse baş harfli yer tutucu çizilir. */
-  portrait?: string;
+  portrait?: string | undefined;
   /** Portrenin odak noktası (CSS object-position), örneğin "50% 30%". */
-  portraitPosition?: string;
+  portraitPosition?: string | undefined;
   /** Yer tutucunun renk tonu (0–5). */
-  tone?: number;
+  tone?: number | undefined;
 }
 
 /** Birkaç kişinin görüşünü, kişinin portresi öne çıkacak biçimde göstermek için kullanın: üstte kişi sekmeleri, altta seçili kişinin portresi ve alıntısı. Kendiliğinden dönmez, yalnız kullanıcı girdisiyle değişir. Yalnız logo yeterliyse logo şeridi, çok sayıda kısa yorum için döner şerit, kendi ekibi için `team-showcase`. Gerçek sitede yalnız izin alınmış portre ve doğrulanmış alıntı kullanılmalıdır (uygulamanın sorumluluğu). */
@@ -27,8 +27,8 @@ export interface TestimonialStageProps {
   title: string;
   people: Testimonial[];
   /** Seçim değişince çağrılır (istatistik için). */
-  onSelect?: (person: Testimonial, index: number) => void;
-  loading?: boolean;
+  onSelect?: ((person: Testimonial, index: number) => void) | undefined;
+  loading?: boolean | undefined;
 }
 
 function Portrait({ person }: { person: Testimonial }) {

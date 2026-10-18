@@ -2,7 +2,7 @@
 import { date } from "@snn/abacus-core";
 import { formatCompact, formatMoney, formatMoneyCompact, formatNumber } from "../lib/chart-format";
 
-export interface StreamReading { /** Okuma zamanı: epoch milisaniyesi. */ t: number; value: number; /** Anomali notu ("Sıçrama" gibi). Grafik anomali bulmaz; etiketi veri sağlar. */ note?: string }
+export interface StreamReading { /** Okuma zamanı: epoch milisaniyesi. */ t: number; value: number; /** Anomali notu ("Sıçrama" gibi). Grafik anomali bulmaz; etiketi veri sağlar. */ note?: string | undefined }
 export type StreamKind = "number" | "money";
 
 const pad2 = (value: number) => String(value).padStart(2, "0");

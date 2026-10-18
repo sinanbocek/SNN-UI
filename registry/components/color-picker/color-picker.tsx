@@ -3,7 +3,7 @@
 import { useCallback, useEffect, useId, useLayoutEffect, useRef, useState, useSyncExternalStore } from "react";
 import type { CSSProperties, KeyboardEvent as ReactKeyboardEvent, PointerEvent as ReactPointerEvent } from "react";
 import { AnimatePresence, Reorder, animate, motion, useMotionValue, useReducedMotion, useTransform } from "motion/react";
-import type { Transition } from "motion/react";
+import type { MotionStyle, Transition } from "motion/react";
 import { Check, Pipette, Plus } from "lucide-react";
 import { TextMorph } from "../text-morph/text-morph";
 import { text } from "@snn/abacus-core";
@@ -24,21 +24,21 @@ export interface ColorSwatch { id: string; color: string }
  */
 export interface ColorPickerProps {
   /** Seçicinin okuyabildiği herhangi bir renk: hex, rgb(), hsl() ya da oklch(). */
-  value?: string;
-  defaultValue?: string;
+  value?: string | undefined;
+  defaultValue?: string | undefined;
   /** Rengi hex olarak alır; opak değilse iki saydamlık basamağı eklenir. */
-  onValueChange?: (hex: string) => void;
+  onValueChange?: ((hex: string) => void) | undefined;
   /** Rengin üzerinde duracağı arka plan; karşıtlık göstergesi için. */
-  background?: string;
+  background?: string | undefined;
   /** Renk kutusunda görünen ad, ör. "Vurgu". */
-  label?: string;
-  swatches?: ColorSwatch[];
-  defaultSwatches?: ColorSwatch[];
-  onSwatchesChange?: (swatches: ColorSwatch[]) => void;
+  label?: string | undefined;
+  swatches?: ColorSwatch[] | undefined;
+  defaultSwatches?: ColorSwatch[] | undefined;
+  onSwatchesChange?: ((swatches: ColorSwatch[]) => void) | undefined;
   /** En çok kayıtlı renk sayısı. Aşılırsa en eskisi düşer. */
-  maxSwatches?: number;
-  defaultFormat?: ColorFormat;
-  className?: string;
+  maxSwatches?: number | undefined;
+  defaultFormat?: ColorFormat | undefined;
+  className?: string | undefined;
 }
 
 const { spring, duration, ease, blur } = motionTokens;
@@ -111,14 +111,14 @@ function stepFor(event: ReactKeyboardEvent, axis: "x" | "y" | "both") {
   return map[event.key] ?? null;
 }
 
-interface SliderProps { label: string; value: number; valueText: string; max: number; unit: number; onChange: (value: number) => void; className?: string; style?: CSSProperties; reduced: boolean; fill: string; onActive: (active: boolean) => void; active: boolean }
+interface SliderProps { label: string; value: number; valueText: string; max: number; unit: number; onChange: (value: number) => void; className?: string | undefined; style?: CSSProperties | undefined; reduced: boolean; fill: string; onActive: (active: boolean) => void; active: boolean }
 function Slider({ label, value, valueText, max, unit, onChange, className, style, reduced, fill, onActive, active }: SliderProps) {
   const x = useFollow(value / max, reduced, active);
   const left = useTransform(x, v => `${v * 100}%`);
   const pad = usePad(fx => onChange(fx * max), onActive);
   return <div className={`${styles.slider} ${className}`} style={style} {...pad}>
     <motion.div className={styles.sliderThumb} role="slider" tabIndex={0} aria-label={label} aria-valuemin={0} aria-valuemax={max} aria-valuenow={Math.round(value)} aria-valuetext={valueText}
-      style={{ left, "--thumb-fill": fill } as unknown as CSSProperties} data-active={active || undefined}
+      style={{ left, "--thumb-fill": fill } as MotionStyle} data-active={active || undefined}
       onKeyDown={event => {
         if (event.key === "Home" || event.key === "End") { event.preventDefault(); onChange(event.key === "Home" ? 0 : max); return; }
         const step = stepFor(event, "x");
@@ -129,7 +129,7 @@ function Slider({ label, value, valueText, max, unit, onChange, className, style
   </div>;
 }
 
-function Chip({ color, className }: { color: string; className?: string }) {
+function Chip({ color, className }: { color: string; className?: string | undefined }) {
   return <span className={`${styles.chip} ${className ?? ""}`}><span style={{ background: color }} /></span>;
 }
 
@@ -407,7 +407,7 @@ export function ColorPicker({
                 {swatches.map((entry, index) => <Reorder.Item key={entry.id} value={entry} as="div" className={styles.swatchSlot} dragElastic={.12}
                   initial={reduced ? { opacity: 0 } : { opacity: 0, scale: .4 }} animate={{ opacity: 1, scale: 1 }}
                   exit={reduced ? { opacity: 0 } : { opacity: 0, scale: .4, transition: { duration: duration.fast } }}
-                  transition={reduced ? instant : { ...spring.snappy, layout: spring.smooth }} whileDrag={reduced ? undefined : { scale: 1.15, zIndex: 2 }}
+                  transition={reduced ? instant : { ...spring.snappy, layout: spring.smooth }} {...(reduced ? {} : { whileDrag: { scale: 1.15, zIndex: 2 } })}
                   onDragStart={() => { dragged.current = true; }} onDragEnd={() => requestAnimationFrame(() => { dragged.current = false; })}>
                   <button ref={node => { if (node) swatchRefs.current.set(entry.id, node); else swatchRefs.current.delete(entry.id); }}
                     type="button" role="option" aria-selected={text.upper(entry.color) === hex} className={styles.swatch} data-current={text.upper(entry.color) === hex || undefined}

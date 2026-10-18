@@ -3,18 +3,18 @@
 import { useEffect, useLayoutEffect, useRef, useState } from "react";
 import type { ButtonHTMLAttributes, RefObject } from "react";
 import { AnimatePresence, animate, motion, useMotionValue, useReducedMotion } from "motion/react";
-import type { TargetAndTransition, Variants } from "motion/react";
+import type { MotionStyle, TargetAndTransition, Variants } from "motion/react";
 import { ArrowRight } from "lucide-react";
 import { motionTokens } from "../lib/motion-tokens";
 import styles from "./action-button.module.css";
 
 export interface ActionButtonProps extends Omit<ButtonHTMLAttributes<HTMLButtonElement>, "onClick" | "onDrag" | "onDragEnd" | "onDragStart" | "onAnimationStart"> {
   label: string;
-  successLabel?: string;
-  pendingLabel?: string;
+  successLabel?: string | undefined;
+  pendingLabel?: string | undefined;
   onAction: () => void | Promise<void>;
-  resetAfterMs?: number;
-  onActionError?: (error: unknown) => void;
+  resetAfterMs?: number | undefined;
+  onActionError?: ((error: unknown) => void) | undefined;
 }
 
 const pressVariants: Variants = {
@@ -128,7 +128,7 @@ export function ActionButton({ label, successLabel = "Kaydedildi", pendingLabel 
   const arrow = state === "idle";
 
   // Bekleme sırasında düğme odaklanabilir kalır (disabled yerine aria-disabled); klavye kullanan kayıt boyunca odağını yitirmez.
-  return <motion.button {...props} ref={buttonRef} tabIndex={props.tabIndex ?? 0} type={props.type ?? "button"} className={[styles.button, className].filter(Boolean).join(" ")} disabled={disabled} aria-disabled={pending ? true : props["aria-disabled"]} aria-busy={pending} data-state={state} onClick={run} custom={buttonRef} variants={pressVariants} whileTap={reduceMotion || disabled || pending ? undefined : "pressed"} transition={motionTokens.spring.snappy}>
+  return <motion.button {...props} style={props.style as MotionStyle} ref={buttonRef} tabIndex={props.tabIndex ?? 0} type={props.type ?? "button"} className={[styles.button, className].filter(Boolean).join(" ")} disabled={disabled} aria-disabled={pending ? true : props["aria-disabled"]} aria-busy={pending} data-state={state} onClick={run} custom={buttonRef} variants={pressVariants} {...(reduceMotion || disabled || pending ? {} : { whileTap: "pressed" })} transition={motionTokens.spring.snappy}>
     <span className={styles.content} aria-hidden="true">
       <MorphText text={text} reduced={reduceMotion} />
       <span className={styles.iconSlot}><AnimatePresence initial={false}><motion.span key={state} className={styles.phase} initial={reduceMotion ? fadeIn : arrow ? arrowIn : iconIn} animate={iconRest} exit={reduceMotion ? fadeOut : arrow ? arrowOut : iconOut} transition={reduceMotion ? { duration: motionTokens.duration.instant } : iconEnter}>{pending ? <span className={styles.spinner} /> : state === "success" ? <DrawnCheck reduced={reduceMotion} /> : <ArrowRight className={styles.arrow} width={17} height={17} />}</motion.span></AnimatePresence></span>

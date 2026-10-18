@@ -18,7 +18,7 @@ export interface BrushChartAnnotation {
   /** İşaretin yanına yazılan kısa etiket, örneğin "v2 yayını". */
   label: string;
   /** İpucu ve ekran okuyucular için daha uzun not. */
-  description?: string;
+  description?: string | undefined;
 }
 
 /** Uzun ve yoğun bir zaman serisinde hem tüm geçmişi hem de herhangi bir kesitine yakından bakmak gerekiyorsa fırça grafiği kullanın. */
@@ -27,30 +27,30 @@ export interface BrushChartProps {
   /** Neyin ölçüldüğü, örneğin "Günlük etkin kullanıcı". Grafiği yardımcı teknolojiye adlandırır. */
   label: string;
   /** Her değerin ardından gelen birim, örneğin "kullanıcı". */
-  unit?: string;
+  unit?: string | undefined;
   /** Değerleri biçimler. Varsayılan: ABACUS biçimi ("1.234,5"). */
-  formatValue?: (value: number) => string;
+  formatValue?: ((value: number) => string) | undefined;
   /** Değer eksenini biçimler. Varsayılan kısaltılmış sayı ("12B", "1,25Mn"). */
-  formatTick?: (value: number) => string;
+  formatTick?: ((value: number) => string) | undefined;
   /** İpucundaki ve duyurulardaki tarihi biçimler. Varsayılan: ABACUS tarihi ("15 Ekim 2026 Per"). */
-  formatDate?: (date: Date) => string;
+  formatDate?: ((date: Date) => string) | undefined;
   /** İki grafikte de işaret olarak çizilen olaylar. */
-  annotations?: BrushChartAnnotation[];
+  annotations?: BrushChartAnnotation[] | undefined;
   /** Denetimli pencere: [başlangıç, bitiş] epoch milisaniyesi. Yeni değer pencereyi oraya süzdürür. */
-  range?: [number, number];
+  range?: [number, number] | undefined;
   /** Denetimsizken başlangıç penceresi. Varsayılan: tüm seri. */
-  defaultRange?: [number, number];
+  defaultRange?: [number, number] | undefined;
   /** Pencere sürüklenirken, boyutlanırken, adımlanırken ya da sıfırlanırken çağrılır. */
-  onRangeChange?: (range: [number, number]) => void;
+  onRangeChange?: ((range: [number, number]) => void) | undefined;
   /** En küçük pencere (milisaniye). Varsayılan: yedi gün. */
-  minSpan?: number;
+  minSpan?: number | undefined;
   /** Ana çizim alanı yüksekliği (piksel). */
-  height?: number;
+  height?: number | undefined;
   /** Genel bakış şeridi yüksekliği (piksel). */
-  overviewHeight?: number;
-  emptyLabel?: string;
-  ref?: Ref<HTMLElement>;
-  className?: string;
+  overviewHeight?: number | undefined;
+  emptyLabel?: string | undefined;
+  ref?: Ref<HTMLElement> | undefined;
+  className?: string | undefined;
 }
 
 type Point = { t: number; value: number };

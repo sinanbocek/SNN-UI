@@ -11,11 +11,11 @@ import styles from "./select.module.css";
 
 export interface SelectProps extends Omit<ComponentPropsWithoutRef<typeof SelectPrimitive.Root>, "children"> {
   label: string;
-  description?: string;
-  placeholder?: string;
-  id?: string;
-  className?: string;
-  options: { value: string; label: string; disabled?: boolean }[];
+  description?: string | undefined;
+  placeholder?: string | undefined;
+  id?: string | undefined;
+  className?: string | undefined;
+  options: { value: string; label: string; disabled?: boolean | undefined }[];
 }
 
 /** Gösterilen değer listenin yönünde döner: sonraki seçenek aşağıdan yükselir, önceki yukarıdan iner. */

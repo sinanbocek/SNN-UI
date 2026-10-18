@@ -7,7 +7,7 @@ export type StepperGlyph = "number" | "check" | "return" | "error";
  * Bir adımın durumu. Hata her şeyin önündedir. Geçerli adımdan önceki adımlar tamamlanmıştır. Geçerli adımdan sonra gelip
  * `returned` işaretli adım "geri dönüldü"dür: daha önce yapılmıştı, akış geri döndüğü için yeniden ele alınacak.
  */
-export function stepStatus(step: { error?: string; returned?: boolean }, index: number, active: number): StepperStatus {
+export function stepStatus(step: { error?: string | undefined; returned?: boolean | undefined }, index: number, active: number): StepperStatus {
   if (step.error) return "error";
   if (index < active) return "complete";
   if (index === active) return "current";

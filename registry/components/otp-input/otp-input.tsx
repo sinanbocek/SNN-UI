@@ -8,16 +8,16 @@ import { motionTokens } from "../lib/motion-tokens";
 import styles from "./otp-input.module.css";
 
 export interface OtpInputProps {
-  length?: number;
-  value?: string;
-  onChange?: (value: string) => void;
+  length?: number | undefined;
+  value?: string | undefined;
+  onChange?: ((value: string) => void) | undefined;
   label: string;
-  description?: string;
-  error?: string;
-  autoFocus?: boolean;
-  disabled?: boolean;
-  inputMode?: "numeric" | "text";
-  className?: string;
+  description?: string | undefined;
+  error?: string | undefined;
+  autoFocus?: boolean | undefined;
+  disabled?: boolean | undefined;
+  inputMode?: "numeric" | "text" | undefined;
+  className?: string | undefined;
 }
 
 /** Değişen kelimeler yükselip netleşir, değişmeyenler yerinde durur. Ekran okuyucu düz metni okur. */
@@ -31,12 +31,12 @@ function MotionText({ text }: { text: string }) {
 }
 
 /** Yardım ve hata metni: satır yüksekliğini yayla açar, sonra kelimeler yerine oturur. */
-function FieldMessage({ id, text, className, alert }: { id?: string; text?: string; className?: string; alert?: boolean }) {
+function FieldMessage({ id, text, className, alert }: { id?: string | undefined; text?: string | undefined; className?: string | undefined; alert?: boolean | undefined }) {
   return <AnimatePresence initial={false}>{text ? <MessageRow key="message" id={id} text={text} className={className} alert={alert} /> : null}</AnimatePresence>;
 }
 
 /** Satır ölçülen metni izler; uzun mesaj alt satıra sarınca yükseklik sıçramadan açılır. */
-function MessageRow({ id, text, className, alert }: { id?: string; text: string; className?: string; alert?: boolean }) {
+function MessageRow({ id, text, className, alert }: { id?: string | undefined; text: string; className?: string | undefined; alert?: boolean | undefined }) {
   const reduced = useReducedMotion();
   const copyRef = useRef<HTMLSpanElement>(null);
   const [height, setHeight] = useState<number | "auto">("auto");

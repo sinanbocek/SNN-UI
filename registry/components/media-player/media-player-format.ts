@@ -6,14 +6,14 @@ export interface Track {
   id: string;
   title: string;
   /** İkinci satır (koleksiyon ya da tür). */
-  subtitle?: string;
+  subtitle?: string | undefined;
   /** Ses dosyasının adresi; uygulamadan gelir (bileşen içinde gerçek ses gömülmez). */
   src: string;
   /** Bilinen süre (saniye); dosya yüklenince gerçek süre kullanılır. */
-  duration?: number;
+  duration?: number | undefined;
   /** Kapak yer tutucusunun renk tonu (0–5). */
-  tone?: number;
-  cover?: string;
+  tone?: number | undefined;
+  cover?: string | undefined;
 }
 
 /** Süreyi "d:ss" yazar: 12 → "0:12", 74 → "1:14", 3725 → "62:05". Geçersiz süre "0:00". */

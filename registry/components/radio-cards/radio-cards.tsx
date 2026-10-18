@@ -11,14 +11,14 @@ export interface RadioCardOption {
   value: string;
   label: ReactNode;
   /** Etiketin altında bir ya da iki kısa satır. */
-  description?: ReactNode;
+  description?: ReactNode | undefined;
   /** Fiyat, tahmin ya da başka bir değer. Liste satırında sonda, ızgara kartında metnin altında durur. */
-  meta?: ReactNode;
+  meta?: ReactNode | undefined;
   /** Etiketin yanında süs amaçlı sade simge. */
-  icon?: ReactNode;
-  disabled?: boolean;
+  icon?: ReactNode | undefined;
+  disabled?: boolean | undefined;
   /** Seçenek pasifken açıklamanın yerine gösterilen kısa neden. */
-  disabledReason?: ReactNode;
+  disabledReason?: ReactNode | undefined;
 }
 
 /**
@@ -28,17 +28,17 @@ export interface RadioCardOption {
  */
 export interface RadioCardsProps extends Omit<HTMLAttributes<HTMLDivElement>, "onChange" | "defaultValue"> {
   options: RadioCardOption[];
-  value?: string | null;
-  defaultValue?: string | null;
-  onValueChange?: (value: string) => void;
+  value?: string | null | undefined;
+  defaultValue?: string | null | undefined;
+  onValueChange?: ((value: string) => void) | undefined;
   /** "grid" kartları duyarlı sütunlara dizer; "list" tam genişlikte satırlar halinde alt alta koyar. */
-  layout?: "grid" | "list";
+  layout?: "grid" | "list" | undefined;
   /** Izgara bir sütun eksiltmeden önce sütunun inebileceği en dar genişlik, px olarak. */
-  minColumnWidth?: number;
+  minColumnWidth?: number | undefined;
   /** Form alanı adı. Seçili değeri taşıyan gizli bir girdi çizer. */
-  name?: string;
-  required?: boolean;
-  disabled?: boolean;
+  name?: string | undefined;
+  required?: boolean | undefined;
+  disabled?: boolean | undefined;
 }
 
 type Bezier = [number, number, number, number];

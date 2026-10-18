@@ -16,7 +16,7 @@ const PLAN_TAGLINES: Record<PlanId, string> = { team: "Küçük ekipler için", 
 
 const INCLUDED = "Dahil";
 const NOT_INCLUDED = "Dahil değil";
-type Feature = { label: string; team: string; studio: string; shared?: boolean };
+type Feature = { label: string; team: string; studio: string; shared?: boolean | undefined };
 
 const features: Feature[] = [
   { label: "Etkin projeler", team: "Sınırsız", studio: "Sınırsız", shared: true },
@@ -35,7 +35,7 @@ function Value({ text }: { text: string }) {
 }
 
 /** Sayıya dönen metin. `format` verilirse gösterilen tam sayı onunla yazılır (ör. binlik ayraç). */
-function AnimatedNumber({ value, format }: { value: number; format?: (value: number) => string }) {
+function AnimatedNumber({ value, format }: { value: number; format?: ((value: number) => string) | undefined }) {
   const reduce = useReducedMotion();
   const [displayValue, setDisplayValue] = useState(value);
   const previousValue = useRef(value);
@@ -104,7 +104,7 @@ export function PlanComparison() {
         <div className={styles.rows} role="rowgroup">
           <AnimatePresence initial={false}>
             {visibleFeatures.map((feature) => (
-              <motion.div key={feature.label} className={styles.featureRow} role="row" initial={reduce ? false : { height: 0, opacity: 0 }} animate={{ height: "auto", opacity: 1 }} exit={reduce ? undefined : { height: 0, opacity: 0, transition: { height: motionTokens.spring.smooth, opacity: { duration: motionTokens.duration.fast } } }} transition={reduce ? { duration: 0 } : { height: motionTokens.spring.smooth, opacity: { duration: motionTokens.duration.standard, ease: [...motionTokens.ease.enter], delay: .04 } }}>
+              <motion.div key={feature.label} className={styles.featureRow} role="row" initial={reduce ? false : { height: 0, opacity: 0 }} animate={{ height: "auto", opacity: 1 }} {...(reduce ? {} : { exit: { height: 0, opacity: 0, transition: { height: motionTokens.spring.smooth, opacity: { duration: motionTokens.duration.fast } } } })} transition={reduce ? { duration: 0 } : { height: motionTokens.spring.smooth, opacity: { duration: motionTokens.duration.standard, ease: [...motionTokens.ease.enter], delay: .04 } }}>
                 <div className={styles.featureName} role="rowheader">{feature.label}</div>
                 <div className={`${styles.featureValue} ${selected === "team" ? styles.valueSelected : ""}`} role="cell"><span className={styles.mobilePlan}>{PLAN_NAMES.team}</span><Value text={feature.team} /></div>
                 <div className={`${styles.featureValue} ${selected === "studio" ? styles.valueSelected : ""}`} role="cell"><span className={styles.mobilePlan}>{PLAN_NAMES.studio}</span><Value text={feature.studio} /></div>

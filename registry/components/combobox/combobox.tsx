@@ -19,21 +19,21 @@ import styles from "./combobox.module.css";
 export interface ComboboxOption {
   value: string;
   label: string;
-  disabled?: boolean;
-  keywords?: string[];
+  disabled?: boolean | undefined;
+  keywords?: string[] | undefined;
 }
 
 export interface ComboboxProps
   extends Omit<InputHTMLAttributes<HTMLInputElement>, "value" | "defaultValue" | "onChange" | "placeholder"> {
   label: string;
   options: ComboboxOption[];
-  value?: string;
-  defaultValue?: string;
-  onValueChange?: (value: string) => void;
-  description?: string;
-  placeholder?: string;
-  emptyMessage?: string;
-  className?: string;
+  value?: string | undefined;
+  defaultValue?: string | undefined;
+  onValueChange?: ((value: string) => void) | undefined;
+  description?: string | undefined;
+  placeholder?: string | undefined;
+  emptyMessage?: string | undefined;
+  className?: string | undefined;
 }
 
 /** Liste yüksekliğini kritik sönümlü bir yayla izler; süzme menüyü hiç sıçratmaz. */

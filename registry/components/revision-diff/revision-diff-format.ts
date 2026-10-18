@@ -6,9 +6,9 @@ import { date as abacusDate, money } from "@snn/abacus-core";
 export type RevisionStatus = "added" | "removed" | "changed" | "unmatched" | "same";
 export type RevisionFieldFormat = "text" | "number" | "money" | "date";
 /** Gösterilecek alan. `money` değeri kuruş tam sayısıdır. */
-export type RevisionField = { key: string; label: string; format?: RevisionFieldFormat; currency?: "TRY" | "USD" | "EUR"; digits?: number };
+export type RevisionField = { key: string; label: string; format?: RevisionFieldFormat | undefined; currency?: "TRY" | "USD" | "EUR" | undefined; digits?: number | undefined };
 /** Proje tarafından eşlenmiş satır. `before` önceki sürümdeki, `after` yeni sürümdeki değerlerdir; eklenen satırda yalnız `after`, silinende yalnız `before` olur. */
-export type RevisionRow = { key: string; status: RevisionStatus; before?: Record<string, unknown>; after?: Record<string, unknown>; note?: string };
+export type RevisionRow = { key: string; status: RevisionStatus; before?: Record<string, unknown> | undefined; after?: Record<string, unknown> | undefined; note?: string | undefined };
 export type FieldChange = { field: RevisionField; before: string; after: string };
 
 /** Süzgeç ve özetin sırası. */
@@ -23,6 +23,7 @@ const decimalsOf = (value: number) => (String(value).split(".")[1] ?? "").length
 export function formatValue(value: unknown, field: RevisionField): string {
   if (isEmpty(value)) return "–";
   const format = field.format ?? (typeof value === "number" ? "number" : value instanceof Date ? "date" : "text");
+  // eslint-disable-next-line no-restricted-properties -- değer kuruş (alt birim); money.format bilerek kullanılır
   if (format === "money" && typeof value === "number") return money.format(value, { currency: field.currency ?? "TRY", kurus: true, zero: "symbol" });
   if (format === "number" && typeof value === "number") {
     const text = money.fmtDecimalGrouped(Math.abs(value), field.digits ?? Math.min(4, decimalsOf(value)));

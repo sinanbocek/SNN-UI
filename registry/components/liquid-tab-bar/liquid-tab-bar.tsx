@@ -12,9 +12,9 @@ export interface LiquidTab {
   /** Sekme simgesi; çağıran verir. */
   icon: ReactNode;
   /** Seçili hâl için isteğe bağlı dolu simge. Yoksa aynı simge dolgulu çizilir. */
-  activeIcon?: ReactNode;
+  activeIcon?: ReactNode | undefined;
   /** Yeni öğe sayısı; 0 ya da yoksa rozet görünmez. */
-  badge?: number;
+  badge?: number | undefined;
 }
 
 export type LiquidLabelMode = "active" | "all" | "none";
@@ -25,14 +25,14 @@ export interface LiquidTabBarProps {
   value: string;
   onValueChange: (id: string) => void;
   /** Etiket modu: yalnız seçili sekmenin etiketi / hepsinin etiketi / hiçbiri (yalnız simge). */
-  labelMode?: LiquidLabelMode;
+  labelMode?: LiquidLabelMode | undefined;
   /** Liste adı. */
-  label?: string;
+  label?: string | undefined;
   /** Rozetin okunacak metni: varsayılan "{n} yeni". */
-  formatBadge?: (count: number) => string;
+  formatBadge?: ((count: number) => string) | undefined;
   /** Sekme ve panel kimlikleri için taban; `liquidTabId` / `liquidPanelId` ile aynı olmalıdır. */
-  idBase?: string;
-  className?: string;
+  idBase?: string | undefined;
+  className?: string | undefined;
 }
 
 /** Sekmenin kimliği (panelin `aria-labelledby` değeri için). */

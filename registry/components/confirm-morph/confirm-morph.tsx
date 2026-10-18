@@ -25,52 +25,52 @@ export interface ConfirmMorphProps {
   /** Dinlenme durumundaki yazı, örneğin "Projeyi sil". */
   label: ReactNode;
   /** Dinlenme yazısının önündeki sade simge. */
-  icon?: ReactNode;
+  icon?: ReactNode | undefined;
   /** Onay sırasında gösterilen soru, örneğin "3 dosya silinsin mi?". Verilmezse yazının sonuna soru işareti eklenir. */
-  prompt?: ReactNode;
-  confirmLabel?: string;
-  cancelLabel?: string;
+  prompt?: ReactNode | undefined;
+  confirmLabel?: string | undefined;
+  cancelLabel?: string | undefined;
   /** `onConfirm` sonuçlanırken dönen göstergenin yanında görünür. */
-  pendingLabel?: string;
-  doneLabel?: string;
-  errorLabel?: string;
-  retryLabel?: string;
-  undoLabel?: string;
+  pendingLabel?: string | undefined;
+  doneLabel?: string | undefined;
+  errorLabel?: string | undefined;
+  retryLabel?: string | undefined;
+  undoLabel?: string | undefined;
   /** `onUndo` sonuçlanırken dönen göstergenin yanında görünür. */
-  undoingLabel?: string;
+  undoingLabel?: string | undefined;
   /**
    * `danger` (varsayılan) onay düğmesine tehlike rengini verir; bir şeyi yok eden işler içindir. `neutral` vurgu rengini verir;
    * geri alınabilen önemli işler içindir. Dinlenme düğmesi iki durumda da nötrdür.
    */
-  tone?: "danger" | "neutral";
+  tone?: "danger" | "neutral" | undefined;
   /** `press` basınca onaylar. `hold` `holdDuration` kadar basılı tutmayı ister. `countdown` onaylar, sonra `countdown` saniye geri sayar; Vazgeç ya da Escape yine durdurabilir. */
-  confirmMode?: ConfirmMorphMode;
+  confirmMode?: ConfirmMorphMode | undefined;
   /** `hold` kipinde onay düğmesinin basılı tutulacağı milisaniye. */
-  holdDuration?: number;
+  holdDuration?: number | undefined;
   /** `countdown` kipinde işlem çalışmadan önce geri sayılan saniye. */
-  countdown?: number;
+  countdown?: number | undefined;
   /** `countdown` kipinde saniyenin önündeki yazı, örneğin "Siliniyor:". Verilmezse işlem yazısının sonuna iki nokta eklenir. */
-  countdownLabel?: string;
+  countdownLabel?: string | undefined;
   /** Onayda çalışır. Bekleme yüzünü göstermek için bir söz (promise) döndür; ret olursa Tekrar dene düğmeli hata yüzü görünür. */
-  onConfirm?: () => void | Promise<unknown>;
+  onConfirm?: (() => void | Promise<unknown>) | undefined;
   /** Verilirse sonuca Geri al eklenir. Çalışırken bekleme yüzü göstermek için bir söz (promise) döndür. */
-  onUndo?: () => void | Promise<unknown>;
-  onCancel?: () => void;
+  onUndo?: (() => void | Promise<unknown>) | undefined;
+  onCancel?: (() => void) | undefined;
   /** Dışarıdan yönetilen durum. `onStateChange` ile birlikte ver. */
-  state?: ConfirmMorphState;
+  state?: ConfirmMorphState | undefined;
   /** Dışarıdan yönetilmediğinde başlangıç durumu. */
-  defaultState?: ConfirmMorphState;
-  onStateChange?: (state: ConfirmMorphState) => void;
+  defaultState?: ConfirmMorphState | undefined;
+  onStateChange?: ((state: ConfirmMorphState) => void) | undefined;
   /** Yanıtsız soru dinlenmeye dönmeden önceki milisaniye. İşaretçiyi denetimin üstünde tutmak süreyi durdurur. 0 kapatır. */
-  confirmTimeout?: number;
+  confirmTimeout?: number | undefined;
   /** Sonucun dinlenmeye dönmeden önce kalma süresi (milisaniye). İşaretçiyi denetimin üstünde tutmak süreyi durdurur. 0 kapatır. */
-  resultTimeout?: number;
+  resultTimeout?: number | undefined;
   /** Denetimin dışına basmak açık soruyu iptal eder. Varsayılan true. */
-  cancelOnOutsidePress?: boolean;
-  disabled?: boolean;
-  className?: string;
+  cancelOnOutsidePress?: boolean | undefined;
+  disabled?: boolean | undefined;
+  className?: string | undefined;
   /** Kök öğeyi alır; işlem beklerken odak da bu öğede durur. */
-  ref?: Ref<HTMLDivElement>;
+  ref?: Ref<HTMLDivElement> | undefined;
 }
 
 /** Soru belirdikten hemen sonraki basış, soruyu açan basışın devamıdır; yanıt sayılmaz. */
@@ -112,7 +112,7 @@ const reducedPart: Variants = { hidden: { opacity: 1 }, shown: { opacity: 1 } };
 
 type FaceKey = ConfirmMorphState | "counting";
 
-function Face({ id, reduced, onSize, children, labelledBy }: { id: FaceKey; reduced: boolean; onSize: (id: FaceKey, width: number) => void; children: ReactNode; labelledBy?: string }) {
+function Face({ id, reduced, onSize, children, labelledBy }: { id: FaceKey; reduced: boolean; onSize: (id: FaceKey, width: number) => void; children: ReactNode; labelledBy?: string | undefined }) {
   const ref = useRef<HTMLDivElement>(null);
   const present = useIsPresent();
   useLayoutEffect(() => {
@@ -130,7 +130,7 @@ function Face({ id, reduced, onSize, children, labelledBy }: { id: FaceKey; redu
     variants={reduced ? reducedFace : faceVariants} initial="hidden" animate="shown" exit="gone" inert={!present || undefined}>{children}</motion.div>;
 }
 
-function Part({ reduced, className, children }: { reduced: boolean; className?: string; children: ReactNode }) {
+function Part({ reduced, className, children }: { reduced: boolean; className?: string | undefined; children: ReactNode }) {
   return <motion.span className={[styles.part, className].filter(Boolean).join(" ")} variants={reduced ? reducedPart : partVariants}>{children}</motion.span>;
 }
 

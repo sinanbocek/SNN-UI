@@ -16,19 +16,19 @@ export interface SlotTextProps {
   /** Gösterilecek değer. Sayılar `format`tan geçer; metinler olduğu gibi çizilir. */
   value: string | number;
   /** Sayı değerini biçimler. Varsayılan ABACUS biçimidir: 12480 → "12.480", 1234.5 → "1.234,5". */
-  format?: (value: number) => string;
+  format?: ((value: number) => string) | undefined;
   /** İlk makaranın dönme süresi (saniye). Sonraki makaralar kademe ekler. */
-  duration?: number;
+  duration?: number | undefined;
   /** Makaraların soldan sağa durması arasındaki süre (saniye). */
-  stagger?: number;
+  stagger?: number | undefined;
   /** Bir rakamın inmeden önce yaptığı ek tam tur. 0, doğrudan yeni rakama yuvarlanır. */
-  spins?: number;
+  spins?: number | undefined;
   /** Uzunluk değişince makaraların hangi uçtan eşleştirileceği. Sayılarda varsayılan sondur; 999 → 1.000 solda büyür. */
-  align?: "start" | "end";
+  align?: "start" | "end" | undefined;
   /** Yeni değerleri ekran okuyuculara nazikçe duyurur. */
-  announce?: boolean;
-  className?: string;
-  style?: CSSProperties;
+  announce?: boolean | undefined;
+  className?: string | undefined;
+  style?: CSSProperties | undefined;
 }
 
 const DIGITS = "0123456789";

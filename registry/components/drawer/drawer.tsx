@@ -46,11 +46,11 @@ export const DrawerClose = DialogPrimitive.Close;
 export interface DrawerContentProps
   extends ComponentPropsWithoutRef<typeof DialogPrimitive.Content> {
   title: string;
-  description?: string;
+  description?: string | undefined;
   children: ReactNode;
-  side?: "left" | "right" | "top" | "bottom";
+  side?: "left" | "right" | "top" | "bottom" | undefined;
   /** Çekmeceyi sayfa gövdesi yerine bu öğenin içinde, kenarlarına tutturarak çizer. Öğenin position: relative ve overflow: hidden olması gerekir. */
-  container?: HTMLElement | null;
+  container?: HTMLElement | null | undefined;
 }
 
 const fade: Transition = { duration: motionTokens.duration.instant };

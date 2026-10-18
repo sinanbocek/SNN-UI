@@ -16,24 +16,24 @@ const MAX_SHIFT = 8;
 export interface LoginImmersiveProps {
   /** Giriş denemesini yapar; reddederse kart içinde "E-posta ya da parola hatalı." çıkar. Gerçek kimlik doğrulamayı uygulama bağlar. */
   onSubmit: (values: LoginValues) => Promise<unknown>;
-  onForgot?: (email: string) => void;
-  onProvider?: (id: string) => void;
-  onSignUp?: () => void;
+  onForgot?: ((email: string) => void) | undefined;
+  onProvider?: ((id: string) => void) | undefined;
+  onSignUp?: (() => void) | undefined;
   /** Sağ üstteki "Yardım" bağlantısına basınca çağrılır; verilmezse bağlantı çizilmez. */
-  onHelp?: () => void;
+  onHelp?: (() => void) | undefined;
   /** Sol üstteki marka işareti ve adı (arka plan üstünde açık renk). */
-  brand?: { name: string; mark?: ReactNode };
-  title?: string;
-  subtitle?: string;
+  brand?: { name: string; mark?: ReactNode | undefined } | undefined;
+  title?: string | undefined;
+  subtitle?: string | undefined;
   /** Arka plan fotoğrafı; `position` odak noktasıdır (CSS object-position), `credit` künyedir. Verilmezse ya da yüklenemezse yavaş kayan renk lekeleri çizilir. */
-  media?: { src: string; alt?: string; position?: string; credit?: string };
+  media?: { src: string; alt?: string | undefined; position?: string | undefined; credit?: string | undefined } | undefined;
   /** Kartın yeri: ortada, ya da geniş kapta sağa yakın. */
-  cardAlign?: "center" | "end";
-  providers?: LoginProvider[];
+  cardAlign?: "center" | "end" | undefined;
+  providers?: LoginProvider[] | undefined;
   /** Sağ alttaki küçük yasal bağlantılar. */
-  legalLinks?: { label: string; href: string }[];
+  legalLinks?: { label: string; href: string }[] | undefined;
   /** Bölümün en az yüksekliği; varsayılan ekran yüksekliğidir. */
-  minHeight?: string;
+  minHeight?: string | undefined;
 }
 
 /** Tanıtım ağırlıklı ya da davetle girilen alanlarda, bütün kabı kaplayan fotoğraf üstünde buzlu cam kartla giriş için kullanın. Fare fotoğrafı çok az kaydırır; kart sabit kalır. İş ekranlarında sade giriş için `login-centered`, fotoğraf yanında form için `login-split`. Bileşen yalnız görünüm ve olay çağrılarıdır; kimlik doğrulamayı uygulama yapar. */

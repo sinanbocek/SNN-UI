@@ -17,17 +17,17 @@ export interface TeamMember {
   id: string;
   name: string;
   title: string;
-  city?: string;
-  country?: string;
-  bio?: string;
+  city?: string | undefined;
+  country?: string | undefined;
+  bio?: string | undefined;
   /** İletişim bilgisi kişi başına isteğe bağlıdır; herkese açık sayfada bilgi kasıtlı verilir. */
-  email?: string;
-  phone?: string;
+  email?: string | undefined;
+  phone?: string | undefined;
   /** Verilirse gerçek portre; yoksa baş harfli yer tutucu. */
-  portrait?: string;
+  portrait?: string | undefined;
   /** Portrenin odak noktası (CSS object-position), örneğin "50% 30%". */
-  portraitPosition?: string;
-  tone?: number;
+  portraitPosition?: string | undefined;
+  tone?: number | undefined;
 }
 
 export interface ContactRow { kind: "email" | "phone"; value: string; shown: string; label: string }

@@ -14,10 +14,10 @@ export type { Track };
 /** Küçük bir ses koleksiyonu (podcast, örnek paketi, çalma listesi) için tam oynatıcı: kapak, parça adı, ilerleme çubuğu, oynat/duraklat, önceki/sonraki, ses ve sessiz, çalma listesi. Ses dosyalarını uygulama verir (bileşen içinde gerçek ses gömülmez). Yazıyla eşzamanlı döküm, ses kaydı, mini "şimdi çalıyor" penceresi, video ve akış sunucusu kapsam dışıdır. */
 export interface MediaPlayerProps {
   tracks: Track[];
-  defaultIndex?: number;
-  defaultVolume?: number;
+  defaultIndex?: number | undefined;
+  defaultVolume?: number | undefined;
   /** Çalan parça değişince çağrılır. */
-  onTrackChange?: (track: Track, index: number) => void;
+  onTrackChange?: ((track: Track, index: number) => void) | undefined;
 }
 
 const icon = (path: string) => <svg viewBox="0 0 24 24" width="22" height="22" fill="currentColor" aria-hidden="true"><path d={path} /></svg>;

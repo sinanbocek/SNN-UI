@@ -28,7 +28,7 @@ export interface InboxMessage {
   time: string;
   unread: boolean;
   folder: InboxFolder;
-  src?: string;
+  src?: string | undefined;
 }
 
 export interface InboxTriageProps {
@@ -36,12 +36,12 @@ export interface InboxTriageProps {
   /** Mesaj klasör değiştirdi (arşivle, ertele, geri al). Reddedilirse mesaj eski yerine döner ve durum satırı "Yeniden dene" gösterir. */
   onMove: (id: string, to: InboxFolder) => void | Promise<void>;
   /** Mesaj ilk kez açılıp okundu oldu. */
-  onRead?: (id: string) => void;
-  loading?: boolean;
+  onRead?: ((id: string) => void) | undefined;
+  loading?: boolean | undefined;
   /** Sayfa başına mesaj. Klasördeki mesaj sayısı bunu aşarsa sayfalama çıkar. */
-  pageSize?: number;
-  title?: string;
-  className?: string;
+  pageSize?: number | undefined;
+  title?: string | undefined;
+  className?: string | undefined;
 }
 
 const folderLabel: Record<InboxFolder, string> = { inbox: "Gelen", snoozed: "Ertelenen", archive: "Arşiv" };

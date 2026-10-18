@@ -19,18 +19,18 @@ export type { CartLine, CartPhoto, CartProduct, Coupon, ShippingRule, Totals };
 /** Birden çok ürün ekleyen mağaza sayfaları için kullanın: ürün ızgarası, sepet düğmesine uçan fotoğraf, yandan açılan sepet çekmecesi (adet, kaydırarak silme, ücretsiz kargo çubuğu, kupon, toplam, sipariş düğmesi). Gerçek ödeme yapmaz: kupon doğrulamasını ve siparişi uygulama bağlar, kargo ve kupon kuralları uygulamadan gelir. Kart numarası, son kullanma, CVC bu blokta yoktur. */
 export interface CartDrawerProps {
   products: CartProduct[];
-  defaultLines?: CartLine[];
+  defaultLines?: CartLine[] | undefined;
   shipping: ShippingRule;
   /** Kuponu sunucuda doğrular; geçersizse null döner, ağ hatasında reddeder. */
   onApplyCoupon: (code: string) => Promise<Coupon | null>;
   /** Siparişi tamamlar; reddederse "Tekrar dene" yazılır. */
   onCheckout: (order: { lines: CartLine[]; coupon: Coupon | null; totals: Totals }) => Promise<void>;
-  onChange?: (lines: CartLine[]) => void;
+  onChange?: ((lines: CartLine[]) => void) | undefined;
 }
 
 interface Flight { id: number; from: DOMRect; to: DOMRect; photo: CartPhoto }
 
-function Picture({ photo, ratio = "1 / 1", className }: { photo: CartPhoto; ratio?: string; className?: string }) {
+function Picture({ photo, ratio = "1 / 1", className }: { photo: CartPhoto; ratio?: string | undefined; className?: string | undefined }) {
   return <FramedPhoto src={photo.src} alt={photo.alt} ratio={ratio} position={photo.position} tone={photo.tone} eager className={className} />;
 }
 

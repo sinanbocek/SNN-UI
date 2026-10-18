@@ -11,19 +11,19 @@ export interface SaveBarProps {
   /** Kaydedilmemiş değişiklik sayısı. Sıfırken (ve "Kaydedildi" gösterilmiyorsa) çubuk yoktur. */
   changeCount: number;
   /** Kaydetme durumu. Gerçek kaydetmeyi proje yapar; çubuk yalnız durumu gösterir. */
-  status?: SaveBarStatus;
+  status?: SaveBarStatus | undefined;
   onSave: () => void;
   onDiscard: () => void;
   /** Ctrl/Cmd+S kısayolu. Varsayılan açık. */
-  shortcut?: boolean;
+  shortcut?: boolean | undefined;
   /** "Kaydedildi" durumunun ekranda kalma süresi, ms. */
-  savedDuration?: number;
-  savedMessage?: string;
-  discardedMessage?: string;
-  errorMessage?: string;
+  savedDuration?: number | undefined;
+  savedMessage?: string | undefined;
+  discardedMessage?: string | undefined;
+  errorMessage?: string | undefined;
   /** Sayı metni; varsayılan: "{n} kaydedilmemiş değişiklik". */
-  formatCount?: (count: number) => string;
-  className?: string;
+  formatCount?: ((count: number) => string) | undefined;
+  className?: string | undefined;
 }
 
 const defaultFormatCount = (count: number) => `${count} kaydedilmemiş değişiklik`;

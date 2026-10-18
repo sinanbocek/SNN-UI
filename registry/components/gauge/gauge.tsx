@@ -9,7 +9,7 @@ import styles from "./gauge.module.css";
 type GaugeTone = "accent" | "success" | "warning" | "danger";
 /** `from` değerinden başlayan bant: değerin ulaştığı en yüksek bant tonu belirler ve durumu adlandırır; bu yüzden anlam yalnız renge dayanmaz. */
 export interface GaugeThreshold { from: number; tone: GaugeTone; label: string; }
-export interface GaugeProps { value: number; min?: number; max?: number; label: string; detail?: string; tone?: GaugeTone; thresholds?: GaugeThreshold[]; }
+export interface GaugeProps { value: number; min?: number | undefined; max?: number | undefined; label: string; detail?: string | undefined; tone?: GaugeTone | undefined; thresholds?: GaugeThreshold[] | undefined; }
 
 /** Metin değerin gittiği yönden girer: artış alttan yükselir, düşüş üstten iner. */
 const rise: Variants = { hidden: (direction: number) => ({ opacity: 0, y: `${.3 * direction}em`, filter: `blur(${motionTokens.blur.soft}px)` }), shown: { opacity: 1, y: 0, filter: "blur(0px)", transition: { duration: motionTokens.duration.standard, ease: [...motionTokens.ease.enter] } }, gone: (direction: number) => ({ opacity: 0, y: `${-.3 * direction}em`, filter: `blur(${motionTokens.blur.subtle}px)`, transition: { duration: motionTokens.duration.fast, ease: [...motionTokens.ease.standard] } }) };
@@ -19,7 +19,7 @@ const fade: Variants = { hidden: { opacity: 0, y: 0, filter: "blur(0px)" }, show
 const reveal = { ...motionTokens.spring.smooth, visualDuration: motionTokens.duration.considered * 1.6 };
 
 /** Yeni metin yükselirken eskisi akıştan alınarak çıkar; satır ikisini birden tutmaz. */
-function Swap({ text, direction = 1 }: { text: string; direction?: number }) {
+function Swap({ text, direction = 1 }: { text: string; direction?: number | undefined }) {
   const reduceMotion = !!useReducedMotion();
   return <span className={styles.swap}><AnimatePresence mode="popLayout" initial={false} custom={direction}><motion.span key={text} className={styles.text} custom={direction} variants={reduceMotion ? fade : rise} initial="hidden" animate="shown" exit="gone">{text}</motion.span></AnimatePresence></span>;
 }

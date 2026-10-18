@@ -19,7 +19,7 @@ export interface SpotlightFeature {
   title: string;
   description: string;
   /** İki sütun kaplar (yeterince geniş kapta). */
-  wide?: boolean;
+  wide?: boolean | undefined;
   preview: (context: PreviewContext) => ReactNode;
   detail: (context: DetailContext) => ReactNode;
 }
@@ -27,7 +27,7 @@ export interface SpotlightFeature {
 /** Dört kadar özelliği kart ızgarasında anlatan tanıtım bölümü için kullanın: imleci izleyen kenar ışığı, karta gelince oynayan küçük önizleme ve karta basınca yerinde büyüyerek çalışan ayrıntıya dönüşen kart. Müşteri hikâyesi galerisi ve tek açılır kart için değil. Önizleme ve ayrıntıyı siz çizersiniz; dağıtım, anahtar ve onay gerçek sistemlere bağlanmaz, benzetimdir. */
 export interface SpotlightGridProps {
   title: string;
-  subtitle?: string;
+  subtitle?: string | undefined;
   features: SpotlightFeature[];
 }
 
@@ -48,7 +48,7 @@ function Card({ feature, columns, intro, open, onOpen, reduced, controls }: { fe
     x.set(point.x); y.set(point.y);
   };
   const active = (hover && mouse) || focus || intro;
-  return <motion.div layoutId={open ? undefined : `${controls}-${feature.id}`} ref={surface} className={styles.card} data-span={spanFor(feature.wide, columns)} data-hidden={open || undefined}
+  return <motion.div {...(open ? {} : { layoutId: `${controls}-${feature.id}` })} ref={surface} className={styles.card} data-span={spanFor(feature.wide, columns)} data-hidden={open || undefined}
     transition={reduced ? { duration: 0 } : { ...motionTokens.spring.morph }} onPointerMove={move} onPointerEnter={event => { if (event.pointerType === "mouse") setHover(true); }} onPointerLeave={() => { setHover(false); setMouse(false); }}>
     <motion.span className={styles.glow} aria-hidden="true" style={{ "--gx": gx, "--gy": gy, opacity: hover && mouse && !reduced ? 1 : 0 } as never} />
     <div className={styles.preview} aria-hidden="true">{feature.preview({ active, reduced })}</div>
@@ -89,7 +89,7 @@ export function SpotlightGrid({ title, subtitle, features }: SpotlightGridProps)
       </div>
       <AnimatePresence>
         {feature && <motion.div key={feature.id} id={`${uid}-panel`} layoutId={`${uid}-${feature.id}`} className={styles.panel} role="region" aria-label={feature.title}
-          transition={reduced ? { duration: 0 } : { ...motionTokens.spring.smooth }} initial={reduced ? { opacity: 0 } : undefined} animate={{ opacity: 1 }} exit={reduced ? { opacity: 0 } : undefined}>
+          transition={reduced ? { duration: 0 } : { ...motionTokens.spring.smooth }} {...(reduced ? { initial: { opacity: 0 } } : {})} animate={{ opacity: 1 }} {...(reduced ? { exit: { opacity: 0 } } : {})}>
           <div className={styles.panelHead}><h3>{feature.title}</h3><Button ref={closeButton} variant="ghost" size="sm" onClick={close} aria-label={closeLabel(feature.title)}>{CLOSE}</Button></div>
           <div className={styles.panelBody}>{feature.detail({ close, announce })}</div>
         </motion.div>}

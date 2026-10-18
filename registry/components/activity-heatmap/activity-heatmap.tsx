@@ -28,15 +28,15 @@ export interface ActivityHeatmapProps {
   /** Özet cümlesini tamamlar: "1.284 katkı {period}", örneğin "2025 yılında". */
   period: string;
   /** Sayının adları. Türkçede çoğul eki sayıdan sonra gelmez; varsayılan ikisi de "katkı". */
-  unit?: { one: string; other: string };
+  unit?: { one: string; other: string } | undefined;
   /** Bir ile üç arası düzeylerin üst sınırları; sonuncunun üstü dördüncü düzeydir. Varsayılan: en yoğun günün çeyrekleri. */
-  thresholds?: [number, number, number];
-  weekStartsOn?: 0 | 1;
-  selectedDate?: string | null;
-  onSelectDate?: (date: string) => void;
+  thresholds?: [number, number, number] | undefined;
+  weekStartsOn?: 0 | 1 | undefined;
+  selectedDate?: string | null | undefined;
+  onSelectDate?: ((date: string) => void) | undefined;
   /** Özetin yanındaki denetimler, örneğin aralık anahtarı. */
-  actions?: ReactNode;
-  className?: string;
+  actions?: ReactNode | undefined;
+  className?: string | undefined;
 }
 
 type Model = {
@@ -147,7 +147,7 @@ function RollingNumber({ value, reduced }: { value: number; reduced: boolean }) 
 }
 
 /** Değişen kısa sözcük yumuşak bulanıklıktan yükselir, eskisi biraz hızlı kalkıp gider. */
-function RiseText({ text, reduced, children }: { text: string; reduced: boolean; children?: ReactNode }) {
+function RiseText({ text, reduced, children }: { text: string; reduced: boolean; children?: ReactNode | undefined }) {
   return <span className={styles.rise} aria-hidden="true">
     <AnimatePresence mode="popLayout" initial={false}>
       <motion.span key={text} className={styles.riseLine} initial={reduced ? { opacity: 0 } : { opacity: 0, y: "0.3em", filter: `blur(${motionTokens.blur.soft}px)` }} animate={{ opacity: 1, y: "0em", filter: "blur(0px)" }}

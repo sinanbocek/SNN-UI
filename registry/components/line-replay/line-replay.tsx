@@ -15,22 +15,22 @@ export type { ReplayEvent, ReplayKind, ReplayPoint };
 export interface LineReplayProps {
   points: ReplayPoint[];
   /** Kıyas serisi (tamamen çizili, kesikli); aynı zaman aralığında. */
-  comparison?: ReplayPoint[];
-  events?: ReplayEvent[];
-  title?: string;
+  comparison?: ReplayPoint[] | undefined;
+  events?: ReplayEvent[] | undefined;
+  title?: string | undefined;
   /** Alt satır: neyin ölçüldüğü ve ne zaman (hazır metin; gün adı ve tarih için ABACUS `date`). */
-  subtitle?: string;
+  subtitle?: string | undefined;
   /** Ana çizginin ve kıyasın adı (açıklama). */
-  seriesLabel?: string;
-  comparisonLabel?: string;
-  kind?: ReplayKind;
-  unit?: string;
+  seriesLabel?: string | undefined;
+  comparisonLabel?: string | undefined;
+  kind?: ReplayKind | undefined;
+  unit?: string | undefined;
   /** 1× hızda tüm tekrarın süresi (saniye). */
-  replaySeconds?: number;
+  replaySeconds?: number | undefined;
   /** Bileşen %40 görününce kendiliğinden oynar ("hareketi azalt" açıkken oynamaz). */
-  autoPlay?: boolean;
-  loading?: boolean;
-  emptyText?: string;
+  autoPlay?: boolean | undefined;
+  loading?: boolean | undefined;
+  emptyText?: string | undefined;
 }
 
 const HEIGHT = 240, PAD_TOP = 36, PAD_BOTTOM = 26, PAD_LEFT = 8, PAD_RIGHT = 44;

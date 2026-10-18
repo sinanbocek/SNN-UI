@@ -16,16 +16,16 @@ export interface TeamShowcaseProps {
   title: string;
   members: TeamMember[];
   /** Başlangıç yerleşimi (varsayılan galeri). Üretimde sabit bir yerleşim seçilir. */
-  layout?: ShowcaseLayout;
+  layout?: ShowcaseLayout | undefined;
   /** Yerleşim seçicisini gösterir; yalnız tanıtım ortamı içindir. */
-  layoutSwitcher?: boolean;
+  layoutSwitcher?: boolean | undefined;
   /** Telefonu ekranda maskeler (kopyalanan değer gerçektir). */
-  maskPhone?: boolean;
+  maskPhone?: boolean | undefined;
   /** Kişi seçilince çağrılır (profil sayfasına gitmek ya da istatistik için). */
-  onSelect?: (member: TeamMember, index: number) => void;
+  onSelect?: ((member: TeamMember, index: number) => void) | undefined;
 }
 
-function Portrait({ member, className }: { member: TeamMember; className?: string }) {
+function Portrait({ member, className }: { member: TeamMember; className?: string | undefined }) {
   const label = `${member.name}, ${member.title}`;
   return <FramedPhoto src={member.portrait} position={member.portraitPosition ?? "50% 25%"} alt={label} ratio="4 / 5" tone={member.tone} initial={initials(member.name)} className={[styles.portrait, className].filter(Boolean).join(" ")} />;
 }
@@ -41,7 +41,7 @@ function CopyButton({ label, value, shown, announce }: { label: string; value: s
   }}><span>{shown}</span><i data-state={state} aria-hidden="true">{state === "copied" ? COPIED : state === "failed" ? COPY_FAILED : "Kopyala"}</i></button>;
 }
 
-function Profile({ member, maskPhone, announce, heading = true }: { member: TeamMember; maskPhone: boolean; announce: (message: string) => void; heading?: boolean }) {
+function Profile({ member, maskPhone, announce, heading = true }: { member: TeamMember; maskPhone: boolean; announce: (message: string) => void; heading?: boolean | undefined }) {
   const rows = contactRows(member, maskPhone);
   const place = placeText(member);
   return <div className={styles.profile}>

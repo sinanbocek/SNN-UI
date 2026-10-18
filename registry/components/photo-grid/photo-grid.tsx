@@ -18,10 +18,10 @@ export type { ViewerImage };
 export interface PhotoGridProps {
   title: string;
   images: ViewerImage[];
-  defaultFavorites?: string[];
+  defaultFavorites?: string[] | undefined;
   /** Favori açılıp kapanınca çağrılır (kalıcı saklamak için). */
-  onFavoriteChange?: (id: string, favorite: boolean) => void;
-  loading?: boolean;
+  onFavoriteChange?: ((id: string, favorite: boolean) => void) | undefined;
+  loading?: boolean | undefined;
 }
 
 export function PhotoGrid({ title, images, defaultFavorites = [], onFavoriteChange, loading = false }: PhotoGridProps) {

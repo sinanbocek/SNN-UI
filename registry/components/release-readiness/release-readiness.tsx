@@ -12,33 +12,33 @@ import { Switch } from "../switch/switch";
 import { Tooltip } from "../tooltip/tooltip";
 import styles from "./release-readiness.module.css";
 
-export interface ReadinessCheck { id: string; title: string; description?: string }
+export interface ReadinessCheck { id: string; title: string; description?: string | undefined }
 
-export interface ReadinessOwner { name: string; src?: string }
+export interface ReadinessOwner { name: string; src?: string | undefined }
 
 export interface ReleaseReadinessProps {
   /** İşin adı ("Sürüm 2.4", "Teklifi gönder"). */
   title: string;
   /** Bağlam ve tarih satırı, hazır metin ("Üretim ortamı · 15 Ekim"; proje ABACUS `date.format` ile üretir). */
-  context?: string;
-  owners?: ReadinessOwner[];
+  context?: string | undefined;
+  owners?: ReadinessOwner[] | undefined;
   checks: ReadinessCheck[];
   /** Başta işaretli olan kontroller. */
-  defaultChecked?: string[];
-  onCheckedChange?: (ids: string[]) => void;
+  defaultChecked?: string[] | undefined;
+  onCheckedChange?: ((ids: string[]) => void) | undefined;
   /** Ana eylemin düğme yazısı ("Yayını başlat"). */
   actionLabel: string;
   /** Eylem çalışırken düğme yazısı. */
-  busyLabel?: string;
+  busyLabel?: string | undefined;
   /** Eylem çalıştı. `notify`: "İlgilileri bilgilendir" anahtarının durumu. Reddedilirse satır içi uyarı çıkar ve yeniden denenebilir. */
   onAction: (notify: boolean) => void | Promise<void>;
   /** Bilgilendirme anahtarının kanal adı ("Slack"). Verilmezse anahtar çıkmaz. */
-  channel?: string;
+  channel?: string | undefined;
   /** Başarıdan sonra çıkan ikinci eylem ("Panoya git"). */
-  successAction?: { label: string; onClick: () => void };
-  successMessage?: string;
-  loading?: boolean;
-  className?: string;
+  successAction?: { label: string; onClick: () => void } | undefined;
+  successMessage?: string | undefined;
+  loading?: boolean | undefined;
+  className?: string | undefined;
 }
 
 type Phase = "idle" | "running" | "success" | "error";

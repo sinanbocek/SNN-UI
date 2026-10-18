@@ -7,7 +7,7 @@ import { collate, date as abacusDate, money } from "@snn/abacus-core";
 /** Hücre biçimi. Verilmezse değerin türüne bakılır: sayı → "number", Date → "date", diğerleri metin. */
 export type CellFormat = "text" | "number" | "money" | "date";
 export type CellCurrency = "TRY" | "USD" | "EUR";
-export type CellSpec = { format?: CellFormat; currency?: CellCurrency; digits?: number };
+export type CellSpec = { format?: CellFormat | undefined; currency?: CellCurrency | undefined; digits?: number | undefined };
 
 const isEmpty = (value: unknown) => value == null || value === "";
 const decimalsOf = (value: number) => (String(value).split(".")[1] ?? "").length;
@@ -27,6 +27,7 @@ export function formatNumberCell(value: number, digits?: number) {
 export function formatCell(value: unknown, spec: CellSpec = {}): string {
   if (isEmpty(value)) return "–";
   const format = spec.format ?? (typeof value === "number" ? "number" : value instanceof Date ? "date" : "text");
+  // eslint-disable-next-line no-restricted-properties -- değer kuruş (alt birim); money.format bilerek kullanılır
   if (format === "money" && typeof value === "number") return money.format(value, { currency: spec.currency ?? "TRY", kurus: true, zero: "symbol" });
   if (format === "number" && typeof value === "number") return formatNumberCell(value, spec.digits);
   if (format === "date") return abacusDate.format(value instanceof Date ? isoOf(value) : String(value), "short");

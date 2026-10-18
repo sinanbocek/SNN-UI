@@ -14,21 +14,21 @@ import styles from "./kpi-drilldown.module.css";
 
 export type { MetricKind };
 
-export interface DrillPoint { key: string; label: string; axisLabel?: string; value: number; previous?: number }
-export interface DrillRow { key: string; label: string; value: number; previous?: number }
+export interface DrillPoint { key: string; label: string; axisLabel?: string | undefined; value: number; previous?: number | undefined }
+export interface DrillRow { key: string; label: string; value: number; previous?: number | undefined }
 export interface DrillBreakdown { key: string; /** Boyut adı, örneğin "Plana göre". */ label: string; rows: DrillRow[] }
 export interface DrillMetric {
   key: string;
   label: string;
   kind: MetricKind;
   value: number;
-  previous?: number;
+  previous?: number | undefined;
   /** Düşüşün iyi olduğu gösterge (kayıp oranı gibi): azalış olumlu renkte yazılır. */
-  lowerIsBetter?: boolean;
+  lowerIsBetter?: boolean | undefined;
   /** Göstergenin ne ölçtüğünü söyleyen bir cümle. */
-  description?: string;
+  description?: string | undefined;
   series: DrillPoint[];
-  breakdowns?: DrillBreakdown[];
+  breakdowns?: DrillBreakdown[] | undefined;
 }
 export interface DrillPeriod { value: string; label: string }
 
@@ -38,12 +38,12 @@ export interface KpiDrilldownProps {
   periods: DrillPeriod[];
   period: string;
   onPeriodChange: (value: string) => void;
-  title?: string;
+  title?: string | undefined;
   /** Açık göstergenin anahtarı (denetimli kullanım için); verilmezse bileşen kendisi tutar. */
-  openKey?: string | null;
-  onOpenKeyChange?: (key: string | null) => void;
-  status?: "ready" | "loading" | "error";
-  onRetry?: () => void;
+  openKey?: string | null | undefined;
+  onOpenKeyChange?: ((key: string | null) => void) | undefined;
+  status?: "ready" | "loading" | "error" | undefined;
+  onRetry?: (() => void) | undefined;
 }
 
 /** Karşılaştırma için bir göstergede önceki dönemden en az iki nokta gerekir. */

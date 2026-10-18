@@ -8,8 +8,8 @@ import styles from "./input.module.css";
 
 export interface InputProps extends InputHTMLAttributes<HTMLInputElement> {
   label: string;
-  description?: string;
-  error?: string;
+  description?: string | undefined;
+  error?: string | undefined;
 }
 
 /* Sayı büyüyünce rakamlar yukarı, küçülünce aşağı döner;`custom` son yönü zaten çıkmakta olan rakamlara iletir. */
@@ -43,12 +43,12 @@ function MotionText({ text }: { text: string }) {
 }
 
 /** Yardım ve hata metni: satır yüksekliğini yayla açar, sonra kelimeler yerleşir. */
-function FieldMessage({ id, text, className, alert }: { id?: string; text?: string; className?: string; alert?: boolean }) {
+function FieldMessage({ id, text, className, alert }: { id?: string | undefined; text?: string | undefined; className?: string | undefined; alert?: boolean | undefined }) {
   return <AnimatePresence initial={false}>{text ? <MessageRow key="message" id={id} text={text} className={className} alert={alert} /> : null}</AnimatePresence>;
 }
 
 /** Satır ölçülen metni izler; satır atlayan uzun bir ileti, birden değişmek yerine sonraki satırını açar. */
-function MessageRow({ id, text, className, alert }: { id?: string; text: string; className?: string; alert?: boolean }) {
+function MessageRow({ id, text, className, alert }: { id?: string | undefined; text: string; className?: string | undefined; alert?: boolean | undefined }) {
   const reduced = useReducedMotion();
   const copyRef = useRef<HTMLSpanElement>(null);
   const [height, setHeight] = useState<number | "auto">("auto");

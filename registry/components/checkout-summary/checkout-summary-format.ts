@@ -4,7 +4,7 @@ import { math } from "@snn/abacus-core";
 import { exactText, percentText, toMinor } from "../lib/shop-format";
 
 /** Sunucunun kabul ettiği kupon: yüzde ya da tutar indirimi (ana birimde TRY). */
-export interface PromoCode { code: string; percent?: number; amount?: number }
+export interface PromoCode { code: string; percent?: number | undefined; amount?: number | undefined }
 /** Otomatik indirim satırı (örneğin yıllık ödeme indirimi); `amount` pozitif yazılır, ekranda eksi gösterilir. */
 export interface AutoDiscount { id: string; label: string; amount: number }
 

@@ -3,7 +3,7 @@
 import { forwardRef, isValidElement, useCallback, useEffect, useLayoutEffect, useRef } from "react";
 import type { ButtonHTMLAttributes, ReactNode, Ref, RefObject } from "react";
 import { AnimatePresence, animate, motion, useIsPresent, useMotionValue, useReducedMotion } from "motion/react";
-import type { TargetAndTransition, Variants } from "motion/react";
+import type { MotionStyle, TargetAndTransition, Variants } from "motion/react";
 import { motionTokens } from "../lib/motion-tokens";
 import styles from "./button.module.css";
 
@@ -11,9 +11,9 @@ export type ButtonVariant = "primary" | "secondary" | "ghost" | "danger";
 export type ButtonSize = "sm" | "md" | "lg";
 
 export interface ButtonProps extends Omit<ButtonHTMLAttributes<HTMLButtonElement>, "onDrag" | "onDragEnd" | "onDragStart" | "onAnimationStart"> {
-  variant?: ButtonVariant;
-  size?: ButtonSize;
-  loading?: boolean;
+  variant?: ButtonVariant | undefined;
+  size?: ButtonSize | undefined;
+  loading?: boolean | undefined;
 }
 
 /** Simge düğmeleri biraz daha derin, geniş düğmeler biraz daha az basılır; böylece her boyut aynı itiş gibi okunur. */
@@ -41,8 +41,8 @@ function labelKey(node: ReactNode): string {
   if (typeof node === "string" || typeof node === "number" || typeof node === "bigint") return String(node);
   if (Array.isArray(node)) return node.map(labelKey).join("");
   if (!isValidElement(node)) return "";
-  const type = node.type as string | { displayName?: string; name?: string };
-  return `<${typeof type === "string" ? type : type?.displayName ?? type?.name ?? ""}>${labelKey((node.props as { children?: ReactNode }).children)}`;
+  const type = node.type as string | { displayName?: string | undefined; name?: string | undefined };
+  return `<${typeof type === "string" ? type : type?.displayName ?? type?.name ?? ""}>${labelKey((node.props as { children?: ReactNode | undefined }).children)}`;
 }
 
 /** Etiket değişince yuvayı gelen etiketin doğal genişliğine yaylandırır; yeni etiket düğme boyutunu birden değiştirmez.
@@ -72,7 +72,7 @@ function useMorphWidth(content: RefObject<HTMLElement | null>, key: string, redu
   return width;
 }
 
-function LabelPhase({ children, icon, reduced, ref }: { children: ReactNode; icon: boolean; reduced: boolean; ref?: Ref<HTMLSpanElement> }) {
+function LabelPhase({ children, icon, reduced, ref }: { children: ReactNode; icon: boolean; reduced: boolean; ref?: Ref<HTMLSpanElement> | undefined }) {
   const present = useIsPresent();
   return <motion.span ref={ref} className={styles.labelPhase} aria-hidden={present ? undefined : true} initial={reduced ? fadeIn : icon ? iconIn : textIn} animate={rest} exit={reduced ? fadeOut : icon ? iconOut : textOut} transition={reduced ? { duration: motionTokens.duration.instant } : icon ? iconEnter : { duration: motionTokens.duration.standard, ease: [...motionTokens.ease.enter] }}>{children}</motion.span>;
 }
@@ -106,9 +106,10 @@ export const Button = forwardRef<HTMLButtonElement, ButtonProps>(function Button
       aria-busy={loading || undefined}
       custom={buttonRef}
       variants={pressVariants}
-      whileTap={reduceMotion || anchorsLayer || inert ? undefined : "pressed"}
+      {...(reduceMotion || anchorsLayer || inert ? {} : { whileTap: "pressed" })}
       transition={motionTokens.spring.snappy}
       {...props}
+      style={props.style as MotionStyle}
       // Yüklenirken düğme odaklanabilir kalır (devre dışı düğme işlem ortasında klavye odağını düşürürdü) ve basışlar yutulur.
       aria-disabled={loading || props["aria-disabled"] || undefined}
       onClick={loading ? event => event.preventDefault() : onClick}

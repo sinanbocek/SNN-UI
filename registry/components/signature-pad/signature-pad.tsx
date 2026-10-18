@@ -26,16 +26,16 @@ export interface OutlineOptions {
   /** Yarım basınçta vuruşun çapı, ped biriminde. */
   size: number;
   /** Basıncın kalınlığı ne kadar değiştirdiği, 0 ile 1 arası. */
-  thinning?: number;
+  thinning?: number | undefined;
   /** Her noktanın imleci ne kadar geriden izlediği, 0 ile 1 arası. Yüksek değer daha akıcıdır ama daha çok gecikir. */
-  streamline?: number;
+  streamline?: number | undefined;
   /** Cihaz basınç bildirmiyorsa basıncı hızdan türet: hızlı ince, yavaş dolgun. */
-  simulatePressure?: boolean;
+  simulatePressure?: boolean | undefined;
   /** Başlangıcın ve bitişin inceldiği uzunluk, ped biriminde. */
-  taperStart?: number;
-  taperEnd?: number;
+  taperStart?: number | undefined;
+  taperEnd?: number | undefined;
   /** Vuruş hâlâ çizilirken false olur; uç henüz incelmez. */
-  last?: boolean;
+  last?: boolean | undefined;
 }
 
 /** Ped koordinatları. Vuruşlar bu uzayda saklanır ve pedle birlikte ölçeklenir. */
@@ -235,18 +235,18 @@ function download(blob: Blob, name: string) {
  */
 export interface SignaturePadProps {
   /** Taban çizgisinin altına yazılır, ör. imzalayanın adı. */
-  signer?: string;
+  signer?: string | undefined;
   /** İlk vuruştan önce taban çizgisinde duran ipucu. */
-  hint?: string;
-  defaultColor?: InkColor;
-  defaultWidth?: InkWidth;
+  hint?: string | undefined;
+  defaultColor?: InkColor | undefined;
+  defaultWidth?: InkWidth | undefined;
   /** Her değişiklikten sonra vuruşları alır. */
-  onChange?: (strokes: InkStroke[]) => void;
+  onChange?: ((strokes: InkStroke[]) => void) | undefined;
   /** Dışa aktarılan dosyanın uzantısız adı. */
-  fileName?: string;
+  fileName?: string | undefined;
   /** Çizim yüzeyinin erişilebilir adı. */
-  label?: string;
-  className?: string;
+  label?: string | undefined;
+  className?: string | undefined;
 }
 
 /** `fresh` az önce çizilen vuruştur: canlı yoldan zaten ekranda olduğu için solma olmadan belirir. */
@@ -439,7 +439,7 @@ export function SignaturePad({ signer, hint = "Buraya imzalayın", defaultColor 
     const lastT = stroke.points[stroke.points.length - 1]!.t;
     if (local < 0) { visible.push({ stroke, d: "" }); continue; }
     if (local >= lastT) { visible.push({ stroke, d: null }); continue; }
-    nib = stroke.points.findLast(point => point.t <= local) ?? stroke.points[0]!;
+    nib = [...stroke.points].reverse().find(point => point.t <= local) ?? stroke.points[0]!;
     nibColor = stroke.color;
     visible.push({ stroke, d: strokePath(stroke, local) });
   }
@@ -518,7 +518,7 @@ export function SignaturePad({ signer, hint = "Buraya imzalayın", defaultColor 
   </div>;
 }
 
-function IconButton({ label, onClick, disabled, pressed, children }: { label: string; onClick: () => void; disabled?: boolean; pressed?: boolean; children: ReactNode }) {
+function IconButton({ label, onClick, disabled, pressed, children }: { label: string; onClick: () => void; disabled?: boolean | undefined; pressed?: boolean | undefined; children: ReactNode }) {
   return <button type="button" className={styles.iconButton} aria-label={label} title={label} onClick={onClick} disabled={disabled} aria-pressed={pressed}>{children}</button>;
 }
 

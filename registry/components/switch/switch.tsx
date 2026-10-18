@@ -9,7 +9,7 @@ import { motionTokens } from "../lib/motion-tokens";
 import styles from "./switch.module.css";
 
 export interface SwitchProps extends ComponentPropsWithoutRef<typeof SwitchPrimitive.Root> {
-  label?: string;
+  label?: string | undefined;
 }
 
 /** İz iç genişliği (42 - 6 dolgu) eksi 18px başparmak; switch.module.css ile eşgüdümlü tut. */

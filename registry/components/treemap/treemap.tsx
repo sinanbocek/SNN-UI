@@ -11,10 +11,10 @@ export interface TreemapNode {
   id: string;
   label: string;
   /** Yaprak boyutu. Dalın boyutu çocuklarının toplamıdır. */
-  value?: number;
+  value?: number | undefined;
   /** Gölgeleme için isteğe bağlı ikinci ölçü, örneğin büyüme. Dal, çocuklarının boyut ağırlıklı ortalamasını kullanır. */
-  color?: number;
-  children?: TreemapNode[];
+  color?: number | undefined;
+  children?: TreemapNode[] | undefined;
 }
 
 /** Bölge, ülke ve plana göre ciro gibi parça hiyerarşisi için, boyutlar kesin karşılaştırmadan önemliyse ağaç haritası kullanın. */
@@ -24,21 +24,21 @@ export interface TreemapProps {
   /** Bütünün ne olduğu, örneğin "Ciro". Grafiği yardımcı teknolojiye adlandırır. */
   label: string;
   /** Değerleri biçimler. Varsayılan: ABACUS biçimi ("1.234,5"). */
-  formatValue?: (value: number) => string;
+  formatValue?: ((value: number) => string) | undefined;
   /** Gölgeleme ölçüsünü ipucunda ve ölçekte adlandırır, örneğin "Büyüme". Kutular üst düzey dallarının tonunu alır, ölçüyle koyulaşır. Boş bırakılırsa her kutu tek derinlikte çizilir. */
-  colorLabel?: string;
-  formatColor?: (value: number) => string;
+  colorLabel?: string | undefined;
+  formatColor?: ((value: number) => string) | undefined;
   /** Renk ölçüsünün aralığı. Varsayılan: yaprakların aralığı. */
-  colorDomain?: [number, number];
+  colorDomain?: [number, number] | undefined;
   /** Görünümü dolduran düğümün denetimli kimliği. */
-  focus?: string;
-  defaultFocus?: string;
-  onFocusChange?: (id: string) => void;
+  focus?: string | undefined;
+  defaultFocus?: string | undefined;
+  onFocusChange?: ((id: string) => void) | undefined;
   /** Kutuların yüksekliği (piksel). */
-  height?: number;
-  emptyLabel?: string;
-  ref?: Ref<HTMLElement>;
-  className?: string;
+  height?: number | undefined;
+  emptyLabel?: string | undefined;
+  ref?: Ref<HTMLElement> | undefined;
+  className?: string | undefined;
 }
 
 type Rect = { x: number; y: number; w: number; h: number };

@@ -51,7 +51,7 @@ export function parseDraft(draft: string): number | null {
 export function formatDraft(raw: string, maxFraction: number, allowNegative: boolean, previous?: string, grouping = true): string {
   const negative = allowNegative && raw.trim().startsWith("-");
   const strip = (text: string) => text.replace(/-/g, "");
-  const body = money.formatGroupedInput(strip(raw), { maxDigits: maxFraction, ...(maxFraction > 0 ? { dotAsDecimal: true, previous: previous === undefined ? undefined : strip(previous) } : {}) });
+  const body = money.formatGroupedInput(strip(raw), { maxDigits: maxFraction, ...(maxFraction > 0 ? { dotAsDecimal: true, ...(previous === undefined ? {} : { previous: strip(previous) }) } : {}) });
   const shown = grouping ? body : body.split(".").join("");
   return negative ? `-${shown}` : shown;
 }

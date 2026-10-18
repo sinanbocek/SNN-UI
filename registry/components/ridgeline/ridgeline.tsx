@@ -21,26 +21,26 @@ export interface RidgelineProps {
   /** Neyin ölçüldüğü, örneğin "Ankara günlük en yüksek sıcaklık". Grafiği yardımcı teknolojiye adlandırır. */
   label: string;
   /** Her değerin ardından gelen birim, örneğin "°C". */
-  unit?: string;
+  unit?: string | undefined;
   /** Değerleri biçimler. Varsayılan: ABACUS biçimi (eksi işareti gerçek eksi, "−3,5°C"). */
-  formatValue?: (value: number) => string;
+  formatValue?: ((value: number) => string) | undefined;
   /** Eksenin değer aralığı. Varsayılan: verinin her yanında biraz boşluk. */
-  domain?: [number, number];
+  domain?: [number, number] | undefined;
   /** Bir sırtın üstündeki satırlara ne kadar yükselebileceği (satır yüksekliği cinsinden). */
-  overlap?: number;
+  overlap?: number | undefined;
   /** Bir satırın yüksekliği (piksel). */
-  rowHeight?: number;
+  rowHeight?: number | undefined;
   /** Yumuşatma, değer biriminde. Varsayılan: seri başına Silverman kuralı. */
-  bandwidth?: number;
+  bandwidth?: number | undefined;
   /** Her sırtı medyanına göre açık tondan tam birinci seri rengine kadar gölgeler ve ölçeği eksenin altında gösterir. */
-  tint?: boolean;
+  tint?: boolean | undefined;
   /** Kaldırılan sırtın denetimli kimliği. */
-  active?: string | null;
-  defaultActive?: string | null;
-  onActiveChange?: (id: string | null) => void;
-  emptyLabel?: string;
-  ref?: Ref<HTMLElement>;
-  className?: string;
+  active?: string | null | undefined;
+  defaultActive?: string | null | undefined;
+  onActiveChange?: ((id: string | null) => void) | undefined;
+  emptyLabel?: string | undefined;
+  ref?: Ref<HTMLElement> | undefined;
+  className?: string | undefined;
 }
 
 type Stats = { q1: number; median: number; q3: number; min: number; max: number; n: number; sorted: number[] };

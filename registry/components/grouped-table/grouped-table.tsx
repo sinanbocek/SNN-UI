@@ -11,18 +11,18 @@ export interface GroupedTableColumn<T> {
   key: string;
   header: string;
   /** Hücre içeriği. Verilmezse satırın `key` alanı düz metin yazılır. */
-  render?: (row: T) => ReactNode;
+  render?: ((row: T) => ReactNode) | undefined;
   /** Sayı sütunu: sağa yaslı, eşit genişlikli rakam. */
-  numeric?: boolean;
+  numeric?: boolean | undefined;
   /** Dar kapta (36rem altı) gizlenir; tablo yana kaymaz. */
-  optional?: boolean;
+  optional?: boolean | undefined;
   /** Sütun genişliği, örneğin "30%" ya da "8rem". */
-  width?: string;
+  width?: string | undefined;
 }
 
 export interface GroupedTableGroup<T> extends TableGroup<T> {
   /** Grup başlığındaki durum rozeti, örneğin { tone: "danger", label: "2 hata" }. Uyarı tonu mavi-gridir. */
-  status?: { tone: "success" | "warning" | "danger" | "neutral"; label: string };
+  status?: { tone: "success" | "warning" | "danger" | "neutral"; label: string } | undefined;
 }
 
 export interface GroupedTableProps<T> {
@@ -32,13 +32,13 @@ export interface GroupedTableProps<T> {
   /** Tabloyu yardımcı teknolojiye adlandırır. */
   caption: string;
   /** Arama metni. Doluyken eşleşen satırlar kalır ve gruplar zorla açılır. */
-  query?: string;
+  query?: string | undefined;
   /** Aramada satırın hangi metne bakılacağı. Varsayılan: satırdaki bütün metin ve sayı alanları. */
-  searchText?: (row: T) => string;
+  searchText?: ((row: T) => string) | undefined;
   /** Başta açık grupların anahtarları; "all" hepsini açar. Varsayılan: hepsi kapalı. */
-  defaultExpanded?: string[] | "all";
-  emptyMessage?: string;
-  className?: string;
+  defaultExpanded?: string[] | "all" | undefined;
+  emptyMessage?: string | undefined;
+  className?: string | undefined;
 }
 
 const allText = (row: unknown) => typeof row === "object" && row ? Object.values(row).filter(value => typeof value === "string" || typeof value === "number").join(" ") : String(row);

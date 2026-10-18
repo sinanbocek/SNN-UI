@@ -18,13 +18,13 @@ export interface ToastAction {
 
 export interface ToastOptions {
   /** Yeni bildirim yığmak yerine yerinde güncellemek için aynı kimliği yeniden kullan. */
-  id?: string;
-  type?: ToastType;
+  id?: string | undefined;
+  type?: ToastType | undefined;
   title: string;
-  description?: string;
-  action?: ToastAction;
+  description?: string | undefined;
+  action?: ToastAction | undefined;
   /** Bildirimin kendiliğinden kapanmasına kalan milisaniye. Türe göre varsayılan değer alır; yükleniyor bildirimleri güncelleme bekler. Kapatılana dek kalsın diye Infinity ver. */
-  duration?: number;
+  duration?: number | undefined;
 }
 
 export interface ToastStackApi {
@@ -39,9 +39,9 @@ export interface ToastStackApi {
 export interface ToastStackProviderProps {
   children: ReactNode;
   /** Temel ömür, milisaniye. Uyarılar ve hatalar 1,6 kat uzun kalır. */
-  duration?: number;
+  duration?: number | undefined;
   /** Bu sayıyı aşan en eski bildirimler kuyruktan atılır. */
-  limit?: number;
+  limit?: number | undefined;
 }
 
 /**
@@ -51,18 +51,18 @@ export interface ToastStackProviderProps {
  */
 export interface ToastStackProps {
   /** Bildirim bölgesinin erişilebilir adı. */
-  label?: string;
-  position?: "bottom-right" | "bottom-center" | "bottom-left";
+  label?: string | undefined;
+  position?: "bottom-right" | "bottom-center" | "bottom-left" | undefined;
   /** Yığını pencere yerine en yakın konumlu üst öğeye sabitler; paneller ve önizlemeler için. */
-  contained?: boolean;
+  contained?: boolean | undefined;
   /** Aynı anda kaç bildirim görünür. Eskiler arkada bekler, öndekiler kapandıkça geri gelir. */
-  visibleToasts?: number;
+  visibleToasts?: number | undefined;
   /** Alt+T odağı yığının içine taşır. */
-  hotkey?: boolean;
-  className?: string;
+  hotkey?: boolean | undefined;
+  className?: string | undefined;
 }
 
-type ToastRecord = { id: string; type: ToastType; title: string; description?: string; action?: ToastAction; duration: number; seq: number; version: number };
+type ToastRecord = { id: string; type: ToastType; title: string; description?: string | undefined; action?: ToastAction | undefined; duration: number; seq: number; version: number };
 type ToastStore = ToastStackApi & { subscribe: (listener: () => void) => () => void; getSnapshot: () => ToastRecord[]; runAction: (id: string) => void };
 type Target = { y: number; scale: number; height: number; opacity: number; content: number };
 

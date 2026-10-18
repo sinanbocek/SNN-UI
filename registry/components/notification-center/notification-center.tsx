@@ -11,22 +11,22 @@ import styles from "./notification-center.module.css";
 export interface NotificationItem {
   id: string;
   title: string;
-  description?: string;
+  description?: string | undefined;
   time: string;
-  read?: boolean;
-  tone?: "info" | "success" | "warning";
+  read?: boolean | undefined;
+  tone?: "info" | "success" | "warning" | undefined;
   /** Kişinin ürettiği güncellemeler için yerel bir portre dosyası; yoksa Avatar baş harfe döner. */
-  actor?: { name: string; photo?: string };
+  actor?: { name: string; photo?: string | undefined } | undefined;
 }
 
 export interface NotificationCenterProps {
   notifications: NotificationItem[];
-  label?: string;
-  onReadChange?: (notification: NotificationItem, read: boolean) => void;
-  onDismiss?: (notification: NotificationItem) => void;
-  open?: boolean;
-  onOpenChange?: (open: boolean) => void;
-  avoidCollisions?: boolean;
+  label?: string | undefined;
+  onReadChange?: ((notification: NotificationItem, read: boolean) => void) | undefined;
+  onDismiss?: ((notification: NotificationItem) => void) | undefined;
+  open?: boolean | undefined;
+  onOpenChange?: ((open: boolean) => void) | undefined;
+  avoidCollisions?: boolean | undefined;
 }
 
 type View = "all" | "unread";
@@ -59,12 +59,12 @@ const rollVariants: Variants = {
 };
 
 /** Sayılar kilometre sayacı gibi döner: büyük sayı aşağıdan yükselir, küçük sayı yukarıdan düşer. */
-function RollingCount({ value, display = String(value), reduce }: { value: number; display?: string; reduce: boolean | null }) {
+function RollingCount({ value, display = String(value), reduce }: { value: number; display?: string | undefined; reduce: boolean | null }) {
   const [previous, setPrevious] = useState(value);
   const [direction, setDirection] = useState(0);
   if (value !== previous) { setDirection(value > previous ? 1 : -1); setPrevious(value); }
   return <span className={styles.roll}><AnimatePresence mode="popLayout" initial={false} custom={direction}>
-    <Swap key={display} className={styles.rollValue} custom={direction} variants={reduce ? undefined : rollVariants} initial={reduce ? { opacity: 0 } : "enter"} animate={reduce ? { opacity: 1 } : "center"} exit={reduce ? fadeOut : "exit"} transition={reduce ? instant : { y: motionTokens.spring.snappy, opacity: exitFast, filter: exitFast }}>{display}</Swap>
+    <Swap key={display} className={styles.rollValue} custom={direction} {...(reduce ? {} : { variants: rollVariants })} initial={reduce ? { opacity: 0 } : "enter"} animate={reduce ? { opacity: 1 } : "center"} exit={reduce ? fadeOut : "exit"} transition={reduce ? instant : { y: motionTokens.spring.snappy, opacity: exitFast, filter: exitFast }}>{display}</Swap>
   </AnimatePresence></span>;
 }
 

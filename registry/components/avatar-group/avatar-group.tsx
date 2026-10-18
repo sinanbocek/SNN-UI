@@ -1,13 +1,13 @@
 "use client";
 
 import { useState, type CSSProperties } from "react";
-import { AnimatePresence, motion, useReducedMotion, type Variants } from "motion/react";
+import { AnimatePresence, motion, useReducedMotion, type MotionStyle, type Variants } from "motion/react";
 import { motionTokens } from "../lib/motion-tokens";
 import { Avatar } from "../avatar/avatar";
 import styles from "./avatar-group.module.css";
 
-export interface AvatarGroupMember { name: string; src?: string; status?: "online" | "offline"; }
-export interface AvatarGroupProps { members: AvatarGroupMember[]; max?: number; size?: "sm" | "md" | "lg"; label?: string; }
+export interface AvatarGroupMember { name: string; src?: string | undefined; status?: "online" | "offline" | undefined; }
+export interface AvatarGroupProps { members: AvatarGroupMember[]; max?: number | undefined; size?: "sm" | "md" | "lg" | undefined; label?: string | undefined; }
 
 /** Taşma sayısı değiştiği yöne doğru kayar: kişi artınca alttan yükselir, azalınca yukarıdan iner. */
 const rise: Variants = { hidden: (direction: number) => ({ opacity: 0, y: `${.4 * direction}em`, filter: `blur(${motionTokens.blur.subtle}px)` }), shown: { opacity: 1, y: 0, filter: "blur(0px)", transition: { duration: motionTokens.duration.standard, ease: [...motionTokens.ease.enter] } }, gone: (direction: number) => ({ opacity: 0, y: `${-.4 * direction}em`, filter: `blur(${motionTokens.blur.subtle}px)`, transition: { duration: motionTokens.duration.fast, ease: [...motionTokens.ease.standard] } }) };
@@ -25,8 +25,8 @@ export function AvatarGroup({ members, max = 4, size = "md", label = "Ekip üyel
   if (count.overflow !== overflow) setCount({ overflow, direction: overflow < count.overflow ? -1 : 1 });
   return <div className={[styles.group, styles[size]].join(" ")} role="group" aria-label={label} style={{ "--count": visible.length + (overflow > 0 ? 1 : 0) } as CSSProperties}>
     <AnimatePresence initial={false}>
-      {visible.map((member, index) => <motion.span key={member.name} className={styles.slot} style={{ "--index": index } as CSSProperties} {...slot} transition={transition}><span className={styles.lift}><Avatar className={styles.avatar} name={member.name} src={member.src} status={member.status} size={size} /><span className={styles.tip} aria-hidden="true">{member.name}</span></span></motion.span>)}
-      {overflow > 0 ? <motion.span key="overflow" className={styles.slot} style={{ "--index": visible.length } as CSSProperties} {...slot} transition={transition}><span className={[styles.lift, styles.overflow, styles[size]].join(" ")} role="img" aria-label={`ve ${overflow} kişi daha`}><AnimatePresence mode="popLayout" initial={false} custom={count.direction}><motion.span key={overflow} className={styles.count} custom={count.direction} variants={reduceMotion ? fade : rise} initial="hidden" animate="shown" exit="gone" aria-hidden="true">+{overflow}</motion.span></AnimatePresence></span></motion.span> : null}
+      {visible.map((member, index) => <motion.span key={member.name} className={styles.slot} style={{ "--index": index } as MotionStyle} {...slot} transition={transition}><span className={styles.lift}><Avatar className={styles.avatar} name={member.name} src={member.src} status={member.status} size={size} /><span className={styles.tip} aria-hidden="true">{member.name}</span></span></motion.span>)}
+      {overflow > 0 ? <motion.span key="overflow" className={styles.slot} style={{ "--index": visible.length } as MotionStyle} {...slot} transition={transition}><span className={[styles.lift, styles.overflow, styles[size]].join(" ")} role="img" aria-label={`ve ${overflow} kişi daha`}><AnimatePresence mode="popLayout" initial={false} custom={count.direction}><motion.span key={overflow} className={styles.count} custom={count.direction} variants={reduceMotion ? fade : rise} initial="hidden" animate="shown" exit="gone" aria-hidden="true">+{overflow}</motion.span></AnimatePresence></span></motion.span> : null}
     </AnimatePresence>
   </div>;
 }

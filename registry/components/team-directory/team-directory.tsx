@@ -27,27 +27,27 @@ export interface DirectoryPerson {
   status: DirectoryStatus;
   email: string;
   /** Kısa tanıtım yazısı. */
-  bio?: string;
+  bio?: string | undefined;
   /** Şu an üzerinde çalıştığı iş. */
-  working?: string;
+  working?: string | undefined;
   /** Yer ve yerel saat, hazır metin ("Ankara · 14.30"; proje ABACUS `date` ile üretir). */
-  location?: string;
-  src?: string;
+  location?: string | undefined;
+  src?: string | undefined;
 }
 
 export interface TeamDirectoryProps {
   people: DirectoryPerson[];
   /** Seçili kişi (denetimli kullanım). Verilmezse blok kendisi tutar; ilk açılışta ilk kişi seçilidir. */
-  selectedId?: string;
-  onSelect?: (person: DirectoryPerson) => void;
+  selectedId?: string | undefined;
+  onSelect?: ((person: DirectoryPerson) => void) | undefined;
   /** Ekip sırası. Verilmezse kişilerde ilk görülme sırası kullanılır. */
-  teams?: string[];
-  loading?: boolean;
+  teams?: string[] | undefined;
+  loading?: boolean | undefined;
   /** Rehber yüklenemediyse true; "Yeniden dene" `onRetry` çağırır. */
-  error?: boolean;
-  onRetry?: () => void;
-  title?: string;
-  className?: string;
+  error?: boolean | undefined;
+  onRetry?: (() => void) | undefined;
+  title?: string | undefined;
+  className?: string | undefined;
 }
 
 const statusLabel: Record<DirectoryStatus, string> = { available: "Müsait", meeting: "Toplantıda", away: "İzinde" };

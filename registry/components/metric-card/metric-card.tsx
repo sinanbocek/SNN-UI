@@ -7,15 +7,15 @@ import { AnimatedCounter } from "../animated-counter/animated-counter";
 import { metricDisplay, type MetricFormat } from "./metric-card-format";
 import styles from "./metric-card.module.css";
 export interface MetricCardProps {
-  label: string; value: number; context: string; change?: string;
+  label: string; value: number; context: string; change?: string | undefined;
   /** "number" (varsayılan), "money" (₺1.250.000) ya da "compact-money" (₺1,25Mn). Tutar yazımı ABACUS'tandır. */
-  format?: MetricFormat;
+  format?: MetricFormat | undefined;
   /** Tutar biçiminde para birimi; varsayılan TRY. */
-  currency?: string;
+  currency?: string | undefined;
   /** Ondalık basamak sayısı (düz sayı ve tam tutar için). */
-  decimals?: number;
+  decimals?: number | undefined;
   /** Sayının yanına yazılan ek. Boşluk yazıldığı gibi kalır: " kişi" → "12 kişi", "%" → "12%". Tutar biçiminde ABACUS'un eki kullanılır. */
-  suffix?: string;
+  suffix?: string | undefined;
 }
 
 /** Sayı taşıyan metin hareket ettiği yönden girer: büyüyen değer alttan yükselir, küçülen üstten düşer. */
@@ -25,7 +25,7 @@ const fade: Variants = { hidden: { opacity: 0, y: 0, filter: "blur(0px)" }, show
 const amountIn = (text: string) => Number((text.replace(/−/g, "-").match(/-?\d[\d.]*(?:,\d+)?/)?.[0] ?? "").replace(/\./g, "").replace(",", ".") || NaN);
 
 /** Yeni metin yükselirken eskisi çıkar; `morph` kabı, yeni metnin genişliğine sıçramak yerine yaylanarak getirir. */
-function Swap({ text, morph = false, block = false }: { text: string; morph?: boolean; block?: boolean }) {
+function Swap({ text, morph = false, block = false }: { text: string; morph?: boolean | undefined; block?: boolean | undefined }) {
   const reduceMotion = !!useReducedMotion();
   const sizer = useRef<HTMLSpanElement>(null);
   const width = useMotionValue<number | "auto">("auto");
@@ -46,7 +46,7 @@ function Swap({ text, morph = false, block = false }: { text: string; morph?: bo
     observer.observe(node);
     return () => observer.disconnect();
   }, [morph, reduceMotion, width]);
-  return <motion.span className={block ? styles.swapBlock : styles.swap} style={morph ? { width } : undefined}>
+  return <motion.span className={block ? styles.swapBlock : styles.swap} {...(morph ? { style: { width } } : {})}>
     {morph && <span ref={sizer} className={styles.sizer} aria-hidden="true">{text}</span>}
     <AnimatePresence mode="popLayout" initial={false} custom={shown.direction}><motion.span key={text} className={styles.text} custom={shown.direction} variants={reduceMotion ? fade : rise} initial="hidden" animate="shown" exit="gone">{text}</motion.span></AnimatePresence>
   </motion.span>;

@@ -11,13 +11,13 @@ export interface PasswordFieldMessages { showPassword: string; hidePassword: str
 export const defaultPasswordFieldMessages: PasswordFieldMessages = { showPassword: "Parolayı göster", hidePassword: "Parolayı gizle" };
 export interface PasswordFieldProps extends Omit<InputHTMLAttributes<HTMLInputElement>, "type"> {
   label: string;
-  description?: string;
+  description?: string | undefined;
   /** Hata metni: alanın kenarı kırmızı olur, metin açıklamanın altında açılır ve ekran okuyucuya duyurulur (ör. "Parolalar eşleşmiyor."). */
-  error?: string;
+  error?: string | undefined;
   /** Çevrilmiş ya da yeniden yazılmış düğme adları. */
-  messages?: Partial<PasswordFieldMessages>;
+  messages?: Partial<PasswordFieldMessages> | undefined;
   /** Göz simgesinin sağında parola üret düğmesi. Basınca uzunluk ve karakter türü seçenekleri açılır; "Üret" parolayı soldan sağa harf harf yazar, bitince kopyala düğmesi belirir. Verilen değerler seçeneklerin varsayılanıdır. Varsayılan kapalı. */
-  generator?: boolean | { length?: number; sets?: PasswordCharset[]; text?: Partial<PasswordGeneratorText> };
+  generator?: boolean | { length?: number | undefined; sets?: PasswordCharset[] | undefined; text?: Partial<PasswordGeneratorText> | undefined } | undefined;
 }
 /** İki simgeyi değiştirmek yerine, üzerinden çizgi geçen ve altındaki dış çizgiyi kesen tek bir göz. */
 function EyeMorph({ slashed }: { slashed: boolean }) {
@@ -41,12 +41,12 @@ function MotionText({ text }: { text: string }) {
 }
 
 /** Yardım ve hata metni: satır yüksekliğini yayla açar, ardından sözcükler yerine oturur. */
-function FieldMessage({ id, text, className, alert }: { id?: string; text?: string; className?: string; alert?: boolean }) {
+function FieldMessage({ id, text, className, alert }: { id?: string | undefined; text?: string | undefined; className?: string | undefined; alert?: boolean | undefined }) {
   return <AnimatePresence initial={false}>{text ? <MessageRow key="message" id={id} text={text} className={className} alert={alert} /> : null}</AnimatePresence>;
 }
 
 /** Satır ölçülen metni izler; böylece sarılan uzun bir ileti sonraki satırını sert atlamadan açar. */
-function MessageRow({ id, text, className, alert }: { id?: string; text: string; className?: string; alert?: boolean }) {
+function MessageRow({ id, text, className, alert }: { id?: string | undefined; text: string; className?: string | undefined; alert?: boolean | undefined }) {
   const reduced = useReducedMotion();
   const copyRef = useRef<HTMLSpanElement>(null);
   const [height, setHeight] = useState<number | "auto">("auto");

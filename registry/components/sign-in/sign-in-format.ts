@@ -2,7 +2,7 @@
 // React ve CSS içermez; test doğrudan bunu okur.
 import { text } from "@snn/abacus-core";
 
-export interface SignInAccount { name: string; email: string; photo?: string }
+export interface SignInAccount { name: string; email: string; photo?: string | undefined }
 
 /** Sık yapılan alan adı yazım hataları ve doğruları. */
 const domainFixes: Record<string, string> = { "gmial.com": "gmail.com", "gamil.com": "gmail.com", "gmai.com": "gmail.com", "gnail.com": "gmail.com", "gmail.co": "gmail.com", "hotmial.com": "hotmail.com", "outlok.com": "outlook.com", "outlook.co": "outlook.com", "iclod.com": "icloud.com", "icoud.com": "icloud.com", "yaho.com": "yahoo.com" };

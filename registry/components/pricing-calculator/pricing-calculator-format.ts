@@ -5,15 +5,15 @@ import { formatMoney, formatNumber, formatPercent } from "../lib/chart-format";
 
 export type BillingPeriod = "month" | "year";
 export interface PriceTier { /** Bu koltuk sayısından itibaren geçerli koltuk başı aylık fiyat (TRY). */ fromSeats: number; price: number }
-export interface PlanFeature { label: string; /** Yalnız bu koltuk sayısından itibaren listede. */ fromSeats?: number; /** Yalnız bu koltuk sayısına kadar listede. */ toSeats?: number }
+export interface PlanFeature { label: string; /** Yalnız bu koltuk sayısından itibaren listede. */ fromSeats?: number | undefined; /** Yalnız bu koltuk sayısına kadar listede. */ toSeats?: number | undefined }
 export interface PricingPlan {
   key: string;
   name: string;
-  description?: string;
+  description?: string | undefined;
   /** Hacim kademeleri, artan `fromSeats` sırasıyla; ilki taban fiyattır. */
   tiers: PriceTier[];
   /** Plan bu koltuk sayısından büyük seçime satılmaz (sınırlı plan). */
-  maxSeats?: number;
+  maxSeats?: number | undefined;
   /** Plan "önerilen" sayılacağı koltuk aralığı: [en az, en çok]; en çok yoksa üst sınırsız. */
   fitsSeats: [number, number | null];
   features: PlanFeature[];

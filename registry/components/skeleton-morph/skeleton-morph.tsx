@@ -17,11 +17,11 @@ export interface SkeletonMorphProps {
   /** true iken bloklar iskelet olarak durur; false olunca okuma sırasıyla çözülür. */
   loading: boolean;
   /** Görünmez durum metinleri (ekran okuyucu için). */
-  label?: string;
-  loadedLabel?: string;
+  label?: string | undefined;
+  loadedLabel?: string | undefined;
   /** Bloklar arası çözülme gecikmesi, ms. */
-  stagger?: number;
-  className?: string;
+  stagger?: number | undefined;
+  className?: string | undefined;
   children: ReactNode;
 }
 
@@ -65,15 +65,15 @@ export type MorphBlockShape = "rect" | "circle" | "text";
 
 export interface MorphBlockProps {
   /** İskelet türü: dikdörtgen, daire (avatar yeri) ya da metin satırları. */
-  shape?: MorphBlockShape;
+  shape?: MorphBlockShape | undefined;
   /** İskelet ölçüsü; gerçek içerikle aynı boyda seçilir. Sayı piksel, metin CSS değeridir ("60%"). */
-  width?: number | string;
-  height?: number | string;
+  width?: number | string | undefined;
+  height?: number | string | undefined;
   /** Yalnız `text`: satır sayısı. Son satır daha kısadır. */
-  lines?: number;
+  lines?: number | undefined;
   /** Yalnız `rect`: köşe yuvarlaklığı, piksel. */
-  radius?: number;
-  className?: string;
+  radius?: number | undefined;
+  className?: string | undefined;
   /** Yüklenince görünecek içerik. Yüklenirken hiç çizilmez. */
   children: ReactNode;
 }

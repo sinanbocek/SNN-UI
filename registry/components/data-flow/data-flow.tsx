@@ -10,33 +10,33 @@ export interface FlowNode {
   id: string;
   label: string;
   /** İkinci satır (ürün adı gibi); dar düzende gizlenir. */
-  subtitle?: string;
+  subtitle?: string | undefined;
   /** Fareyle üstüne gelince görünen tek satırlık ayrıntı. */
-  detail?: string;
+  detail?: string | undefined;
   /** Düğüm simgesi; çağıran verir. */
-  icon?: ReactNode;
+  icon?: ReactNode | undefined;
   /** Bu düğümün kayıtlarının rengi (CSS değeri). Yoksa vurgu rengi. */
-  color?: string;
+  color?: string | undefined;
 }
 export interface FlowTarget extends FlowNode {
   /** 0–1: hedefin kayıtların yalnız bir kesrini aldığı durum (uyarılar gibi). Şema doğruyu söyler. */
-  share?: number;
+  share?: number | undefined;
 }
-export interface FlowProcess { label: string; detail?: string; icon?: ReactNode; counterLabel?: string; initialCount?: number }
+export interface FlowProcess { label: string; detail?: string | undefined; icon?: ReactNode | undefined; counterLabel?: string | undefined; initialCount?: number | undefined }
 
 export interface DataFlowProps {
   sources: FlowNode[];
   process: FlowProcess;
   targets: FlowTarget[];
   /** Akış hızı çarpanı. Değişim yayla yumuşar. */
-  speed?: number;
+  speed?: number | undefined;
   /** true iken akış yavaşlayarak durur. */
-  paused?: boolean;
+  paused?: boolean | undefined;
   /** Şemanın altında görünür açıklama. */
-  caption?: string;
+  caption?: string | undefined;
   /** Şemayı sesli anlatan metin. Verilmezse düğüm adlarından üretilir. */
-  label?: string;
-  className?: string;
+  label?: string | undefined;
+  className?: string | undefined;
 }
 
 type Point = { x: number; y: number };
@@ -199,7 +199,7 @@ export function DataFlow({ sources, process, targets, speed = 1, paused = false,
   const spoken = label ?? `Veri akışı: ${sources.map(item => item.label).join(", ")} kaynaklarından kayıtlar ${process.label} adımında işlenir ve ${targets.map(item => item.label).join(", ")} hedeflerine dağılır.`;
   const place = (point: Point): CSSProperties => ({ left: point.x, top: point.y, width: layout.nodeWidth });
   const touches = (kind: "source" | "target", index: number) => hover === "__process" || (kind === "source" ? hover === sources[index]?.id : hover === targets[index]?.id);
-  const hovered = (id: string) => (event: { pointerType?: string }) => { if (!event.pointerType || event.pointerType === "mouse") setHover(id); };
+  const hovered = (id: string) => (event: { pointerType?: string | undefined }) => { if (!event.pointerType || event.pointerType === "mouse") setHover(id); };
 
   const nodeBox = (node: FlowNode, point: Point, role: "source" | "target", index: number) => (
     <div

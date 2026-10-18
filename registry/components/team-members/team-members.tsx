@@ -17,7 +17,7 @@ import { Skeleton } from "../skeleton/skeleton";
 import { Tooltip } from "../tooltip/tooltip";
 import styles from "./team-members.module.css";
 
-export interface TeamRole { value: string; label: string; /** Sahip rolü: satırda seçici değil düz yazı çıkar, davet rolü olarak sunulmaz. */ owner?: boolean }
+export interface TeamRole { value: string; label: string; /** Sahip rolü: satırda seçici değil düz yazı çıkar, davet rolü olarak sunulmaz. */ owner?: boolean | undefined }
 
 export interface TeamMember {
   id: string;
@@ -26,12 +26,12 @@ export interface TeamMember {
   /** `roles` içindeki bir değer. */
   role: string;
   /** Kendisi mi? "Sen" etiketi çıkar, çıkar düğmesi çıkmaz. */
-  self?: boolean;
+  self?: boolean | undefined;
   /** Şu an çevrimiçi mi? Nokta yanında "Şu an çevrimiçi" yazısı da vardır (nokta tek başına renkten ibaret kalmaz). */
-  online?: boolean;
+  online?: boolean | undefined;
   /** Çevrimdışıysa son görülme, hazır metin ("2 saat önce"; proje ABACUS `date.relativeTime` ile üretir). Satırda "{lastSeen} aktifti" yazılır. */
-  lastSeen?: string;
-  src?: string;
+  lastSeen?: string | undefined;
+  src?: string | undefined;
 }
 
 export interface TeamInvite {
@@ -44,7 +44,7 @@ export interface TeamInvite {
 
 export interface TeamMembersProps {
   members: TeamMember[];
-  invites?: TeamInvite[];
+  invites?: TeamInvite[] | undefined;
   roles: TeamRole[];
   /** Toplam koltuk sayısı. Kullanılan koltuk = üyeler + bekleyen davetler. */
   seatLimit: number;
@@ -56,13 +56,13 @@ export interface TeamMembersProps {
   onResend: (inviteId: string) => void | Promise<void>;
   onCancelInvite: (inviteId: string) => void | Promise<void>;
   /** Üye listesi gelirken true. */
-  loading?: boolean;
+  loading?: boolean | undefined;
   /** Liste yüklenemediyse true; "Yeniden dene" `onRetry` çağırır. */
-  error?: boolean;
-  onRetry?: () => void;
+  error?: boolean | undefined;
+  onRetry?: (() => void) | undefined;
   /** Sayfa başına üye. Üye sayısı bunu aşarsa sayfalama çıkar. */
-  pageSize?: number;
-  className?: string;
+  pageSize?: number | undefined;
+  className?: string | undefined;
 }
 
 const defaultInviteMessage = "Adresleri virgülle ayırın ya da Enter'a basın. Davetler 7 gün geçerlidir.";

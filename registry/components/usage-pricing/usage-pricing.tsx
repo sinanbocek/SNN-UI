@@ -23,19 +23,19 @@ export interface UsagePricingProps {
   /** Kullanım kaydırıcısının durakları (artan), örneğin [100000, 1000000, 5000000, 15000000]. */
   usageStops: number[];
   /** Kullanımın adı: "Aylık istek". Değer metninde "istek" sonekiyle okunur. */
-  usageLabel?: string;
+  usageLabel?: string | undefined;
   /** Değer metinlerindeki birim: "istek". */
-  usageUnit?: string;
-  defaultSeats?: number;
-  defaultUsage?: number;
-  yearlyDiscount?: number;
-  title?: string;
-  description?: string;
+  usageUnit?: string | undefined;
+  defaultSeats?: number | undefined;
+  defaultUsage?: number | undefined;
+  yearlyDiscount?: number | undefined;
+  title?: string | undefined;
+  description?: string | undefined;
   /** En üst plan aşılınca gösterilen yönlendirme. */
-  contactText?: string;
+  contactText?: string | undefined;
   /** "Denemeyi başlat": reddederse satır içi "Başlatılamadı" yazılır ve yeniden denenir. */
   onStartTrial: (selection: UsageSelection) => Promise<void>;
-  loading?: boolean;
+  loading?: boolean | undefined;
 }
 
 function nearest(stops: number[], value: number | undefined, fallback: number) {

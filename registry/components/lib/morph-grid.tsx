@@ -18,12 +18,12 @@ export interface MorphGridProps<T extends { key: string }> {
   renderPanel: (item: T, closeProps: MorphCloseProps) => ReactNode;
   /** Açık panelin bölge adı. */
   panelLabel: (item: T) => string;
-  className?: string;
-  gridClassName?: string;
-  cardClassName?: string;
-  panelClassName?: string;
+  className?: string | undefined;
+  gridClassName?: string | undefined;
+  cardClassName?: string | undefined;
+  panelClassName?: string | undefined;
   /** Açılamayan (örneğin verisiz) kartlar. */
-  isDisabled?: (item: T) => boolean;
+  isDisabled?: ((item: T) => boolean) | undefined;
 }
 
 /**

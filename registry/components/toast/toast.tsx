@@ -4,7 +4,7 @@ import { AnimatePresence, animate, motion, useIsPresent, useMotionValue, useRedu
 import { X } from "lucide-react";
 import { motionTokens } from "../lib/motion-tokens";
 import styles from "./toast.module.css";
-export interface ToastProps { title: string; description?: string; open?: boolean; onOpenChange?: (open: boolean) => void; duration?: number; }
+export interface ToastProps { title: string; description?: string | undefined; open?: boolean | undefined; onOpenChange?: ((open: boolean) => void) | undefined; duration?: number | undefined; }
 
 const subscribeHydration = () => () => {};
 const exitFast: Transition = { duration: motionTokens.duration.fast, ease: [...motionTokens.ease.standard] };

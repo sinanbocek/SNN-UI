@@ -23,29 +23,29 @@ export interface HeroSectionProps {
    * düğüm düğüm çalıştıran canlı bir iş akışı grafiği. `minimal`: ağ geçişli zemin üstünde büyük yazı.
    * Her tasarım tam bir ekranı doldurur.
    */
-  variant?: HeroSectionVariant;
+  variant?: HeroSectionVariant | undefined;
   /** Girişi açılışta bir kez oynatır. Varsayılan: true. */
-  animateIn?: boolean;
+  animateIn?: boolean | undefined;
   /** Ana çağrı. `doneLabel` varsa ve `href` yoksa düğme yerinde onaylar. */
-  primaryAction?: HeroAction | null;
+  primaryAction?: HeroAction | null | undefined;
   /** İkinci çağrı. */
-  secondaryAction?: HeroAction | null;
+  secondaryAction?: HeroAction | null | undefined;
   /**
    * Kendi başlığınız. Verilirse hero, tasarlanmış örnek yerine sizin içeriğinizi seçilen yerleşimde (bkz. `HeroContent`)
    * aşağıdaki özelliklerle birlikte çizer.
    */
-  title?: string;
-  description?: string;
-  announcement?: HeroAction | null;
+  title?: string | undefined;
+  description?: string | undefined;
+  announcement?: HeroAction | null | undefined;
   /** Kendi içeriğiniz için kurulum komutları; ilki kopyalama düğmesiyle gösterilir. */
-  install?: HeroInstallCommand[] | null;
+  install?: HeroInstallCommand[] | null | undefined;
   /** Bölünmüş yerleşimde kendi içeriğinizin yanındaki görsel. */
-  media?: ReactNode;
+  media?: ReactNode | undefined;
   /** Kendi içeriğinizin altındaki küçük bilgiler, örneğin sürüm ve lisans. */
-  meta?: string[];
+  meta?: string[] | undefined;
   /** Uyumluluk için durur; vurgulu ifadeler düz metin olarak çizilir. */
-  highlight?: string;
-  className?: string;
+  highlight?: string | undefined;
+  className?: string | undefined;
 }
 
 /**
@@ -70,7 +70,7 @@ const variantOptions = [
  * Önizleme: tam ekran hero ve üst kenarında yüzen küçük cam bir anahtar. Anahtar kendi başına yer kaplamaz, böylece her
  * tasarım ekranı tam doldurur. Geçiş, girişi yeniden oynatır.
  */
-export function HeroSectionBlock({ variant: initial = "centered" }: { variant?: HeroSectionVariant }) {
+export function HeroSectionBlock({ variant: initial = "centered" }: { variant?: HeroSectionVariant | undefined }) {
   const [variant, setVariant] = useState<HeroSectionVariant>(initial);
   return <div className={styles.preview}>
     <HeroSection key={variant} variant={variant} />

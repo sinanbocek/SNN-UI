@@ -17,13 +17,13 @@ export type SignInMethod = "Email code" | "Passkey" | Provider;
 export type { SignInAccount };
 export interface SignInProps {
   /** Benzetilen e-postadaki kod. */
-  demoCode?: string;
+  demoCode?: string | undefined;
   /** Tanıdık kişiler: adresin ilk parçası adla eşleşirse fotoğrafı korunur. Fotoğraf yoksa baş harf simgesi görünür. */
-  people?: SignInAccount[];
+  people?: SignInAccount[] | undefined;
   /** Benzetilen giriş başarılı olunca çağrılır. */
-  onSignIn?: (account: SignInAccount, method: SignInMethod) => void;
+  onSignIn?: ((account: SignInAccount, method: SignInMethod) => void) | undefined;
 }
-type StepCustom = { direction: number; reduce: boolean; still?: boolean };
+type StepCustom = { direction: number; reduce: boolean; still?: boolean | undefined };
 
 const RESEND_SECONDS = 30;
 /** Giriş yönteminin ekrandaki Türkçe adı. */
