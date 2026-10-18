@@ -14,27 +14,27 @@ export type FloatingButtonGroupSize = "sm" | "md";
 export type FloatingButtonGroupOrientation = "horizontal" | "vertical";
 
 export interface FloatingButtonGroupAction {
-  type?: "action";
+  type?: "action" | undefined;
   /** Kararlı anahtar; onAction'a da bu verilir. */
   id: string;
   /** Görünen yazı; öğe yalnız simge gösterirken erişilebilir ad da budur. */
   label: string;
-  icon?: ReactNode;
+  icon?: ReactNode | undefined;
   /** Yalnız simgeyi gösterir. Yazı ipucu kutusuna ve erişilebilir ada taşınır. Grubun iconOnly değerini geçersiz kılar. */
-  iconOnly?: boolean;
-  onSelect?: () => void;
-  disabled?: boolean;
+  iconOnly?: boolean | undefined;
+  onSelect?: (() => void) | undefined;
+  disabled?: boolean | undefined;
   /** Bir kipi açan eylemi (ör. Sunum) işaretler. aria-pressed'i ayarlar, açıkken sakin bir ton tutar. */
-  pressed?: boolean;
+  pressed?: boolean | undefined;
   /** İpucu kutusunda gösterilen kısayol notu, ör. "Ctrl+Z". Bileşen tuşu bağlamaz. */
-  shortcut?: string;
+  shortcut?: string | undefined;
   /** Bu öğenin geçebileceği başka yazılar, ör. Paylaş için ["Kopyalandı"]. Düğme en geniş yazının genişliğini korur; yazı değişince hiçbir şey kaymaz. */
-  reserveLabels?: readonly string[];
+  reserveLabels?: readonly string[] | undefined;
 }
 
 export interface FloatingButtonGroupSeparator {
   type: "separator";
-  id?: string;
+  id?: string | undefined;
 }
 
 export type FloatingButtonGroupItem = FloatingButtonGroupAction | FloatingButtonGroupSeparator;
@@ -44,17 +44,17 @@ export interface FloatingButtonGroupProps {
   /** Araç çubuğunun erişilebilir adı, ör. "Pano işlemleri". */
   label: string;
   /** muted sayfada sakin durur; floating, seçim araç çubuğu gibi katman öğeleri için tepsiyi yüzen gölgeyle yükseltir. */
-  variant?: FloatingButtonGroupVariant;
-  size?: FloatingButtonGroupSize;
-  orientation?: FloatingButtonGroupOrientation;
+  variant?: FloatingButtonGroupVariant | undefined;
+  size?: FloatingButtonGroupSize | undefined;
+  orientation?: FloatingButtonGroupOrientation | undefined;
   /** Her öğeyi yalnız simge olarak gösterir, yazı ipucu kutusunda olur. Kendi iconOnly değeri olan öğe önceliklidir. */
-  iconOnly?: boolean;
+  iconOnly?: boolean | undefined;
   /** Öğe ipucu kutularının yönü. Satırda varsayılan üst, sütunda sağdır. */
-  tooltipSide?: "top" | "bottom" | "left" | "right";
+  tooltipSide?: "top" | "bottom" | "left" | "right" | undefined;
   /** Öğenin kendi onSelect'inden sonra öğe kimliğiyle çağrılır. */
-  onAction?: (id: string) => void;
-  className?: string;
-  style?: CSSProperties;
+  onAction?: ((id: string) => void) | undefined;
+  className?: string | undefined;
+  style?: CSSProperties | undefined;
 }
 
 const isAction = (item: FloatingButtonGroupItem): item is FloatingButtonGroupAction => item.type !== "separator";
@@ -76,7 +76,7 @@ function Phase({ children, reduced }: { children: ReactNode; reduced: boolean })
  * Simge ve yazı. Öğenin gösterebileceği her yazı aynı ızgara hücresinde görünmez dizilir; düğme hep en geniş yazının
  * genişliğinde kalır. Yazı değişince yerinde çapraz geçiş olur, düğme, komşuları ve tepsi boyut değiştirmez.
  */
-function ItemBody({ label, icon, iconOnly, reserve, reduced }: { label: string; icon?: ReactNode; iconOnly: boolean; reserve: readonly string[]; reduced: boolean }) {
+function ItemBody({ label, icon, iconOnly, reserve, reduced }: { label: string; icon?: ReactNode | undefined; iconOnly: boolean; reserve: readonly string[]; reduced: boolean }) {
   const ghosts = iconOnly ? [] : Array.from(new Set([label, ...reserve]));
   return <span className={styles.slot}>
     {ghosts.map(text => <span key={text} className={styles.ghost} aria-hidden="true">
@@ -92,7 +92,7 @@ function ItemBody({ label, icon, iconOnly, reserve, reduced }: { label: string; 
   </span>;
 }
 
-function TipContent({ label, shortcut }: { label: string; shortcut?: string }) {
+function TipContent({ label, shortcut }: { label: string; shortcut?: string | undefined }) {
   return <span className={styles.tip}>{label}{shortcut ? <kbd className={styles.kbd}>{shortcut}</kbd> : null}</span>;
 }
 

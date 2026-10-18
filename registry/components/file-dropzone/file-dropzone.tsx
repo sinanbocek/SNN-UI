@@ -12,26 +12,26 @@ import styles from "./file-dropzone.module.css";
 export type FileDropzoneStatus = "uploading" | "uploaded" | "failed";
 /** Dosya listesinin bir satırı. Durumu olmayan satır yalnız seçimdir. */
 /** `preview` küçük resim adresidir; ziyaretçinin eklediği görsellere kendiliğinden verilir. */
-export type FileDropzoneItem = { id: string; name: string; size: number; status?: FileDropzoneStatus; progress?: number; error?: string; retryable?: boolean; file?: File; preview?: string };
+export type FileDropzoneItem = { id: string; name: string; size: number; status?: FileDropzoneStatus | undefined; progress?: number | undefined; error?: string | undefined; retryable?: boolean | undefined; file?: File | undefined; preview?: string | undefined };
 /** onProgress ile 0–100 bildirin, dosya inince çözün ya da iletisi satırın nedeni olacak bir Error ile reddedin. Satırı kaldırmak sinyali iptal eder. */
 export type FileDropzoneUpload = (item: FileDropzoneItem, options: { onProgress: (percent: number) => void; signal: AbortSignal }) => Promise<void>;
 
 export type FileDropzoneProps = {
-  accept?: string; multiple?: boolean; maxFiles?: number; onFilesChange?: (files: File[]) => void; label?: string; description?: string;
+  accept?: string | undefined; multiple?: boolean | undefined; maxFiles?: number | undefined; onFilesChange?: ((files: File[]) => void) | undefined; label?: string | undefined; description?: string | undefined;
   /** Açılışta var olan satırlar, örneğin daha önce yüklenen dosyalar. Giriş hareketi olmadan yerlerinde çizilir. */
-  defaultItems?: FileDropzoneItem[];
+  defaultItems?: FileDropzoneItem[] | undefined;
   /** Eklenen her dosyayı yükler. Verilmezse liste yalnız seçimleri gösterir. Yüklemenin kendisi projededir. */
-  onUpload?: FileDropzoneUpload;
+  onUpload?: FileDropzoneUpload | undefined;
   /** Bu kadar bayttan büyük dosyalar boyut nedeniyle başarısız olur ve hiç yüklenmez. */
-  maxSize?: number;
+  maxSize?: number | undefined;
   /** Dosya listesi bırakma alanının altında ya da kenarının içinde çizilir. */
-  listPlacement?: "below" | "inside";
+  listPlacement?: "below" | "inside" | undefined;
   /** Açıklamanın altındaki küçük satırın yerine geçer. */
-  note?: string;
+  note?: string | undefined;
   /** Dosyalar alanın üstündeyken görünen başlık. */
-  dropLabel?: string;
+  dropLabel?: string | undefined;
   /** Liste bu kadar dosyaya ulaşınca istem ince bir çubuğa katlanır, listeye yer açılır. Üstüne dosya sürüklenince simge geri gelir. */
-  compactAt?: number;
+  compactAt?: number | undefined;
 };
 
 const PERIOD = 7;
@@ -68,7 +68,7 @@ function Swap(props: HTMLMotionProps<"span">) {
 }
 
 /** Yeni metin yerine yükselip netleşir, eskisi aynı yuvadan kalkar. */
-function TextSwap({ text, className, reduce }: { text: string; className?: string; reduce: boolean }) {
+function TextSwap({ text, className, reduce }: { text: string; className?: string | undefined; reduce: boolean }) {
   return <AnimatePresence mode="popLayout" initial={false}><Swap key={text} className={className} initial={reduce ? { opacity: 0 } : textIn} animate={shown} exit={reduce ? { opacity: 0, transition: fade } : textOut} transition={reduce ? fade : enter}>{text}</Swap></AnimatePresence>;
 }
 
@@ -112,7 +112,7 @@ type RowProps = { item: FileDropzoneItem; reduce: boolean; delay: number; fresh:
 function Thumb({ item }: { item: FileDropzoneItem }) {
   const [broken, setBroken] = useState(false);
   if (!item.preview || broken) return <span className={styles.fileIcon}><TypeIcon name={item.name} /></span>;
-  // eslint-disable-next-line @next/next/no-img-element -- katalog bileşenleri çatıdan bağımsızdır, önizlemeler çoğu zaman nesne adresidir
+  // Bilerek düz <img>: katalog bileşenleri çatıdan bağımsızdır, önizlemeler çoğu zaman nesne adresidir
   return <span className={styles.thumb}><img src={item.preview} alt="" width={40} height={40} decoding="async" onError={() => setBroken(true)} /></span>;
 }
 
@@ -143,7 +143,7 @@ function FileRow({ item, reduce, delay, fresh, canRetry, onRemove, onRetry, remo
     if (status !== "uploading" && status !== "uploaded") return;
     // Her yükleme boş çubukla başlar, yarıda kalan bir yeniden deneme de.
     if (reduce || (status === "uploading" && target === 0)) { progress.jump(target); return; }
-    const controls = animate(progress, target, { ...motionTokens.spring.smooth, onComplete: status === "uploaded" ? () => setFilled(true) : undefined });
+    const controls = animate(progress, target, { ...motionTokens.spring.smooth, ...(status === "uploaded" ? { onComplete: () => setFilled(true) } : {}) });
     return () => controls.stop();
   }, [status, target, progress, reduce]);
   // Etiket sayaç %100 okuyunca döner; yayın son piksel kesrini beklemez.
@@ -155,7 +155,7 @@ function FileRow({ item, reduce, delay, fresh, canRetry, onRemove, onRetry, remo
     transition={reduce ? fade : { height: { ...motionTokens.spring.smooth, delay }, opacity: fade }}>
     {/* Yeni satırlar yükseklikleri açılırken biraz yükselir ve netleşir; alttaki satırlar zıplamaz, yer açar. */}
     <motion.div ref={rowRef} className={`${styles.row} ${failed ? styles.isFailed : ""}`} initial={reduce ? false : { opacity: 0, y: -22, scale: .94, filter: `blur(${motionTokens.blur.soft}px)` }} animate={{ opacity: 1, y: 0, scale: 1, filter: "blur(0px)" }}
-      exit={reduce ? undefined : { scale: .97, filter: `blur(${motionTokens.blur.subtle}px)`, transition: exitFast }}
+      {...(reduce ? {} : { exit: { scale: .97, filter: `blur(${motionTokens.blur.subtle}px)`, transition: exitFast } })}
       transition={reduce ? instant : { y: { ...land, delay }, scale: { ...land, delay }, opacity: { ...enter, delay }, filter: { ...enter, delay } }}>
       <Thumb item={item} />
       <span className={styles.copy}>

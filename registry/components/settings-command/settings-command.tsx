@@ -23,21 +23,21 @@ export type SettingControl =
   | { kind: "switch" }
   | { kind: "segment"; options: { value: string; label: string }[] }
   | { kind: "select"; options: { value: string; label: string }[] }
-  | { kind: "text"; prefix?: string; placeholder?: string };
+  | { kind: "text"; prefix?: string | undefined; placeholder?: string | undefined };
 
-export interface SettingsCommandSection { id: string; label: string; description?: string; icon?: ReactNode }
+export interface SettingsCommandSection { id: string; label: string; description?: string | undefined; icon?: ReactNode | undefined }
 
 export interface SettingsCommandItem {
   id: string;
   /** `sections` içindeki bir bölüm kimliği. */
   section: string;
   title: string;
-  description?: string;
+  description?: string | undefined;
   /** İnsanların gerçekte yazdığı ek sözler ("2fa", "karanlık mod"); palet bunlarla da bulur. */
-  keywords?: string[];
+  keywords?: string[] | undefined;
   control: SettingControl;
   /** Hata metni döndürürse satırda gösterilir ve Kaydet engellenir. */
-  validate?: (value: SettingValue) => string | undefined;
+  validate?: ((value: SettingValue) => string | undefined) | undefined;
 }
 
 export interface SettingsCommandProps {
@@ -48,10 +48,10 @@ export interface SettingsCommandProps {
   /** Yalnız değişenlerin kimlik ve değerleri gelir. Reddedilirse çubuk "Yeniden dene" gösterir ve değişiklikler korunur. */
   onSave: (changes: Record<string, SettingValue>) => void | Promise<void>;
   /** Yazmadan önce paletin önerdiği ayarlar. */
-  suggestedIds?: string[];
-  loading?: boolean;
-  title?: string;
-  className?: string;
+  suggestedIds?: string[] | undefined;
+  loading?: boolean | undefined;
+  title?: string | undefined;
+  className?: string | undefined;
 }
 
 const spring = motionTokens.spring.smooth;
@@ -75,7 +75,7 @@ export function SettingsCommand({ sections, items, values, onSave, suggestedIds 
 
   // Dışarıdan gelen kaydedilmiş değerler değişirse, kullanıcının dokunmadığı alanlar yeni değere uyar.
   useEffect(() => {
-    setDraft(current => Object.fromEntries(Object.keys(values).map(id => [id, current[id] !== saved[id] ? current[id] : values[id]])));
+    setDraft(current => Object.fromEntries(Object.entries(values).map(([id, value]) => [id, current[id] !== saved[id] ? current[id] ?? value : value])));
     setSaved(values);
   }, [values]); // eslint-disable-line react-hooks/exhaustive-deps
 
@@ -83,8 +83,9 @@ export function SettingsCommand({ sections, items, values, onSave, suggestedIds 
   const errors = useMemo(() => {
     const result: Record<string, string> = {};
     for (const item of items) {
-      if (!item.validate || draft[item.id] === saved[item.id]) continue;
-      const message = item.validate(draft[item.id]);
+      const value = draft[item.id];
+      if (!item.validate || value === undefined || value === saved[item.id]) continue;
+      const message = item.validate(value);
       if (message) result[item.id] = message;
     }
     return result;
@@ -177,7 +178,7 @@ export function SettingsCommand({ sections, items, values, onSave, suggestedIds 
     const firstInvalid = items.find(item => errors[item.id]);
     if (firstInvalid) { setStatus("error"); jumpTo(firstInvalid.id, false); setNote(`${firstInvalid.title}: ${errors[firstInvalid.id]}`); return; }
     setStatus("saving");
-    const changes = Object.fromEntries(changedIds.map(id => [id, draft[id]]));
+    const changes = Object.fromEntries(changedIds.flatMap(id => { const value = draft[id]; return value === undefined ? [] : [[id, value] as const]; }));
     try {
       await onSave(changes);
       setSaved(current => ({ ...current, ...changes }));

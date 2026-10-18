@@ -15,12 +15,12 @@ export interface ExpandingSearchItem {
   id: string;
   title: string;
   /** Başlığın altında kısa bir satır: tür, sahip ya da son düzenleme gibi. */
-  meta?: string;
+  meta?: string | undefined;
   /** Sonuçlar bu başlık altında toplanır; gruplar `items` içinde ilk göründükleri sırayla dizilir. */
-  group?: string;
-  icon?: ReactNode;
+  group?: string | undefined;
+  icon?: ReactNode | undefined;
   /** Bu öğeyi bulması gereken ek sözcükler. */
-  keywords?: string[];
+  keywords?: string[] | undefined;
 }
 
 /**
@@ -33,19 +33,19 @@ export interface ExpandingSearchProps {
   label: string;
   items: ExpandingSearchItem[];
   /** Henüz bir şey yazılmadan gösterilir; örneğin son aramalar. */
-  suggestions?: ExpandingSearchItem[];
-  suggestionsLabel?: string;
-  placeholder?: string;
-  onSelect?: (item: ExpandingSearchItem) => void;
-  onExpandedChange?: (expanded: boolean) => void;
+  suggestions?: ExpandingSearchItem[] | undefined;
+  suggestionsLabel?: string | undefined;
+  placeholder?: string | undefined;
+  onSelect?: ((item: ExpandingSearchItem) => void) | undefined;
+  onExpandedChange?: ((expanded: boolean) => void) | undefined;
   /** Alanın büyüyeceği en geniş değer. Kabının ötesine hiç geçmez. */
-  expandedWidth?: number;
-  maxResults?: number;
+  expandedWidth?: number | undefined;
+  maxResults?: number | undefined;
   /** Düğmenin durduğu kenar; alan ondan uzağa doğru büyür. */
-  anchor?: "start" | "end";
+  anchor?: "start" | "end" | undefined;
   /** Boş durumun altında kısa bir ipucu. */
-  emptyHint?: string;
-  className?: string;
+  emptyHint?: string | undefined;
+  className?: string | undefined;
 }
 
 type Group = SearchGroup<ExpandingSearchItem>;

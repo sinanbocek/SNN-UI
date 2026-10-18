@@ -9,7 +9,7 @@ import styles from "./text-morph.module.css";
  * genişlik yay ile izler, böylece çevre yerleşim sıçramak yerine süzülür. Birkaç harfi değişen durum sözcükleri için kullanın,
  * örneğin Yayınla, Yayınlanıyor, Yayınlandı ya da Takip et, Takiptesin. Tek satırda kalır; yardımcı teknolojiler düz metni okur.
  */
-export interface TextMorphProps { children: string; as?: "span" | "div" | "p" | "strong" | "h1" | "h2" | "h3"; className?: string; id?: string }
+export interface TextMorphProps { children: string; as?: "span" | "div" | "p" | "strong" | "h1" | "h2" | "h3" | undefined; className?: string | undefined; id?: string | undefined }
 
 const enter = [...motionTokens.ease.enter] as [number, number, number, number];
 const standard = [...motionTokens.ease.standard] as [number, number, number, number];

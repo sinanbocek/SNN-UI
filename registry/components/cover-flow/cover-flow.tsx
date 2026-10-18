@@ -11,27 +11,27 @@ import styles from "./cover-flow.module.css";
 export interface CoverItem {
   id: string;
   title: string;
-  subtitle?: string;
+  subtitle?: string | undefined;
   /** Üst bilgi (kategori, tarih gibi). */
-  kicker?: string;
+  kicker?: string | undefined;
   /** Görselin anlamlı açıklaması. */
   alt: string;
   /** Verilmezse kendi yer tutucusu çizilir. */
-  src?: string;
+  src?: string | undefined;
   /** Fotoğrafın odak noktası (CSS object-position), örneğin "20% center". */
-  position?: string;
-  tone?: number;
+  position?: string | undefined;
+  tone?: number | undefined;
 }
 
 /** Altı ila on iki görsellik kısa bir koleksiyonu (albüm, yer, derleme) tek tek gezdirmek için kullanın: öndeki kart öne çıkar, diğerleri iki yanda geri çekilir; görseller çerçevesinin içinde hafifçe kayar. Fare ya da parmakla sürüklenir ve fırlatılır; altta seçili kartın açıklaması değişir. Büyük kitaplık için `photo-grid` ya da `lightbox-gallery`. */
 export interface CoverFlowProps {
   label: string;
   items: CoverItem[];
-  defaultIndex?: number;
+  defaultIndex?: number | undefined;
   /** Açıklama alanına uygulamanın kendi içeriğini (sayılar, düğme) ekler. */
-  renderDetail?: (item: CoverItem, index: number) => ReactNode;
+  renderDetail?: ((item: CoverItem, index: number) => ReactNode) | undefined;
   /** Öndeki kart değişince çağrılır. */
-  onChange?: (item: CoverItem, index: number) => void;
+  onChange?: ((item: CoverItem, index: number) => void) | undefined;
 }
 
 function Slide({ item, index, count, position, active, reduced, onPick, reach }: { item: CoverItem; index: number; count: number; position: MotionValue<number>; active: boolean; reduced: boolean; onPick: () => void; reach: number }) {

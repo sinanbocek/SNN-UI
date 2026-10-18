@@ -5,15 +5,15 @@ import { LayoutGroup, motion, useReducedMotion } from "motion/react";
 import { motionTokens } from "../lib/motion-tokens";
 import styles from "./segmented-control.module.css";
 
-export interface Segment { value: string; label: string; /** Etiketten sonra gelen isteğe bağlı içerik, örneğin bir rozet. */ accessory?: ReactNode; }
+export interface Segment { value: string; label: string; /** Etiketten sonra gelen isteğe bağlı içerik, örneğin bir rozet. */ accessory?: ReactNode | undefined; }
 export interface SegmentedControlProps {
   options: Segment[];
   value: string;
   onValueChange: (value: string) => void;
-  label?: string;
+  label?: string | undefined;
   /** İmleç ya da odak bir seçeneğe geldiğinde, seçilmeden önce çağrılır. O seçeneğin göstereceği şeyi yüklemeye başlamak için kullan. */
-  onOptionIntent?: (value: string) => void;
-  className?: string;
+  onOptionIntent?: ((value: string) => void) | undefined;
+  className?: string | undefined;
 }
 
 export default function SegmentedControl({ options, value, onValueChange, label, onOptionIntent, className }: SegmentedControlProps) {

@@ -5,7 +5,7 @@ import { AnimatePresence, motion, useReducedMotion } from "motion/react";
 import { motionTokens } from "../lib/motion-tokens";
 import { avatarInitials } from "./avatar-initials";
 import styles from "./avatar.module.css";
-export interface AvatarProps extends HTMLAttributes<HTMLSpanElement> { name: string; src?: string; size?: "sm" | "md" | "lg" | "xl"; status?: "online" | "offline" }
+export interface AvatarProps extends HTMLAttributes<HTMLSpanElement> { name: string; src?: string | undefined; size?: "sm" | "md" | "lg" | "xl" | undefined; status?: "online" | "offline" | undefined }
 const statusLabel = { online: "çevrimiçi", offline: "çevrimdışı" } as const;
 export function Avatar({ name, src, size = "md", status, className, ...props }: AvatarProps) {
   const initials = avatarInitials(name);

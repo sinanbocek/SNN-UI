@@ -15,11 +15,11 @@ export interface LineChartSeries {
   /** Gösterge, ipucu ve veri tablosundaki ad. */
   label: string;
   /** Herhangi bir CSS rengi. Varsayılan: ilk seri için vurgu rengi, sonrakiler için daha sakin nötr basamaklar. */
-  color?: string;
+  color?: string | undefined;
   /** Kesikli çizgi çizer; önceki dönem ya da hedef için uygundur. */
-  dashed?: boolean;
+  dashed?: boolean | undefined;
   /** Çizginin altını rengin soluk tonuyla doldurur. İlk seride varsayılan açıktır. */
-  area?: boolean;
+  area?: boolean | undefined;
 }
 
 export interface LineChartDatum {
@@ -28,7 +28,7 @@ export interface LineChartDatum {
   /** İpucu ve ekran okuyucular için tam etiket, örneğin "15 Eylül Salı". */
   label: string;
   /** x eksenindeki kısa etiket, örneğin "15 Eyl". O noktada eksen sessiz kalsın diye boş bırakılabilir. */
-  axisLabel?: string;
+  axisLabel?: string | undefined;
   /** Seri anahtarı başına bir değer. Eksik değer sıfır sayılır. */
   values: Record<string, number | undefined>;
 }
@@ -40,33 +40,33 @@ export interface LineChartProps {
   /** Neyin ölçüldüğü, örneğin "Kayıtlar". Grafiği yardımcı teknolojiye adlandırır. */
   label: string;
   /** İpucundaki her değerin ardından gelen birim, örneğin "ms". */
-  unit?: string;
+  unit?: string | undefined;
   /** Çizim alanı yüksekliği (piksel). Genişlik kabı izler. */
-  height?: number;
+  height?: number | undefined;
   /** İpucu ve veri tablosundaki değerleri biçimler. Varsayılan: ABACUS biçimi ("1.234,5"). */
-  formatValue?: (value: number, series: LineChartSeries) => string;
+  formatValue?: ((value: number, series: LineChartSeries) => string) | undefined;
   /** Değer eksenini biçimler. Varsayılan kısaltılmış sayı ("1,2B", "1,25Mn"); dar aralıkta etiketler ayrışacak kadar ondalık alır ("49,45"). */
-  formatTick?: (value: number) => string;
+  formatTick?: ((value: number) => string) | undefined;
   /** Değer ekseninin alt ucu. "zero" (varsayılan) sıfırdan başlar: toplam ve adet için. "auto" verinin aralığına oturur: kur, fiyat ve endeks için. */
-  baseline?: LineChartBaseline;
+  baseline?: LineChartBaseline | undefined;
   /** Denetimli gizli seri anahtarları. */
-  hiddenSeries?: string[];
-  defaultHiddenSeries?: string[];
-  onHiddenSeriesChange?: (hidden: string[]) => void;
+  hiddenSeries?: string[] | undefined;
+  defaultHiddenSeries?: string[] | undefined;
+  onHiddenSeriesChange?: ((hidden: string[]) => void) | undefined;
   /** Artı imleç oynadıkça, çıkınca null ile çağrılır. Başlıktaki okumayı sürmek için kullanın. */
-  onActiveChange?: (index: number | null, datum: LineChartDatum | null) => void;
+  onActiveChange?: ((index: number | null, datum: LineChartDatum | null) => void) | undefined;
   /** Sonraki aralık yüklenirken mevcut çizgileri soluk olarak ekranda tutar. */
-  loading?: boolean;
+  loading?: boolean | undefined;
   /** Hiç nokta yokken gösterilir. */
-  emptyLabel?: string;
+  emptyLabel?: string | undefined;
   /** Çizim alanının üstündeki seri anahtarları. Birden çok seri varsa varsayılan olarak görünür. */
-  legend?: boolean;
+  legend?: boolean | undefined;
   /** Ekran okuyucuların okuduğu veri tablosunun ilk sütun başlığı. */
-  categoryLabel?: string;
+  categoryLabel?: string | undefined;
   /** Veriyi aşmayan yumuşak tekdüze eğriler ya da düz doğru parçaları. */
-  curve?: "smooth" | "linear";
-  ref?: Ref<HTMLElement>;
-  className?: string;
+  curve?: "smooth" | "linear" | undefined;
+  ref?: Ref<HTMLElement> | undefined;
+  className?: string | undefined;
 }
 
 type Point = [x: number, value: number];

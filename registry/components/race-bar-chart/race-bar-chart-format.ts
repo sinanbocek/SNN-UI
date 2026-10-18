@@ -1,7 +1,7 @@
 // Sıralama yarışının saf mantığı: ara değer, sıralama, eksen ölçeği ve yazımlar. Sayılar ABACUS'tandır (chart-format).
 import { formatCompact, formatMoney, formatMoneyCompact, formatNumber } from "../lib/chart-format";
 
-export interface RaceItem { key: string; label: string; /** Aynı gruptaki çubuklar aynı renkte; en çok dört grup renk alır. */ group?: string; /** Her dönemdeki değer (dönem sırasıyla); eksik değer sıfır sayılır. */ values: number[] }
+export interface RaceItem { key: string; label: string; /** Aynı gruptaki çubuklar aynı renkte; en çok dört grup renk alır. */ group?: string | undefined; /** Her dönemdeki değer (dönem sırasıyla); eksik değer sıfır sayılır. */ values: number[] }
 export interface RacePeriod { key: string; label: string }
 export type RaceKind = "count" | "money";
 

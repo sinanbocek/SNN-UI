@@ -15,26 +15,26 @@ export interface LoginSplitProps {
   /** Giriş denemesini yapar; reddederse form üstünde "E-posta ya da parola hatalı." çıkar. Gerçek kimlik doğrulamayı uygulama bağlar. */
   onSubmit: (values: LoginValues) => Promise<unknown>;
   /** "Parolamı unuttum"a basınca girilmiş e-postayla çağrılır; sayfa değişmez. */
-  onForgot?: (email: string) => void;
+  onForgot?: ((email: string) => void) | undefined;
   /** Sağlayıcı düğmesine basınca sağlayıcının kimliğiyle çağrılır. */
-  onProvider?: (id: string) => void;
+  onProvider?: ((id: string) => void) | undefined;
   /** "Kayıt ol" bağlantısına basınca çağrılır. */
-  onSignUp?: () => void;
+  onSignUp?: (() => void) | undefined;
   /** Form üstündeki marka işareti ve adı. `mark` küçük bir simge ya da logo olabilir. */
-  brand?: { name: string; mark?: React.ReactNode };
-  title?: string;
-  subtitle?: string;
+  brand?: { name: string; mark?: React.ReactNode | undefined } | undefined;
+  title?: string | undefined;
+  subtitle?: string | undefined;
   /** Görsel bölmenin fotoğrafı; verilmezse ya da yüklenemezse vurgu renginden türetilmiş yüzey çizilir. */
-  media?: { src: string; alt?: string };
+  media?: { src: string; alt?: string | undefined } | undefined;
   /** Görsel bölmedeki alıntı ve sahibi. Dar kapta gizlenir. */
-  quote?: { text: string; name: string; role?: string; avatar?: string };
+  quote?: { text: string; name: string; role?: string | undefined; avatar?: string | undefined } | undefined;
   /** Görsel bölmenin üstündeki küçük rozet. */
-  badge?: string;
-  mediaSide?: "left" | "right";
-  providers?: LoginProvider[];
-  showRemember?: boolean;
+  badge?: string | undefined;
+  mediaSide?: "left" | "right" | undefined;
+  providers?: LoginProvider[] | undefined;
+  showRemember?: boolean | undefined;
   /** Bölümün en az yüksekliği; varsayılan ekran yüksekliğidir. */
-  minHeight?: string;
+  minHeight?: string | undefined;
 }
 
 /** Ürün girişi için iki bölmeli ekran kullanın: bir yanda sade form, öbür yanda güven veren fotoğraf ve alıntı. Dar kapta (768 px altı) fotoğraf ince bir şeride iner. Ortada tek kart için `login-centered`, tam ekran fotoğraf üstünde kart için `login-immersive`. Bileşen yalnız görünüm ve olay çağrılarıdır; kimlik doğrulamayı uygulama yapar. */

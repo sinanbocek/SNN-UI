@@ -9,23 +9,23 @@ import { computeTotals, fieldText, groupedInput, majorOf, minorText, parseField,
 import styles from "./invoice-studio.module.css";
 
 export type { InvoiceItem };
-export interface InvoiceParty { name: string; lines?: string[] }
+export interface InvoiceParty { name: string; lines?: string[] | undefined }
 export interface InvoiceDraft { kind: "invoice" | "quote"; items: InvoiceItem[]; vatRate: number; note: string }
 
 /** Kalemli bir fatura ya da teklif taslağını ekranda düzenletmek için kullanın (kalem ekle ve sil, adet ve birim fiyat değiştikçe ara toplam, KDV ve genel toplam anında hesaplanır). Yalnız taslağı düzenler; resmî e-fatura ya da e-arşiv üretimi ve gönderimi kapsam dışıdır, toplam gerçek belgede sunucuda yeniden hesaplanmalıdır. */
 export interface InvoiceStudioProps {
-  kind?: "invoice" | "quote";
+  kind?: "invoice" | "quote" | undefined;
   sender: InvoiceParty;
   recipient: InvoiceParty;
   /** Başlangıç kalemleri; sonra bileşen tutar. */
-  defaultItems?: InvoiceItem[];
+  defaultItems?: InvoiceItem[] | undefined;
   /** KDV oranı (yüzde); proje ayarından gelir. */
-  vatRate?: number;
-  defaultNote?: string;
+  vatRate?: number | undefined;
+  defaultNote?: string | undefined;
   /** Taslağı kaydeder; reddederse (Promise) "Kaydedilemedi" yazılır ve yeniden denenebilir. */
   onSave: (draft: InvoiceDraft) => Promise<void>;
   /** Her değişiklikte çağrılır (taslağı dışarıda izlemek için). */
-  onChange?: (draft: InvoiceDraft) => void;
+  onChange?: ((draft: InvoiceDraft) => void) | undefined;
 }
 
 interface Row { id: string; description: string; quantityText: string; priceText: string }

@@ -19,8 +19,8 @@ import { StageIcon, stageKind, type StageKind } from "../lib/stage-icon";
 import styles from "./project-board.module.css";
 
 /** Aşama. `kind` başlık simgesini seçer (planlandı, sürüyor, kontrolde, bitti); verilmezse kimlik, ad ya da sıradan çıkarılır. */
-export interface BoardStage { id: string; label: string; kind?: StageKind }
-export interface BoardPerson { id: string; name: string; src?: string }
+export interface BoardStage { id: string; label: string; kind?: StageKind | undefined }
+export interface BoardPerson { id: string; name: string; src?: string | undefined }
 
 export interface BoardTask {
   id: string;
@@ -28,30 +28,30 @@ export interface BoardTask {
   /** `stages` içindeki bir aşama kimliği. */
   stage: string;
   /** İş grubu etiketi ("Teklif", "Saha"). */
-  tag?: string;
+  tag?: string | undefined;
   /** Bitiş günü, hazır metin ("Per", "24 Ekim"; proje ABACUS `date` ile üretir). */
-  due?: string;
+  due?: string | undefined;
   /** Bitiş bugünse true: gün yazısının yanında "Bugün" rozeti de çıkar (renge ek olarak yazı). */
-  dueToday?: boolean;
-  assigneeId?: string;
-  comments?: number;
+  dueToday?: boolean | undefined;
+  assigneeId?: string | undefined;
+  comments?: number | undefined;
 }
 
 export interface ProjectBoardProps {
   /** Pano adı. */
   name: string;
   tasks: BoardTask[];
-  people?: BoardPerson[];
+  people?: BoardPerson[] | undefined;
   /** "Benim işlerim" süzgeci ve yeni görevin atanacağı kişi. */
-  currentUserId?: string;
+  currentUserId?: string | undefined;
   /** Aşamalar soldan sağa. Verilmezse Planlandı, Sürüyor, Kontrolde, Bitti. Son aşama "bitti" sayılır. */
-  stages?: BoardStage[];
+  stages?: BoardStage[] | undefined;
   /** Görev komşu aşamaya taşındı. Reddedilirse kart eski sütuna döner ve sütun altında "Taşınamadı." ile "Yeniden dene" çıkar. */
   onMove: (taskId: string, stageId: string) => void | Promise<void>;
   /** Yeni görev (ilk aşamanın başına eklenir). */
   onAdd: (title: string) => void | Promise<void>;
-  loading?: boolean;
-  className?: string;
+  loading?: boolean | undefined;
+  className?: string | undefined;
 }
 
 export const defaultStages: BoardStage[] = [
@@ -118,9 +118,10 @@ export function ProjectBoard({ name, tasks, people = [], currentUserId, stages =
   async function add(event: FormEvent) {
     event.preventDefault();
     const title = draft.trim();
-    if (!title || !stages[0]) return;
+    const firstStage = stages[0];
+    if (!title || !firstStage) return;
     const id = `tmp-${(tempId.current += 1)}`;
-    setItems(current => [{ id, title, stage: stages[0].id, assigneeId: currentUserId }, ...current]);
+    setItems(current => [{ id, title, stage: firstStage.id, assigneeId: currentUserId }, ...current]);
     setDraft("");
     setAdding(false);
     setNote(`${title} görevi eklendi`);
@@ -192,7 +193,7 @@ export function ProjectBoard({ name, tasks, people = [], currentUserId, stages =
                         {column.map(task => {
                           const person = personOf(task.assigneeId);
                           return (
-                            <motion.li key={task.id} layoutId={reduced ? undefined : `${uid}-${task.id}`} className={styles.card} data-task={task.id} data-stage={task.stage} tabIndex={-1} {...cardMotion}>
+                            <motion.li key={task.id} {...(reduced ? {} : { layoutId: `${uid}-${task.id}` })} className={styles.card} data-task={task.id} data-stage={task.stage} tabIndex={-1} {...cardMotion}>
                               <div className={styles.cardTop}>
                                 {task.tag ? <Badge size="sm">{task.tag}</Badge> : <span />}
                                 {task.due && <span className={styles.due}>{task.dueToday && <Badge size="sm" tone="info">Bugün</Badge>}<span>{task.due}</span></span>}
@@ -204,8 +205,8 @@ export function ProjectBoard({ name, tasks, people = [], currentUserId, stages =
                                   {task.comments ? <span className={styles.comments}><MessageSquare size={14} strokeWidth={1.75} aria-hidden="true" />{String(task.comments)}<span className={styles.srOnly}> yorum</span></span> : null}
                                 </span>
                                 <span className={styles.moves}>
-                                  <Button variant="ghost" size="sm" data-dir="prev" disabled={stageIndex === 0} aria-label={`${task.title} görevini ${stages[stageIndex - 1] ? stageLabel(stages[stageIndex - 1].id) : ""} aşamasına taşı`} onClick={() => void move(task, "prev")}><ChevronLeft size={16} strokeWidth={1.75} aria-hidden="true" /></Button>
-                                  <Button variant="ghost" size="sm" data-dir="next" disabled={stageIndex === stages.length - 1} aria-label={`${task.title} görevini ${stages[stageIndex + 1] ? stageLabel(stages[stageIndex + 1].id) : ""} aşamasına taşı`} onClick={() => void move(task, "next")}><ChevronRight size={16} strokeWidth={1.75} aria-hidden="true" /></Button>
+                                  <Button variant="ghost" size="sm" data-dir="prev" disabled={stageIndex === 0} aria-label={`${task.title} görevini ${stageLabel(stages[stageIndex - 1]?.id ?? "")} aşamasına taşı`} onClick={() => void move(task, "prev")}><ChevronLeft size={16} strokeWidth={1.75} aria-hidden="true" /></Button>
+                                  <Button variant="ghost" size="sm" data-dir="next" disabled={stageIndex === stages.length - 1} aria-label={`${task.title} görevini ${stageLabel(stages[stageIndex + 1]?.id ?? "")} aşamasına taşı`} onClick={() => void move(task, "next")}><ChevronRight size={16} strokeWidth={1.75} aria-hidden="true" /></Button>
                                 </span>
                               </div>
                             </motion.li>

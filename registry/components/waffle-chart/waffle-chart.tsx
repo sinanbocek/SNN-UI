@@ -1,7 +1,7 @@
 "use client";
 
 import { useEffect, useImperativeHandle, useLayoutEffect, useMemo, useRef, useState, useSyncExternalStore, type CSSProperties, type KeyboardEvent, type PointerEvent, type Ref } from "react";
-import { animate, motion, useInView, useMotionValue, useReducedMotion, useSpring, useTransform } from "motion/react";
+import { animate, motion, type MotionStyle, useInView, useMotionValue, useReducedMotion, useSpring, useTransform } from "motion/react";
 import { formatNumber, formatPercent } from "../lib/chart-format";
 import { motionTokens } from "../lib/motion-tokens";
 import styles from "./waffle-chart.module.css";
@@ -14,7 +14,7 @@ export interface WaffleCategory {
   /** Ham miktar. Paylar toplamdan hesaplanır; eksi değerler sıfır sayılır. */
   value: number;
   /** Herhangi bir CSS rengi. Varsayılan: accentKey için ilk seri, sonraki üçü için destek serileri, sonra nötr basamaklar. */
-  color?: string;
+  color?: string | undefined;
 }
 
 /** Birim grafiği: her hücre bütünün bir payıdır; toplamın parçaları sayılabilir kareler olarak okunur. */
@@ -24,25 +24,25 @@ export interface WaffleChartProps {
   /** Bütünün ne olduğu, örneğin "Elektrik üretimi, 2023". Grafiği yardımcı teknolojiye adlandırır. */
   label: string;
   /** İpucundaki ve tablodaki her ham değerin ardından gelen birim, örneğin "TWh". */
-  unit?: string;
+  unit?: string | undefined;
   /** Ham değeri biçimler. Varsayılan: ABACUS biçimi ("1.234,5"). */
-  formatValue?: (value: number, category: WaffleCategory) => string;
+  formatValue?: ((value: number, category: WaffleCategory) => string) | undefined;
   /** Izgara satırları. satır × sütun hücre bütünü oluşturur; 10 × 10, yüzde başına bir hücre demektir. */
-  rows?: number;
-  columns?: number;
+  rows?: number | undefined;
+  columns?: number | undefined;
   /** Vurgu renginde boyanan kategori. Her kategoriyi nötr tutmak için null verin. Varsayılan: ilk kategori. */
-  accentKey?: string | null;
+  accentKey?: string | null | undefined;
   /** Denetimli odaktaki kategori. Biri odaktayken diğerleri solar. */
-  activeKey?: string | null;
-  defaultActiveKey?: string | null;
-  onActiveChange?: (key: string | null) => void;
+  activeKey?: string | null | undefined;
+  defaultActiveKey?: string | null | undefined;
+  onActiveChange?: ((key: string | null) => void) | undefined;
   /** Payları yeni değerine dönen kategori listesi. */
-  legend?: boolean;
+  legend?: boolean | undefined;
   /** Payların ondalık basamak sayısı. */
-  decimals?: number;
-  emptyLabel?: string;
-  ref?: Ref<HTMLElement>;
-  className?: string;
+  decimals?: number | undefined;
+  emptyLabel?: string | undefined;
+  ref?: Ref<HTMLElement> | undefined;
+  className?: string | undefined;
 }
 
 type Cell = { id: number; key: string | null; slot: number };
@@ -259,7 +259,7 @@ export function WaffleChart({ data, label, unit = "", formatValue, rows = 10, co
           const dip = travel ? [1, .62 + (version % 2) * .001, 1] : 1;
           return <motion.span key={cell.id} className={styles.cell} aria-hidden="true"
             data-on={on || undefined} data-cursor={pointer?.slot === cell.slot || undefined} data-empty={cell.key === null || undefined} data-shape={shapeOf(cell.key)}
-            style={{ width: size, height: size, "--cell": colorOf(cell.key), "--delay": `${delay}s` } as CSSProperties}
+            style={{ width: size, height: size, "--cell": colorOf(cell.key), "--delay": `${delay}s` } as MotionStyle}
             initial={reduced ? false : { x, y, scale: .4, opacity: 0 }}
             animate={shown ? { x, y, scale: dip, opacity: cell.key === null ? 0 : 1 } : { x, y, scale: .4, opacity: 0 }}
             transition={reduced ? { duration: 0 } : {

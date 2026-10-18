@@ -7,14 +7,14 @@ export interface VarianceDepartment {
   key: string;
   name: string;
   /** Sorumlu kişinin adı (avatar için). */
-  owner?: string;
+  owner?: string | undefined;
   /** Kalemler verilirse bütçe ve gerçekleşen kalemlerden toplanır; verilmezse aşağıdaki değerler kullanılır. */
-  items?: VarianceItem[];
-  budget?: number;
-  actual?: number;
+  items?: VarianceItem[] | undefined;
+  budget?: number | undefined;
+  actual?: number | undefined;
 }
 
-export interface Resolved { key: string; name: string; owner?: string; budget: number; actual: number; items: VarianceItem[] }
+export interface Resolved { key: string; name: string; owner?: string | undefined; budget: number; actual: number; items: VarianceItem[] }
 
 /** Bölümü kalemlerinden toplayarak çözer: toplamlar kalemlerle tutarlı olmak zorundadır. */
 export function resolveDepartment(department: VarianceDepartment): Resolved {

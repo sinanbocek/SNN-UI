@@ -8,9 +8,9 @@ import { counterParts } from "./counter-parts";
 import styles from "./animated-counter.module.css";
 
 export interface AnimatedCounterProps {
-  value: number; label?: string; prefix?: string; suffix?: string; decimals?: number;
+  value: number; label?: string | undefined; prefix?: string | undefined; suffix?: string | undefined; decimals?: number | undefined;
   /** Sayaç ilk kez görünüme girdiğinde her rakam sıfırdan yukarı döner. */
-  animateOnView?: boolean;
+  animateOnView?: boolean | undefined;
 }
 
 const DIGITS = [0, 1, 2, 3, 4, 5, 6, 7, 8, 9];

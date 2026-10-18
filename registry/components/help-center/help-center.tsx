@@ -13,52 +13,52 @@ import { Skeleton } from "../skeleton/skeleton";
 import { Textarea } from "../textarea/textarea";
 import styles from "./help-center.module.css";
 
-export interface HelpTopic { id: string; title: string; description: string; /** Süstür; kart adıyla okunur, simge okunmaz. */ icon?: ReactNode }
+export interface HelpTopic { id: string; title: string; description: string; /** Süstür; kart adıyla okunur, simge okunmaz. */ icon?: ReactNode | undefined }
 
 export interface HelpSection {
   id: string;
   heading: string;
-  paragraphs?: string[];
+  paragraphs?: string[] | undefined;
   /** Numaralı adım listesi. */
-  steps?: string[];
+  steps?: string[] | undefined;
   /** Zengin içerik (görsel, bağlantı). Aramaya girmez; aranacak metin `paragraphs` ve `steps` içindedir. */
-  content?: ReactNode;
+  content?: ReactNode | undefined;
 }
 
 export interface HelpArticle {
   id: string;
   topicId: string;
   title: string;
-  summary?: string;
+  summary?: string | undefined;
   /** Güncellenme tarihi, hazır metin (proje ABACUS `date.format` ile üretir). */
-  updatedAt?: string;
-  readMinutes?: number;
+  updatedAt?: string | undefined;
+  readMinutes?: number | undefined;
   sections: HelpSection[];
   /** İlgili makalelerin `id`'leri. */
-  related?: string[];
+  related?: string[] | undefined;
   /** "En çok okunanlar" listesine girer. */
-  popular?: boolean;
+  popular?: boolean | undefined;
 }
 
 export interface HelpCenterProps {
   topics: HelpTopic[];
   articles: HelpArticle[];
-  brandName?: string;
+  brandName?: string | undefined;
   /** Arama kutusunun altındaki hızlı arama kelimeleri ("Örneğin:"). */
-  quickSearches?: string[];
+  quickSearches?: string[] | undefined;
   /** Açılışta gösterilecek makale (derin bağlantı). Bulunamazsa "Bu makale bulunamadı" çıkar. */
-  defaultArticleId?: string;
+  defaultArticleId?: string | undefined;
   /** Görünüm değişince haber verir (adres çubuğunu güncellemek için). */
-  onNavigate?: (state: { topicId: string | null; articleId: string | null }) => void;
+  onNavigate?: ((state: { topicId: string | null; articleId: string | null }) => void) | undefined;
   /** "Destekle iletişime geç". Reddedilirse hata yazılır. */
-  onContact?: () => void | Promise<void>;
+  onContact?: (() => void | Promise<void>) | undefined;
   /** "Bu makale işinize yaradı mı?" yanıtı. */
-  onFeedback?: (articleId: string, helpful: boolean, comment?: string) => void | Promise<void>;
-  loading?: boolean;
+  onFeedback?: ((articleId: string, helpful: boolean, comment?: string) => void | Promise<void>) | undefined;
+  loading?: boolean | undefined;
   /** İçerik yüklenemediyse true; iletişim kartı yine görünür. */
-  error?: boolean;
-  onRetry?: () => void;
-  className?: string;
+  error?: boolean | undefined;
+  onRetry?: (() => void) | undefined;
+  className?: string | undefined;
 }
 
 /** Eşleşen kelimeleri `<mark>` ile sarar. Harf katlaması karakter karakter yapılır; vurgu özgün metnin doğru yerine düşer. Vurgu kalın ve alt çizgilidir, yalnız renk değildir. */
@@ -93,7 +93,7 @@ const plain = (article: HelpArticle) => [article.title, article.summary, ...arti
 
 /** Büyük ya da dar arama kutusu. Birleşik kutudur: ok tuşlarında odak kutuda kalır, etkin sonuç bildirilir. Sonuçlar kutunun altında liste olarak açılır. */
 function HelpSearch({ articles, topics, compact, quickSearches, onOpen, announce }: {
-  articles: HelpArticle[]; topics: HelpTopic[]; compact?: boolean; quickSearches?: string[]; onOpen: (article: HelpArticle) => void; announce: (message: string) => void;
+  articles: HelpArticle[]; topics: HelpTopic[]; compact?: boolean | undefined; quickSearches?: string[] | undefined; onOpen: (article: HelpArticle) => void; announce: (message: string) => void;
 }) {
   const uid = useId();
   const reduced = useReducedMotion();
@@ -174,7 +174,7 @@ function HelpSearch({ articles, topics, compact, quickSearches, onOpen, announce
 }
 
 /** Evet/Hayır oyu; Hayır'da kısa açıklama kutusu açılır. Sonuç duyurulur. */
-function Feedback({ articleId, onFeedback, announce }: { articleId: string; onFeedback?: HelpCenterProps["onFeedback"]; announce: (message: string) => void }) {
+function Feedback({ articleId, onFeedback, announce }: { articleId: string; onFeedback?: HelpCenterProps["onFeedback"] | undefined; announce: (message: string) => void }) {
   const [phase, setPhase] = useState<"ask" | "comment" | "sending" | "done">("ask");
   const [comment, setComment] = useState("");
   const [failed, setFailed] = useState(false);

@@ -3,7 +3,7 @@ import { useEffect, useId, useLayoutEffect, useRef } from "react";
 import { animate, motion, useReducedMotion } from "motion/react";
 import { motionTokens } from "../lib/motion-tokens";
 import styles from "./radio-group.module.css";
-export interface RadioGroupProps { label: string; options: { value: string; label: string; description?: string }[]; value: string; onValueChange: (value: string) => void; name?: string }
+export interface RadioGroupProps { label: string; options: { value: string; label: string; description?: string | undefined }[]; value: string; onValueChange: (value: string) => void; name?: string | undefined }
 
 /** Vurguyu seçilen satıra göre boyutlandırır. Yeni seçim dönüşüm yayında kayar; ilk boyama ve yeniden boyutlandırmalar anında yerleşir. */
 function place(highlight: HTMLElement | null, row: HTMLElement | null | undefined, at: { current: string }, glide: boolean) {

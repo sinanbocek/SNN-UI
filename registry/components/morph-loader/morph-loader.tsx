@@ -10,16 +10,16 @@ export type MorphLoaderState = "loading" | "success" | "error";
 
 export interface MorphLoaderProps {
   /** Yükleniyor biçimi. Üründe tek biçim seçilir, karıştırılmaz. */
-  variant?: MorphLoaderVariant;
+  variant?: MorphLoaderVariant | undefined;
   /** Durumu uygulama verir. */
-  state?: MorphLoaderState;
+  state?: MorphLoaderState | undefined;
   /** Piksel cinsinden kenar uzunluğu. Yerleşim durum değişince kaymaz. */
-  size?: number;
+  size?: number | undefined;
   /** Görünmez durum metinleri (ekran okuyucu için). */
-  labels?: Partial<Record<MorphLoaderState, string>>;
+  labels?: Partial<Record<MorphLoaderState, string>> | undefined;
   /** true iken işaret ekran okuyucudan tümüyle gizlenir (çevresi durumu zaten söylüyorsa). */
-  decorative?: boolean;
-  className?: string;
+  decorative?: boolean | undefined;
+  className?: string | undefined;
 }
 
 const defaultLabels: Record<MorphLoaderState, string> = { loading: "Yükleniyor", success: "Tamamlandı", error: "Başarısız" };

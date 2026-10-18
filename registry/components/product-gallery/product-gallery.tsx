@@ -17,13 +17,13 @@ export interface ProductGalleryProps {
   colors: GalleryColor[];
   sizes: GallerySize[];
   /** Fotoğraflarda en/boy oranı (varsayılan dikey). */
-  ratio?: string;
+  ratio?: string | undefined;
   /** Büyüteç katı (varsayılan 2,5). */
-  magnification?: number;
-  header?: ReactNode;
-  footer?: ReactNode;
+  magnification?: number | undefined;
+  header?: ReactNode | undefined;
+  footer?: ReactNode | undefined;
   /** Renk ya da beden değişince çağrılır; beden tükendiği için kalktıysa `size` boştur ve `cleared` true olur. */
-  onSelectionChange?: (selection: { color: string; size: string; cleared: boolean }) => void;
+  onSelectionChange?: ((selection: { color: string; size: string; cleared: boolean }) => void) | undefined;
 }
 
 const LENS = 72;

@@ -1,6 +1,6 @@
 "use client";
 
-import { useEffect, useId, useMemo, useState, type ReactNode } from "react";
+import { useEffect, useId, useState, type ReactNode } from "react";
 import { AnimatePresence, motion } from "motion/react";
 import { AnimatedCounter } from "../animated-counter/animated-counter";
 import { Breadcrumb, type BreadcrumbItem } from "../breadcrumb/breadcrumb";
@@ -19,20 +19,20 @@ export interface DetailPromise { title: string; text: string }
 export interface ProductDetailProps {
   name: string;
   trail: BreadcrumbItem[];
-  summary?: string[];
+  summary?: string[] | undefined;
   finishes: Finish[];
   sizes: Size[];
   /** 5'ten 1'e yıldız başına yorum sayısı. */
   reviews: Distribution;
-  promises?: DetailPromise[];
-  sections?: DetailSection[];
-  maxQuantity?: number;
+  promises?: DetailPromise[] | undefined;
+  sections?: DetailSection[] | undefined;
+  maxQuantity?: number | undefined;
   /** Sepete ekler; reddederse düğme "Tekrar dene" der. */
   onAddToCart: (selection: Selection) => Promise<void>;
   /** Tükenen seçim için "Gelince haber ver". */
-  onNotify?: (selection: Selection) => void;
-  onFavoriteChange?: (favorite: boolean) => void;
-  loading?: boolean;
+  onNotify?: ((selection: Selection) => void) | undefined;
+  onFavoriteChange?: ((favorite: boolean) => void) | undefined;
+  loading?: boolean | undefined;
 }
 
 function Gallery({ photos, name, finishKey }: { photos: DetailPhoto[]; name: string; finishKey: string }) {

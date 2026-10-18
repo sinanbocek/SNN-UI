@@ -15,15 +15,15 @@ export interface RevisionDiffProps {
   rows: RevisionRow[];
   /** Gösterilecek alanlar, sırasıyla. İlki (ya da `primaryKey`) satırın başlığıdır. */
   fields: RevisionField[];
-  primaryKey?: string;
-  title?: string;
+  primaryKey?: string | undefined;
+  title?: string | undefined;
   /** Değişen alanlarda eski ve yeni değerin ekran okuyucu adları. */
-  beforeLabel?: string;
-  afterLabel?: string;
+  beforeLabel?: string | undefined;
+  afterLabel?: string | undefined;
   /** Aynı kalan satırlar varsayılan olarak gizlidir; süzgeçte "Aynı" seçilince ya da bu açıkken görünür. */
-  showUnchanged?: boolean;
-  emptyMessage?: string;
-  className?: string;
+  showUnchanged?: boolean | undefined;
+  emptyMessage?: string | undefined;
+  className?: string | undefined;
 }
 
 type Filter = "all" | RevisionStatus;

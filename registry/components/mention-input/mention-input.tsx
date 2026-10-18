@@ -16,16 +16,16 @@ export interface MentionPerson {
   id: string;
   name: string;
   /** Adın altında kısa bir satır, örneğin unvan. */
-  role?: string;
+  role?: string | undefined;
   /** Portre adresi. Yoksa baş harfler görünür. */
-  avatar?: string;
+  avatar?: string | undefined;
 }
 
 export interface MentionChannel {
   id: string;
   name: string;
-  description?: string;
-  members?: number;
+  description?: string | undefined;
+  members?: number | undefined;
 }
 
 /** `text` içindeki bir anma. `start` ve `end` karakter konumudur; aradaki metin `@label` ya da `#label` olur. */
@@ -53,31 +53,31 @@ export interface MentionInputHandle {
 }
 
 export interface MentionInputProps {
-  value?: MentionValue;
-  defaultValue?: MentionValue;
-  onChange?: (value: MentionValue) => void;
+  value?: MentionValue | undefined;
+  defaultValue?: MentionValue | undefined;
+  onChange?: ((value: MentionValue) => void) | undefined;
   /** `@` sonrası önerilen kişiler. Vermezsen kişi anması kapalı olur. */
-  people?: MentionPerson[];
+  people?: MentionPerson[] | undefined;
   /** `#` sonrası önerilen kanallar. Vermezsen kanal anması kapalı olur. */
-  channels?: MentionChannel[];
+  channels?: MentionChannel[] | undefined;
   /** Bir öneri anmaya dönüşünce çağrılır. */
-  onMentionAdd?: (mention: Mention) => void;
+  onMentionAdd?: ((mention: Mention) => void) | undefined;
   /** `submitOnEnter` açıkken Enter gönderir, Shift+Enter yeni satır ekler. */
-  onSubmit?: (value: MentionValue) => void;
-  submitOnEnter?: boolean;
-  placeholder?: string;
-  minRows?: number;
+  onSubmit?: ((value: MentionValue) => void) | undefined;
+  submitOnEnter?: boolean | undefined;
+  placeholder?: string | undefined;
+  minRows?: number | undefined;
   /** Alan bu satır sayısına kadar büyür, sonra kaydırılır. */
-  maxRows?: number;
+  maxRows?: number | undefined;
   /** Önerilerin açıldığı yer. `auto` altta yer yoksa üste çevirir. */
-  placement?: "auto" | "top" | "bottom";
-  maxSuggestions?: number;
-  disabled?: boolean;
-  name?: string;
-  id?: string;
-  "aria-label"?: string;
-  "aria-describedby"?: string;
-  className?: string;
+  placement?: "auto" | "top" | "bottom" | undefined;
+  maxSuggestions?: number | undefined;
+  disabled?: boolean | undefined;
+  name?: string | undefined;
+  id?: string | undefined;
+  "aria-label"?: string | undefined;
+  "aria-describedby"?: string | undefined;
+  className?: string | undefined;
 }
 
 type Suggestion = { kind: "person"; item: MentionPerson } | { kind: "channel"; item: MentionChannel };
@@ -490,7 +490,7 @@ export const MentionInput = forwardRef<MentionInputHandle, MentionInputProps>(fu
             >
               {suggestion.kind === "person"
                 ? <span className={styles.avatar} aria-hidden="true">{suggestion.item.avatar
-                  // eslint-disable-next-line @next/next/no-img-element -- kayıt bileşenleri çerçeveden bağımsız kalır
+                  // Bilerek düz <img>: kayıt bileşenleri çerçeveden bağımsız kalır
                   ? <img src={suggestion.item.avatar} alt="" width={28} height={28} loading="lazy" />
                   : avatarInitials(suggestion.item.name)}</span>
                 : <span className={styles.glyph} aria-hidden="true"><Hash size={16} strokeWidth={1.75} /></span>}

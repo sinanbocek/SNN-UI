@@ -2,33 +2,33 @@
 
 import * as Dialog from "@radix-ui/react-dialog";
 import { useCallback, useEffect, useId, useLayoutEffect, useRef, useState } from "react";
-import type { CSSProperties, HTMLAttributes, ReactNode } from "react";
+import type { HTMLAttributes, ReactNode } from "react";
 import { AnimatePresence, LayoutGroup, motion, useReducedMotion } from "motion/react";
-import type { HTMLMotionProps, MotionProps, Transition, Variants } from "motion/react";
+import type { HTMLMotionProps, MotionProps, MotionStyle, Transition, Variants } from "motion/react";
 import { X } from "lucide-react";
 import { motionTokens } from "../lib/motion-tokens";
 import styles from "./card.module.css";
 
 export interface CardProps extends HTMLAttributes<HTMLElement> {
   title: string;
-  description?: string;
-  media?: ReactNode;
-  action?: ReactNode;
+  description?: string | undefined;
+  media?: ReactNode | undefined;
+  action?: ReactNode | undefined;
   /** Alt bilgi için baştaki küçük görsel, örneğin sahibin avatarı. */
-  avatar?: ReactNode;
+  avatar?: ReactNode | undefined;
   /** Kartın kime ait olduğu, örneğin sahibin adı. */
-  meta?: ReactNode;
+  meta?: ReactNode | undefined;
   /** Künyenin altında kısa bir durum, örneğin "Updated 2 hours ago". Değişen kelimeler yükselerek gelir ve nazikçe duyurulur. */
-  status?: string;
+  status?: string | undefined;
   /** Hızlı bakış içeriği. Verilirse tüm kart açılır ve daha büyük bir görünüme dönüşür; Escape ya da kapat denetimi onu geri dönüştürür. */
-  details?: ReactNode;
-  open?: boolean;
-  defaultOpen?: boolean;
-  onOpenChange?: (open: boolean) => void;
+  details?: ReactNode | undefined;
+  open?: boolean | undefined;
+  defaultOpen?: boolean | undefined;
+  onOpenChange?: ((open: boolean) => void) | undefined;
 }
 
 type Side = "card" | "panel";
-type Geometry = { card?: number; panel?: number; measure?: number };
+type Geometry = { card?: number | undefined; panel?: number | undefined; measure?: number | undefined };
 type Landing = { top: number; left: number; width: number; height: number };
 
 const { blur, duration, ease, spring, stagger } = motionTokens;
@@ -60,7 +60,7 @@ function Status({ text, reduced }: { text: string; reduced: boolean }) {
   return <span className={styles.status} role="status">
     <span className={styles.srOnly}>{text}</span>
     <span className={styles.roll} aria-hidden="true"><AnimatePresence mode="popLayout" initial={false}>
-      <motion.span key={text} className={styles.line} variants={lineMotion} initial={reduced ? false : "enter"} animate="center" exit={reduced ? undefined : "exit"}>
+      <motion.span key={text} className={styles.line} variants={lineMotion} initial={reduced ? false : "enter"} animate="center" {...(reduced ? {} : { exit: "exit" })}>
         {text.split(/(\s+)/).map((part, index) => <motion.span key={index} className={styles.word} custom={index / 2} variants={wordMotion}>{part}</motion.span>)}
       </motion.span>
     </AnimatePresence></span>
@@ -150,12 +150,12 @@ export function Card({ title, description, media, action, avatar, meta, status, 
   </div> : null;
 
   const card = <motion.article
-    {...(props as HTMLMotionProps<"article">)}
+    {...(props as unknown as HTMLMotionProps<"article">)}
     ref={cardRef}
     className={[styles.card, className].filter(Boolean).join(" ")}
-    style={{ ...style, borderRadius: geometry.card ?? style?.borderRadius }}
+    style={{ ...style, borderRadius: geometry.card ?? style?.borderRadius } as MotionStyle}
     data-hover={hovered || undefined}
-    whileHover={reduced ? undefined : { y: -2 }}
+    {...(reduced ? {} : { whileHover: { y: -2 } })}
     onHoverStart={() => setHovered(true)}
     onHoverEnd={() => setHovered(false)}
     {...shared("card", "card")}
@@ -185,17 +185,17 @@ export function Card({ title, description, media, action, avatar, meta, status, 
               data-framer-portal-id={group}
               data-returning={landed || undefined}
               layoutScroll
-              style={{ borderRadius: geometry.panel, "--card-measure": geometry.measure ? `${geometry.measure}px` : undefined, ...(landing && landed ? { "--landing-top": `${landing.top}px`, "--landing-left": `${landing.left}px`, "--landing-width": `${landing.width}px`, "--landing-height": `${landing.height}px` } : {}) } as CSSProperties}
+              style={{ borderRadius: geometry.panel, "--card-measure": geometry.measure ? `${geometry.measure}px` : undefined, ...(landing && landed ? { "--landing-top": `${landing.top}px`, "--landing-left": `${landing.left}px`, "--landing-width": `${landing.width}px`, "--landing-height": `${landing.height}px` } : {}) } as MotionStyle}
               {...(morph ? {
                 ...shared("card", "panel"),
                 initial: false,
-                animate: geometry.card !== undefined && geometry.panel !== undefined ? { borderRadius: landed ? geometry.card : geometry.panel } : undefined,
+                ...(geometry.card !== undefined && geometry.panel !== undefined ? { animate: { borderRadius: landed ? geometry.card : geometry.panel } } : {}),
                 transition: { layout: returning ? settle : grow, borderRadius: returning ? settle : grow },
                 exit: { opacity: 0, transition: { duration: 0 } },
               } : { initial: { opacity: 0 }, animate: { opacity: 1 }, exit: { opacity: 0, transition: fade }, transition: fade })}
             >
               {media ? <motion.div className={styles.media} {...shared("media", "panel")}><motion.div className={styles.zoom} initial={{ scale: hovered && !reduced ? ZOOM : 1 }} animate={{ scale: 1 }} transition={grow}>{media}</motion.div></motion.div> : null}
-              <motion.span className={styles.closeSlot} initial={reduced ? { opacity: 0 } : { opacity: 0, scale: .9 }} animate={landed ? { opacity: 0, scale: .9 } : { opacity: 1, scale: 1 }} transition={returning ? fade : reduced ? fade : closeIn}><Dialog.Close asChild><motion.button type="button" className={styles.close} aria-label="Hızlı bakışı kapat" whileTap={reduced ? undefined : { scale: .94 }} transition={spring.snappy}><X width={16} height={16} strokeWidth={1.75} aria-hidden="true" /></motion.button></Dialog.Close></motion.span>
+              <motion.span className={styles.closeSlot} initial={reduced ? { opacity: 0 } : { opacity: 0, scale: .9 }} animate={landed ? { opacity: 0, scale: .9 } : { opacity: 1, scale: 1 }} transition={returning ? fade : reduced ? fade : closeIn}><Dialog.Close asChild><motion.button type="button" className={styles.close} aria-label="Hızlı bakışı kapat" {...(reduced ? {} : { whileTap: { scale: .94 } })} transition={spring.snappy}><X width={16} height={16} strokeWidth={1.75} aria-hidden="true" /></motion.button></Dialog.Close></motion.span>
               <div className={styles.content}>
                 <Dialog.Title asChild><motion.h2 className={styles.title} {...shared("title", "panel")}>{title}</motion.h2></Dialog.Title>
                 {description ? <Dialog.Description asChild><motion.p className={styles.description} {...shared("description", "panel", "position")}>{description}</motion.p></Dialog.Description> : null}

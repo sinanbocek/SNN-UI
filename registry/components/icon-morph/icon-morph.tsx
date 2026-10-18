@@ -14,11 +14,11 @@ export interface IconMorphIconProps extends Omit<SVGProps<SVGSVGElement>, "ref" 
    * Simgenin ikinci durumu. menu: kapat, play: duraklat, plus: tik, copy: tik,
    * theme: ay, chevron: dönmüş, bell: bildirimler açık, heart: beğenilmiş.
    */
-  state?: boolean;
+  state?: boolean | undefined;
   /** Çizim boyutu (px). Varsayılan 24. */
-  size?: number;
+  size?: number | undefined;
   /** 24 birimlik ızgarada çizgi kalınlığı. Varsayılan 1,75. */
-  strokeWidth?: number;
+  strokeWidth?: number | undefined;
 }
 
 /**
@@ -80,7 +80,7 @@ export function PlayPauseIcon({ state = false, ...props }: IconMorphIconProps) {
   const t = reduced ? instant : spring.morph;
   return <Frame {...props}>
     {PLAY.map((d, index) => <motion.path key={index} d={d} fill="currentColor" strokeWidth={1.5} initial={false}
-      animate={{ d: state ? PAUSE[index] : d }} transition={t} />)}
+      animate={{ d: state ? PAUSE[index] ?? d : d }} transition={t} />)}
   </Frame>;
 }
 
@@ -147,9 +147,9 @@ export function SunMoonIcon({ state = false, ...props }: IconMorphIconProps) {
 
 export interface ChevronIconProps extends IconMorphIconProps {
   /** `state` true iken ayracın döndüğü derece. 180 aşağıyı yukarı çevirir; 90 sağı aşağı çevirir. */
-  turn?: number;
+  turn?: number | undefined;
   /** Ayracın dinlenirken gösterdiği yön. */
-  pointing?: "down" | "right";
+  pointing?: "down" | "right" | undefined;
 }
 
 /** Yayla dönen ayraç; açılır bölüm ve sıralama denetimleri için. */

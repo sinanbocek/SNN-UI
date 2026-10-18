@@ -13,14 +13,14 @@ export interface StatusCardProps {
   /** Durum metni, örneğin "Sorun yok", "Kontrol gerekli", "Bağlantı kurulamadı". */
   value: string;
   /** Renk, simge ve ton etiketi birlikte değişir; durum yalnız renge bırakılmaz. Uyarı tonu mavi-gridir. */
-  tone?: StatusTone;
+  tone?: StatusTone | undefined;
   /** Alttaki bağlam cümlesi, örneğin "Son kontrol 09:42". */
-  context?: string;
+  context?: string | undefined;
   /** Sağ üstteki ton etiketi. Varsayılan: "Tamam", "Dikkat", "Hata", "Bilgi". */
-  toneLabel?: string;
+  toneLabel?: string | undefined;
   /** Değer değişince ekran okuyucuya duyurulur (canlı izleme ekranları için). */
-  live?: boolean;
-  className?: string;
+  live?: boolean | undefined;
+  className?: string | undefined;
 }
 
 const TONES: Record<StatusTone, { icon: LucideIcon; label: string }> = {

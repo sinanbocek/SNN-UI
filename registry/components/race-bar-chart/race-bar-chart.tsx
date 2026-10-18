@@ -13,17 +13,17 @@ export interface RaceBarChartProps {
   items: RaceItem[];
   /** Grafiğin adı, örneğin "Bölgeye göre aylık ciro". */
   label: string;
-  description?: string;
-  kind?: RaceKind;
+  description?: string | undefined;
+  kind?: RaceKind | undefined;
   /** Aynı anda görünen çubuk sayısı. */
-  topN?: number;
+  topN?: number | undefined;
   /** Görününce kendiliğinden oynar ("hareketi azalt" açıkken oynamaz). */
-  autoPlay?: boolean;
+  autoPlay?: boolean | undefined;
   /** Son dönemden sonra başa sarar. */
-  loop?: boolean;
+  loop?: boolean | undefined;
   /** Bir dönemin akış süresi (ms). */
-  msPerPeriod?: number;
-  emptyText?: string;
+  msPerPeriod?: number | undefined;
+  emptyText?: string | undefined;
 }
 
 const ROW = 36;

@@ -19,11 +19,11 @@ export interface CohortRetentionProps {
   segments: CohortSegment[];
   segment: string;
   onSegmentChange: (value: string) => void;
-  title?: string;
+  title?: string | undefined;
   /** Alt satır: ölçüm tarihi, örneğin "Ölçüm: 18 Ekim 2026" (ABACUS `date.format`). */
-  measuredAt?: string;
-  status?: "ready" | "loading" | "error";
-  onRetry?: () => void;
+  measuredAt?: string | undefined;
+  status?: "ready" | "loading" | "error" | undefined;
+  onRetry?: (() => void) | undefined;
 }
 
 const WIDTH = 640, HEIGHT = 220, PAD_L = 34, PAD_B = 22;
@@ -88,7 +88,7 @@ export function CohortRetention({ cohorts, segments, segment, onSegmentChange, t
           <span />{Array.from({ length: months }, (_, col) => <span key={col} className={styles.colHead}>{col + 1}</span>)}
           {cohorts.map((cohort, row) => <FragmentRow key={cohort.key} cohort={cohort} row={row} months={months} cursor={cursor} onPoint={(r, c) => { setCursor({ row: r, col: c }); read(r, c); }} />)}
           <span className={styles.rowHead}><strong>Ortalama</strong></span>
-          {Array.from({ length: months }, (_, col) => { const average = averages[col]; return <span key={col} className={styles.cell} data-empty={average === null || undefined} data-strong={average !== null && tintShare(average) > 45 || undefined} data-mean="" style={average === null ? undefined : { ["--tint" as string]: `${tintShare(average)}%` }}>{average === null ? "" : cellText(average)}</span>; })}
+          {Array.from({ length: months }, (_, col) => { const average = averages[col] ?? null; return <span key={col} className={styles.cell} data-empty={average === null || undefined} data-strong={average !== null && tintShare(average) > 45 || undefined} data-mean="" style={average === null ? undefined : { ["--tint" as string]: `${tintShare(average)}%` }}>{average === null ? "" : cellText(average)}</span>; })}
         </div></div> : <svg className={styles.curves} viewBox={`0 0 ${WIDTH} ${HEIGHT}`} aria-hidden="true">
           {[0, 25, 50, 75, 100].map(tick => { const y = HEIGHT - PAD_B - (tick / 100) * (HEIGHT - PAD_B - 8); return <g key={tick}><line className={styles.grid} x1={PAD_L} x2={WIDTH} y1={y} y2={y} /><text className={styles.axis} x={PAD_L - 6} y={y + 4} textAnchor="end">{tick}</text></g>; })}
           {Array.from({ length: months }, (_, col) => <text key={col} className={styles.axis} x={PAD_L + (months > 1 ? (col / (months - 1)) * (WIDTH - PAD_L - 8) : 0)} y={HEIGHT - 6} textAnchor="middle">{col + 1}</text>)}

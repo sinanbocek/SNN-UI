@@ -13,7 +13,7 @@ export interface StoryStep {
   title: string;
   text: string;
   /** Adım etkinleşince kibar canlı bölgede duyurulan sahne durumu ("Gelen kutusunda yeni mesaj var"). */
-  status?: string;
+  status?: string | undefined;
 }
 
 /** `renderStage`e verilen bağlam: `position` adım konumudur (0 ilk adım, 1 ikinci adım...; yayla yumuşar), `active` en yakın tam adımdır. */
@@ -25,7 +25,7 @@ export interface ScrollStoryProps {
   steps: StoryStep[];
   renderStage: (context: StageContext) => ReactNode;
   /** Son adımın altında "Bağlantıyı kopyala" ve "Kanala gönder" düğmeleri çıkar; sonuç duyurulur. */
-  actions?: { onCopyLink?: () => Promise<void>; onSend?: () => Promise<void> };
+  actions?: { onCopyLink?: (() => Promise<void>) | undefined; onSend?: (() => Promise<void>) | undefined } | undefined;
 }
 
 function Tab({ index, step, total, position, active, onSelect, onKeyDown, tabRef, controls }: { index: number; step: StoryStep; total: number; position: MotionValue<number>; active: boolean; onSelect: () => void; onKeyDown: (event: KeyboardEvent) => void; tabRef: (node: HTMLButtonElement | null) => void; controls: string }) {

@@ -21,19 +21,19 @@ export interface PointerDragState<T> {
 
 export interface PointerDragOptions<T> {
   /** Sürükleme sayılması için gereken hareket, px. Varsayılan 5. */
-  threshold?: number;
+  threshold?: number | undefined;
   /** Dokunmatikte basılı tutma süresi, ms. Süre dolmadan parmak kayarsa sürükleme başlamaz ve sayfa kayar. Varsayılan 220. */
-  touchDelay?: number;
+  touchDelay?: number | undefined;
   /** Sürükleme başladı. */
-  onStart?: (state: PointerDragState<T>) => void;
+  onStart?: ((state: PointerDragState<T>) => void) | undefined;
   /** İşaretçi her kıpırdadığında. Bırakma hedefini bulmak için `findDropTarget` kullanılır. */
-  onMove?: (state: PointerDragState<T>) => void;
+  onMove?: ((state: PointerDragState<T>) => void) | undefined;
   /** Bırakıldı. `cancelled` true ise iptal edilmiştir (Esc, pencere kaybı). */
-  onEnd?: (state: PointerDragState<T>, cancelled: boolean) => void;
+  onEnd?: ((state: PointerDragState<T>, cancelled: boolean) => void) | undefined;
   /** Kenara yaklaşınca kaydırılacak kaplar (ör. pano ve sütunlar). */
-  scrollContainers?: () => (HTMLElement | null)[];
+  scrollContainers?: (() => (HTMLElement | null)[]) | undefined;
   /** Kenara kaç px kala kaydırma başlar. Varsayılan 48. */
-  edge?: number;
+  edge?: number | undefined;
 }
 
 /** (x, y) noktasının altındaki, `selector`a uyan en yakın öğeyi bulur. */

@@ -12,11 +12,11 @@ export interface FormStep {
   id: string;
   title: string;
   /** Adım başlığının altındaki yönlendirme cümlesi. */
-  description?: string;
+  description?: string | undefined;
   /** Adımın alanları. Değerleri üst bileşen tutar; yalnız etkin adım çizilir. `required`, `pattern` gibi yerel kısıtlar geçişi engeller. */
   content: ReactNode;
   /** Yerel kısıtlardan sonra çalışan özel denetim. Hata metni döndürürse geçiş olmaz ve metin adımın altında yazılır. */
-  validate?: () => string | undefined;
+  validate?: (() => string | undefined) | undefined;
 }
 
 export interface MultiStepFormProps {
@@ -24,13 +24,13 @@ export interface MultiStepFormProps {
   /** Son adımda "Bitir". Reddedilirse son adımda hata ve "Yeniden dene" çıkar; girdiler korunur. */
   onComplete: () => void | Promise<void>;
   /** Adım değişti (0 tabanlı sıra). */
-  onStepChange?: (index: number) => void;
-  completeLabel?: string;
-  successTitle?: string;
-  successMessage?: string;
+  onStepChange?: ((index: number) => void) | undefined;
+  completeLabel?: string | undefined;
+  successTitle?: string | undefined;
+  successMessage?: string | undefined;
   /** Başarıdan sonra çıkan ikinci eylem ("Panoya git"). */
-  successAction?: { label: string; onClick: () => void };
-  className?: string;
+  successAction?: { label: string; onClick: () => void } | undefined;
+  className?: string | undefined;
 }
 
 /** Sayı değişirken kısa bir yükselişle yer değiştirir; "hareketi azalt" açıkken anında değişir. */
@@ -85,7 +85,7 @@ export function MultiStepForm({ steps, onComplete, onStepChange, completeLabel =
   // Adım değişince odak yeni adım başlığına (ya da başarı başlığına) gider.
   useEffect(() => {
     if (!moved.current) return;
-    document.getElementById(done ? `${uid}-success` : `${uid}-${step.id}-heading`)?.focus();
+    document.getElementById(done ? `${uid}-success` : `${uid}-${step?.id}-heading`)?.focus();
   }, [index, done]); // eslint-disable-line react-hooks/exhaustive-deps
 
   function go(next: number, dir: number) {
@@ -109,7 +109,7 @@ export function MultiStepForm({ steps, onComplete, onStepChange, completeLabel =
         return false;
       }
     }
-    const message = step.validate?.();
+    const message = step?.validate?.();
     if (message) { setError(message); form.querySelector<HTMLElement>("input, select, textarea, button")?.focus(); return false; }
     return true;
   }
@@ -142,7 +142,7 @@ export function MultiStepForm({ steps, onComplete, onStepChange, completeLabel =
   const shift = reduced ? 0 : 24;
   const stepLabel = `Adım ${index + 1} / ${total}`;
 
-  if (total === 0) return null;
+  if (!step) return null;
 
   return (
     <section className={[styles.root, className].filter(Boolean).join(" ")} data-reduced={reduced ? "true" : undefined} aria-label="Adım adım form">

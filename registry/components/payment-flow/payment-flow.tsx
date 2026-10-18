@@ -16,22 +16,22 @@ export interface PaymentFlowProps {
   /** İşlemci komisyonu (ana birimde TRY); net tutar = tutar − komisyon. */
   commission: number;
   /** Satıcı bakiyesinin başlangıç değeri. */
-  balance?: number;
+  balance?: number | undefined;
   /** Durak adları ve açıklamaları (5 öğe: ödeme noktası, işlemci, kart ağı, banka, bakiye). */
-  stops?: StopInfo[];
+  stops?: StopInfo[] | undefined;
   /** Takas zamanı ("ertesi iş günü"). */
-  settlement?: string;
+  settlement?: string | undefined;
   /** Yetkilendirme süresi (saniye); adım satırında sayarak gösterilir. */
-  authSeconds?: number;
+  authSeconds?: number | undefined;
   /** Oynatma hızı çarpanı; 0 donukluk demektir. Değişim yayla yumuşar. */
-  speed?: number;
-  paused?: boolean;
+  speed?: number | undefined;
+  paused?: boolean | undefined;
   /** Bir döngünün süresi (saniye, hız 1 iken). */
-  cycleSeconds?: number;
+  cycleSeconds?: number | undefined;
   /** Görünür alt yazı; şemanın açıklamasıdır. */
-  caption?: string;
+  caption?: string | undefined;
   /** Şemanın sesli anlatımı; verilmezse duraklardan ve tutarlardan üretilir. */
-  label?: string;
+  label?: string | undefined;
 }
 
 const ICONS: string[] = [

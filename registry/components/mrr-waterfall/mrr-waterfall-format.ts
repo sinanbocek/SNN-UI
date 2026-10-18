@@ -3,7 +3,7 @@ import { math, money } from "@snn/abacus-core";
 import { formatMoney, formatMoneyCompact, formatNumber, formatPercent } from "../lib/chart-format";
 
 export type MovementRole = "new" | "expansion" | "reactivation" | "contraction" | "churn";
-export interface WaterfallAccount { key: string; name: string; /** Ay ve plan gibi ek bilgi: "Mart 2026 · Pro". */ detail?: string; amount: number }
+export interface WaterfallAccount { key: string; name: string; /** Ay ve plan gibi ek bilgi: "Mart 2026 · Pro". */ detail?: string | undefined; amount: number }
 export interface WaterfallMovement {
   key: string;
   label: string;
@@ -12,10 +12,10 @@ export interface WaterfallMovement {
   /** Pozitif büyüklük; yön ayrıca verilir. */
   amount: number;
   /** Net elde tutma ve hızlı oran için hareketin türü (isteğe bağlı). */
-  role?: MovementRole;
-  accounts?: WaterfallAccount[];
+  role?: MovementRole | undefined;
+  accounts?: WaterfallAccount[] | undefined;
   /** Toplam hesap sayısı; verilmezse `accounts.length`. */
-  accountCount?: number;
+  accountCount?: number | undefined;
 }
 
 export type WaterfallUnit = "amount" | "percent";

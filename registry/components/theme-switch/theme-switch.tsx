@@ -12,10 +12,10 @@ export type Theme = "light" | "dark";
 
 export interface ThemeSwitchProps {
   theme: Theme;
-  variant?: ThemeSwitchVariant;
+  variant?: ThemeSwitchVariant | undefined;
   onThemeChange: (next: Theme, variant: ThemeSwitchVariant, trigger: HTMLElement) => void;
-  label?: string;
-  iconOnly?: boolean;
+  label?: string | undefined;
+  iconOnly?: boolean | undefined;
 }
 
 /** Dönme ve ölçek yayla gider; saydamlık ve bulanıklık ara değerle gider, böylece bulanıklık sıfırın altına taşmaz. */

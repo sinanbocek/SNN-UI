@@ -14,20 +14,20 @@ export interface SankeyFlowProps {
   links: SankeyLinkInput[];
   /** Neyin aktığı, örneğin "Nakit akışı". Grafiği yardımcı teknolojiye adlandırır. */
   label: string;
-  description?: string;
+  description?: string | undefined;
   /** Sütun başlıkları, soldan sağa ("Kaynak", "Hesap", "Gider"). Sığmazsa gizlenir. */
-  columnLabels?: string[];
+  columnLabels?: string[] | undefined;
   /** "count": adet ("1.234"); "money": TRY tutar ("₺1.250.000"). */
-  kind?: SankeyKind;
+  kind?: SankeyKind | undefined;
   /** Sağ üstte duran denetimler (dönem seçici gibi). */
-  actions?: ReactNode;
+  actions?: ReactNode | undefined;
   /** Sabitlenmiş (seçili) düğüm; denetimli kullanım için. Tıklama ve Enter seçer, Esc kaldırır. */
-  selectedId?: string | null;
-  onSelectedChange?: (id: string | null) => void;
+  selectedId?: string | null | undefined;
+  onSelectedChange?: ((id: string | null) => void) | undefined;
   /** Başlık satırını gizler (üst blok kendi başlığını yazıyorsa); ad yine ekran okuyucuya söylenir. */
-  bare?: boolean;
-  loading?: boolean;
-  emptyText?: string;
+  bare?: boolean | undefined;
+  loading?: boolean | undefined;
+  emptyText?: string | undefined;
 }
 
 type Focus = { type: "node" | "link"; id: string } | null;

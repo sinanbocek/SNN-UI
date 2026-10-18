@@ -11,7 +11,6 @@ import type { PointerDragState } from "../lib/pointer-drag";
 import { Button } from "../button/button";
 import { Checkbox } from "../checkbox/checkbox";
 import { Dialog, DialogContent } from "../dialog/dialog";
-import { EmptyState } from "../empty-state/empty-state";
 import { Input } from "../input/input";
 import { Popover, PopoverContent, PopoverTrigger } from "../popover/popover";
 import SegmentedControl from "../segmented-control/segmented-control";
@@ -33,14 +32,14 @@ export interface CalendarEvent {
   /** "2026-10-15T09:30" (saatli) ya da tüm gün etkinliğinde "2026-10-15". Uygulamanın saat diliminde. */
   start: string;
   /** Bitiş, aynı biçimde. Tüm gün etkinliğinde gerekmez. */
-  end?: string;
+  end?: string | undefined;
   calendarId: string;
-  location?: string;
-  allDay?: boolean;
+  location?: string | undefined;
+  allDay?: boolean | undefined;
 }
 
-export interface EventDraft { title: string; start: string; end?: string; calendarId: string; location?: string; allDay?: boolean }
-export interface EventPatch { start?: string; end?: string; title?: string; calendarId?: string; location?: string }
+export interface EventDraft { title: string; start: string; end?: string | undefined; calendarId: string; location?: string | undefined; allDay?: boolean | undefined }
+export interface EventPatch { start?: string; end?: string | undefined; title?: string; calendarId?: string; location?: string | undefined }
 
 export interface WeekCalendarProps {
   events: CalendarEvent[];
@@ -48,28 +47,28 @@ export interface WeekCalendarProps {
   /** Bugünün tarihi, "2026-10-15". Gün başlığında vurgulanır. */
   today: string;
   /** "Şimdi" çizgisi için an, "2026-10-15T14:35". Verilmezse çizgi çıkmaz. */
-  now?: string;
+  now?: string | undefined;
   /** Izgaranın ilk ve son saati (0–24). Varsayılan 7 ve 21. */
-  startHour?: number;
-  endHour?: number;
-  defaultView?: CalendarView;
-  onViewChange?: (view: CalendarView) => void;
+  startHour?: number | undefined;
+  endHour?: number | undefined;
+  defaultView?: CalendarView | undefined;
+  onViewChange?: ((view: CalendarView) => void) | undefined;
   /** Görünen aralık değişti; proje yalnız bu günlerin etkinliklerini yükler. */
-  onRangeChange?: (days: string[]) => void;
+  onRangeChange?: ((days: string[]) => void) | undefined;
   /** Yeni etkinlik. Silmeyi geri alırken aynı kimlikle çağrılır (`id` dolu gelir). Reddedilirse etkinlik geri alınır ve "Yeniden dene" çıkar. */
-  onCreate: (draft: EventDraft & { id?: string }) => void | Promise<void>;
+  onCreate: (draft: EventDraft & { id?: string | undefined }) => void | Promise<void>;
   /** Taşıma, boyutlandırma ya da ayrıntı kutusundan değişiklik. */
   onUpdate: (id: string, patch: EventPatch) => void | Promise<void>;
   onDelete: (id: string) => void | Promise<void>;
-  loading?: boolean;
-  className?: string;
+  loading?: boolean | undefined;
+  className?: string | undefined;
 }
 
 type Mode = "create" | "move" | "resize";
 type DragItem = { mode: "create"; day: string; anchor: number } | { mode: "move"; id: string; grab: number } | { mode: "resize"; id: string };
-type Preview = { mode: Mode; id?: string; day: string; start: number; end: number };
-type Dialogue = { mode: "create" | "edit"; id?: string; title: string; day: string; start: number; end: number; calendarId: string; location: string; allDay: boolean; error: string };
-type Notice = { text: string; tone?: "error"; undo?: () => void; retry?: () => void };
+type Preview = { mode: Mode; id?: string | undefined; day: string; start: number; end: number };
+type Dialogue = { mode: "create" | "edit"; id?: string | undefined; title: string; day: string; start: number; end: number; calendarId: string; location: string; allDay: boolean; error: string };
+type Notice = { text: string; tone?: "error" | undefined; undo?: (() => void) | undefined; retry?: (() => void) | undefined };
 
 const viewLabels: Record<CalendarView, string> = { week: "Hafta", workweek: "İş haftası", day: "Gün", threeDay: "3 gün", agenda: "Gündem" };
 const toneVar: Record<CalendarTone, string> = { accent: "var(--accent)", success: "var(--success)", info: "var(--warning)", muted: "var(--text-muted)" };
@@ -83,7 +82,7 @@ export function WeekCalendar({
   const rootRef = useRef<HTMLElement>(null);
   const scrollRef = useRef<HTMLDivElement>(null);
   const colsRef = useRef<HTMLDivElement>(null);
-  const focusRequest = useRef<{ day?: string; event?: string } | null>(null);
+  const focusRequest = useRef<{ day?: string | undefined; event?: string | undefined } | null>(null);
   const tempId = useRef(0);
   const [items, setItems] = useState(events);
   const [view, setView] = useState<CalendarView>(defaultView);
@@ -146,14 +145,14 @@ export function WeekCalendar({
     const next = shiftAnchor(view, anchor, directionStep);
     setAnchor(next);
     const nextDays = rangeDays(view, next);
-    const landing = toDay ?? (directionStep === 1 ? nextDays[0] : nextDays[nextDays.length - 1]);
+    const landing = toDay ?? (directionStep === 1 ? nextDays[0] : nextDays[nextDays.length - 1]) ?? next;
     setActiveDay(landing);
     focusRequest.current = { day: landing };
     setNote(`${rangeTitle(nextDays)}`);
   }
 
   function goToday() {
-    setDirection(today >= days[0] ? 1 : -1);
+    setDirection(today >= (days[0] ?? today) ? 1 : -1);
     setAnchor(today);
     setActiveDay(today);
     setNote("Bugün");
@@ -177,7 +176,7 @@ export function WeekCalendar({
     }
   }
 
-  async function create(draft: EventDraft & { id?: string }, announce = "Etkinlik oluşturuldu.") {
+  async function create(draft: EventDraft & { id?: string | undefined }, announce = "Etkinlik oluşturuldu.") {
     const id = draft.id ?? `tmp-${(tempId.current += 1)}`;
     setItems(current => [...current, { ...draft, id }]);
     setNote(announce);
@@ -207,7 +206,8 @@ export function WeekCalendar({
     if (!box || box.width === 0 || box.height === 0) return null;
     const index = clamp(Math.floor(((x - box.left) / box.width) * days.length), 0, days.length - 1);
     const minute = startMin + ((y - box.top) / box.height) * total;
-    return { day: days[index], minute };
+    const day = days[index];
+    return day === undefined ? null : { day, minute };
   }
 
   function update(state: PointerDragState<DragItem>) {
@@ -328,14 +328,14 @@ export function WeekCalendar({
 
     if (cell && !eventNode) {
       const index = days.indexOf(cell.dataset.daycell ?? "");
-      if (key === "ArrowRight") { event.preventDefault(); if (index < days.length - 1) { setActiveDay(days[index + 1]); focusRequest.current = { day: days[index + 1] }; setNote(dayNote(days[index + 1])); } else go(1); }
-      else if (key === "ArrowLeft") { event.preventDefault(); if (index > 0) { setActiveDay(days[index - 1]); focusRequest.current = { day: days[index - 1] }; setNote(dayNote(days[index - 1])); } else go(-1); }
+      if (key === "ArrowRight") { event.preventDefault(); const next = days[index + 1]; if (next !== undefined) { setActiveDay(next); focusRequest.current = { day: next }; setNote(dayNote(next)); } else go(1); }
+      else if (key === "ArrowLeft") { event.preventDefault(); const previous = index > 0 ? days[index - 1] : undefined; if (previous !== undefined) { setActiveDay(previous); focusRequest.current = { day: previous }; setNote(dayNote(previous)); } else go(-1); }
       else if (key === "ArrowDown") { const first = cell.querySelector<HTMLElement>("[data-event]"); if (first) { event.preventDefault(); first.focus(); } }
       else if (key === "Enter" && target === cell) { event.preventDefault(); openCreate(cell.dataset.daycell ?? activeDay); }
     } else if (eventNode) {
       const siblings = [...(eventNode.closest("[data-daycell]")?.querySelectorAll<HTMLElement>("[data-event]") ?? [])].sort((a, b) => minuteOf(items.find(entry => entry.id === a.dataset.event)?.start ?? "") - minuteOf(items.find(entry => entry.id === b.dataset.event)?.start ?? ""));
       const at = siblings.indexOf(eventNode);
-      if (key === "ArrowDown" && siblings[at + 1]) { event.preventDefault(); siblings[at + 1].focus(); }
+      if (key === "ArrowDown" && siblings[at + 1]) { event.preventDefault(); siblings[at + 1]?.focus(); }
       else if (key === "ArrowUp") { event.preventDefault(); (siblings[at - 1] ?? eventNode.closest<HTMLElement>("[data-daycell]"))?.focus(); }
       else if (key === "ArrowLeft" || key === "ArrowRight") {
         event.preventDefault();

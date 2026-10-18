@@ -15,16 +15,16 @@ export interface TreeViewProps {
   /** Ağacı yardımcı teknolojiye adlandırır, örneğin "TÜFE sınıflaması". */
   label: string;
   /** Denetimli seçili düğüm. */
-  selected?: string | null;
-  defaultSelected?: string | null;
-  onSelect?: (node: TreeNode) => void;
+  selected?: string | null | undefined;
+  defaultSelected?: string | null | undefined;
+  onSelect?: ((node: TreeNode) => void) | undefined;
   /** Üstte arama kutusu. Varsayılan açık. */
-  searchable?: boolean;
-  searchLabel?: string;
-  searchPlaceholder?: string;
+  searchable?: boolean | undefined;
+  searchLabel?: string | undefined;
+  searchPlaceholder?: string | undefined;
   /** Başta açık düğümler; "all" hepsini açar. Seçili düğümün üstleri her zaman açık başlar. */
-  defaultExpanded?: string[] | "all";
-  className?: string;
+  defaultExpanded?: string[] | "all" | undefined;
+  className?: string | undefined;
 }
 
 const collectIds = (nodes: TreeNode[]): string[] => nodes.flatMap(node => node.children?.length ? [node.id, ...collectIds(node.children)] : []);

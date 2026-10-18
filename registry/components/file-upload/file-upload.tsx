@@ -8,19 +8,19 @@ import { motionTokens } from "../lib/motion-tokens";
 import { addedStatus, formatFileSize, formatPercent, matchesAccept, tooLargeText } from "./file-upload-format";
 import styles from "./file-upload.module.css";
 
-export type FileUploadItem = { id: string; file: File; error?: string };
+export type FileUploadItem = { id: string; file: File; error?: string | undefined };
 
 export interface FileUploadProps {
-  accept?: string;
-  disabled?: boolean;
-  label?: string;
-  description?: string;
-  multiple?: boolean;
-  maxSize?: number;
-  value?: FileUploadItem[];
-  onChange?: (files: FileUploadItem[]) => void;
+  accept?: string | undefined;
+  disabled?: boolean | undefined;
+  label?: string | undefined;
+  description?: string | undefined;
+  multiple?: boolean | undefined;
+  maxSize?: number | undefined;
+  value?: FileUploadItem[] | undefined;
+  onChange?: ((files: FileUploadItem[]) => void) | undefined;
   /** Kabul edilen her dosyayı yükler. İlerlemeyi 0-100 arası bildirin, bitince çözün, başarısızsa reddedin. Dosya kaldırılırsa `signal` iptal edilir. */
-  onUpload?: (file: File, options: { onProgress: (percent: number) => void; signal: AbortSignal }) => Promise<void>;
+  onUpload?: ((file: File, options: { onProgress: (percent: number) => void; signal: AbortSignal }) => Promise<void>) | undefined;
 }
 
 type Upload = { status: "uploading" | "done" | "failed"; progress: number };
@@ -48,7 +48,7 @@ function Swap(props: HTMLMotionProps<"span">) {
   return <motion.span {...props} aria-hidden={present ? props["aria-hidden"] : true} />;
 }
 
-function FileRow({ item, upload, reduce, onRemove, onRetry, removeRef }: { item: FileUploadItem; upload?: Upload; reduce: boolean | null; onRemove: () => void; onRetry: () => void; removeRef: (node: HTMLButtonElement | null) => void }) {
+function FileRow({ item, upload, reduce, onRemove, onRetry, removeRef }: { item: FileUploadItem; upload?: Upload | undefined; reduce: boolean | null; onRemove: () => void; onRetry: () => void; removeRef: (node: HTMLButtonElement | null) => void }) {
   const status = upload?.status;
   // Biten yükleme, yay sona varana kadar çubuğunu korur; böylece etiket "Yüklendi"ye dönmeden önce %100 görülür.
   const [filled, setFilled] = useState(status !== "uploading");
@@ -65,7 +65,7 @@ function FileRow({ item, upload, reduce, onRemove, onRetry, removeRef }: { item:
   useEffect(() => {
     // Her yükleme boş çubukla başlar; yarıda kalıp yeniden denenen de öyle.
     if (reduce || (status === "uploading" && target === 0)) { progress.jump(target); return; }
-    const controls = animate(progress, target, { ...motionTokens.spring.smooth, onComplete: status === "done" ? () => setFilled(true) : undefined });
+    const controls = animate(progress, target, { ...motionTokens.spring.smooth, ...(status === "done" ? { onComplete: () => setFilled(true) } : {}) });
     return () => controls.stop();
   }, [status, target, progress, reduce]);
   // Sayaç %100'ü gösterdiği anda etiket döner; yayın son piksel kesrini beklemez.

@@ -13,15 +13,15 @@ export interface FunnelChartProps {
   steps: FunnelStep[];
   /** Neyin daraldığı, örneğin "Satış hunisi". */
   label: string;
-  description?: string;
+  description?: string | undefined;
   /** "count": adet; "money": TRY tutar. */
-  kind?: FunnelKind;
+  kind?: FunnelKind | undefined;
   /** Parçalı veride görünüm seçicisini gösterir (Toplam / Bölünmüş / her parça). */
-  showViews?: boolean;
+  showViews?: boolean | undefined;
   /** Sağ üstte duran ek denetimler. */
-  actions?: ReactNode;
-  loading?: boolean;
-  emptyText?: string;
+  actions?: ReactNode | undefined;
+  loading?: boolean | undefined;
+  emptyText?: string | undefined;
 }
 
 const HEIGHT = 220, ROW = 76, NARROW = 420, PLATEAU = .14;

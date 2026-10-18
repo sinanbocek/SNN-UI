@@ -4,29 +4,29 @@ import { priceText, countText } from "../lib/shop-format";
 export interface ProductPhoto {
   alt: string;
   /** Verilmezse kendi yer tutucu çizilir. */
-  src?: string;
+  src?: string | undefined;
   /** Fotoğrafın odak noktası (CSS object-position), örneğin "40% 60%". */
-  position?: string;
+  position?: string | undefined;
   /** Yer tutucunun renk tonu (0–5). */
-  tone?: number;
+  tone?: number | undefined;
 }
 
 export interface Product {
   id: string;
   name: string;
   /** Tek satır ayrıntı (malzeme gibi). */
-  detail?: string;
+  detail?: string | undefined;
   /** Ana birimde TRY. */
   price: number;
   /** Eski fiyat; verilirse üstü çizili yazılır. */
-  compareAt?: number;
+  compareAt?: number | undefined;
   /** Renk değerleri (`colors` seçeneklerinin `value` alanı). */
   colors: string[];
   sizes: string[];
   inStock: boolean;
-  badge?: string;
+  badge?: string | undefined;
   photo: ProductPhoto;
-  hoverPhoto?: ProductPhoto;
+  hoverPhoto?: ProductPhoto | undefined;
   /** Büyük sayı daha yenidir ("En yeniler" sıralaması). */
   addedAt: number;
 }

@@ -20,11 +20,11 @@ export interface HeroMeshPoint {
 export interface HeroMeshProps {
   points: readonly HeroMeshPoint[];
   /** Film greni, 0 ile 1 arası. */
-  grain?: number;
+  grain?: number | undefined;
   /** Kayma hızı. 1, 20 saniyede bir döner; 0 ağı durağan tutar. */
-  speed?: number;
-  className?: string;
-  style?: CSSProperties;
+  speed?: number | undefined;
+  className?: string | undefined;
+  style?: CSSProperties | undefined;
 }
 
 type Rgb = [number, number, number];

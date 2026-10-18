@@ -1,0 +1,14 @@
+{
+  // Katalog bileşenlerinin sıkı tip denetimi: kuran projelerdeki en sıkı ayarlar (nakit, 2026-10-18).
+  // Galeri demoları burada denetlenmez; yalnız `registry/` altındaki kurulan dosyalar.
+  "extends": "./tsconfig.json",
+  "compilerOptions": {
+    "lib": ["ES2022", "DOM", "DOM.Iterable"],
+    "noUnusedLocals": true,
+    "noUncheckedIndexedAccess": true,
+    "exactOptionalPropertyTypes": true,
+    "noImplicitOverride": true,
+    "noFallthroughCasesInSwitch": true
+  },
+  "include": ["../registry/components", "src/env.d.ts"]
+}

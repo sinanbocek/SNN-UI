@@ -14,9 +14,9 @@ export interface UsagePlan {
   /** Aşımda her milyon birim için fiyat (TRY). */
   overagePerMillion: number;
   /** Plan bu koltuk sayısından büyük seçime satılmaz. */
-  maxSeats?: number;
+  maxSeats?: number | undefined;
   features: string[];
-  description?: string;
+  description?: string | undefined;
 }
 
 export interface Breakdown {

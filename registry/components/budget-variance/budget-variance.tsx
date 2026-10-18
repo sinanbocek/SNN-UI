@@ -8,7 +8,7 @@ import { Button } from "../button/button";
 import { useReducedMotionSafe } from "../lib/viz-utils";
 import SegmentedControl from "../segmented-control/segmented-control";
 import { Skeleton } from "../skeleton/skeleton";
-import { kindWord, moneyFull, moneyShort, ratioOf, resolveDepartment, scaleMax, scalePercent, signedMoney, variance, variancePercentText, varianceSentence, type VarianceDepartment, type VarianceItem } from "./budget-variance-format";
+import { kindWord, moneyShort, ratioOf, resolveDepartment, scaleMax, scalePercent, signedMoney, variance, variancePercentText, varianceSentence, type VarianceDepartment, type VarianceItem } from "./budget-variance-format";
 import styles from "./budget-variance.module.css";
 
 export type { VarianceDepartment, VarianceItem };
@@ -20,22 +20,22 @@ export interface BudgetVarianceProps {
   periods: VariancePeriod[];
   period: string;
   onPeriodChange: (value: string) => void;
-  title?: string;
+  title?: string | undefined;
   /** Alt satır: dönem açıklaması, örneğin "Eylül 2026" (ABACUS `date.monthName`). */
-  subtitle?: string;
+  subtitle?: string | undefined;
   /** "Toplam" satırının adı. */
-  totalLabel?: string;
+  totalLabel?: string | undefined;
   /** "Plana uygun" bandı: bütçeye oranla (varsayılan 0,02). */
-  tolerance?: number;
+  tolerance?: number | undefined;
   /** Ortak ölçek tavanı (bütçeye oran); verilmezse veriden, en az 1,2. Dönemler arasında sabit kalması için dışarıdan verilebilir. */
-  scale?: number;
+  scale?: number | undefined;
   /** Bir bölüm açılınca çağrılır (kalemleri tembel yüklemek için). */
-  onOpen?: (key: string) => void;
-  status?: "ready" | "loading" | "error";
-  onRetry?: () => void;
+  onOpen?: ((key: string) => void) | undefined;
+  status?: "ready" | "loading" | "error" | undefined;
+  onRetry?: (() => void) | undefined;
 }
 
-interface RowProps { name: string; owner?: string; budget: number; actual: number; scale: number; tolerance: number; toggle?: { open: boolean; controls: string; onClick: () => void; onKeyDown: (event: KeyboardEvent<HTMLButtonElement>) => void; register: (node: HTMLButtonElement | null) => void }; strong?: boolean; nested?: boolean }
+interface RowProps { name: string; owner?: string | undefined; budget: number; actual: number; scale: number; tolerance: number; toggle?: { open: boolean; controls: string; onClick: () => void; onKeyDown: (event: KeyboardEvent<HTMLButtonElement>) => void; register: (node: HTMLButtonElement | null) => void } | undefined; strong?: boolean | undefined; nested?: boolean | undefined }
 
 function Row({ name, owner, budget, actual, scale, tolerance, toggle, strong, nested }: RowProps) {
   const ratio = ratioOf(budget, actual);

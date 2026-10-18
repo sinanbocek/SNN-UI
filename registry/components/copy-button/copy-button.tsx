@@ -9,12 +9,12 @@ import styles from "./copy-button.module.css";
 
 export interface CopyButtonProps {
   value: string;
-  label?: string;
-  className?: string;
-  iconOnly?: boolean;
-  variant?: "outline" | "plain";
-  disabled?: boolean;
-  onCopied?: () => void;
+  label?: string | undefined;
+  className?: string | undefined;
+  iconOnly?: boolean | undefined;
+  variant?: "outline" | "plain" | undefined;
+  disabled?: boolean | undefined;
+  onCopied?: (() => void) | undefined;
 }
 
 /** Kopyalama geri bildirimi bilerek aceleci değildir: yavaş, neredeyse kritik sönümlü yay ve uzun, yumuşak geçişler sakin okunur, hiç telaşlı durmaz.

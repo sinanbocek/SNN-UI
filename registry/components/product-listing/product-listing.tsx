@@ -28,8 +28,8 @@ export interface ProductListingProps {
   /** Hızlı ekle tamamlanınca çağrılır. Çok bedenli üründe seçilen beden gelir. */
   onAddToCart: (product: Product, size?: string) => void;
   /** Süzgeç ya da sıralama değişince çağrılır (durumu adrese yazmak için). */
-  onChange?: (state: { filters: Filters; sort: SortKey }) => void;
-  loading?: boolean;
+  onChange?: ((state: { filters: Filters; sort: SortKey }) => void) | undefined;
+  loading?: boolean | undefined;
 }
 
 const NARROW = 640;
@@ -40,7 +40,7 @@ function CartIcon({ count }: { count: number }) {
   const [tilt, setTilt] = useState(0);
   useEffect(() => { if (first.current) { first.current = false; return; } setTilt(value => value + 1); }, [count]);
   return <span className={styles.cart} role="status" aria-label={`Sepet, ${count} ürün`}>
-    <motion.svg key={tilt} width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.8" strokeLinecap="round" strokeLinejoin="round" aria-hidden="true" animate={reduced || !tilt ? undefined : { rotate: [0, -14, 8, 0] }} transition={{ duration: .4 }}><path d="M5 8h14l-1.2 11H6.2z" /><path d="M9 8V6.5a3 3 0 0 1 6 0V8" /></motion.svg>
+    <motion.svg key={tilt} width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.8" strokeLinecap="round" strokeLinejoin="round" aria-hidden="true" {...(reduced || !tilt ? {} : { animate: { rotate: [0, -14, 8, 0] } })} transition={{ duration: .4 }}><path d="M5 8h14l-1.2 11H6.2z" /><path d="M9 8V6.5a3 3 0 0 1 6 0V8" /></motion.svg>
     <span className={styles.cartCount} aria-hidden="true"><AnimatedCounter value={count} /></span>
   </span>;
 }

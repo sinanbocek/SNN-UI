@@ -8,7 +8,7 @@ export type OrderSide = "buy" | "sell";
 export type OrderType = "market" | "limit";
 export type OrderStatus = "filled" | "pending" | "cancelled";
 export interface MarketOrder { id: string; side: OrderSide; type: OrderType; symbol: string; quantity: number; /** Gerçekleşen ya da limit fiyat. */ price: number; status: OrderStatus; t: number }
-export interface OrderRequest { side: OrderSide; type: OrderType; symbol: string; quantity: number; limit?: number }
+export interface OrderRequest { side: OrderSide; type: OrderType; symbol: string; quantity: number; limit?: number | undefined }
 
 const pad2 = (value: number) => String(value).padStart(2, "0");
 

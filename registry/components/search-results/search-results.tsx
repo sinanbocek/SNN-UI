@@ -25,38 +25,38 @@ export interface SearchResult {
   kind: SearchResultKind;
   title: string;
   /** Yol ya da ekip bilgisi ("Teklifler › 2026"), kişide görev. */
-  subtitle?: string;
+  subtitle?: string | undefined;
   /** Eşleşen cümle ya da kısa özet; aranan kelimeler vurgulanır. */
-  summary?: string;
-  team?: string;
-  editedBy?: string;
+  summary?: string | undefined;
+  team?: string | undefined;
+  editedBy?: string | undefined;
   /** Son düzenleme günü, "YYYY-AA-GG". Tarih aralığı süzgeci ve sıralama buna bakar; kişilerde kullanılmaz. */
-  editedAt?: string;
+  editedAt?: string | undefined;
   /** Dosya boyutu, hazır metin ("2,4 MB"; proje ABACUS ile üretir). */
-  sizeLabel?: string;
-  src?: string;
+  sizeLabel?: string | undefined;
+  src?: string | undefined;
 }
 
 export interface SearchResultsProps {
   results: SearchResult[];
   /** "Bugün", "YYYY-AA-GG". Verilirse tarihler "2 gün önce" gibi göreli yazılır; verilmezse "15.10.2026" gibi. */
-  today?: string;
+  today?: string | undefined;
   /** Çalışma alanı adı; kutuda "{ad} içinde ara" yazar. */
-  workspaceName?: string;
+  workspaceName?: string | undefined;
   /** Öneri menüsündeki "Önerilen aramalar". */
-  suggestions?: string[];
-  defaultQuery?: string;
+  suggestions?: string[] | undefined;
+  defaultQuery?: string | undefined;
   /** Sonuç açma eylemi ("Belgeyi aç", "Profili gör", "İndir" düğmeleri). */
-  onOpen?: (result: SearchResult) => void;
-  loading?: boolean;
-  error?: boolean;
-  onRetry?: () => void;
+  onOpen?: ((result: SearchResult) => void) | undefined;
+  loading?: boolean | undefined;
+  error?: boolean | undefined;
+  onRetry?: (() => void) | undefined;
   /** Sayfa başına sonuç. */
-  pageSize?: number;
+  pageSize?: number | undefined;
   /** Bu genişliklerin (px) altında önizleme panelleri sayfaya, süzgeçler alttan açılan sayfaya taşınır. Ölçü bloğun kendi genişliğine bakar. */
-  mediumBreakpoint?: number;
-  narrowBreakpoint?: number;
-  className?: string;
+  mediumBreakpoint?: number | undefined;
+  narrowBreakpoint?: number | undefined;
+  className?: string | undefined;
 }
 
 type Size = "wide" | "medium" | "narrow";

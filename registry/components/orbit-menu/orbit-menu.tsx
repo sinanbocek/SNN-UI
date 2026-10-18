@@ -11,28 +11,28 @@ export interface OrbitAction {
   /** Eylem simgesi; çağıran verir. */
   icon: ReactNode;
   /** Eylem çalışınca etiket hapında kısa süre görünen onay ("Sabitlendi"). */
-  confirmMessage?: string;
+  confirmMessage?: string | undefined;
   /** Tehlikeli eylem: kırmızı tonda; adı da tehlikeyi söyler ("Sil"). */
-  tone?: "default" | "danger";
+  tone?: "default" | "danger" | undefined;
 }
 
 export interface OrbitMenuProps {
   /** Üç ile altı eylem; fazlası için bu bileşen değil (`dropdown-menu`). */
   actions: OrbitAction[];
   onAction: (id: string) => void;
-  onOpenChange?: (open: boolean) => void;
+  onOpenChange?: ((open: boolean) => void) | undefined;
   /** Yayın ortası, derece. 0 sağa, 90 aşağı, -90 yukarı bakar. Yay ekrana göre kısıtlanmaz; boş alana açılacak yönü çağıran seçer. */
-  center?: number;
+  center?: number | undefined;
   /** Yayın açıklığı, derece. */
-  spread?: number;
+  spread?: number | undefined;
   /** Tetikleyiciden eylemlere uzaklık, piksel. */
-  radius?: number;
-  label?: string;
-  cancelLabel?: string;
-  disabled?: boolean;
+  radius?: number | undefined;
+  label?: string | undefined;
+  cancelLabel?: string | undefined;
+  disabled?: boolean | undefined;
   /** Onay metinleri ekran okuyucuya iletilir. */
-  announce?: boolean;
-  className?: string;
+  announce?: boolean | undefined;
+  className?: string | undefined;
 }
 
 const TRIGGER = 48;

@@ -12,10 +12,10 @@ import shell from "./hero-section.module.css";
 import styles from "./hero-cadence.module.css";
 
 export interface HeroCadenceProps {
-  primaryAction?: HeroAction;
-  secondaryAction?: HeroAction;
-  animateIn?: boolean;
-  className?: string;
+  primaryAction?: HeroAction | undefined;
+  secondaryAction?: HeroAction | undefined;
+  animateIn?: boolean | undefined;
+  className?: string | undefined;
 }
 
 /** Altı nokta, Gradient mesh düzenleyicisinin kaydettiği biçimde yazılmış. Renkler CSS'te durur, her tema için bir palet. */

@@ -21,44 +21,44 @@ export interface SidebarItem {
   id: string;
   label: string;
   /** Satırın solundaki simge. Süstür; şeritte (daralmış menü) tek görünen şey budur, adı ipucunda çıkar. */
-  icon?: ReactNode;
+  icon?: ReactNode | undefined;
   /** Okunmamış gibi bir sayı. Ekran okuyucu "{n} okunmamış" okur. */
-  badge?: number;
+  badge?: number | undefined;
   /** Verilirse satır düz bağlantı (`<a>`) olarak çizilir; verilmezse düğme. Her iki durumda `onNavigate` çağrılır. */
-  href?: string;
+  href?: string | undefined;
   /** Alt satırlar: satır katlanır gruba döner. Boş dizi verilirse grup hiç gösterilmez. */
-  children?: SidebarItem[];
+  children?: SidebarItem[] | undefined;
 }
 
-export interface SidebarSection { id: string; title?: string; items: SidebarItem[] }
+export interface SidebarSection { id: string; title?: string | undefined; items: SidebarItem[] }
 
 export interface SidebarMenuAction { id: string; label: string; onSelect: () => void }
 
-export interface SidebarUser { name: string; subtitle?: string; src?: string; /** Kart açılınca listelenen eylemler (profil, çıkış yap gibi). */ menu?: SidebarMenuAction[] }
+export interface SidebarUser { name: string; subtitle?: string | undefined; src?: string | undefined; /** Kart açılınca listelenen eylemler (profil, çıkış yap gibi). */ menu?: SidebarMenuAction[] | undefined }
 
 export interface SidebarProps {
-  header: { name: string; subtitle?: string; logo?: ReactNode };
+  header: { name: string; subtitle?: string | undefined; logo?: ReactNode | undefined };
   sections: SidebarSection[];
   /** Etkin sayfanın `id`'si. Bulunamazsa hiçbir satır vurgulanmaz, yol izi yalnız ana bölümü gösterir. */
-  activeId?: string;
+  activeId?: string | undefined;
   onNavigate: (id: string) => void;
   /** Alt alandaki Ayarlar satırı. */
-  settingsItem?: SidebarItem;
-  user?: SidebarUser;
-  collapsed?: boolean;
-  defaultCollapsed?: boolean;
+  settingsItem?: SidebarItem | undefined;
+  user?: SidebarUser | undefined;
+  collapsed?: boolean | undefined;
+  defaultCollapsed?: boolean | undefined;
   /** Katlama tercihini uygulama saklar; blok yalnız haber verir. */
-  onCollapsedChange?: (collapsed: boolean) => void;
+  onCollapsedChange?: ((collapsed: boolean) => void) | undefined;
   /** Menü verisi geliyorsa true: satırlar yerine iskelet çıkar. */
-  loading?: boolean;
+  loading?: boolean | undefined;
   /** Menü verisi alınamadıysa true: kısa mesaj ve "Yeniden dene" çıkar; `sections` içinde gömülü yedek menü verilebilir. */
-  error?: boolean;
-  onRetry?: () => void;
+  error?: boolean | undefined;
+  onRetry?: (() => void) | undefined;
   /** Bu genişliğin (px) altında menü çekmeceye dönüşür. Ölçü pencereye değil bloğun kendi genişliğine bakar. */
-  breakpoint?: number;
+  breakpoint?: number | undefined;
   /** Sayfa içeriği; kendi içinde kayar, çerçeve sabit kalır. */
-  children?: ReactNode;
-  className?: string;
+  children?: ReactNode | undefined;
+  className?: string | undefined;
 }
 
 interface Found { item: SidebarItem; trail: SidebarItem[]; section: SidebarSection }

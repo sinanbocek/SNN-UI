@@ -15,20 +15,20 @@ export type SignupStatus = "idle" | "sending" | "error" | "done";
 /** Açılış sayfasında tek e-posta alanıyla bekleme listesi ya da erken erişim toplamak için kullanın: akan renk geçişli arka plan, kelime kelime gelen başlık, sakin doğrulama (alandan çıkınca), yazım düzeltme önerisi ve gönderince "listedeki sıran" onayına dönüşen düğme. Parolalı kayıt, SSO ve bülten kutusu için değil; kaydı saklayan servisi `onSubmit` ile uygulama bağlar. */
 export interface HeroSignupProps {
   headline: string;
-  subline?: string;
+  subline?: string | undefined;
   /** Alt not satırındaki sakin güvence cümlesi. */
-  note?: string;
+  note?: string | undefined;
   /** Listeye eklemeyi yapar ve sırayı döndürür; reddederse "Yerinizi kaydedemedik." yazılır. */
   onSubmit: (email: string) => Promise<{ position: number }>;
   /** Listedeki kişi sayısı; katılınca bir artar. */
-  count?: number;
+  count?: number | undefined;
   /** Sosyal kanıt portreleri için adlar (en çok beş). */
-  people?: string[];
+  people?: string[] | undefined;
   /** `people` ile aynı sırada portre adresleri; verilmeyenler baş harfli görünür. */
-  peopleImages?: string[];
-  onStatusChange?: (status: SignupStatus) => void;
+  peopleImages?: string[] | undefined;
+  onStatusChange?: ((status: SignupStatus) => void) | undefined;
   /** Bölümün en az yüksekliği; varsayılan ekran yüksekliğidir. */
-  minHeight?: string;
+  minHeight?: string | undefined;
 }
 
 export function HeroSignup({ headline, subline, note = "Davetiniz hazır olunca tek e-posta alırsınız.", onSubmit, count, people = [], peopleImages = [], onStatusChange, minHeight = "100svh" }: HeroSignupProps) {

@@ -11,49 +11,49 @@ export interface ActionMorphOption { id: string; label: string }
 export interface ActionMorphAction {
   id: string;
   label: string;
-  description?: string;
+  description?: string | undefined;
   /** Eylem simgesi; çağıran verir. */
-  icon?: ReactNode;
+  icon?: ReactNode | undefined;
   /** Tek büyük Latin harf ("T"): menü açıkken o eylemi açar. Harf `event.code` ile okunur. */
-  shortcut?: string;
+  shortcut?: string | undefined;
   /** Yazma yüzünün başlığı ("Ne yapılacak?"). Yoksa eylemin adı. */
-  title?: string;
-  placeholder?: string;
-  multiline?: boolean;
-  submitLabel?: string;
+  title?: string | undefined;
+  placeholder?: string | undefined;
+  multiline?: boolean | undefined;
+  submitLabel?: string | undefined;
   /** İsteğe bağlı seçenek grubu (örneğin "Ne zaman"). Etiketler uygulamadan gelir. */
-  options?: ActionMorphOption[];
-  optionsLabel?: string;
+  options?: ActionMorphOption[] | undefined;
+  optionsLabel?: string | undefined;
   /** Başarı iletisi ("Görev eklendi"). */
-  successMessage?: string;
+  successMessage?: string | undefined;
 }
 
-export interface ActionMorphSubmission { actionId: string; text: string; optionId?: string }
+export interface ActionMorphSubmission { actionId: string; text: string; optionId?: string | undefined }
 
 export interface ActionMorphProps {
   actions: ActionMorphAction[];
   /** Gönderimi proje yapar. Reddedilirse form açık kalır, yazılan silinmez. */
   onSubmit: (submission: ActionMorphSubmission) => void | Promise<void>;
-  label?: string;
-  menuTitle?: string;
-  backLabel?: string;
-  sendingLabel?: string;
-  emptyMessage?: string;
-  errorMessage?: string;
+  label?: string | undefined;
+  menuTitle?: string | undefined;
+  backLabel?: string | undefined;
+  sendingLabel?: string | undefined;
+  emptyMessage?: string | undefined;
+  errorMessage?: string | undefined;
   /** Yüzeyin büyüyeceği köşe. Bileşen kendini konumlamaz; çağıran onu sabit bir kapsayıcıya koyar. */
-  corner?: "bottom-right" | "bottom-left";
+  corner?: "bottom-right" | "bottom-left" | undefined;
   /** Onayın ekranda kalma süresi, ms. */
-  doneDuration?: number;
-  className?: string;
+  doneDuration?: number | undefined;
+  className?: string | undefined;
 }
 
 type View = "closed" | "menu" | "compose" | "done";
-interface Draft { text: string; option?: string }
+interface Draft { text: string; option?: string | undefined }
 
 const CLOSED = { width: 56, height: 56 };
 
 /** Her yüz boyutunu yalnız kendisi güncel iken bildirir. */
-function Face({ active, onSize, className, width, children, custom, variants }: { active: boolean; onSize: (size: { width: number; height: number }) => void; className: string; width: number | string; children: ReactNode; custom: number; variants: Variants }) {
+function Face({ active, onSize, className, width, children, custom, variants }: { active: boolean; onSize: (size: { width: number; height: number }) => void; className: string | undefined; width: number | string; children: ReactNode; custom: number; variants: Variants }) {
   const node = useRef<HTMLDivElement>(null);
   const report = useRef(onSize);
   report.current = onSize;

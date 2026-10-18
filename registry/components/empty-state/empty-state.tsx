@@ -9,11 +9,11 @@ import styles from "./empty-state.module.css";
 export interface EmptyStateProps {
   title: string;
   description: string;
-  action?: ReactNode;
-  icon?: ReactNode;
-  className?: string;
+  action?: ReactNode | undefined;
+  icon?: ReactNode | undefined;
+  className?: string | undefined;
   /** Durum bölgesi için isteğe bağlı erişilebilir etiket. */
-  label?: string;
+  label?: string | undefined;
 }
 
 const exitFast: Transition = { duration: motionTokens.duration.fast, ease: [...motionTokens.ease.standard] };
@@ -32,7 +32,7 @@ function Swap(props: HTMLMotionProps<"span">) {
 /** Yeni bir simge bileşeni çapraz geçişle girer; aynı simgeyi yeniden çizmek yerinde kalır. */
 function iconKey(icon: ReactNode) {
   if (!isValidElement(icon)) return "icon";
-  const type = icon.type as string | { displayName?: string; name?: string };
+  const type = icon.type as string | { displayName?: string | undefined; name?: string | undefined };
   return typeof type === "string" ? type : type.displayName ?? type.name ?? "icon";
 }
 

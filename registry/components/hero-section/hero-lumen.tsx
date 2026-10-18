@@ -46,16 +46,16 @@ const compact = (value: number) => money.compactMajor(value, { currency: "TRY", 
 const WIDE = 1200, NARROW = 600;
 
 export interface HeroLumenProps {
-  primaryAction?: HeroAction;
-  secondaryAction?: HeroAction;
-  animateIn?: boolean;
+  primaryAction?: HeroAction | undefined;
+  secondaryAction?: HeroAction | undefined;
+  animateIn?: boolean | undefined;
   /** Panonun kenar çubuğundaki kişinin adı. */
-  userName?: string;
+  userName?: string | undefined;
   /** Kişinin unvanı. */
-  userRole?: string;
+  userRole?: string | undefined;
   /** Kişinin fotoğrafı. Verilmezse Avatar baş harflere döner. */
-  userAvatarSrc?: string;
-  className?: string;
+  userAvatarSrc?: string | undefined;
+  className?: string | undefined;
 }
 
 /**
@@ -129,7 +129,7 @@ export function HeroLumen({ primaryAction = { label: "Ücretsiz denemeyi başlat
 }
 
 /** Parıltı uygulama penceresi. Aralık denetimi dışında her şey içeriktir; denetim bütün ekranın gösterdiği veriyi değiştirir. */
-function LumenDashboard({ narrow, userName, userRole, userAvatarSrc }: { narrow: boolean; userName: string; userRole: string; userAvatarSrc?: string }) {
+function LumenDashboard({ narrow, userName, userRole, userAvatarSrc }: { narrow: boolean; userName: string; userRole: string; userAvatarSrc?: string | undefined }) {
   const [range, setRange] = useState<LumenRange>("30d");
   const insight = lumenInsight[range];
   return <div className={styles.window} data-narrow={narrow || undefined} role="group" aria-label="Parıltı gelir panosu, örnek veri">

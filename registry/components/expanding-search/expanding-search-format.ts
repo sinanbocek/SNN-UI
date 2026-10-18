@@ -5,11 +5,11 @@ export interface SearchableItem {
   id: string;
   title: string;
   /** Başlığın altında kısa bir satır: tür, sahip ya da son düzenleme gibi. */
-  meta?: string;
+  meta?: string | undefined;
   /** Sonuçlar bu başlık altında toplanır; gruplar `items` içinde ilk göründükleri sırayla dizilir. */
-  group?: string;
+  group?: string | undefined;
   /** Öğeyi bulması gereken ek sözcükler. */
-  keywords?: string[];
+  keywords?: string[] | undefined;
 }
 
 export interface SearchGroup<T extends SearchableItem = SearchableItem> { name: string; items: T[] }

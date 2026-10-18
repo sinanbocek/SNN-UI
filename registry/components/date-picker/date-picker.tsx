@@ -14,19 +14,19 @@ export type { DatePickerStyle };
 
 export interface DatePickerProps extends Omit<ButtonHTMLAttributes<HTMLButtonElement>, "value" | "onChange"> {
   label: string;
-  value?: Date;
-  onChange?: (date: Date | undefined) => void;
-  description?: string;
-  placeholder?: string;
-  minDate?: Date;
-  maxDate?: Date;
-  disabledDates?: CalendarDateMatcher;
+  value?: Date | undefined;
+  onChange?: ((date: Date | undefined) => void) | undefined;
+  description?: string | undefined;
+  placeholder?: string | undefined;
+  minDate?: Date | undefined;
+  maxDate?: Date | undefined;
+  disabledDates?: CalendarDateMatcher | undefined;
   /** Tatil günleri; takvimde işaretlenir. Liste projeden gelir (ABACUS tatil tutmaz). */
-  holidays?: readonly CalendarHoliday[];
+  holidays?: readonly CalendarHoliday[] | undefined;
   /** ABACUS yazım biçimi: "long" → "16 Ekim 2026", "short" → "16.10.2026", "dayMonthWeekday" → "16 Eki. Cum.". */
-  dateStyle?: DatePickerStyle;
+  dateStyle?: DatePickerStyle | undefined;
   /** Takvim başlığına "Bugün" düğmesi ekler. */
-  showToday?: boolean;
+  showToday?: boolean | undefined;
 }
 
 const monthStart = (date: Date) => new Date(date.getFullYear(), date.getMonth(), 1);

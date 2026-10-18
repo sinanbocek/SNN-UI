@@ -1,6 +1,6 @@
 // Kanban sıralama mantığı: saf fonksiyonlar, ekran yok. Kartlar tek düz dizidir; sütun içi sıra dizideki sıradır.
 
-export interface PlaceableCard { id: string; column: string; assigneeId?: string }
+export interface PlaceableCard { id: string; column: string; assigneeId?: string | undefined }
 
 /** Bir hücrenin kartları. `lane` undefined: durum görünümü (sütundaki tüm kartlar); null: atanmamışlar; metin: o kişi. */
 export function cellCards<T extends PlaceableCard>(items: T[], column: string, lane?: string | null): T[] {

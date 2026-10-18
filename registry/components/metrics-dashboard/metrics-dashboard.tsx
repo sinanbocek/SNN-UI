@@ -17,10 +17,10 @@ export interface DashboardPoint {
   key: string;
   /** Tam etiket, örneğin "15 Ekim Perşembe". */
   label: string;
-  axisLabel?: string;
+  axisLabel?: string | undefined;
   value: number;
   /** Önceki dönemin aynı sıradaki değeri ("Karşılaştır" için). */
-  previous?: number;
+  previous?: number | undefined;
 }
 
 export interface DashboardMetric {
@@ -29,14 +29,14 @@ export interface DashboardMetric {
   kind: MetricKind;
   value: number;
   /** Önceki dönemin değeri; verilmezse değişim "—" yazılır. */
-  previous?: number;
+  previous?: number | undefined;
   /** Düşüşün iyi olduğu gösterge (iptal oranı gibi): azalış olumlu renkte yazılır. */
-  lowerIsBetter?: boolean;
+  lowerIsBetter?: boolean | undefined;
   series: DashboardPoint[];
 }
 
 export interface DashboardListItem { key: string; label: string; value: number }
-export interface DashboardList { key: string; title: string; /** Değer sütununun adı, örneğin "Ziyaretçi". */ valueLabel: string; kind?: MetricKind; items: DashboardListItem[] }
+export interface DashboardList { key: string; title: string; /** Değer sütununun adı, örneğin "Ziyaretçi". */ valueLabel: string; kind?: MetricKind | undefined; items: DashboardListItem[] }
 
 export interface DashboardData { metrics: DashboardMetric[]; lists: DashboardList[] }
 export interface DashboardPeriod { value: string; label: string }
@@ -45,16 +45,16 @@ export interface DashboardPeriod { value: string; label: string }
 export interface MetricsDashboardProps {
   title: string;
   /** Alt satır: kaynak ve seçili dönem, örneğin "Mağaza verisi · Son 30 gün". */
-  subtitle?: string;
+  subtitle?: string | undefined;
   periods: DashboardPeriod[];
   period: string;
   onPeriodChange: (value: string) => void;
   /** Seçili dönemin verisi. Yükleme ve hata durumlarını `status` söyler. */
   data: DashboardData | null;
-  status?: "ready" | "loading" | "error";
-  onRetry?: () => void;
+  status?: "ready" | "loading" | "error" | undefined;
+  onRetry?: (() => void) | undefined;
   /** Verilirse "Dışa aktar" düğmesi çıkar; gerçek aktarımı proje yapar. */
-  onExport?: () => void;
+  onExport?: (() => void) | undefined;
 }
 
 export function MetricsDashboard({ title, subtitle, periods, period, onPeriodChange, data, status = "ready", onRetry, onExport }: MetricsDashboardProps) {

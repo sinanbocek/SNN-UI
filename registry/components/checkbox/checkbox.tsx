@@ -9,8 +9,8 @@ import { motionTokens } from "../lib/motion-tokens";
 import styles from "./checkbox.module.css";
 
 export interface CheckboxProps extends ComponentPropsWithoutRef<typeof CheckboxPrimitive.Root> {
-  label?: string;
-  description?: string;
+  label?: string | undefined;
+  description?: string | undefined;
 }
 
 /** İki işaret de üç noktayı paylaşır; bu yüzden onay işareti değiştirilmez, çizgiye ve geri dönüşür. */

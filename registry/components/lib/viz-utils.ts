@@ -46,6 +46,7 @@ export function useElementWidth<T extends HTMLElement>() {
   const observer = useRef<ResizeObserver | null>(null);
   const [width, setWidth] = useState(0);
   // Her çizimde öğenin değişip değişmediğine bakılır; değiştiyse izleme yeni öğeye taşınır.
+  // eslint-disable-next-line react-hooks/exhaustive-deps -- bağımlılık listesi bilerek yok: öğe değişimi her çizimde denetlenir
   useEffect(() => {
     const node = ref.current;
     if (node === observed.current) return;

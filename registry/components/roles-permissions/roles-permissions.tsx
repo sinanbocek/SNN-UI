@@ -21,7 +21,7 @@ export interface PermissionRole {
   /** Bu roldeki kişi sayısı. */
   memberCount: number;
   /** Sahip rolü: her izne her zaman sahiptir, kutuları değiştirilemez. */
-  owner?: boolean;
+  owner?: boolean | undefined;
 }
 
 export interface PermissionItem { id: string; label: string }
@@ -39,16 +39,16 @@ export interface RolesPermissionsProps {
   /** Değişen her (rol, izin) çifti gelir. Reddedilirse çubukta hata ve "Yeniden dene" çıkar; değişiklikler korunur. */
   onSave: (changes: PermissionChange[]) => void | Promise<void>;
   /** Başlığın yanında gösterilen üyeler (avatar yığını). */
-  members?: { name: string; src?: string }[];
+  members?: { name: string; src?: string | undefined }[] | undefined;
   /** Rol sütunu menüsü ("Rolü çoğalt" gibi). Boş dizi döndürülürse menü çıkmaz. */
-  roleMenu?: (role: PermissionRole) => DropdownItem[];
+  roleMenu?: ((role: PermissionRole) => DropdownItem[]) | undefined;
   /** Roller boşken "Rol oluştur" düğmesi. */
-  onCreateRole?: () => void;
+  onCreateRole?: (() => void) | undefined;
   /** Gruplar kapalı başlasın (çok sayıda izin için). */
-  collapsedByDefault?: boolean;
-  loading?: boolean;
-  title?: string;
-  className?: string;
+  collapsedByDefault?: boolean | undefined;
+  loading?: boolean | undefined;
+  title?: string | undefined;
+  className?: string | undefined;
 }
 
 type Row = { type: "group"; group: PermissionGroup } | { type: "permission"; group: PermissionGroup; permission: PermissionItem };
@@ -137,7 +137,7 @@ export function RolesPermissions({
 
   function focusCell(r: number, c: number) {
     const row = Math.min(Math.max(r, 0), rows.length - 1);
-    const isGroup = rows[row].type === "group";
+    const isGroup = rows[row]?.type === "group";
     const col = Math.min(Math.max(c, isGroup ? 0 : 1), roles.length);
     setActive({ r: row, c: col });
     tableRef.current?.querySelector<HTMLElement>(`[data-r="${row}"][data-c="${col}"]`)?.focus();

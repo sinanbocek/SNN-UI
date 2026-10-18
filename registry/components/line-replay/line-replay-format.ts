@@ -3,7 +3,7 @@ import { date, math, money } from "@snn/abacus-core";
 import { formatCompact, formatMoney, formatMoneyCompact, formatNumber } from "../lib/chart-format";
 
 export interface ReplayPoint { /** Zaman: epoch milisaniyesi, artan sırada (eşit aralıklı olmayabilir). */ t: number; value: number }
-export interface ReplayEvent { t: number; /** "issue": sorun anı (farklı simge ve etiketle gösterilir). */ kind?: "event" | "issue"; title: string; detail?: string }
+export interface ReplayEvent { t: number; /** "issue": sorun anı (farklı simge ve etiketle gösterilir). */ kind?: "event" | "issue" | undefined; title: string; detail?: string | undefined }
 export type ReplayKind = "count" | "money";
 
 const pad2 = (value: number) => String(value).padStart(2, "0");

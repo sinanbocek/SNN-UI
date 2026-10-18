@@ -10,9 +10,9 @@ export type BadgeTone = "neutral" | "success" | "info" | "warning" | "danger";
 export type BadgeSize = "sm" | "md";
 
 export interface BadgeProps extends HTMLAttributes<HTMLSpanElement> {
-  tone?: BadgeTone;
-  size?: BadgeSize;
-  icon?: ReactNode;
+  tone?: BadgeTone | undefined;
+  size?: BadgeSize | undefined;
+  icon?: ReactNode | undefined;
 }
 
 const exitFast: Transition = { duration: motionTokens.duration.fast, ease: [...motionTokens.ease.standard] };
@@ -31,7 +31,7 @@ function Swap(props: HTMLMotionProps<"span">) {
 /** Yeni bir simge bileşeni çapraz solarak gelir; aynı simgenin yeniden çizilmesi hareket üretmez. */
 function iconKey(icon: ReactNode) {
   if (!isValidElement(icon)) return "icon";
-  const type = icon.type as string | { displayName?: string; name?: string };
+  const type = icon.type as string | { displayName?: string | undefined; name?: string | undefined };
   return typeof type === "string" ? type : type.displayName ?? type.name ?? "icon";
 }
 

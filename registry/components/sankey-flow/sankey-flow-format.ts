@@ -3,7 +3,7 @@
 import { formatMoney, formatMoneyCompact, formatNumber, formatRatio } from "../lib/chart-format";
 
 /** `muted`: düşen kol gibi ikincil düğüm; nötr gri çizilir ve ona giren şeritler de gri olur. */
-export interface SankeyNodeInput { id: string; label: string; muted?: boolean }
+export interface SankeyNodeInput { id: string; label: string; muted?: boolean | undefined }
 export interface SankeyLinkInput { source: string; target: string; value: number }
 export type SankeyKind = "count" | "money";
 

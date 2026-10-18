@@ -16,42 +16,42 @@ export type { CellCurrency, CellFormat };
 export type DataColumn<T> = {
   key: string;
   label: string;
-  sortable?: boolean;
-  render?: (value: unknown, row: T) => ReactNode;
+  sortable?: boolean | undefined;
+  render?: ((value: unknown, row: T) => ReactNode) | undefined;
   /** Sütunu sağa yaslar, eş genişlikli rakam kullanır. Her değer sayıysa kendiliğinden anlaşılır. */
-  numeric?: boolean;
+  numeric?: boolean | undefined;
   /** Yazım (ABACUS): "money" kuruş tam sayısını "₺1.234,50" yazar ve sağa yaslar; "number" "1.234,5"; "date" "16.10.2026"; "text" olduğu gibi. Verilmezse türe bakılır. */
-  format?: CellFormat;
+  format?: CellFormat | undefined;
   /** "money" sütununun birimi. Varsayılan TRY. */
-  currency?: CellCurrency;
+  currency?: CellCurrency | undefined;
   /** "number" sütununun sabit ondalık basamağı. */
-  digits?: number;
+  digits?: number | undefined;
   /** Sabit genişlik, 120 ya da "20%". Diğer sütunlar bir kez ölçülüp tutulur; sıralama onları yeniden dizmez. */
-  width?: number | string;
+  width?: number | string | undefined;
 };
 
 export type SortableDataTableProps<T extends Record<string, unknown>> = {
   rows: T[];
   columns: DataColumn<T>[];
   rowKey: keyof T | ((row: T) => string);
-  caption?: string;
-  emptyMessage?: string;
+  caption?: string | undefined;
+  emptyMessage?: string | undefined;
   /** İlk çizimde uygulanan sıralama. */
-  defaultSort?: SortState;
-  onSortChange?: (sort: SortState) => void;
+  defaultSort?: SortState | undefined;
+  onSortChange?: ((sort: SortState) => void) | undefined;
   /** Onay kutusu sütunu, satıra tıklayarak seçim ve temizleme düğmeli sayı satırı ekler. */
-  selectable?: boolean;
-  selectedKeys?: string[];
-  defaultSelectedKeys?: string[];
-  onSelectionChange?: (keys: string[]) => void;
+  selectable?: boolean | undefined;
+  selectedKeys?: string[] | undefined;
+  defaultSelectedKeys?: string[] | undefined;
+  onSelectionChange?: ((keys: string[]) => void) | undefined;
   /** Sayı satırındaki ad, "6 proje" gibi. Türkçede sayıdan sonra tekil kalır; iki biçim Arc ile uyum için durur. */
-  itemName?: { one: string; other: string };
+  itemName?: { one: string; other: string } | undefined;
   /** Sayfa boyu. Verilirse tablo sayfalanır ve altta sayfalama çıkar (katalogdaki `pagination`). */
-  pageSize?: number;
+  pageSize?: number | undefined;
   /** Denetimli sayfa (1'den başlar). Verilmezse tablo kendi tutar; sıralama değişince 1. sayfaya döner. */
-  page?: number;
-  defaultPage?: number;
-  onPageChange?: (page: number) => void;
+  page?: number | undefined;
+  defaultPage?: number | undefined;
+  onPageChange?: ((page: number) => void) | undefined;
 };
 
 const isEmpty = (value: unknown) => value == null || value === "";
@@ -73,7 +73,7 @@ const checkPath = "M4.25 9.25 L7.25 12.25 L13.75 5.75";
 const dashPath = "M4.75 9 L9 9 L13.25 9";
 
 /** Yerinde değişen metin. Yuva yeni genişliğe kayar; yanındaki sözcükler zıplamaz. */
-function Swap({ value, direction, reduced, className }: { value: string; direction: number; reduced: boolean; className?: string }) {
+function Swap({ value, direction, reduced, className }: { value: string; direction: number; reduced: boolean; className?: string | undefined }) {
   const inner = useRef<HTMLSpanElement>(null);
   const width = useMotionValue<number | string>("auto");
   useLayoutEffect(() => {
@@ -120,7 +120,7 @@ function SortGlyph({ active, descending, reduced }: { active: boolean; descendin
   </span>;
 }
 
-function SelectBox({ checked, mixed = false, label, nav, reduced, onToggle, inputRef }: { checked: boolean; mixed?: boolean; label: string; nav: "head" | "row"; reduced: boolean; onToggle: (extend: boolean) => void; inputRef?: RefObject<HTMLInputElement | null> }) {
+function SelectBox({ checked, mixed = false, label, nav, reduced, onToggle, inputRef }: { checked: boolean; mixed?: boolean | undefined; label: string; nav: "head" | "row"; reduced: boolean; onToggle: (extend: boolean) => void; inputRef?: RefObject<HTMLInputElement | null> | undefined }) {
   const local = useRef<HTMLInputElement>(null);
   const ref = inputRef ?? local;
   const on = checked || mixed;
@@ -340,7 +340,7 @@ export function SortableDataTable<T extends Record<string, unknown>>({ rows, col
           <Swap className={styles.number} value={String(shownCount)} direction={countDirection} reduced={reduced} />
           <Swap value={noun} direction={selectedCount ? 1 : -1} reduced={reduced} />
         </span>
-        <AnimatePresence initial={false}>{selectedCount ? <motion.button key="clear" type="button" className={styles.clear} data-clear="" onClick={clearSelection} initial={reduced ? { opacity: 0 } : { opacity: 0, scale: .96, filter: blur(motionTokens.blur.soft) }} animate={{ opacity: 1, scale: 1, filter: blur(0) }} exit={reduced ? { opacity: 0, transition: instant } : { opacity: 0, scale: .98, filter: blur(motionTokens.blur.subtle), transition: leave }} transition={reduced ? instant : enter} whileTap={reduced ? undefined : { scale: .97, transition: { duration: motionTokens.duration.instant } }}>Seçimi temizle</motion.button> : null}</AnimatePresence>
+        <AnimatePresence initial={false}>{selectedCount ? <motion.button key="clear" type="button" className={styles.clear} data-clear="" onClick={clearSelection} initial={reduced ? { opacity: 0 } : { opacity: 0, scale: .96, filter: blur(motionTokens.blur.soft) }} animate={{ opacity: 1, scale: 1, filter: blur(0) }} exit={reduced ? { opacity: 0, transition: instant } : { opacity: 0, scale: .98, filter: blur(motionTokens.blur.subtle), transition: leave }} transition={reduced ? instant : enter} {...(reduced ? {} : { whileTap: { scale: .97, transition: { duration: motionTokens.duration.instant } } })}>Seçimi temizle</motion.button> : null}</AnimatePresence>
       </span> : null}
       {/* Sayfalama (SNN ekledi): seçim satırıyla aynı satırda; dar alanda alta iner. */}
       {paged ? <span className={styles.pager}>

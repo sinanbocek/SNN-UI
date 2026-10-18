@@ -6,8 +6,8 @@ export interface TreeNode {
   id: string;
   label: string;
   /** Adın yanında soluk yazılan ek bilgi, örneğin kod ya da ağırlık. Aramaya dahildir. */
-  meta?: string;
-  children?: TreeNode[];
+  meta?: string | undefined;
+  children?: TreeNode[] | undefined;
 }
 
 export interface TreeSearch {

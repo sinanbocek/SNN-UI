@@ -1,7 +1,7 @@
 // Ürün sayfasının saf mantığı: tükenme, tutar (kuruş tamsayısıyla), yorum dağılımı ve yazımlar. Para TRY'dir.
 import { exactText, averageText, countText, lineMinor, priceText, toMinor } from "../lib/shop-format";
 
-export interface DetailPhoto { alt: string; src?: string; /** Fotoğrafın odak noktası (CSS object-position). */ position?: string; tone?: number }
+export interface DetailPhoto { alt: string; src?: string | undefined; /** Fotoğrafın odak noktası (CSS object-position). */ position?: string | undefined; tone?: number | undefined }
 export interface Finish { value: string; label: string; /** Örnek rengi (CSS rengi). */ color: string; photos: DetailPhoto[] }
 export interface Size {
   value: string;
@@ -9,7 +9,7 @@ export interface Size {
   /** Ana birimde TRY. */
   price: number;
   /** Bu boyun tükendiği kaplamalar (`Finish.value`). */
-  soldOutIn?: string[];
+  soldOutIn?: string[] | undefined;
 }
 export interface Selection { finish: string; size: string; quantity: number }
 

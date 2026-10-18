@@ -12,7 +12,7 @@ export interface StreamgraphSeries {
   /** Gösterge, doğrudan etiket, ipucu ve veri tablosundaki ad. */
   label: string;
   /** Herhangi bir CSS rengi. Varsayılan: ilk dört katman için grafik serisi renkleri, sonra nötr basamaklar. */
-  color?: string;
+  color?: string | undefined;
 }
 
 export interface StreamgraphDatum {
@@ -21,7 +21,7 @@ export interface StreamgraphDatum {
   /** İpucu ve ekran okuyucular için tam etiket, örneğin "14 Eylül haftası". */
   label: string;
   /** Zaman eksenindeki kısa etiket. O noktada eksen sessiz kalsın diye boş bırakılabilir. */
-  axisLabel?: string;
+  axisLabel?: string | undefined;
   /** Seri anahtarı başına bir değer. Eksik değer sıfır, eksi değer sıfır sayılır. */
   values: Record<string, number | undefined>;
 }
@@ -34,28 +34,28 @@ export interface StreamgraphProps {
   /** Neyin ölçüldüğü, örneğin "Konuya göre destek talepleri". Grafiği yardımcı teknolojiye adlandırır. */
   label: string;
   /** Her değerin ardından gelen birim, örneğin "talep". */
-  unit?: string;
+  unit?: string | undefined;
   /** Çizim alanı yüksekliği (piksel). Genişlik kabı izler. */
-  height?: number;
+  height?: number | undefined;
   /** "wiggle" katman eğimlerini en aza indirip akıcı bir akış verir, "silhouette" yığını ortalar, "zero" düz tabandan yığar. */
-  offset?: "wiggle" | "silhouette" | "zero";
+  offset?: "wiggle" | "silhouette" | "zero" | undefined;
   /** Değerleri biçimler. Varsayılan: ABACUS biçimi ("1.234,5"). */
-  formatValue?: (value: number, series: StreamgraphSeries) => string;
+  formatValue?: ((value: number, series: StreamgraphSeries) => string) | undefined;
   /** Denetimli gizli katman anahtarları. Gizlenen katman incelip yok olur, kalanlar yeniden akar. */
-  hiddenSeries?: string[];
-  defaultHiddenSeries?: string[];
-  onHiddenSeriesChange?: (hidden: string[]) => void;
+  hiddenSeries?: string[] | undefined;
+  defaultHiddenSeries?: string[] | undefined;
+  onHiddenSeriesChange?: ((hidden: string[]) => void) | undefined;
   /** Okuma oynadıkça, çıkınca null değerlerle çağrılır. */
-  onActiveChange?: (index: number | null, seriesKey: string | null) => void;
+  onActiveChange?: ((index: number | null, seriesKey: string | null) => void) | undefined;
   /** Çizim alanının üstündeki katman anahtarları. */
-  legend?: boolean;
+  legend?: boolean | undefined;
   /** Yazıyı taşıyacak kadar kalınsa her katmanı en geniş kesitinde adlandırır. */
-  directLabels?: boolean;
+  directLabels?: boolean | undefined;
   /** Ekran okuyucu tablosunun ilk sütun başlığı. */
-  categoryLabel?: string;
-  emptyLabel?: string;
-  ref?: Ref<HTMLElement>;
-  className?: string;
+  categoryLabel?: string | undefined;
+  emptyLabel?: string | undefined;
+  ref?: Ref<HTMLElement> | undefined;
+  className?: string | undefined;
 }
 
 type Hover = { index: number; key: string | null; y: number | null };

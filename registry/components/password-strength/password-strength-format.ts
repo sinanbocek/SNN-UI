@@ -5,7 +5,7 @@ export interface PasswordRule {
   label: string;
   test: (password: string) => boolean;
   /** Eksik kalan karakter sayısı. Kural karşılanmadıkça kuralın yanında dönen bir sayı olarak gösterilir. */
-  remaining?: (password: string) => number;
+  remaining?: ((password: string) => number) | undefined;
 }
 
 export interface PasswordStrengthResult {
@@ -13,7 +13,7 @@ export interface PasswordStrengthResult {
   label: string;
   met: string[];
   /** Parola kısa uzunluktan kısaysa true olur; ölçer ilk adımda kalır. */
-  short?: boolean;
+  short?: boolean | undefined;
 }
 
 /** Ölçerin her adımı için güç sözcüğü. Ölçeri başka dile çevirmek için değiştirin. */
@@ -40,11 +40,11 @@ export interface PasswordRuleLabels {
 
 export interface PasswordRuleOptions {
   /** Uzunluk kuralının istediği karakter sayısı. Varsayılan 12. */
-  minLength?: number;
+  minLength?: number | undefined;
   /** Çevrilmiş ya da yeniden yazılmış kural etiketleri. */
-  labels?: Partial<PasswordRuleLabels>;
+  labels?: Partial<PasswordRuleLabels> | undefined;
   /** Uzunluk kuralının karakterleri nasıl saydığı. Varsayılan kod noktalarıdır. */
-  countCharacters?: (password: string) => number;
+  countCharacters?: ((password: string) => number) | undefined;
 }
 
 const defaultRuleLabels: PasswordRuleLabels = {
@@ -69,11 +69,11 @@ export const defaultPasswordRules: PasswordRule[] = createPasswordRules();
 
 export interface EstimateStrengthOptions {
   /** Bu karakter sayısının altında parola ne kadar çeşitli olursa olsun ilk adımda kalır. Varsayılan 8. */
-  shortLength?: number;
+  shortLength?: number | undefined;
   /** Sonucun etiketi için güç sözcükleri. */
-  levels?: Partial<PasswordStrengthLevels>;
+  levels?: Partial<PasswordStrengthLevels> | undefined;
   /** shortLength için karakterlerin nasıl sayıldığı. Varsayılan kod noktalarıdır. */
-  countCharacters?: (password: string) => number;
+  countCharacters?: ((password: string) => number) | undefined;
 }
 
 /** Parolayı cihazda puanlar: karşılanan kural payına göre bir adım; kısa uzunluktan (varsayılan 8) kısaysa ilk adımda sınırlanır. */

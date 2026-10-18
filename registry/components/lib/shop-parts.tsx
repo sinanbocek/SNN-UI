@@ -8,7 +8,7 @@ import { useElementWidth, useReducedMotionSafe } from "./viz-utils";
 import styles from "./shop-parts.module.css";
 
 /** Görsel yer tutucu: yüzey rengi, ince çapraz doku ve (varsa) baş harf. Gerçek fotoğraf yerine geçer; `label` ekran okuyucu için alt metindir. `initial` verilmezse `label`ın ilk harfi kullanılır; `children` her şeyin yerine geçer. */
-export function Placeholder({ tone = 0, label, ratio = "4 / 5", className, children, initial }: { tone?: number; label: string; ratio?: string; className?: string; children?: ReactNode; initial?: string }) {
+export function Placeholder({ tone = 0, label, ratio = "4 / 5", className, children, initial }: { tone?: number | undefined; label: string; ratio?: string | undefined; className?: string | undefined; children?: ReactNode | undefined; initial?: string | undefined }) {
   const letter = initial ?? Array.from(label.trim())[0] ?? "";
   return <div className={[styles.placeholder, className].filter(Boolean).join(" ")} data-tone={Math.abs(tone) % 6} role="img" aria-label={label} style={{ aspectRatio: ratio }}>
     {children ?? (letter && <span className={styles.initial} aria-hidden="true">{letter}</span>)}
@@ -19,7 +19,7 @@ export function Placeholder({ tone = 0, label, ratio = "4 / 5", className, child
  * Oran kutulu fotoğraf: `ratio` kadar yer ayırır (sayfa zıplamaz), `object-fit: cover` ile doldurur, yüklenirken iskelet gösterir,
  * adres yoksa ya da açılmazsa yer tutucuya döner. `position` odak noktasıdır (örneğin "left center").
  */
-export function FramedPhoto({ src, alt, ratio = "4 / 5", position, tone, initial, eager, className, onClick }: { src?: string; alt: string; ratio?: string; position?: string; tone?: number; initial?: string; eager?: boolean; className?: string; onClick?: () => void }) {
+export function FramedPhoto({ src, alt, ratio = "4 / 5", position, tone, initial, eager, className, onClick }: { src?: string | undefined; alt: string; ratio?: string | undefined; position?: string | undefined; tone?: number | undefined; initial?: string | undefined; eager?: boolean | undefined; className?: string | undefined; onClick?: (() => void) | undefined }) {
   const [state, setState] = useState<"loading" | "ready" | "failed">("loading");
   const image = useRef<HTMLImageElement | null>(null);
   useEffect(() => { setState("loading"); }, [src]);
@@ -30,13 +30,13 @@ export function FramedPhoto({ src, alt, ratio = "4 / 5", position, tone, initial
   </div>;
 }
 
-export interface SwatchOption { value: string; label: string; /** Örneğin rengi (CSS rengi); uygulamanın verisidir. */ color: string; disabled?: boolean }
+export interface SwatchOption { value: string; label: string; /** Örneğin rengi (CSS rengi); uygulamanın verisidir. */ color: string; disabled?: boolean | undefined }
 
 /**
  * Renk örnekleri. `mode="multi"`: her örnek açma-kapama düğmesidir (`aria-pressed`, süzgeç için).
  * `mode="single"`: radyo grubu, gezen odak ve ok tuşları (ürün sayfası seçimi için).
  */
-export function SwatchGroup({ label, options, value, onToggle, mode = "multi" }: { label: string; options: SwatchOption[]; value: string[]; onToggle: (value: string) => void; mode?: "multi" | "single" }) {
+export function SwatchGroup({ label, options, value, onToggle, mode = "multi" }: { label: string; options: SwatchOption[]; value: string[]; onToggle: (value: string) => void; mode?: "multi" | "single" | undefined }) {
   const refs = useRef<(HTMLButtonElement | null)[]>([]);
   const checkedAt = Math.max(0, options.findIndex(option => value.includes(option.value)));
   const move = (event: KeyboardEvent, at: number) => {
@@ -60,7 +60,7 @@ export function SwatchGroup({ label, options, value, onToggle, mode = "multi" }:
 }
 
 /** Üst sınırı olan adet düzenleyici. `removeAtMin`: en küçük değerde eksi düğmesi "Kaldır" olur ve `onRemove` çağrılır. */
-export function NumberStepper({ label, value, min = 1, max = 99, onChange, onRemove, removeLabel = "Kaldır" }: { label: string; value: number; min?: number; max?: number; onChange: (value: number) => void; onRemove?: () => void; removeLabel?: string }) {
+export function NumberStepper({ label, value, min = 1, max = 99, onChange, onRemove, removeLabel = "Kaldır" }: { label: string; value: number; min?: number | undefined; max?: number | undefined; onChange: (value: number) => void; onRemove?: (() => void) | undefined; removeLabel?: string | undefined }) {
   const atMin = value <= min;
   const minusLabel = atMin && onRemove ? `${label}: ${removeLabel}` : `${label}: azalt`;
   return <div className={styles.stepper} role="group" aria-label={label}>
@@ -83,7 +83,7 @@ export function useAnnouncer(): [ReactNode, (message: string) => void] {
  * komşu slayta geçer. Sol/sağ ok tuşları şerit odaktayken çalışır. Görünmeyen slaytlar `aria-hidden`dır.
  * "Hareketi azalt" açıkken geçiş anidir.
  */
-export function SwipeTrack({ count, index, onIndexChange, renderSlide, label, className }: { count: number; index: number; onIndexChange: (index: number) => void; renderSlide: (index: number) => ReactNode; label: string; className?: string }) {
+export function SwipeTrack({ count, index, onIndexChange, renderSlide, label, className }: { count: number; index: number; onIndexChange: (index: number) => void; renderSlide: (index: number) => ReactNode; label: string; className?: string | undefined }) {
   const reduced = useReducedMotionSafe();
   const [box, width] = useElementWidth<HTMLDivElement>();
   const x = useMotionValue(0);

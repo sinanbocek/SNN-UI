@@ -24,13 +24,13 @@ export interface UsageMeterProps {
   segments: UsageMeterSegment[];
   /** Plan limiti; dilimlerle aynı birimde. */
   limit: number;
-  unit?: string;
+  unit?: string | undefined;
   /** Virgülden sonraki basamak sayısı. */
-  decimals?: number;
-  freeLabel?: string;
-  overLabel?: string;
+  decimals?: number | undefined;
+  freeLabel?: string | undefined;
+  overLabel?: string | undefined;
   /** Göstergenin "neredeyse dolu" uyarısı verdiği limit payı. */
-  warnAt?: number;
+  warnAt?: number | undefined;
 }
 
 const { spring, duration, ease, blur } = motionTokens;
@@ -69,7 +69,7 @@ const pop: Variants = {
 };
 const fade: Variants = { hidden: { opacity: 0, y: 0, scale: 1, filter: "blur(0px)" }, shown: { opacity: 1, y: 0, scale: 1, filter: "blur(0px)", transition: { duration: duration.fast } }, gone: { opacity: 0, y: 0, scale: 1, filter: "blur(0px)", transition: { duration: duration.instant } } };
 
-function Swap({ text, reduced, direction = 1 }: { text: string; reduced: boolean; direction?: number }) {
+function Swap({ text, reduced, direction = 1 }: { text: string; reduced: boolean; direction?: number | undefined }) {
   return <span className={styles.swap}><AnimatePresence mode="popLayout" initial={false} custom={direction}>
     <motion.span key={text} className={styles.swapText} custom={direction} variants={reduced ? fade : rise} initial="hidden" animate="shown" exit="gone">{text}</motion.span>
   </AnimatePresence></span>;

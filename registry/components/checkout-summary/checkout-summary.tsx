@@ -12,21 +12,21 @@ import { negativeText, payLabel, removeCodeLabel, summarize, taxLabel, totalSent
 import styles from "./checkout-summary.module.css";
 
 export type { AutoDiscount, PromoCode, Summary };
-export interface CheckoutItem { name: string; description?: string; /** Ana birimde TRY. */ price: number; /** Fiyatın yanındaki dönem notu ("yıllık"). */ periodNote?: string; photoAlt?: string; photoTone?: number }
+export interface CheckoutItem { name: string; description?: string | undefined; /** Ana birimde TRY. */ price: number; /** Fiyatın yanındaki dönem notu ("yıllık"). */ periodNote?: string | undefined; photoAlt?: string | undefined; photoTone?: number | undefined }
 
 /** Tek ürünlü bir siparişin ödemeden önceki son özeti için kullanın: ürün satırı, otomatik indirimler, kupon kodu (uygulanınca çipe döner), vergi, dönen toplam ve \"Öde\" düğmesi. Gerçek ödeme almaz; ödemeyi `onPay` ile uygulama bağlar. Kart numarası, son kullanma ve CVC alanı yoktur. Çok ürünlü sepet için `cart-drawer`. */
 export interface CheckoutSummaryProps {
   item: CheckoutItem;
-  discounts?: AutoDiscount[];
+  discounts?: AutoDiscount[] | undefined;
   /** Vergi oranı (yüzde). Verilmezse "Vergi ödemede hesaplanır" yazılır. */
-  taxRate?: number | null;
+  taxRate?: number | null | undefined;
   /** Kuponu sunucuda doğrular; geçersizse null döner, ağ hatasında reddeder. */
   onApplyCoupon: (code: string) => Promise<PromoCode | null>;
   /** Ödemeyi başlatır (ya da barındırılan ödeme sayfasına yönlendirir); reddederse "Tekrar dene" yazılır. */
   onPay: (order: { coupon: PromoCode | null; summary: Summary }) => Promise<void>;
   /** true iken düğme görünür ama basılamaz (ödeme henüz açılmadı). */
-  payDisabled?: boolean;
-  footnote?: string;
+  payDisabled?: boolean | undefined;
+  footnote?: string | undefined;
 }
 
 export function CheckoutSummary({ item, discounts = [], taxRate = null, onApplyCoupon, onPay, payDisabled = false, footnote }: CheckoutSummaryProps) {

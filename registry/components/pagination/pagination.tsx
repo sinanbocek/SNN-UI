@@ -4,7 +4,7 @@ import { ChevronLeft as NavArrowLeft, ChevronRight as NavArrowRight } from "luci
 import { AnimatePresence, animate, motion, useMotionValue, useReducedMotion, type Variants } from "motion/react";
 import { motionTokens } from "../lib/motion-tokens";
 import styles from "./pagination.module.css";
-export interface PaginationProps { page: number; pageCount: number; onPageChange: (page: number) => void; label?: string }
+export interface PaginationProps { page: number; pageCount: number; onPageChange: (page: number) => void; label?: string | undefined }
 /** Beşli sayfa penceresi kayınca numaralar kayış gibi dolaşır: her biri aynı sayıda yuva kadar hareket eder. */
 const slot = 1000 / 9; // Bir düğme artı boşluk (36px + 4px), düğme genişliğinin yüzdesi olarak.
 const slide: Variants = {
@@ -50,7 +50,7 @@ export function Pagination({ page, pageCount, onPageChange, label = "Sayfalama" 
     <motion.span aria-hidden="true" className={styles.mark} style={{ x: markX, y: markY }} />
     <AnimatePresence mode="popLayout" initial={false} custom={shift}>
       {visible.map(number => <motion.button type="button" key={number} onClick={() => onPageChange(number)} aria-label={`Sayfa ${number}`} aria-current={currentPage === number ? "page" : undefined}
-        layout={reduced ? false : "position"} layoutDependency={start} custom={shift} variants={slide} initial={reduced ? false : "enter"} animate="center" exit={reduced ? undefined : "exit"}
+        layout={reduced ? false : "position"} layoutDependency={start} custom={shift} variants={slide} initial={reduced ? false : "enter"} animate="center" {...(reduced ? {} : { exit: "exit" })}
         transition={reduced ? { duration: 0 } : { x: motionTokens.spring.smooth, layout: motionTokens.spring.smooth, opacity: { duration: motionTokens.duration.standard, ease: [...motionTokens.ease.enter] } }}>{number}</motion.button>)}
     </AnimatePresence>
     <button type="button" className={styles.step} onClick={() => onPageChange(currentPage + 1)} disabled={currentPage >= safePageCount} aria-label="Sonraki sayfa"><NavArrowRight width={16} height={16} aria-hidden="true" /></button></nav>;

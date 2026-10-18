@@ -13,11 +13,11 @@ export type { ViewerImage };
 /** Geziler, portfolyolar ve ilan fotoğrafları gibi yakından bakılan koleksiyonlar için oranları korunan sütunlu fotoğraf duvarı. Bir fotoğrafa basınca fotoğraf kendi yerinden büyüyerek tam ekran görüntüleyiciye açılır (kaydırma, yakınlaştırma, aşağı çekip kapatma); kapanınca o an gösterilen fotoğrafın yuvasına döner. Aynı boyda kare ızgara için `photo-grid`, seçenekli ürün fotoğrafları için `product-gallery`. Çok büyük koleksiyonlar sayfalanır (duvar sanallaştırılmaz). */
 export interface LightboxGalleryProps {
   images: ViewerImage[];
-  label?: string;
+  label?: string | undefined;
   /** Bir sütunun en az genişliği (piksel); varsayılan 180. */
-  minColumnWidth?: number;
-  gap?: number;
-  loading?: boolean;
+  minColumnWidth?: number | undefined;
+  gap?: number | undefined;
+  loading?: boolean | undefined;
 }
 
 export function LightboxGallery({ images, label = DEFAULT_LABEL, minColumnWidth = 180, gap = 12, loading = false }: LightboxGalleryProps) {

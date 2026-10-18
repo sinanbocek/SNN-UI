@@ -20,39 +20,39 @@ export interface MarketInstrument {
   key: string;
   symbol: string;
   name: string;
-  exchange?: string;
-  currency?: string;
+  exchange?: string | undefined;
+  currency?: string | undefined;
   /** Güncel fiyat ve önceki kapanış (günlük değişim için). */
   price: number;
   previousClose: number;
   /** Gün içi küçük çizgi (izleme listesi). */
-  intraday?: number[];
+  intraday?: number[] | undefined;
   /** Dönem anahtarına göre mumlar (eskiden yeniye). Gün içi dönemler dakikalık, diğerleri günlük. */
   candles: Record<string, Candle[]>;
 }
-export interface MarketPeriod { value: string; label: string; /** Gün içi (dakikalık) dönem mi. */ intraday?: boolean }
+export interface MarketPeriod { value: string; label: string; /** Gün içi (dakikalık) dönem mi. */ intraday?: boolean | undefined }
 
 /** Bir menkul kıymetin fiyatını mum grafikle, izleme listesi ve emir fişiyle birlikte tam bir işlem ekranı olarak göstermek için kullanın. Bileşen hiçbir emir göndermez: emri uygulamanın verdiği işleve iletir. Yalnız sayı ve eğilim isteyen ekranlar için çizgi grafik ya da mini çizgi grafik daha doğrudur. */
 export interface MarketTerminalProps {
   instruments: MarketInstrument[];
   periods: MarketPeriod[];
   /** Seçili sembol ve dönem (denetimli kullanım için); verilmezse bileşen tutar. */
-  symbol?: string;
-  onSymbolChange?: (key: string) => void;
+  symbol?: string | undefined;
+  onSymbolChange?: ((key: string) => void) | undefined;
   /** Canlı akış açık mı; kapatınca "Duraklatıldı" yazılır ve `updatedText` gösterilir. */
-  live?: boolean;
-  onLiveChange?: (live: boolean) => void;
+  live?: boolean | undefined;
+  onLiveChange?: ((live: boolean) => void) | undefined;
   /** Son güncelleme saati metni (ABACUS ile), örneğin "14:03:27". */
-  updatedText?: string;
+  updatedText?: string | undefined;
   buyingPower: number;
   /** Sembol anahtarına göre eldeki adet. */
   positions: Record<string, number>;
   orders: MarketOrder[];
   /** Emri iletir; reddederse (Promise) emir verilmemiş sayılır ve `Error.message` düğmenin altında yazılır. */
   onSubmitOrder: (order: OrderRequest) => Promise<void>;
-  onCancelOrder?: (id: string) => void;
-  loading?: boolean;
-  emptyText?: string;
+  onCancelOrder?: ((id: string) => void) | undefined;
+  loading?: boolean | undefined;
+  emptyText?: string | undefined;
 }
 
 const HEIGHT = 330, AXIS = 62, VOLUME = .22;

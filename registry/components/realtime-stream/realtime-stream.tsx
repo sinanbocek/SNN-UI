@@ -14,20 +14,20 @@ export interface RealtimeStreamProps {
   readings: StreamReading[];
   /** Ölçümün adı, örneğin "Yanıt süresi". */
   label: string;
-  description?: string;
-  kind?: StreamKind;
+  description?: string | undefined;
+  kind?: StreamKind | undefined;
   /** Birim, örneğin "ms". Para için gerekmez. */
-  unit?: string;
+  unit?: string | undefined;
   /** Büyük değerin ve ipucunun ondalık basamağı (para her zaman 2). */
-  decimals?: number;
+  decimals?: number | undefined;
   /** Görünen zaman penceresi (ms). */
-  windowMs?: number;
+  windowMs?: number | undefined;
   /** Verilirse değer ekseni bu sınırlara oturur; verilmezse veriyi izler. */
-  min?: number;
-  max?: number;
-  status?: "live" | "disconnected";
-  onRetry?: () => void;
-  height?: number;
+  min?: number | undefined;
+  max?: number | undefined;
+  status?: "live" | "disconnected" | undefined;
+  onRetry?: (() => void) | undefined;
+  height?: number | undefined;
 }
 
 type View = { end: number; low: number; high: number };

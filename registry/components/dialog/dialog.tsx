@@ -24,7 +24,7 @@ export const DialogClose = DialogPrimitive.Close;
 
 export interface DialogContentProps extends ComponentPropsWithoutRef<typeof DialogPrimitive.Content> {
   title: string;
-  description?: string;
+  description?: string | undefined;
   children: ReactNode;
 }
 
