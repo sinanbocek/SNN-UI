@@ -1194,3 +1194,14 @@ test("hafta takvimi aralık başlığı: boş gün listesi boş metin verir, tek
   assert.equal(rangeTitle(["2026-10-12", "2026-10-13", "2026-10-18"]), `12–${abacusDate.format("2026-10-18", "long")}`);
   assert.equal(rangeTitle(["2026-10-28", "2026-11-03"]), `${abacusDate.format("2026-10-28", "dayMonth")} – ${abacusDate.format("2026-11-03", "long")}`);
 });
+
+test("fiyat hesaplayıcı işaretleri: üst üste binen işaret gizlenir, ilk işaret hep görünür", () => {
+  const { fittingMarks } = mods.usagePricing;
+  assert.deepEqual(fittingMarks([]), []);
+  assert.deepEqual(fittingMarks([{ left: 0, right: 20 }]), [true]);
+  // 390 px'teki vaka: "Başlangıç" ile "Takım" çakışıyor; ikincisi gizlenir, sonraki boşluktaki işaret görünür.
+  assert.deepEqual(fittingMarks([{ left: 0, right: 14 }, { left: 60, right: 120 }, { left: 110, right: 150 }, { left: 200, right: 214 }, { left: 260, right: 290 }]), [true, true, false, true, true]);
+  // Gizlenen işaret sonrakini engellemez: kıyas son görünen işarete göre yapılır.
+  assert.deepEqual(fittingMarks([{ left: 0, right: 100 }, { left: 50, right: 200 }, { left: 110, right: 150 }]), [true, false, true]);
+  assert.deepEqual(fittingMarks([{ left: 0, right: 10 }, { left: 14, right: 30 }], 6), [true, false]);
+});

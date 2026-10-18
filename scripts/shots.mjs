@@ -125,14 +125,35 @@ try {
       await evaluate(send, "new Promise(resolve => { const start = Date.now(); const check = () => !document.querySelector('[data-loading]') || Date.now() - start > 10000 ? resolve(true) : setTimeout(check, 100); check(); })");
       const fonts = await evaluate(send, "[...new Set([...document.fonts].filter(f => f.status === 'loaded').map(f => f.family))].join(', ')");
       // Bölüm kaydırılıp görünür yapılır ki geç yüklenen içerik ve görünüşe bağlı hareketler otursun.
+      await evaluate(send, `(async () => {
+        document.getElementById(${JSON.stringify(name)}).scrollIntoView({ block: "start" });
+        await new Promise(resolve => setTimeout(resolve, 1200));
+        return true;
+      })()`);
+      // Pencere sayfa boyuna uzatılır, sonra çekilir. captureBeyondViewport kullanılmaz: başsız tarayıcı çekim sırasında
+      // pencereyi bir anlığına varsayılan 800 px genişliğe döndürüyordu; genişliğe bakan bileşenler (week-calendar "3 gün"e geçiyordu)
+      // ve görünüşe bağlı sayaçlar (metric-card "0.000,0") yanlış hâlde çekiliyordu (TB-003, 2026-10-18).
+      const pageHeight = await evaluate(send, "Math.ceil(document.documentElement.scrollHeight)");
+      await send("Emulation.setDeviceMetricsOverride", { width, height: Math.max(900, pageHeight), deviceScaleFactor: 1, mobile: width < 600 });
+      // Tembel görseller hemen istenir ve yüklenmesi beklenir; sonlu CSS ve WAAPI hareketleri (en çok 5 sn) biter; JS yaylarına pay bırakılır.
       const box = await evaluate(send, `(async () => {
         const el = document.getElementById(${JSON.stringify(name)});
-        el.scrollIntoView({ block: "start" });
-        await new Promise(resolve => setTimeout(resolve, 1200));
+        const images = [...el.querySelectorAll("img")];
+        for (const image of images) image.loading = "eager";
+        await Promise.all(images.map(image => image.complete ? null : new Promise(resolve => {
+          image.addEventListener("load", resolve, { once: true });
+          image.addEventListener("error", resolve, { once: true });
+          setTimeout(resolve, 8000);
+        })));
+        const start = Date.now();
+        const running = () => document.getAnimations().some(item => item.playState === "running" && item.effect?.getTiming().iterations !== Infinity);
+        while (Date.now() - start < 5000 && running()) await new Promise(resolve => setTimeout(resolve, 100));
+        await new Promise(resolve => setTimeout(resolve, 800));
         const rect = el.getBoundingClientRect();
         return { x: rect.left + scrollX, y: rect.top + scrollY, width: rect.width, height: rect.height };
       })()`);
-      const { data } = await send("Page.captureScreenshot", { format: "png", captureBeyondViewport: true, clip: { ...box, scale: 1 } });
+      const { data } = await send("Page.captureScreenshot", { format: "png", clip: { ...box, scale: 1 } });
+      await send("Emulation.setDeviceMetricsOverride", { width, height: 900, deviceScaleFactor: 1, mobile: width < 600 });
       const file = path.join(outDir, `${name}-${width}.png`);
       writeFileSync(file, Buffer.from(data, "base64"));
       console.log(`${path.relative(root, file)}  (${Math.round(box.width)}x${Math.round(box.height)}; yüklü yazı tipleri: ${fonts || "YOK"})`);
