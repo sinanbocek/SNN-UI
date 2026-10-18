@@ -119,7 +119,7 @@ export function Card({ title, description, media, action, avatar, meta, status, 
     if (opened && morph && node) {
       // Açılış: panel önce kartın kutusuna konur, iki kare sonra serbest bırakılır; yerleşim yayı onu karttan ortaya büyütür.
       const box = node.getBoundingClientRect();
-      setLanding({ top: box.top, left: box.left, width: box.width, height: box.height }); // eslint-disable-line react-hooks/set-state-in-effect -- açılışın başlangıç kutusu ölçümden gelir
+      setLanding({ top: box.top, left: box.left, width: box.width, height: box.height }); // eslint-disable-line -- react-hooks 7.x set-state-in-effect için: açılışın başlangıç kutusu. Kural adı bilerek yazılmaz; 5.x kuran projede "kural bulunamadı" hatası verir. ölçümden gelir
       let second = 0;
       const first = requestAnimationFrame(() => { second = requestAnimationFrame(() => setLanding(null)); });
       return () => { cancelAnimationFrame(first); cancelAnimationFrame(second); };

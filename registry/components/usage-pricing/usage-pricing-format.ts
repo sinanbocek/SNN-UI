@@ -89,3 +89,16 @@ export function scalePosition(plans: UsagePlan[], plan: UsagePlan | null): numbe
   if (!plan || plans.length < 2) return 0;
   return plans.findIndex(item => item.key === plan.key) / (plans.length - 1);
 }
+
+/**
+ * Kaydırıcı işaretlerinden hangileri sığar. Kutular soldan sağa sıralıdır; ilk işaret hep görünür,
+ * sonraki işaret yalnız son görünenin sağ kenarından `gap` piksel sonra başlıyorsa görünür.
+ */
+export function fittingMarks(boxes: readonly { left: number; right: number }[], gap = 6): boolean[] {
+  let edge = Number.NEGATIVE_INFINITY;
+  return boxes.map(box => {
+    const fits = box.left >= edge + gap;
+    if (fits) edge = box.right;
+    return fits;
+  });
+}

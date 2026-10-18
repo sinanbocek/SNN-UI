@@ -1,6 +1,6 @@
 "use client";
 
-import { useEffect, useId, useMemo, useRef, useState } from "react";
+import { useEffect, useId, useLayoutEffect, useMemo, useRef, useState } from "react";
 import { AnimatePresence, motion } from "motion/react";
 import { AnimatedCounter } from "../animated-counter/animated-counter";
 import { Button } from "../button/button";
@@ -8,7 +8,7 @@ import { useReducedMotionSafe } from "../lib/viz-utils";
 import SegmentedControl from "../segmented-control/segmented-control";
 import { Skeleton } from "../skeleton/skeleton";
 import { SlotText } from "../slot-text/slot-text";
-import { breakdown, majorOf, minorMoney, newFeatures, overageText, percentText, pricePerMillion, recommendPlan, recommendationAnnouncement, scalePosition, seatsText, usageFull, usageShort, type BillingPeriod, type UsagePlan } from "./usage-pricing-format";
+import { breakdown, fittingMarks, majorOf, minorMoney, newFeatures, overageText, percentText, pricePerMillion, recommendPlan, recommendationAnnouncement, scalePosition, seatsText, usageFull, usageShort, type BillingPeriod, type UsagePlan } from "./usage-pricing-format";
 import styles from "./usage-pricing.module.css";
 
 export type { BillingPeriod, UsagePlan };
@@ -69,6 +69,24 @@ export function UsagePricing({ plans, seatStops, usageStops, usageLabel = "Aylı
   const seatMarks = useMemo(() => marksFor(seatStops, stop => recommendPlan(plans, stop, usage)), [plans, seatStops, usage]);
   const usageMarks = useMemo(() => marksFor(usageStops, stop => recommendPlan(plans, seats, stop)), [plans, usageStops, seats]);
 
+  // Dar kapta üst üste binen işaretler gizlenir; kap genişliği değişince yeniden ölçülür.
+  const seatMarksRef = useRef<HTMLDivElement>(null);
+  const usageMarksRef = useRef<HTMLDivElement>(null);
+  useLayoutEffect(() => {
+    const rows = [seatMarksRef.current, usageMarksRef.current].filter((row): row is HTMLDivElement => row !== null);
+    const fit = () => rows.forEach(row => {
+      const spans = [...row.children] as HTMLElement[];
+      for (const span of spans) span.style.visibility = "";
+      const shown = fittingMarks(spans.map(span => { const box = span.getBoundingClientRect(); return { left: box.left, right: box.right }; }));
+      spans.forEach((span, index) => { if (!shown[index]) span.style.visibility = "hidden"; });
+    });
+    fit();
+    if (typeof ResizeObserver === "undefined") return;
+    const observer = new ResizeObserver(fit);
+    for (const row of rows) observer.observe(row);
+    return () => observer.disconnect();
+  }, [seatMarks, usageMarks, loading, plans.length]);
+
   const start = async () => {
     if (!plan) return;
     setBusy(true); setMessage(null);
@@ -87,12 +105,12 @@ export function UsagePricing({ plans, seatStops, usageStops, usageLabel = "Aylı
         <div className={styles.slider}>
           <div className={styles.sliderHead}><label htmlFor={`${baseId}-seats`}>Ekip büyüklüğü</label><b>{seatsText(seats)}</b></div>
           <input id={`${baseId}-seats`} type="range" min={0} max={seatStops.length - 1} step={1} value={seatAt} aria-valuetext={seatsText(seats)} onChange={event => { setSeatAt(Number(event.target.value)); setMessage(null); }} />
-          <div className={styles.marks} aria-hidden="true">{seatMarks.map(mark => <span key={mark.at} style={{ left: `${seatStops.length > 1 ? (mark.at / (seatStops.length - 1)) * 100 : 0}%` }}>{mark.name}</span>)}</div>
+          <div ref={seatMarksRef} className={styles.marks} aria-hidden="true">{seatMarks.map(mark => <span key={mark.at} style={{ left: `${seatStops.length > 1 ? (mark.at / (seatStops.length - 1)) * 100 : 0}%` }}>{mark.name}</span>)}</div>
         </div>
         <div className={styles.slider}>
           <div className={styles.sliderHead}><label htmlFor={`${baseId}-usage`}>{usageLabel}</label><b>{usageShort(usage)}</b></div>
           <input id={`${baseId}-usage`} type="range" min={0} max={usageStops.length - 1} step={1} value={usageAt} aria-valuetext={`${usageFull(usage)} ${usageUnit}`} onChange={event => { setUsageAt(Number(event.target.value)); setMessage(null); }} />
-          <div className={styles.marks} aria-hidden="true">{usageMarks.map(mark => <span key={mark.at} style={{ left: `${usageStops.length > 1 ? (mark.at / (usageStops.length - 1)) * 100 : 0}%` }}>{mark.name}</span>)}</div>
+          <div ref={usageMarksRef} className={styles.marks} aria-hidden="true">{usageMarks.map(mark => <span key={mark.at} style={{ left: `${usageStops.length > 1 ? (mark.at / (usageStops.length - 1)) * 100 : 0}%` }}>{mark.name}</span>)}</div>
         </div>
         <div className={styles.periodRow}>
           <SegmentedControl label="Ödeme dönemi" value={period} onValueChange={value => { setPeriod(value as BillingPeriod); setAnnounce(value === "year" ? "Yıllık ödeme" : "Aylık ödeme"); }} options={[{ value: "month", label: "Aylık" }, { value: "year", label: `Yıllık · ${percentText(yearlyDiscount)} tasarruf` }]} />

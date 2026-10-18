@@ -24,7 +24,7 @@ export function BillingToggleDemo() {
     <div className="row" style={{ alignItems: "flex-end", gap: 32 }}>
       {PLANS.map(plan => {
         const price = yearly ? yearlyMonthlyEquivalent(plan.monthly, DISCOUNT) : plan.monthly;
-        return <div key={plan.name} className="col">
+        return <div key={plan.name} style={{ display: "flex", flexDirection: "column", gap: 4 }}>
           <span className="etiket">{plan.name}</span>
           <BillingPrice amount={price} was={yearly ? plan.monthly : undefined} period="kullanıcı başına / ay" />
         </div>;

@@ -68,6 +68,8 @@ export function PlanComparison() {
   const [selected, setSelected] = useState<PlanId | null>(null);
   const rootRef = useRef<HTMLElement>(null);
   const [size, setSize] = useState<"lg" | "md" | "sm" | "xs">("lg");
+  // Dar boyda iki plan yan yana durur; düğme yalnız "Seç" yazar (plan adı hücrenin üstünde), ekran okuyucu tam adı duyar.
+  const narrow = size === "sm" || size === "xs";
   useLayoutEffect(() => {
     const node = rootRef.current;
     if (!node) return;
@@ -95,7 +97,7 @@ export function PlanComparison() {
             <div key={plan} className={`${styles.planCell} ${selected === plan ? styles.planSelected : ""}`} role="columnheader" aria-label={`${PLAN_NAMES[plan]} planı`}>
               <div className={styles.planTop}><h3>{PLAN_NAMES[plan]}</h3><span>{PLAN_TAGLINES[plan]}</span></div>
               <div className={styles.price}><span className={styles.priceValue} aria-live="polite" aria-atomic="true">{currencyPrefix()}<AnimatedNumber value={planPrice(plan, billing)} format={formatAmount} /></span><span className={styles.pricePeriod}>kullanıcı başına / ay</span></div>
-              <Button type="button" variant={selected === plan ? "primary" : "secondary"} className={styles.selectButton} aria-pressed={selected === plan} onClick={() => setSelected(current => current === plan ? null : plan)}>{selected === plan ? "Seçildi" : `${PLAN_NAMES[plan]} planını seç`}</Button>
+              <Button type="button" variant={selected === plan ? "primary" : "secondary"} className={styles.selectButton} aria-pressed={selected === plan} aria-label={narrow && selected !== plan ? `${PLAN_NAMES[plan]} planını seç` : undefined} onClick={() => setSelected(current => current === plan ? null : plan)}>{selected === plan ? "Seçildi" : narrow ? "Seç" : `${PLAN_NAMES[plan]} planını seç`}</Button>
               {selected === plan && <motion.span className={styles.selectedRail} layoutId={`${id}-selected-rail`} transition={reduce ? { duration: 0 } : motionTokens.spring.responsive} aria-hidden="true" />}
             </div>
           ))}
