@@ -64,6 +64,7 @@ const FILES = {
   dropzone: "registry/components/file-dropzone/file-dropzone-format.ts",
   stepper: "registry/components/stepper/stepper-status.ts",
   revision: "registry/components/revision-diff/revision-diff-format.ts",
+  calendarMath: "registry/components/week-calendar/calendar-math.ts",
 };
 const mods = {};
 let temp;
@@ -1184,4 +1185,12 @@ test("revizyon karşılaştırması: değişen alanlar, sayılar, özet ve yazı
   assert.equal(r.unmatchedSide(rows[4]), "Yalnız önceki sürümde");
   assert.equal(r.unmatchedSide({ key: "x", status: "unmatched", after: {} }), "Yalnız yeni sürümde");
   assert.equal(r.statusLabel.unmatched, "Eşlenmedi");
+});
+
+test("hafta takvimi aralık başlığı: boş gün listesi boş metin verir, tek gün, aynı ay ve iki ay ABACUS biçimidir", () => {
+  const { rangeTitle } = mods.calendarMath;
+  assert.equal(rangeTitle([]), "");
+  assert.equal(rangeTitle(["2026-10-14"]), `${abacusDate.format("2026-10-14", "long")} ${abacusDate.dayName("2026-10-14", "long")}`);
+  assert.equal(rangeTitle(["2026-10-12", "2026-10-13", "2026-10-18"]), `12–${abacusDate.format("2026-10-18", "long")}`);
+  assert.equal(rangeTitle(["2026-10-28", "2026-11-03"]), `${abacusDate.format("2026-10-28", "dayMonth")} – ${abacusDate.format("2026-11-03", "long")}`);
 });
