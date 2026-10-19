@@ -60,6 +60,7 @@ const FILES = {
   moneyInput: "registry/components/money-input/money-input-format.ts",
   numberField: "registry/components/number-field/number-field-format.ts",
   numberInput: "registry/components/number-input/number-input-format.ts",
+  inlineNumber: "registry/components/inline-number-edit/inline-number-edit-format.ts",
   calendar: "registry/components/calendar/calendar-format.ts",
   datePicker: "registry/components/date-picker/date-picker-format.ts",
   dropzone: "registry/components/file-dropzone/file-dropzone-format.ts",
@@ -1240,4 +1241,22 @@ test("yalın sayı kutusu: taslak süzülür ve okunur; boş metin null, tek nok
   assert.equal(settleValue(12.345, 0, 10, 2), 10);
   assert.equal(settleValue(-3, 0, 10, 2), 0);
   assert.equal(settleValue(1.005, 0, 10, 2), math.round(1.005, 2));
+});
+
+test("yerinde sayı düzenleme: gösterim, düzenleme metni ve okuma gidiş-dönüş uyumludur", () => {
+  const { displayText, editTextOf, parseText } = mods.inlineNumber;
+  const num = { kind: "number", maxFraction: 2, currency: "TRY" };
+  const cash = { kind: "money", maxFraction: 2, currency: "TRY" };
+  assert.equal(displayText(null, num), "");
+  assert.equal(displayText(1234.5, num), "1.234,5");
+  assert.equal(editTextOf("1.234,5", num), "1234,5");
+  assert.equal(parseText("1234,5", num), 1234.5);
+  assert.equal(parseText("", num), null);
+  assert.equal(parseText("12.5", num), 12.5);
+  assert.equal(displayText(123450, cash), money.format(123450, { currency: "TRY", kurus: true, zero: "symbol" }));
+  assert.equal(editTextOf(displayText(123450, cash), cash), "1234,50");
+  assert.equal(parseText("1234,50", cash), 123450);
+  assert.equal(parseText(displayText(123450, cash), cash), 123450);
+  assert.equal(parseText("-5", cash), money.parse("-5"));
+  assert.equal(parseText("abc", cash), null);
 });

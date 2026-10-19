@@ -4990,6 +4990,39 @@
       }
     },
     {
+      "name": "inline-number-edit",
+      "type": "registry:ui",
+      "title": "Yerinde sayı ve tutar düzenleme",
+      "description": "Basınca yerinde sayı kutusuna dönen sayı ya da tutar: düzenlerken ham metin (\"1234,50\") seçili gelir, Enter kaydeder, Escape vazgeçer; kayıtta Türkçe biçimli yazılır (\"1.234,5\", \"₺1.234,50\"). Boş değer (null), en az / en çok sınırı; kayıt başarısız olursa son kayıtlı değer geri gelir.",
+      "categories": [
+        "forms"
+      ],
+      "dependencies": [
+        "@snn/abacus-core@github:sinanbocek/SNN-Abacus-Core#semver:^4.3.0"
+      ],
+      "registryDependencies": [
+        "@snn-ui/snn-foundation",
+        "@snn-ui/inline-edit",
+        "@snn-ui/number-input"
+      ],
+      "files": [
+        {
+          "path": "registry/components/inline-number-edit/inline-number-edit-format.ts",
+          "type": "registry:component",
+          "target": "@components/snn/inline-number-edit/inline-number-edit-format.ts"
+        },
+        {
+          "path": "registry/components/inline-number-edit/inline-number-edit.tsx",
+          "type": "registry:component",
+          "target": "@components/snn/inline-number-edit/inline-number-edit.tsx"
+        }
+      ],
+      "meta": {
+        "arcCommit": "bfdf7e8",
+        "arcSource": "(Arc'ta yok; SNN-UI için yazıldı)"
+      }
+    },
+    {
       "name": "mention-input",
       "type": "registry:ui",
       "title": "Anma alanı",
