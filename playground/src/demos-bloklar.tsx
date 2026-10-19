@@ -176,6 +176,28 @@ function SidebarDemo() {
         </Sidebar>
       </div>
     </Col>
+    <Col title="Sık kabuk: 36 px satır, hap biçimli seçili satır, pasif satır (Yakında). Şeritteyken üzerine gelince açılır; raptiye açık tutar.">
+      <div style={{ height: 420, width: 900, maxWidth: "100%", ["--sidebar-row-height" as string]: "36px", ["--sidebar-row-radius" as string]: "999px" }}>
+        <Sidebar
+          header={{ name: "Nakit", subtitle: "Karar masası" }} activeId={page} onNavigate={setPage} defaultCollapsed hoverExpand breakpoint={420}
+          sections={[
+            { id: "is", title: "İş", items: [
+              { id: "pano", label: "Pano", icon: <Home size={18} /> },
+              { id: "gelen", label: "Gelen kutusu", icon: <Inbox size={18} />, badge: 2 },
+              { id: "belgeler", label: "Belgeler", icon: <FileText size={18} />, children: [{ id: "teklifler", label: "Teklifler" }, { id: "sartnameler", label: "Şartnameler" }] },
+            ] },
+            { id: "yonetim", title: "Yönetim", items: [
+              { id: "ekip", label: "Ekip", icon: <Users size={18} /> },
+              { id: "rapor", label: "Raporlar", icon: <FileText size={18} />, disabled: true, note: "Yakında" },
+            ] },
+          ]}
+          settingsItem={{ id: "ayarlar", label: "Ayarlar", icon: <Settings size={18} /> }}
+        >
+          <h3 style={{ margin: 0 }}>{page}</h3>
+          <p>Geçici açılan menü içeriği itmez, üstüne çizilir.</p>
+        </Sidebar>
+      </div>
+    </Col>
   </>;
 }
 
