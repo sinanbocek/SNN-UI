@@ -4260,7 +4260,7 @@
       "name": "sortable-data-table",
       "type": "registry:ui",
       "title": "Sıralanabilir veri tablosu",
-      "description": "Başlığa basınca sütuna göre sıralanan tablo; satırlar yeni yerine kayar, sıralanan sütun hafifçe boyanır. Sıra Türkçe alfabedir (ç c'den, ı i'den önce). Para sütunu kuruş tam sayısından \"₺1.234,50\" yazılır ve sağa yaslanır; sayı \"1.234,5\", tarih \"16.10.2026\". İsteğe bağlı seçim (onay kutusu, Shift ile aralık, Escape ile temizleme) ve sayfalama (\"11–20 / 48 kayıt\"). Dar ekranda her kayıt bir kart olur: üstte ad ve tutar, altında etiketli satırlar.",
+      "description": "Başlığa basınca sütuna göre sıralanan tablo; satırlar yeni yerine kayar, sıralanan sütun hafifçe boyanır. Sıra Türkçe alfabedir (ç c'den, ı i'den önce). Para sütunu kuruş tam sayısından \"₺1.234,50\" yazılır ve sağa yaslanır; sayı \"1.234,5\", tarih \"16.10.2026\". İsteğe bağlı seçim (onay kutusu, Shift ile aralık, Escape ile temizleme), sayfalama (\"11–20 / 48 kayıt\") ve satır tıklama (`onRowClick(row)`, klavyede Tab ve Enter; `rowClassName(row)` satıra sınıf ekler). Dar ekranda her kayıt bir kart olur: üstte ad ve tutar, altında etiketli satırlar.",
       "categories": [
         "finance"
       ],
@@ -5137,7 +5137,7 @@
       "name": "user-menu",
       "type": "registry:ui",
       "title": "Kullanıcı menüsü",
-      "description": "Üst çubukta kişinin fotoğrafının arkasındaki hesap menüsü: kimlik başlığı, hesap bağlantıları, satır içi durum ve tema seçimi, çıkış. 640 px altında alttan açılan sayfa olur; klavyeyle gezilir, harf yazarak satıra atlanır (Türkçe harfe duyarsız).",
+      "description": "Üst çubukta kişinin fotoğrafının arkasındaki hesap menüsü: kimlik başlığı, hesap bağlantıları, satır içi durum ve tema seçimi (gösterilecek temalar `themeOptions` ile, örneğin yalnız açık ve koyu), çıkış. 640 px altında alttan açılan sayfa olur; klavyeyle gezilir, harf yazarak satıra atlanır (Türkçe harfe duyarsız).",
       "categories": [
         "navigation"
       ],
@@ -5571,7 +5571,7 @@
       "name": "login-split",
       "type": "registry:ui",
       "title": "İki bölmeli giriş ekranı",
-      "description": "Blok: bir yanda giriş formu (e-posta, parola, beni hatırla, parolamı unuttum, sağlayıcı düğmesi, kayıt ol), öbür yanda fotoğraf ve alıntı. Alan hataları alandan çıkınca ve gönderimde; reddedilen girişte hata kutusu. 768 px altında görsel ince şeride iner. Yalnız görünümdür.",
+      "description": "Blok: bir yanda giriş formu (e-posta, parola, beni hatırla, parolamı unuttum, sağlayıcı düğmesi, kayıt ol), öbür yanda fotoğraf ve alıntı. Alan hataları alandan çıkınca ve gönderimde; reddedilen girişte hata kutusu (metni `error` ile değişir). Başlangıç değerleri `defaultValues`, test kimliği `data-testid`. 768 px altında görsel ince şeride iner. Yalnız görünümdür.",
       "categories": [
         "blocks"
       ],

@@ -26,12 +26,33 @@ const COLUMNS: DataColumn<Row>[] = [
   { key: "startDate", label: "Başlangıç", format: "date" },
 ];
 
+type Person = { id: string; name: string; email: string; role: string; active: boolean };
+
+/** Uydurma kişiler; pasif olan satır soluk çizilir. */
+const PEOPLE: Person[] = [
+  { id: "u1", name: "Elif Yıldız", email: "elif.yildiz@ornek.com.tr", role: "Yönetici", active: true },
+  { id: "u2", name: "Mert Şahin", email: "mert.sahin@ornek.com.tr", role: "Muhasebe", active: false },
+  { id: "u3", name: "Zeynep Çelik", email: "zeynep.celik@ornek.com.tr", role: "Saha", active: true },
+  { id: "u4", name: "İsmail Yılmaz", email: "ismail.yilmaz@ornek.com.tr", role: "Saha", active: false },
+];
+
+const PEOPLE_COLUMNS: DataColumn<Person>[] = [
+  { key: "name", label: "Ad" },
+  { key: "email", label: "E-posta" },
+  { key: "role", label: "Rol" },
+  { key: "active", label: "Durum", render: value => (value ? "Aktif" : "Pasif") },
+];
+
 export function SortableDataTableDemo() {
   const [selected, setSelected] = useState<string[]>([]);
+  const [opened, setOpened] = useState("Henüz bir satır açılmadı");
   return (
     <div className="col">
       <span className="etiket">Başlığa basınca sıralanır (İl sütununda Türkçe sıra: Çorum, Iğdır, İzmir, Şanlıurfa). Satıra basınca seçilir; Shift ile aralık, Escape temizler. 390 px'te her kayıt bir kart olur.</span>
       <SortableDataTable caption="Projeler" rows={ROWS} columns={COLUMNS} rowKey="id" pageSize={8} selectable selectedKeys={selected} onSelectionChange={setSelected} itemName={{ one: "proje", other: "proje" }} defaultSort={{ key: "amount", direction: "desc" }} />
+      <span className="etiket">Satıra tıklayınca ya da Tab ile satıra gelip Enter'a basınca ayrıntı açılır (onRowClick). Pasif kişiler soluk (rowClassName).</span>
+      <SortableDataTable caption="Kullanıcılar" rows={PEOPLE} columns={PEOPLE_COLUMNS} rowKey="id" onRowClick={person => setOpened(`Açılan: ${person.name}`)} rowClassName={person => (person.active ? undefined : "soluk-satir")} />
+      <span className="etiket" role="status">{opened}</span>
       <span className="etiket">Boş tablo</span>
       <SortableDataTable caption="Boş liste" rows={[] as Row[]} columns={COLUMNS} rowKey="id" emptyMessage="Bu süzgeçle eşleşen proje yok" />
     </div>

@@ -375,3 +375,15 @@ Sahibin isteği: üretici seçenek paneli olmadan, göz simgesinin yanında.
 | `snn-stage-icon` (yeni ortak parça) | `lib/stage-kind.ts` (saf seçim, testli: `test/stage-icon.test.mjs`) ve `lib/stage-icon.tsx`: planlandı kesikli gri daire, sürüyor yarım dolu vurgu, kontrolde dörtte üç dolu mavi-gri, bitti onaylı yeşil. Tür aşama kimliğinden ya da adından (Türkçe ve İngilizce tanıdık sözcükler), yoksa sıradan çıkar. |
 | `project-board`, `kanban-board` | Sütun başlıklarının önünde aşama simgesi; aşama/sütun tanımına isteğe bağlı `kind`. Önce dört sütun birbirinden ayırt edilmiyordu (sahip bildirdi). |
 | `kanban-board` | Kart listesi kendi içinde kaydırılmaz (`max-height: 30rem; overflow-y: auto` kalktı), sütun içeriği kadar uzar. Önce bırakılan kartın uçuşu ve büyüme yayı listeyi birkaç piksel taşırınca yatay ve dikey kaydırma çubukları beliriyordu. |
+
+## Nakit projesinin talepleri: tablo, giriş formu, kullanıcı menüsü (2026-10-19)
+
+SNN-Proje-ve-Nakit-Akis-Yonetimi beş talep gönderdi. Rozet (`badge`: neutral, success, info, danger; sm, md) ve kenar menüsü (`sidebar`: logo, etkin öğe, daraltma, alt alanda kullanıcı kartı menüsüyle çıkış, dar kapta çekmece) katalogda zaten vardı; değişiklik gerekmedi. Kalan üçü:
+
+| Parça | Değişiklik |
+|---|---|
+| `sortable-data-table` | Yeni `onRowClick(row)`: satıra tıklayınca çağrılır; satır Tab ile odaklanır, Enter açar (yalnız satırın kendisi odaktayken ve basılı tutma yinelemesi değilken; `opensRow`, testli). Seçim yoksa oklar satırlar arasında gezer. Satırdaki bağlantı, düğme, onay kutusu kendi işini yapar. `selectable` ile birlikteyse satıra tıklamak artık seçmez, `onRowClick` çağrılır; seçim onay kutusundan. Yeni `rowClassName(row)`: satıra sınıf ekler. |
+| `login-split` (`LoginForm`), `login-immersive` | Yeni `defaultValues` (e-posta, parola, beni hatırla; yalnız ilk çizimde okunur, e-posta süzülür), `error` (hata kutusunun metni; verilince kutu açılır, yazınca kapanır; ilk çizimde gelen hata odak çalmaz, sallamaz; `loginAlertText`, testli), `data-testid` (form öğesine). İki blok üçünü de forma geçirir. |
+| `user-menu` | Yeni `themeOptions`: anahtarda gösterilecek temalar ve sırası (`pickThemeOptions`, testli; boş ya da geçersizse üçü). "system" listede yoksa `defaultTheme` varsayılanı listenin ilkidir. |
+
+Kırıcı değişiklik yok; yeni prop'lar verilmezse eski davranış sürer.

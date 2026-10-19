@@ -974,6 +974,14 @@ test("derinlikli ray: kart dönüşümü, momentumla oturma, sürükleme, tuşla
   assert.equal(mods.cover.liveText(2, 8, "Taş köprü"), "3 / 8: Taş köprü");
 });
 
+test("sıralanabilir tablo: satırı yalnız satırın kendisindeki ilk Enter açar", () => {
+  const t = mods.table;
+  assert.equal(t.opensRow("Enter", false, true), true);
+  assert.equal(t.opensRow("Enter", true, true), false, "basılı tutmanın yinelemesi açmaz");
+  assert.equal(t.opensRow("Enter", false, false), false, "satır içindeki düğmeden gelen Enter açmaz");
+  assert.equal(t.opensRow(" ", false, true), false);
+});
+
 test("sıralanabilir tablo: Türkçe alfabe sırası, para kuruştan, sayı ve tarih ABACUS çıktısıdır; sayfa satırı doğru", () => {
   const t = mods.table;
   // ABACUS collate: ç c'den sonra, ı i'den önce; büyük/küçük harf farkı yok

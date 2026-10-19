@@ -35,3 +35,15 @@ test("yazarak atlama: başlamayan etiket ve boş yazı eşleşmez", () => {
   assert.equal(format.matchesTypeahead("Faturalama", ""), false);
   assert.equal(format.matchesTypeahead(undefined, "f"), false);
 });
+
+const themes = [{ value: "light" }, { value: "dark" }, { value: "system" }];
+
+test("tema seçenekleri: verilen sıra korunur, tekrar ve bilinmeyen atılır", () => {
+  assert.deepEqual(format.pickThemeOptions(themes, ["dark", "light", "dark", "sepya"]).map(option => option.value), ["dark", "light"]);
+});
+
+test("tema seçenekleri: verilmez ya da geçerli değer kalmazsa üçü de döner", () => {
+  assert.deepEqual(format.pickThemeOptions(themes).map(option => option.value), ["light", "dark", "system"]);
+  assert.deepEqual(format.pickThemeOptions(themes, []).map(option => option.value), ["light", "dark", "system"]);
+  assert.deepEqual(format.pickThemeOptions(themes, ["sepya"]).map(option => option.value), ["light", "dark", "system"]);
+});

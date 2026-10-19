@@ -40,3 +40,8 @@ export function firstInvalidField(email: string, password: string): "email" | "p
   if (loginPasswordProblem(password)) return "password";
   return null;
 }
+
+/** Hata kutusunun metni: proje kendi metnini verdiyse o, yoksa (ya da yalnız boşluksa) "E-posta ya da parola hatalı.". */
+export function loginAlertText(error?: string): string {
+  return error?.trim() ? error : LOGIN_TEXT.failed;
+}

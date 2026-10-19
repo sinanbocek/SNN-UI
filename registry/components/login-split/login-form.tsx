@@ -8,7 +8,7 @@ import { Input } from "../input/input";
 import { PasswordField } from "../password-field/password-field";
 import { motionTokens } from "../lib/motion-tokens";
 import { useReducedMotionSafe } from "../lib/viz-utils";
-import { LOGIN_TEXT, cleanLoginEmail, firstInvalidField, loginEmailProblem, loginPasswordProblem } from "./login-form-format";
+import { LOGIN_TEXT, cleanLoginEmail, firstInvalidField, loginAlertText, loginEmailProblem, loginPasswordProblem } from "./login-form-format";
 import styles from "./login-form.module.css";
 
 export interface LoginValues { email: string; password: string; remember?: boolean | undefined }
@@ -29,32 +29,46 @@ export interface LoginFormProps {
   introDelay?: number | undefined;
   /** Formu adlandıran başlığın kimliği (`aria-labelledby`). */
   labelledBy?: string | undefined;
+  /** Alanların başlangıç değerleri; yalnız ilk çizimde okunur. E-posta yazarken olduğu gibi süzülür. */
+  defaultValues?: Partial<LoginValues> | undefined;
+  /** Hata kutusunun metni. Dolu verilince kutu bu metinle açılır (örneğin "Hesabınız kilitlendi."); reddedilen girişte de varsayılan metnin yerine bu yazılır.
+   * Kullanıcı alanlara yazınca kutu kapanır; yeni bir metin verilince yeniden açılır. */
+  error?: string | undefined;
+  /** Form öğesine yazılır; uçtan uca testlerde formu bulmak için. */
+  "data-testid"?: string | undefined;
 }
 
 /** İki giriş bloğunun ortak gövdesi: alanlar, gönderim durumları, hata kutusu ve sağlayıcı düğmeleri. Başlık ve kayıt satırı kabın işidir. */
-export function LoginForm({ onSubmit, onForgot, onProvider, providers = DEFAULT_PROVIDERS, showRemember = false, introDelay = 0, labelledBy }: LoginFormProps) {
+export function LoginForm({ onSubmit, onForgot, onProvider, providers = DEFAULT_PROVIDERS, showRemember = false, introDelay = 0, labelledBy, defaultValues, error, "data-testid": testId }: LoginFormProps) {
   const reduced = useReducedMotionSafe();
   const uid = useId();
   const emailRef = useRef<HTMLInputElement>(null);
   const passwordRef = useRef<HTMLInputElement>(null);
   const submitRef = useRef<HTMLButtonElement>(null);
   const shakeRef = useRef<HTMLDivElement>(null);
-  const [email, setEmail] = useState("");
-  const [password, setPassword] = useState("");
-  const [remember, setRemember] = useState(false);
+  const [email, setEmail] = useState(() => cleanLoginEmail(defaultValues?.email ?? ""));
+  const [password, setPassword] = useState(defaultValues?.password ?? "");
+  const [remember, setRemember] = useState(defaultValues?.remember ?? false);
   const [touched, setTouched] = useState({ email: false, password: false });
-  const [status, setStatus] = useState<Status>("idle");
+  const [status, setStatus] = useState<Status>(error ? "error" : "idle");
+  const mounted = useRef(false);
 
   const emailError = touched.email ? loginEmailProblem(email) : null;
   const passwordError = touched.password ? loginPasswordProblem(password) : null;
   const sending = status === "sending";
 
   // Hata gelince alanlar yeniden açılır; odak ve sallanma bundan sonra parola alanına verilir.
+  // İlk çizimde gelen hata yalnız gösterilir: sayfa açılır açılmaz odak çalınmaz, form sallanmaz.
   useEffect(() => {
-    if (status !== "error") return;
+    const first = !mounted.current;
+    mounted.current = true;
+    if (status !== "error" || first) return;
     passwordRef.current?.focus();
     if (!reduced && shakeRef.current) animate(shakeRef.current, { x: [0, -6, 6, -4, 4, 0] }, { duration: .35 });
   }, [status, reduced]);
+
+  // Dışarıdan yeni bir hata metni gelince kutu açılır.
+  useEffect(() => { if (error) setStatus(current => current === "sending" ? current : "error"); }, [error]);
 
   const edit = () => { if (status === "error" || status === "done") setStatus("idle"); };
 
@@ -75,10 +89,10 @@ export function LoginForm({ onSubmit, onForgot, onProvider, providers = DEFAULT_
   const rise = (order: number) => reduced ? {} : { initial: { opacity: 0, y: 12 }, animate: { opacity: 1, y: 0 }, transition: { duration: motionTokens.duration.considered, ease: [...motionTokens.ease.enter] as [number, number, number, number], delay: introDelay + order * motionTokens.stagger.item * 2 } };
   const label = status === "sending" ? LOGIN_TEXT.submitting : status === "done" ? LOGIN_TEXT.done : LOGIN_TEXT.submit;
 
-  return <form className={styles.form} onSubmit={submit} noValidate aria-labelledby={labelledBy} aria-busy={sending || undefined}>
+  return <form className={styles.form} data-testid={testId} onSubmit={submit} noValidate aria-labelledby={labelledBy} aria-busy={sending || undefined}>
     <AnimatePresence initial={false}>
       {status === "error" && <motion.div key="alert" className={styles.alertSlot} role="alert" initial={reduced ? false : { height: 0, opacity: 0 }} animate={{ height: "auto", opacity: 1 }} exit={reduced ? { opacity: 0, transition: { duration: 0 } } : { height: 0, opacity: 0 }} transition={reduced ? { duration: 0 } : motionTokens.spring.smooth}>
-        <p className={styles.alert}>{LOGIN_TEXT.failed}</p>
+        <p className={styles.alert}>{loginAlertText(error)}</p>
       </motion.div>}
     </AnimatePresence>
     <motion.div {...rise(0)}>
