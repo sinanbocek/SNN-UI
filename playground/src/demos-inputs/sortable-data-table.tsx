@@ -1,6 +1,10 @@
 // sortable-data-table örneği. Projeler ve tutarlar uydurmadır; tutarlar kuruş tam sayısıdır.
 import { useState } from "react";
+import type { CSSProperties } from "react";
 import { SortableDataTable } from "../../../registry/components/sortable-data-table/sortable-data-table";
+import { Input } from "../../../registry/components/input/input";
+import { Select } from "../../../registry/components/select/select";
+import { NumberInput } from "../../../registry/components/number-input/number-input";
 import type { DataColumn } from "../../../registry/components/sortable-data-table/sortable-data-table";
 
 type Row = { id: string; name: string; city: string; amount: number; progress: number; startDate: string };
@@ -43,6 +47,30 @@ const PEOPLE_COLUMNS: DataColumn<Person>[] = [
   { key: "active", label: "Durum", render: value => (value ? "Aktif" : "Pasif") },
 ];
 
+type Item = { id: string; name: string; unit: string; quantity: number | null; vat: string };
+
+const UNITS = [{ value: "adet", label: "Adet" }, { value: "m2", label: "m²" }, { value: "kg", label: "kg" }];
+const VATS = [{ value: "0", label: "%0" }, { value: "10", label: "%10" }, { value: "20", label: "%20" }];
+/** Sık yoğunluk: satır 38 px, başlık 34 px; değişkenler tablonun bir atasına verilir. */
+const DENSE = { "--table-row-height": "38px", "--table-head-height": "34px", "--table-font-size": "var(--text-xs)" } as CSSProperties;
+
+/** Hücresinde alan olan sık tablo: etiketler görünmez (hideLabel), alanlar alçak (size="sm"). */
+function EditableDenseTable() {
+  const [items, setItems] = useState<Item[]>([
+    { id: "k1", name: "Beton C30", unit: "m2", quantity: 1250.5, vat: "20" },
+    { id: "k2", name: "İnşaat demiri", unit: "kg", quantity: 48000, vat: "20" },
+    { id: "k3", name: "Kapı", unit: "adet", quantity: null, vat: "10" },
+  ]);
+  const patch = (id: string, change: Partial<Item>) => setItems(list => list.map(item => (item.id === id ? { ...item, ...change } : item)));
+  const columns: DataColumn<Item>[] = [
+    { key: "name", label: "Kalem", sortable: false, render: (_, row) => <Input size="sm" hideLabel label={`Kalem adı, satır ${row.id}`} value={row.name} onChange={event => patch(row.id, { name: event.currentTarget.value })} /> },
+    { key: "unit", label: "Birim", sortable: false, render: (_, row) => <Select native size="sm" hideLabel label={`Birim: ${row.name}`} value={row.unit} options={UNITS} onValueChange={unit => patch(row.id, { unit })} /> },
+    { key: "quantity", label: "Miktar", numeric: true, sortable: false, render: (_, row) => <NumberInput size="sm" hideLabel steppers={false} label={`Miktar: ${row.name}`} value={row.quantity} min={0} formatOptions={{ maximumFractionDigits: 2 }} placeholder="Boş" onValueChange={quantity => patch(row.id, { quantity })} /> },
+    { key: "vat", label: "KDV", sortable: false, render: (_, row) => <Select size="sm" hideLabel label={`KDV oranı: ${row.name}`} value={row.vat} options={VATS} onValueChange={vat => patch(row.id, { vat })} /> },
+  ];
+  return <div style={DENSE}><SortableDataTable caption="Keşif kalemleri" rows={items} columns={columns} rowKey="id" /></div>;
+}
+
 export function SortableDataTableDemo() {
   const [selected, setSelected] = useState<string[]>([]);
   const [opened, setOpened] = useState("Henüz bir satır açılmadı");
@@ -53,6 +81,8 @@ export function SortableDataTableDemo() {
       <span className="etiket">Satıra tıklayınca ya da Tab ile satıra gelip Enter'a basınca ayrıntı açılır (onRowClick). Pasif kişiler soluk (rowClassName).</span>
       <SortableDataTable caption="Kullanıcılar" rows={PEOPLE} columns={PEOPLE_COLUMNS} rowKey="id" onRowClick={person => setOpened(`Açılan: ${person.name}`)} rowClassName={person => (person.active ? undefined : "soluk-satir")} />
       <span className="etiket" role="status">{opened}</span>
+      <span className="etiket">Sık yoğunluk (--table-row-height: 38px, --table-head-height: 34px, --table-font-size) ve hücrede alanlar: Input, tarayıcının kendi seçim kutusu (native), Radix seçim kutusu, boş değer taşıyabilen NumberInput.</span>
+      <EditableDenseTable />
       <span className="etiket">Boş tablo</span>
       <SortableDataTable caption="Boş liste" rows={[] as Row[]} columns={COLUMNS} rowKey="id" emptyMessage="Bu süzgeçle eşleşen proje yok" />
     </div>

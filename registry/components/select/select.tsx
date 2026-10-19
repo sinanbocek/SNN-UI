@@ -1,7 +1,7 @@
 "use client";
 
 import { forwardRef, useId, useState } from "react";
-import type { ComponentPropsWithoutRef } from "react";
+import type { ComponentPropsWithoutRef, Ref } from "react";
 import * as SelectPrimitive from "@radix-ui/react-select";
 import { AnimatePresence, motion, useReducedMotion } from "motion/react";
 import type { Variants } from "motion/react";
@@ -16,6 +16,13 @@ export interface SelectProps extends Omit<ComponentPropsWithoutRef<typeof Select
   id?: string | undefined;
   className?: string | undefined;
   options: { value: string; label: string; disabled?: boolean | undefined }[];
+  /** Etiket görünmez, ekran okuyucu yine okur. Tablo hücresindeki seçim için. */
+  hideLabel?: boolean | undefined;
+  /** "sm": tablo hücresine sığan alçak kutu. */
+  size?: "sm" | "md" | undefined;
+  /** Tarayıcının kendi <select> öğesi: klavye davranışı işletim sistemininkidir (kapalıyken oklar değeri değiştirir), açılır liste
+   * tarayıcınındır. Çok satırlı tabloda hafiftir. Değer geçişi canlanmaz. */
+  native?: boolean | undefined;
 }
 
 /** Gösterilen değer listenin yönünde döner: sonraki seçenek aşağıdan yükselir, önceki yukarıdan iner. */
@@ -28,7 +35,7 @@ const valueRoll: Variants = {
 const valueFade: Variants = { enter: { opacity: 0 }, center: { opacity: 1, y: 0, filter: "blur(0px)", transition: { duration: motionTokens.duration.instant } }, exit: { opacity: 0, transition: { duration: motionTokens.duration.instant } } };
 
 export const Select = forwardRef<HTMLButtonElement, SelectProps>(function Select(
-  { label, description, placeholder = "Bir seçenek seçin", options, id, className, disabled, onValueChange, ...rootProps },
+  { label, description, placeholder = "Bir seçenek seçin", options, id, className, disabled, onValueChange, hideLabel = false, size = "md", native = false, ...rootProps },
   ref,
 ) {
   const generatedId = useId();
@@ -43,9 +50,38 @@ export const Select = forwardRef<HTMLButtonElement, SelectProps>(function Select
   const [direction, setDirection] = useState(1);
   if (previousIndex !== index) { setPreviousIndex(index); setDirection(index > previousIndex ? 1 : -1); }
 
+  const labelNode = <label htmlFor={controlId} className={hideLabel ? styles.srOnly : undefined}>{label}</label>;
+  const hint = description && <span id={hintId} className={styles.hint}>{description}</span>;
+
+  if (native) return (
+    <div className={styles.field} data-size={size}>
+      {labelNode}
+      <div className={styles.nativeWrap}>
+        <select
+          ref={ref as unknown as Ref<HTMLSelectElement>}
+          id={controlId}
+          aria-describedby={hintId}
+          className={[styles.trigger, styles.native, className].filter(Boolean).join(" ")}
+          value={currentValue}
+          name={rootProps.name}
+          required={rootProps.required}
+          disabled={disabled}
+          data-disabled={disabled ? "" : undefined}
+          data-placeholder={currentValue ? undefined : ""}
+          onChange={(event) => { setUncontrolledValue(event.currentTarget.value); onValueChange?.(event.currentTarget.value); }}
+        >
+          {!currentValue && <option value="" disabled>{placeholder}</option>}
+          {options.map((option) => <option key={option.value} value={option.value} disabled={option.disabled}>{option.label}</option>)}
+        </select>
+        <ChevronDown className={styles.nativeChevron} size={16} strokeWidth={1.75} aria-hidden="true" />
+      </div>
+      {hint}
+    </div>
+  );
+
   return (
-    <div className={styles.field}>
-      <label htmlFor={controlId}>{label}</label>
+    <div className={styles.field} data-size={size}>
+      {labelNode}
       <SelectPrimitive.Root {...rootProps} disabled={disabled} onValueChange={(next) => { setUncontrolledValue(next); onValueChange?.(next); }}>
         <SelectPrimitive.Trigger
           ref={ref}
@@ -85,7 +121,7 @@ export const Select = forwardRef<HTMLButtonElement, SelectProps>(function Select
           </SelectPrimitive.Content>
         </SelectPrimitive.Portal>
       </SelectPrimitive.Root>
-      {description && <span id={hintId} className={styles.hint}>{description}</span>}
+      {hint}
     </div>
   );
 });

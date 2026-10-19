@@ -1,18 +1,19 @@
+/* Yoğunluk: --table-row-height (52px), --table-head-height (44px) ve --table-font-size (--text-sm) tablonun ya da bir atasının üstünde verilir. Dar ekrandaki kart görünümü kendi ölçüsünü korur. */
 /* Hücreler opaktır; sıralama sırasında birbirini geçen satırlar metni karıştırmadan birbirini temizce örter. */
 .wrapper { --column-tint: var(--surface-muted); position: relative; width: 100%; min-width: 0; max-width: 100%; overflow: hidden; border: 1px solid var(--border); border-radius: var(--radius-control); background: var(--surface); color: var(--foreground); font-family: var(--font-body); }
 .scroller { position: relative; overflow-x: auto; overscroll-behavior-x: contain; }
 .band { position: absolute; top: 0; bottom: 0; background: var(--column-tint); pointer-events: none; }
-.table { position: relative; z-index: 1; width: 100%; min-width: 560px; border-collapse: separate; border-spacing: 0; font-size: var(--text-sm); line-height: var(--leading-body); letter-spacing: var(--tracking-body); text-align: left; }
+.table { position: relative; z-index: 1; width: 100%; min-width: 560px; border-collapse: separate; border-spacing: 0; font-size: var(--table-font-size, var(--text-sm)); line-height: var(--leading-body); letter-spacing: var(--tracking-body); text-align: left; }
 .table[data-fixed] { table-layout: fixed; }
 .table caption, .srOnly { position: absolute; width: 1px; height: 1px; margin: -1px; padding: 0; overflow: hidden; clip: rect(0 0 0 0); white-space: nowrap; border: 0; }
 .selectCol { width: 44px; }
 
 .table th, .table td { --cell-base: var(--surface); --cell-fill: var(--cell-base); background-color: var(--cell-fill); transition: background-color var(--duration-standard) var(--ease-standard), color var(--duration-standard) var(--ease-standard); }
 .table th[data-sorted], .table td[data-sorted] { --cell-base: var(--column-tint); }
-.table th { height: 44px; padding: 0 var(--space-4); border-bottom: 1px solid var(--border); color: var(--text-muted); font-size: var(--text-sm); font-weight: 500; text-align: left; white-space: nowrap; }
+.table th { height: var(--table-head-height, 44px); padding: 0 var(--space-4); border-bottom: 1px solid var(--border); color: var(--text-muted); font-size: var(--table-font-size, var(--text-sm)); font-weight: 500; text-align: left; white-space: nowrap; }
 .table th[data-sortable] { padding: 0; }
 .table th[data-sorted] { color: var(--foreground); }
-.table td { height: 52px; padding: 0 var(--space-4); border-bottom: 1px solid var(--border-subtle); color: var(--foreground); font-weight: 400; vertical-align: middle; overflow-wrap: anywhere; }
+.table td { height: var(--table-row-height, 52px); padding: 0 var(--space-4); border-bottom: 1px solid var(--border-subtle); color: var(--foreground); font-weight: 400; vertical-align: middle; overflow-wrap: anywhere; }
 .table tbody tr:last-child td { border-bottom: 0; }
 .table [data-numeric] { text-align: right; font-variant-numeric: tabular-nums; }
 .table[data-selectable] tbody tr { cursor: pointer; -webkit-tap-highlight-color: transparent; }
@@ -26,7 +27,7 @@
 .table tbody tr[data-clickable]:focus-visible td:only-child { box-shadow: inset 0 0 0 2px var(--row-ring); }
 .table[data-selectable] [data-primary]:not([data-sortable]), .table[data-selectable] th[data-primary] .sortButton { padding-left: var(--space-2); }
 
-.sortButton { display: flex; width: 100%; height: 44px; align-items: center; justify-content: flex-start; border: 0; padding: 0 var(--space-4); background: transparent; color: inherit; font: inherit; letter-spacing: inherit; cursor: pointer; -webkit-tap-highlight-color: transparent; }
+.sortButton { display: flex; width: 100%; height: var(--table-head-height, 44px); align-items: center; justify-content: flex-start; border: 0; padding: 0 var(--space-4); background: transparent; color: inherit; font: inherit; letter-spacing: inherit; cursor: pointer; -webkit-tap-highlight-color: transparent; }
 .table th[data-numeric] .sortButton { justify-content: flex-end; }
 .sortInner { display: inline-flex; align-items: center; gap: 6px; border-radius: var(--radius-control); transition: color var(--duration-fast) var(--ease-standard); }
 /* Sağa yaslı sütunlarda ok öndedir; başlık altındaki rakamlarla hizalanır. */
@@ -40,7 +41,8 @@
 
 .selectCell { width: 44px; }
 .table .selectCell { padding: 0 0 0 var(--space-4); }
-.selectHit { position: relative; display: flex; width: 100%; height: 44px; align-items: center; cursor: pointer; }
+.selectHit { position: relative; display: flex; width: 100%; height: var(--table-head-height, 44px); align-items: center; cursor: pointer; }
+.table td .selectHit { height: min(44px, var(--table-row-height, 52px)); }
 .selectInput { position: absolute; inset: 0; width: 100%; height: 100%; margin: 0; opacity: 0; cursor: pointer; }
 .selectBox { position: relative; display: block; width: 18px; height: 18px; flex: none; border: 1px solid var(--border-strong); border-radius: 5px; background: var(--surface); color: var(--control-glyph); pointer-events: none; transition: border-color var(--duration-fast) var(--ease-standard), transform var(--duration-spring) var(--ease-spring); }
 .selectBox[data-on] { border-color: var(--control-on); }

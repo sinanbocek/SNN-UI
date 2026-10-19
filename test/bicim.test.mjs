@@ -59,6 +59,7 @@ const FILES = {
   table: "registry/components/sortable-data-table/sortable-data-table-format.ts",
   moneyInput: "registry/components/money-input/money-input-format.ts",
   numberField: "registry/components/number-field/number-field-format.ts",
+  numberInput: "registry/components/number-input/number-input-format.ts",
   calendar: "registry/components/calendar/calendar-format.ts",
   datePicker: "registry/components/date-picker/date-picker-format.ts",
   dropzone: "registry/components/file-dropzone/file-dropzone-format.ts",
@@ -1212,4 +1213,31 @@ test("fiyat hesaplayıcı işaretleri: üst üste binen işaret gizlenir, ilk i�
   // Gizlenen işaret sonrakini engellemez: kıyas son görünen işarete göre yapılır.
   assert.deepEqual(fittingMarks([{ left: 0, right: 100 }, { left: 50, right: 200 }, { left: 110, right: 150 }]), [true, false, true]);
   assert.deepEqual(fittingMarks([{ left: 0, right: 10 }, { left: 14, right: 30 }], 6), [true, false]);
+});
+
+test("yalın sayı kutusu: boş değer boş metin, biçimli ve ham gösterim ABACUS'tur", () => {
+  const { formatNumber } = mods.numberInput;
+  assert.equal(formatNumber(null), "");
+  assert.equal(formatNumber(1234.5, 0, 2), "1.234,5");
+  assert.equal(formatNumber(1234.5, 0, 2, false), "1234,5");
+  assert.equal(formatNumber(3, 2, 2), money.fmtDecimalGrouped(3, 2));
+  assert.equal(formatNumber(-0.5, 1, 1), "-0,5");
+});
+
+test("yalın sayı kutusu: taslak süzülür ve okunur; boş metin null, tek nokta ondalık", () => {
+  const { sanitizeDraft, parseDraft, settleValue } = mods.numberInput;
+  assert.equal(sanitizeDraft("12a,3,4", true, false), "12,34");
+  assert.equal(sanitizeDraft("-12,5", false, false), "125");
+  assert.equal(sanitizeDraft("-1-2", true, true), "-12");
+  assert.equal(parseDraft(""), null);
+  assert.equal(parseDraft("-"), null);
+  assert.equal(parseDraft("1.234,5"), 1234.5);
+  assert.equal(parseDraft("1234,5"), 1234.5);
+  assert.equal(parseDraft("12.5"), 12.5);
+  assert.equal(parseDraft("1.234"), 1234);
+  assert.equal(parseDraft("1.23.4"), 1234);
+  assert.equal(settleValue(null, 0, 10, 2), null);
+  assert.equal(settleValue(12.345, 0, 10, 2), 10);
+  assert.equal(settleValue(-3, 0, 10, 2), 0);
+  assert.equal(settleValue(1.005, 0, 10, 2), math.round(1.005, 2));
 });
