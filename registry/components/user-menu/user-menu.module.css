@@ -39,6 +39,10 @@
 .panel[data-inline][data-align="end"] { right: 0; }
 .panel[data-inline][data-align="start"] { left: 0; }
 .panel[data-inline][data-align="center"] { left: 50%; margin-left: -7.75rem; }
+/* Portalsız panelde yan CSS ile seçilir; portallı panel sığmazsa karşı yana döner (placePanel). */
+.panel[data-inline][data-side="top"] { top: auto; bottom: calc(100% + 8px); }
+.panel[data-inline][data-side="right"] { top: 0; right: auto; left: calc(100% + 8px); margin-left: 0; }
+.panel[data-inline][data-side="right"][data-align="end"] { top: auto; bottom: 0; }
 
 .header { display: flex; align-items: center; gap: 10px; padding: 8px 8px 8px; }
 .identity { display: grid; min-width: 0; flex: 1; gap: 2px; }

@@ -27,6 +27,10 @@ export interface NotificationCenterProps {
   open?: boolean | undefined;
   onOpenChange?: ((open: boolean) => void) | undefined;
   avoidCollisions?: boolean | undefined;
+  /** Panelin zil düğmesine göre yanı; sığmazsa Radix karşı yana döndürür. Sol alt köşedeki zil için `side="right"` ile `align="end"`. Varsayılan "bottom". */
+  side?: "bottom" | "top" | "right" | "left" | undefined;
+  /** Yan boyunca hiza. Varsayılan "center". */
+  align?: "start" | "center" | "end" | undefined;
 }
 
 type View = "all" | "unread";
@@ -106,7 +110,7 @@ function NotificationVisual({ item }: { item: NotificationItem }) {
   </span>;
 }
 
-export function NotificationCenter({ notifications: initial, label = "Bildirimler", onReadChange, onDismiss, open, onOpenChange, avoidCollisions = true }: NotificationCenterProps) {
+export function NotificationCenter({ notifications: initial, label = "Bildirimler", onReadChange, onDismiss, open, onOpenChange, avoidCollisions = true, side = "bottom", align = "center" }: NotificationCenterProps) {
   const reduce = useReducedMotion();
   const layoutId = useId();
   const [internalOpen, setInternalOpen] = useState(false);
@@ -177,7 +181,7 @@ export function NotificationCenter({ notifications: initial, label = "Bildirimle
       </button>
     </PopoverPrimitive.Trigger>
     <PopoverPrimitive.Portal>
-      <PopoverPrimitive.Content className={styles.panel} align="center" side="bottom" sideOffset={12} collisionPadding={12} avoidCollisions={avoidCollisions} aria-label={label}>
+      <PopoverPrimitive.Content className={styles.panel} align={align} side={side} sideOffset={12} collisionPadding={12} avoidCollisions={avoidCollisions} aria-label={label}>
         <div className={styles.header}>
           <div><div className={styles.heading}><h2>{label}</h2><span className={styles.count}><RollingCount value={unreadCount} reduce={reduce} /></span></div><p aria-live="polite"><SwapText reduce={reduce}>{summary}</SwapText></p></div>
           <PopoverPrimitive.Close className={styles.close} aria-label="Bildirimleri kapat"><X size={17} strokeWidth={1.75} aria-hidden="true" /></PopoverPrimitive.Close>

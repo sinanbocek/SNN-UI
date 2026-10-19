@@ -15,5 +15,9 @@ export function NotificationCenterDemo() {
     <div className="row" style={{ minHeight: 120 }}>
       <NotificationCenter notifications={notifications} />
     </div>
+    <span className="etiket">Kenar menüsünün sol alt köşesinden sağa açılan: side="right", align="end"</span>
+    <div className="row" style={{ minHeight: 60 }}>
+      <NotificationCenter notifications={notifications} label="Bildirimler (sağa açılan)" side="right" align="end" />
+    </div>
   </div>;
 }
