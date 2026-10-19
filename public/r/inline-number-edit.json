@@ -1,0 +1,36 @@
+{
+  "$schema": "https://ui.shadcn.com/schema/registry-item.json",
+  "name": "inline-number-edit",
+  "title": "Yerinde sayı ve tutar düzenleme",
+  "description": "Basınca yerinde sayı kutusuna dönen sayı ya da tutar: düzenlerken ham metin (\"1234,50\") seçili gelir, Enter kaydeder, Escape vazgeçer; kayıtta Türkçe biçimli yazılır (\"1.234,5\", \"₺1.234,50\"). Boş değer (null), en az / en çok sınırı; kayıt başarısız olursa son kayıtlı değer geri gelir.",
+  "dependencies": [
+    "@snn/abacus-core@github:sinanbocek/SNN-Abacus-Core#semver:^4.3.0"
+  ],
+  "registryDependencies": [
+    "@snn-ui/snn-foundation",
+    "@snn-ui/inline-edit",
+    "@snn-ui/number-input"
+  ],
+  "files": [
+    {
+      "path": "registry/components/inline-number-edit/inline-number-edit-format.ts",
+      "content": "// Yerinde sayı/para düzenlemenin yazım ve okuma işleri ABACUS ile. Saf dosya: React yok, test edilir.\nimport { money } from \"@snn/abacus-core\";\nimport { formatNumber, parseDraft } from \"../number-input/number-input-format\";\n\nexport type InlineNumberKind = \"number\" | \"money\";\n\nexport interface InlineNumberFormat {\n  kind: InlineNumberKind;\n  /** \"number\" için en çok ondalık basamak. */\n  maxFraction: number;\n  /** \"money\" için birim kodu, ör. \"TRY\". */\n  currency: string;\n}\n\n/** Gösterim: sayı \"1.234,5\"; para kuruştan \"₺1.234,50\". Boş değer boş metin. */\nexport function displayText(value: number | null, format: InlineNumberFormat): string {\n  if (value === null || !Number.isFinite(value)) return \"\";\n  // eslint-disable-next-line no-restricted-properties -- değer kuruş (alt birim); money.format bilerek kullanılır\n  if (format.kind === \"money\") return money.format(value, { currency: format.currency, kurus: true, zero: \"symbol\" });\n  return formatNumber(value, 0, format.maxFraction);\n}\n\n/** Düzenleme metni: simgesiz, binlik ayraçsız (\"₺1.234,50\" → \"1234,50\"; \"1.234,5\" → \"1234,5\"). */\nexport function editTextOf(shown: string, format: InlineNumberFormat): string {\n  const value = parseText(shown, format);\n  if (value === null) return \"\";\n  if (format.kind === \"money\") return money.formatMinorInput(value, 2).split(\".\").join(\"\");\n  return formatNumber(value, 0, format.maxFraction, false);\n}\n\n/** Metni değere çevirir: para kuruş tam sayısı (ABACUS `money.parse`; ikiden çok ondalık okunmaz), sayı ondalıklı. Boş ya da okunamayan metin `null`. */\nexport function parseText(text: string, format: InlineNumberFormat): number | null {\n  const trimmed = text.trim();\n  if (!trimmed) return null;\n  if (format.kind === \"money\") return money.parse(trimmed);\n  return parseDraft(trimmed.replace(/[^\\d.,-]/g, \"\"));\n}\n",
+      "type": "registry:component",
+      "target": "@components/snn/inline-number-edit/inline-number-edit-format.ts"
+    },
+    {
+      "path": "registry/components/inline-number-edit/inline-number-edit.tsx",
+      "content": "\"use client\";\n\nimport { InlineEdit } from \"../inline-edit/inline-edit\";\nimport { displayText, editTextOf, parseText } from \"./inline-number-edit-format\";\nimport type { InlineNumberFormat, InlineNumberKind } from \"./inline-number-edit-format\";\n\nexport interface InlineNumberEditProps {\n  /** Kayıtlı değer; `kind=\"money\"` ise kuruş tam sayısı (₺12,50 → 1250). `null` boştur. */\n  value: number | null;\n  /** Yeni değeri kaydeder. Promise döndürürse kaydediliyor durumu görünür; reddedilirse son kayıtlı değer geri gelir. */\n  onSave: (next: number | null) => void | Promise<unknown>;\n  /** Erişilebilir ad, ör. \"Birim fiyat\". */\n  label: string;\n  kind?: InlineNumberKind | undefined;\n  /** \"money\" için birim kodu. Varsayılan TRY. */\n  currency?: string | undefined;\n  /** \"number\" için en çok ondalık basamak. Varsayılan 2. */\n  maxFractionDigits?: number | undefined;\n  /** Sınırlar; para için kuruş cinsinden. Dışındaki değer kaydedilmez, ileti çıkar. */\n  min?: number | undefined;\n  max?: number | undefined;\n  /** Boş bırakılabilir mi. Varsayılan evet (`null` kaydedilir). */\n  allowEmpty?: boolean | undefined;\n  placeholder?: string | undefined;\n  variant?: \"title\" | \"body\" | undefined;\n  className?: string | undefined;\n}\n\n/**\n * Basınca yerinde sayı kutusuna dönen sayı ya da tutar. Düzenlerken ham metin (\"1234,5\"), kaydedince biçimli (\"1.234,5\", \"₺1.234,50\").\n * Enter kaydeder, Escape vazgeçer; kayıt başarısız olursa son kayıtlı değer geri gelir (InlineEdit davranışı).\n */\nexport function InlineNumberEdit({ value, onSave, label, kind = \"number\", currency = \"TRY\", maxFractionDigits = 2, min, max, allowEmpty = true, placeholder = \"Boş\", variant, className }: InlineNumberEditProps) {\n  const format: InlineNumberFormat = { kind, currency, maxFraction: maxFractionDigits };\n  const limit = (edge: number) => displayText(edge, format);\n  const validate = (text: string) => {\n    if (!text) return allowEmpty ? null : `${label} gerekli`;\n    const parsed = parseText(text, format);\n    if (parsed === null) return kind === \"money\" ? \"Tutar okunamadı\" : \"Sayı okunamadı\";\n    if (min !== undefined && parsed < min) return `En az ${limit(min)} olmalı`;\n    if (max !== undefined && parsed > max) return `En çok ${limit(max)} olabilir`;\n    return null;\n  };\n  return <InlineEdit\n    value={displayText(value, format)} label={label} placeholder={placeholder} variant={variant} className={className} inputMode=\"decimal\" validate={validate}\n    editText={shown => editTextOf(shown, format)} normalize={text => displayText(parseText(text, format), format)}\n    onSave={text => onSave(parseText(text, format))} />;\n}\n",
+      "type": "registry:component",
+      "target": "@components/snn/inline-number-edit/inline-number-edit.tsx"
+    }
+  ],
+  "meta": {
+    "arcCommit": "bfdf7e8",
+    "arcSource": "(Arc'ta yok; SNN-UI için yazıldı)"
+  },
+  "categories": [
+    "forms"
+  ],
+  "type": "registry:ui"
+}

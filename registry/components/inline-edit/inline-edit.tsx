@@ -32,6 +32,12 @@ export interface InlineEditProps {
   /** Metni taşıyan öğe; başlık başlık olarak kalabilsin diye. */
   as?: "span" | "p" | "h1" | "h2" | "h3" | undefined;
   className?: string | undefined;
+  /** Dokunmatik klavye türü; sayı için "decimal". */
+  inputMode?: "text" | "decimal" | "numeric" | undefined;
+  /** Düzenlemeye girerken gösterilen metni alana yazılacak metne çevirir (ör. "₺1.234,50" → "1234,50"). Verilirse alana girince metin seçilir. */
+  editText?: ((shown: string) => string) | undefined;
+  /** Doğrulamadan geçen taslağı gösterilecek ve kaydedilecek metne çevirir (ör. "1234,5" → "1.234,5"). */
+  normalize?: ((draft: string) => string) | undefined;
 }
 
 type Phase = "idle" | "saving" | "saved" | "failed";
@@ -110,7 +116,7 @@ type CaretDocument = Document & {
   caretRangeFromPoint?: ((x: number, y: number) => Range | null) | undefined;
 };
 
-export function InlineEdit({ value, onSave, label, validate, placeholder = "", multiline = false, variant = "title", as: Tag = "span", className }: InlineEditProps) {
+export function InlineEdit({ value, onSave, label, validate, placeholder = "", multiline = false, variant = "title", as: Tag = "span", className, inputMode, editText, normalize }: InlineEditProps) {
   const reduced = useReduced();
   const ids = useId();
   const displayHintId = `${ids}-display`, editHintId = `${ids}-edit`, messageId = `${ids}-message`;
@@ -213,13 +219,13 @@ export function InlineEdit({ value, onSave, label, validate, placeholder = "", m
 
   function startEdit(at: number | "all", text = shown) {
     if (editing || saving) return;
-    setDraft(text);
+    setDraft(editText ? editText(text) : text);
     setEditing(true);
     setError(null);
     setFailed(null);
     setFlash(null);
     if (phase !== "idle") setPhase("idle");
-    selection.current = at;
+    selection.current = editText ? "all" : at;
   }
 
   /** İmleç, bir metin alanındaki gibi tıklanan karaktere iner. */
@@ -242,9 +248,10 @@ export function InlineEdit({ value, onSave, label, validate, placeholder = "", m
   const clean = (text: string) => multiline ? text.trim() : text.replace(/\s+/g, " ").trim();
 
   function submit(source: "key" | "button" | "blur") {
-    const next = clean(draft);
-    const problem = validate?.(next) || null;
+    const cleaned = clean(draft);
+    const problem = validate?.(cleaned) || null;
     if (problem) { setError(problem); if (source !== "blur") control.current?.focus(); return; }
+    const next = normalize ? normalize(cleaned) : cleaned;
     setEditing(false);
     setError(null);
     if (source !== "blur") focusDisplay.current = true;
@@ -316,7 +323,7 @@ export function InlineEdit({ value, onSave, label, validate, placeholder = "", m
   const describedBy = (hint: string) => [hint, message ? messageId : null].filter(Boolean).join(" ");
   const fieldProps = {
     className: styles.control, value: draft, onChange, onKeyDown, placeholder, "aria-label": label, "aria-invalid": error ? true : undefined,
-    "aria-describedby": describedBy(editHintId), autoComplete: "off", spellCheck: variant === "body",
+    "aria-describedby": describedBy(editHintId), autoComplete: "off", spellCheck: variant === "body" && !inputMode, inputMode,
   };
 
   return <div ref={root} className={[styles.root, className].filter(Boolean).join(" ")} data-variant={variant} data-multiline={multiline || undefined} data-editing={editing || undefined}

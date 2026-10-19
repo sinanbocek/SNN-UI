@@ -410,3 +410,10 @@ Talep "tree-nav" adında yeni bir gruplu ağaç menü istiyordu. Grup başlığ�
 | `sidebar` | Yeni `hoverExpand`: şeritteyken üzerine gelince (120 ms bekleme) ya da klavye odağı girince menü içeriği itmeden üstüne açılır; Escape ve çıkış kapatır. Açıkken raptiye düğmesi (`aria-pressed`) menüyü kalıcı açar ya da şeride döndürür (`onCollapsedChange`). Satırda `disabled` (aria-disabled, odaklanır, gitmez) ve `note` ("Yakında"; şeritte ipucuna eklenir). CSS değişkenleri `--sidebar-row-height` ve `--sidebar-row-radius` (hap biçimi). Yerleşim: menü artık yer tutan bir yuvanın içinde mutlak konumlu çizilir. |
 
 Kırıcı değişiklik yok; yeni prop'lar verilmezse eski davranış sürer.
+
+## Nakit projesinin talepleri: yerinde sayı düzenleme (2026-10-19)
+
+| Parça | Değişiklik |
+|---|---|
+| `inline-edit` | Yeni `inputMode`, `editText` (düzenlemeye girerken alana yazılacak metin; verilirse metin seçili gelir) ve `normalize` (doğrulanan taslağın gösterilecek ve kaydedilecek biçimi). Verilmezse eski davranış. |
+| `inline-number-edit` (yeni) | Arc'ta yok; SNN-UI için yazıldı. `inline-edit` üstünde ince sarmalayıcı: değer `number \| null`, `kind` "number" ya da "money" (kuruş), `min` / `max`, `allowEmpty`. Yazım ve okuma `inline-number-edit-format.ts` içinde saf ve testli; sayı yazımı `number-input` ile ortak, para ABACUS `money.format` / `money.parse` / `formatMinorInput`. |
