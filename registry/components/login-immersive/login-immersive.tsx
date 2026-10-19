@@ -34,10 +34,16 @@ export interface LoginImmersiveProps {
   legalLinks?: { label: string; href: string }[] | undefined;
   /** Bölümün en az yüksekliği; varsayılan ekran yüksekliğidir. */
   minHeight?: string | undefined;
+  /** Form alanlarının başlangıç değerleri (`LoginForm` ile aynı). */
+  defaultValues?: Partial<LoginValues> | undefined;
+  /** Hata kutusunun metni (`LoginForm` ile aynı). */
+  error?: string | undefined;
+  /** Formun kendisine yazılır; uçtan uca testlerde formu bulmak için. */
+  "data-testid"?: string | undefined;
 }
 
 /** Tanıtım ağırlıklı ya da davetle girilen alanlarda, bütün kabı kaplayan fotoğraf üstünde buzlu cam kartla giriş için kullanın. Fare fotoğrafı çok az kaydırır; kart sabit kalır. İş ekranlarında sade giriş için `login-centered`, fotoğraf yanında form için `login-split`. Bileşen yalnız görünüm ve olay çağrılarıdır; kimlik doğrulamayı uygulama yapar. */
-export function LoginImmersive({ onSubmit, onForgot, onProvider, onSignUp, onHelp, brand, title = "Giriş yap", subtitle = "Devam etmek için hesabınıza girin", media, cardAlign = "center", providers, legalLinks = [], minHeight = "100svh" }: LoginImmersiveProps) {
+export function LoginImmersive({ onSubmit, onForgot, onProvider, onSignUp, onHelp, brand, title = "Giriş yap", subtitle = "Devam etmek için hesabınıza girin", media, cardAlign = "center", providers, legalLinks = [], minHeight = "100svh", defaultValues, error, "data-testid": testId }: LoginImmersiveProps) {
   const reduced = useReducedMotionSafe();
   const uid = useId();
   const root = useRef<HTMLElement>(null);
@@ -75,7 +81,7 @@ export function LoginImmersive({ onSubmit, onForgot, onProvider, onSignUp, onHel
           <h1 id={`${uid}-title`} className={styles.title}>{title}</h1>
           <p className={styles.subtitle}>{subtitle}</p>
         </div>
-        <LoginForm onSubmit={onSubmit} onForgot={onForgot} onProvider={onProvider} providers={providers} introDelay={.3} labelledBy={`${uid}-title`} />
+        <LoginForm onSubmit={onSubmit} defaultValues={defaultValues} error={error} data-testid={testId} onForgot={onForgot} onProvider={onProvider} providers={providers} introDelay={.3} labelledBy={`${uid}-title`} />
         <p className={styles.signup}>{LOGIN_TEXT.noAccount} <button type="button" className={styles.link} onClick={() => onSignUp?.()}>{LOGIN_TEXT.signUp}</button></p>
       </motion.div>
     </div>

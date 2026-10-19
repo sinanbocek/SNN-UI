@@ -35,10 +35,16 @@ export interface LoginSplitProps {
   showRemember?: boolean | undefined;
   /** Bölümün en az yüksekliği; varsayılan ekran yüksekliğidir. */
   minHeight?: string | undefined;
+  /** Form alanlarının başlangıç değerleri (`LoginForm` ile aynı). */
+  defaultValues?: Partial<LoginValues> | undefined;
+  /** Hata kutusunun metni (`LoginForm` ile aynı). */
+  error?: string | undefined;
+  /** Formun kendisine yazılır; uçtan uca testlerde formu bulmak için. */
+  "data-testid"?: string | undefined;
 }
 
 /** Ürün girişi için iki bölmeli ekran kullanın: bir yanda sade form, öbür yanda güven veren fotoğraf ve alıntı. Dar kapta (768 px altı) fotoğraf ince bir şeride iner. Ortada tek kart için `login-centered`, tam ekran fotoğraf üstünde kart için `login-immersive`. Bileşen yalnız görünüm ve olay çağrılarıdır; kimlik doğrulamayı uygulama yapar. */
-export function LoginSplit({ onSubmit, onForgot, onProvider, onSignUp, brand, title = "Tekrar hoş geldiniz", subtitle = "Hesabınıza giriş yapın", media, quote, badge, mediaSide = "right", providers, showRemember = true, minHeight = "100svh" }: LoginSplitProps) {
+export function LoginSplit({ onSubmit, onForgot, onProvider, onSignUp, brand, title = "Tekrar hoş geldiniz", subtitle = "Hesabınıza giriş yapın", media, quote, badge, mediaSide = "right", providers, showRemember = true, minHeight = "100svh", defaultValues, error, "data-testid": testId }: LoginSplitProps) {
   const reduced = useReducedMotionSafe();
   const uid = useId();
   const [failedSrc, setFailedSrc] = useState<string>();
@@ -54,7 +60,7 @@ export function LoginSplit({ onSubmit, onForgot, onProvider, onSignUp, brand, ti
           <h1 id={`${uid}-title`} className={styles.title}>{title}</h1>
           <p className={styles.subtitle}>{subtitle}</p>
         </motion.div>
-        <LoginForm onSubmit={onSubmit} onForgot={onForgot} onProvider={onProvider} providers={providers} showRemember={showRemember} introDelay={.1} labelledBy={`${uid}-title`} />
+        <LoginForm onSubmit={onSubmit} defaultValues={defaultValues} error={error} data-testid={testId} onForgot={onForgot} onProvider={onProvider} providers={providers} showRemember={showRemember} introDelay={.1} labelledBy={`${uid}-title`} />
         <motion.p className={styles.signup} {...fade(.5)}>{LOGIN_TEXT.noAccount} <button type="button" className={styles.link} onClick={() => onSignUp?.()}>{LOGIN_TEXT.signUp}</button></motion.p>
       </div>
     </div>

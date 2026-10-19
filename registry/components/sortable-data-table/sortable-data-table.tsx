@@ -6,7 +6,7 @@ import { ArrowUp } from "lucide-react";
 import { AnimatePresence, animate, motion, useMotionValue, useReducedMotion, type Transition, type Variants } from "motion/react";
 import { motionTokens } from "../lib/motion-tokens";
 import { Pagination } from "../pagination/pagination";
-import { compareText, formatCell, pageCountOf, pageSpan, rangeLabel, sortAnnouncement, type CellCurrency, type CellFormat } from "./sortable-data-table-format";
+import { compareText, formatCell, opensRow, pageCountOf, pageSpan, rangeLabel, sortAnnouncement, type CellCurrency, type CellFormat } from "./sortable-data-table-format";
 import styles from "./sortable-data-table.module.css";
 
 export type SortDirection = "asc" | "desc";
@@ -52,9 +52,16 @@ export type SortableDataTableProps<T extends Record<string, unknown>> = {
   page?: number | undefined;
   defaultPage?: number | undefined;
   onPageChange?: ((page: number) => void) | undefined;
+  /** Satıra tıklayınca (ya da satır odaktayken Enter'a basınca) çağrılır; ayrıntı açmak için. Verilince satırlar Tab ile odaklanır.
+   * Satırdaki bağlantı, düğme ve onay kutusu kendi işini yapar, bunu çağırmaz. `selectable` ile birlikte verilirse satıra tıklamak seçmez, bunu çağırır; seçim onay kutusundan yapılır. */
+  onRowClick?: ((row: T) => void) | undefined;
+  /** Satıra eklenen sınıf, örneğin pasif kaydı soluk göstermek için. */
+  rowClassName?: ((row: T) => string | undefined) | undefined;
 };
 
 const isEmpty = (value: unknown) => value == null || value === "";
+/** Satıra tıklama bunların içinden geldiyse satır işi yapılmaz; öğe kendi işini yapar. */
+const interactive = "a, button, input, label, select, textarea, [role='button'], [contenteditable='true']";
 const comparable = (value: unknown) => value instanceof Date ? value.getTime() : value;
 const blur = (px: number) => `blur(${px}px)`;
 const enter: Transition = { duration: motionTokens.duration.standard, ease: [...motionTokens.ease.enter] };
@@ -137,7 +144,7 @@ function SelectBox({ checked, mixed = false, label, nav, reduced, onToggle, inpu
   </label>;
 }
 
-export function SortableDataTable<T extends Record<string, unknown>>({ rows, columns, rowKey, caption = "Veri tablosu", emptyMessage = "Gösterilecek kayıt yok", defaultSort, onSortChange, selectable = false, selectedKeys, defaultSelectedKeys, onSelectionChange, itemName = { one: "kayıt", other: "kayıt" }, pageSize, page: pageProp, defaultPage = 1, onPageChange }: SortableDataTableProps<T>) {
+export function SortableDataTable<T extends Record<string, unknown>>({ rows, columns, rowKey, caption = "Veri tablosu", emptyMessage = "Gösterilecek kayıt yok", defaultSort, onSortChange, selectable = false, selectedKeys, defaultSelectedKeys, onSelectionChange, itemName = { one: "kayıt", other: "kayıt" }, pageSize, page: pageProp, defaultPage = 1, onPageChange, onRowClick, rowClassName }: SortableDataTableProps<T>) {
   const reduced = useReducedMotion() ?? false;
   const tableRef = useRef<HTMLTableElement>(null);
   const selectAllRef = useRef<HTMLInputElement>(null);
@@ -271,8 +278,10 @@ export function SortableDataTable<T extends Record<string, unknown>>({ rows, col
     selectAllRef.current?.focus();
   }
 
-  function onRowClick(event: ReactMouseEvent<HTMLTableRowElement>, key: string) {
-    if (!selectable || (event.target as HTMLElement).closest("a, button, input, label, select, textarea, [role='button'], [contenteditable='true']") || window.getSelection()?.toString()) return;
+  function handleRowClick(event: ReactMouseEvent<HTMLTableRowElement>, key: string, row: T) {
+    if ((event.target as HTMLElement).closest(interactive) || window.getSelection()?.toString()) return;
+    if (onRowClick) { onRowClick(row); return; }
+    if (!selectable) return;
     toggleRow(key, event.shiftKey);
     // Klavye yolu işaretçinin bıraktığı yerden sürer; oklar bu satırdan devam eder.
     event.currentTarget.querySelector<HTMLInputElement>("input[type='checkbox']")?.focus({ preventScroll: true });
@@ -326,7 +335,12 @@ export function SortableDataTable<T extends Record<string, unknown>>({ rows, col
         <tbody role="rowgroup">{pageRows.length ? pageRows.map((row, index) => {
           const key = keys[index]!;
           const selected = selectable && selection.has(key);
-          return <motion.tr key={key} role="row" layout={reduced ? false : "position"} layoutDependency={order} transition={motionTokens.spring.smooth} data-selected={selected || undefined} onClick={event => onRowClick(event, key)} onMouseDown={event => { if (selectable && event.shiftKey) event.preventDefault(); }}>
+          // Tıklanabilir satır Tab ile odaklanır; seçim yoksa oklar satırlar arasında gezer (seçimde oklar onay kutularındadır).
+          return <motion.tr key={key} role="row" layout={reduced ? false : "position"} layoutDependency={order} transition={motionTokens.spring.smooth} className={rowClassName?.(row) || undefined} data-selected={selected || undefined} data-clickable={onRowClick ? "" : undefined}
+            tabIndex={onRowClick ? 0 : undefined} data-nav={onRowClick && !selectable ? "row" : undefined}
+            onClick={event => handleRowClick(event, key, row)}
+            onKeyDown={onRowClick ? event => { if (opensRow(event.key, event.repeat, event.target === event.currentTarget)) { event.preventDefault(); onRowClick(row); } } : undefined}
+            onMouseDown={event => { if (selectable && event.shiftKey) event.preventDefault(); }}>
             {selectable ? <td role="cell" className={styles.selectCell}><SelectBox checked={selected} label={`${String(row[columns[0]?.key as string] ?? key)} seç`} nav="row" reduced={reduced} onToggle={extend => toggleRow(key, extend)} /></td> : null}
             {columns.map((column, columnIndex) => <td key={column.key} role="cell" data-label={column.label} data-primary={columnIndex === 0 || undefined} data-lead={column.key === leadKey || undefined} data-sorted={sort?.key === column.key || undefined} data-numeric={numeric.has(column.key) || undefined}>{column.render ? column.render(row[column.key], row) : formatCell(row[column.key], column)}</td>)}
           </motion.tr>;

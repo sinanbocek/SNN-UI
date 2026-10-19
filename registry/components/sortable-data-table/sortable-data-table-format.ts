@@ -49,3 +49,6 @@ export const rangeLabel = (page: number, pageSize: number, total: number, noun: 
 
 /** Sıralama duyurusu: "Tutar sütununa göre azalan sıralandı". */
 export const sortAnnouncement = (label: string, direction: "asc" | "desc") => `${label} sütununa göre ${direction === "asc" ? "artan" : "azalan"} sıralandı`;
+
+/** Satırı açan tuş: satırın kendisi odaktayken Enter. Basılı tutmanın yinelemesi ve satır içindeki düğmeden gelen Enter açmaz. */
+export const opensRow = (key: string, repeat: boolean, onRowItself: boolean) => key === "Enter" && !repeat && onRowItself;

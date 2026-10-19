@@ -8,7 +8,7 @@ import type { PanInfo, Transition, Variants } from "motion/react";
 import { ChevronDown, LoaderCircle, LogOut, Monitor, Moon, Sun, SunMoon } from "lucide-react";
 import { motionTokens } from "../lib/motion-tokens";
 import { avatarInitials } from "../avatar/avatar-initials";
-import { matchesTypeahead } from "./user-menu-format";
+import { matchesTypeahead, pickThemeOptions } from "./user-menu-format";
 import styles from "./user-menu.module.css";
 
 export type UserStatus = "available" | "busy" | "away";
@@ -48,6 +48,9 @@ export interface UserMenuProps {
   onThemeChange?: ((theme: ThemePreference) => void) | undefined;
   /** Satır içi açık, koyu ve sistem anahtarını gösterir. */
   showTheme?: boolean | undefined;
+  /** Anahtarda gösterilecek temalar ve sırası, örneğin ["light", "dark"]. Verilmezse ya da boşsa üçü de çıkar.
+   * "system" listede yoksa `defaultTheme`'in varsayılanı listenin ilkidir. */
+  themeOptions?: readonly ThemePreference[] | undefined;
   /** Kısayol ipuçlu hesap bağlantıları, örneğin ["⌘", ","]. Üç ya da dörtle sınırlı tut. */
   items?: UserMenuItem[] | undefined;
   onSignOut?: (() => void | Promise<unknown>) | undefined;
@@ -143,7 +146,7 @@ function focusStop(stop: HTMLElement | undefined) {
   target?.focus({ preventScroll: true });
 }
 
-export function UserMenu({ user, status: statusProp, defaultStatus = "available", onStatusChange, theme: themeProp, defaultTheme = "system", onThemeChange, showTheme = true, items = [], onSignOut, signOutKeys, align = "end", showName = false, open: openProp, defaultOpen = false, onOpenChange, portal = true, ref, className }: UserMenuProps) {
+export function UserMenu({ user, status: statusProp, defaultStatus = "available", onStatusChange, theme: themeProp, defaultTheme: defaultThemeProp, onThemeChange, showTheme = true, themeOptions, items = [], onSignOut, signOutKeys, align = "end", showName = false, open: openProp, defaultOpen = false, onOpenChange, portal = true, ref, className }: UserMenuProps) {
   const id = useId();
   const menuId = `${id}-menu`;
   const triggerId = `${id}-trigger`;
@@ -152,6 +155,8 @@ export function UserMenu({ user, status: statusProp, defaultStatus = "available"
   const compact = useSyncExternalStore(subscribeCompact, () => window.matchMedia(compactQuery).matches, () => false);
   const [innerOpen, setInnerOpen] = useState(defaultOpen);
   const [innerStatus, setInnerStatus] = useState(defaultStatus);
+  const themeChoices = pickThemeOptions(themes, themeOptions);
+  const defaultTheme = defaultThemeProp ?? (themeChoices.some(option => option.value === "system") ? "system" : themeChoices[0]!.value);
   const [innerTheme, setInnerTheme] = useState(defaultTheme);
   const [signingOut, setSigningOut] = useState(false);
   const [highlight, setHighlight] = useState<Highlight | null>(null);
@@ -379,7 +384,7 @@ export function UserMenu({ user, status: statusProp, defaultStatus = "available"
         <div className={styles.separator} role="separator" />
         {showStatus && <Segmented label="Durum" icon={<PresenceDot status={status} />} value={status} onChange={changeStatus}
           options={userStatuses.map(option => ({ ...option, icon: <PresenceDot status={option.value} /> }))} variants={row} />}
-        {showTheme && <Segmented label="Tema" icon={<SunMoon size={16} strokeWidth={1.75} />} value={theme} onChange={changeTheme} options={themes} variants={row} />}
+        {showTheme && <Segmented label="Tema" icon={<SunMoon size={16} strokeWidth={1.75} />} value={theme} onChange={changeTheme} options={themeChoices} variants={row} />}
       </>}
       <div className={styles.separator} role="separator" />
       <motion.button type="button" role="menuitem" tabIndex={-1} className={styles.item} data-stop="item" data-tone="danger" data-label="Çıkış yap" variants={row}

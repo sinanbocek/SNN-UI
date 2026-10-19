@@ -21,6 +21,10 @@ export function UserMenuDemo() {
         ]}
         onSignOut={() => new Promise(resolve => setTimeout(resolve, 900))} />
     </div>
+    <span className="etiket">Yalnız açık ve koyu tema (themeOptions: light, dark)</span>
+    <div className="row" style={{ justifyContent: "flex-end", minHeight: 40 }}>
+      <UserMenu user={{ name: "elif yıldız", email: "elif.yildiz@ornek.com.tr" }} themeOptions={["light", "dark"]} items={[{ label: "Hesap ayarları", icon: <Settings size={16} strokeWidth={1.75} /> }]} onSignOut={() => undefined} />
+    </div>
     <span className="etiket">{message} · durum: {({ available: "Müsait", busy: "Meşgul", away: "Uzakta" } as Record<string, string>)[status] ?? status} · tema: {({ light: "Açık", dark: "Koyu", system: "Sistem" } as Record<string, string>)[theme] ?? theme}</span>
   </div>;
 }

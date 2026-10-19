@@ -40,3 +40,9 @@ test("odak ilk hatalı alana gider", () => {
   assert.equal(mod.firstInvalidField("ayse@ornek.com.tr", ""), "password");
   assert.equal(mod.firstInvalidField("ayse@ornek.com.tr", "x"), null);
 });
+
+test("hata kutusu: proje metni verdiyse o, boşsa varsayılan", () => {
+  assert.equal(mod.loginAlertText(), "E-posta ya da parola hatalı.");
+  assert.equal(mod.loginAlertText("   "), "E-posta ya da parola hatalı.");
+  assert.equal(mod.loginAlertText("Hesabınız kilitlendi."), "Hesabınız kilitlendi.");
+});
