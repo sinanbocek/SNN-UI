@@ -417,3 +417,10 @@ Kırıcı değişiklik yok; yeni prop'lar verilmezse eski davranış sürer.
 |---|---|
 | `inline-edit` | Yeni `inputMode`, `editText` (düzenlemeye girerken alana yazılacak metin; verilirse metin seçili gelir) ve `normalize` (doğrulanan taslağın gösterilecek ve kaydedilecek biçimi). Verilmezse eski davranış. |
 | `inline-number-edit` (yeni) | Arc'ta yok; SNN-UI için yazıldı. `inline-edit` üstünde ince sarmalayıcı: değer `number \| null`, `kind` "number" ya da "money" (kuruş), `min` / `max`, `allowEmpty`. Yazım ve okuma `inline-number-edit-format.ts` içinde saf ve testli; sayı yazımı `number-input` ile ortak, para ABACUS `money.format` / `money.parse` / `formatMinorInput`. |
+
+## Nakit projesinin talepleri: menü açılma yönü (2026-10-19)
+
+| Parça | Değişiklik |
+|---|---|
+| `user-menu` | Yeni `side` ("bottom" varsayılan, "top", "right"). Konum hesabı saf `placePanel` işlevine taşındı (`user-menu-format.ts`, testli): sığmazsa karşı yana döner, panel kenarlardan 12 px içeride kalır; sağda `align` dikey hizadır ("end" = alt kenarlar hizalı). Portalsız panelde yan CSS ile seçilir (sağda "center" desteklenmez, üst hizaya düşer). |
+| `notification-center` | Yeni `side` ve `align` (Radix'e geçer; CSS yanları zaten tanıyordu). |

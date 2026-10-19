@@ -8,7 +8,8 @@ import type { PanInfo, Transition, Variants } from "motion/react";
 import { ChevronDown, LoaderCircle, LogOut, Monitor, Moon, Sun, SunMoon } from "lucide-react";
 import { motionTokens } from "../lib/motion-tokens";
 import { avatarInitials } from "../avatar/avatar-initials";
-import { matchesTypeahead, pickThemeOptions } from "./user-menu-format";
+import { matchesTypeahead, pickThemeOptions, placePanel } from "./user-menu-format";
+import type { PanelSide } from "./user-menu-format";
 import styles from "./user-menu.module.css";
 
 export type UserStatus = "available" | "busy" | "away";
@@ -56,6 +57,8 @@ export interface UserMenuProps {
   onSignOut?: (() => void | Promise<unknown>) | undefined;
   signOutKeys?: string[] | undefined;
   align?: "start" | "center" | "end" | undefined;
+  /** Panelin açma düğmesine göre yanı. Sığmazsa karşı yana döner. Sol alt köşedeki kart için `side="right"` ile `align="end"`. Varsayılan "bottom". */
+  side?: PanelSide | undefined;
   /** 640 px ve üstünde avatarın yanında adı ve bir ok gösterir. */
   showName?: boolean | undefined;
   open?: boolean | undefined;
@@ -146,7 +149,7 @@ function focusStop(stop: HTMLElement | undefined) {
   target?.focus({ preventScroll: true });
 }
 
-export function UserMenu({ user, status: statusProp, defaultStatus = "available", onStatusChange, theme: themeProp, defaultTheme: defaultThemeProp, onThemeChange, showTheme = true, themeOptions, items = [], onSignOut, signOutKeys, align = "end", showName = false, open: openProp, defaultOpen = false, onOpenChange, portal = true, ref, className }: UserMenuProps) {
+export function UserMenu({ user, status: statusProp, defaultStatus = "available", onStatusChange, theme: themeProp, defaultTheme: defaultThemeProp, onThemeChange, showTheme = true, themeOptions, items = [], onSignOut, signOutKeys, align = "end", side = "bottom", showName = false, open: openProp, defaultOpen = false, onOpenChange, portal = true, ref, className }: UserMenuProps) {
   const id = useId();
   const menuId = `${id}-menu`;
   const triggerId = `${id}-trigger`;
@@ -224,12 +227,15 @@ export function UserMenu({ user, status: statusProp, defaultStatus = "available"
         left = (root?.left ?? 0) + panel.offsetLeft;
         top = (root?.top ?? 0) + panel.offsetTop;
       } else {
-        const wanted = align === "start" ? rect.left : align === "center" ? rect.left + rect.width / 2 - width / 2 : rect.right - width;
-        left = Math.min(Math.max(12, wanted), window.innerWidth - width - 12);
-        const below = rect.bottom + 8;
-        top = below + height > window.innerHeight - 12 && rect.top - 8 - height > 12 ? rect.top - 8 - height : below;
+        const placed = placePanel(rect, { width, height }, { width: window.innerWidth, height: window.innerHeight }, side, align);
+        ({ left, top } = placed);
         panel.style.left = `${left}px`;
         panel.style.top = `${top}px`;
+        if (side === "right") {
+          panel.style.setProperty("--origin-x", `${placed.origin.x}px`);
+          panel.style.setProperty("--origin-y", `${placed.origin.y}px`);
+          return;
+        }
       }
       const faceCenter = rect.left + Math.min(rect.width, 40) / 2;
       const originX = align === "end" && rect.width > 40 ? rect.right - 20 - left : faceCenter - left;
@@ -241,7 +247,7 @@ export function UserMenu({ user, status: statusProp, defaultStatus = "available"
     window.addEventListener("resize", place);
     window.addEventListener("scroll", place, true);
     return () => { window.removeEventListener("resize", place); window.removeEventListener("scroll", place, true); };
-  }, [open, sheet, inline, align]);
+  }, [open, sheet, inline, align, side]);
 
   // Dışarıya basmak paneli kapatır. Alttan açılan sayfanın kendi perdesi vardır.
   useEffect(() => {
@@ -397,7 +403,7 @@ export function UserMenu({ user, status: statusProp, defaultStatus = "available"
   </>;
 
   const panel = <AnimatePresence>
-    {open && !sheet && <motion.div key="panel" ref={surfaceRef} {...menuProps} className={styles.panel} data-inline={inline || undefined} data-align={align}
+    {open && !sheet && <motion.div key="panel" ref={surfaceRef} {...menuProps} className={styles.panel} data-inline={inline || undefined} data-align={align} data-side={side}
       variants={reduced ? stillMotion : panelMotion} initial="closed" animate="open" exit="exit">
       {content}
     </motion.div>}
