@@ -1,7 +1,7 @@
 "use client";
 
 import { useCallback, useEffect, useId, useLayoutEffect, useRef, useState } from "react";
-import type { KeyboardEvent as ReactKeyboardEvent, ReactNode } from "react";
+import type { KeyboardEvent as ReactKeyboardEvent, MouseEvent as ReactMouseEvent, ReactNode } from "react";
 import { AnimatePresence, motion, useReducedMotion } from "motion/react";
 import type { Transition } from "motion/react";
 import { ChevronDown, Menu, PanelLeft, Pin, PinOff } from "lucide-react";
@@ -15,6 +15,7 @@ import { Drawer, DrawerContent } from "../drawer/drawer";
 import { Popover, PopoverClose, PopoverContent, PopoverTrigger } from "../popover/popover";
 import { Skeleton } from "../skeleton/skeleton";
 import { Tooltip } from "../tooltip/tooltip";
+import { isPlainClick } from "./sidebar-click";
 import styles from "./sidebar.module.css";
 
 export interface SidebarItem {
@@ -24,7 +25,8 @@ export interface SidebarItem {
   icon?: ReactNode | undefined;
   /** Okunmamış gibi bir sayı. Ekran okuyucu "{n} okunmamış" okur. */
   badge?: number | undefined;
-  /** Verilirse satır düz bağlantı (`<a>`) olarak çizilir; verilmezse düğme. Her iki durumda `onNavigate` çağrılır. */
+  /** Verilirse satır düz bağlantı (`<a>`) olarak çizilir; verilmezse düğme. Her iki durumda `onNavigate` çağrılır. Bağlantıda
+   * Ctrl/⌘, Shift, Alt ya da orta tuşla basış tarayıcıya bırakılır (yeni sekme); `onNavigate` çağrılmaz. */
   href?: string | undefined;
   /** Alt satırlar: satır katlanır gruba döner. Boş dizi verilirse grup hiç gösterilmez. */
   children?: SidebarItem[] | undefined;
@@ -45,7 +47,9 @@ export interface SidebarProps {
   sections: SidebarSection[];
   /** Etkin sayfanın `id`'si. Bulunamazsa hiçbir satır vurgulanmaz, yol izi yalnız ana bölümü gösterir. */
   activeId?: string | undefined;
-  onNavigate: (id: string) => void;
+  /** Satıra basınca. Bağlantı satırında `event` de gelir: istemci yönlendirmesi için `event.preventDefault()` deyip kendi router'ınızla
+   * gidin (tam sayfa yenilenmez, `<a href>` kalır; sağ tık "yeni sekmede aç" çalışır). */
+  onNavigate: (id: string, event?: ReactMouseEvent<HTMLAnchorElement>) => void;
   /** Alt alandaki Ayarlar satırı. */
   settingsItem?: SidebarItem | undefined;
   user?: SidebarUser | undefined;
@@ -63,6 +67,9 @@ export interface SidebarProps {
   /** Şeritteyken üzerine gelince ya da klavye odağı girince menü içeriğin üstüne geçici genişler; raptiye düğmesi açık bırakır
    * (`onCollapsedChange(false)`), raptiyeyi kaldırmak yeniden şeride döndürür. */
   hoverExpand?: boolean | undefined;
+  /** Geçici açılan menüyü açık tutar; içerideki açılır pencere (kullanıcı menüsü, bildirim merkezi) açıkken true verin, yoksa
+   * pencere menünün dışına çizildiği için imleç ya da odak ona geçince menü daralır. false olunca imleç ve odak dışarıdaysa daralır. */
+  holdExpanded?: boolean | undefined;
   /** Alt alanda Ayarlar ve kullanıcı kartından sonra gelen serbest içerik (bildirim merkezi, kendi kullanıcı menünüz). İşlev verilirse
    * şeritte olup olmadığını alır; şeritte yalnız simge göstermek için. */
   footer?: ReactNode | ((state: { rail: boolean }) => ReactNode) | undefined;
@@ -103,7 +110,7 @@ const badgeText = (count: number) => `${count} okunmamış`;
 /** Solda daralabilen menü, üstte yol izi, ortada kayan içerik olan uygulama çerçevesi. Dar kolonda menü çekmeceye dönüşür. */
 export function Sidebar({
   header, sections, activeId, onNavigate, settingsItem, user, collapsed: collapsedProp, defaultCollapsed = false, onCollapsedChange,
-  loading = false, error = false, onRetry, breakpoint = 720, hoverExpand = false, footer, frameless = false, drawerOpen: drawerOpenProp, onDrawerOpenChange,
+  loading = false, error = false, onRetry, breakpoint = 720, hoverExpand = false, holdExpanded = false, footer, frameless = false, drawerOpen: drawerOpenProp, onDrawerOpenChange,
   children, className,
 }: SidebarProps) {
   const uid = useId();
@@ -112,23 +119,30 @@ export function Sidebar({
   const [narrow, setNarrow] = useState(false);
   const [drawerState, setDrawerState] = useState(false);
   const drawerOpen = drawerOpenProp ?? drawerState;
-  const setDrawerOpen = (next: boolean) => {
+  const setDrawerOpen = useCallback((next: boolean) => {
     if (drawerOpenProp === undefined) setDrawerState(next);
     if (next !== drawerOpen) onDrawerOpenChange?.(next);
-  };
+  }, [drawerOpenProp, drawerOpen, onDrawerOpenChange]);
   const [collapsedState, setCollapsedState] = useState(defaultCollapsed);
   const collapsed = collapsedProp ?? collapsedState;
   /** Şerit üzerine gelince ya da odakla geçici açık. */
   const [peek, setPeek] = useState(false);
   const peekTimer = useRef<number | undefined>(undefined);
+  /** İmleç ya da odak menünün içinde mi; tutma bırakılınca daralıp daralmayacağına bakılır. */
+  const inside = useRef({ pointer: false, focus: false });
   useEffect(() => () => window.clearTimeout(peekTimer.current), []);
   useEffect(() => { if (!collapsed || !hoverExpand) setPeek(false); }, [collapsed, hoverExpand]);
-  // Kısa bekleme: imleç şeridin üstünden geçip giderken menü açılıp kapanmaz.
+  // Kısa bekleme: imleç şeridin üstünden geçip giderken menü açılıp kapanmaz. Tutulurken daralmaz.
   const schedulePeek = (next: boolean) => {
     window.clearTimeout(peekTimer.current);
-    if (!hoverExpand || !collapsed) return;
+    if (!hoverExpand || !collapsed || (!next && holdExpanded)) return;
     peekTimer.current = window.setTimeout(() => setPeek(next), next ? 120 : 200);
   };
+  const latestPeek = useRef(schedulePeek);
+  latestPeek.current = schedulePeek;
+  useEffect(() => {
+    if (!holdExpanded && !inside.current.pointer && !inside.current.focus) latestPeek.current(false);
+  }, [holdExpanded]);
   const found: Found | null = findItem(sections, activeId) ?? (settingsItem && activeId && settingsItem.id === activeId ? { item: settingsItem, trail: [], section: { id: "", items: [] } } : null);
   const [openGroups, setOpenGroups] = useState<Record<string, boolean>>(() => {
     const initial: Record<string, boolean> = {};
@@ -155,14 +169,16 @@ export function Sidebar({
     return () => observer.disconnect();
   }, [root, breakpoint, frameless]);
   // İlk çizimde ve her yeniden çizimde de ölçülür: gözlemci gelene kadar menü yanlış kipte yanıp sönmez.
-  useLayoutEffect(() => { if (root && !frameless) setNarrow(root.clientWidth < breakpoint); });
-  useEffect(() => { if (!narrow && drawerOpen) setDrawerOpen(false); }, [narrow]); // eslint-disable-line react-hooks/exhaustive-deps -- yalnız kip değişince
+  useLayoutEffect(() => { if (root && !frameless) setNarrow(root.clientWidth < breakpoint); }, [root, frameless, breakpoint]);
+  // Geniş kipte çekmece olmaz; açık kalmışsa kapanır.
+  useEffect(() => { if (!narrow && drawerOpen) setDrawerOpen(false); }, [narrow, drawerOpen, setDrawerOpen]);
 
   // Sayfa değişince ekran okuyucuya haber verilir (ilk çizimde değil).
+  const foundLabel = found?.item.label;
   useEffect(() => {
     if (firstRun.current) { firstRun.current = false; return; }
-    if (found) setNote(`${found.item.label} bölümü açıldı`);
-  }, [activeId]); // eslint-disable-line react-hooks/exhaustive-deps
+    if (foundLabel) setNote(`${foundLabel} bölümü açıldı`);
+  }, [activeId, foundLabel]);
 
   const setCollapsed = useCallback((next: boolean) => {
     if (collapsedProp === undefined) setCollapsedState(next);
@@ -186,9 +202,11 @@ export function Sidebar({
 
   const toggleGroup = (id: string) => setOpenGroups(current => ({ ...current, [id]: !current[id] }));
 
-  function go(item: SidebarItem) {
+  function go(item: SidebarItem, event?: ReactMouseEvent<HTMLAnchorElement>) {
     if (item.disabled) return;
-    onNavigate(item.id);
+    // Yeni sekme/pencere basışı tarayıcıya kalır; menü de olduğu gibi kalır.
+    if (event && !isPlainClick(event)) return;
+    onNavigate(item.id, event);
     setDrawerOpen(false);
   }
 
@@ -271,7 +289,7 @@ export function Sidebar({
 
     // Pasif satır bağlantı olmaz; aria-disabled odaklanabilir bırakır, böylece "Yakında" klavyeyle de okunur.
     const row = item.href && !off
-      ? <a href={item.href} className={styles.row} data-nav-item data-active={active ? "true" : undefined} aria-current={active ? "page" : undefined} aria-label={rail ? tip : undefined} onClick={() => go(item)}>{content}</a>
+      ? <a href={item.href} className={styles.row} data-nav-item data-active={active ? "true" : undefined} aria-current={active ? "page" : undefined} aria-label={rail ? tip : undefined} onClick={event => go(item, event)}>{content}</a>
       : <button type="button" className={styles.row} data-nav-item data-active={active && !off ? "true" : undefined} data-disabled={off} aria-disabled={off} aria-current={active && !off ? "page" : undefined} aria-label={rail ? tip : undefined} onClick={() => go(item)}>{content}</button>;
     return <li key={item.id}>{rail ? <Tooltip content={tip} side="right">{row}</Tooltip> : row}</li>;
   }
@@ -348,9 +366,9 @@ export function Sidebar({
         // Yuva yerleşimde yer tutar (şerit ya da açık); geçici açılan menü yuvadan taşar ve içeriğin üstüne çizilir.
         <motion.div className={styles.asideSlot} initial={false} animate={{ width: collapsed ? "3.5rem" : "16rem" }} transition={grow}>
           <motion.aside className={styles.aside} data-peek={peek ? "true" : undefined} initial={false} animate={{ width: collapsed && !peek ? "3.5rem" : "16rem" }} transition={grow}
-            onMouseEnter={() => schedulePeek(true)} onMouseLeave={() => schedulePeek(false)}
-            onFocus={() => { if (hoverExpand && collapsed) { window.clearTimeout(peekTimer.current); setPeek(true); } }}
-            onBlur={event => { if (!event.currentTarget.contains(event.relatedTarget as Node | null)) schedulePeek(false); }}
+            onMouseEnter={() => { inside.current.pointer = true; schedulePeek(true); }} onMouseLeave={() => { inside.current.pointer = false; schedulePeek(false); }}
+            onFocus={() => { inside.current.focus = true; if (hoverExpand && collapsed) { window.clearTimeout(peekTimer.current); setPeek(true); } }}
+            onBlur={event => { if (!event.currentTarget.contains(event.relatedTarget as Node | null)) { inside.current.focus = false; schedulePeek(false); } }}
             onKeyDown={event => { if (event.key === "Escape" && peek) setPeek(false); }}>
             {renderNav(collapsed && !peek)}
           </motion.aside>
