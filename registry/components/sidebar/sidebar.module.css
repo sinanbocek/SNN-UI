@@ -1,7 +1,8 @@
 /* Uygulama çerçevesi: çerçeve sabit boyda durur, kayma içerik alanının içinde olur. Çekmece bu kökün içinde çizilir (position: relative; overflow: hidden). */
 .root { --sidebar-icon: 1.25rem; position: relative; display: flex; height: 100%; min-height: 20rem; overflow: hidden; border: 1px solid var(--border); border-radius: var(--radius-panel); color: var(--foreground); background: var(--background); font-family: var(--font-body); }
-/* Çerçevesiz: yalnız yan menü; kenarlık ve köşe uygulamanın kabuğundadır. Yükseklik kapsayıcıdan gelir. */
-.root[data-frameless] { min-height: 0; border: 0; border-radius: 0; background: transparent; }
+/* Çerçevesiz: yalnız yan menü; kenarlık ve köşe uygulamanın kabuğundadır. Yükseklik kapsayıcıdan gelir. Geçici açılan menü içeriğin
+   üstüne taşabilsin diye kırpmaz (çekmece sayfa gövdesine açılır, kökü kırpmaya gerek yok). */
+.root[data-frameless] { min-height: 0; overflow: visible; border: 0; border-radius: 0; background: transparent; }
 .status, .srOnly { position: absolute; width: 1px; height: 1px; overflow: hidden; clip-path: inset(50%); white-space: nowrap; }
 /* Satır yüksekliği ve köşesi değişkenle: sık kabukta --sidebar-row-height: 36px, hap biçimi için --sidebar-row-radius: 999px. */
 .asideSlot { position: relative; z-index: 2; flex: none; }

@@ -1317,6 +1317,11 @@
       ],
       "files": [
         {
+          "path": "registry/components/sidebar/sidebar-click.ts",
+          "type": "registry:component",
+          "target": "@components/snn/sidebar/sidebar-click.ts"
+        },
+        {
           "path": "registry/components/sidebar/sidebar.module.css",
           "type": "registry:component",
           "target": "@components/snn/sidebar/sidebar.module.css"

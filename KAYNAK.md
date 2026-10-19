@@ -443,3 +443,9 @@ Kırıcı değişiklik yok; yeni prop'lar verilmezse eski davranış sürer.
 |---|---|
 | `dropdown-menu` | `DropdownItem` için yeni `checked`: verilen öğe `menuitemradio` olur (`aria-checked`), seçili olanın sağında onay işareti çıkar. Verilmezse eski davranış. |
 | Galeri | Sağ üstte "Görünüm" menüsü (`dropdown-menu`): Renk laboratuvarı, Tipografi ve Açık / Koyu / Sistem tema. Sol menüdeki "Tasarım" bölümü ve üst çubuktaki tema anahtarı kaldırıldı; Sepet ayrı kaldı. |
+
+## Nakit projesinin talebi: sidebar router uyumu ve tutma (2026-10-19)
+
+| Parça | Değişiklik |
+|---|---|
+| `sidebar` | `onNavigate(id, event)`: bağlantı satırında olay da gelir; `preventDefault` ile istemci yönlendirmesi yapılır, satır `<a href>` kalır. Ctrl/⌘, Shift, Alt ve orta tuşla basış tarayıcıya bırakılır, `onNavigate` çağrılmaz (`sidebar-click.ts` `isPlainClick`, testli). Yeni `holdExpanded`: geçici açılan menüyü açık tutar; bırakılınca imleç ve odak dışarıdaysa daralır. Çerçevesiz kipte kök artık kırpmaz (`overflow: visible`). `react-hooks/exhaustive-deps` uyarısı giderildi; iki `eslint-disable` yorumu da kaldırıldı (bağımlılıklar tam). |

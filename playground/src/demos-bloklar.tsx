@@ -156,10 +156,17 @@ const shellNotifications = [
   { id: "b2", title: "Nakit açığı uyarısı", description: "Kasım ikinci haftasında bakiye eksiye düşüyor.", time: "1 sa önce" },
 ];
 
-/** Uygulamanın kendi kabuğu: üst çubuk ve içerik bizde, yan menü çerçevesiz Sidebar. Dar ekranda menü düğmesi çekmeceyi açar. */
+/** Satırlar bağlantıdır (href); örnek, istemci yönlendirmesi gibi tam sayfa yenilemeyi önleyip sayfayı kendisi değiştirir. */
+const linkSection = (section: SidebarSection): SidebarSection => ({ ...section, items: section.items.map(item => ({ ...item, href: `?sayfa=${item.id}`, ...(item.children ? { children: item.children.map(child => ({ ...child, href: `?sayfa=${child.id}` })) } : {}) })) });
+const shellSections = sidebarSections.map(linkSection);
+
+/** Uygulamanın kendi kabuğu: üst çubuk ve içerik bizde, yan menü çerçevesiz Sidebar. Dar ekranda menü düğmesi çekmeceyi açar.
+ * Şeritteyken üzerine gelince açılır; alt alandaki menüler açıkken holdExpanded menüyü açık tutar. */
 function FramelessShell({ page, setPage }: { page: string; setPage: (id: string) => void }) {
-  const [collapsed, setCollapsed] = useState(false);
+  const [collapsed, setCollapsed] = useState(true);
   const [drawer, setDrawer] = useState(false);
+  const [bellOpen, setBellOpen] = useState(false);
+  const [accountOpen, setAccountOpen] = useState(false);
   return <div style={{ display: "grid", gridTemplateRows: "48px 1fr", height: 440, width: 900, maxWidth: "100%", border: "1px solid var(--border)", borderRadius: "var(--radius-panel)", overflow: "hidden" }}>
     <header style={{ display: "flex", alignItems: "center", gap: 12, padding: "0 12px", borderBottom: "1px solid var(--border)" }}>
       <Button variant="ghost" size="sm" onClick={() => setDrawer(true)}>Menü</Button>
@@ -168,11 +175,12 @@ function FramelessShell({ page, setPage }: { page: string; setPage: (id: string)
     </header>
     <div style={{ display: "flex", minHeight: 0 }}>
       <Sidebar
-        frameless header={{ name: "Nakit", subtitle: "Karar masası" }} sections={sidebarSections} activeId={page} onNavigate={setPage}
+        frameless hoverExpand holdExpanded={bellOpen || accountOpen} header={{ name: "Nakit", subtitle: "Karar masası" }} sections={shellSections} activeId={page}
+        onNavigate={(id, event) => { event?.preventDefault(); setPage(id); }}
         collapsed={collapsed} onCollapsedChange={setCollapsed} drawerOpen={drawer} onDrawerOpenChange={setDrawer} breakpoint={640}
         footer={({ rail }) => <div style={{ display: "flex", flexDirection: rail ? "column" : "row", alignItems: "center", gap: 8 }}>
-          <NotificationCenter notifications={shellNotifications} side="right" align="end" />
-          <UserMenu user={{ name: "Elif Aksoy", email: "elif@ornek-firma.test" }} showName={!rail} side="right" align="end" items={[{ label: "Hesap değiştir", icon: <Users size={16} strokeWidth={1.75} /> }]} onSignOut={() => undefined} />
+          <NotificationCenter notifications={shellNotifications} side="right" align="end" open={bellOpen} onOpenChange={setBellOpen} />
+          <UserMenu user={{ name: "Elif Aksoy", email: "elif@ornek-firma.test" }} showName={!rail} side="right" align="end" open={accountOpen} onOpenChange={setAccountOpen} items={[{ label: "Hesap değiştir", icon: <Users size={16} strokeWidth={1.75} /> }]} onSignOut={() => undefined} />
         </div>}
       />
       <main style={{ flex: 1, minWidth: 0, overflow: "auto", padding: 20 }}><h3 style={{ margin: 0 }}>{page}</h3><p>İçerik alanı uygulamanındır.</p></main>
@@ -229,7 +237,7 @@ function SidebarDemo() {
         </Sidebar>
       </div>
     </Col>
-    <Col title="Çerçevesiz (frameless): yalnız yan menü; üst çubuk ve içerik uygulamanın kabuğunda. Alt alanda (footer) bildirim merkezi ve kendi kullanıcı menüsü; şeritte yalnız simgeler.">
+    <Col title="Çerçevesiz (frameless): yalnız yan menü; üst çubuk ve içerik uygulamanın kabuğunda. Alt alanda (footer) bildirim merkezi ve kendi kullanıcı menüsü. Şeritte üzerine gelince açılır; alttaki menüler açıkken açık kalır (holdExpanded). Satırlar bağlantıdır; düz basış sayfayı yenilemez, Ctrl ile yeni sekmede açılır.">
       <FramelessShell page={page} setPage={setPage} />
     </Col>
   </>;
