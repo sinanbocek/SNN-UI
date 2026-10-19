@@ -417,3 +417,9 @@ Kırıcı değişiklik yok; yeni prop'lar verilmezse eski davranış sürer.
 |---|---|
 | `inline-edit` | Yeni `inputMode`, `editText` (düzenlemeye girerken alana yazılacak metin; verilirse metin seçili gelir) ve `normalize` (doğrulanan taslağın gösterilecek ve kaydedilecek biçimi). Verilmezse eski davranış. |
 | `inline-number-edit` (yeni) | Arc'ta yok; SNN-UI için yazıldı. `inline-edit` üstünde ince sarmalayıcı: değer `number \| null`, `kind` "number" ya da "money" (kuruş), `min` / `max`, `allowEmpty`. Yazım ve okuma `inline-number-edit-format.ts` içinde saf ve testli; sayı yazımı `number-input` ile ortak, para ABACUS `money.format` / `money.parse` / `formatMinorInput`. |
+
+## Nakit projesinin talepleri: renk seçicide yazı rengi (2026-10-19)
+
+| Parça | Değişiklik |
+|---|---|
+| `color-picker` | `onValueChange` ikinci bilgi olarak `{ foreground }` verir: rengin üstünde daha yüksek WCAG karşıtlığı veren yazı rengi (#111111 ya da #FFFFFF; saydam renk `background` üstüne bindirilir). Saf `readableForeground` işlevi `color-picker-format.ts` içinde, testli, bileşenden de dışa açık. Eski tek bağımsız değişkenli çağıranlar etkilenmez. |

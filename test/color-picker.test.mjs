@@ -57,3 +57,12 @@ test("karşıtlık: siyah/beyaz 21, düzey metinleri Türkçe, oran virgüllü",
   assert.equal(f.formatRatio(4.5632), "4,56");
   assert.equal(f.formatRatio(21), "21,00");
 });
+
+test("okunur yazı rengi: açık renkte koyu, koyu renkte açık; saydam renk arka plana bindirilir", () => {
+  assert.equal(f.readableForeground("#FFFFFF"), "#111111");
+  assert.equal(f.readableForeground("#BFDBFE"), "#111111");
+  assert.equal(f.readableForeground("#2F6BFF"), "#FFFFFF");
+  assert.equal(f.readableForeground("#111827"), "#FFFFFF");
+  assert.equal(f.readableForeground("#1D4ED800"), "#111111");
+  assert.equal(f.readableForeground("okunmaz"), "#FFFFFF");
+});

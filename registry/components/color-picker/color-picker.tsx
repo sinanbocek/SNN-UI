@@ -8,12 +8,12 @@ import { Check, Pipette, Plus } from "lucide-react";
 import { TextMorph } from "../text-morph/text-morph";
 import { text } from "@snn/abacus-core";
 import { motionTokens } from "../lib/motion-tokens";
-import { byte, clamp, contrast, formatColor, formatRatio, hsvToRgb, level, parseColor, round, toHex } from "./color-picker-format";
+import { byte, clamp, contrast, formatColor, formatRatio, hsvToRgb, level, parseColor, readableForeground, round, toHex } from "./color-picker-format";
 import type { ColorFormat, Hsva } from "./color-picker-format";
 import styles from "./color-picker.module.css";
 
 export type { ColorFormat, Hsva } from "./color-picker-format";
-export { parseColor, toHex } from "./color-picker-format";
+export { parseColor, readableForeground, toHex } from "./color-picker-format";
 export interface ColorSwatch { id: string; color: string }
 
 /**
@@ -26,8 +26,8 @@ export interface ColorPickerProps {
   /** Seçicinin okuyabildiği herhangi bir renk: hex, rgb(), hsl() ya da oklch(). */
   value?: string | undefined;
   defaultValue?: string | undefined;
-  /** Rengi hex olarak alır; opak değilse iki saydamlık basamağı eklenir. */
-  onValueChange?: ((hex: string) => void) | undefined;
+  /** Rengi hex olarak alır; opak değilse iki saydamlık basamağı eklenir. `details.foreground` o rengin üstünde okunur yazı rengidir (çok açık renkte koyu). */
+  onValueChange?: ((hex: string, details: { foreground: string }) => void) | undefined;
   /** Rengin üzerinde duracağı arka plan; karşıtlık göstergesi için. */
   background?: string | undefined;
   /** Renk kutusunda görünen ad, ör. "Vurgu". */
@@ -185,7 +185,7 @@ export function ColorPicker({
   function commit(next: Hsva) {
     setHsva(next);
     const nextHex = toHex(next);
-    if (nextHex !== hex) onValueChange?.(nextHex);
+    if (nextHex !== hex) onValueChange?.(nextHex, { foreground: readableForeground(nextHex, bg ? hsvToRgb(bg) : undefined) });
   }
   function setSwatches(next: ColorSwatch[]) { if (!swatchesProp) setOwnSwatches(next); onSwatchesChange?.(next); }
 

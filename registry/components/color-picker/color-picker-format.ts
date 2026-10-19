@@ -119,6 +119,19 @@ export function contrast(hsva: Hsva, background: Rgba) {
   const a = lum(mix(fg.r, background.r), mix(fg.g, background.g), mix(fg.b, background.b)), b = lum(background.r, background.g, background.b);
   return (Math.max(a, b) + .05) / (Math.min(a, b) + .05);
 }
+/**
+ * Rengin üstündeki yazı için koyu ya da açık seçer: hangisi daha yüksek WCAG karşıtlığı veriyorsa. Saydam renk `background` üstüne bindirilir.
+ * Vurgu rengi çok açıksa (ör. açık mavi) koyu yazı döner. Okunamayan renkte açık yazı döner.
+ */
+export function readableForeground(color: string, background: Rgba = { r: 1, g: 1, b: 1, a: 1 }, dark = "#111111", light = "#FFFFFF"): string {
+  const parsed = parseColor(color);
+  if (!parsed) return light;
+  const fg = hsvToRgb(parsed);
+  const mix = (c: number, bg: number) => c * fg.a + bg * (1 - fg.a);
+  const surface = { r: mix(fg.r, background.r), g: mix(fg.g, background.g), b: mix(fg.b, background.b), a: 1 };
+  const against = (text: string) => contrast(parseColor(text)!, surface);
+  return against(dark) >= against(light) ? dark : light;
+}
 /** WCAG düzeyi: "AAA", "AA", "AA büyük" (yalnız büyük yazı) ya da "Geçmedi". */
 export const level = (ratio: number) => ratio >= 7 ? "AAA" : ratio >= 4.5 ? "AA" : ratio >= 3 ? "AA büyük" : "Geçmedi";
 /** Karşıtlık oranını Türkçe ondalıkla yazar: 4.5632 → "4,56". */
