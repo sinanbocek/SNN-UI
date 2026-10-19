@@ -436,3 +436,10 @@ Kırıcı değişiklik yok; yeni prop'lar verilmezse eski davranış sürer.
 | Parça | Değişiklik |
 |---|---|
 | `sidebar` | Yeni `footer`: alt alanda Ayarlar ve kullanıcı kartından sonra serbest içerik (bildirim merkezi, kendi kullanıcı menüsü); işlev verilirse `{ rail }` alır. Yeni `frameless`: yalnız yan menü çizilir, üst çubuk / yol izi / içerik alanı yoktur; çekmece kararı pencere genişliğine bakar (blok menünün kendisi olduğu için), çekmece sayfa gövdesine açılır. Yeni `drawerOpen` / `onDrawerOpenChange`: dar ekran çekmecesi denetimli açılır (çerçevesiz kipte açma düğmesi uygulamadadır). Verilmezse eski davranış. |
+
+## Galeri üst çubuğu: Görünüm menüsü (2026-10-19)
+
+| Parça | Değişiklik |
+|---|---|
+| `dropdown-menu` | `DropdownItem` için yeni `checked`: verilen öğe `menuitemradio` olur (`aria-checked`), seçili olanın sağında onay işareti çıkar. Verilmezse eski davranış. |
+| Galeri | Sağ üstte "Görünüm" menüsü (`dropdown-menu`): Renk laboratuvarı, Tipografi ve Açık / Koyu / Sistem tema. Sol menüdeki "Tasarım" bölümü ve üst çubuktaki tema anahtarı kaldırıldı; Sepet ayrı kaldı. |

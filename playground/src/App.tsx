@@ -1,11 +1,11 @@
 import { useEffect, useMemo, useState } from "react";
 import { MotionConfig } from "motion/react";
-import { ShoppingBag, Palette, Type, House, Sparkles } from "lucide-react";
+import { ShoppingBag, Palette, Type, House, Sparkles, Sun, Moon, Monitor, SlidersHorizontal } from "lucide-react";
 import addedDates from "virtual:added-dates";
 import { text } from "@snn/abacus-core";
 import { Button } from "../../registry/components/button/button";
 import { SearchField } from "../../registry/components/search-field/search-field";
-import SegmentedControl from "../../registry/components/segmented-control/segmented-control";
+import { DropdownMenu } from "../../registry/components/dropdown-menu/dropdown-menu";
 import Toast from "../../registry/components/toast/toast";
 import { accentCss, parseColor } from "./lib/color";
 import { parseShare, type CartFont, type CartTheme } from "./lib/cart";
@@ -102,7 +102,14 @@ export function App() {
         <a className="brand" href={routeHash.home} onClick={() => setQuery("")}><span className="brand-mark" aria-hidden="true" />SNN-UI</a>
         <div className="top-search"><SearchField label="Bileşen ara" placeholder="Bileşen ara: grafik, tarih, sepet…" value={query} onValueChange={setQuery} /></div>
         <div className="top-actions">
-          <SegmentedControl label="Tema" value={mode} onValueChange={value => setMode(value as typeof mode)} options={[{ value: "light", label: "Açık" }, { value: "dark", label: "Koyu" }, { value: "system", label: "Sistem" }]} />
+          {/* Görünüm menüsü: tasarım sayfaları ve tema tek yerde; sepet ayrı kalır. */}
+          <DropdownMenu label="Görünüm" icon={<SlidersHorizontal size={15} strokeWidth={1.75} />} items={[
+            { label: "Renk laboratuvarı", icon: <Palette size={16} strokeWidth={1.75} />, onSelect: () => go(routeHash.color) },
+            { label: "Tipografi", icon: <Type size={16} strokeWidth={1.75} />, onSelect: () => go(routeHash.type) },
+            { label: "Açık tema", icon: <Sun size={16} strokeWidth={1.75} />, checked: mode === "light", onSelect: () => setMode("light"), separatorBefore: true },
+            { label: "Koyu tema", icon: <Moon size={16} strokeWidth={1.75} />, checked: mode === "dark", onSelect: () => setMode("dark") },
+            { label: "Sistem teması", icon: <Monitor size={16} strokeWidth={1.75} />, checked: mode === "system", onSelect: () => setMode("system") },
+          ]} />
           <Button variant="primary" onClick={() => setCartOpen(true)} aria-label={`Sepet, ${cart.length} bileşen`}>
             <ShoppingBag size={16} strokeWidth={1.75} aria-hidden="true" /> Sepet <span className="count" aria-hidden="true">{cart.length}</span>
           </Button>
@@ -113,9 +120,6 @@ export function App() {
           <a href={routeHash.home} aria-current={current === "home" && !query ? "page" : undefined} onClick={() => setQuery("")}><House size={15} strokeWidth={1.75} aria-hidden="true" /> Ana sayfa</a>
           <span className="side-title">Kategoriler</span>
           {groups.map(group => <a key={group.key} href={routeHash.category(group.key)} aria-current={current === group.key && !query ? "page" : undefined} onClick={() => setQuery("")}>{group.title}<span className="side-count">{group.names.length}</span></a>)}
-          <span className="side-title">Tasarım</span>
-          <a href={routeHash.color} aria-current={current === "color" && !query ? "page" : undefined} onClick={() => setQuery("")}><Palette size={15} strokeWidth={1.75} aria-hidden="true" /> Renk laboratuvarı</a>
-          <a href={routeHash.type} aria-current={current === "type" && !query ? "page" : undefined} onClick={() => setQuery("")}><Type size={15} strokeWidth={1.75} aria-hidden="true" /> Tipografi</a>
           {news.length > 0 && <div className="side-news" role="group" aria-labelledby="yenilikler-baslik">
             <span className="side-title" id="yenilikler-baslik"><Sparkles size={12} strokeWidth={1.75} aria-hidden="true" /> Yenilikler</span>
             {news.map(name => <a key={name} href={routeHash.component(name)} aria-current={route.view === "component" && route.name === name && !query ? "page" : undefined} onClick={() => setQuery("")}>{entryOf(name)?.title ?? name}</a>)}

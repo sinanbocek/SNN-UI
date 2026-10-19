@@ -4,11 +4,13 @@ import { Fragment, useEffect, useLayoutEffect, useRef, useState } from "react";
 import type { CSSProperties, FocusEvent, ReactNode } from "react";
 import * as DropdownPrimitive from "@radix-ui/react-dropdown-menu";
 import { AnimatePresence, motion, useReducedMotion } from "motion/react";
-import { ChevronDown } from "lucide-react";
+import { Check, ChevronDown } from "lucide-react";
 import { motionTokens } from "../lib/motion-tokens";
 import styles from "./dropdown-menu.module.css";
 
-export interface DropdownItem { label: string; onSelect?: (() => void) | undefined; disabled?: boolean | undefined; icon?: ReactNode | undefined; destructive?: boolean | undefined; separatorBefore?: boolean | undefined; }
+export interface DropdownItem { label: string; onSelect?: (() => void) | undefined; disabled?: boolean | undefined; icon?: ReactNode | undefined; destructive?: boolean | undefined; separatorBefore?: boolean | undefined;
+  /** Seçeneklerden biri (tema gibi): verilirse öğe seçim öğesi olur (menuitemradio, aria-checked), seçili olanın sağında onay işareti çıkar. */
+  checked?: boolean | undefined; }
 export interface DropdownMenuProps { label: string; items: DropdownItem[]; icon?: ReactNode | undefined; }
 
 type Highlight = { top: number; height: number; danger: boolean; glide: boolean };
@@ -65,7 +67,8 @@ export function DropdownMenu({ label, items, icon }: DropdownMenuProps) {
     <DropdownPrimitive.Portal><DropdownPrimitive.Content className={styles.menu} sideOffset={6} align="end" collisionPadding={12} loop onFocus={onMenuFocus} onPointerMoveCapture={() => { pointer.current = true; }} onKeyDownCapture={() => { pointer.current = false; }}>
       {/* Tek bir vurgu, işaretçi için öğeler arasında kayar, klavye için anında sıçrar. */}
       <motion.span className={styles.highlight} data-tone={highlight?.danger ? "danger" : undefined} aria-hidden="true" initial={false} animate={highlight ? { y: highlight.top, height: highlight.height, opacity: 1 } : { opacity: 0 }} transition={{ default: highlight?.glide && !reduced ? motionTokens.spring.snappy : { duration: 0 }, opacity: { duration: reduced ? 0 : .08 } }}/>
-      {items.map((item, index) => <Fragment key={item.label}>{item.separatorBefore && <DropdownPrimitive.Separator className={styles.separator}/>}<DropdownPrimitive.Item className={[styles.item, item.destructive ? styles.destructive : ""].filter(Boolean).join(" ")} data-tone={item.destructive ? "danger" : undefined} style={{ "--i": index } as CSSProperties} disabled={item.disabled} onSelect={item.onSelect}>{item.icon && <span className={styles.icon} aria-hidden="true">{item.icon}</span>}{item.label}</DropdownPrimitive.Item></Fragment>)}
+      {items.map((item, index) => <Fragment key={item.label}>{item.separatorBefore && <DropdownPrimitive.Separator className={styles.separator}/>}<DropdownPrimitive.Item className={[styles.item, item.destructive ? styles.destructive : ""].filter(Boolean).join(" ")} data-tone={item.destructive ? "danger" : undefined} style={{ "--i": index } as CSSProperties} disabled={item.disabled} onSelect={item.onSelect}
+        {...(item.checked === undefined ? {} : { role: "menuitemradio", "aria-checked": item.checked })}>{item.icon && <span className={styles.icon} aria-hidden="true">{item.icon}</span>}{item.label}{item.checked && <Check className={styles.check} size={15} strokeWidth={2} aria-hidden="true"/>}</DropdownPrimitive.Item></Fragment>)}
     </DropdownPrimitive.Content></DropdownPrimitive.Portal>
   </DropdownPrimitive.Root>;
 }

@@ -36,3 +36,5 @@
   .trigger, .chevron, .item, .highlight { transition: none; }
   .menu, .menu[data-state="closed"] { transform: none; transition: opacity var(--duration-instant) linear; }
 }
+/* Seçili seçeneğin onay işareti satırın sağına yaslanır. */
+.check { flex: none; margin-left: auto; color: var(--foreground); }
