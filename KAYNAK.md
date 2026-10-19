@@ -430,3 +430,9 @@ Kırıcı değişiklik yok; yeni prop'lar verilmezse eski davranış sürer.
 | Parça | Değişiklik |
 |---|---|
 | `color-picker` | `onValueChange` ikinci bilgi olarak `{ foreground }` verir: rengin üstünde daha yüksek WCAG karşıtlığı veren yazı rengi (#111111 ya da #FFFFFF; saydam renk `background` üstüne bindirilir). Saf `readableForeground` işlevi `color-picker-format.ts` içinde, testli, bileşenden de dışa açık. Eski tek bağımsız değişkenli çağıranlar etkilenmez. |
+
+## Nakit projesinin talebi: sidebar'ı kendi kabuğa gömme (2026-10-19)
+
+| Parça | Değişiklik |
+|---|---|
+| `sidebar` | Yeni `footer`: alt alanda Ayarlar ve kullanıcı kartından sonra serbest içerik (bildirim merkezi, kendi kullanıcı menüsü); işlev verilirse `{ rail }` alır. Yeni `frameless`: yalnız yan menü çizilir, üst çubuk / yol izi / içerik alanı yoktur; çekmece kararı pencere genişliğine bakar (blok menünün kendisi olduğu için), çekmece sayfa gövdesine açılır. Yeni `drawerOpen` / `onDrawerOpenChange`: dar ekran çekmecesi denetimli açılır (çerçevesiz kipte açma düğmesi uygulamadadır). Verilmezse eski davranış. |

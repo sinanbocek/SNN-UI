@@ -63,6 +63,15 @@ export interface SidebarProps {
   /** Şeritteyken üzerine gelince ya da klavye odağı girince menü içeriğin üstüne geçici genişler; raptiye düğmesi açık bırakır
    * (`onCollapsedChange(false)`), raptiyeyi kaldırmak yeniden şeride döndürür. */
   hoverExpand?: boolean | undefined;
+  /** Alt alanda Ayarlar ve kullanıcı kartından sonra gelen serbest içerik (bildirim merkezi, kendi kullanıcı menünüz). İşlev verilirse
+   * şeritte olup olmadığını alır; şeritte yalnız simge göstermek için. */
+  footer?: ReactNode | ((state: { rail: boolean }) => ReactNode) | undefined;
+  /** Çerçevesiz: yalnız yan menü çizilir; üst çubuk, yol izi ve içerik alanı yoktur (`children` kullanılmaz). Çekmece kararı pencere
+   * genişliğine bakar; dar ekranda menü gizlenir ve çekmeceyi uygulamanın kendi üst çubuğu `drawerOpen` / `onDrawerOpenChange` ile açar. */
+  frameless?: boolean | undefined;
+  /** Dar ekrandaki çekmecenin açıklığı (denetimli). Çerçevesiz kipte açma düğmesi uygulamadadır. */
+  drawerOpen?: boolean | undefined;
+  onDrawerOpenChange?: ((open: boolean) => void) | undefined;
   /** Sayfa içeriği; kendi içinde kayar, çerçeve sabit kalır. */
   children?: ReactNode | undefined;
   className?: string | undefined;
@@ -94,13 +103,19 @@ const badgeText = (count: number) => `${count} okunmamış`;
 /** Solda daralabilen menü, üstte yol izi, ortada kayan içerik olan uygulama çerçevesi. Dar kolonda menü çekmeceye dönüşür. */
 export function Sidebar({
   header, sections, activeId, onNavigate, settingsItem, user, collapsed: collapsedProp, defaultCollapsed = false, onCollapsedChange,
-  loading = false, error = false, onRetry, breakpoint = 720, hoverExpand = false, children, className,
+  loading = false, error = false, onRetry, breakpoint = 720, hoverExpand = false, footer, frameless = false, drawerOpen: drawerOpenProp, onDrawerOpenChange,
+  children, className,
 }: SidebarProps) {
   const uid = useId();
   const reduced = useReducedMotion();
   const [root, setRoot] = useState<HTMLDivElement | null>(null);
   const [narrow, setNarrow] = useState(false);
-  const [drawerOpen, setDrawerOpen] = useState(false);
+  const [drawerState, setDrawerState] = useState(false);
+  const drawerOpen = drawerOpenProp ?? drawerState;
+  const setDrawerOpen = (next: boolean) => {
+    if (drawerOpenProp === undefined) setDrawerState(next);
+    if (next !== drawerOpen) onDrawerOpenChange?.(next);
+  };
   const [collapsedState, setCollapsedState] = useState(defaultCollapsed);
   const collapsed = collapsedProp ?? collapsedState;
   /** Şerit üzerine gelince ya da odakla geçici açık. */
@@ -123,16 +138,25 @@ export function Sidebar({
   const [note, setNote] = useState("");
   const firstRun = useRef(true);
 
-  // Bloğun kendi genişliğini izler: çekmece kararı pencereye değil, bulunduğu kolona göre verilir.
+  // Bloğun kendi genişliğini izler: çekmece kararı pencereye değil, bulunduğu kolona göre verilir. Çerçevesiz kipte blok menünün
+  // kendisidir (her zaman dar), bu yüzden pencereye bakılır.
   useEffect(() => {
-    if (!root) return;
+    if (!frameless) return;
+    const media = window.matchMedia(`(max-width: ${breakpoint - .02}px)`);
+    const onChange = () => setNarrow(media.matches);
+    onChange();
+    media.addEventListener("change", onChange);
+    return () => media.removeEventListener("change", onChange);
+  }, [frameless, breakpoint]);
+  useEffect(() => {
+    if (!root || frameless) return;
     const observer = new ResizeObserver(([entry]) => { if (entry) setNarrow(entry.contentRect.width < breakpoint); });
     observer.observe(root);
     return () => observer.disconnect();
-  }, [root, breakpoint]);
+  }, [root, breakpoint, frameless]);
   // İlk çizimde ve her yeniden çizimde de ölçülür: gözlemci gelene kadar menü yanlış kipte yanıp sönmez.
-  useLayoutEffect(() => { if (root) setNarrow(root.clientWidth < breakpoint); });
-  useEffect(() => { if (!narrow) setDrawerOpen(false); }, [narrow]);
+  useLayoutEffect(() => { if (root && !frameless) setNarrow(root.clientWidth < breakpoint); });
+  useEffect(() => { if (!narrow && drawerOpen) setDrawerOpen(false); }, [narrow]); // eslint-disable-line react-hooks/exhaustive-deps -- yalnız kip değişince
 
   // Sayfa değişince ekran okuyucuya haber verilir (ilk çizimde değil).
   useEffect(() => {
@@ -307,6 +331,7 @@ export function Sidebar({
               </PopoverContent>
             </Popover>
           )}
+          {typeof footer === "function" ? footer({ rail }) : footer}
         </div>
       </div>
     );
@@ -317,7 +342,7 @@ export function Sidebar({
     : [{ label: sections[0]?.title ?? header.name }];
 
   return (
-    <div ref={setRoot} className={[styles.root, className].filter(Boolean).join(" ")} data-narrow={narrow ? "true" : undefined}>
+    <div ref={setRoot} className={[styles.root, className].filter(Boolean).join(" ")} data-narrow={narrow ? "true" : undefined} data-frameless={frameless || undefined}>
       <div className={styles.status} role="status" aria-live="polite">{note}</div>
       {!narrow && (
         // Yuva yerleşimde yer tutar (şerit ya da açık); geçici açılan menü yuvadan taşar ve içeriğin üstüne çizilir.
@@ -331,7 +356,7 @@ export function Sidebar({
           </motion.aside>
         </motion.div>
       )}
-      <div className={styles.main}>
+      {!frameless && <div className={styles.main}>
         <header className={styles.topbar}>
           {narrow
             ? <Button variant="ghost" size="sm" aria-label="Menüyü aç" onClick={() => setDrawerOpen(true)}><Menu size={18} aria-hidden="true" /></Button>
@@ -339,15 +364,15 @@ export function Sidebar({
           <Breadcrumb items={crumbs} />
         </header>
         <div className={styles.content}>{children}</div>
-      </div>
+      </div>}
       {narrow && (
         <Drawer open={drawerOpen} onOpenChange={setDrawerOpen}>
           <DrawerContent
-            title={header.name} side="left" container={root} className={styles.drawer}
+            title={header.name} side="left" container={frameless ? undefined : root} className={styles.drawer}
             onOpenAutoFocus={event => {
               // Odak etkin satıra gider; yoksa ilk satıra.
               event.preventDefault();
-              const panel = (root ?? document).querySelector<HTMLElement>(`.${styles.drawer}`);
+              const panel = ((frameless ? null : root) ?? document).querySelector<HTMLElement>(`.${styles.drawer}`);
               (panel?.querySelector<HTMLElement>("[aria-current='page']") ?? panel?.querySelector<HTMLElement>("[data-nav-item]"))?.focus();
             }}
           >
