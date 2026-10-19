@@ -1,6 +1,7 @@
 import { useEffect, useMemo, useState } from "react";
 import { MotionConfig } from "motion/react";
-import { ShoppingBag, Palette, Type, House } from "lucide-react";
+import { ShoppingBag, Palette, Type, House, Sparkles } from "lucide-react";
+import addedDates from "virtual:added-dates";
 import { text } from "@snn/abacus-core";
 import { Button } from "../../registry/components/button/button";
 import { SearchField } from "../../registry/components/search-field/search-field";
@@ -16,7 +17,8 @@ import { ColorLab } from "./views/color-lab";
 import { TypeScale } from "./views/type-scale";
 import { CategoryView, ComponentView, Home, SearchResults, SharedCart } from "./views/showcase";
 
-import { accentTitles, entries, fontTitles, groups, type Shop } from "./lib/data";
+import { accentTitles, entries, entryOf, fontTitles, groups, type Shop } from "./lib/data";
+import { recentNames } from "./lib/news";
 
 const known = new Set(entries.map(entry => entry.name));
 const categoryKeys = new Set(groups.map(group => group.key));
@@ -50,6 +52,10 @@ export function App() {
   // Yazı tipi takımı data-font ile uygulanır; varsayılan takımda öznitelik kalkar.
   useEffect(() => { if (font === "default") delete document.documentElement.dataset.font; else document.documentElement.dataset.font = font; }, [font]);
   const [query, setQuery] = useState("");
+  // Sayfa açıkken de güncel kalsın: liste saatte bir yeniden süzülür.
+  const [now, setNow] = useState(() => Date.now());
+  useEffect(() => { const timer = window.setInterval(() => setNow(Date.now()), 3_600_000); return () => window.clearInterval(timer); }, []);
+  const news = useMemo(() => recentNames(addedDates, known, now), [now]);
   const [cartOpen, setCartOpen] = useState(false);
   const [toast, setToast] = useState({ open: false, message: "", key: 0 });
   const [systemDark, setSystemDark] = useState(() => window.matchMedia("(prefers-color-scheme: dark)").matches);
@@ -110,6 +116,10 @@ export function App() {
           <span className="side-title">Tasarım</span>
           <a href={routeHash.color} aria-current={current === "color" && !query ? "page" : undefined} onClick={() => setQuery("")}><Palette size={15} strokeWidth={1.75} aria-hidden="true" /> Renk laboratuvarı</a>
           <a href={routeHash.type} aria-current={current === "type" && !query ? "page" : undefined} onClick={() => setQuery("")}><Type size={15} strokeWidth={1.75} aria-hidden="true" /> Tipografi</a>
+          {news.length > 0 && <div className="side-news" role="group" aria-labelledby="yenilikler-baslik">
+            <span className="side-title" id="yenilikler-baslik"><Sparkles size={12} strokeWidth={1.75} aria-hidden="true" /> Yenilikler</span>
+            {news.map(name => <a key={name} href={routeHash.component(name)} aria-current={route.view === "component" && route.name === name && !query ? "page" : undefined} onClick={() => setQuery("")}>{entryOf(name)?.title ?? name}</a>)}
+          </div>}
         </nav>
         <main className="main" id="icerik" tabIndex={-1}>
           {query.trim() ? <SearchResults query={query} results={results} shop={shop} onOpen={name => go(routeHash.component(name))} />
