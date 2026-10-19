@@ -25,6 +25,10 @@ export function UserMenuDemo() {
     <div className="row" style={{ justifyContent: "flex-end", minHeight: 40 }}>
       <UserMenu user={{ name: "elif yıldız", email: "elif.yildiz@ornek.com.tr" }} themeOptions={["light", "dark"]} items={[{ label: "Hesap ayarları", icon: <Settings size={16} strokeWidth={1.75} /> }]} onSignOut={() => undefined} />
     </div>
+    <span className="etiket">Kenar menüsünün sol alt köşesi: side right, align end (panel sağa açılır, alt kenarlar hizalı)</span>
+    <div className="row" style={{ justifyContent: "flex-start", minHeight: 40 }}>
+      <UserMenu user={{ name: "mert şahin", email: "mert.sahin@ornek.com.tr" }} showName side="right" align="end" items={[{ label: "Hesap ayarları", icon: <Settings size={16} strokeWidth={1.75} /> }]} onSignOut={() => undefined} />
+    </div>
     <span className="etiket">{message} · durum: {({ available: "Müsait", busy: "Meşgul", away: "Uzakta" } as Record<string, string>)[status] ?? status} · tema: {({ light: "Açık", dark: "Koyu", system: "Sistem" } as Record<string, string>)[theme] ?? theme}</span>
   </div>;
 }
