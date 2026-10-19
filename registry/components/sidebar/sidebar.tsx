@@ -4,7 +4,7 @@ import { useCallback, useEffect, useId, useLayoutEffect, useRef, useState } from
 import type { KeyboardEvent as ReactKeyboardEvent, ReactNode } from "react";
 import { AnimatePresence, motion, useReducedMotion } from "motion/react";
 import type { Transition } from "motion/react";
-import { ChevronDown, Menu, PanelLeft } from "lucide-react";
+import { ChevronDown, Menu, PanelLeft, Pin, PinOff } from "lucide-react";
 import { text } from "@snn/abacus-core";
 import { motionTokens } from "../lib/motion-tokens";
 import { Avatar } from "../avatar/avatar";
@@ -28,6 +28,10 @@ export interface SidebarItem {
   href?: string | undefined;
   /** Alt satırlar: satır katlanır gruba döner. Boş dizi verilirse grup hiç gösterilmez. */
   children?: SidebarItem[] | undefined;
+  /** Pasif satır: görünür ve odaklanır ama gitmez; ekran okuyucu "kullanılamaz" okur. */
+  disabled?: boolean | undefined;
+  /** Satırın sağındaki kısa not, ör. "Yakında". Şeritte ipucuna eklenir. */
+  note?: string | undefined;
 }
 
 export interface SidebarSection { id: string; title?: string | undefined; items: SidebarItem[] }
@@ -56,6 +60,9 @@ export interface SidebarProps {
   onRetry?: (() => void) | undefined;
   /** Bu genişliğin (px) altında menü çekmeceye dönüşür. Ölçü pencereye değil bloğun kendi genişliğine bakar. */
   breakpoint?: number | undefined;
+  /** Şeritteyken üzerine gelince ya da klavye odağı girince menü içeriğin üstüne geçici genişler; raptiye düğmesi açık bırakır
+   * (`onCollapsedChange(false)`), raptiyeyi kaldırmak yeniden şeride döndürür. */
+  hoverExpand?: boolean | undefined;
   /** Sayfa içeriği; kendi içinde kayar, çerçeve sabit kalır. */
   children?: ReactNode | undefined;
   className?: string | undefined;
@@ -87,7 +94,7 @@ const badgeText = (count: number) => `${count} okunmamış`;
 /** Solda daralabilen menü, üstte yol izi, ortada kayan içerik olan uygulama çerçevesi. Dar kolonda menü çekmeceye dönüşür. */
 export function Sidebar({
   header, sections, activeId, onNavigate, settingsItem, user, collapsed: collapsedProp, defaultCollapsed = false, onCollapsedChange,
-  loading = false, error = false, onRetry, breakpoint = 720, children, className,
+  loading = false, error = false, onRetry, breakpoint = 720, hoverExpand = false, children, className,
 }: SidebarProps) {
   const uid = useId();
   const reduced = useReducedMotion();
@@ -96,6 +103,17 @@ export function Sidebar({
   const [drawerOpen, setDrawerOpen] = useState(false);
   const [collapsedState, setCollapsedState] = useState(defaultCollapsed);
   const collapsed = collapsedProp ?? collapsedState;
+  /** Şerit üzerine gelince ya da odakla geçici açık. */
+  const [peek, setPeek] = useState(false);
+  const peekTimer = useRef<number | undefined>(undefined);
+  useEffect(() => () => window.clearTimeout(peekTimer.current), []);
+  useEffect(() => { if (!collapsed || !hoverExpand) setPeek(false); }, [collapsed, hoverExpand]);
+  // Kısa bekleme: imleç şeridin üstünden geçip giderken menü açılıp kapanmaz.
+  const schedulePeek = (next: boolean) => {
+    window.clearTimeout(peekTimer.current);
+    if (!hoverExpand || !collapsed) return;
+    peekTimer.current = window.setTimeout(() => setPeek(next), next ? 120 : 200);
+  };
   const found: Found | null = findItem(sections, activeId) ?? (settingsItem && activeId && settingsItem.id === activeId ? { item: settingsItem, trail: [], section: { id: "", items: [] } } : null);
   const [openGroups, setOpenGroups] = useState<Record<string, boolean>>(() => {
     const initial: Record<string, boolean> = {};
@@ -145,6 +163,7 @@ export function Sidebar({
   const toggleGroup = (id: string) => setOpenGroups(current => ({ ...current, [id]: !current[id] }));
 
   function go(item: SidebarItem) {
+    if (item.disabled) return;
     onNavigate(item.id);
     setDrawerOpen(false);
   }
@@ -178,10 +197,12 @@ export function Sidebar({
         {item.icon ? <span className={styles.icon} aria-hidden="true">{item.icon}</span> : <span className={styles.icon} aria-hidden="true" />}
         <span className={styles.label}>{item.label}</span>
         {typeof item.badge === "number" && item.badge > 0 && !rail && <><Badge size="sm" tone="info" aria-hidden="true">{String(item.badge)}</Badge><span className={styles.srOnly}>{badgeText(item.badge)}</span></>}
+        {item.note && !rail && <span className={styles.note}>{item.note}</span>}
         {hasChildren && !rail && <ChevronDown className={styles.chevron} data-open={open ? "true" : undefined} size={16} aria-hidden="true" />}
       </>
     );
-    const tip = typeof item.badge === "number" && item.badge > 0 ? `${item.label} (${badgeText(item.badge)})` : item.label;
+    const tip = typeof item.badge === "number" && item.badge > 0 ? `${item.label} (${badgeText(item.badge)})` : item.note ? `${item.label} (${item.note})` : item.label;
+    const off = item.disabled || undefined;
 
     if (hasChildren && rail) {
       // Şeritteyken grup simgesi menüyü açmaz; alt sayfalar küçük bir açılır kutuda listelenir.
@@ -224,9 +245,10 @@ export function Sidebar({
       );
     }
 
-    const row = item.href
+    // Pasif satır bağlantı olmaz; aria-disabled odaklanabilir bırakır, böylece "Yakında" klavyeyle de okunur.
+    const row = item.href && !off
       ? <a href={item.href} className={styles.row} data-nav-item data-active={active ? "true" : undefined} aria-current={active ? "page" : undefined} aria-label={rail ? tip : undefined} onClick={() => go(item)}>{content}</a>
-      : <button type="button" className={styles.row} data-nav-item data-active={active ? "true" : undefined} aria-current={active ? "page" : undefined} aria-label={rail ? tip : undefined} onClick={() => go(item)}>{content}</button>;
+      : <button type="button" className={styles.row} data-nav-item data-active={active && !off ? "true" : undefined} data-disabled={off} aria-disabled={off} aria-current={active && !off ? "page" : undefined} aria-label={rail ? tip : undefined} onClick={() => go(item)}>{content}</button>;
     return <li key={item.id}>{rail ? <Tooltip content={tip} side="right">{row}</Tooltip> : row}</li>;
   }
 
@@ -247,6 +269,13 @@ export function Sidebar({
         <div className={styles.brand}>
           <span className={styles.logo} aria-hidden="true">{header.logo ?? text.upper(header.name.trim().charAt(0))}</span>
           <span className={styles.brandCopy}><span className={styles.brandName}>{header.name}</span>{header.subtitle && <span className={styles.brandSub}>{header.subtitle}</span>}</span>
+          {hoverExpand && !rail && !narrow && (
+            <Tooltip content={collapsed ? "Menüyü açık tut" : "Menüyü şeride döndür"}>
+              <Button variant="ghost" size="sm" className={styles.pin} aria-label="Menüyü açık tut" aria-pressed={!collapsed} onClick={() => setCollapsed(!collapsed)}>
+                {collapsed ? <Pin size={16} aria-hidden="true" /> : <PinOff size={16} aria-hidden="true" />}
+              </Button>
+            </Tooltip>
+          )}
         </div>
         <nav className={styles.nav} aria-label="Ana menü" onKeyDown={onNavKeyDown}>
           {error && (
@@ -291,9 +320,16 @@ export function Sidebar({
     <div ref={setRoot} className={[styles.root, className].filter(Boolean).join(" ")} data-narrow={narrow ? "true" : undefined}>
       <div className={styles.status} role="status" aria-live="polite">{note}</div>
       {!narrow && (
-        <motion.aside className={styles.aside} initial={false} animate={{ width: collapsed ? "3.5rem" : "16rem" }} transition={grow}>
-          {renderNav(collapsed)}
-        </motion.aside>
+        // Yuva yerleşimde yer tutar (şerit ya da açık); geçici açılan menü yuvadan taşar ve içeriğin üstüne çizilir.
+        <motion.div className={styles.asideSlot} initial={false} animate={{ width: collapsed ? "3.5rem" : "16rem" }} transition={grow}>
+          <motion.aside className={styles.aside} data-peek={peek ? "true" : undefined} initial={false} animate={{ width: collapsed && !peek ? "3.5rem" : "16rem" }} transition={grow}
+            onMouseEnter={() => schedulePeek(true)} onMouseLeave={() => schedulePeek(false)}
+            onFocus={() => { if (hoverExpand && collapsed) { window.clearTimeout(peekTimer.current); setPeek(true); } }}
+            onBlur={event => { if (!event.currentTarget.contains(event.relatedTarget as Node | null)) schedulePeek(false); }}
+            onKeyDown={event => { if (event.key === "Escape" && peek) setPeek(false); }}>
+            {renderNav(collapsed && !peek)}
+          </motion.aside>
+        </motion.div>
       )}
       <div className={styles.main}>
         <header className={styles.topbar}>

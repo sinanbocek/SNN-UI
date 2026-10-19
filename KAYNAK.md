@@ -400,3 +400,13 @@ SNN-Proje-ve-Nakit-Akis-Yonetimi "sık" yoğunluğa geçti (tablo satırı 36–
 | `sortable-data-table` | CSS değişkenleri: `--table-row-height` (52px), `--table-head-height` (44px), `--table-font-size` (--text-sm); tablonun bir atasına verilir. Gövde onay kutusu isabet alanı satırdan yüksek olmaz. Dar ekrandaki kart görünümü kendi ölçüsünü korur. |
 
 Kırıcı değişiklik yok (Input'un HTML `size` niteliği dışında). Kalan maddeler (tree-nav, inline-edit sayı modu, menü açılma yönü vb.) sonraki turda.
+
+## Nakit projesinin talepleri, üçüncü tur: kabuk menüsü (2026-10-19)
+
+Talep "tree-nav" adında yeni bir gruplu ağaç menü istiyordu. Grup başlığı, dar (yalnız simge) / geniş durum ve alt öğeler `sidebar`da zaten vardı; yeni parça yazılmadı, `sidebar` genişletildi:
+
+| Parça | Değişiklik |
+|---|---|
+| `sidebar` | Yeni `hoverExpand`: şeritteyken üzerine gelince (120 ms bekleme) ya da klavye odağı girince menü içeriği itmeden üstüne açılır; Escape ve çıkış kapatır. Açıkken raptiye düğmesi (`aria-pressed`) menüyü kalıcı açar ya da şeride döndürür (`onCollapsedChange`). Satırda `disabled` (aria-disabled, odaklanır, gitmez) ve `note` ("Yakında"; şeritte ipucuna eklenir). CSS değişkenleri `--sidebar-row-height` ve `--sidebar-row-radius` (hap biçimi). Yerleşim: menü artık yer tutan bir yuvanın içinde mutlak konumlu çizilir. |
+
+Kırıcı değişiklik yok; yeni prop'lar verilmezse eski davranış sürer.
