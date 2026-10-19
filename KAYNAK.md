@@ -424,3 +424,9 @@ Kırıcı değişiklik yok; yeni prop'lar verilmezse eski davranış sürer.
 |---|---|
 | `user-menu` | Yeni `side` ("bottom" varsayılan, "top", "right"). Konum hesabı saf `placePanel` işlevine taşındı (`user-menu-format.ts`, testli): sığmazsa karşı yana döner, panel kenarlardan 12 px içeride kalır; sağda `align` dikey hizadır ("end" = alt kenarlar hizalı). Portalsız panelde yan CSS ile seçilir (sağda "center" desteklenmez, üst hizaya düşer). |
 | `notification-center` | Yeni `side` ve `align` (Radix'e geçer; CSS yanları zaten tanıyordu). |
+
+## Nakit projesinin talepleri: renk seçicide yazı rengi (2026-10-19)
+
+| Parça | Değişiklik |
+|---|---|
+| `color-picker` | `onValueChange` ikinci bilgi olarak `{ foreground }` verir: rengin üstünde daha yüksek WCAG karşıtlığı veren yazı rengi (#111111 ya da #FFFFFF; saydam renk `background` üstüne bindirilir). Saf `readableForeground` işlevi `color-picker-format.ts` içinde, testli, bileşenden de dışa açık. Eski tek bağımsız değişkenli çağıranlar etkilenmez. |
