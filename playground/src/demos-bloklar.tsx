@@ -16,6 +16,8 @@ import { SearchResults } from "../../registry/components/search-results/search-r
 import type { SearchResult } from "../../registry/components/search-results/search-results";
 import { Sidebar } from "../../registry/components/sidebar/sidebar";
 import type { SidebarSection } from "../../registry/components/sidebar/sidebar";
+import { NotificationCenter } from "../../registry/components/notification-center/notification-center";
+import { UserMenu } from "../../registry/components/user-menu/user-menu";
 import { TeamMembers } from "../../registry/components/team-members/team-members";
 import type { TeamInvite, TeamMember } from "../../registry/components/team-members/team-members";
 
@@ -149,6 +151,35 @@ const sidebarSections: SidebarSection[] = [
   { id: "pinned", title: "Sabitlenenler", items: [{ id: "haftalik", label: "Haftalık rapor", icon: <FileText size={18} /> }] },
 ];
 
+const shellNotifications = [
+  { id: "b1", title: "Ödeme onaylandı", description: "Ekim hakedişi muhasebeye iletildi.", time: "5 dk önce", tone: "success" as const },
+  { id: "b2", title: "Nakit açığı uyarısı", description: "Kasım ikinci haftasında bakiye eksiye düşüyor.", time: "1 sa önce" },
+];
+
+/** Uygulamanın kendi kabuğu: üst çubuk ve içerik bizde, yan menü çerçevesiz Sidebar. Dar ekranda menü düğmesi çekmeceyi açar. */
+function FramelessShell({ page, setPage }: { page: string; setPage: (id: string) => void }) {
+  const [collapsed, setCollapsed] = useState(false);
+  const [drawer, setDrawer] = useState(false);
+  return <div style={{ display: "grid", gridTemplateRows: "48px 1fr", height: 440, width: 900, maxWidth: "100%", border: "1px solid var(--border)", borderRadius: "var(--radius-panel)", overflow: "hidden" }}>
+    <header style={{ display: "flex", alignItems: "center", gap: 12, padding: "0 12px", borderBottom: "1px solid var(--border)" }}>
+      <Button variant="ghost" size="sm" onClick={() => setDrawer(true)}>Menü</Button>
+      <Button variant="ghost" size="sm" onClick={() => setCollapsed(!collapsed)}>{collapsed ? "Genişlet" : "Daralt"}</Button>
+      <strong style={{ fontSize: "var(--text-sm)" }}>Uygulamanın üst çubuğu</strong>
+    </header>
+    <div style={{ display: "flex", minHeight: 0 }}>
+      <Sidebar
+        frameless header={{ name: "Nakit", subtitle: "Karar masası" }} sections={sidebarSections} activeId={page} onNavigate={setPage}
+        collapsed={collapsed} onCollapsedChange={setCollapsed} drawerOpen={drawer} onDrawerOpenChange={setDrawer} breakpoint={640}
+        footer={({ rail }) => <div style={{ display: "flex", flexDirection: rail ? "column" : "row", alignItems: "center", gap: 8 }}>
+          <NotificationCenter notifications={shellNotifications} side="right" align="end" />
+          <UserMenu user={{ name: "Elif Aksoy", email: "elif@ornek-firma.test" }} showName={!rail} side="right" align="end" items={[{ label: "Hesap değiştir", icon: <Users size={16} strokeWidth={1.75} /> }]} onSignOut={() => undefined} />
+        </div>}
+      />
+      <main style={{ flex: 1, minWidth: 0, overflow: "auto", padding: 20 }}><h3 style={{ margin: 0 }}>{page}</h3><p>İçerik alanı uygulamanındır.</p></main>
+    </div>
+  </div>;
+}
+
 function SidebarDemo() {
   const [page, setPage] = useState("teklifler");
   const [loading, setLoading] = useState(false);
@@ -197,6 +228,9 @@ function SidebarDemo() {
           <p>Geçici açılan menü içeriği itmez, üstüne çizilir.</p>
         </Sidebar>
       </div>
+    </Col>
+    <Col title="Çerçevesiz (frameless): yalnız yan menü; üst çubuk ve içerik uygulamanın kabuğunda. Alt alanda (footer) bildirim merkezi ve kendi kullanıcı menüsü; şeritte yalnız simgeler.">
+      <FramelessShell page={page} setPage={setPage} />
     </Col>
   </>;
 }
