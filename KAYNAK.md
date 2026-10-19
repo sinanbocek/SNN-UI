@@ -387,3 +387,16 @@ SNN-Proje-ve-Nakit-Akis-Yonetimi beş talep gönderdi. Rozet (`badge`: neutral, 
 | `user-menu` | Yeni `themeOptions`: anahtarda gösterilecek temalar ve sırası (`pickThemeOptions`, testli; boş ya da geçersizse üçü). "system" listede yoksa `defaultTheme` varsayılanı listenin ilkidir. |
 
 Kırıcı değişiklik yok; yeni prop'lar verilmezse eski davranış sürer.
+
+## Nakit projesinin talepleri, ikinci tur: sık yoğunluk (2026-10-19)
+
+SNN-Proje-ve-Nakit-Akis-Yonetimi "sık" yoğunluğa geçti (tablo satırı 36–42 px) ve on madde gönderdi. Öncelikli dört madde bu turda:
+
+| Parça | Değişiklik |
+|---|---|
+| `input` | Yeni `hideLabel` (etiket görünmez, ekran okuyucu okur) ve `size` ("sm" \| "md"; sm `--control-height-sm`). HTML'in `size` niteliği (karakter genişliği) prop'tan çıkarıldı; katalogda kullanan yoktu. |
+| `select` | Yeni `hideLabel`, `size` ve `native`: tarayıcının kendi `<select>` öğesi aynı tetikleyici görünümüyle çizilir; klavye işletim sistemininkidir, çok satırlı tabloda hafiftir, değer geçişi canlanmaz. |
+| `number-input` (yeni) | Arc'ta yok; SNN-UI için yazıldı. Boş değer (`null`), odakta ham metin / odak dışında biçimli gösterim, değer odak çıkınca ya da Enter'da işlenir, Escape geri alır, `steppers={false}`, `hideLabel`, `size`. Yazım ve okuma `number-input-format.ts` içinde saf ve testli (ABACUS `fmtDecimalGrouped`, `parseNumber`; virgülsüz tek nokta ondalık sayılır). `number-field` genişletilmedi: dönen rakamlı, ortalanmış göstergesi hücreye sığmıyor ve her yeri sayı değeri varsayıyor. |
+| `sortable-data-table` | CSS değişkenleri: `--table-row-height` (52px), `--table-head-height` (44px), `--table-font-size` (--text-sm); tablonun bir atasına verilir. Gövde onay kutusu isabet alanı satırdan yüksek olmaz. Dar ekrandaki kart görünümü kendi ölçüsünü korur. |
+
+Kırıcı değişiklik yok (Input'un HTML `size` niteliği dışında). Kalan maddeler (tree-nav, inline-edit sayı modu, menü açılma yönü vb.) sonraki turda.

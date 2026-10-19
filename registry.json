@@ -4375,6 +4375,43 @@
       }
     },
     {
+      "name": "number-input",
+      "type": "registry:ui",
+      "title": "Sayı kutusu (yalın)",
+      "description": "Boş değer (null) taşıyabilen yalın sayı kutusu. Odaktayken ham metin yazılır (\"1234,5\"), odak çıkınca Türkçe biçimli gösterilir (\"1.234,5\"). Değer odak çıkınca ya da Enter'da işlenir, Escape yazılanı geri alır; oklar adım atar. Eksi/artı düğmeleri kapatılabilir. Tablo hücresi için `size=\"sm\"` ve `hideLabel`.",
+      "categories": [
+        "forms"
+      ],
+      "dependencies": [
+        "@snn/abacus-core@github:sinanbocek/SNN-Abacus-Core#semver:^4.3.0",
+        "lucide-react"
+      ],
+      "registryDependencies": [
+        "@snn-ui/snn-foundation"
+      ],
+      "files": [
+        {
+          "path": "registry/components/number-input/number-input-format.ts",
+          "type": "registry:component",
+          "target": "@components/snn/number-input/number-input-format.ts"
+        },
+        {
+          "path": "registry/components/number-input/number-input.module.css",
+          "type": "registry:component",
+          "target": "@components/snn/number-input/number-input.module.css"
+        },
+        {
+          "path": "registry/components/number-input/number-input.tsx",
+          "type": "registry:component",
+          "target": "@components/snn/number-input/number-input.tsx"
+        }
+      ],
+      "meta": {
+        "arcCommit": "bfdf7e8",
+        "arcSource": "(Arc'ta yok; SNN-UI için yazıldı)"
+      }
+    },
+    {
       "name": "calendar",
       "type": "registry:ui",
       "title": "Takvim",

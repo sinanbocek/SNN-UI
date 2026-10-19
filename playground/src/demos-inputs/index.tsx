@@ -3,6 +3,7 @@ import type { ReactNode } from "react";
 import { SortableDataTableDemo } from "./sortable-data-table";
 import { MoneyInputDemo } from "./money-input";
 import { NumberFieldDemo } from "./number-field";
+import { NumberInputDemo } from "./number-input";
 import { CalendarDemo, DatePickerDemo } from "./calendar";
 import { FileDropzoneDemo } from "./file-dropzone";
 import { StepperDemo } from "./stepper";
@@ -12,6 +13,7 @@ export const inputDemos: Record<string, () => ReactNode> = {
   "sortable-data-table": () => <SortableDataTableDemo />,
   "money-input": () => <MoneyInputDemo />,
   "number-field": () => <NumberFieldDemo />,
+  "number-input": () => <NumberInputDemo />,
   "calendar": () => <CalendarDemo />,
   "date-picker": () => <DatePickerDemo />,
   "file-dropzone": () => <FileDropzoneDemo />,

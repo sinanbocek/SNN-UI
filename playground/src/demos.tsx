@@ -91,9 +91,10 @@ function InputDemo() {
     <Col title="Normal"><Input label="Ad" placeholder="Adınızı yazın" /></Col>
     <Col title="Açıklamalı"><Input label="E-posta" description="Giriş için kullanılır." placeholder="name@firma.com" /></Col>
     <Col title="Hata durumu (boş bırakınca)">
-      <Input label="Firma nameı" value={name} onChange={e => setAd(e.target.value)} error={name ? undefined : "Firma nameı gerekli."} />
+      <Input label="Firma adı" value={name} onChange={e => setAd(e.target.value)} error={name ? undefined : "Firma adı gerekli."} />
     </Col>
     <Col title="Pasif"><Input label="Kullanıcı kodu" value="K-1042" disabled readOnly /></Col>
+    <Col title="Küçük, etiketi gizli (tablo hücresi)"><Input size="sm" hideLabel label="Kalem adı" placeholder="Kalem adı" /></Col>
   </>;
 }
 
@@ -113,6 +114,11 @@ function SelectDemo() {
       <span className="durum">Seçili: {v}</span>
     </Col>
     <Col title="Yer tutuculu"><Select label="Para birimi" placeholder="Seçin" description="Teklif para birimi." options={[{ value: "try", label: "Türk lirası" }, { value: "usd", label: "ABD doları" }]} /></Col>
+    <Col title="Küçük, etiketi gizli">
+      <Select size="sm" hideLabel label="Para birimi" defaultValue="try" options={[{ value: "try", label: "TRY" }, { value: "usd", label: "USD" }, { value: "eur", label: "EUR" }]} />
+      <span className="durum">Tarayıcının kendi kutusu (native), aynı görünüm:</span>
+      <Select native size="sm" hideLabel label="KDV oranı" defaultValue="20" options={[{ value: "0", label: "%0" }, { value: "10", label: "%10" }, { value: "20", label: "%20" }]} />
+    </Col>
   </>;
 }
 

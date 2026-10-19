@@ -1,0 +1,24 @@
+.field { display: grid; gap: var(--space-2); min-width: 0; }
+.label { color: var(--foreground); font-size: var(--text-sm); font-weight: 500; line-height: var(--leading-body); }
+/* Çerçeve kutunun kendisidir; adım düğmeleri içinde durur. Odak yalnız çerçeve rengiyle yanıt verir (input ile aynı). */
+.control { display: flex; align-items: center; min-width: 0; min-height: var(--control-height-md); border: 1px solid var(--border-strong); border-radius: var(--radius-control); background: var(--surface); transition: border-color var(--duration-fast) var(--ease-standard); }
+.field[data-size="sm"] .control { min-height: var(--control-height-sm); }
+@media (hover: hover) and (pointer: fine) { .control:hover:not([data-disabled], [data-invalid]) { border-color: var(--foreground); } }
+.control:focus-within { border-color: var(--foreground); }
+.control[data-invalid] { border-color: var(--danger); }
+.control[data-disabled] { cursor: not-allowed; opacity: .5; background: var(--surface-muted); }
+.input { flex: 1; align-self: stretch; min-width: 0; border: 0; padding: 0 var(--space-3); background: transparent; color: var(--foreground); font: inherit; font-size: var(--text-sm); line-height: var(--leading-body); letter-spacing: var(--tracking-body); font-variant-numeric: tabular-nums; outline: none; }
+.field[data-size="sm"] .input { padding: 0 var(--space-2); }
+.input[data-align="end"] { text-align: right; }
+.input::placeholder { color: var(--text-muted); }
+.input:disabled { cursor: not-allowed; }
+.steps { display: flex; flex: none; align-self: stretch; align-items: center; gap: 2px; padding-right: 3px; }
+.step { display: grid; width: 28px; height: calc(100% - 6px); max-height: 36px; place-items: center; border: 0; border-radius: calc(var(--radius-control) - 3px); padding: 0; background: transparent; color: var(--text-muted); cursor: pointer; transition: background-color var(--duration-fast) var(--ease-standard), color var(--duration-fast) var(--ease-standard); }
+.field[data-size="sm"] .step { width: 24px; }
+@media (hover: hover) and (pointer: fine) { .step:hover:not(:disabled) { background: var(--surface-muted); color: var(--foreground); } }
+.step:active:not(:disabled) { background: var(--surface-muted); color: var(--foreground); }
+.step:disabled { opacity: .4; cursor: not-allowed; }
+.hint, .error { font-size: var(--text-xs); line-height: var(--leading-body); }
+.hint { color: var(--text-muted); } .error { color: var(--danger); }
+.srOnly { position: absolute; width: 1px; height: 1px; overflow: hidden; clip-path: inset(50%); white-space: nowrap; }
+@media (prefers-reduced-motion: reduce) { .control, .step { transition: none; } }
