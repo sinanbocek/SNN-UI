@@ -8,25 +8,21 @@ export const COMPACT_FROM = 1000;
 /**
  * Sayıyı binlik ayraçlı yazar; en çok `maxDigits` ondalık basamak, sondaki sıfırlar atılır.
  * 1234.5 → "1.234,5", 1234 → "1.234", -0.5 → "-0,5".
- * İşareti burada ayrıca yönetiriz: ABACUS `fmtDecimalGrouped` -1 ile 0 arasındaki değerde eksiyi düşürüyor (ABACUS'a aday).
  */
 export function formatNumber(value: number, maxDigits = 1): string {
   if (!Number.isFinite(value)) return "—";
-  const rounded = math.round(value, maxDigits);
-  const text = money.fmtDecimalGrouped(math.abs(rounded), maxDigits);
-  const trimmed = text.includes(",") ? text.replace(/0+$/, "").replace(/,$/, "") : text;
-  return rounded < 0 ? `-${trimmed}` : trimmed;
+  const text = money.fmtDecimalGrouped(math.round(value, maxDigits), maxDigits);
+  return text.includes(",") ? text.replace(/0+$/, "").replace(/,$/, "") : text;
 }
 
 /**
  * Birimsiz kısaltma (eksen etiketi için): 1250000 → "1,25Mn", 12500 → "12,5B" (B = bin, Mn = milyon, Mr = milyar).
- * Eşiğin altı kısaltılmaz ve en çok 1 ondalıkla yazılır. ABACUS kısaltması para birimi simgesi koyar; burada simge atılır
- * (birimsiz kısaltma ABACUS'ta yok, aday).
+ * Eşiğin altı kısaltılmaz ve en çok 1 ondalıkla yazılır.
  */
 export function formatCompact(value: number): string {
   if (!Number.isFinite(value)) return "—";
   if (math.abs(value) < COMPACT_FROM) return formatNumber(value, 1);
-  return money.compactMajor(value, { style: "B/Mn/Mr" }).replace("₺", "");
+  return money.compactNumber(value, { style: "B/Mn/Mr" });
 }
 
 /** Para tutarı; varsayılan birim TRY: 1250000 → "₺1.250.000", 1234.5 ve `digits: 2` → "₺1.234,50". */
