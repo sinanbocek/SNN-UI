@@ -9,19 +9,16 @@ export type Part = { key: string; digit: number } | { key: string; text: string 
 /**
  * Sayıyı yazar: en az `minFraction`, en çok `maxFraction` ondalık; aradaki sondaki sıfırlar atılır.
  * 1234.5 (1, 2) → "1.234,5"; 3 (2, 2) → "3,00"; -0.5 (1, 1) → "-0,5". `grouping: false` binlik ayracını kaldırır.
- * İşaret burada yönetilir: ABACUS `fmtDecimalGrouped` -1 ile 0 arasındaki değerde eksiyi düşürüyor (chart-format.ts ile aynı not).
  */
 export function formatValue(value: number, minFraction = 0, maxFraction = minFraction, grouping = true): string {
   if (!Number.isFinite(value)) return "—";
-  const rounded = math.round(value, maxFraction);
-  let text = money.fmtDecimalGrouped(math.abs(rounded), maxFraction);
+  let text = money.fmtDecimalGrouped(math.round(value, maxFraction), maxFraction);
   if (maxFraction > minFraction && text.includes(",")) {
     const [whole = "", fraction = ""] = text.split(",");
     const kept = fraction.replace(/0+$/, "").padEnd(minFraction, "0");
     text = kept ? `${whole},${kept}` : whole;
   }
-  if (!grouping) text = text.split(".").join("");
-  return rounded < 0 ? `-${text}` : text;
+  return grouping ? text : text.split(".").join("");
 }
 
 /** Yazılı sayıyı basamak değerine göre anahtarlı sütunlara böler; 9 → 10 olunca birler sütunu birler sütunu kalır. */

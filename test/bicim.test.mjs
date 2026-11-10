@@ -99,7 +99,13 @@ test("ortak biçimleyici: 1234.5 → '1.234,5' (ABACUS ile aynı)", () => {
 
 test("ortak biçimleyici: kısaltma ve yüzde ABACUS çıktısıdır", () => {
   assert.equal(mods.chart.formatMoneyCompact(1250000), money.compactMajor(1250000, { style: "B/Mn/Mr" }));
-  assert.equal(mods.chart.formatCompact(1250000), money.compactMajor(1250000, { style: "B/Mn/Mr" }).replace("₺", ""));
+  assert.equal(mods.chart.formatCompact(1250000), money.compactNumber(1250000, { style: "B/Mn/Mr" }));
+  assert.equal(mods.chart.formatCompact(1250000), "1,25Mn");
+  assert.equal(mods.chart.formatCompact(-1250000), "-1,25Mn");
+  assert.equal(mods.chart.formatCompact(12500), "12,5B");
+  assert.equal(mods.chart.formatCompact(-0.5), "-0,5");
+  assert.equal(mods.chart.formatNumber(-1234.56, 1), "-1.234,6");
+  assert.equal(mods.chart.formatNumber(-0.04, 1), "0");
   assert.equal(mods.chart.formatMoney(1250000), money.formatMajor(1250000, { currency: "TRY", digits: 0 }));
   assert.equal(mods.chart.formatRatio(0.123, 1), money.percent(math.mul(0.123, 100), 1));
   assert.equal(mods.chart.formatChange(120, 100, 0), money.percent(math.percentChange(120, 100), 0, { sign: "always" }));
