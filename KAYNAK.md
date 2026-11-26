@@ -454,7 +454,7 @@ Kırıcı değişiklik yok; yeni prop'lar verilmezse eski davranış sürer.
 
 Proje 51 parça kurdu; iki konu bildirdi.
 
-**ABACUS sürümü düşüyordu.** Kayıttaki bağımlılık `^4.3.0` idi; `shadcn add` bunu projenin `package.json`'ına yazıp `^4.4.0`'ı geri çekti. Aralık artık `scripts/catalog.mjs` içinde tek sabittir (`ABACUS_RANGE`, `^4.4.0`). `test/abacus-surum.test.mjs` bu aralığın kök `package.json` ile aynı olduğunu denetler; ABACUS yükseltilince ikisi birlikte değişir.
+**ABACUS sürümü düşüyordu.** Kayıttaki bağımlılık `^4.3.0` idi; `shadcn add` bunu projenin `package.json`'ına yazıp `^4.4.0`'ı geri çekti. Aralık artık `scripts/catalog.mjs` içinde tek sabittir (`ABACUS_RANGE`, `^4.4.0`). `test/abacus-version.test.mjs` bu aralığın kök `package.json` ile aynı olduğunu denetler; ABACUS yükseltilince ikisi birlikte değişir.
 
 **oxlint uyarıları.** Effect içinde senkron setState olanlar çizim sırasında türetildi: `roles-permissions` (dışarıdan gelen değerler), `team-directory` (kopyala düğmesi), `login-split` (dışarıdan gelen hata), `lib/password-generator-ui` (kopyala düğmesi), `liquid-tab-bar` (görünen etiket), `orbit-menu` (devre dışı kalınca kapanma). `orbit-menu` artık `onOpenChange`'i işleyici içinde değil, durum değiştikten sonra bir effect'te bildirir; her açılış ve kapanış yine bir kez bildirilir. `orbit-menu`'deki `angleOf` düz fonksiyon oldu. `action-morph` ref'i çizim sırasında değil effect'te günceller. `roles-permissions`'taki iki üçlü ifade `if/else` oldu.
 

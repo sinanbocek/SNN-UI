@@ -11,7 +11,7 @@ export const REGISTRY_URL = "https://raw.githubusercontent.com/sinanbocek/SNN-UI
 export const INSTALL_ROOT = "@components/snn";
 
 /**
- * ABACUS bağımlılığı, bütün parçalarda tek satır. Kök package.json'daki aralıkla aynı tutulur (test/abacus-surum.test.mjs).
+ * ABACUS bağımlılığı, bütün parçalarda tek satır. Kök package.json'daki aralıkla aynı tutulur (test/abacus-version.test.mjs).
  * shadcn add bu aralığı kuran projenin package.json'ına yazar; eski kalırsa projedeki yeni sürümü düşürür.
  * Vaka: Furkan-Ambalaj-Teklif 2026-11-26, ^4.4.0 → ^4.3.0.
  */
