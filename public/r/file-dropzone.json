@@ -4,7 +4,7 @@
   "title": "Dosya bırakma alanı",
   "description": "Dosyaları sürükleyip bırakma ya da cihazdan seçme alanı; panodan yapıştırma da çalışır. Tür (`accept`), boyut (`maxSize`) ve sayı (`maxFiles`) sınırı, görsellere küçük resim, satır başına ilerleme çubuğu (\"Yükleniyor %45\"), \"Yüklendi\" tiki, hata nedeni ve Yeniden dene. Yüklemenin kendisi projededir (`onUpload`). Liste alanın altında ya da içinde; dosya çoğalınca istem ince çubuğa katlanır.",
   "dependencies": [
-    "@snn/abacus-core@github:sinanbocek/SNN-Abacus-Core#semver:^4.3.0",
+    "@snn/abacus-core@github:sinanbocek/SNN-Abacus-Core#semver:^4.4.0",
     "lucide-react",
     "motion"
   ],

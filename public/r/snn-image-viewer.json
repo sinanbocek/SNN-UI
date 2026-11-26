@@ -4,7 +4,7 @@
   "title": "SNN tam ekran fotoğraf görüntüleyicisi",
   "description": "Fotoğraf galerisi bloklarının ortak görüntüleyicisi (ImageViewer): fotoğraf kendi yuvasından büyür ve kapanınca oraya döner, sol/sağ ok ve kaydırmayla gezilir, +/-/0, çift tıklama, iki parmak ve Ctrl+tekerlekle yakınlaştırılır, aşağı çekilerek kapatılır; küçük resim şeridi, \"2 / 12\" sayacı ve odak tuzağı vardır (kipli iletişim kutusu). Fotoğraf gerçek genişlik ve yükseklikle verilir. Bloklarla kendiliğinden gelir.",
   "dependencies": [
-    "@snn/abacus-core@github:sinanbocek/SNN-Abacus-Core#semver:^4.3.0",
+    "@snn/abacus-core@github:sinanbocek/SNN-Abacus-Core#semver:^4.4.0",
     "motion",
     "@radix-ui/react-dialog"
   ],

@@ -74,7 +74,9 @@ export function RolesPermissions({
   const [showSaved, setShowSaved] = useState(false);
   const [note, setNote] = useState("");
 
-  useEffect(() => { setSaved(values); setDraft(values); }, [values]);
+  // Dışarıdan yeni değerler gelince kayıtlı ve taslak çizim sırasında yenilenir (effect içinde setState yerine).
+  const [prevValues, setPrevValues] = useState(values);
+  if (values !== prevValues) { setPrevValues(values); setSaved(values); setDraft(values); }
   useEffect(() => () => { timers.current.forEach(window.clearTimeout); }, []);
 
   const rows = useMemo<Row[]>(() => groups.flatMap(group => [
@@ -155,8 +157,8 @@ export function RolesPermissions({
       case "ArrowLeft": focusCell(r, c - 1); break;
       case "ArrowDown": focusCell(r + 1, c); break;
       case "ArrowUp": focusCell(r - 1, c); break;
-      case "Home": event.ctrlKey ? focusCell(0, 1) : focusCell(r, first); break;
-      case "End": event.ctrlKey ? focusCell(rows.length - 1, roles.length) : focusCell(r, roles.length); break;
+      case "Home": if (event.ctrlKey) focusCell(0, 1); else focusCell(r, first); break;
+      case "End": if (event.ctrlKey) focusCell(rows.length - 1, roles.length); else focusCell(r, roles.length); break;
       default: handled = false;
     }
     if (handled) event.preventDefault();

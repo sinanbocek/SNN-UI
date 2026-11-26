@@ -4,7 +4,7 @@
   "title": "Çizgi tekrarı",
   "description": "Blok: bir günün (ya da bir olayın) tek serisini, oynat düğmesine basınca soldan sağa kendini çizerek anlatır. Çizginin ucunda oynatma imleci ve değer etiketi gider; kilit anlar (duyuru, yayın, sorun) imleç oradan geçince çizgi üzerinde işaretlenir, üstte açıklama çıkar, yandaki \"Kilit anlar\" listesinde satır yanar ve etki satırı açılır (\"sonraki saatte +1.240\", sorunda \"20 dakikada -%12,3\"). Okuma satırı saat, değer, kıyasa göre çarpan (\"4,8×\") ve şu ana kadarki tepeyi yazar. Oynat/duraklat, kilit an işaretli kaydırıcı ve hız seçici (0,5× 1× 2× 4×) vardır; listeden bir ana basınca imleç oraya atlar. Varsayılan olarak çizgi tamam ve tüm anlar işlidir. Sorun anı farklı simge ve başlıkla gösterilir; yükleniyor, veri yok ve dar kap durumları ile klavye ve canlı duyurular vardır.",
   "dependencies": [
-    "@snn/abacus-core@github:sinanbocek/SNN-Abacus-Core#semver:^4.3.0",
+    "@snn/abacus-core@github:sinanbocek/SNN-Abacus-Core#semver:^4.4.0",
     "motion"
   ],
   "registryDependencies": [

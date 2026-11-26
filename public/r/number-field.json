@@ -4,7 +4,7 @@
   "title": "Sayı alanı",
   "description": "Eksi/artı düğmeli sınırlı sayı kutusu; rakamlar kilometre sayacı gibi döner. Basılı tutunca hızlanarak tekrarlar, sınıra dayanınca değer gerilip geri yaylanır ve \"En çok …\" notu çıkar. Yazarken Türkçe gruplanır (\"1.234,5\"), ondalık basamak sınırı `formatOptions` ile. Yüzde için `prefix=\"%\"`, gün için `suffix=\" gün\"`.",
   "dependencies": [
-    "@snn/abacus-core@github:sinanbocek/SNN-Abacus-Core#semver:^4.3.0",
+    "@snn/abacus-core@github:sinanbocek/SNN-Abacus-Core#semver:^4.4.0",
     "lucide-react",
     "motion"
   ],

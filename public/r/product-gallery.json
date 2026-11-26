@@ -4,7 +4,7 @@
   "title": "Ürün fotoğraf galerisi",
   "description": "Blok: ürün sayfası için fotoğraf galerisi. Büyük fotoğraf üstünde fareyle büyüteç merceği (yaylarla imleci izler, \"Büyüteç\" düğmesiyle kapanır), dokunmatikte parmağı bire bir izleyen kaydırma, nokta göstergesi ve büyüt simgesi; küçük resim şeridi (seçili halka kayarak değişir). Fotoğrafa basınca ya da Enter'a basınca tam ekran görüntüleyici fotoğrafın kendi yerinden büyür: sol/sağ ok, +/-/0, çift tıklama, iki parmak ve Ctrl+tekerlek yakınlaştırır, aşağı çekmek ya da Escape kapatır (Escape önce uzaklaştırır), odak ana fotoğrafa döner, \"2 / 12\" sayacı duyurulur. Renk seçici (örnekler ve seçili renk adı) değişince tüm fotoğraflar bulanıktan netleşerek yeni rengin fotoğraflarına geçer; seçili beden o renkte tükenmişse seçim kalkar ve dışarı bildirilir. Beden düğmelerinde tükenenler çizgili, seçilemez ve metinle belirtilir (\"Orman için M tükendi\"); oklar tükenenleri atlar. Beden seçilmediyse \"Beden seçin\" ipucu çıkar. Üst ve alt alan uygulamaya aittir. Dar kapta (680 px altı) üst üste dizilir.",
   "dependencies": [
-    "@snn/abacus-core@github:sinanbocek/SNN-Abacus-Core#semver:^4.3.0",
+    "@snn/abacus-core@github:sinanbocek/SNN-Abacus-Core#semver:^4.4.0",
     "motion",
     "@radix-ui/react-dialog"
   ],

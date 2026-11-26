@@ -4,7 +4,7 @@
   "title": "Kullanıma göre fiyat hesaplayıcı",
   "description": "Blok: fiyatı koltuk sayısı ve ölçülen kullanıma (aylık istek gibi) bağlı bir ürün için \"faturanız ne kadar olur\" tahminini verir. İki kaydırıcı (koltuk, kullanım; izinde plan geçiş noktaları adlı işaretli) ve aylık / yıllık anahtarı vardır (yıllıkta tasarruf tutarı). Bileşen seçime en uygun planı kendisi bulur (koltuk × fiyat + aşım × milyon başı fiyat toplamı en düşük plan): plan adı harf harf döner, aylık tutar döner, özellikler bir önceki plana göre \"yeni\" işaretiyle listelenir ve değişim canlı bölgede duyurulur. Döküm maliyeti kalem kalem yazar: koltuk (sayı × birim fiyat = tutar), kullanım (\"Dahil\" ya da \"2,5 Mn aşım × ₺70,00 / Mn = tutar\") ve \"Tahmini toplam, vergi öncesi\". Hiçbir plana sığmayan seçimde özel teklif yönlendirmesi, ayrıca yükleniyor, deneme başlatma hatası ve dar kap durumları vardır.",
   "dependencies": [
-    "@snn/abacus-core@github:sinanbocek/SNN-Abacus-Core#semver:^4.3.0",
+    "@snn/abacus-core@github:sinanbocek/SNN-Abacus-Core#semver:^4.4.0",
     "motion"
   ],
   "registryDependencies": [

@@ -4,7 +4,7 @@
   "title": "Kare ızgara grafiği",
   "description": "Bir bütünün parçalarını sayılabilir karelerle gösterir: her hücre bütünün bir payıdır (10 × 10 ızgarada yüzde başına bir hücre). Hücreler sol alttan sütun sütun, bardak dolar gibi dolar; veri değişince hücreler bir kategoriden ötekine uçarak taşınır. Renk yalnız tek kanal değildir: nötr kategoriler kare, yuvarlak ve çerçeveli hücrelerle de ayrışır. Gösterge payları (\"%36\") yeni değerine döner; ok tuşlarıyla hücre hücre gezilir.",
   "dependencies": [
-    "@snn/abacus-core@github:sinanbocek/SNN-Abacus-Core#semver:^4.3.0",
+    "@snn/abacus-core@github:sinanbocek/SNN-Abacus-Core#semver:^4.4.0",
     "motion"
   ],
   "registryDependencies": [

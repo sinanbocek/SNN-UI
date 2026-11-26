@@ -68,7 +68,8 @@ export function LoginForm({ onSubmit, onForgot, onProvider, providers = DEFAULT_
   }, [status, reduced]);
 
   // Dışarıdan yeni bir hata metni gelince kutu açılır.
-  useEffect(() => { if (error) setStatus(current => current === "sending" ? current : "error"); }, [error]);
+  const [prevError, setPrevError] = useState(error);
+  if (error !== prevError) { setPrevError(error); if (error && status !== "sending") setStatus("error"); }
 
   const edit = () => { if (status === "error" || status === "done") setStatus("idle"); };
 

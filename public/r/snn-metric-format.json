@@ -4,7 +4,7 @@
   "title": "SNN gösterge yazımı",
   "description": "Gösterge bloklarının ortak yazımı: adet, TRY tutar ve yüzde türleri için değer, kısa etiket ve işaretli değişim metni (\"+%11,7\", \"+0,1 puan\", ok ve sesli okuma). Hepsi ABACUS'tandır. Bloklarla kendiliğinden gelir.",
   "dependencies": [
-    "@snn/abacus-core@github:sinanbocek/SNN-Abacus-Core#semver:^4.3.0"
+    "@snn/abacus-core@github:sinanbocek/SNN-Abacus-Core#semver:^4.4.0"
   ],
   "files": [
     {

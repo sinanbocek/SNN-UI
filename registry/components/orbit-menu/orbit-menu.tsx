@@ -60,12 +60,21 @@ export function OrbitMenu({ actions, onAction, onOpenChange, center = -90, sprea
   const confirmTimer = useRef<ReturnType<typeof setTimeout> | undefined>(undefined);
   const menuId = useId();
 
-  const angleOf = useCallback((index: number) => count === 1 ? center : center - spread / 2 + (index * spread) / (count - 1), [count, center, spread]);
-  const change = useCallback((next: boolean) => { setOpen(next); if (!next) setTarget({ kind: "none" }); onOpenChange?.(next); }, [onOpenChange]);
+  const angleOf = (index: number) => count === 1 ? center : center - spread / 2 + (index * spread) / (count - 1);
+  const change = useCallback((next: boolean) => { setOpen(next); if (!next) setTarget({ kind: "none" }); }, []);
   const close = useCallback((restore = false) => { change(false); if (restore) trigger.current?.focus(); }, [change]);
 
+  // Devre dışı kalınca açık menü çizim sırasında kapanır (effect içinde setState yerine).
+  if (disabled && open) { setOpen(false); setTarget({ kind: "none" }); }
+  // Açılış ve kapanış, hangi yoldan olursa olsun, dışarıya bir kez bildirilir.
+  const reported = useRef(open);
+  useEffect(() => {
+    if (reported.current === open) return;
+    reported.current = open;
+    onOpenChange?.(open);
+  }, [open, onOpenChange]);
+
   useEffect(() => () => clearTimeout(confirmTimer.current), []);
-  useEffect(() => { if (disabled && open) close(); }, [disabled, open, close]);
   // Dışarı basmak sabit açık menüyü kapatır.
   useEffect(() => {
     if (!open) return;

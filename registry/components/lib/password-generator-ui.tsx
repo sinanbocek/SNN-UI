@@ -60,7 +60,8 @@ function CopyGlyph({ done, reduced }: { done: boolean; reduced: boolean }) {
 /** Üretim bitince alanda beliren kopyala düğmesi. `className` alanın düğme biçimini taşır (göz düğmesiyle aynı görünsün). */
 export function GeneratedCopyButton({ show, value, text, reduced, className }: { show: boolean; value: string; text: PasswordGeneratorText; reduced: boolean; className?: string | undefined }) {
   const [state, setState] = useState<"idle" | "copied" | "error">("idle");
-  useEffect(() => { if (!show) setState("idle"); }, [show]);
+  // Düğme gizlenince durum çizim sırasında başa döner (effect içinde setState yerine).
+  if (!show && state !== "idle") setState("idle");
   useEffect(() => { if (state === "idle") return; const timer = window.setTimeout(() => setState("idle"), 1600); return () => window.clearTimeout(timer); }, [state]);
   const copy = async () => { try { await navigator.clipboard.writeText(value); setState("copied"); } catch { setState("error"); } };
   return <>

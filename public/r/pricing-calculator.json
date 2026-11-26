@@ -4,7 +4,7 @@
   "title": "Fiyat hesaplayıcı",
   "description": "Blok: koltuk (kullanıcı) başına fiyatlanan bir ürün için ekip büyüklüğünü sabit duraklı kaydırıcıyla (ve eksi/artı düğmeleriyle) seçtirir; ortadaki büyük koltuk sayısı döner. Aylık / yıllık anahtarı ve üç plan kartı seçime göre canlı güncellenir: koltuk başı fiyat (döner), dönemlik toplam, hacim indirimi (\"koltuk başı ₺30,00 daha az\") ve koltuğa bağlı özellikler (yükseklikle açılıp kapanır). \"Önerilen\" rozeti ve seçim çerçevesi ekip büyüklüğüne en uygun plana kayar. En küçük (sınırlı) plan koltuk üst sınırını aşınca fiyat yerine \"Bu plan en çok 10 koltuğa uygun. Siz 20 koltuk seçtiniz.\" ve \"10 koltuğa dön\" düğmesi gösterir. Seçim özeti toplamı, yıllıkta tasarrufu (\"Tasarruf ettiğiniz: ₺…/yıl\") ve \"Denemeyi başlat\" düğmesini taşır. Yükleniyor, deneme başlatma hatası (\"Başlatılamadı\") ve dar kap durumları vardır.",
   "dependencies": [
-    "@snn/abacus-core@github:sinanbocek/SNN-Abacus-Core#semver:^4.3.0",
+    "@snn/abacus-core@github:sinanbocek/SNN-Abacus-Core#semver:^4.4.0",
     "motion"
   ],
   "registryDependencies": [

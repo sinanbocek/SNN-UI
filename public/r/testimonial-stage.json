@@ -4,7 +4,7 @@
   "title": "Görüş sahnesi",
   "description": "Blok: birkaç kişinin görüşünü, kişinin portresi öne çıkacak biçimde gösterir. Bölüm başlığının altında kişi sekmeleri (küçük baş harf rozeti ve ad; seçili sekmenin altında kayan çizgi), altında seçili kişinin büyük portresi, alıntısı, adı, unvanı ve şirketi durur. Sekmeye basınca ya da sol/sağ ok tuşuna basınca (listenin sonunda başa sarar, Home/End ilk-son, odak yeni sekmeye gider) portre ve alıntı küçük yön kaymasıyla soluk geçişle değişir ve \"Elif Aksoy görüşü gösteriliyor.\" kibar canlı bölgede duyurulur. Kendiliğinden dönmez; seçim `onSelect` ile dışarı bildirilir. Tek kişide sekme listesi gizlenir. Yükleniyor iskeleti ve dar kap (800 / 680 / 350 px) durumları vardır.",
   "dependencies": [
-    "@snn/abacus-core@github:sinanbocek/SNN-Abacus-Core#semver:^4.3.0",
+    "@snn/abacus-core@github:sinanbocek/SNN-Abacus-Core#semver:^4.4.0",
     "motion"
   ],
   "registryDependencies": [

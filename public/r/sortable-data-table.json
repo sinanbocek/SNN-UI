@@ -4,7 +4,7 @@
   "title": "Sıralanabilir veri tablosu",
   "description": "Başlığa basınca sütuna göre sıralanan tablo; satırlar yeni yerine kayar, sıralanan sütun hafifçe boyanır. Sıra Türkçe alfabedir (ç c'den, ı i'den önce). Para sütunu kuruş tam sayısından \"₺1.234,50\" yazılır ve sağa yaslanır; sayı \"1.234,5\", tarih \"16.10.2026\". İsteğe bağlı seçim (onay kutusu, Shift ile aralık, Escape ile temizleme), sayfalama (\"11–20 / 48 kayıt\") ve satır tıklama (`onRowClick(row)`, klavyede Tab ve Enter; `rowClassName(row)` satıra sınıf ekler). Dar ekranda her kayıt bir kart olur: üstte ad ve tutar, altında etiketli satırlar.",
   "dependencies": [
-    "@snn/abacus-core@github:sinanbocek/SNN-Abacus-Core#semver:^4.3.0",
+    "@snn/abacus-core@github:sinanbocek/SNN-Abacus-Core#semver:^4.4.0",
     "lucide-react",
     "motion"
   ],

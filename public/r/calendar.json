@@ -4,7 +4,7 @@
   "title": "Takvim",
   "description": "Ay görünümlü takvim; hafta pazartesi başlar, ay ve gün adları Türkçe. Seçim diski günler arasında kayar, aylar şeritte yana kayar. Ok tuşları, PageUp/PageDown (Shift ile yıl), Home/End. İsteğe bağlı \"Bugün\" düğmesi, en erken / en geç tarih ve kapalı günler. Tatil listesi verilirse tatil günü mavi-gri yazılır ve rakamın üstünde kısa bir çizgi çıkar; adı ipucunda ve ekran okuyucuda okunur.",
   "dependencies": [
-    "@snn/abacus-core@github:sinanbocek/SNN-Abacus-Core#semver:^4.3.0",
+    "@snn/abacus-core@github:sinanbocek/SNN-Abacus-Core#semver:^4.4.0",
     "lucide-react",
     "motion"
   ],

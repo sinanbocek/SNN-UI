@@ -4,7 +4,7 @@
   "title": "Dönen rakamlı sayaç",
   "description": "Sayı değişince her rakam kilometre sayacı gibi döner (9 → 0 sarar, yön sayının gittiği yöndür); binlik ayracı nokta, ondalık ayracı virgül (\"1.234,5\"). İstenirse ilk görünüşte sıfırdan yukarı sayar. Ekran okuyucu düz metni okur.",
   "dependencies": [
-    "@snn/abacus-core@github:sinanbocek/SNN-Abacus-Core#semver:^4.3.0",
+    "@snn/abacus-core@github:sinanbocek/SNN-Abacus-Core#semver:^4.4.0",
     "motion"
   ],
   "registryDependencies": [

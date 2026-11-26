@@ -80,7 +80,7 @@ Arc commit'i `bfdf7e8`. Ortak uyarlamalar (içe aktarma yolu, Türkçe yorum, ku
 | `combobox` | `registry/components/combobox` | **B sınıfı, ABACUS'a bağlandı.** Süzmedeki iki `toLocaleLowerCase` yerine `text.searchKey` (`import { text } from "@snn/abacus-core"`). "İstanbul", "Istanbul", "istanbul" aynı sonucu bulur. Varsayılan metinler: "Search or select…" → "Ara ya da seç…", "No matches found" → "Eşleşme bulunamadı", "Clear selection" → "Seçimi temizle", "{label} options" → "{label} seçenekleri". İki satır eklendi (içe aktarma, açıklama yorumu). |
 | `avatar` | `registry/components/avatar` | **B sınıfı, ABACUS'a bağlandı.** Baş harf `toUpperCase` yerine `text.upper` ("ismail" → "İ"). `@/lib/arc-provider` içe aktarması kalktı: `ArcImage` (fill) yerine düz `<img>`; doldurma davranışı CSS ile verildi (`position: absolute; inset: 0; width/height: 100%`). Durum etiketi Türkçe: "online/offline" → "çevrimiçi/çevrimdışı" (`statusLabel`). |
 
-**ABACUS bağımlılığı.** Kayıttaki npm bağımlılığı `@snn/abacus-core@github:sinanbocek/SNN-Abacus-Core#semver:^4.3.0` biçimindedir; `shadcn add` bunu `npm install` ile kurar ve proje `package.json`'ına `"@snn/abacus-core": "github:…#semver:^4.3.0"` yazar. Düz `@snn/abacus-core` adı npm'de olmadığı için 404 verir (2026-10-15 ölçüldü). Paket ham TypeScript sunar; boş Vite + React 19 + TS projesinde `tsc -b && vite build` geçti.
+**ABACUS bağımlılığı.** Kayıttaki npm bağımlılığı `@snn/abacus-core@github:sinanbocek/SNN-Abacus-Core#semver:^4.4.0` biçimindedir; `shadcn add` bunu `npm install` ile kurar ve proje `package.json`'ına `"@snn/abacus-core": "github:…#semver:^4.4.0"` yazar. Düz `@snn/abacus-core` adı npm'de olmadığı için 404 verir (2026-10-15 ölçüldü). Paket ham TypeScript sunar; boş Vite + React 19 + TS projesinde `tsc -b && vite build` geçti.
 
 ## Bloklar (Arc Pro esinlenmesi, temiz oda)
 
@@ -106,7 +106,7 @@ Bu parçalar Arc'tan alınmadı; tariflerinden sıfırdan yazıldı (`arayuz-sta
 
 ## Grafik ve sayı bileşenleri (ABACUS'a bağlı, B sınıfı)
 
-Arc'ın ücretsiz grafik ve sayı bileşenleri (commit `bfdf7e8`, MIT). Hepsi `Intl`, `toLocaleString`, `toFixed`, `toUpperCase` ya da `toLowerCase` kullanıyordu (`docs/arc-siniflandirma.md`, B sınıfı) ve varsayılanı `en-US` / USD idi. Burada ABACUS'a bağlandı: sayı `money.fmtDecimalGrouped`, para `money.formatMajor` / `money.compactMajor`, yüzde `money.percent`, değişim `math.percentChange`, yuvarlama `math.round`, tarih `date.*`, harf `text.upper` / `text.lower`. `locale` ve `currency` prop'ları kaldırıldı ya da ABACUS'a geçti; varsayılan para birimi TRY, ondalık ayracı virgüldür. Bağımlılık satırı avatar ile aynı: `@snn/abacus-core` `^4.3.0`.
+Arc'ın ücretsiz grafik ve sayı bileşenleri (commit `bfdf7e8`, MIT). Hepsi `Intl`, `toLocaleString`, `toFixed`, `toUpperCase` ya da `toLowerCase` kullanıyordu (`docs/arc-siniflandirma.md`, B sınıfı) ve varsayılanı `en-US` / USD idi. Burada ABACUS'a bağlandı: sayı `money.fmtDecimalGrouped`, para `money.formatMajor` / `money.compactMajor`, yüzde `money.percent`, değişim `math.percentChange`, yuvarlama `math.round`, tarih `date.*`, harf `text.upper` / `text.lower`. `locale` ve `currency` prop'ları kaldırıldı ya da ABACUS'a geçti; varsayılan para birimi TRY, ondalık ayracı virgüldür. Bağımlılık satırı avatar ile aynı: `@snn/abacus-core` `^4.4.0`.
 
 Ortak uyarlamalar (ilk raftakilere ek):
 
@@ -449,3 +449,13 @@ Kırıcı değişiklik yok; yeni prop'lar verilmezse eski davranış sürer.
 | Parça | Değişiklik |
 |---|---|
 | `sidebar` | `onNavigate(id, event)`: bağlantı satırında olay da gelir; `preventDefault` ile istemci yönlendirmesi yapılır, satır `<a href>` kalır. Ctrl/⌘, Shift, Alt ve orta tuşla basış tarayıcıya bırakılır, `onNavigate` çağrılmaz (`sidebar-click.ts` `isPlainClick`, testli). Yeni `holdExpanded`: geçici açılan menüyü açık tutar; bırakılınca imleç ve odak dışarıdaysa daralır. Çerçevesiz kipte kök artık kırpmaz (`overflow: visible`). `react-hooks/exhaustive-deps` uyarısı giderildi; iki `eslint-disable` yorumu da kaldırıldı (bağımlılıklar tam). |
+
+## Furkan-Ambalaj-Teklif bildirimi: ABACUS sürümü ve oxlint uyarıları (2026-11-26)
+
+Proje 51 parça kurdu; iki konu bildirdi.
+
+**ABACUS sürümü düşüyordu.** Kayıttaki bağımlılık `^4.3.0` idi; `shadcn add` bunu projenin `package.json`'ına yazıp `^4.4.0`'ı geri çekti. Aralık artık `scripts/catalog.mjs` içinde tek sabittir (`ABACUS_RANGE`, `^4.4.0`). `test/abacus-version.test.mjs` bu aralığın kök `package.json` ile aynı olduğunu denetler; ABACUS yükseltilince ikisi birlikte değişir.
+
+**oxlint uyarıları.** Effect içinde senkron setState olanlar çizim sırasında türetildi: `roles-permissions` (dışarıdan gelen değerler), `team-directory` (kopyala düğmesi), `login-split` (dışarıdan gelen hata), `lib/password-generator-ui` (kopyala düğmesi), `liquid-tab-bar` (görünen etiket), `orbit-menu` (devre dışı kalınca kapanma). `orbit-menu` artık `onOpenChange`'i işleyici içinde değil, durum değiştikten sonra bir effect'te bildirir; her açılış ve kapanış yine bir kez bildirilir. `orbit-menu`'deki `angleOf` düz fonksiyon oldu. `action-morph` ref'i çizim sırasında değil effect'te günceller. `roles-permissions`'taki iki üçlü ifade `if/else` oldu.
+
+**Kalan uyarı: `only-export-components` (18 satır).** Bilerek dokunulmadı (sahip kararı, 2026-11-26). Uyarı yalnız geliştirmede anlık yenilemeyi etkiler: dosya kaydedilince sayfa yerinde güncellenmek yerine baştan yüklenir. Canlıya etkisi yoktur. Sabitleri ve yardımcıları (`useToastStack`, `defaultPasswordStrengthMessages`, `userStatuses`, `DEFAULT_PROVIDERS`, `calendar`'ın tarih yardımcıları) ayrı dosyaya taşımak, bunları eski yerinden içe aktaran projeleri kırardı. Yorum satırıyla susturmak da olmaz: kural adı her projede yoktur ve "kural bulunamadı" hatası verir (TB-002).

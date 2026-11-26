@@ -4,7 +4,7 @@
   "title": "Sıralama yarışı",
   "description": "Bir sıralamanın zaman içinde nasıl değiştiğini yatay çubuklarla anlatır: çubuklar uzar, birbirini geçer, değerler dönemler arasında ara değerle akar; büyük dönem etiketi değişir. Altta oynat/duraklat düğmesi ve istenen döneme götüren kaydırıcı vardır. Görününce kendiliğinden oynar (\"hareketi azalt\" açıkken oynamaz), görünüm dışında durur. Boşluk, ok tuşları, Home/End ve yukarı/aşağı ok ile gezilir; dönem ve lider kibar canlı bölgede duyurulur. Ekran okuyucu için tüm dönemlerin tablosu vardır.",
   "dependencies": [
-    "@snn/abacus-core@github:sinanbocek/SNN-Abacus-Core#semver:^4.3.0",
+    "@snn/abacus-core@github:sinanbocek/SNN-Abacus-Core#semver:^4.4.0",
     "motion"
   ],
   "registryDependencies": [

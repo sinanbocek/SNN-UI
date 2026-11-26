@@ -4,7 +4,7 @@
   "title": "SNN grafik biçimleyicileri",
   "description": "Grafik ve sayı bileşenlerinin ortak biçimleyicileri (formatNumber, formatCompact, formatMoney, formatMoneyCompact, formatRatio, formatChange). Hepsi ABACUS'tandır: \"1.234,5\", \"₺1,25Mn\", \"%12,3\". Grafiklerle kendiliğinden gelir.",
   "dependencies": [
-    "@snn/abacus-core@github:sinanbocek/SNN-Abacus-Core#semver:^4.3.0"
+    "@snn/abacus-core@github:sinanbocek/SNN-Abacus-Core#semver:^4.4.0"
   ],
   "files": [
     {
