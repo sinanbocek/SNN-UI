@@ -4,7 +4,7 @@
   "title": "Kişi simgesi",
   "description": "Fotoğraf ya da ad baş harfleri; isteğe bağlı çevrimiçi/çevrimdışı noktası. Fotoğraf yüklenemezse baş harflere döner.",
   "dependencies": [
-    "@snn/abacus-core@github:sinanbocek/SNN-Abacus-Core#semver:^4.3.0",
+    "@snn/abacus-core@github:sinanbocek/SNN-Abacus-Core#semver:^4.4.0",
     "motion"
   ],
   "registryDependencies": [

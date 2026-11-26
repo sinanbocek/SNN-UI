@@ -135,7 +135,7 @@
       "title": "SNN grafik biçimleyicileri",
       "description": "Grafik ve sayı bileşenlerinin ortak biçimleyicileri (formatNumber, formatCompact, formatMoney, formatMoneyCompact, formatRatio, formatChange). Hepsi ABACUS'tandır: \"1.234,5\", \"₺1,25Mn\", \"%12,3\". Grafiklerle kendiliğinden gelir.",
       "dependencies": [
-        "@snn/abacus-core@github:sinanbocek/SNN-Abacus-Core#semver:^4.3.0"
+        "@snn/abacus-core@github:sinanbocek/SNN-Abacus-Core#semver:^4.4.0"
       ],
       "files": [
         {
@@ -167,7 +167,7 @@
       "title": "SNN satış blokları ortak parçaları",
       "description": "Dalga 3 vitrin ve satış bloklarının ortak parçaları: görsel yer tutucu (Placeholder), renk örnekleri (SwatchGroup), adet düzenleyici (NumberStepper), kibar canlı bölge (useAnnouncer) ve TRY tutar yazımı (priceText, exactText, kuruş hesabı). Hepsi ABACUS'tandır. Bloklarla kendiliğinden gelir.",
       "dependencies": [
-        "@snn/abacus-core@github:sinanbocek/SNN-Abacus-Core#semver:^4.3.0",
+        "@snn/abacus-core@github:sinanbocek/SNN-Abacus-Core#semver:^4.4.0",
         "motion"
       ],
       "files": [
@@ -194,7 +194,7 @@
       "title": "SNN tam ekran fotoğraf görüntüleyicisi",
       "description": "Fotoğraf galerisi bloklarının ortak görüntüleyicisi (ImageViewer): fotoğraf kendi yuvasından büyür ve kapanınca oraya döner, sol/sağ ok ve kaydırmayla gezilir, +/-/0, çift tıklama, iki parmak ve Ctrl+tekerlekle yakınlaştırılır, aşağı çekilerek kapatılır; küçük resim şeridi, \"2 / 12\" sayacı ve odak tuzağı vardır (kipli iletişim kutusu). Fotoğraf gerçek genişlik ve yükseklikle verilir. Bloklarla kendiliğinden gelir.",
       "dependencies": [
-        "@snn/abacus-core@github:sinanbocek/SNN-Abacus-Core#semver:^4.3.0",
+        "@snn/abacus-core@github:sinanbocek/SNN-Abacus-Core#semver:^4.4.0",
         "motion",
         "@radix-ui/react-dialog"
       ],
@@ -222,7 +222,7 @@
       "title": "SNN gösterge yazımı",
       "description": "Gösterge bloklarının ortak yazımı: adet, TRY tutar ve yüzde türleri için değer, kısa etiket ve işaretli değişim metni (\"+%11,7\", \"+0,1 puan\", ok ve sesli okuma). Hepsi ABACUS'tandır. Bloklarla kendiliğinden gelir.",
       "dependencies": [
-        "@snn/abacus-core@github:sinanbocek/SNN-Abacus-Core#semver:^4.3.0"
+        "@snn/abacus-core@github:sinanbocek/SNN-Abacus-Core#semver:^4.4.0"
       ],
       "files": [
         {
@@ -1149,7 +1149,7 @@
         "forms"
       ],
       "dependencies": [
-        "@snn/abacus-core@github:sinanbocek/SNN-Abacus-Core#semver:^4.3.0",
+        "@snn/abacus-core@github:sinanbocek/SNN-Abacus-Core#semver:^4.4.0",
         "lucide-react",
         "motion"
       ],
@@ -1183,7 +1183,7 @@
         "feedback"
       ],
       "dependencies": [
-        "@snn/abacus-core@github:sinanbocek/SNN-Abacus-Core#semver:^4.3.0",
+        "@snn/abacus-core@github:sinanbocek/SNN-Abacus-Core#semver:^4.4.0",
         "motion"
       ],
       "registryDependencies": [
@@ -1257,7 +1257,7 @@
         "blocks"
       ],
       "dependencies": [
-        "@snn/abacus-core@github:sinanbocek/SNN-Abacus-Core#semver:^4.3.0",
+        "@snn/abacus-core@github:sinanbocek/SNN-Abacus-Core#semver:^4.4.0",
         "motion"
       ],
       "registryDependencies": [
@@ -1299,7 +1299,7 @@
         "navigation"
       ],
       "dependencies": [
-        "@snn/abacus-core@github:sinanbocek/SNN-Abacus-Core#semver:^4.3.0",
+        "@snn/abacus-core@github:sinanbocek/SNN-Abacus-Core#semver:^4.4.0",
         "lucide-react",
         "motion"
       ],
@@ -1346,7 +1346,7 @@
         "blocks"
       ],
       "dependencies": [
-        "@snn/abacus-core@github:sinanbocek/SNN-Abacus-Core#semver:^4.3.0",
+        "@snn/abacus-core@github:sinanbocek/SNN-Abacus-Core#semver:^4.4.0",
         "lucide-react",
         "motion"
       ],
@@ -1390,7 +1390,7 @@
         "blocks"
       ],
       "dependencies": [
-        "@snn/abacus-core@github:sinanbocek/SNN-Abacus-Core#semver:^4.3.0",
+        "@snn/abacus-core@github:sinanbocek/SNN-Abacus-Core#semver:^4.4.0",
         "motion"
       ],
       "registryDependencies": [
@@ -1429,7 +1429,7 @@
         "blocks"
       ],
       "dependencies": [
-        "@snn/abacus-core@github:sinanbocek/SNN-Abacus-Core#semver:^4.3.0",
+        "@snn/abacus-core@github:sinanbocek/SNN-Abacus-Core#semver:^4.4.0",
         "lucide-react",
         "motion"
       ],
@@ -1471,7 +1471,7 @@
         "blocks"
       ],
       "dependencies": [
-        "@snn/abacus-core@github:sinanbocek/SNN-Abacus-Core#semver:^4.3.0",
+        "@snn/abacus-core@github:sinanbocek/SNN-Abacus-Core#semver:^4.4.0",
         "lucide-react",
         "motion"
       ],
@@ -1662,7 +1662,7 @@
         "blocks"
       ],
       "dependencies": [
-        "@snn/abacus-core@github:sinanbocek/SNN-Abacus-Core#semver:^4.3.0",
+        "@snn/abacus-core@github:sinanbocek/SNN-Abacus-Core#semver:^4.4.0",
         "lucide-react",
         "motion"
       ],
@@ -1711,7 +1711,7 @@
         "blocks"
       ],
       "dependencies": [
-        "@snn/abacus-core@github:sinanbocek/SNN-Abacus-Core#semver:^4.3.0",
+        "@snn/abacus-core@github:sinanbocek/SNN-Abacus-Core#semver:^4.4.0",
         "motion"
       ],
       "registryDependencies": [
@@ -1748,7 +1748,7 @@
         "blocks"
       ],
       "dependencies": [
-        "@snn/abacus-core@github:sinanbocek/SNN-Abacus-Core#semver:^4.3.0",
+        "@snn/abacus-core@github:sinanbocek/SNN-Abacus-Core#semver:^4.4.0",
         "lucide-react",
         "motion"
       ],
@@ -1792,7 +1792,7 @@
         "blocks"
       ],
       "dependencies": [
-        "@snn/abacus-core@github:sinanbocek/SNN-Abacus-Core#semver:^4.3.0",
+        "@snn/abacus-core@github:sinanbocek/SNN-Abacus-Core#semver:^4.4.0",
         "lucide-react",
         "motion"
       ],
@@ -1842,7 +1842,7 @@
         "feedback"
       ],
       "dependencies": [
-        "@snn/abacus-core@github:sinanbocek/SNN-Abacus-Core#semver:^4.3.0",
+        "@snn/abacus-core@github:sinanbocek/SNN-Abacus-Core#semver:^4.4.0",
         "motion"
       ],
       "registryDependencies": [
@@ -1881,7 +1881,7 @@
         "charts"
       ],
       "dependencies": [
-        "@snn/abacus-core@github:sinanbocek/SNN-Abacus-Core#semver:^4.3.0",
+        "@snn/abacus-core@github:sinanbocek/SNN-Abacus-Core#semver:^4.4.0",
         "motion"
       ],
       "registryDependencies": [
@@ -1921,7 +1921,7 @@
         "charts"
       ],
       "dependencies": [
-        "@snn/abacus-core@github:sinanbocek/SNN-Abacus-Core#semver:^4.3.0",
+        "@snn/abacus-core@github:sinanbocek/SNN-Abacus-Core#semver:^4.4.0",
         "motion"
       ],
       "registryDependencies": [
@@ -1955,7 +1955,7 @@
         "charts"
       ],
       "dependencies": [
-        "@snn/abacus-core@github:sinanbocek/SNN-Abacus-Core#semver:^4.3.0",
+        "@snn/abacus-core@github:sinanbocek/SNN-Abacus-Core#semver:^4.4.0",
         "motion"
       ],
       "registryDependencies": [
@@ -1999,7 +1999,7 @@
         "charts"
       ],
       "dependencies": [
-        "@snn/abacus-core@github:sinanbocek/SNN-Abacus-Core#semver:^4.3.0",
+        "@snn/abacus-core@github:sinanbocek/SNN-Abacus-Core#semver:^4.4.0",
         "motion"
       ],
       "registryDependencies": [
@@ -2033,7 +2033,7 @@
         "charts"
       ],
       "dependencies": [
-        "@snn/abacus-core@github:sinanbocek/SNN-Abacus-Core#semver:^4.3.0",
+        "@snn/abacus-core@github:sinanbocek/SNN-Abacus-Core#semver:^4.4.0",
         "motion"
       ],
       "registryDependencies": [
@@ -2068,7 +2068,7 @@
         "charts"
       ],
       "dependencies": [
-        "@snn/abacus-core@github:sinanbocek/SNN-Abacus-Core#semver:^4.3.0",
+        "@snn/abacus-core@github:sinanbocek/SNN-Abacus-Core#semver:^4.4.0",
         "motion"
       ],
       "registryDependencies": [
@@ -2102,7 +2102,7 @@
         "charts"
       ],
       "dependencies": [
-        "@snn/abacus-core@github:sinanbocek/SNN-Abacus-Core#semver:^4.3.0",
+        "@snn/abacus-core@github:sinanbocek/SNN-Abacus-Core#semver:^4.4.0",
         "lucide-react",
         "motion"
       ],
@@ -2138,7 +2138,7 @@
         "charts"
       ],
       "dependencies": [
-        "@snn/abacus-core@github:sinanbocek/SNN-Abacus-Core#semver:^4.3.0",
+        "@snn/abacus-core@github:sinanbocek/SNN-Abacus-Core#semver:^4.4.0",
         "motion"
       ],
       "registryDependencies": [
@@ -2173,7 +2173,7 @@
         "charts"
       ],
       "dependencies": [
-        "@snn/abacus-core@github:sinanbocek/SNN-Abacus-Core#semver:^4.3.0",
+        "@snn/abacus-core@github:sinanbocek/SNN-Abacus-Core#semver:^4.4.0",
         "motion"
       ],
       "registryDependencies": [
@@ -2208,7 +2208,7 @@
         "charts"
       ],
       "dependencies": [
-        "@snn/abacus-core@github:sinanbocek/SNN-Abacus-Core#semver:^4.3.0",
+        "@snn/abacus-core@github:sinanbocek/SNN-Abacus-Core#semver:^4.4.0",
         "motion"
       ],
       "registryDependencies": [
@@ -2243,7 +2243,7 @@
         "charts"
       ],
       "dependencies": [
-        "@snn/abacus-core@github:sinanbocek/SNN-Abacus-Core#semver:^4.3.0",
+        "@snn/abacus-core@github:sinanbocek/SNN-Abacus-Core#semver:^4.4.0",
         "motion"
       ],
       "registryDependencies": [
@@ -2278,7 +2278,7 @@
         "charts"
       ],
       "dependencies": [
-        "@snn/abacus-core@github:sinanbocek/SNN-Abacus-Core#semver:^4.3.0",
+        "@snn/abacus-core@github:sinanbocek/SNN-Abacus-Core#semver:^4.4.0",
         "motion"
       ],
       "registryDependencies": [
@@ -2312,7 +2312,7 @@
         "charts"
       ],
       "dependencies": [
-        "@snn/abacus-core@github:sinanbocek/SNN-Abacus-Core#semver:^4.3.0",
+        "@snn/abacus-core@github:sinanbocek/SNN-Abacus-Core#semver:^4.4.0",
         "motion"
       ],
       "registryDependencies": [
@@ -2347,7 +2347,7 @@
         "charts"
       ],
       "dependencies": [
-        "@snn/abacus-core@github:sinanbocek/SNN-Abacus-Core#semver:^4.3.0",
+        "@snn/abacus-core@github:sinanbocek/SNN-Abacus-Core#semver:^4.4.0",
         "motion"
       ],
       "registryDependencies": [
@@ -2382,7 +2382,7 @@
         "feedback"
       ],
       "dependencies": [
-        "@snn/abacus-core@github:sinanbocek/SNN-Abacus-Core#semver:^4.3.0",
+        "@snn/abacus-core@github:sinanbocek/SNN-Abacus-Core#semver:^4.4.0",
         "motion"
       ],
       "registryDependencies": [
@@ -2416,7 +2416,7 @@
         "charts"
       ],
       "dependencies": [
-        "@snn/abacus-core@github:sinanbocek/SNN-Abacus-Core#semver:^4.3.0",
+        "@snn/abacus-core@github:sinanbocek/SNN-Abacus-Core#semver:^4.4.0",
         "motion"
       ],
       "registryDependencies": [
@@ -2457,7 +2457,7 @@
         "charts"
       ],
       "dependencies": [
-        "@snn/abacus-core@github:sinanbocek/SNN-Abacus-Core#semver:^4.3.0",
+        "@snn/abacus-core@github:sinanbocek/SNN-Abacus-Core#semver:^4.4.0",
         "motion"
       ],
       "registryDependencies": [
@@ -2499,7 +2499,7 @@
         "charts"
       ],
       "dependencies": [
-        "@snn/abacus-core@github:sinanbocek/SNN-Abacus-Core#semver:^4.3.0",
+        "@snn/abacus-core@github:sinanbocek/SNN-Abacus-Core#semver:^4.4.0",
         "motion"
       ],
       "registryDependencies": [
@@ -2541,7 +2541,7 @@
         "charts"
       ],
       "dependencies": [
-        "@snn/abacus-core@github:sinanbocek/SNN-Abacus-Core#semver:^4.3.0",
+        "@snn/abacus-core@github:sinanbocek/SNN-Abacus-Core#semver:^4.4.0",
         "motion"
       ],
       "registryDependencies": [
@@ -2582,7 +2582,7 @@
         "charts"
       ],
       "dependencies": [
-        "@snn/abacus-core@github:sinanbocek/SNN-Abacus-Core#semver:^4.3.0",
+        "@snn/abacus-core@github:sinanbocek/SNN-Abacus-Core#semver:^4.4.0",
         "motion"
       ],
       "registryDependencies": [
@@ -2623,7 +2623,7 @@
         "finance"
       ],
       "dependencies": [
-        "@snn/abacus-core@github:sinanbocek/SNN-Abacus-Core#semver:^4.3.0",
+        "@snn/abacus-core@github:sinanbocek/SNN-Abacus-Core#semver:^4.4.0",
         "motion"
       ],
       "registryDependencies": [
@@ -2664,7 +2664,7 @@
         "finance"
       ],
       "dependencies": [
-        "@snn/abacus-core@github:sinanbocek/SNN-Abacus-Core#semver:^4.3.0",
+        "@snn/abacus-core@github:sinanbocek/SNN-Abacus-Core#semver:^4.4.0",
         "motion"
       ],
       "registryDependencies": [
@@ -2706,7 +2706,7 @@
         "finance"
       ],
       "dependencies": [
-        "@snn/abacus-core@github:sinanbocek/SNN-Abacus-Core#semver:^4.3.0",
+        "@snn/abacus-core@github:sinanbocek/SNN-Abacus-Core#semver:^4.4.0",
         "motion"
       ],
       "registryDependencies": [
@@ -2748,7 +2748,7 @@
         "finance"
       ],
       "dependencies": [
-        "@snn/abacus-core@github:sinanbocek/SNN-Abacus-Core#semver:^4.3.0",
+        "@snn/abacus-core@github:sinanbocek/SNN-Abacus-Core#semver:^4.4.0",
         "motion"
       ],
       "registryDependencies": [
@@ -2793,7 +2793,7 @@
         "finance"
       ],
       "dependencies": [
-        "@snn/abacus-core@github:sinanbocek/SNN-Abacus-Core#semver:^4.3.0",
+        "@snn/abacus-core@github:sinanbocek/SNN-Abacus-Core#semver:^4.4.0",
         "motion"
       ],
       "registryDependencies": [
@@ -2837,7 +2837,7 @@
         "finance"
       ],
       "dependencies": [
-        "@snn/abacus-core@github:sinanbocek/SNN-Abacus-Core#semver:^4.3.0",
+        "@snn/abacus-core@github:sinanbocek/SNN-Abacus-Core#semver:^4.4.0",
         "motion"
       ],
       "registryDependencies": [
@@ -2881,7 +2881,7 @@
         "finance"
       ],
       "dependencies": [
-        "@snn/abacus-core@github:sinanbocek/SNN-Abacus-Core#semver:^4.3.0",
+        "@snn/abacus-core@github:sinanbocek/SNN-Abacus-Core#semver:^4.4.0",
         "motion"
       ],
       "registryDependencies": [
@@ -2925,7 +2925,7 @@
         "finance"
       ],
       "dependencies": [
-        "@snn/abacus-core@github:sinanbocek/SNN-Abacus-Core#semver:^4.3.0",
+        "@snn/abacus-core@github:sinanbocek/SNN-Abacus-Core#semver:^4.4.0",
         "motion"
       ],
       "registryDependencies": [
@@ -2970,7 +2970,7 @@
         "finance"
       ],
       "dependencies": [
-        "@snn/abacus-core@github:sinanbocek/SNN-Abacus-Core#semver:^4.3.0",
+        "@snn/abacus-core@github:sinanbocek/SNN-Abacus-Core#semver:^4.4.0",
         "motion"
       ],
       "registryDependencies": [
@@ -3014,7 +3014,7 @@
         "finance"
       ],
       "dependencies": [
-        "@snn/abacus-core@github:sinanbocek/SNN-Abacus-Core#semver:^4.3.0",
+        "@snn/abacus-core@github:sinanbocek/SNN-Abacus-Core#semver:^4.4.0",
         "motion"
       ],
       "registryDependencies": [
@@ -3057,7 +3057,7 @@
         "finance"
       ],
       "dependencies": [
-        "@snn/abacus-core@github:sinanbocek/SNN-Abacus-Core#semver:^4.3.0",
+        "@snn/abacus-core@github:sinanbocek/SNN-Abacus-Core#semver:^4.4.0",
         "motion"
       ],
       "registryDependencies": [
@@ -3102,7 +3102,7 @@
         "finance"
       ],
       "dependencies": [
-        "@snn/abacus-core@github:sinanbocek/SNN-Abacus-Core#semver:^4.3.0",
+        "@snn/abacus-core@github:sinanbocek/SNN-Abacus-Core#semver:^4.4.0",
         "motion"
       ],
       "registryDependencies": [
@@ -3148,7 +3148,7 @@
         "finance"
       ],
       "dependencies": [
-        "@snn/abacus-core@github:sinanbocek/SNN-Abacus-Core#semver:^4.3.0",
+        "@snn/abacus-core@github:sinanbocek/SNN-Abacus-Core#semver:^4.4.0",
         "motion"
       ],
       "registryDependencies": [
@@ -3190,7 +3190,7 @@
         "finance"
       ],
       "dependencies": [
-        "@snn/abacus-core@github:sinanbocek/SNN-Abacus-Core#semver:^4.3.0",
+        "@snn/abacus-core@github:sinanbocek/SNN-Abacus-Core#semver:^4.4.0",
         "motion"
       ],
       "registryDependencies": [
@@ -3234,7 +3234,7 @@
         "finance"
       ],
       "dependencies": [
-        "@snn/abacus-core@github:sinanbocek/SNN-Abacus-Core#semver:^4.3.0",
+        "@snn/abacus-core@github:sinanbocek/SNN-Abacus-Core#semver:^4.4.0",
         "motion"
       ],
       "registryDependencies": [
@@ -3279,7 +3279,7 @@
         "commerce"
       ],
       "dependencies": [
-        "@snn/abacus-core@github:sinanbocek/SNN-Abacus-Core#semver:^4.3.0",
+        "@snn/abacus-core@github:sinanbocek/SNN-Abacus-Core#semver:^4.4.0",
         "motion"
       ],
       "registryDependencies": [
@@ -3327,7 +3327,7 @@
         "commerce"
       ],
       "dependencies": [
-        "@snn/abacus-core@github:sinanbocek/SNN-Abacus-Core#semver:^4.3.0",
+        "@snn/abacus-core@github:sinanbocek/SNN-Abacus-Core#semver:^4.4.0",
         "motion"
       ],
       "registryDependencies": [
@@ -3372,7 +3372,7 @@
         "commerce"
       ],
       "dependencies": [
-        "@snn/abacus-core@github:sinanbocek/SNN-Abacus-Core#semver:^4.3.0",
+        "@snn/abacus-core@github:sinanbocek/SNN-Abacus-Core#semver:^4.4.0",
         "motion"
       ],
       "registryDependencies": [
@@ -3418,7 +3418,7 @@
         "commerce"
       ],
       "dependencies": [
-        "@snn/abacus-core@github:sinanbocek/SNN-Abacus-Core#semver:^4.3.0",
+        "@snn/abacus-core@github:sinanbocek/SNN-Abacus-Core#semver:^4.4.0",
         "motion"
       ],
       "registryDependencies": [
@@ -3462,7 +3462,7 @@
         "commerce"
       ],
       "dependencies": [
-        "@snn/abacus-core@github:sinanbocek/SNN-Abacus-Core#semver:^4.3.0",
+        "@snn/abacus-core@github:sinanbocek/SNN-Abacus-Core#semver:^4.4.0",
         "motion"
       ],
       "registryDependencies": [
@@ -3510,7 +3510,7 @@
         "commerce"
       ],
       "dependencies": [
-        "@snn/abacus-core@github:sinanbocek/SNN-Abacus-Core#semver:^4.3.0",
+        "@snn/abacus-core@github:sinanbocek/SNN-Abacus-Core#semver:^4.4.0",
         "motion"
       ],
       "registryDependencies": [
@@ -3553,7 +3553,7 @@
         "commerce"
       ],
       "dependencies": [
-        "@snn/abacus-core@github:sinanbocek/SNN-Abacus-Core#semver:^4.3.0",
+        "@snn/abacus-core@github:sinanbocek/SNN-Abacus-Core#semver:^4.4.0",
         "motion"
       ],
       "registryDependencies": [
@@ -3598,7 +3598,7 @@
         "commerce"
       ],
       "dependencies": [
-        "@snn/abacus-core@github:sinanbocek/SNN-Abacus-Core#semver:^4.3.0",
+        "@snn/abacus-core@github:sinanbocek/SNN-Abacus-Core#semver:^4.4.0",
         "motion"
       ],
       "registryDependencies": [
@@ -3641,7 +3641,7 @@
         "commerce"
       ],
       "dependencies": [
-        "@snn/abacus-core@github:sinanbocek/SNN-Abacus-Core#semver:^4.3.0",
+        "@snn/abacus-core@github:sinanbocek/SNN-Abacus-Core#semver:^4.4.0",
         "motion"
       ],
       "registryDependencies": [
@@ -3684,7 +3684,7 @@
         "commerce"
       ],
       "dependencies": [
-        "@snn/abacus-core@github:sinanbocek/SNN-Abacus-Core#semver:^4.3.0",
+        "@snn/abacus-core@github:sinanbocek/SNN-Abacus-Core#semver:^4.4.0",
         "motion",
         "@radix-ui/react-dialog"
       ],
@@ -3728,7 +3728,7 @@
         "commerce"
       ],
       "dependencies": [
-        "@snn/abacus-core@github:sinanbocek/SNN-Abacus-Core#semver:^4.3.0",
+        "@snn/abacus-core@github:sinanbocek/SNN-Abacus-Core#semver:^4.4.0",
         "motion",
         "@radix-ui/react-dialog"
       ],
@@ -3772,7 +3772,7 @@
         "commerce"
       ],
       "dependencies": [
-        "@snn/abacus-core@github:sinanbocek/SNN-Abacus-Core#semver:^4.3.0",
+        "@snn/abacus-core@github:sinanbocek/SNN-Abacus-Core#semver:^4.4.0",
         "motion",
         "@radix-ui/react-dialog"
       ],
@@ -3818,7 +3818,7 @@
         "commerce"
       ],
       "dependencies": [
-        "@snn/abacus-core@github:sinanbocek/SNN-Abacus-Core#semver:^4.3.0",
+        "@snn/abacus-core@github:sinanbocek/SNN-Abacus-Core#semver:^4.4.0",
         "motion"
       ],
       "registryDependencies": [
@@ -3860,7 +3860,7 @@
         "commerce"
       ],
       "dependencies": [
-        "@snn/abacus-core@github:sinanbocek/SNN-Abacus-Core#semver:^4.3.0",
+        "@snn/abacus-core@github:sinanbocek/SNN-Abacus-Core#semver:^4.4.0",
         "motion"
       ],
       "registryDependencies": [
@@ -3903,7 +3903,7 @@
         "commerce"
       ],
       "dependencies": [
-        "@snn/abacus-core@github:sinanbocek/SNN-Abacus-Core#semver:^4.3.0",
+        "@snn/abacus-core@github:sinanbocek/SNN-Abacus-Core#semver:^4.4.0",
         "motion"
       ],
       "registryDependencies": [
@@ -3946,7 +3946,7 @@
         "commerce"
       ],
       "dependencies": [
-        "@snn/abacus-core@github:sinanbocek/SNN-Abacus-Core#semver:^4.3.0",
+        "@snn/abacus-core@github:sinanbocek/SNN-Abacus-Core#semver:^4.4.0",
         "motion"
       ],
       "registryDependencies": [
@@ -3990,7 +3990,7 @@
         "commerce"
       ],
       "dependencies": [
-        "@snn/abacus-core@github:sinanbocek/SNN-Abacus-Core#semver:^4.3.0",
+        "@snn/abacus-core@github:sinanbocek/SNN-Abacus-Core#semver:^4.4.0",
         "motion"
       ],
       "registryDependencies": [
@@ -4132,7 +4132,7 @@
         "navigation"
       ],
       "dependencies": [
-        "@snn/abacus-core@github:sinanbocek/SNN-Abacus-Core#semver:^4.3.0",
+        "@snn/abacus-core@github:sinanbocek/SNN-Abacus-Core#semver:^4.4.0",
         "motion"
       ],
       "registryDependencies": [
@@ -4167,7 +4167,7 @@
         "navigation"
       ],
       "dependencies": [
-        "@snn/abacus-core@github:sinanbocek/SNN-Abacus-Core#semver:^4.3.0",
+        "@snn/abacus-core@github:sinanbocek/SNN-Abacus-Core#semver:^4.4.0",
         "motion"
       ],
       "registryDependencies": [
@@ -4235,7 +4235,7 @@
         "charts"
       ],
       "dependencies": [
-        "@snn/abacus-core@github:sinanbocek/SNN-Abacus-Core#semver:^4.3.0",
+        "@snn/abacus-core@github:sinanbocek/SNN-Abacus-Core#semver:^4.4.0",
         "motion"
       ],
       "registryDependencies": [
@@ -4270,7 +4270,7 @@
         "finance"
       ],
       "dependencies": [
-        "@snn/abacus-core@github:sinanbocek/SNN-Abacus-Core#semver:^4.3.0",
+        "@snn/abacus-core@github:sinanbocek/SNN-Abacus-Core#semver:^4.4.0",
         "lucide-react",
         "motion"
       ],
@@ -4310,7 +4310,7 @@
         "forms"
       ],
       "dependencies": [
-        "@snn/abacus-core@github:sinanbocek/SNN-Abacus-Core#semver:^4.3.0",
+        "@snn/abacus-core@github:sinanbocek/SNN-Abacus-Core#semver:^4.4.0",
         "lucide-react",
         "motion"
       ],
@@ -4349,7 +4349,7 @@
         "forms"
       ],
       "dependencies": [
-        "@snn/abacus-core@github:sinanbocek/SNN-Abacus-Core#semver:^4.3.0",
+        "@snn/abacus-core@github:sinanbocek/SNN-Abacus-Core#semver:^4.4.0",
         "lucide-react",
         "motion"
       ],
@@ -4388,7 +4388,7 @@
         "forms"
       ],
       "dependencies": [
-        "@snn/abacus-core@github:sinanbocek/SNN-Abacus-Core#semver:^4.3.0",
+        "@snn/abacus-core@github:sinanbocek/SNN-Abacus-Core#semver:^4.4.0",
         "lucide-react"
       ],
       "registryDependencies": [
@@ -4425,7 +4425,7 @@
         "forms"
       ],
       "dependencies": [
-        "@snn/abacus-core@github:sinanbocek/SNN-Abacus-Core#semver:^4.3.0",
+        "@snn/abacus-core@github:sinanbocek/SNN-Abacus-Core#semver:^4.4.0",
         "lucide-react",
         "motion"
       ],
@@ -4465,7 +4465,7 @@
         "forms"
       ],
       "dependencies": [
-        "@snn/abacus-core@github:sinanbocek/SNN-Abacus-Core#semver:^4.3.0",
+        "@snn/abacus-core@github:sinanbocek/SNN-Abacus-Core#semver:^4.4.0",
         "lucide-react",
         "motion"
       ],
@@ -4506,7 +4506,7 @@
         "forms"
       ],
       "dependencies": [
-        "@snn/abacus-core@github:sinanbocek/SNN-Abacus-Core#semver:^4.3.0",
+        "@snn/abacus-core@github:sinanbocek/SNN-Abacus-Core#semver:^4.4.0",
         "lucide-react",
         "motion"
       ],
@@ -4582,7 +4582,7 @@
         "finance"
       ],
       "dependencies": [
-        "@snn/abacus-core@github:sinanbocek/SNN-Abacus-Core#semver:^4.3.0",
+        "@snn/abacus-core@github:sinanbocek/SNN-Abacus-Core#semver:^4.4.0",
         "lucide-react",
         "motion"
       ],
@@ -4654,7 +4654,7 @@
         "finance"
       ],
       "dependencies": [
-        "@snn/abacus-core@github:sinanbocek/SNN-Abacus-Core#semver:^4.3.0",
+        "@snn/abacus-core@github:sinanbocek/SNN-Abacus-Core#semver:^4.4.0",
         "lucide-react",
         "motion"
       ],
@@ -4693,7 +4693,7 @@
         "finance"
       ],
       "dependencies": [
-        "@snn/abacus-core@github:sinanbocek/SNN-Abacus-Core#semver:^4.3.0",
+        "@snn/abacus-core@github:sinanbocek/SNN-Abacus-Core#semver:^4.4.0",
         "lucide-react",
         "motion"
       ],
@@ -4867,7 +4867,7 @@
       "dependencies": [
         "motion",
         "lucide-react",
-        "@snn/abacus-core@github:sinanbocek/SNN-Abacus-Core#semver:^4.3.0"
+        "@snn/abacus-core@github:sinanbocek/SNN-Abacus-Core#semver:^4.4.0"
       ],
       "registryDependencies": [
         "@snn-ui/snn-foundation",
@@ -5003,7 +5003,7 @@
         "forms"
       ],
       "dependencies": [
-        "@snn/abacus-core@github:sinanbocek/SNN-Abacus-Core#semver:^4.3.0"
+        "@snn/abacus-core@github:sinanbocek/SNN-Abacus-Core#semver:^4.4.0"
       ],
       "registryDependencies": [
         "@snn-ui/snn-foundation",
@@ -5038,7 +5038,7 @@
       "dependencies": [
         "motion",
         "lucide-react",
-        "@snn/abacus-core@github:sinanbocek/SNN-Abacus-Core#semver:^4.3.0"
+        "@snn/abacus-core@github:sinanbocek/SNN-Abacus-Core#semver:^4.4.0"
       ],
       "registryDependencies": [
         "@snn-ui/snn-foundation",
@@ -5150,7 +5150,7 @@
         "motion",
         "lucide-react",
         "@radix-ui/react-popover",
-        "@snn/abacus-core@github:sinanbocek/SNN-Abacus-Core#semver:^4.3.0"
+        "@snn/abacus-core@github:sinanbocek/SNN-Abacus-Core#semver:^4.4.0"
       ],
       "registryDependencies": [
         "@snn-ui/snn-foundation",
@@ -5219,7 +5219,7 @@
       "dependencies": [
         "motion",
         "lucide-react",
-        "@snn/abacus-core@github:sinanbocek/SNN-Abacus-Core#semver:^4.3.0"
+        "@snn/abacus-core@github:sinanbocek/SNN-Abacus-Core#semver:^4.4.0"
       ],
       "registryDependencies": [
         "@snn-ui/snn-foundation",
@@ -5325,7 +5325,7 @@
       ],
       "dependencies": [
         "motion",
-        "@snn/abacus-core@github:sinanbocek/SNN-Abacus-Core#semver:^4.3.0"
+        "@snn/abacus-core@github:sinanbocek/SNN-Abacus-Core#semver:^4.4.0"
       ],
       "registryDependencies": [
         "@snn-ui/snn-foundation",
@@ -5365,7 +5365,7 @@
       "dependencies": [
         "motion",
         "lucide-react",
-        "@snn/abacus-core@github:sinanbocek/SNN-Abacus-Core#semver:^4.3.0"
+        "@snn/abacus-core@github:sinanbocek/SNN-Abacus-Core#semver:^4.4.0"
       ],
       "registryDependencies": [
         "@snn-ui/snn-foundation",
@@ -5443,7 +5443,7 @@
       "dependencies": [
         "motion",
         "lucide-react",
-        "@snn/abacus-core@github:sinanbocek/SNN-Abacus-Core#semver:^4.3.0"
+        "@snn/abacus-core@github:sinanbocek/SNN-Abacus-Core#semver:^4.4.0"
       ],
       "registryDependencies": [
         "@snn-ui/snn-foundation",
@@ -5482,7 +5482,7 @@
       "dependencies": [
         "motion",
         "lucide-react",
-        "@snn/abacus-core@github:sinanbocek/SNN-Abacus-Core#semver:^4.3.0"
+        "@snn/abacus-core@github:sinanbocek/SNN-Abacus-Core#semver:^4.4.0"
       ],
       "registryDependencies": [
         "@snn-ui/snn-foundation",
@@ -5582,7 +5582,7 @@
       "dependencies": [
         "motion",
         "lucide-react",
-        "@snn/abacus-core@github:sinanbocek/SNN-Abacus-Core#semver:^4.3.0"
+        "@snn/abacus-core@github:sinanbocek/SNN-Abacus-Core#semver:^4.4.0"
       ],
       "registryDependencies": [
         "@snn-ui/snn-foundation",
@@ -5618,7 +5618,7 @@
       ],
       "dependencies": [
         "motion",
-        "@snn/abacus-core@github:sinanbocek/SNN-Abacus-Core#semver:^4.3.0"
+        "@snn/abacus-core@github:sinanbocek/SNN-Abacus-Core#semver:^4.4.0"
       ],
       "registryDependencies": [
         "@snn-ui/snn-foundation",
@@ -5652,7 +5652,7 @@
       ],
       "dependencies": [
         "motion",
-        "@snn/abacus-core@github:sinanbocek/SNN-Abacus-Core#semver:^4.3.0"
+        "@snn/abacus-core@github:sinanbocek/SNN-Abacus-Core#semver:^4.4.0"
       ],
       "registryDependencies": [
         "@snn-ui/snn-foundation",
@@ -5774,7 +5774,7 @@
       "dependencies": [
         "motion",
         "lucide-react",
-        "@snn/abacus-core@github:sinanbocek/SNN-Abacus-Core#semver:^4.3.0"
+        "@snn/abacus-core@github:sinanbocek/SNN-Abacus-Core#semver:^4.4.0"
       ],
       "registryDependencies": [
         "@snn-ui/snn-foundation",
@@ -5848,7 +5848,7 @@
       "dependencies": [
         "motion",
         "lucide-react",
-        "@snn/abacus-core@github:sinanbocek/SNN-Abacus-Core#semver:^4.3.0"
+        "@snn/abacus-core@github:sinanbocek/SNN-Abacus-Core#semver:^4.4.0"
       ],
       "registryDependencies": [
         "@snn-ui/snn-foundation",
@@ -5891,7 +5891,7 @@
       "dependencies": [
         "motion",
         "lucide-react",
-        "@snn/abacus-core@github:sinanbocek/SNN-Abacus-Core#semver:^4.3.0"
+        "@snn/abacus-core@github:sinanbocek/SNN-Abacus-Core#semver:^4.4.0"
       ],
       "registryDependencies": [
         "@snn-ui/snn-foundation",

@@ -4,7 +4,7 @@
   "title": "Gösterge kartı",
   "description": "Bir göstergeyi tek kartta söyler: başlık, dönen rakamlı değer, işaretli değişim etiketi (yeşil/kırmızı) ve bağlam cümlesi. Değer düz sayı, tam tutar (₺1.250.000) ya da kısaltılmış tutar (₺1,25Mn) olabilir. Metinler değişince yön duyarlı kayar.",
   "dependencies": [
-    "@snn/abacus-core@github:sinanbocek/SNN-Abacus-Core#semver:^4.3.0",
+    "@snn/abacus-core@github:sinanbocek/SNN-Abacus-Core#semver:^4.4.0",
     "motion"
   ],
   "registryDependencies": [

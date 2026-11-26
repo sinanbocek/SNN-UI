@@ -4,7 +4,7 @@
   "title": "Para tutarı kutusu",
   "description": "Tutar yazılırken binlik ayracı imleç kaymadan eklenir (\"1.234,5\"), eksik kuruşlar soluk bekler, uzun tutar sığacak kadar küçülür. TRY, USD ve EUR arasında birim menüsü; hızlı ekle düğmeleri (\"+₺100\"), ok tuşlarıyla adım, en az / en çok sınırı ve aralık satırı. Değer dışarıya kuruş tam sayısı olarak verilir: ₺12,50 → 1250.",
   "dependencies": [
-    "@snn/abacus-core@github:sinanbocek/SNN-Abacus-Core#semver:^4.3.0",
+    "@snn/abacus-core@github:sinanbocek/SNN-Abacus-Core#semver:^4.4.0",
     "lucide-react",
     "motion"
   ],

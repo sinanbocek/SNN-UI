@@ -4,7 +4,7 @@
   "title": "Sayı kutusu (yalın)",
   "description": "Boş değer (null) taşıyabilen yalın sayı kutusu. Odaktayken ham metin yazılır (\"1234,5\"), odak çıkınca Türkçe biçimli gösterilir (\"1.234,5\"). Değer odak çıkınca ya da Enter'da işlenir, Escape yazılanı geri alır; oklar adım atar. Eksi/artı düğmeleri kapatılabilir. Tablo hücresi için `size=\"sm\"` ve `hideLabel`.",
   "dependencies": [
-    "@snn/abacus-core@github:sinanbocek/SNN-Abacus-Core#semver:^4.3.0",
+    "@snn/abacus-core@github:sinanbocek/SNN-Abacus-Core#semver:^4.4.0",
     "lucide-react"
   ],
   "registryDependencies": [

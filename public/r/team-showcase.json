@@ -4,7 +4,7 @@
   "title": "Ekip tanıtımı",
   "description": "Blok: ekibi portre ağırlıklı tanıtan \"ekiple tanışın\" bölümü. Dört yerleşimden biriyle çalışır: galeri (portre kartları ızgarası, profil altında), film şeridi (yatay yapışmalı portre şeridi), dizin (satır satır liste, satır açılınca profil içinde yükseklik animasyonuyla açılır) ve ön plan (büyük portre bir yanda, ad ve tanım öbür yanda, küçük seçici). Bir kişiye basınca profili yerinde soluk geçişle açılır: ad, unvan, şehir ve ülke, tanım ve kopyalanabilir e-posta ile telefon (her kopyala düğmesi kişinin adıyla etiketli: \"Elif Aksoy e-postasını kopyala\"; basınca kısa süre \"Kopyalandı\" ya da \"Kopyalanamadı\" yazar). Başlıkta \"1 / 5 · Elif Aksoy\" sayacı bulunur; profil değişimi kibar canlı bölgede duyurulur. İletişim bilgisi olmayan kişide satır gizlenir. Telefon isteğe bağlı olarak ekranda maskelenir. Dar kapta (440 px altı) galeri yatay kaydırıcıya, ön plan alt alta döner.",
   "dependencies": [
-    "@snn/abacus-core@github:sinanbocek/SNN-Abacus-Core#semver:^4.3.0",
+    "@snn/abacus-core@github:sinanbocek/SNN-Abacus-Core#semver:^4.4.0",
     "motion"
   ],
   "registryDependencies": [

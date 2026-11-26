@@ -4,7 +4,7 @@
   "title": "Eğim grafiği",
   "description": "Birkaç öğenin tam iki an arasında nasıl değiştiğini (ve sıralarının nasıl değiştiğini) gösterir: her öğe iki sütun arasında bir çizgidir. Etiketler üst üste binmez, hikâye öğesi vurgu renginde çizilir, odaktaki öğe öne çıkar ve ipucu değer, fark ve sıra değişimini söyler (yukarı/aşağı oklarla gezilir). Kapanma sırası sıra okuyla gösterilir.",
   "dependencies": [
-    "@snn/abacus-core@github:sinanbocek/SNN-Abacus-Core#semver:^4.3.0",
+    "@snn/abacus-core@github:sinanbocek/SNN-Abacus-Core#semver:^4.4.0",
     "motion"
   ],
   "registryDependencies": [

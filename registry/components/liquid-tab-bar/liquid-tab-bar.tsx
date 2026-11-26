@@ -52,6 +52,8 @@ export function LiquidTabBar({ tabs, value, onValueChange, labelMode = "active",
   const lean = useMotionValue(0);
   const [bounds, setBounds] = useState<{ left: number; width: number }[]>([]);
   const [shownId, setShownId] = useState<string | null>(labelMode === "active" ? value : null);
+  // Görünen etiket çizim sırasında türetilir: seçim değişince eskisi hemen söner, effect yalnız gecikmeli gösterimi kurar.
+  const labelId = labelMode !== "active" ? null : reduced || shownId === value ? value : null;
   const dragging = useRef(false);
   const index = Math.max(0, tabs.findIndex(tab => tab.id === value));
 
@@ -67,7 +69,7 @@ export function LiquidTabBar({ tabs, value, onValueChange, labelMode = "active",
     observer.observe(node);
     Object.values(refs.current).forEach(item => item && observer.observe(item));
     return () => observer.disconnect();
-  }, [measure, shownId, labelMode]);
+  }, [measure, labelId, labelMode]);
 
   // Seçim yüzeyi seçili sekmeye tek şekil olarak yerleşir (esneme ya da ezilme yok).
   useEffect(() => {
@@ -81,11 +83,8 @@ export function LiquidTabBar({ tabs, value, onValueChange, labelMode = "active",
 
   // Eski etiket hemen söner, yenisi seçim yerine ulaşınca belirir.
   useEffect(() => {
-    if (labelMode !== "active") { setShownId(null); return; }
-    if (reduced) { setShownId(value); return; }
     // Etiket zaten doğru sekmedeyse (ilk çizim) gizleyip yeniden göstermeye gerek yok.
-    if (shownId === value) return;
-    setShownId(null);
+    if (labelMode !== "active" || reduced || shownId === value) return;
     const timer = setTimeout(() => setShownId(value), 170);
     return () => clearTimeout(timer);
   }, [value, labelMode, reduced, shownId]);
@@ -137,7 +136,7 @@ export function LiquidTabBar({ tabs, value, onValueChange, labelMode = "active",
         )}
         {tabs.map((tab, at) => {
           const selected = tab.id === value;
-          const showLabel = labelMode === "all" || (labelMode === "active" && shownId === tab.id);
+          const showLabel = labelMode === "all" || (labelMode === "active" && labelId === tab.id);
           const count = tab.badge && tab.badge > 0 ? tab.badge : 0;
           return (
             <button

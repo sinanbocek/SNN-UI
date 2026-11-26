@@ -4,7 +4,7 @@
   "title": "Gelir gezgini",
   "description": "Blok: aylık yinelenen gelirin üç hareketini (yeni, genişleme, kayıp) aylara göre çizgilerle gösterir; kayıp sıfırın altında durur. Altındaki fırça şeridinde pencere sürüklenir, kenar tutamaçlarından büyütülüp küçültülür (aylık adımlarla; klavyeyle de) ya da \"3A / 6A / 12A / Tümü\" düğmeleriyle seçilir; çizgiler ve özet rakamları yeni döneme akar. Özet üçlüsü: ana gelir ve büyüme, aylık net yeni gelir, aylık kayıp oranı (puan farkı). Seri düğmeleri seriyi çıkarıp getirir; \"Önceki dönemle karşılaştır\" bir önceki aynı uzunlukta dönemi ekler. Yükleniyor, hata ve dar kap durumları ile ekran okuyucu tablosu vardır.",
   "dependencies": [
-    "@snn/abacus-core@github:sinanbocek/SNN-Abacus-Core#semver:^4.3.0",
+    "@snn/abacus-core@github:sinanbocek/SNN-Abacus-Core#semver:^4.4.0",
     "motion"
   ],
   "registryDependencies": [

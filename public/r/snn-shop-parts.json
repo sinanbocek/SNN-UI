@@ -4,7 +4,7 @@
   "title": "SNN satış blokları ortak parçaları",
   "description": "Dalga 3 vitrin ve satış bloklarının ortak parçaları: görsel yer tutucu (Placeholder), renk örnekleri (SwatchGroup), adet düzenleyici (NumberStepper), kibar canlı bölge (useAnnouncer) ve TRY tutar yazımı (priceText, exactText, kuruş hesabı). Hepsi ABACUS'tandır. Bloklarla kendiliğinden gelir.",
   "dependencies": [
-    "@snn/abacus-core@github:sinanbocek/SNN-Abacus-Core#semver:^4.3.0",
+    "@snn/abacus-core@github:sinanbocek/SNN-Abacus-Core#semver:^4.4.0",
     "motion"
   ],
   "files": [

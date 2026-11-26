@@ -4,7 +4,7 @@
   "title": "Canlı akış grafiği",
   "description": "Saniyeler içinde değişen bir ölçümü canlı izler: büyük anlık değer (rakamlar döner), \"Canlı\" / \"Duraklatıldı\" durum düğmesi ve son 30 saniyeyi gösteren yumuşak çizgi. Grafiğin üstüne gelince ya da odaklanınca görüntü durur, okumalar arka planda birikir; ipucu zamanı (\"14:03:27\"), değeri ve varsa notu yazar. Anomali notları çizgi üstünde işaretlenir ve bir kez duyurulur. Veri bekleniyor ve bağlantı kesildi (\"Yeniden dene\") durumları vardır; görünüm dışında çizim durur.",
   "dependencies": [
-    "@snn/abacus-core@github:sinanbocek/SNN-Abacus-Core#semver:^4.3.0",
+    "@snn/abacus-core@github:sinanbocek/SNN-Abacus-Core#semver:^4.4.0",
     "motion"
   ],
   "registryDependencies": [

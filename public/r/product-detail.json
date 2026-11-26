@@ -4,7 +4,7 @@
   "title": "Ürün sayfası",
   "description": "Blok: tek bir ürünün sayfası. Yol izi, sürüklenebilir fotoğraf galerisi (\"1 / 4\" sayacı, küçük resim şeridi, sol/sağ ok), ürün adı, dönen fiyat, yıldız ortalaması, kaplama örnekleri (radyo grubu) ve her boyun adı ile fiyatı. Kaplama değişince fotoğraflar yerinde soluk geçişle o kaplamanınkilerle değişir; seçili boy o kaplamada tükenmişse seçim kalkar. Adet düzenleyici ve \"Sepete ekle · ₺2.400,00\" düğmesi (tutar adetle çarpılır; Ekleniyor → Sepete eklendi, başarısızsa Tekrar dene). Tükenen kaplama ve boy seçilebilir kalır ama düğme \"Gelince haber ver\" olur. Teslimat vaatleri, yorum özeti (ortalama ve 5'ten 1'e dolan yıldız çubukları) ve açılır ayrıntı bölümleri (ilki açık), favori kalbi. Yükleniyor ve dar kap (alt alta, dört küçük resim) durumları vardır.",
   "dependencies": [
-    "@snn/abacus-core@github:sinanbocek/SNN-Abacus-Core#semver:^4.3.0",
+    "@snn/abacus-core@github:sinanbocek/SNN-Abacus-Core#semver:^4.4.0",
     "motion"
   ],
   "registryDependencies": [

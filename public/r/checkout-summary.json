@@ -4,7 +4,7 @@
   "title": "Sipariş özeti",
   "description": "Blok: tek ürünlü bir siparişin ödemeden önceki son özeti. Küçük görsel kutulu ürün satırı (ad tek satır, fiyat ve dönem notu), kupon alanı (kod yazılıp Enter ya da \"Uygula\"; geçerliyse alan çipe döner ve indirim satırı yükseklikle açılır, geçersizse alan yatay sallanır ve \"Bu kupon geçerli değil.\" çıkar; çipin kaldır düğmesi kodu geri alır ve odağı alana verir), otomatik indirim satırları (eksi tutar), vergi satırı (oran verilirse hesaplanır, verilmezse \"ödemede hesaplanır\"), dönen genel toplam ve \"₺… öde\" düğmesi. Düğme boşta → İşleniyor (dönen halka) → Ödendi arasında yükselerek ve bulanıkla değişir, hata olursa \"Tekrar dene\" ve satır içi hata yazar; ödeme kapalıysa düğme görünür ama basılamaz. Altında kilit simgeli \"Şifreli ödeme\" notu ve isteğe bağlı küçük yazı vardır. Kart en çok 440 px, daha dar kapta doldurur.",
   "dependencies": [
-    "@snn/abacus-core@github:sinanbocek/SNN-Abacus-Core#semver:^4.3.0",
+    "@snn/abacus-core@github:sinanbocek/SNN-Abacus-Core#semver:^4.4.0",
     "motion"
   ],
   "registryDependencies": [

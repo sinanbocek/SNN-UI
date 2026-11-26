@@ -57,7 +57,9 @@ type CopyState = "idle" | "ok" | "fail";
 /** E-posta adresini panoya kopyalar; panoya yazılamazsa adres seçili gösterilir. */
 function CopyButton({ email, target, onResult }: { email: string; target: React.RefObject<HTMLElement | null>; onResult: (message: string) => void }) {
   const [state, setState] = useState<CopyState>("idle");
-  useEffect(() => { setState("idle"); }, [email]);
+  // Adres değişince düğme çizim sırasında başa döner (effect içinde setState yerine).
+  const [prevEmail, setPrevEmail] = useState(email);
+  if (email !== prevEmail) { setPrevEmail(email); setState("idle"); }
   useEffect(() => {
     if (state === "idle") return;
     const timer = setTimeout(() => setState("idle"), 2000);

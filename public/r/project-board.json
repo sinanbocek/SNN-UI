@@ -4,7 +4,7 @@
   "title": "Küçük proje panosu",
   "description": "Blok: az sayıda işin sabit aşamalar (Planlandı, Sürüyor, Kontrolde, Bitti) arasında ilerlediği pano. Sürükleme yok: her kartta önceki ve sonraki aşamaya taşıma okları var (dokunmatikte de rahat). Üstte \"Bu dönem 6 işten 1'i bitti\" cümlesi ve ilerleme çubuğu, \"Tümü / Benim işlerim\" süzgeci, \"Görev ekle\" ile başlığı hemen yazılan yeni kart. Kartlar sütunlar arasında uçar. Boş sütun, hiç iş yok, süzgeç sonucu yok, yükleniyor, taşıma hatası (\"Yeniden dene\") ve dar kolon (yana kayan, yakınlığa oturan sütunlar) durumları vardır.",
   "dependencies": [
-    "@snn/abacus-core@github:sinanbocek/SNN-Abacus-Core#semver:^4.3.0",
+    "@snn/abacus-core@github:sinanbocek/SNN-Abacus-Core#semver:^4.4.0",
     "lucide-react",
     "motion"
   ],

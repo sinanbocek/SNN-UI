@@ -4,7 +4,7 @@
   "title": "Kohort elde tutma",
   "description": "Blok: aynı ayda katılan grupların (kohortların) aylar geçtikçe ne kadarının aktif kaldığını gösterir. Her satır bir katılım ayı (ad ve büyüklük), her sütun katılımdan sonraki ay; hücrede kalan yüzde (\"%68\") yazar, rengi yüzdeye göre koyulaşır; ölçülmemiş aylar boştur (alt üçgen), en altta büyüklüğe göre ağırlıklı \"Ortalama\" satırı durur. Üstte \"1. ay\" ve \"6. ay\" elde tutma ile yeni kayıt toplamı (son üç kohort ile ilk üç kohort farkı \"+5,2 puan\"); segment seçilince renkler hücre hücre yeniden boyanır. \"Isı haritası\" / \"Eğriler\" anahtarıyla her kohort bir çizgi olur. Hücre ve eğri okuması fare ve ok tuşlarıyla yapılır, canlı bölgede duyurulur; gizli tablo, yükleniyor, hata ve boş durum vardır.",
   "dependencies": [
-    "@snn/abacus-core@github:sinanbocek/SNN-Abacus-Core#semver:^4.3.0",
+    "@snn/abacus-core@github:sinanbocek/SNN-Abacus-Core#semver:^4.4.0",
     "motion"
   ],
   "registryDependencies": [

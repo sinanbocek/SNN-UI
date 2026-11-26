@@ -4,7 +4,7 @@
   "title": "Dönüşen üst gezinme",
   "description": "Site ya da ürün üst çubuğu: bölümler çubukta sıralanır; panelli bölüm üzerine gelinince (kısa niyet beklemesi, çıkışta kısa gecikme) ya da seçilince çubuğun kendisi bağlantı paneline büyür, komşu bölüme geçerken panel yan yana kayar ve vurgu öğeler arasında akar. Arama düğmesi aynı yüzeyden birleşik kutu (combobox) açar: Türkçe harf farkı gözetmez, boş sorguda \"Önerilenler\", en iyi altı sonuç, \"N sonuç\" duyurusu. Sağ/Sol/Home/End ve Aşağı ile gezilir, Escape odağı geldiği yere döndürür. Kabın genişliği dar olunca (ekranın değil) bölümler tek menüye katlanır; `tight` ile çubuk sıkılaşır. Saydamlığı azalt / yüksek karşıtlıkta bulanık arka plan düz yüzeye düşer.",
   "dependencies": [
-    "@snn/abacus-core@github:sinanbocek/SNN-Abacus-Core#semver:^4.3.0",
+    "@snn/abacus-core@github:sinanbocek/SNN-Abacus-Core#semver:^4.4.0",
     "motion"
   ],
   "registryDependencies": [

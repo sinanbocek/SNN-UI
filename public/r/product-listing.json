@@ -4,7 +4,7 @@
   "title": "Ürün listeleme sayfası",
   "description": "Blok: bir koleksiyondaki ürünleri kart ızgarası olarak gösterir. Başlıkta ürün sayısı ve dönen adetli sepet simgesi; yanda süzgeç paneli (çift başlı fiyat aralığı, renk örnekleri, beden düğmeleri, \"Yalnız stokta\" anahtarı, \"Süzgeçleri temizle\"), üstte sıralama menüsü (Öne çıkanlar, En yeniler, Fiyat: artan / azalan). Süzülen ya da sıralanan kartlar yay hareketiyle yer değiştirir. Karta gelince ikinci fotoğraf soluk geçişle gelir ve \"Hızlı ekle\" hapı yükselir; çok bedenli üründe beden satırı açılır, seçince \"Eklendi\" olur ve eklemeyi kibar canlı bölge duyurur. Tükenen üründe düğme kapalıdır. Dar kapta (640 px altı) süzgeçler \"Süzgeçler (n)\" düğmesiyle soldan açılan sayfaya geçer. Sonuç yok (\"Bu süzgeçlere uyan ürün yok.\"), yükleniyor ve dokunmatik durumları vardır.",
   "dependencies": [
-    "@snn/abacus-core@github:sinanbocek/SNN-Abacus-Core#semver:^4.3.0",
+    "@snn/abacus-core@github:sinanbocek/SNN-Abacus-Core#semver:^4.4.0",
     "motion"
   ],
   "registryDependencies": [

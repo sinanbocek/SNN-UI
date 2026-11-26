@@ -4,7 +4,7 @@
   "title": "Revizyon karşılaştırması",
   "description": "İki sürüm arasındaki satır farklarını gösterir: eklendi, silindi, değişti, eşlenmedi (ve isteğe bağlı aynı). Üstte özet (\"3 eklendi, 1 silindi\") ve sayılı süzgeç düğmeleri; değişen satırda yalnız değişen alanlar \"eski → yeni\" yazılır. Eşleştirmeyi proje yapar, bileşen gösterir. Dar kapta alanlar tek sütuna iner.",
   "dependencies": [
-    "@snn/abacus-core@github:sinanbocek/SNN-Abacus-Core#semver:^4.3.0",
+    "@snn/abacus-core@github:sinanbocek/SNN-Abacus-Core#semver:^4.4.0",
     "lucide-react",
     "motion"
   ],

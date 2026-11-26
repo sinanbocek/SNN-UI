@@ -4,7 +4,7 @@
   "title": "Özet gösterge paneli",
   "description": "Blok: dört ana gösterge sekme gibi sıralanır (ad, dönen rakamlı değer, ok ve işaretli değişim); seçilen gösterge altındaki çizgi grafikte görülür, \"Karşılaştır\" önceki dönemin kesikli çizgisini ekler. Üstte dönem anahtarı (7/30/90 gün) ve \"Dışa aktar\"; altta iki sıralı liste yatay oran çubuklarıyla durur. Yükleniyor, hata (\"Yeniden dene\"), boş ve dar ekran durumları vardır; düzen pencereye değil bileşenin kendi genişliğine bakar.",
   "dependencies": [
-    "@snn/abacus-core@github:sinanbocek/SNN-Abacus-Core#semver:^4.3.0",
+    "@snn/abacus-core@github:sinanbocek/SNN-Abacus-Core#semver:^4.4.0",
     "motion"
   ],
   "registryDependencies": [

@@ -56,7 +56,8 @@ const CLOSED = { width: 56, height: 56 };
 function Face({ active, onSize, className, width, children, custom, variants }: { active: boolean; onSize: (size: { width: number; height: number }) => void; className: string | undefined; width: number | string; children: ReactNode; custom: number; variants: Variants }) {
   const node = useRef<HTMLDivElement>(null);
   const report = useRef(onSize);
-  report.current = onSize;
+  // Ref çizim sırasında değil, ölçümden önce çalışan effect içinde güncellenir.
+  useLayoutEffect(() => { report.current = onSize; });
   useLayoutEffect(() => {
     const element = node.current;
     if (!active || !element) return;

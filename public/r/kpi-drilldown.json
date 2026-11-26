@@ -4,7 +4,7 @@
   "title": "Gösterge ayrıntı paneli",
   "description": "Blok: altı kadar gösterge, her biri küçük çizgi grafikli bir kart olarak ızgarada durur. Karta basınca kart, aynı yüzeyin büyümesiyle ayrıntıya açılır: büyük çizgi grafik, önceki dönem karşılaştırması ve kırılım tablosu (değer, işaretli değişim, pay çubuğu; boyut seçilir). Esc ya da \"Kapat\" aynı karta geri katlar, odak karta döner. Üstte dönem anahtarı ve \"Karşılaştır\"; yeterli önceki dönem verisi yoksa düğme pasiftir. Yükleniyor, hata ve dar kap (3 / 2 / 1 sütun) durumları vardır.",
   "dependencies": [
-    "@snn/abacus-core@github:sinanbocek/SNN-Abacus-Core#semver:^4.3.0",
+    "@snn/abacus-core@github:sinanbocek/SNN-Abacus-Core#semver:^4.4.0",
     "motion"
   ],
   "registryDependencies": [

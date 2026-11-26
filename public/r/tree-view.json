@@ -4,7 +4,7 @@
   "title": "Ağaç görünümü",
   "description": "İç içe liste: açma düğmesi ile seçim düğmesi ayrıdır. Üstteki arama eşleşen düğümün bütün üstlerini açar, eşleşme sayısını yazar ve eşleşen parçayı vurgular. Yüzlerce kalemli sınıflamalar (ör. TÜFE) için.",
   "dependencies": [
-    "@snn/abacus-core@github:sinanbocek/SNN-Abacus-Core#semver:^4.3.0",
+    "@snn/abacus-core@github:sinanbocek/SNN-Abacus-Core#semver:^4.4.0",
     "lucide-react",
     "motion"
   ],

@@ -4,7 +4,7 @@
   "title": "Aranabilir ayarlar",
   "description": "Blok: onlarca ayarın tek uzun sayfada durduğu ekran. Arama kutusu Ctrl+K ya da / ile komut paletini açar (Türkçe harf farkı gözetmez, ek anahtar kelimelerle bulur); seçilen ayara sayfa kayar ve satır iki kez nefes alır. Solda bölüm gezgini, satırlarda anahtar, seçenek, açılır liste ve metin denetimleri, altta toplu kaydetme çubuğu. Yükleniyor, boş arama, doğrulama hatası, kaydetme hatası ve dar ekran durumları vardır.",
   "dependencies": [
-    "@snn/abacus-core@github:sinanbocek/SNN-Abacus-Core#semver:^4.3.0",
+    "@snn/abacus-core@github:sinanbocek/SNN-Abacus-Core#semver:^4.4.0",
     "lucide-react",
     "motion"
   ],

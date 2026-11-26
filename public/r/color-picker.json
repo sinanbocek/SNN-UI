@@ -6,7 +6,7 @@
   "dependencies": [
     "motion",
     "lucide-react",
-    "@snn/abacus-core@github:sinanbocek/SNN-Abacus-Core#semver:^4.3.0"
+    "@snn/abacus-core@github:sinanbocek/SNN-Abacus-Core#semver:^4.4.0"
   ],
   "registryDependencies": [
     "@snn-ui/snn-foundation",

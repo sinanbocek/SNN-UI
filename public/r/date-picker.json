@@ -4,7 +4,7 @@
   "title": "Tarih seçici",
   "description": "Tıklayınca takvim açılan tarih kutusu; seçilen tarih \"16 Ekim 2026\" biçiminde yazılır, değişen parça (gün, ay, yıl) yerinde döner. Takvimdeki her şey (tatil işareti, sınırlar, Bugün) burada da geçerlidir; alt satırda Temizle ve seçim özeti.",
   "dependencies": [
-    "@snn/abacus-core@github:sinanbocek/SNN-Abacus-Core#semver:^4.3.0",
+    "@snn/abacus-core@github:sinanbocek/SNN-Abacus-Core#semver:^4.4.0",
     "lucide-react",
     "motion"
   ],

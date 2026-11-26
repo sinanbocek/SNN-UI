@@ -5,7 +5,7 @@
   "description": "Blok: bütün kabı kaplayan fotoğraf üstünde buzlu cam kartta giriş formu; üstte marka ve \"Yardım\", altta künye ve yasal bağlantılar. Fare fotoğrafı hafifçe kaydırır; saydamlığı azalt açıkken kart düz yüzeye döner. Yalnız görünümdür.",
   "dependencies": [
     "motion",
-    "@snn/abacus-core@github:sinanbocek/SNN-Abacus-Core#semver:^4.3.0"
+    "@snn/abacus-core@github:sinanbocek/SNN-Abacus-Core#semver:^4.4.0"
   ],
   "registryDependencies": [
     "@snn-ui/snn-foundation",

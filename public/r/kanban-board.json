@@ -4,7 +4,7 @@
   "title": "Sürükle-bırak iş panosu",
   "description": "Blok: kartlar sütunlar arasında sürükle-bırakla taşınır. Kaldırılan kart imleci izler ve hızına göre hafifçe yatar, bırakılacağı yerde boşluk açılır; pano kenarında otomatik kayar, dokunmatikte kısa basıştan sonra başlar. Klavyeyle de taşınır (Boşluk kaldırır, ok tuşları taşır, Boşluk bırakır, Esc vazgeçer) ve her adım ekran okuyucuya duyurulur. Sütunlara iş sınırı konabilir (\"3/3\", aşılınca \"İş sınırı aşıldı.\"). \"Durum / Şerit\" görünümü (şeritte kişiye göre), sütunda \"Kart ekle\", Enter ile açılan ayrıntı çekmecesi (başlık, atanan, bitiş, etiket, puan, kontrol listesi). Boş sütun, hiç kart yok, yükleniyor, kayıt hatası (\"Yeniden dene\") ve dar kolon durumları vardır.",
   "dependencies": [
-    "@snn/abacus-core@github:sinanbocek/SNN-Abacus-Core#semver:^4.3.0",
+    "@snn/abacus-core@github:sinanbocek/SNN-Abacus-Core#semver:^4.4.0",
     "lucide-react",
     "motion"
   ],

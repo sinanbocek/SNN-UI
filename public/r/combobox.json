@@ -4,7 +4,7 @@
   "title": "Aramalı seçim",
   "description": "Yazarak süzülen açılır liste; ok tuşları, Enter ve Escape ile kullanılır. Türkçe aramada \"İstanbul\", \"Istanbul\" ve \"istanbul\" aynı sonucu bulur.",
   "dependencies": [
-    "@snn/abacus-core@github:sinanbocek/SNN-Abacus-Core#semver:^4.3.0",
+    "@snn/abacus-core@github:sinanbocek/SNN-Abacus-Core#semver:^4.4.0",
     "lucide-react",
     "motion"
   ],

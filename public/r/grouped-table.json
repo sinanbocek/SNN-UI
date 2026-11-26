@@ -4,7 +4,7 @@
   "title": "Açılır gruplu tablo",
   "description": "Satırları gruplara bölen tablo: her grup bir <tbody>, başlığı aria-expanded taşıyan düğmedir ve satır sayısıyla durum rozeti gösterir. Arama yazılınca gruplar zorla açılır, eşleşme sayısı yazılır. Dar kapta isteğe bağlı sütunlar gizlenir; tablo yana kaymaz.",
   "dependencies": [
-    "@snn/abacus-core@github:sinanbocek/SNN-Abacus-Core#semver:^4.3.0",
+    "@snn/abacus-core@github:sinanbocek/SNN-Abacus-Core#semver:^4.4.0",
     "lucide-react",
     "motion"
   ],

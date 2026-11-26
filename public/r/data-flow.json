@@ -4,7 +4,7 @@
   "title": "Veri akışı şeması",
   "description": "Verinin bir üründe nasıl aktığını anlatan hareketli şema: solda kaynaklar, ortada işleme noktası ve işlenen kayıt sayacı, sağda hedefler. İşlenmemiş kayıt daire, işlenmiş kayıt yuvarlatılmış kare olarak yolda ilerler; çıkış ve varışta düğüm kenarları vurgulanır. Bir hedefe `share` verilirse kayıtların yalnız o kesri o hedefe gider. Fareyle düğümün üstüne gelince yolu vurgulanır, ayrıntı etiketi çıkar, akış yavaşlar; hız ve duraklatma yayla yumuşar. Ekran dışında ve sekme gizliyken durur. Geniş kapta soldan sağa, 700 px altında yukarıdan aşağıya çizilir. Şema tek bir görsel olarak sesli anlatılır; \"Hareketi azalt\" açıkken tek durağan kare gösterilir. Bu bir anlatım çizimidir: giriş alanı yoktur, gerçek veri hacmi göstermez.",
   "dependencies": [
-    "@snn/abacus-core@github:sinanbocek/SNN-Abacus-Core#semver:^4.3.0",
+    "@snn/abacus-core@github:sinanbocek/SNN-Abacus-Core#semver:^4.4.0",
     "motion"
   ],
   "registryDependencies": [

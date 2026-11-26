@@ -4,7 +4,7 @@
   "title": "Küçük çoklu grafikler",
   "description": "Blok: aynı ölçünün birkaç serisini (bölge, ürün, plan) her biri küçük bir çizgi grafikte, ızgara düzeninde gösterir. Fareyle, dokunmayla ya da oklarla gezilen tek bir dikey imleç bütün panellerde aynı ayı gösterir; panel başlığında o aydaki değer, trend oku ve geçen yıla göre işaretli büyüme (\"▲ +%12,3\") yazar. Y ekseni \"Bağımsız\" (her panel kendi aralığına sığar) ya da \"Ortak\" (hepsi sıfırdan başlar) olabilir; paneller son değere, büyümeye ya da ada göre sıralanır (yer değiştirerek akar); her panelin arkasında toplamın kesikli izi durur; düz giden seriler soluklaştırılabilir. Tüm ızgara tek Tab durağıdır; ay, toplam ve en yüksek seri canlı bölgede duyurulur, gizli tablo vardır.",
   "dependencies": [
-    "@snn/abacus-core@github:sinanbocek/SNN-Abacus-Core#semver:^4.3.0",
+    "@snn/abacus-core@github:sinanbocek/SNN-Abacus-Core#semver:^4.4.0",
     "motion"
   ],
   "registryDependencies": [
